@@ -437,19 +437,21 @@ namespace MissionPlanner
             this.p2ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.p2ToolStripMenuItem.Name = "p2ToolStripMenuItem";
             resources.ApplyResources(this.p2ToolStripMenuItem, "p2ToolStripMenuItem");
-            this.p2ToolStripMenuItem.Click += new System.EventHandler(this.p2ToolStripMenuItem_Click);
+            this.p2ToolStripMenuItem.Click += new System.EventHandler(this.p1ToolStripMenuItem_Click);
             // 
             // p3ToolStripMenuItem
             // 
             this.p3ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.p3ToolStripMenuItem.Name = "p3ToolStripMenuItem";
             resources.ApplyResources(this.p3ToolStripMenuItem, "p3ToolStripMenuItem");
+            this.p3ToolStripMenuItem.Click += new System.EventHandler(this.p1ToolStripMenuItem_Click);
             // 
             // p4ToolStripMenuItem
             // 
             this.p4ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.p4ToolStripMenuItem.Name = "p4ToolStripMenuItem";
             resources.ApplyResources(this.p4ToolStripMenuItem, "p4ToolStripMenuItem");
+            this.p4ToolStripMenuItem.Click += new System.EventHandler(this.p1ToolStripMenuItem_Click);
             // 
             // status1
             // 

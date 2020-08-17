@@ -4434,6 +4434,7 @@ namespace MissionPlanner
 
         private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            _connectionsForm.mainForm = this;
             _connectionsForm.Show();
         }
     }

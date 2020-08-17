@@ -9,8 +9,13 @@ namespace MissionPlanner.Orlan
     public class AircraftConnectionInfo
     {
         // private string _number;
-        private string _name, _port;
+        private string _name, _serialPort;
 
+        private object _sysId;
+
+        public int Speed { get; set; }
+        
+        public bool Connected { get; set; }
         /*public string Number
         {
             get => string.Copy(_number);
@@ -23,20 +28,28 @@ namespace MissionPlanner.Orlan
             set => _name = string.Copy(value);
         }
 
-        public string Port
+        public string SerialPort
         {
-            get => string.Copy(_port);
-            set => _port = string.Copy(value);
+            get => string.Copy(_serialPort);
+            set => _serialPort = string.Copy(value);
+        }
+
+        public object SysId
+        {
+            get => _sysId;
+            set => _sysId = value;
         }
 
         // public AircraftConnectionInfo(string number, string name, string port)
         // {
         //     this.Number = string.Copy(number);
         //     this.Name = string.Copy(name);
-        //     this.Port = string.Copy(port);
+        //     this.SerialPort = string.Copy(port);
         // }
 
-        public AircraftConnectionInfo() => (Name, Port) = ("", "");
-        public AircraftConnectionInfo(string name, string port) => (Name, Port) = (name, port);
+        public AircraftConnectionInfo() => (Name, SerialPort, Speed, SysId, Connected) = ("", "", 115200, null, false);
+
+        public AircraftConnectionInfo(string name, string serialPort, int speed, string sysId, bool connected) =>
+            (Name, SerialPort, Speed, SysId, Connected) = (name, serialPort, speed, sysId, connected);
     }
 }

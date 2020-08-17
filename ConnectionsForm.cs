@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Comms;
+using MissionPlanner.Controls;
 using MissionPlanner.Orlan;
 using MissionPlanner.Utilities;
 
@@ -20,6 +21,8 @@ namespace MissionPlanner
         // [DllImport("user32.dll", CharSet = CharSet.Auto)]
         // private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         // const int EM_SETCUEBANNER = 0x1501;
+
+        public MainV2 mainForm { get; set; }
 
         private bool waterMarkAircraftNumActive = true;
         private bool waterMarkConnectedNumActive = true;
@@ -105,6 +108,12 @@ namespace MissionPlanner
                 MainV2.Comports.Add(mav);
 
                 MainV2._connectionControl.UpdateSysIDS();
+
+                AircraftConnectionInfo connectedAircraftInfo = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+                connectedAircraftInfo.SerialPort = CMB_serialport.SelectedItem.ToString();
+                connectedAircraftInfo.Speed = Int32.Parse(CMB_baudrate.SelectedItem.ToString());
+                connectedAircraftInfo.SysId = MainV2._connectionControl.cmb_sysid.SelectedItem;
+                connectedAircraftInfo.Connected = true;
             }
             catch (Exception)
             {
@@ -131,6 +140,36 @@ namespace MissionPlanner
                 MainV2._aircraftInfo.ElementAt(devices_LB.SelectedIndex);
             connectedAircraftNum_TB.Text = selectedAircraft.Key;
             connectedAircraftName_TB.Text = selectedAircraft.Value.Name;
+
+            if (selectedAircraft.Value.Connected)
+            {
+                CMB_serialport.SelectedIndex = CMB_serialport.Items.IndexOf(selectedAircraft.Value.SerialPort);
+                
+                ///Todo: fix baud not showing up in combobox
+                int baud = CMB_serialport.Items.IndexOf(selectedAircraft.Value.Speed.ToString());
+                CMB_baudrate.SelectedIndex = CMB_serialport.Items.IndexOf(selectedAircraft.Value.Speed);
+
+                if (selectedAircraft.Value.SysId == null)
+                    return;
+
+                var temp = (ConnectionControl.port_sysid)selectedAircraft.Value.SysId;
+
+                foreach (var port in MainV2.Comports)
+                {
+                    if (port == temp.port)
+                    {
+                        MainV2.comPort = port;
+                        MainV2.comPort.sysidcurrent = temp.sysid;
+                        MainV2.comPort.compidcurrent = temp.compid;
+
+                        if (MainV2.comPort.MAV.param.Count == 0 && !(Control.ModifierKeys == Keys.Control))
+                            MainV2.comPort.getParamList();
+
+                        MainV2.View.Reload();
+                    }
+                }
+
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -143,7 +182,11 @@ namespace MissionPlanner
 
         private void sitl_BUT_Click(object sender, EventArgs e)
         {
-            //((MainV2)Form.ActiveForm).MenuSimulation_Click(sender, EventArgs.Empty);
+            if (mainForm == null)
+            {
+                return;
+            }
+            mainForm.MenuSimulation_Click(sender, EventArgs.Empty);
         }
     }
 }
