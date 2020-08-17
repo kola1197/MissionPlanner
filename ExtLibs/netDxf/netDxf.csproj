@@ -9,8 +9,6 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>True</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,8 +8,6 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />

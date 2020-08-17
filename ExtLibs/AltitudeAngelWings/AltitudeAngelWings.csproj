@@ -6,8 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ApplicationIcon />
     <StartupObject />
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Views\**" />

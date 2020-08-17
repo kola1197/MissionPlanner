@@ -11,8 +11,6 @@
     <Authors>Michael Oborne</Authors>
     <Company>Michael Oborne</Company>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
 

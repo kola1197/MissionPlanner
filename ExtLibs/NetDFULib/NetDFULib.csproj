@@ -13,11 +13,9 @@
     <NeutralLanguage>en</NeutralLanguage>
   <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
  
-    <Configurations>Debug;Release;Deploy</Configurations>
+    <Configurations>Debug;Release</Configurations>
  
     <OutputType>Exe</OutputType>
- 
-    <Platforms>AnyCPU</Platforms>
   
   </PropertyGroup>
 

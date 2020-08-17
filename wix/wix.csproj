@@ -52,9 +52,6 @@
     <Optimize>false</Optimize>
     <CodeAnalysisRuleSet />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
-    <OutputPath>bin\Deploy\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>

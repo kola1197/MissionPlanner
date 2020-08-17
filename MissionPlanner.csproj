@@ -55,11 +55,7 @@
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
-    <OutputPath>bin\Deploy\</OutputPath>
-    <Optimize>false</Optimize>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-  </PropertyGroup>
+
   <PropertyGroup>
     <RootNamespace>MissionPlanner</RootNamespace>
   </PropertyGroup>

@@ -7,8 +7,6 @@
     <OutputType>Exe</OutputType>
     <StartupObject>px4uploader.Program</StartupObject>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

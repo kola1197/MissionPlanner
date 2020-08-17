@@ -13,8 +13,6 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

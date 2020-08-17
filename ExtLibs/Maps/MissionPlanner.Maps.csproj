@@ -5,8 +5,6 @@
     <AssemblyName>MissionPlanner.Maps</AssemblyName>
     <RootNamespace>MissionPlanner.Maps</RootNamespace>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

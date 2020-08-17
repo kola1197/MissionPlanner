@@ -7,8 +7,6 @@
     </UpgradeBackupLocation>
         <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="GeoSystem\MapService\Cache.cs" />

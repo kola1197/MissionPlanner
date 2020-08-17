@@ -10,8 +10,6 @@
     <DebugSymbols>true</DebugSymbols>
     <Description />
     <NeutralLanguage>en</NeutralLanguage>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;MONO;NETSTANDARD2_0</DefineConstants>

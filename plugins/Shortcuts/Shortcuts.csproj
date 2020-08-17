@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
