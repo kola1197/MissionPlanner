@@ -12,6 +12,10 @@
     <OutputType>Exe</OutputType>
  
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+ 
+    <Configurations>Debug;Release;Deploy</Configurations>
+ 
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">

@@ -10,6 +10,8 @@
     <DebugSymbols>True</DebugSymbols>
     <Description>7zip</Description>
     <NeutralLanguage>en</NeutralLanguage>
+    <Configurations>Debug;Release;Deploy</Configurations>
+    <Platforms>AnyCPU</Platforms>
 
   </PropertyGroup>
 

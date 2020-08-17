@@ -33,6 +33,8 @@ using MissionPlanner.ArduPilot.Mavlink;
 using MissionPlanner.Utilities.HW;
 using Transitions;
 using AltitudeAngelWings;
+using BrightIdeasSoftware;
+using MissionPlanner.Orlan;
 
 
 namespace MissionPlanner
@@ -533,6 +535,10 @@ namespace MissionPlanner
         public static ConnectionControl _connectionControl;
 
         public static bool TerminalTheming = true;
+
+        public static ConnectionsForm _connectionsForm = new ConnectionsForm();
+
+        public static Dictionary<string, AircraftConnectionInfo> _aircraftInfo = new Dictionary<string, AircraftConnectionInfo>();
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -1072,6 +1078,13 @@ namespace MissionPlanner
             // save config to test we have write access
             SaveConfig();
             //MyView.ShowScreen("FlightPlanner");
+
+
+            ///Trying to add connectionControl into toolStripItem
+            // ToolStripControlHost connectionControlHost = new ToolStripControlHost(_connectionControl);
+            // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
+
+            // p1ToolStripMenuItem.DropDownItems.Add(MenuConnect);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1346,7 +1359,7 @@ namespace MissionPlanner
             }
         }
 
-        private void MenuSimulation_Click(object sender, EventArgs e)
+        public void MenuSimulation_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Simulation");
         }
@@ -4412,6 +4425,16 @@ namespace MissionPlanner
         private void myButton3_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("FlightPlanner");
+        }
+
+        private void p2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _connectionsForm.Show();
+        }
+
+        private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _connectionsForm.Show();
         }
     }
 }

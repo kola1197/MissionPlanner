@@ -6,6 +6,8 @@
     <RootNamespace>MissionPlanner.ArduPilot</RootNamespace>
     <DebugType>portable</DebugType>
     <LangVersion>7.3</LangVersion>
+    <Configurations>Debug;Release;Deploy</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">

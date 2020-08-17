@@ -6,6 +6,8 @@
     <ApplicationIcon />
     <Win32Resource />
     <NeutralLanguage>en</NeutralLanguage>
+    <Configurations>Debug;Release;Deploy</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
