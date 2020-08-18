@@ -324,10 +324,6 @@
   <data name="MainMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MainMenu.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="MainMenu.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
@@ -889,6 +885,7 @@
   <data name="toolStripConnectionControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 47</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MenuArduPilot.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -918,9 +915,6 @@
   </data>
   <data name="MainMenu.Text" xml:space="preserve">
     <value>menuStrip1</value>
-  </data>
-  <data name="MainMenu.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;MainMenu.Name" xml:space="preserve">
     <value>MainMenu</value>
@@ -1723,6 +1717,9 @@
   </data>
   <data name="menuStrip1.Text" xml:space="preserve">
     <value>menuStrip1</value>
+  </data>
+  <data name="menuStrip1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
     <value>menuStrip1</value>

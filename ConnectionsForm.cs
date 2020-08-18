@@ -111,8 +111,9 @@ namespace MissionPlanner
 
                 AircraftConnectionInfo connectedAircraftInfo = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
                 connectedAircraftInfo.SerialPort = CMB_serialport.SelectedItem.ToString();
-                connectedAircraftInfo.Speed = Int32.Parse(CMB_baudrate.SelectedItem.ToString());
-                connectedAircraftInfo.SysId = MainV2._connectionControl.cmb_sysid.SelectedItem;
+                connectedAircraftInfo.Speed = CMB_baudrate.SelectedItem;
+                connectedAircraftInfo.SysId =
+                    MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
                 connectedAircraftInfo.Connected = true;
             }
             catch (Exception)
@@ -144,10 +145,9 @@ namespace MissionPlanner
             if (selectedAircraft.Value.Connected)
             {
                 CMB_serialport.SelectedIndex = CMB_serialport.Items.IndexOf(selectedAircraft.Value.SerialPort);
+                CMB_baudrate.SelectedIndex = CMB_baudrate.Items.IndexOf(selectedAircraft.Value.Speed);
                 
-                ///Todo: fix baud not showing up in combobox
-                int baud = CMB_serialport.Items.IndexOf(selectedAircraft.Value.Speed.ToString());
-                CMB_baudrate.SelectedIndex = CMB_serialport.Items.IndexOf(selectedAircraft.Value.Speed);
+
 
                 if (selectedAircraft.Value.SysId == null)
                     return;

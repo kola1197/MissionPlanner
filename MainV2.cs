@@ -1085,6 +1085,9 @@ namespace MissionPlanner
             // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
 
             // p1ToolStripMenuItem.DropDownItems.Add(MenuConnect);
+
+            _connectionsForm.mainForm = this;
+            _connectionsForm.Show();
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)

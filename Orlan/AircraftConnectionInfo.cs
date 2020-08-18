@@ -13,7 +13,7 @@ namespace MissionPlanner.Orlan
 
         private object _sysId;
 
-        public int Speed { get; set; }
+        public object Speed { get; set; }
         
         public bool Connected { get; set; }
         /*public string Number
@@ -49,7 +49,7 @@ namespace MissionPlanner.Orlan
 
         public AircraftConnectionInfo() => (Name, SerialPort, Speed, SysId, Connected) = ("", "", 115200, null, false);
 
-        public AircraftConnectionInfo(string name, string serialPort, int speed, string sysId, bool connected) =>
+        public AircraftConnectionInfo(string name, string serialPort, object speed, string sysId, bool connected) =>
             (Name, SerialPort, Speed, SysId, Connected) = (name, serialPort, speed, sysId, connected);
     }
 }
