@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Orlan;
 
 namespace MissionPlanner.GCSViews
 {
@@ -39,6 +40,8 @@ namespace MissionPlanner.GCSViews
         internal static UdpClient SITLSEND;
 
         internal static List<System.Diagnostics.Process> simulator = new List<Process>();
+
+        public AircraftConnectionInfo aircraftSITLInfo = null;
 
         /*
     { "quadplane",          QuadPlane::create },
@@ -468,6 +471,12 @@ namespace MissionPlanner.GCSViews
                 await Task.Delay(200);
 
                 MainV2.instance.doConnect(MainV2.comPort, "preset", "5760");
+
+                if (aircraftSITLInfo != null)
+                {
+                    aircraftSITLInfo.SysId =
+                        MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
+                }
             }
             catch
             {
