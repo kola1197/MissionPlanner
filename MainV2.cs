@@ -1161,8 +1161,6 @@ namespace MissionPlanner
             // save config to test we have write access
             SaveConfig();
             //MyView.ShowScreen("FlightPlanner");
-
-
             ///Trying to add connectionControl into toolStripItem
             // ToolStripControlHost connectionControlHost = new ToolStripControlHost(_connectionControl);
             // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
@@ -1181,6 +1179,7 @@ namespace MissionPlanner
             menuStrip1.Items.Add(aircraftControlHost);
             _connectionsForm.sitlForm = Simulation;
             // _connectionsForm.Show();
+            mainMenuInit();
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1271,7 +1270,7 @@ namespace MissionPlanner
                 // dont update if no change
                 if (displayicons.GetType() == icons.GetType())
                     return;
-            }
+            }         
 
             displayicons = icons;
 
@@ -1295,6 +1294,25 @@ namespace MissionPlanner
             MenuConfigTune.ForeColor = ThemeManager.TextColor;
             MenuConnect.ForeColor = ThemeManager.TextColor;
             MenuHelp.ForeColor = ThemeManager.TextColor;
+        }
+
+        void mainMenuInit() 
+        {
+            FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+
+        }
+
+        void paramsButtonClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("HWConfig");
+            MyView.ShowScreen("HWConfig");
+        }
+
+        void rulerButtonsClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("SWConfig");
+            MyView.ShowScreen("SWConfig");
         }
 
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
@@ -3960,6 +3978,98 @@ namespace MissionPlanner
             {
                 new DevopsUI().ShowUserControl();
 
+                return true;
+            }
+            bool manualFlightMode = false;
+            int[] overrides = { 1500, 1500, 1500, 1500 };
+            if (keyData == (Keys.Control | Keys.ControlKey))
+            {
+                manualFlightMode = true;
+                //CustomMessageBox.Show("CTRL!!!");
+            }
+            if (keyData == (Keys.Control | Keys.Left))
+            {
+                manualFlightMode = true;
+                //CustomMessageBox.Show("LEFT ARROW!!!");
+                if (manualFlightMode)
+                {
+                    overrides[2] = 1300;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Right))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[2] = 1700;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Up))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[3] = 1700;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Down))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[3] = 1300;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Right | Keys.Up))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1700;
+                overrides[3] = 1700;
+            }
+            if (keyData == (Keys.Control | Keys.Left | Keys.Down))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1300;
+                overrides[3] = 1300;
+            }
+            if (keyData == (Keys.Control | Keys.Right | Keys.Down))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1700;
+                overrides[3] = 1300;
+            }
+            if (keyData == (Keys.Control | Keys.Left | Keys.Up))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1300;
+                overrides[3] = 1700;
+            }
+            if (manualFlightMode)
+            {
+                MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+                rc.target_component = comPort.MAV.compid;
+                rc.target_system = comPort.MAV.sysid;
+                rc.chan2_raw = Convert.ToUInt16(overrides[2]);
+                rc.chan3_raw = Convert.ToUInt16(overrides[3]);
+                //new DevopsUI().ShowUserControl();
+                // TODO: add right values
+                if (comPort.BaseStream.IsOpen)
+                {
+                    if (comPort.BaseStream.BytesToWrite < 50)
+                    {
+                        if (sitl)
+                        {
+                            MissionPlanner.GCSViews.SITL.rcinput();
+                        }
+                        else
+                        {
+                            comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                        }
+                        //count++;
+                        //lastjoystick = DateTime.Now;
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("overrides " + overrides[2] + " " + overrides[3]);
                 return true;
             }
 
