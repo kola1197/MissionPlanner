@@ -49,6 +49,8 @@ using Point = System.Drawing.Point;
 
 namespace MissionPlanner.GCSViews
 {
+
+    
     public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
     {
         public FlightPlanner()
@@ -128,7 +130,7 @@ namespace MissionPlanner.GCSViews
         public GMapOverlay top;
         public GMapPolygon wppolygon;
         private GMapMarker CurrentMidLine;
-
+        private bool menuActive = false;
 
         public void Init()
         {
@@ -267,7 +269,7 @@ namespace MissionPlanner.GCSViews
             drawnpolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
             drawnpolygon.Stroke = new Pen(Color.Red, 2);
             drawnpolygon.Fill = Brushes.Transparent;
-
+            
             /*
             var timer = new System.Timers.Timer();
 
@@ -277,6 +279,12 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
+
+        }
+
+        private void test_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("SuckSess");
         }
 
         public static FlightPlanner instance { get; set; }
@@ -7276,5 +7284,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (MainMap.Zoom < 17)
                 MainMap.Zoom = 17;
         }
+
+        void testFunc() 
+        {
+            Console.WriteLine("SUCKSESS");
+        }
+
+
     }
 }

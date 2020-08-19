@@ -37,7 +37,7 @@ using AltitudeAngelWings;
 
 namespace MissionPlanner
 {
-    public partial class MainV2 : Form
+    public partial class MainV2 : System.Windows.Forms.Form
     {
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -1071,6 +1071,8 @@ namespace MissionPlanner
 
             // save config to test we have write access
             SaveConfig();
+            //MyView.ShowScreen("FlightPlanner");
+            mainMenuInit();
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1161,7 +1163,7 @@ namespace MissionPlanner
                 // dont update if no change
                 if (displayicons.GetType() == icons.GetType())
                     return;
-            }
+            }         
 
             displayicons = icons;
 
@@ -1187,6 +1189,25 @@ namespace MissionPlanner
             MenuHelp.ForeColor = ThemeManager.TextColor;
         }
 
+        void mainMenuInit() 
+        {
+            FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+
+        }
+
+        void paramsButtonClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("HWConfig");
+            MyView.ShowScreen("HWConfig");
+        }
+
+        void rulerButtonsClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("SWConfig");
+            MyView.ShowScreen("SWConfig");
+        }
+
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
         {
             lock (adsblock)
@@ -1204,7 +1225,6 @@ namespace MissionPlanner
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Squawk = adsb.Squawk;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Speed = adsb.Speed;
                 }
                 else
                 {
@@ -1316,6 +1336,7 @@ namespace MissionPlanner
         private void MenuFlightPlanner_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("FlightPlanner");
+            //MyView.ShowScreen("FlightPlannerNewWindow");
         }
 
         public void MenuSetup_Click(object sender, EventArgs e)
@@ -2039,13 +2060,7 @@ namespace MissionPlanner
             pluginthreadrun = false;
 
             if (pluginthread != null)
-            {
-                try
-                {
-                    while (!PluginThreadrunner.WaitOne(100)) Application.DoEvents();
-                } catch { }
                 pluginthread.Join();
-            }
 
             log.Info("closing serialthread");
 
@@ -2440,7 +2455,7 @@ namespace MissionPlanner
                         if (DateTime.Now > plugin.NextRun)
                         {
                             // get ms till next run
-                            int msnext = (int)(1000 / plugin.loopratehz);
+                            int msnext = (int) (1000 / plugin.loopratehz);
                             // allow the plug to modify this, if needed
                             plugin.NextRun = DateTime.Now.AddMilliseconds(msnext);
 
@@ -2476,11 +2491,8 @@ namespace MissionPlanner
                 }
                 Plugin.PluginLoader.Plugins.Remove(plugin);
             }
-            try
-            {
-                PluginThreadrunner.Set();
-            }
-            catch { }
+
+            PluginThreadrunner.Set();
 
             return;
         }
@@ -3021,10 +3033,12 @@ namespace MissionPlanner
             else
             {
                 this.PerformLayout();
-                log.Info("show FlightData");
+                /*log.Info("show FlightData");
                 MenuFlightData_Click(this, e);
                 log.Info("show FlightData... Done");
-                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));
+                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));*/
+                MenuFlightPlanner_Click(this, e);
+                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightPlanner));
             }
 
             // for long running tasks using own threads.
@@ -3710,7 +3724,7 @@ namespace MissionPlanner
 
         private void checkupdate(object stuff)
         {
-            if (Program.WindowsStoreApp)
+            /*if (Program.WindowsStoreApp)
                 return;
 
             try
@@ -3720,7 +3734,7 @@ namespace MissionPlanner
             catch (Exception ex)
             {
                 log.Error("Update check failed", ex);
-            }
+            }*/
         }
 
         private void MainV2_Resize(object sender, EventArgs e)
@@ -3857,6 +3871,98 @@ namespace MissionPlanner
             {
                 new DevopsUI().ShowUserControl();
 
+                return true;
+            }
+            bool manualFlightMode = false;
+            int[] overrides = { 1500, 1500, 1500, 1500 };
+            if (keyData == (Keys.Control | Keys.ControlKey))
+            {
+                manualFlightMode = true;
+                //CustomMessageBox.Show("CTRL!!!");
+            }
+            if (keyData == (Keys.Control | Keys.Left))
+            {
+                manualFlightMode = true;
+                //CustomMessageBox.Show("LEFT ARROW!!!");
+                if (manualFlightMode)
+                {
+                    overrides[2] = 1300;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Right))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[2] = 1700;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Up))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[3] = 1700;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Down))
+            {
+                manualFlightMode = true;
+                if (manualFlightMode)
+                {
+                    overrides[3] = 1300;
+                }
+            }
+            if (keyData == (Keys.Control | Keys.Right | Keys.Up))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1700;
+                overrides[3] = 1700;
+            }
+            if (keyData == (Keys.Control | Keys.Left | Keys.Down))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1300;
+                overrides[3] = 1300;
+            }
+            if (keyData == (Keys.Control | Keys.Right | Keys.Down))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1700;
+                overrides[3] = 1300;
+            }
+            if (keyData == (Keys.Control | Keys.Left | Keys.Up))
+            {
+                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                overrides[2] = 1300;
+                overrides[3] = 1700;
+            }
+            if (manualFlightMode)
+            {
+                MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+                rc.target_component = comPort.MAV.compid;
+                rc.target_system = comPort.MAV.sysid;
+                rc.chan2_raw = Convert.ToUInt16(overrides[2]);
+                rc.chan3_raw = Convert.ToUInt16(overrides[3]);
+                //new DevopsUI().ShowUserControl();
+                // TODO: add right values
+                if (comPort.BaseStream.IsOpen)
+                {
+                    if (comPort.BaseStream.BytesToWrite < 50)
+                    {
+                        if (sitl)
+                        {
+                            MissionPlanner.GCSViews.SITL.rcinput();
+                        }
+                        else
+                        {
+                            comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                        }
+                        //count++;
+                        //lastjoystick = DateTime.Now;
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("overrides " + overrides[2] + " " + overrides[3]);
                 return true;
             }
 
@@ -4408,6 +4514,16 @@ namespace MissionPlanner
                     });
                 }
             }
+        }
+
+        private void MainV2_Load(object sender, EventArgs e)
+        {
+            //MyView.ShowScreen("FlightPlanner");
+        }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+            MyView.ShowScreen("FlightPlanner");
         }
     }
 }
