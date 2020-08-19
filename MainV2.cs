@@ -1,4 +1,8 @@
-﻿extern alias Drawing;
+
+﻿#if !LIB
+extern alias Drawing;using AltitudeAngelWings;using MissionPlanner.Utilities.AltitudeAngel;
+#endif
+
 
 using GMap.NET.WindowsForms;
 using log4net;
@@ -37,6 +41,9 @@ using MissionPlanner.ArduPilot.Mavlink;
 using MissionPlanner.Utilities.HW;
 using Transitions;
 using AltitudeAngelWings;
+using MissionPlanner.NewForms;
+using GMap.NET.MapProviders;
+using Flurl.Util;
 using BrightIdeasSoftware;
 using MissionPlanner.Orlan;
 
@@ -528,6 +535,15 @@ namespace MissionPlanner
         public GCSViews.FlightPlanner FlightPlanner;
         GCSViews.SITL Simulation;
 
+        /// <summary>
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        private MapChangeForm mapChangeForm;
+        private string mapTitleStatus = "";
+        int centering = 0;          //0 - false, 1 - onse, 2 - always
+
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
 
@@ -622,6 +638,7 @@ namespace MissionPlanner
 
             return packetsReceived / (packetsReceived + (double)packetsLost);
         }
+
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -1161,6 +1178,7 @@ namespace MissionPlanner
             // save config to test we have write access
             SaveConfig();
             //MyView.ShowScreen("FlightPlanner");
+
             ///Trying to add connectionControl into toolStripItem
             // ToolStripControlHost connectionControlHost = new ToolStripControlHost(_connectionControl);
             // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
@@ -1179,6 +1197,7 @@ namespace MissionPlanner
             menuStrip1.Items.Add(aircraftControlHost);
             _connectionsForm.sitlForm = Simulation;
             // _connectionsForm.Show();
+
             mainMenuInit();
         }
 
@@ -1298,22 +1317,179 @@ namespace MissionPlanner
 
         void mainMenuInit() 
         {
+
+            FlightPlanner.mainMenuWidget1.MapChoiseButton.Click += new EventHandler(mapChoiceButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+            FlightPlanner.mainMenuWidget1.homeButton.Click += new EventHandler(homeButtonClick);
+            FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
+            FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+        }
 
+
+        void mapChoiceButtonClick(object sender, EventArgs e)
+        {
+            FlightPlanner.mainMenuWidget1.setState(false);
+            if (mapChangeForm != null) 
+            {
+                mapChangeForm.Close();
+            }
+            mapChangeForm = new MapChangeForm();
+            mapChangeForm.comboBoxMapType.ValueMember = "Name";
+            mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+            mapChangeForm.comboBoxMapType.SelectedItem = FlightPlanner.MainMap.MapProvider;
+            FlightPlanner.MainMap.OnTileLoadComplete += MainMap_OnTileLoadComplete;
+            FlightPlanner.MainMap.OnTileLoadStart += MainMap_OnTileLoadStart;
+            mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
+            mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
+            mapChangeForm.lbl_status.Text = mapTitleStatus;
+            mapChangeForm.Show();
+        }
+
+        public void chk_grid_CheckedChanged(object sender, EventArgs e)
+        {
+            FlightPlanner.grid = mapChangeForm.chk_grid.Checked;
+        }
+
+        private void MainMap_OnTileLoadComplete(long ElapsedMilliseconds)
+        {
+            //MainMap.ElapsedMilliseconds = ElapsedMilliseconds;
+
+            MethodInvoker m = delegate
+            {
+                mapTitleStatus = "Status: loaded tiles";
+                if (mapChangeForm != null)
+                {
+                    mapChangeForm.lbl_status.Text = mapTitleStatus;
+                }
+                //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";
+
+                //textBoxMemory.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.00}MB of {1:0.00}MB", MainMap.Manager.MemoryCacheSize, MainMap.Manager.MemoryCacheCapacity);
+            };
+            try
+            {
+                if (!IsDisposed && IsHandleCreated) BeginInvoke(m);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        private void MainMap_OnTileLoadStart()
+        {
+            MethodInvoker m = delegate
+            {
+                mapTitleStatus = "Status: loading tiles...";
+                if (mapChangeForm != null)
+                {
+                    mapChangeForm.lbl_status.Text = mapTitleStatus; 
+                }
+            };
+            try
+            {
+                if (IsHandleCreated) BeginInvoke(m);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        private void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // check if we are setting the initial state
+                if (FlightPlanner.MainMap.MapProvider != GMapProviders.EmptyProvider && (GMapProvider)mapChangeForm.comboBoxMapType.SelectedItem == MapboxUser.Instance)
+                {
+                    var url = Settings.Instance["MapBoxURL", ""];
+                    InputBox.Show("Enter MapBox Share URL", "Enter MapBox Share URL", ref url);
+                    var match = Regex.Matches(url, @"\/styles\/[^\/]+\/([^\/]+)\/([^\/\.]+).*access_token=([^#&=]+)");
+                    if (match != null)
+                    {
+                        MapboxUser.Instance.UserName = match[0].Groups[1].Value;
+                        MapboxUser.Instance.StyleId = match[0].Groups[2].Value;
+                        MapboxUser.Instance.MapKey = match[0].Groups[3].Value;
+                        Settings.Instance["MapBoxURL"] = url;
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show(Strings.InvalidField, Strings.ERROR);
+                        return;
+                    }
+                }
+
+                FlightPlanner.MainMap.MapProvider = (GMapProvider)mapChangeForm.comboBoxMapType.SelectedItem;
+                //FlightData.mymap.MapProvider = (GMapProvider)mapChangeForm.comboBoxMapType.SelectedItem;
+                Settings.Instance["MapType"] = mapChangeForm.comboBoxMapType.Text;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                CustomMessageBox.Show("Map change failed. try zooming out first.");
+            }
         }
 
         void paramsButtonClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("HWConfig");
             MyView.ShowScreen("HWConfig");
         }
 
         void rulerButtonsClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("SWConfig");
-            MyView.ShowScreen("SWConfig");
+            //System.Diagnostics.Debug.WriteLine("HERE");
         }
+
+        void homeButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Control)sender).Enabled = false;
+                MainV2.comPort.setMode("RTL");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Control)sender).Enabled = true;
+        }
+
+        void centeringButtonClick(object sender, MouseEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine("HERE");
+            if (e.Button == MouseButtons.Right) 
+            {
+                if (centering != 2)
+                {
+                    centering = 2;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
+                    //System.Diagnostics.Debug.WriteLine("Right");
+                }
+                else 
+                {
+                    centering = 0;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
+                }
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                centering = 1;
+                FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
+                FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
+                //System.Diagnostics.Debug.WriteLine("Left");
+            }
+            //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
+        }
+
+
+        /// <summary>
+        /// /////////////////////////////////////////////////////////////////////////
+        /// </summary>
+
 
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
         {
@@ -1332,6 +1508,15 @@ namespace MissionPlanner
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Squawk = adsb.Squawk;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
+
+                    if (centering > 0) 
+                    {
+                        FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng);
+                        if (centering == 2) 
+                        {
+                            centering = 0;
+                        }
+                    }
                 }
                 else
                 {
@@ -1472,6 +1657,7 @@ namespace MissionPlanner
                 }
             }
         }
+
 
         public void MenuSimulation_Click(object sender, EventArgs e)
         {
@@ -1989,6 +2175,7 @@ namespace MissionPlanner
                 loadph_serial();
         }
 
+
         public void loadph_serial()
         {
             try
@@ -2103,7 +2290,11 @@ namespace MissionPlanner
             Settings.Instance["MainLocY"] = this.Location.Y.ToString();
 
             log.Info("close logs");
+
+
+#if !LIB
             AltitudeAngel.Dispose();
+#endif
 
             // close bases connection
             try
@@ -3321,57 +3512,74 @@ namespace MissionPlanner
 
             GStreamer.onNewImage += (sender, image) =>
             {
-                if (image == null)
+
+                try
                 {
-                    GCSViews.FlightData.myhud.bgimage = null;
-                    return;
+                    if (image == null)
+                    {
+                        GCSViews.FlightData.myhud.bgimage = null;
+                        return;
+                    }
+
+                    var old = GCSViews.FlightData.myhud.bgimage;
+                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
+                        PixelFormat.Format32bppPArgb,
+                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888)
+                            .Scan0);
+                    if (old != null)
+                        old.Dispose();
+                }
+                catch
+                {
                 }
 
-                if (!(image is Drawing::System.Drawing.Bitmap bmp))
-                    return;
-                var old = GCSViews.FlightData.myhud.bgimage;
-                GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
-                    PixelFormat.Format32bppPArgb,
-                    bmp.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888)
-                    .Scan0);
-                if (old != null)
-                    old.Dispose();
             };
 
             vlcrender.onNewImage += (sender, image) =>
             {
-                if (image == null)
+                try
                 {
-                    GCSViews.FlightData.myhud.bgimage = null;
-                    return;
+                    if (image == null)
+                    {
+                        GCSViews.FlightData.myhud.bgimage = null;
+                        return;
+                    }
+
+                    var old = GCSViews.FlightData.myhud.bgimage;
+                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width,
+                        image.Height,
+                        4 * image.Width,
+                        PixelFormat.Format32bppPArgb,
+                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
+                    if (old != null)
+                        old.Dispose();
                 }
-                if (!(image is Drawing::System.Drawing.Bitmap bmp))
-                    return;
-                var old = GCSViews.FlightData.myhud.bgimage;
-                GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width,
-                                                               image.Height,
-                                                               4 * image.Width,
-                                                               PixelFormat.Format32bppPArgb,
-                                                               bmp.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
-                if (old != null)
-                    old.Dispose();
+                catch
+                {
+                }
             };
 
             CaptureMJPEG.onNewImage += (sender, image) =>
             {
-                if (image == null)
+                try
                 {
-                    GCSViews.FlightData.myhud.bgimage = null;
-                    return;
+                    if (image == null)
+                    {
+                        GCSViews.FlightData.myhud.bgimage = null;
+                        return;
+                    }
+
+                    var old = GCSViews.FlightData.myhud.bgimage;
+                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
+                        PixelFormat.Format32bppPArgb,
+                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
+                    if (old != null)
+                        old.Dispose();
                 }
-                if (!(image is Drawing::System.Drawing.Bitmap bmp))
-                    return;
-                var old = GCSViews.FlightData.myhud.bgimage;
-                GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
-                                                               PixelFormat.Format32bppPArgb,
-                                                               bmp.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
-                if (old != null)
-                    old.Dispose();
+                catch
+                {
+                }
+
             };
 
             try
@@ -3411,10 +3619,14 @@ namespace MissionPlanner
             {
                 if (!MONO)
                 {
+#if !LIB
+
                     log.Info("Load AltitudeAngel");
                     AltitudeAngel.Configure();
                     AltitudeAngel.Initialize();
                     log.Info("Load AltitudeAngel... Done");
+#endif
+
                 }
             }
             catch (TypeInitializationException) // windows xp lacking patch level
@@ -4632,9 +4844,6 @@ namespace MissionPlanner
         {
             MyView.ShowScreen("FlightPlanner");
         }
-
-        
-
         /*private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int butNum = 0;
@@ -4699,5 +4908,6 @@ namespace MissionPlanner
         {
             _connectionsForm.Show();
         }*/
+
     }
 }
