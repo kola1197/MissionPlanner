@@ -14,13 +14,10 @@ namespace MissionPlanner.Orlan
         private object _sysId;
 
         public object Speed { get; set; }
-        
+
         public bool Connected { get; set; }
-        /*public string Number
-        {
-            get => string.Copy(_number);
-            set => _number = string.Copy(value);
-        }*/
+
+        public bool UsingSITL { get; set; }
 
         public string Name
         {
@@ -47,9 +44,12 @@ namespace MissionPlanner.Orlan
         //     this.SerialPort = string.Copy(port);
         // }
 
-        public AircraftConnectionInfo() => (Name, SerialPort, Speed, SysId, Connected) = ("", "", 115200, null, false);
+        public AircraftConnectionInfo() => (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
+            ("", "", 115200, null, false, false);
 
-        public AircraftConnectionInfo(string name, string serialPort, object speed, string sysId, bool connected) =>
-            (Name, SerialPort, Speed, SysId, Connected) = (name, serialPort, speed, sysId, connected);
+        public AircraftConnectionInfo(string name, string serialPort, object speed, string sysId, bool connected,
+            bool usingSITL) =>
+            (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
+            (name, serialPort, speed, sysId, connected, usingSITL);
     }
 }

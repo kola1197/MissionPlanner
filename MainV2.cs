@@ -1086,8 +1086,8 @@ namespace MissionPlanner
 
             // p1ToolStripMenuItem.DropDownItems.Add(MenuConnect);
 
-            _connectionsForm.mainForm = this;
-            _connectionsForm.Show();
+            _connectionsForm.sitlForm = Simulation;
+            // _connectionsForm.Show();
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1878,7 +1878,7 @@ namespace MissionPlanner
                 loadph_serial();
         }
 
-        void loadph_serial()
+        public void loadph_serial()
         {
             try
             {
@@ -4437,7 +4437,6 @@ namespace MissionPlanner
 
         private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _connectionsForm.mainForm = this;
             _connectionsForm.Show();
         }
     }

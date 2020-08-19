@@ -265,8 +265,8 @@ namespace MissionPlanner
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.verticalProgressBar2);
             this.panel1.Controls.Add(this.verticalProgressBar1);
-            this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.status1);
+            this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.MainMenu);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
