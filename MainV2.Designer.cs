@@ -52,6 +52,7 @@ namespace MissionPlanner
             this.MenuSimulation = new System.Windows.Forms.ToolStripButton();
             this.MenuHelp = new System.Windows.Forms.ToolStripButton();
             this.MenuConnect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
@@ -75,11 +76,8 @@ namespace MissionPlanner
             this.label1 = new System.Windows.Forms.Label();
             this.verticalProgressBar2 = new MissionPlanner.Controls.VerticalProgressBar();
             this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
+
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.p1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.p2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.p3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.p4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -91,13 +89,14 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+
             this.status1 = new MissionPlanner.Controls.Status();
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
+
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -222,6 +221,15 @@ namespace MissionPlanner
             this.MenuConnect.Name = "MenuConnect";
             this.MenuConnect.Click += new System.EventHandler(this.MenuConnect_Click);
             // 
+            // toolStripConnectionControl
+            // 
+            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
+            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
+            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
+            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
+            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
+            // 
             // MenuArduPilot
             // 
             this.MenuArduPilot.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -257,8 +265,8 @@ namespace MissionPlanner
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.verticalProgressBar2);
             this.panel1.Controls.Add(this.verticalProgressBar1);
-            this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.status1);
+            this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.MainMenu);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
@@ -403,43 +411,20 @@ namespace MissionPlanner
             this.verticalProgressBar1.Name = "verticalProgressBar1";
             this.verticalProgressBar1.Value = 20;
             // 
+            // status1
+            // 
+            resources.ApplyResources(this.status1, "status1");
+            this.status1.Name = "status1";
+            this.status1.Percent = 0D;
+            // 
             // menuStrip1
             // 
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.ContextMenuStrip = this.CTX_mainmenu;
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(45, 39);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.p1ToolStripMenuItem,
-            this.p2ToolStripMenuItem,
-            this.p3ToolStripMenuItem,
-            this.p4ToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
-            // 
-            // p1ToolStripMenuItem
-            // 
-            this.p1ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.p1ToolStripMenuItem.Name = "p1ToolStripMenuItem";
-            resources.ApplyResources(this.p1ToolStripMenuItem, "p1ToolStripMenuItem");
-            // 
-            // p2ToolStripMenuItem
-            // 
-            this.p2ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.p2ToolStripMenuItem.Name = "p2ToolStripMenuItem";
-            resources.ApplyResources(this.p2ToolStripMenuItem, "p2ToolStripMenuItem");
-            // 
-            // p3ToolStripMenuItem
-            // 
-            this.p3ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.p3ToolStripMenuItem.Name = "p3ToolStripMenuItem";
-            resources.ApplyResources(this.p3ToolStripMenuItem, "p3ToolStripMenuItem");
-            // 
-            // p4ToolStripMenuItem
-            // 
-            this.p4ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.p4ToolStripMenuItem.Name = "p4ToolStripMenuItem";
-            resources.ApplyResources(this.p4ToolStripMenuItem, "p4ToolStripMenuItem");
             // 
             // toolStripButton1
             // 
@@ -513,11 +498,6 @@ namespace MissionPlanner
             this.toolStripConnectionControl.Name = "toolStripConnectionControl";
             this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
-            // toolStripConnectionControl1
-            // 
-            resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
-            this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
-            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
@@ -536,8 +516,6 @@ namespace MissionPlanner
             this.CTX_mainmenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -559,10 +537,6 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton MenuInitConfig;
         public System.Windows.Forms.ToolStripButton MenuSimulation;
         public System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem p1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem p2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem p3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem p4ToolStripMenuItem;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
         public MissionPlanner.Controls.Status status1;

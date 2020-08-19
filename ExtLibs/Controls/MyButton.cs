@@ -61,6 +61,7 @@ namespace MissionPlanner.Controls
             _ColorNotEnabled = Color.FromArgb(73, 0x2b, 0x3a, 0x03);
             _ColorMouseOver = Color.FromArgb(73, 0x2b, 0x3a, 0x03);
             _ColorMouseDown = Color.FromArgb(150, 0x2b, 0x3a, 0x03);
+            SetStyle(ControlStyles.StandardClick | ControlStyles.StandardDoubleClick, true);
         }
 
         protected override void OnPaint(PaintEventArgs pevent)

@@ -1,6 +1,8 @@
+
 ﻿#if !LIB
 extern alias Drawing;using AltitudeAngelWings;using MissionPlanner.Utilities.AltitudeAngel;
 #endif
+
 
 using GMap.NET.WindowsForms;
 using log4net;
@@ -11,7 +13,7 @@ using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Log;
 using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
-
+using MissionPlanner.Utilities.AltitudeAngel;
 using MissionPlanner.Warnings;
 using SkiaSharp;
 using System;
@@ -24,7 +26,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,6 +44,8 @@ using AltitudeAngelWings;
 using MissionPlanner.NewForms;
 using GMap.NET.MapProviders;
 using Flurl.Util;
+using BrightIdeasSoftware;
+using MissionPlanner.Orlan;
 
 
 namespace MissionPlanner
@@ -527,7 +535,6 @@ namespace MissionPlanner
         public GCSViews.FlightPlanner FlightPlanner;
         GCSViews.SITL Simulation;
 
-
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,18 +543,6 @@ namespace MissionPlanner
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0;          //0 - false, 1 - onse, 2 - always
-
-
-
-
-
-        /// <summary>
-        /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-
-
 
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
@@ -560,6 +555,90 @@ namespace MissionPlanner
         public static ConnectionControl _connectionControl;
 
         public static bool TerminalTheming = true;
+
+        /// <summary>
+        /// Form for orlan connections
+        /// </summary>
+        public static ConnectionsForm _connectionsForm = new ConnectionsForm();
+
+        public static AircraftMenuControl _aircraftMenuControl = new AircraftMenuControl();
+
+        /// <summary>
+        /// All orlan connections
+        /// </summary>
+        public static Dictionary<string, AircraftConnectionInfo> _aircraftInfo = new Dictionary<string, AircraftConnectionInfo>();
+
+        private static string _currentAircraftNum = null;
+
+        public static string CurrentAircraftNum
+        {
+            get { return _currentAircraftNum; }
+            set
+            {
+                if (_currentAircraftNum != null)
+                {
+                    StopUpdates();
+                    _aircraftMenuControl.updateAllAircraftButtonTexts();
+                }
+                _currentAircraftNum = value;
+                ShowConnectionQuality();
+            }
+        }
+
+        private static MAVLinkInterface _mavlink;
+        private static CompositeDisposable _subscriptionsDisposable;
+
+        public static void StopUpdates()
+        {
+            _subscriptionsDisposable.Dispose();
+        }
+
+        public static void ShowConnectionQuality()
+        {
+            _subscriptionsDisposable = new CompositeDisposable();
+
+            int currentNum = int.Parse(_currentAircraftNum);
+            AircraftConnectionInfo currentAircraftInfo = _aircraftInfo[_currentAircraftNum];
+            AircraftMenuControl.aircraftButtonInfo currentMenuButton = _aircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
+            _mavlink = comPort;
+            var subscriptions = new List<IDisposable>
+            {
+                // Link quality is a percentage of the number of good packets received
+                // to the number of packets missed (detected by mavlink seq no.)
+                // Calculated as an average over the last 3 seconds (non weighted)
+                // Calculated every second
+                CombineWithDefault(_mavlink.WhenPacketReceived, _mavlink.WhenPacketLost, Tuple.Create)
+                    .Buffer(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1))
+                    .Select(CalculateAverage)
+                    .ObserveOn(SynchronizationContext.Current)
+                    .Subscribe(x =>
+                        currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%")),
+            };
+            subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
+        }
+
+        private static IObservable<TResult> CombineWithDefault<TSource, TResult>(IObservable<TSource> first,
+            Subject<TSource> second, Func<TSource, TSource, TResult> resultSelector)
+        {
+            return Observable.Defer(() =>
+            {
+                var foo = new Subject<TResult>();
+
+                first.Select(x => resultSelector(x, default(TSource))).Subscribe(foo);
+                second.Select(x => resultSelector(default(TSource), x)).Subscribe(foo);
+
+                return foo;
+            });
+        }
+
+        private static double CalculateAverage(IList<Tuple<int, int>> xs)
+        {
+            var packetsReceived = xs.Sum(t => t.Item1);
+            var packetsLost = xs.Sum(t => t.Item2);
+
+            return packetsReceived / (packetsReceived + (double)packetsLost);
+        }
+
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -1099,6 +1178,26 @@ namespace MissionPlanner
             // save config to test we have write access
             SaveConfig();
             //MyView.ShowScreen("FlightPlanner");
+
+            ///Trying to add connectionControl into toolStripItem
+            // ToolStripControlHost connectionControlHost = new ToolStripControlHost(_connectionControl);
+            // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
+
+            // p1ToolStripMenuItem.DropDownItems.Add(MenuConnect);
+            /*Panel aircraftPanel = new Panel();
+            aircraftPanel.Controls.Clear();
+            aircraftPanel.Size = new Size(100, 47);
+            
+            Button testButton = new Button();
+            testButton.Size = new Size(50, 47);
+            testButton.Text = "Done";
+            aircraftPanel.Controls.Add(testButton);*/
+            
+            ToolStripControlHost aircraftControlHost = new ToolStripControlHost(_aircraftMenuControl);
+            menuStrip1.Items.Add(aircraftControlHost);
+            _connectionsForm.sitlForm = Simulation;
+            // _connectionsForm.Show();
+
             mainMenuInit();
         }
 
@@ -1218,12 +1317,14 @@ namespace MissionPlanner
 
         void mainMenuInit() 
         {
+
             FlightPlanner.mainMenuWidget1.MapChoiseButton.Click += new EventHandler(mapChoiceButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             FlightPlanner.mainMenuWidget1.homeButton.Click += new EventHandler(homeButtonClick);
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
-            
+            FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
         }
 
 
@@ -1333,7 +1434,6 @@ namespace MissionPlanner
 
         void paramsButtonClick(object sender, EventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("HWConfig");
             MyView.ShowScreen("HWConfig");
         }
 
@@ -1390,6 +1490,7 @@ namespace MissionPlanner
         /// /////////////////////////////////////////////////////////////////////////
         /// </summary>
 
+
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
         {
             lock (adsblock)
@@ -1407,10 +1508,11 @@ namespace MissionPlanner
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Squawk = adsb.Squawk;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
+
                     if (centering > 0) 
                     {
                         FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng);
-                        if (centering == 0) 
+                        if (centering == 2) 
                         {
                             centering = 0;
                         }
@@ -1556,7 +1658,8 @@ namespace MissionPlanner
             }
         }
 
-        private void MenuSimulation_Click(object sender, EventArgs e)
+
+        public void MenuSimulation_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Simulation");
         }
@@ -2072,7 +2175,8 @@ namespace MissionPlanner
                 loadph_serial();
         }
 
-        void loadph_serial()
+
+        public void loadph_serial()
         {
             try
             {
@@ -2187,9 +2291,11 @@ namespace MissionPlanner
 
             log.Info("close logs");
 
+
 #if !LIB
             AltitudeAngel.Dispose();
 #endif
+
             // close bases connection
             try
             {
@@ -3406,6 +3512,7 @@ namespace MissionPlanner
 
             GStreamer.onNewImage += (sender, image) =>
             {
+
                 try
                 {
                     if (image == null)
@@ -3425,6 +3532,7 @@ namespace MissionPlanner
                 catch
                 {
                 }
+
             };
 
             vlcrender.onNewImage += (sender, image) =>
@@ -3471,6 +3579,7 @@ namespace MissionPlanner
                 catch
                 {
                 }
+
             };
 
             try
@@ -3511,11 +3620,13 @@ namespace MissionPlanner
                 if (!MONO)
                 {
 #if !LIB
+
                     log.Info("Load AltitudeAngel");
                     AltitudeAngel.Configure();
                     AltitudeAngel.Initialize();
                     log.Info("Load AltitudeAngel... Done");
 #endif
+
                 }
             }
             catch (TypeInitializationException) // windows xp lacking patch level
@@ -4733,5 +4844,70 @@ namespace MissionPlanner
         {
             MyView.ShowScreen("FlightPlanner");
         }
+        /*private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int butNum = 0;
+            if (_aircraftInfo.Count == 0)
+            {
+                _connectionsForm.Show();
+                return;
+            }
+
+            if (_aircraftInfo.Count > butNum)
+            {
+                _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+            }
+        }
+
+        private void p2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int butNum = 1;
+            if (_aircraftInfo.Count == 0)
+            {
+                _connectionsForm.Show();
+                return;
+            }
+
+            if (_aircraftInfo.Count > butNum)
+            {
+                _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+            }
+        }
+
+        private void p3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int butNum = 2;
+            if (_aircraftInfo.Count == 0)
+            {
+                _connectionsForm.Show();
+                return;
+            }
+
+            if (_aircraftInfo.Count > butNum)
+            {
+                _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+            }
+        }
+
+        private void p4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int butNum = 3;
+            if (_aircraftInfo.Count == 0)
+            {
+                _connectionsForm.Show();
+                return;
+            }
+
+            if (_aircraftInfo.Count > butNum)
+            {
+                _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+            }
+        }
+
+        private void p1ToolStripMenuItem_DoubleClick(object sender, EventArgs e)
+        {
+            _connectionsForm.Show();
+        }*/
+
     }
 }
