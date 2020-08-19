@@ -33,6 +33,8 @@ using MissionPlanner.ArduPilot.Mavlink;
 using MissionPlanner.Utilities.HW;
 using Transitions;
 using AltitudeAngelWings;
+using BrightIdeasSoftware;
+using MissionPlanner.Orlan;
 
 
 namespace MissionPlanner
@@ -533,6 +535,10 @@ namespace MissionPlanner
         public static ConnectionControl _connectionControl;
 
         public static bool TerminalTheming = true;
+
+        public static ConnectionsForm _connectionsForm = new ConnectionsForm();
+
+        public static Dictionary<string, AircraftConnectionInfo> _aircraftInfo = new Dictionary<string, AircraftConnectionInfo>();
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -1073,7 +1079,14 @@ namespace MissionPlanner
             SaveConfig();
             //MyView.ShowScreen("FlightPlanner");
             mainMenuInit();
-        }
+			///Trying to add connectionControl into toolStripItem
+            // ToolStripControlHost connectionControlHost = new ToolStripControlHost(_connectionControl);
+            // p1ToolStripMenuItem.DropDownItems.Add(connectionControlHost);
+
+            // p1ToolStripMenuItem.DropDownItems.Add(MenuConnect);
+
+            _connectionsForm.sitlForm = Simulation;
+            // _connectionsForm.Show();        }
 
         void cmb_sysid_Click(object sender, EventArgs e)
         {
@@ -1366,7 +1379,7 @@ namespace MissionPlanner
             }
         }
 
-        private void MenuSimulation_Click(object sender, EventArgs e)
+        public void MenuSimulation_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Simulation");
         }
@@ -1882,7 +1895,7 @@ namespace MissionPlanner
                 loadph_serial();
         }
 
-        void loadph_serial()
+        public void loadph_serial()
         {
             try
             {
@@ -4524,6 +4537,16 @@ namespace MissionPlanner
         private void myButton3_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("FlightPlanner");
+        }
+
+        private void p2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _connectionsForm.Show();
+        }
+
+        private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _connectionsForm.Show();
         }
     }
 }
