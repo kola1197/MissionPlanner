@@ -10,14 +10,20 @@ namespace MissionPlanner.Orlan
     {
         // private string _number;
         private string _name, _serialPort;
-
         private object _sysId;
-
+        private static int _aircraftCounter = 0;
+        
+        private int _menuNum;
         public object Speed { get; set; }
 
         public bool Connected { get; set; }
 
         public bool UsingSITL { get; set; }
+
+        public int MenuNum
+        {
+            get => _menuNum;
+        }
 
         public string Name
         {
@@ -44,12 +50,22 @@ namespace MissionPlanner.Orlan
         //     this.SerialPort = string.Copy(port);
         // }
 
-        public AircraftConnectionInfo() => (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
-            ("", "", 115200, null, false, false);
+        public AircraftConnectionInfo()
+        {
+            (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
+                ("", "", 115200, null, false, false);
+            _menuNum = _aircraftCounter;
+            _aircraftCounter++;
+        }
+
 
         public AircraftConnectionInfo(string name, string serialPort, object speed, string sysId, bool connected,
-            bool usingSITL) =>
+            bool usingSITL)
+        {
             (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
-            (name, serialPort, speed, sysId, connected, usingSITL);
+                (name, serialPort, speed, sysId, connected, usingSITL);
+            _menuNum = _aircraftCounter;
+            _aircraftCounter++;
+        }
     }
 }
