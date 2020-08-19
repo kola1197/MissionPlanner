@@ -46,6 +46,7 @@ using Formatting = Newtonsoft.Json.Formatting;
 using ILog = log4net.ILog;
 using Placemark = SharpKml.Dom.Placemark;
 using Point = System.Drawing.Point;
+using Resources = MissionPlanner.Properties.Resources;
 
 namespace MissionPlanner.GCSViews
 {
@@ -101,7 +102,7 @@ namespace MissionPlanner.GCSViews
         private bool fetchpathrip;
         public GMapOverlay geofenceoverlay;
         public GMapPolygon geofencepolygon;
-        private bool grid;
+        public bool grid;
         private List<int> groupmarkers = new List<int>();
         private List<List<Locationwp>> history = new List<List<Locationwp>>();
         private bool isMouseClickOffMenu;
