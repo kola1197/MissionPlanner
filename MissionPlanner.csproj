@@ -55,7 +55,6 @@
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
-
   <PropertyGroup>
     <RootNamespace>MissionPlanner</RootNamespace>
   </PropertyGroup>
@@ -385,6 +384,12 @@
     </Compile>
     <Compile Include="ConnectionsForm.Designer.cs">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AircraftMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AircraftMenuControl.Designer.cs">
+      <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConnectionOptions.cs">
       <SubType>Form</SubType>
@@ -723,6 +728,9 @@
     </Compile>
     <EmbeddedResource Include="ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AircraftMenuControl.resx">
+      <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlSensorsStatus.resx">
       <DependentUpon>ControlSensorsStatus.cs</DependentUpon>

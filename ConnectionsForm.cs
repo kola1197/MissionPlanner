@@ -207,15 +207,19 @@ namespace MissionPlanner
                 aircraftNumber_TB.Text.Equals("") || !regex.IsMatch(aircraftNumber_TB.Text))
                 return;
 
-            MainV2._aircraftInfo.Add(aircraftNumber_TB.Text, new AircraftConnectionInfo());
-            devices_LB.Items.Add(aircraftNumber_TB.Text);
+            string aircraftNumber = aircraftNumber_TB.Text;
+
+            MainV2._aircraftInfo.Add(aircraftNumber, new AircraftConnectionInfo());
+            devices_LB.Items.Add(aircraftNumber);
             devices_LB.SetSelected(devices_LB.Items.Count - 1, true);
-            
+            MainV2._aircraftMenuControl.setAircraftButtonDefaultText(
+                MainV2._aircraftInfo[aircraftNumber].MenuNum, aircraftNumber);
+            MainV2._aircraftMenuControl.updateAircraftButtonText(MainV2._aircraftInfo[aircraftNumber].MenuNum);
             aircraftNumber_TB.Text = "";
             panel1.Enabled = true;
         }
 
-        private void switchConnectedAircraft(AircraftConnectionInfo selectedAircraft)
+        public void switchConnectedAircraft(AircraftConnectionInfo selectedAircraft)
         {
             if (selectedAircraft.SysId == null)
                 return;
@@ -233,6 +237,8 @@ namespace MissionPlanner
                     if (MainV2.comPort.MAV.param.Count == 0 && !(Control.ModifierKeys == Keys.Control))
                         MainV2.comPort.getParamList();
 
+                    MainV2.CurrentAircraftNum = MainV2._aircraftInfo.FirstOrDefault(x => x.Value == selectedAircraft).Key;
+                    devices_LB.SelectedItem = MainV2.CurrentAircraftNum;
                     MainV2.View.Reload();
                 }
             }
