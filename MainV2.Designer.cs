@@ -76,8 +76,9 @@ namespace MissionPlanner
             this.label1 = new System.Windows.Forms.Label();
             this.verticalProgressBar2 = new MissionPlanner.Controls.VerticalProgressBar();
             this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
-
+            this.status1 = new MissionPlanner.Controls.Status();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.label14 = new System.Windows.Forms.Label();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -88,11 +89,6 @@ namespace MissionPlanner
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-
-            this.status1 = new MissionPlanner.Controls.Status();
-            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
-
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
@@ -244,7 +240,6 @@ namespace MissionPlanner
             // panel1
             // 
             this.panel1.Controls.Add(this.myButton3);
-            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.myButton2);
             this.panel1.Controls.Add(this.myButton1);
             this.panel1.Controls.Add(this.label12);
@@ -426,6 +421,11 @@ namespace MissionPlanner
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
             // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Name = "toolStripButton1";
@@ -478,30 +478,16 @@ namespace MissionPlanner
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
             // 
-            // label14
+            // toolStripConnectionControl1
             // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // status1
-            // 
-            resources.ApplyResources(this.status1, "status1");
-            this.status1.Name = "status1";
-            this.status1.Percent = 0D;
-            // 
-            // toolStripConnectionControl
-            // 
-            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
-            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
-            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
-            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
+            resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
+            this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);
