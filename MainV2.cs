@@ -1318,9 +1318,9 @@ namespace MissionPlanner
 
         void mainMenuInit() 
         {
-
             FlightPlanner.mainMenuWidget1.MapChoiseButton.Click += new EventHandler(mapChoiceButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.EKFButton.Click += new EventHandler(diagnosticButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             FlightPlanner.mainMenuWidget1.homeButton.Click += new EventHandler(homeButtonClick);
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
