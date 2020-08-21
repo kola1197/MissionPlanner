@@ -7,21 +7,25 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace MissionPlanner.NewForms
 {
     public partial class DiagnosticForm : Form
     {
+        //int debugCounter = 0;
         public DiagnosticForm()
         {
             InitializeComponent();
-            var list = MainV2.comPort.MAV.cs.GetItemList(true);
+            this.Text = "Диагностика";
+            //var list = MainV2.comPort.MAV.cs.GetItemList(true);
             //System.Diagnostics.Debug.WriteLine(list.ToString());
-            foreach (var v in list) 
-            {
-                System.Diagnostics.Debug.WriteLine(v.ToString());
-            }
+            //foreach (var v in list) 
+            //{
+            //    System.Diagnostics.Debug.WriteLine(v.ToString());
+            //}
+            timer1.Start();
             updateInfo();
         }
 
@@ -65,6 +69,13 @@ namespace MissionPlanner.NewForms
         private void myButton4_Click(object sender, EventArgs e)
         {
             butClickAction(3);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            updateInfo();
+            //debugCounter++;
+            //this.Text = "Диагностика: " + debugCounter.ToString();
         }
     }
 }
