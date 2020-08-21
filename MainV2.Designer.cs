@@ -78,7 +78,6 @@ namespace MissionPlanner
             this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
             this.status1 = new MissionPlanner.Controls.Status();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label14 = new System.Windows.Forms.Label();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -90,6 +89,7 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.label13 = new System.Windows.Forms.Label();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -421,11 +421,6 @@ namespace MissionPlanner
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
             // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Name = "toolStripButton1";
@@ -483,11 +478,18 @@ namespace MissionPlanner
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
+            // myButton4
+            // 
+            resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.Name = "myButton4";
+            this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
+            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label14);
+            this.Controls.Add(this.myButton4);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);
@@ -560,7 +562,7 @@ namespace MissionPlanner
         private MyButton myButton2;
         private MyButton myButton1;
         private Label label13;
-        private Label label14;
         private MyButton myButton3;
+        private MyButton myButton4;
     }
 }
