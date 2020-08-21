@@ -90,6 +90,7 @@ namespace MissionPlanner
             this.label13 = new System.Windows.Forms.Label();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -485,6 +486,10 @@ namespace MissionPlanner
             this.myButton4.UseVisualStyleBackColor = true;
             this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
@@ -564,5 +569,6 @@ namespace MissionPlanner
         private Label label13;
         private MyButton myButton3;
         private MyButton myButton4;
+        private Timer timer1;
     }
 }

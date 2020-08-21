@@ -46,7 +46,7 @@ using GMap.NET.MapProviders;
 using Flurl.Util;
 using BrightIdeasSoftware;
 using MissionPlanner.Orlan;
-
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace MissionPlanner
 {
@@ -1326,8 +1326,12 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+
+            timer1.Start();
+            //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
+     
 
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
@@ -1504,6 +1508,13 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (centering > 0) 
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+            }
+        }
 
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////
@@ -1512,6 +1523,7 @@ namespace MissionPlanner
 
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
         {
+            System.Diagnostics.Debug.WriteLine("LOOOOOOOOOOOOOOOp");
             lock (adsblock)
             {
                 var id = adsb.Tag;
@@ -4865,69 +4877,71 @@ namespace MissionPlanner
             MyView.ShowScreen("FlightData");
 
         }
+
+        
         /*private void p1ToolStripMenuItem_Click(object sender, EventArgs e)
 {
-   int butNum = 0;
-   if (_aircraftInfo.Count == 0)
-   {
-       _connectionsForm.Show();
-       return;
-   }
+int butNum = 0;
+if (_aircraftInfo.Count == 0)
+{
+_connectionsForm.Show();
+return;
+}
 
-   if (_aircraftInfo.Count > butNum)
-   {
-       _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
-   }
+if (_aircraftInfo.Count > butNum)
+{
+_connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+}
 }
 
 private void p2ToolStripMenuItem_Click(object sender, EventArgs e)
 {
-   int butNum = 1;
-   if (_aircraftInfo.Count == 0)
-   {
-       _connectionsForm.Show();
-       return;
-   }
+int butNum = 1;
+if (_aircraftInfo.Count == 0)
+{
+_connectionsForm.Show();
+return;
+}
 
-   if (_aircraftInfo.Count > butNum)
-   {
-       _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
-   }
+if (_aircraftInfo.Count > butNum)
+{
+_connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+}
 }
 
 private void p3ToolStripMenuItem_Click(object sender, EventArgs e)
 {
-   int butNum = 2;
-   if (_aircraftInfo.Count == 0)
-   {
-       _connectionsForm.Show();
-       return;
-   }
+int butNum = 2;
+if (_aircraftInfo.Count == 0)
+{
+_connectionsForm.Show();
+return;
+}
 
-   if (_aircraftInfo.Count > butNum)
-   {
-       _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
-   }
+if (_aircraftInfo.Count > butNum)
+{
+_connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+}
 }
 
 private void p4ToolStripMenuItem_Click(object sender, EventArgs e)
 {
-   int butNum = 3;
-   if (_aircraftInfo.Count == 0)
-   {
-       _connectionsForm.Show();
-       return;
-   }
+int butNum = 3;
+if (_aircraftInfo.Count == 0)
+{
+_connectionsForm.Show();
+return;
+}
 
-   if (_aircraftInfo.Count > butNum)
-   {
-       _connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
-   }
+if (_aircraftInfo.Count > butNum)
+{
+_connectionsForm.switchConnectedAircraft(_aircraftInfo.ElementAt(butNum).Value);
+}
 }
 
 private void p1ToolStripMenuItem_DoubleClick(object sender, EventArgs e)
 {
-   _connectionsForm.Show();
+_connectionsForm.Show();
 }*/
 
     }
