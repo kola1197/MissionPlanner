@@ -1326,8 +1326,10 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+            //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
+     
 
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
@@ -1512,6 +1514,7 @@ namespace MissionPlanner
 
         void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
         {
+            System.Diagnostics.Debug.WriteLine("LOOOOOOOOOOOOOOOp");
             lock (adsblock)
             {
                 var id = adsb.Tag;
