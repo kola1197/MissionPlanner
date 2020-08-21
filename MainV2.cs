@@ -1476,12 +1476,13 @@ namespace MissionPlanner
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
+            FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             //System.Diagnostics.Debug.WriteLine("HERE");
             if (e.Button == MouseButtons.Right) 
             {
-                if (centering != 2)
+                if (centering != 1)
                 {
-                    centering = 2;
+                    centering = 1;
                     FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
                     FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
                     //System.Diagnostics.Debug.WriteLine("Right");
@@ -1495,7 +1496,7 @@ namespace MissionPlanner
             }
             if (e.Button == MouseButtons.Left)
             {
-                centering = 1;
+                centering = 0;
                 FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
                 FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 //System.Diagnostics.Debug.WriteLine("Left");
@@ -1529,11 +1530,7 @@ namespace MissionPlanner
 
                     if (centering > 0) 
                     {
-                        FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng);
-                        if (centering == 2) 
-                        {
-                            centering = 0;
-                        }
+                        FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
                     }
                 }
                 else
