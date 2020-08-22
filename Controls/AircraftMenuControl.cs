@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Orlan;
 
 namespace MissionPlanner.Controls
 {
@@ -36,17 +37,24 @@ namespace MissionPlanner.Controls
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT4, aircraft_BUT4.Text));
         }
 
+        
+
         private void butClickAction(int butNum)
         {
+            if (!MainV2.connectedAircraftExists() && MainV2._aircraftInfo.Count > 0)
+            {
+                return;
+            }
+            
             if (MainV2._aircraftInfo.Count == 0)
             {
                 MainV2._connectionsForm.Show();
                 return;
             }
 
-            if (MainV2._aircraftInfo.Count > butNum)
+            if (MainV2._aircraftInfo.Count > butNum && MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum != butNum)
             {
-                MainV2._connectionsForm.switchConnectedAircraft(MainV2._aircraftInfo.ElementAt(butNum).Value);
+                MainV2._connectionsForm.switchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
         }
 
