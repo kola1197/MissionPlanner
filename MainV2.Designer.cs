@@ -13,8 +13,7 @@ namespace MissionPlanner
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
-
+        private System.ComponentModel.IContainer components = null;
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -81,7 +80,6 @@ namespace MissionPlanner
             this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
             this.status1 = new MissionPlanner.Controls.Status();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label14 = new System.Windows.Forms.Label();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -93,6 +91,8 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.label13 = new System.Windows.Forms.Label();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -104,7 +104,16 @@ namespace MissionPlanner
             this.MainMenu.ContextMenuStrip = this.CTX_mainmenu;
             this.MainMenu.GripMargin = new System.Windows.Forms.Padding(0);
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(45, 39);
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.MenuFlightData, this.MenuFlightPlanner, this.MenuInitConfig, this.MenuConfigTune, this.MenuSimulation, this.MenuHelp, this.MenuConnect, this.toolStripConnectionControl, this.MenuArduPilot});
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuFlightData,
+            this.MenuFlightPlanner,
+            this.MenuInitConfig,
+            this.MenuConfigTune,
+            this.MenuSimulation,
+            this.MenuHelp,
+            this.MenuConnect,
+            this.toolStripConnectionControl,
+            this.MenuArduPilot});
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.ShowItemToolTips = true;
             this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
@@ -112,7 +121,12 @@ namespace MissionPlanner
             // 
             // CTX_mainmenu
             // 
-            this.CTX_mainmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.autoHideToolStripMenuItem, this.fullScreenToolStripMenuItem, this.readonlyToolStripMenuItem, this.connectionOptionsToolStripMenuItem, this.connectionListToolStripMenuItem});
+            this.CTX_mainmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoHideToolStripMenuItem,
+            this.fullScreenToolStripMenuItem,
+            this.readonlyToolStripMenuItem,
+            this.connectionOptionsToolStripMenuItem,
+            this.connectionListToolStripMenuItem});
             this.CTX_mainmenu.Name = "CTX_mainmenu";
             resources.ApplyResources(this.CTX_mainmenu, "CTX_mainmenu");
             // 
@@ -410,11 +424,6 @@ namespace MissionPlanner
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
             // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Name = "toolStripButton1";
@@ -472,11 +481,22 @@ namespace MissionPlanner
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
+            // myButton4
+            // 
+            resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.Name = "myButton4";
+            this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label14);
+            this.Controls.Add(this.myButton4);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);
@@ -493,37 +513,38 @@ namespace MissionPlanner
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
-        private ToolStripMenuItem autoHideToolStripMenuItem;
-        private ToolStripMenuItem connectionListToolStripMenuItem;
-        private ToolStripMenuItem connectionOptionsToolStripMenuItem;
-        private ContextMenuStrip CTX_mainmenu;
-        private ToolStripMenuItem fullScreenToolStripMenuItem;
-        public MenuStrip MainMenu;
-        private MyButton menu;
-        public ToolStripButton MenuArduPilot;
-        public ToolStripButton MenuConfigTune;
-        public ToolStripButton MenuConnect;
-        public ToolStripButton MenuFlightData;
-        public ToolStripButton MenuFlightPlanner;
-        public ToolStripButton MenuHelp;
-        public ToolStripButton MenuInitConfig;
-        public ToolStripButton MenuSimulation;
-        public MenuStrip menuStrip1;
-        public Panel panel1;
-        private ToolStripMenuItem readonlyToolStripMenuItem;
-        public Status status1;
-        public ToolStripButton toolStripButton1;
-        public ToolStripButton toolStripButton2;
-        public ToolStripButton toolStripButton3;
-        public ToolStripButton toolStripButton4;
-        public ToolStripButton toolStripButton5;
-        public ToolStripButton toolStripButton6;
-        public ToolStripButton toolStripButton7;
-        public ToolStripButton toolStripButton8;
-        private ToolStripConnectionControl toolStripConnectionControl;
-        private ToolStripConnectionControl toolStripConnectionControl1;
+        private System.Windows.Forms.ToolStripMenuItem autoHideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionOptionsToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip CTX_mainmenu;
+        private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
+        public System.Windows.Forms.MenuStrip MainMenu;
+        private MissionPlanner.Controls.MyButton menu;
+        public System.Windows.Forms.ToolStripButton MenuArduPilot;
+        public System.Windows.Forms.ToolStripButton MenuConfigTune;
+        public System.Windows.Forms.ToolStripButton MenuConnect;
+        public System.Windows.Forms.ToolStripButton MenuFlightData;
+        public System.Windows.Forms.ToolStripButton MenuFlightPlanner;
+        public System.Windows.Forms.ToolStripButton MenuHelp;
+        public System.Windows.Forms.ToolStripButton MenuInitConfig;
+        public System.Windows.Forms.ToolStripButton MenuSimulation;
+        public System.Windows.Forms.MenuStrip menuStrip1;
+        public System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
+        public MissionPlanner.Controls.Status status1;
+        public System.Windows.Forms.ToolStripButton toolStripButton1;
+        public System.Windows.Forms.ToolStripButton toolStripButton2;
+        public System.Windows.Forms.ToolStripButton toolStripButton3;
+        public System.Windows.Forms.ToolStripButton toolStripButton4;
+        public System.Windows.Forms.ToolStripButton toolStripButton5;
+        public System.Windows.Forms.ToolStripButton toolStripButton6;
+        public System.Windows.Forms.ToolStripButton toolStripButton7;
+        public System.Windows.Forms.ToolStripButton toolStripButton8;
+        private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl;
+        private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
 
         #endregion
 
