@@ -28,13 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.SuspendLayout();
+            // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(7, 12);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(405, 469);
+            this.checkListControl1.TabIndex = 0;
             // 
             // PreFlightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 472);
+            this.ClientSize = new System.Drawing.Size(424, 493);
+            this.Controls.Add(this.checkListControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
             this.ResumeLayout(false);
@@ -42,5 +51,7 @@
         }
 
         #endregion
+
+        private Controls.PreFlight.CheckListControl checkListControl1;
     }
 }
