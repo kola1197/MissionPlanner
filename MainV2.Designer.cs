@@ -282,37 +282,44 @@ namespace MissionPlanner
             resources.ApplyResources(this.myButton2, "myButton2");
             this.myButton2.Name = "myButton2";
             this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             // 
             // myButton1
             // 
             resources.ApplyResources(this.myButton1, "myButton1");
             this.myButton1.Name = "myButton1";
             this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // verticalProgressBar6
             // 
@@ -323,6 +330,7 @@ namespace MissionPlanner
             this.verticalProgressBar6.minline = 0;
             this.verticalProgressBar6.Name = "verticalProgressBar6";
             this.verticalProgressBar6.Value = 20;
+            this.verticalProgressBar6.Click += new System.EventHandler(this.verticalProgressBar6_Click);
             // 
             // verticalProgressBar5
             // 
@@ -333,26 +341,31 @@ namespace MissionPlanner
             this.verticalProgressBar5.minline = 0;
             this.verticalProgressBar5.Name = "verticalProgressBar5";
             this.verticalProgressBar5.Value = 20;
+            this.verticalProgressBar5.Click += new System.EventHandler(this.verticalProgressBar5_Click);
             // 
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // verticalProgressBar4
             // 
@@ -363,6 +376,7 @@ namespace MissionPlanner
             this.verticalProgressBar4.minline = 0;
             this.verticalProgressBar4.Name = "verticalProgressBar4";
             this.verticalProgressBar4.Value = 20;
+            this.verticalProgressBar4.Click += new System.EventHandler(this.verticalProgressBar4_Click);
             // 
             // verticalProgressBar3
             // 
@@ -373,21 +387,25 @@ namespace MissionPlanner
             this.verticalProgressBar3.minline = 0;
             this.verticalProgressBar3.Name = "verticalProgressBar3";
             this.verticalProgressBar3.Value = 20;
+            this.verticalProgressBar3.Click += new System.EventHandler(this.verticalProgressBar3_Click);
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // verticalProgressBar2
             // 
@@ -398,6 +416,7 @@ namespace MissionPlanner
             this.verticalProgressBar2.minline = 0;
             this.verticalProgressBar2.Name = "verticalProgressBar2";
             this.verticalProgressBar2.Value = 20;
+            this.verticalProgressBar2.Click += new System.EventHandler(this.verticalProgressBar2_Click);
             // 
             // verticalProgressBar1
             // 
@@ -408,6 +427,7 @@ namespace MissionPlanner
             this.verticalProgressBar1.minline = 0;
             this.verticalProgressBar1.Name = "verticalProgressBar1";
             this.verticalProgressBar1.Value = 20;
+            this.verticalProgressBar1.Click += new System.EventHandler(this.verticalProgressBar1_Click);
             // 
             // status1
             // 
@@ -475,6 +495,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // toolStripConnectionControl1
             // 
