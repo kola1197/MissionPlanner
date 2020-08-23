@@ -53,11 +53,11 @@ using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls.PreFlight;
 using MissionPlanner.GCSViews;
 using MissionPlanner.Orlan;
+using Org.BouncyCastle.Asn1.Cms;
 using MissionPlanner.Plugin;
 using MissionPlanner.Properties;
 using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
-
 
  namespace MissionPlanner
 {
@@ -551,6 +551,7 @@ using Help = MissionPlanner.GCSViews.Help;
         /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
+        private DiagnosticForm diagnosticForm;
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0;          //0 - false, 1 - onse, 2 - always
@@ -1331,16 +1332,20 @@ using Help = MissionPlanner.GCSViews.Help;
 
         void mainMenuInit() 
         {
-
             FlightPlanner.mainMenuWidget1.MapChoiseButton.Click += new EventHandler(mapChoiceButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
+            FlightPlanner.mainMenuWidget1.EKFButton.Click += new EventHandler(diagnosticButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             FlightPlanner.mainMenuWidget1.homeButton.Click += new EventHandler(homeButtonClick);
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+
+            timer1.Start();
+            //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
+     
 
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
@@ -1451,6 +1456,23 @@ using Help = MissionPlanner.GCSViews.Help;
             MyView.ShowScreen("HWConfig");
         }
 
+        void diagnosticButtonClick(object sender, EventArgs e)
+        {
+            diagnosticForm = new DiagnosticForm();
+            diagnosticForm.myButton1.Click += new EventHandler(firstButtonClick);
+            diagnosticForm.Show();
+        }
+
+        ////////////////////////////diagnostic form onClick start
+
+        void firstButtonClick(object sender, EventArgs e)
+        {
+            
+
+        }
+
+
+        ////////////////////////////diagnostic form onClick end
         void rulerButtonsClick(object sender, EventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine("HERE");
@@ -1472,12 +1494,13 @@ using Help = MissionPlanner.GCSViews.Help;
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
+            FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             //System.Diagnostics.Debug.WriteLine("HERE");
             if (e.Button == MouseButtons.Right) 
             {
-                if (centering != 2)
+                if (centering != 1)
                 {
-                    centering = 2;
+                    centering = 1;
                     FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
                     FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
                     //System.Diagnostics.Debug.WriteLine("Right");
@@ -1491,7 +1514,7 @@ using Help = MissionPlanner.GCSViews.Help;
             }
             if (e.Button == MouseButtons.Left)
             {
-                centering = 1;
+                centering = 0;
                 FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
                 FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 //System.Diagnostics.Debug.WriteLine("Left");
@@ -1499,6 +1522,13 @@ using Help = MissionPlanner.GCSViews.Help;
             //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (centering > 0) 
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+            }
+        }
 
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////
@@ -1507,6 +1537,7 @@ using Help = MissionPlanner.GCSViews.Help;
 
         void adsb_UpdatePlanePosition(object sender, adsb.PointLatLngAltHdg adsb)
         {
+            System.Diagnostics.Debug.WriteLine("LOOOOOOOOOOOOOOOp");
             lock (adsblock)
             {
                 var id = adsb.Tag;
@@ -1525,11 +1556,7 @@ using Help = MissionPlanner.GCSViews.Help;
 
                     if (centering > 0) 
                     {
-                        FlightPlanner.MainMap.Position = new PointLatLng(adsb.Lat, adsb.Lng);
-                        if (centering == 2) 
-                        {
-                            centering = 0;
-                        }
+                        FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
                     }
                 }
                 else
@@ -4858,7 +4885,7 @@ using Help = MissionPlanner.GCSViews.Help;
         {
             MyView.ShowScreen("FlightPlanner");
         }
-        
+
         public AircraftConnectionInfo getAircraftByButtonNumber(int butNum)
         {
             foreach (var aircraft in MainV2._aircraftInfo)
@@ -4882,6 +4909,12 @@ using Help = MissionPlanner.GCSViews.Help;
                 }
             }
             return false;
+        }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        {
+            MyView.ShowScreen("FlightData");
+
         }
     }
 }

@@ -548,7 +548,8 @@ namespace MissionPlanner
         private MyButton myButton2;
         private MyButton myButton1;
         private Label label13;
-        private Label label14;
         private MyButton myButton3;
+        private MyButton myButton4;
+        private Timer timer1;
     }
 }

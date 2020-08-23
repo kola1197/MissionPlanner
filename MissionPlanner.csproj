@@ -400,10 +400,10 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="ConnectionsForm.cs">
+    <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConnectionsForm.Designer.cs">
+    <Compile Include="NewForms\ConnectionsForm.Designer.cs">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AircraftMenuControl.cs">
@@ -614,6 +614,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>UserControl</SubType>
     </None>
+    <Compile Include="NewForms\Diagnostic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\Diagnostic.Designer.cs">
+      <DependentUpon>Diagnostic.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\MapChangeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -744,7 +750,7 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ConnectionsForm.resx">
+    <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AircraftMenuControl.resx">
@@ -1706,6 +1712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\paramcompare.resx">
       <DependentUpon>paramcompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\Diagnostic.resx">
+      <DependentUpon>Diagnostic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
