@@ -556,6 +556,10 @@ using Help = MissionPlanner.GCSViews.Help;
         private string mapTitleStatus = "";
         int centering = 0;          //0 - false, 1 - onse, 2 - always
 
+        public static int maxCapacity = 0;
+        public static int flyTime = 0;
+        public static int butt2RealVoltage = 0;
+
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
 
