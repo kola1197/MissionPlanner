@@ -13,7 +13,7 @@ namespace MissionPlanner.Controls.PreFlight
 
         public string configfile = Settings.GetUserDataDirectory() + "checklist.xml";
 
-        public string configfiledefault = Settings.GetRunningDirectory() + "checklistDefault.xml";
+        public string configfiledefault = Settings.GetRunningDirectory() + "checklistDefault1.xml";
 
         int rowcount = 0;
 
@@ -23,6 +23,29 @@ namespace MissionPlanner.Controls.PreFlight
             internal Label text;
             internal CheckBox tickbox;
             internal CheckListItem CLItem;
+        }
+
+        /// <summary>
+        /// returns true if all checkboxes are true
+        /// </summary>
+        public bool allRight() 
+        {
+            bool result = true;
+            foreach (Control itemp in panel1.Controls)
+            {
+                foreach (Control item in itemp.Controls)
+                {
+                    if (item.Name.StartsWith("utickbox"))
+                    {
+                        var tickbox = item as CheckBox;
+                        if (!tickbox.Checked)
+                        {
+                            result = false;
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
 
