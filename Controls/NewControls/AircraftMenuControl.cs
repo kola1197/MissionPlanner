@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Orlan;
+using MissionPlanner.NewForms;
 
 namespace MissionPlanner.Controls
 {
@@ -105,6 +106,12 @@ namespace MissionPlanner.Controls
         private void aircraft_BUT_DoubleClick(object sender, EventArgs e)
         {
             MainV2._connectionsForm.Show();
+        }
+
+        private void centerButton_Click(object sender, EventArgs e)
+        {
+            PreFlightForm preFlightForm = new PreFlightForm();
+            preFlightForm.Show();
         }
     }
 }

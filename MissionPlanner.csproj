@@ -4478,6 +4478,8 @@
     <Content Include="quaternion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\testCenterUL.bmp" />
+    <None Include="Resources\testCenterULActive.bmp" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
