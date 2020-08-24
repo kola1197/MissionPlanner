@@ -142,7 +142,7 @@
             this.Controls.Add(this.EKFButton);
             this.Controls.Add(this.MainButton);
             this.Name = "MainMenuWidget";
-            this.Size = new System.Drawing.Size(750, 100);
+            this.Size = new System.Drawing.Size(100, 100);
             this.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainMenuWidget_MouseLeave);
             this.ResumeLayout(false);

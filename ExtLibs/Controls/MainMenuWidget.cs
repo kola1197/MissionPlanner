@@ -20,6 +20,7 @@ namespace MissionPlanner.Controls
         public MainMenuWidget()
         {
             InitializeComponent();
+            updateSize();
         }
 
         public MainMenuWidget(Delegate t)
@@ -30,9 +31,9 @@ namespace MissionPlanner.Controls
 
         private void MainButton_Click(object sender, EventArgs e)
         {
-            active = !active;
-            Console.WriteLine("MainButton pressed, now: "+active);
-            updateSize();
+            //active = !active;
+            //Console.WriteLine("MainButton pressed, now: "+active);
+            //updateSize();
         }
 
         private void updateSize() 
@@ -41,14 +42,15 @@ namespace MissionPlanner.Controls
             {
                 this.Size = new Size(100, 100);
             }
-            else {
+            else 
+            {
                 this.Size = new Size(750, 100);
             }
         }
 
         public void setState(bool _active) 
         {
-            active = _active;
+            //active = _active;
             updateSize();
         }
         
@@ -56,7 +58,7 @@ namespace MissionPlanner.Controls
         {
             active = true;
             updateSize();
-            System.Diagnostics.Debug.WriteLine("active - true");
+            //System.Diagnostics.Debug.WriteLine("active - true");
         }
 
         private void MainMenuWidget_MouseLeave(object sender, EventArgs e)
@@ -65,7 +67,7 @@ namespace MissionPlanner.Controls
             {
                 active = false;
                 updateSize();
-                System.Diagnostics.Debug.WriteLine("active - false");
+                //System.Diagnostics.Debug.WriteLine("active - false");
             }
         }
 

@@ -73,13 +73,14 @@ namespace MissionPlanner.NewForms
             if (checkBox1.Checked)
             {
                 batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
+                updateMainV2Data();
             }
         }
 
         private void maxСapacity_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number))
+            if (!Char.IsDigit(number) && !Char.IsControl(number))
             {
                 e.Handled = true;
             }
@@ -89,7 +90,7 @@ namespace MissionPlanner.NewForms
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number))
+            if (!Char.IsDigit(number) && !Char.IsControl(number))
             {
                 e.Handled = true;
             }
@@ -102,13 +103,17 @@ namespace MissionPlanner.NewForms
 
         private void updateMainV2Data() 
         {
-            MainV2.butt2RealVoltage = int.Parse(batt2_voltage.Text);
-            MainV2.maxCapacity = int.Parse(maxСapacity.Text);
-            MainV2.flyTime = int.Parse(flightTimeTBox.Text);
+            int i;
+            MainV2.butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
+            MainV2.maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2.flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
+            System.Diagnostics.Debug.WriteLine("update void");
             if (MainV2.maxCapacity != 0)
             {
-                percent = MainV2.butt2RealVoltage / MainV2.maxCapacity;
+                double d = 100 * MainV2.butt2RealVoltage / MainV2.maxCapacity;
+                percent = (int) d;
+                System.Diagnostics.Debug.WriteLine(MainV2.butt2RealVoltage.ToString() + "   " + MainV2.maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
             }
             valueInPercentsTBox.Text = percent.ToString();
         }
@@ -116,6 +121,18 @@ namespace MissionPlanner.NewForms
         private void batt2_voltage_TextChanged(object sender, EventArgs e)
         {
             updateMainV2Data();
+        }
+
+        private void valueInPercentsTBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            updateMainV2Data();
+        }
+
+        private void nextButton2_Click(object sender, EventArgs e)
+        {
+            progressIndex = progressIndex > 3 ? progressIndex : 3;
+            selectedIndex = 3;
+            tabControl1.SelectedIndex = selectedIndex;
         }
     }
 }

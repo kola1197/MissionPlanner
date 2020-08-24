@@ -37,6 +37,7 @@
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -159,6 +159,18 @@
             this.tabPage3.Text = "Заправка";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(260, 186);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(161, 17);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "Выставить автоматически";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -211,8 +223,8 @@
             this.maxСapacity.Size = new System.Drawing.Size(100, 20);
             this.maxСapacity.TabIndex = 13;
             this.maxСapacity.Text = "0";
-            this.maxСapacity.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.maxСapacity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maxСapacity_KeyPress);
+            this.maxСapacity.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // valueInPercentsTBox
             // 
@@ -220,8 +232,8 @@
             this.valueInPercentsTBox.Name = "valueInPercentsTBox";
             this.valueInPercentsTBox.Size = new System.Drawing.Size(100, 20);
             this.valueInPercentsTBox.TabIndex = 12;
-            this.valueInPercentsTBox.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.valueInPercentsTBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.valueInPercentsTBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // flightTimeTBox
             // 
@@ -230,8 +242,8 @@
             this.flightTimeTBox.Size = new System.Drawing.Size(100, 20);
             this.flightTimeTBox.TabIndex = 11;
             this.flightTimeTBox.Text = "0";
-            this.flightTimeTBox.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.flightTimeTBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.flightTimeTBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // batt2_voltage
             // 
@@ -239,8 +251,8 @@
             this.batt2_voltage.Name = "batt2_voltage";
             this.batt2_voltage.Size = new System.Drawing.Size(100, 20);
             this.batt2_voltage.TabIndex = 6;
-            this.batt2_voltage.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.batt2_voltage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.batt2_voltage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // backButton2
             // 
@@ -260,6 +272,7 @@
             this.nextButton2.TabIndex = 4;
             this.nextButton2.Text = "Далее";
             this.nextButton2.UseVisualStyleBackColor = true;
+            this.nextButton2.Click += new System.EventHandler(this.nextButton2_Click);
             // 
             // tabPage4
             // 
@@ -288,18 +301,6 @@
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(260, 186);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(161, 17);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Выставить автоматически";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkListControl1
             // 
