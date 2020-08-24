@@ -25,6 +25,29 @@ namespace MissionPlanner.Controls.PreFlight
             internal CheckListItem CLItem;
         }
 
+        /// <summary>
+        /// returns true if all checkboxes are true
+        /// </summary>
+        public bool allRight() 
+        {
+            bool result = true;
+            foreach (Control itemp in panel1.Controls)
+            {
+                foreach (Control item in itemp.Controls)
+                {
+                    if (item.Name.StartsWith("utickbox"))
+                    {
+                        var tickbox = item as CheckBox;
+                        if (!tickbox.Checked)
+                        {
+                            result = false;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
 
         public CheckListControl()
         {

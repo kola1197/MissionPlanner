@@ -400,6 +400,18 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\ICECheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\ICECheck.Designer.cs">
+      <DependentUpon>ICECheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\ICERun.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\ICERun.Designer.cs">
+      <DependentUpon>ICERun.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -626,6 +638,12 @@
     <Compile Include="NewForms\MapChangeForm.Designer.cs">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\PreFlightForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\PreFlightForm.Designer.cs">
+      <DependentUpon>PreFlightForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
@@ -750,6 +768,12 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\ICECheck.resx">
+      <DependentUpon>ICECheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\ICERun.resx">
+      <DependentUpon>ICERun.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1718,6 +1742,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\PreFlightForm.resx">
+      <DependentUpon>PreFlightForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="plugins\generator.resx">
       <DependentUpon>generator.cs</DependentUpon>
