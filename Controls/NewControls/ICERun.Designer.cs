@@ -39,7 +39,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(68, 319);
+            this.startButton.Location = new System.Drawing.Point(145, 364);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(148, 23);
             this.startButton.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 118);
+            this.label1.Location = new System.Drawing.Point(113, 121);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 1;
@@ -63,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(65, 151);
+            this.label2.Location = new System.Drawing.Point(113, 154);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 2;
@@ -72,7 +72,7 @@
             // tempLabel
             // 
             this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(142, 118);
+            this.tempLabel.Location = new System.Drawing.Point(190, 121);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(0, 13);
             this.tempLabel.TabIndex = 3;
@@ -80,7 +80,7 @@
             // spedsLabel
             // 
             this.spedsLabel.AutoSize = true;
-            this.spedsLabel.Location = new System.Drawing.Point(142, 151);
+            this.spedsLabel.Location = new System.Drawing.Point(190, 154);
             this.spedsLabel.Name = "spedsLabel";
             this.spedsLabel.Size = new System.Drawing.Size(0, 13);
             this.spedsLabel.TabIndex = 4;
@@ -95,7 +95,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.startButton);
             this.Name = "ICERun";
-            this.Size = new System.Drawing.Size(283, 361);
+            this.Size = new System.Drawing.Size(432, 432);
             this.ResumeLayout(false);
             this.PerformLayout();
 

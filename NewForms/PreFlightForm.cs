@@ -134,5 +134,18 @@ namespace MissionPlanner.NewForms
             selectedIndex = 3;
             tabControl1.SelectedIndex = selectedIndex;
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            selectedIndex--;
+            tabControl1.SelectedIndex = selectedIndex;
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            progressIndex = progressIndex >4 ? progressIndex : 4;
+            selectedIndex = 4;
+            tabControl1.SelectedIndex = selectedIndex;
+        }
     }
 }

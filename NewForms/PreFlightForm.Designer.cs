@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
@@ -53,11 +54,14 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
+            this.backButton = new MissionPlanner.Controls.MyButton();
+            this.nextButton = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,6 +100,13 @@
             this.nextButton1.Text = "Далее";
             this.nextButton1.UseVisualStyleBackColor = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
+            // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
+            this.checkListControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -276,6 +287,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.nextButton);
+            this.tabPage4.Controls.Add(this.backButton);
+            this.tabPage4.Controls.Add(this.iceRun1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(438, 483);
@@ -302,12 +316,32 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // checkListControl1
+            // iceRun1
             // 
-            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
-            this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
-            this.checkListControl1.TabIndex = 0;
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(432, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(19, 441);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(75, 23);
+            this.backButton.TabIndex = 1;
+            this.backButton.Text = "Назад";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // nextButton
+            // 
+            this.nextButton.Location = new System.Drawing.Point(347, 441);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(75, 23);
+            this.nextButton.TabIndex = 2;
+            this.nextButton.Text = "Далее";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // PreFlightForm
             // 
@@ -323,6 +357,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -354,5 +389,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private Controls.NewControls.ICERun iceRun1;
+        private Controls.MyButton backButton;
+        private Controls.MyButton nextButton;
     }
 }
