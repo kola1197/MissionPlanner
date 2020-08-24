@@ -108,7 +108,7 @@ namespace MissionPlanner.NewForms
             MainV2.maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
             MainV2.flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
-            System.Diagnostics.Debug.WriteLine("update void");
+            //System.Diagnostics.Debug.WriteLine("update void");
             if (MainV2.maxCapacity != 0)
             {
                 double d = 100 * MainV2.butt2RealVoltage / MainV2.maxCapacity;

@@ -27,7 +27,7 @@ namespace MissionPlanner.Controls.NewControls
                 startButton.Text = "Заглушить";
                 MainV2.comPort.MAV.cs.ch1in = 2000;
                 MainV2.comPort.MAV.cs.ch1out = 2000;
-                MainV2.comPort.MAV.cs.ch10in = 2000;
+                MainV2.comPort.MAV.cs.ch10out = 2000;
             }
             if (MainV2.comPort.MAV.cs.rpm1 < 2500)
             {

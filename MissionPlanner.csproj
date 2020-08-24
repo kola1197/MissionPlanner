@@ -400,6 +400,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\ICECheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\ICECheck.Designer.cs">
+      <DependentUpon>ICECheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\ICERun.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -762,6 +768,9 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\ICECheck.resx">
+      <DependentUpon>ICECheck.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\ICERun.resx">
       <DependentUpon>ICERun.cs</DependentUpon>
     </EmbeddedResource>
