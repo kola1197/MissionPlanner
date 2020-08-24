@@ -32,7 +32,7 @@
             this.aircraft_BUT2 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT3 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT4 = new MissionPlanner.Controls.MyButton();
-            this.centerButton = new MissionPlanner.Controls.MyButton();
+            this.centerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // aircraft_BUT1
@@ -77,13 +77,14 @@
             // 
             // centerButton
             // 
-            this.centerButton.Image = global::MissionPlanner.Properties.Resources._01_01;
+            this.centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterULActive;
             this.centerButton.Location = new System.Drawing.Point(81, 3);
             this.centerButton.Name = "centerButton";
-            this.centerButton.Size = new System.Drawing.Size(35, 35);
+            this.centerButton.Size = new System.Drawing.Size(40, 40);
             this.centerButton.TabIndex = 4;
-            this.centerButton.Text = "1";
+            this.centerButton.Text = "-";
             this.centerButton.UseVisualStyleBackColor = true;
+            this.centerButton.Click += new System.EventHandler(this.centerButton_Click);
             // 
             // AircraftMenuControl
             // 
@@ -107,6 +108,6 @@
         private MyButton aircraft_BUT2;
         private MyButton aircraft_BUT3;
         private MyButton aircraft_BUT4;
-        private MyButton centerButton;
+        private System.Windows.Forms.Button centerButton;
     }
 }
