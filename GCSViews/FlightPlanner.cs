@@ -6566,10 +6566,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 if (CurentRectMarker != null)
                 {
+                    if (wpConfig != null) 
+                    {
+                        wpConfig.Close();
+                    }
                     wpConfig = new WPConfig();
                     wpConfig.Text = "Точка " + CurentRectMarker.Tag.ToString();
                     wpConfig.Show();
@@ -7317,6 +7321,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Console.WriteLine("SUCKSESS");
         }
 
+        private void GoToWPAndLoiterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            jumpwPToolStripMenuItem_Click(sender, e);
+        }
 
+        private void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            jumpwPToolStripMenuItem_Click(sender, e);
+        }
     }
 }
