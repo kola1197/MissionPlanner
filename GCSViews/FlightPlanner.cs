@@ -47,6 +47,7 @@ using ILog = log4net.ILog;
 using Placemark = SharpKml.Dom.Placemark;
 using Point = System.Drawing.Point;
 using Resources = MissionPlanner.Properties.Resources;
+using MissionPlanner.NewForms;
 
 namespace MissionPlanner.GCSViews
 {
@@ -133,6 +134,8 @@ namespace MissionPlanner.GCSViews
         private GMapMarker CurrentMidLine;
         private bool menuActive = false;
 
+
+        private WPConfig wpConfig;
         public void Init()
         {
             instance = this;
@@ -154,7 +157,7 @@ namespace MissionPlanner.GCSViews
             MainMap.MouseUp += MainMap_MouseUp;
             MainMap.OnMarkerEnter += MainMap_OnMarkerEnter;
             MainMap.OnMarkerLeave += MainMap_OnMarkerLeave;
-
+            MainMap.MouseDoubleClick += MainMap_MouseDoubleClick;
             MainMap.MapScaleInfoEnabled = false;
             MainMap.ScalePen = new Pen(Color.Red);
 
@@ -6561,6 +6564,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private void MainMap_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+            {
+                if (CurentRectMarker != null)
+                {
+                    wpConfig = new WPConfig();
+                    wpConfig.Text = "Точка " + CurentRectMarker.Tag.ToString();
+                    wpConfig.Show();
+                }
+            }
+        }
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("GOT ONE 3");
@@ -6697,13 +6712,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
                 if (!isMouseDraging)
                 {
-                    if (CurentRectMarker != null)
+                    if (e.Button != MouseButtons.Left)
                     {
-                        // cant add WP in existing rect
-                    }
-                    else
-                    {
-                        AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                        if (CurentRectMarker != null)
+                        {
+                            // cant add WP in existing rect
+                            //CurentRectMarker.Color = Color.Red;               //here on mouse click to wp
+                            //contextMenuStrip2.
+                            contextMenuStrip2.Show(Cursor.Position);
+                        }
+                        else
+                        {
+                            AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                        }
                     }
                 }
                 else
