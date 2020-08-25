@@ -617,6 +617,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="e"></param>
         public void BUT_write_Click(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("GOT ONE 2");
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
@@ -709,6 +710,8 @@ namespace MissionPlanner.GCSViews
         /// <param name="alt"></param>
         public void callMeDrag(string pointno, double lat, double lng, int alt)
         {
+            System.Diagnostics.Debug.WriteLine("GOT ONE 1");
+
             if (pointno == "")
             {
                 return;
@@ -2485,6 +2488,7 @@ namespace MissionPlanner.GCSViews
 
         public void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
+            e.Cancel = true;
             if (CurentRectMarker == null && CurrentRallyPt == null && groupmarkers.Count == 0)
             {
                 deleteWPToolStripMenuItem.Enabled = false;
@@ -6369,7 +6373,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //   Console.WriteLine("MainMap MD");
 
-            if (e.Button == MouseButtons.Left && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
+            if ((e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
             {
                 // group move
                 isMouseDown = true;
@@ -6378,7 +6382,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 return;
             }
 
-            if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
+            if ((e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
             {
                 isMouseDown = true;
                 isMouseDraging = false;
@@ -6559,6 +6563,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("GOT ONE 3");
             if (isMouseClickOffMenu)
             {
                 isMouseClickOffMenu = false;
@@ -6568,7 +6573,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // check if the mouse up happend over our button
             if (polyicon.Rectangle.Contains(e.Location))
             {
-                if (e.Button == MouseButtons.Right)
+                /*if (e.Button == MouseButtons.Right)
                 {
                     polyicon.IsSelected = false;
                     clearPolygonToolStripMenuItem_Click(this, null);
@@ -6576,7 +6581,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     contextMenuStrip1.Visible = false;
 
                     return;
-                }
+                }*/
 
                 contextMenuStripPoly.Show(MainMap, e.Location);
                 return;
@@ -6594,7 +6599,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             if (e.Button == MouseButtons.Right) // ignore right clicks
             {
-                return;
+                //return;
             }
 
             if (isMouseDown) // mouse down on some other object and dragged to here.
@@ -6655,7 +6660,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     return;
                 }
 
-                if (e.Button == MouseButtons.Left)
+                if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
                 {
                     isMouseDown = false;
                 }
