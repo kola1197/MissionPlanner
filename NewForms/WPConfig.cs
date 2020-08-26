@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GMap.NET.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,13 @@ namespace MissionPlanner.NewForms
         {
             InitializeComponent();
             this.TopMost = true;
+        }
+
+        public WPConfig(GMapMarkerRect CurentRectMarker)
+        {
+            InitializeComponent();
+            this.TopMost = true;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + CurentRectMarker.Tag.ToString();
         }
 
         private void myButton1_Click(object sender, EventArgs e)

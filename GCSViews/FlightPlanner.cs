@@ -6574,7 +6574,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         wpConfig.Close();
                     }
-                    wpConfig = new WPConfig();
+                    wpConfig = new WPConfig(CurentRectMarker);
                     wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum +" Точка " + CurentRectMarker.Tag.ToString();
                     wpConfig.Show();
                 }
