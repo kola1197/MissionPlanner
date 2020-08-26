@@ -6575,7 +6575,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         wpConfig.Close();
                     }
                     wpConfig = new WPConfig();
-                    wpConfig.Text = "Точка " + CurentRectMarker.Tag.ToString();
+                    wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum +" Точка " + CurentRectMarker.Tag.ToString();
                     wpConfig.Show();
                 }
             }
@@ -7316,19 +7316,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 MainMap.Zoom = 17;
         }
 
-        void testFunc() 
-        {
-            Console.WriteLine("SUCKSESS");
-        }
-
         private void GoToWPAndLoiterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            jumpwPToolStripMenuItem_Click(sender, e);
+            //jumpwPToolStripMenuItem_Click(sender, e);
+            GoToThisWPToolStripMenuItem_Click(sender,e);
+            loiterForeverToolStripMenuItem_Click(sender, e);
         }
 
         private void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            jumpwPToolStripMenuItem_Click(sender, e);
+            if (CurentRectMarker != null)
+            {
+                MainV2.comPort.MAV.cs.wpno = float.Parse(CurentRectMarker.Tag.ToString());
+            }
+            /*Commands.Rows.Insert(1);
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_JUMP.ToString();
+
+            Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1;
+
+            Commands.Rows[selectedrow].Cells[Param2.Index].Value = 1;
+
+            writeKML();*/
+            //jumpwPToolStripMenuItem_Click(sender, e);
         }
     }
 }

@@ -17,5 +17,10 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             this.TopMost = true;
         }
+
+        private void myButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
