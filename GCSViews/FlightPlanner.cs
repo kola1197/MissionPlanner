@@ -7327,18 +7327,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (CurentRectMarker != null)
             {
-                MainV2.comPort.MAV.cs.wpno = float.Parse(CurentRectMarker.Tag.ToString());
+                try
+                {
+                    ((Control)sender).Enabled = false;
+                    MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                        (ushort)CurentRectMarker.Tag); // set nav to
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+            ((Control)sender).Enabled = true;
             }
-            /*Commands.Rows.Insert(1);
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_JUMP.ToString();
-
-            Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1;
-
-            Commands.Rows[selectedrow].Cells[Param2.Index].Value = 1;
-
-            writeKML();*/
-            //jumpwPToolStripMenuItem_Click(sender, e);
+            
         }
     }
 }

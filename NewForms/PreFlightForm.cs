@@ -156,6 +156,16 @@ namespace MissionPlanner.NewForms
 
         private void myButton2_Click(object sender, EventArgs e)
         {
+            if (iceCheck1.iceChecked)
+            {
+                progressIndex = progressIndex > 5 ? progressIndex : 5;
+                selectedIndex = 5;
+                tabControl1.SelectedIndex = selectedIndex;
+            }
+        }
+
+        private void startCalibrationButton_Click(object sender, EventArgs e)
+        {
 
         }
     }

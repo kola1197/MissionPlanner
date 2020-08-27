@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
@@ -52,17 +53,17 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.nextButton = new MissionPlanner.Controls.MyButton();
             this.backButton = new MissionPlanner.Controls.MyButton();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.myButton3 = new MissionPlanner.Controls.MyButton();
-            this.myButton4 = new MissionPlanner.Controls.MyButton();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
-            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
-            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
+            this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -110,8 +111,16 @@
             this.nextButton1.UseVisualStyleBackColor = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
             // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
+            this.checkListControl1.TabIndex = 0;
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.startCalibrationButton);
             this.tabPage2.Controls.Add(this.AirSpeedLabel);
             this.tabPage2.Controls.Add(this.backButton1);
             this.tabPage2.Controls.Add(this.gotReaction);
@@ -319,6 +328,13 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // iceRun1
+            // 
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(432, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.iceCheck1);
@@ -331,9 +347,16 @@
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // iceCheck1
+            // 
+            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
+            this.iceCheck1.Name = "iceCheck1";
+            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.TabIndex = 4;
+            // 
             // myButton2
             // 
-            this.myButton2.Location = new System.Drawing.Point(344, 445);
+            this.myButton2.Location = new System.Drawing.Point(347, 445);
             this.myButton2.Name = "myButton2";
             this.myButton2.Size = new System.Drawing.Size(75, 23);
             this.myButton2.TabIndex = 3;
@@ -350,16 +373,6 @@
             this.myButton1.Text = "Назад";
             this.myButton1.UseVisualStyleBackColor = true;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Enabled = true;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.myButton4);
@@ -371,16 +384,6 @@
             this.tabPage6.Text = "ПУСК";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // myButton3
-            // 
-            this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.myButton3.Location = new System.Drawing.Point(109, 113);
-            this.myButton3.Name = "myButton3";
-            this.myButton3.Size = new System.Drawing.Size(230, 230);
-            this.myButton3.TabIndex = 0;
-            this.myButton3.Text = "ПУСК";
-            this.myButton3.UseVisualStyleBackColor = true;
-            // 
             // myButton4
             // 
             this.myButton4.Location = new System.Drawing.Point(12, 445);
@@ -391,26 +394,35 @@
             this.myButton4.UseVisualStyleBackColor = true;
             this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
             // 
-            // checkListControl1
+            // myButton3
             // 
-            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
-            this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
-            this.checkListControl1.TabIndex = 0;
+            this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.myButton3.Location = new System.Drawing.Point(109, 113);
+            this.myButton3.Name = "myButton3";
+            this.myButton3.Size = new System.Drawing.Size(230, 230);
+            this.myButton3.TabIndex = 0;
+            this.myButton3.Text = "ПУСК";
+            this.myButton3.UseVisualStyleBackColor = true;
             // 
-            // iceRun1
+            // timer1
             // 
-            this.iceRun1.Location = new System.Drawing.Point(3, 3);
-            this.iceRun1.Name = "iceRun1";
-            this.iceRun1.Size = new System.Drawing.Size(432, 432);
-            this.iceRun1.TabIndex = 0;
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // iceCheck1
+            // timer2
             // 
-            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
-            this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
-            this.iceCheck1.TabIndex = 4;
+            this.timer2.Enabled = true;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // startCalibrationButton
+            // 
+            this.startCalibrationButton.Location = new System.Drawing.Point(90, 401);
+            this.startCalibrationButton.Name = "startCalibrationButton";
+            this.startCalibrationButton.Size = new System.Drawing.Size(260, 23);
+            this.startCalibrationButton.TabIndex = 6;
+            this.startCalibrationButton.Text = "Начать калибровку ПВД";
+            this.startCalibrationButton.UseVisualStyleBackColor = true;
+            this.startCalibrationButton.Click += new System.EventHandler(this.startCalibrationButton_Click);
             // 
             // PreFlightForm
             // 
@@ -469,5 +481,6 @@
         private System.Windows.Forms.TabPage tabPage6;
         private Controls.MyButton myButton3;
         private Controls.MyButton myButton4;
+        private Controls.MyButton startCalibrationButton;
     }
 }
