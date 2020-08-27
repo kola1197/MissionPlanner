@@ -147,5 +147,16 @@ namespace MissionPlanner.NewForms
             selectedIndex = 4;
             tabControl1.SelectedIndex = selectedIndex;
         }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        {
+            selectedIndex--;
+            tabControl1.SelectedIndex = selectedIndex;
+        }
+
+        private void myButton2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
