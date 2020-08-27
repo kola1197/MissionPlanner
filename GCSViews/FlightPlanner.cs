@@ -48,6 +48,8 @@ using Placemark = SharpKml.Dom.Placemark;
 using Point = System.Drawing.Point;
 using Resources = MissionPlanner.Properties.Resources;
 using MissionPlanner.NewForms;
+using System.Text;
+using DotSpatial.Topology.Algorithm;
 
 namespace MissionPlanner.GCSViews
 {
@@ -6575,11 +6577,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         wpConfig.Close();
                     }
                     wpConfig = new WPConfig(CurentRectMarker);
+                    WPConfig_actionsAdding();
                     wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum +" Точка " + CurentRectMarker.Tag.ToString();
+                    wpConfig_setValues();
                     wpConfig.Show();
                 }
             }
         }
+
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("GOT ONE 3");
@@ -7327,19 +7332,31 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (CurentRectMarker != null)
             {
-                try
-                {
-                    ((Control)sender).Enabled = false;
-                    MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
-                        (ushort)CurentRectMarker.Tag); // set nav to
-                }
-                catch
-                {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-                }
-            ((Control)sender).Enabled = true;
+                //((Control)sender).Enabled = false;
+                MainV2.setCurrentWP(ushort.Parse(CurentRectMarker.Tag.ToString()));
+                //((Control)sender).Enabled = true;
             }
-            
+        }
+
+        private void wpConfig_setValues() 
+        {
+            wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
+            wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
+
+        }
+        private void WPConfig_actionsAdding()    //yap, this name is awfull
+        {
+            wpConfig.FormClosing += WpConfig_FormClosing;
+        }
+
+        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("CLOSING");
+            System.Diagnostics.Debug.WriteLine("CLOSING");
+            System.Diagnostics.Debug.WriteLine("CLOSING");
+            System.Diagnostics.Debug.WriteLine("CLOSING");
+            Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
         }
     }
 }

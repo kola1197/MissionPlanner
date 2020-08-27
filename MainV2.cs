@@ -4925,6 +4925,19 @@ using Help = MissionPlanner.GCSViews.Help;
 
         }
 
+        public static void setCurrentWP(ushort num)
+        {
+            try
+            {
+                //((Control)sender).Enabled = false;
+                MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, num); // set nav to
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 

@@ -168,5 +168,64 @@ namespace MissionPlanner.NewForms
         {
 
         }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+            ((Control)sender).Enabled = false;            //set 0 wp as current
+            MainV2.setCurrentWP((ushort)0);
+            ((Control)sender).Enabled = true;
+
+            MainV2.comPort.setMode("Auto");
+
+            arm();                                         //arm
+        }
+
+        private void arm()
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+                return;
+
+            // arm the MAV
+            try
+            {
+                var isitarmed = MainV2.comPort.MAV.cs.armed;
+                var action = MainV2.comPort.MAV.cs.armed ? "Disarm" : "Arm";
+
+                if (isitarmed)
+                    if (CustomMessageBox.Show("Are you sure you want to " + action, action,
+                            CustomMessageBox.MessageBoxButtons.YesNo) !=
+                        CustomMessageBox.DialogResult.Yes)
+                        return;
+                StringBuilder sb = new StringBuilder();
+                var sub = MainV2.comPort.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.STATUSTEXT, message =>
+                {
+                    sb.AppendLine(Encoding.ASCII.GetString(((MAVLink.mavlink_statustext_t)message.data).text)
+                        .TrimEnd('\0'));
+                    return true;
+                });
+                bool ans = MainV2.comPort.doARM(!isitarmed);
+                MainV2.comPort.UnSubscribeToPacketType(sub);
+                if (ans == false)
+                {
+                    if (CustomMessageBox.Show(
+                            action + " failed.\n" + sb.ToString() + "\nForce " + action +
+                            " can bypass safety checks,\nwhich can lead to the vehicle crashing\nand causing serious injuries.\n\nDo you wish to Force " +
+                            action + "?", Strings.ERROR, CustomMessageBox.MessageBoxButtons.YesNo,
+                            CustomMessageBox.MessageBoxIcon.Exclamation, "Force " + action, "Cancel") ==
+                        CustomMessageBox.DialogResult.Yes)
+                    {
+                        ans = MainV2.comPort.doARM(!isitarmed, true);
+                        if (ans == false)
+                        {
+                            CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+        }
     }
 }

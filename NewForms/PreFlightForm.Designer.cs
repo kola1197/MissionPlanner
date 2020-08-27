@@ -34,6 +34,7 @@
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
@@ -63,7 +64,6 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -131,6 +131,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Калибровка ПВД";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // startCalibrationButton
+            // 
+            this.startCalibrationButton.Location = new System.Drawing.Point(90, 401);
+            this.startCalibrationButton.Name = "startCalibrationButton";
+            this.startCalibrationButton.Size = new System.Drawing.Size(260, 23);
+            this.startCalibrationButton.TabIndex = 6;
+            this.startCalibrationButton.Text = "Начать калибровку ПВД";
+            this.startCalibrationButton.UseVisualStyleBackColor = true;
+            this.startCalibrationButton.Click += new System.EventHandler(this.startCalibrationButton_Click);
             // 
             // AirSpeedLabel
             // 
@@ -403,6 +413,7 @@
             this.myButton3.TabIndex = 0;
             this.myButton3.Text = "ПУСК";
             this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
             // 
             // timer1
             // 
@@ -413,16 +424,6 @@
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // startCalibrationButton
-            // 
-            this.startCalibrationButton.Location = new System.Drawing.Point(90, 401);
-            this.startCalibrationButton.Name = "startCalibrationButton";
-            this.startCalibrationButton.Size = new System.Drawing.Size(260, 23);
-            this.startCalibrationButton.TabIndex = 6;
-            this.startCalibrationButton.Text = "Начать калибровку ПВД";
-            this.startCalibrationButton.UseVisualStyleBackColor = true;
-            this.startCalibrationButton.Click += new System.EventHandler(this.startCalibrationButton_Click);
             // 
             // PreFlightForm
             // 
