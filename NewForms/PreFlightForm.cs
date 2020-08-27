@@ -20,6 +20,7 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             this.TopMost = true;
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
+            //updateARMButton();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,8 +177,8 @@ namespace MissionPlanner.NewForms
             ((Control)sender).Enabled = true;
 
             MainV2.comPort.setMode("Auto");
-
-            arm();                                         //arm
+            //if (main)
+            //arm();                                         //arm
         }
 
         private void arm()
@@ -226,6 +227,23 @@ namespace MissionPlanner.NewForms
             {
                 CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
             }
+        }
+
+        private void updateARMButton() 
+        {
+            if (MainV2.comPort.MAV.cs.armed)
+            {
+                armButton.Text = "Disarm";
+            }
+            else 
+            {
+                armButton.Text = "Arm";
+            }
+        }
+        private void armButton_Click(object sender, EventArgs e)
+        {
+            arm();
+            //updateARMButton();
         }
     }
 }

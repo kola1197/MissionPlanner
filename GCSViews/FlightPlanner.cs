@@ -2137,6 +2137,51 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        public void Commands_CellUpdate(int ColumnIndex, int RowIndex) 
+        {
+            // we have modified a utm coords
+            if (ColumnIndex == coordZone.Index ||
+                ColumnIndex == coordNorthing.Index ||
+                ColumnIndex == coordEasting.Index)
+            {
+                convertFromUTM(RowIndex);
+            }
+
+            if (ColumnIndex == MGRS.Index)
+            {
+                convertFromMGRS(RowIndex);
+            }
+
+            // we have modified a ll coord
+            if (ColumnIndex == Lat.Index ||
+                ColumnIndex == Lon.Index)
+            {
+                try
+                {
+                    var lat = double.Parse(Commands.Rows[RowIndex].Cells[Lat.Index].Value.ToString());
+                    var lng = double.Parse(Commands.Rows[RowIndex].Cells[Lon.Index].Value.ToString());
+                    convertFromGeographic(lat, lng);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    CustomMessageBox.Show("Invalid Lat/Long, please fix", Strings.ERROR);
+                }
+            }
+
+            Commands_RowEnter(null,
+                new DataGridViewCellEventArgs(Commands.CurrentCell.ColumnIndex, Commands.CurrentCell.RowIndex));
+
+            try
+            {
+                writeKML();
+            }
+            catch (FormatException)
+            {
+                CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+            }
+        }
+
         public void Commands_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             // we have modified a utm coords
@@ -7343,6 +7388,25 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
             wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
 
+            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
+            switch (cmd)                                        //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+            {
+                case (ushort)MAVLink.MAV_CMD.TAKEOFF:
+                    wpConfig.comboBox1.SelectedIndex = 0;
+                    break;
+                case (ushort)MAVLink.MAV_CMD.WAYPOINT:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    break;
+                case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                    wpConfig.comboBox1.SelectedIndex = 2;
+                    break;
+                case (ushort)MAVLink.MAV_CMD.LAND:
+                    wpConfig.comboBox1.SelectedIndex = 3;
+                    break;
+                default:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    break;
+            }
         }
         private void WPConfig_actionsAdding()    //yap, this name is awfull
         {
@@ -7351,12 +7415,35 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("CLOSING");
-            System.Diagnostics.Debug.WriteLine("CLOSING");
-            System.Diagnostics.Debug.WriteLine("CLOSING");
-            System.Diagnostics.Debug.WriteLine("CLOSING");
             Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+            Commands_CellUpdate(wpConfig.indexNow, Lat.Index);
             Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+            Commands_CellUpdate(wpConfig.indexNow, Lon.Index);
+            int selectedValue = wpConfig.comboBox1.SelectedIndex;
+            switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+            {
+                case 0:
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                    break;
+                case 1:
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                    break;
+                case 2:
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox5.Text;
+                    Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
+                    break;
+                case 3:
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                    break;
+                default:
+                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                    break;
+            }
+            Commands_CellUpdate(wpConfig.indexNow, Command.Index);
+            int val = (int)wpConfig.myTrackBar1.Value;
+            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index + 1].Value = val.ToString();
+            Commands_CellUpdate(wpConfig.indexNow, Lon.Index + 1);
         }
     }
 }

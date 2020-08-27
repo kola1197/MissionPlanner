@@ -66,6 +66,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
@@ -84,6 +86,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label5);
@@ -106,7 +110,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(279, 115);
+            this.label7.Location = new System.Drawing.Point(253, 115);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 10;
@@ -115,7 +119,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(340, 115);
+            this.label6.Location = new System.Drawing.Point(314, 115);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 13);
             this.label6.TabIndex = 9;
@@ -141,17 +145,18 @@
             // 
             // myTrackBar1
             // 
-            this.myTrackBar1.LargeChange = 0.005F;
+            this.myTrackBar1.LargeChange = 100F;
             this.myTrackBar1.Location = new System.Drawing.Point(389, 19);
-            this.myTrackBar1.Maximum = 0.01F;
-            this.myTrackBar1.Minimum = 0F;
+            this.myTrackBar1.Maximum = 5000F;
+            this.myTrackBar1.Minimum = 100F;
             this.myTrackBar1.Name = "myTrackBar1";
             this.myTrackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.myTrackBar1.Size = new System.Drawing.Size(45, 176);
-            this.myTrackBar1.SmallChange = 0.001F;
+            this.myTrackBar1.SmallChange = 100F;
             this.myTrackBar1.TabIndex = 6;
-            this.myTrackBar1.TickFrequency = 0.001F;
-            this.myTrackBar1.Value = 0F;
+            this.myTrackBar1.TickFrequency = 100F;
+            this.myTrackBar1.Value = 100F;
+            this.myTrackBar1.Scroll += new System.EventHandler(this.myTrackBar1_Scroll);
             // 
             // comboBox1
             // 
@@ -165,6 +170,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
             this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -441,6 +447,24 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(256, 76);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 11;
+            this.textBox5.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(195, 79);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Скорость";
+            this.label10.Visible = false;
+            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,10 +494,10 @@
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private Controls.MyTrackBar myTrackBar1;
+        public Controls.MyTrackBar myTrackBar1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private Controls.MyButton myButton1;
@@ -499,5 +523,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox textBox5;
     }
 }

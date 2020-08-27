@@ -40,6 +40,23 @@ namespace MissionPlanner.NewForms
         
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 2)
+            {
+                label10.Visible = true;
+                textBox5.Visible = true;
+            }
+            else 
+            {
+                label10.Visible = false;
+                textBox5.Visible = false;
+            }
+        }
 
+        private void myTrackBar1_Scroll(object sender, EventArgs e)
+        {
+            label6.Text = myTrackBar1.Value.ToString() + " M";
+        }
     }
 }

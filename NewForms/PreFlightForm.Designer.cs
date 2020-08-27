@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.armButton = new MissionPlanner.Controls.MyButton();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -91,6 +92,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.armButton);
             this.tabPage1.Controls.Add(this.nextButton1);
             this.tabPage1.Controls.Add(this.checkListControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -100,6 +102,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Предполетная подготовка";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // armButton
+            // 
+            this.armButton.Location = new System.Drawing.Point(126, 443);
+            this.armButton.Name = "armButton";
+            this.armButton.Size = new System.Drawing.Size(75, 23);
+            this.armButton.TabIndex = 3;
+            this.armButton.Text = "Arm/Disarm";
+            this.armButton.UseVisualStyleBackColor = true;
+            this.armButton.Click += new System.EventHandler(this.armButton_Click);
             // 
             // nextButton1
             // 
@@ -483,5 +495,6 @@
         private Controls.MyButton myButton3;
         private Controls.MyButton myButton4;
         private Controls.MyButton startCalibrationButton;
+        private Controls.MyButton armButton;
     }
 }
