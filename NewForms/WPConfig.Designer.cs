@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -66,8 +68,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
@@ -106,6 +106,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(195, 79);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Скорость";
+            this.label10.Visible = false;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(256, 76);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 11;
+            this.textBox5.Visible = false;
             // 
             // label7
             // 
@@ -447,24 +465,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(256, 76);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 11;
-            this.textBox5.Visible = false;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(195, 79);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(55, 13);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Скорость";
-            this.label10.Visible = false;
-            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -508,8 +508,8 @@
         private Controls.MyButton myButton3;
         private Controls.MyButton myButton2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private Controls.MyButton myButton14;
         private Controls.MyButton myButton15;

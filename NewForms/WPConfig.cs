@@ -58,5 +58,10 @@ namespace MissionPlanner.NewForms
         {
             label6.Text = myTrackBar1.Value.ToString() + " M";
         }
+
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

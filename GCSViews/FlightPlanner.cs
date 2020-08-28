@@ -978,11 +978,10 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public void redrawPolygonSurvey(List<PointLatLngAlt> list)
+        public void redrawPolygonSurvey(List<PointLatLngAlt> list)                      //here wp markers lived
         {
             drawnpolygon.Points.Clear();
             drawnpolygonsoverlay.Clear();
-
             int tag = 0;
             list.ForEach(x =>
             {
@@ -6179,6 +6178,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void updateCMDParams()
         {
             cmdParamNames = readCMDXML();
+            var s = new[]
+                {
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Lat",
+                    "Long",
+                    "Alt"
+                };
+            cmdParamNames["TAKEOFF"] = s.ToArray();
+            var ss = new[]
+                {
+                    "speed m/s",
+                    "speed m/s",
+                    "",
+                    "",
+                    "Lat",
+                    "Long",
+                    "Alt"
+                };
+            cmdParamNames["DO_CHANGE_SPEED"] = ss.ToArray();
+
 
             if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
             {
@@ -7403,6 +7425,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 case (ushort)MAVLink.MAV_CMD.LAND:
                     wpConfig.comboBox1.SelectedIndex = 3;
                     break;
+                case (ushort)MAVLink.MAV_CMD.LOITER_TIME:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    wpConfig.comboBox1.Enabled = false;
+                    wpConfig.checkBox1.Checked = true;
+                    break;
                 default:
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
@@ -7419,26 +7446,34 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Commands_CellUpdate(wpConfig.indexNow, Lat.Index);
             Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
             Commands_CellUpdate(wpConfig.indexNow, Lon.Index);
-            int selectedValue = wpConfig.comboBox1.SelectedIndex;
-            switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+            if (!wpConfig.checkBox1.Checked)
             {
-                case 0:
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-                    break;
-                case 1:
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                    break;
-                case 2:
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox5.Text;
-                    Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
-                    break;
-                case 3:
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-                    break;
-                default:
-                    Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                    break;
+                int selectedValue = wpConfig.comboBox1.SelectedIndex;
+                switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                {
+                    case 0:
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                        break;
+                    case 1:
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 2:
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox5.Text;
+                        Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
+                        break;
+                    case 3:
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                        break;
+                    default:
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                }
+            }
+            else{
+                Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
             }
             Commands_CellUpdate(wpConfig.indexNow, Command.Index);
             int val = (int)wpConfig.myTrackBar1.Value;
