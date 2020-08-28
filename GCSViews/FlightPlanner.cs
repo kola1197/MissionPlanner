@@ -7434,7 +7434,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
             }
+            writeServosToWPConfig();
         }
+
+        private void writeServosToWPConfig()
+        {
+            
+            int i = wpConfig.indexNow;
+            if (i + 1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            {
+                do
+                {
+                            
+                }
+                while (i < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO);
+            }
+        }
+
         private void WPConfig_actionsAdding()    //yap, this name is awfull
         {
             wpConfig.FormClosing += WpConfig_FormClosing;

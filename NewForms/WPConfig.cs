@@ -14,6 +14,8 @@ namespace MissionPlanner.NewForms
 {
     public partial class WPConfig : Form
     {
+        public bool[] servos { get; set;}
+
         public WPConfig()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace MissionPlanner.NewForms
             textBox1.Text = "";
         }
 
+       
         private void myButton1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -62,6 +65,41 @@ namespace MissionPlanner.NewForms
         private void checkBox1_CheckStateChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void myButton2_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "1";
+        }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "5";
+        }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "10";
+        }
+
+        private void myButton5_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "20";
+        }
+
+        private void myButton6_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "30";
+        }
+
+        private void myButton7_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "60";
+        }
+
+        private void updateServoButton(int i) 
+        {
+            
         }
     }
 }
