@@ -35,7 +35,7 @@ namespace MissionPlanner.ArduPilot
 
             Func<MAVLink.MAV_FRAME, double, double, double> gethomealt = (altmode, lat, lng) =>
                 GetHomeAlt(altmode, home.Alt, lat, lng);
- 
+
 
             if (home != PointLatLngAlt.Zero)
             {
@@ -55,29 +55,29 @@ namespace MissionPlanner.ArduPilot
                 ushort command = item.id;
 
                 // invalid locationwp
-                if(command == 0)
+                if (command == 0)
                     continue;
 
-                if (command < (ushort) MAVLink.MAV_CMD.LAST &&
+                if (command < (ushort)MAVLink.MAV_CMD.LAST &&
                     //command != (ushort) MAVLink.MAV_CMD.TAKEOFF && // doesnt have a position
-                    command != (ushort) MAVLink.MAV_CMD.VTOL_TAKEOFF && // doesnt have a position
-                    command != (ushort) MAVLink.MAV_CMD.RETURN_TO_LAUNCH &&
-                    command != (ushort) MAVLink.MAV_CMD.CONTINUE_AND_CHANGE_ALT &&
-                    command != (ushort) MAVLink.MAV_CMD.DELAY &&
-                    command != (ushort) MAVLink.MAV_CMD.GUIDED_ENABLE
-                    || command == (ushort) MAVLink.MAV_CMD.DO_SET_ROI
+                    command != (ushort)MAVLink.MAV_CMD.VTOL_TAKEOFF && // doesnt have a position
+                    command != (ushort)MAVLink.MAV_CMD.RETURN_TO_LAUNCH &&
+                    command != (ushort)MAVLink.MAV_CMD.CONTINUE_AND_CHANGE_ALT &&
+                    command != (ushort)MAVLink.MAV_CMD.DELAY &&
+                    command != (ushort)MAVLink.MAV_CMD.GUIDED_ENABLE
+                    || command == (ushort)MAVLink.MAV_CMD.DO_SET_ROI
                     || command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
                 {
                     // land can be 0,0 or a lat,lng
-                    if (command == (ushort) MAVLink.MAV_CMD.LAND && item.lat == 0 && item.lng == 0)
+                    if (command == (ushort)MAVLink.MAV_CMD.LAND && item.lat == 0 && item.lng == 0)
                         continue;
 
-                    if (command == (ushort) MAVLink.MAV_CMD.DO_SET_ROI)
+                    if (command == (ushort)MAVLink.MAV_CMD.DO_SET_ROI)
                     {
                         pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
-                                item.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat, item.lng),
+                                item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
                                 "ROI" + (a + 1))
-                            {color = Color.Red});
+                        { color = Color.Red });
                         // do set roi is not a nav command. so we dont route through it
                         //fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         GMarkerGoogle m =
@@ -101,9 +101,9 @@ namespace MissionPlanner.ArduPilot
                             overlay.Markers.Add(mBorders);
                         }
                     }
-                    else if (command == (ushort) MAVLink.MAV_CMD.LOITER_TIME ||
-                             command == (ushort) MAVLink.MAV_CMD.LOITER_TURNS ||
-                             command == (ushort) MAVLink.MAV_CMD.LOITER_UNLIM)
+                    else if (command == (ushort)MAVLink.MAV_CMD.LOITER_TIME ||
+                             command == (ushort)MAVLink.MAV_CMD.LOITER_TURNS ||
+                             command == (ushort)MAVLink.MAV_CMD.LOITER_UNLIM)
                     {
                         if (item.lat == 0 && item.lng == 0)
                         {
@@ -117,7 +117,7 @@ namespace MissionPlanner.ArduPilot
                         else
                         {
                             pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
-                                item.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat, item.lng),
+                                item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
                                 (a + 1).ToString())
                             {
                                 color = Color.LightBlue
@@ -130,7 +130,7 @@ namespace MissionPlanner.ArduPilot
                                 var to = itemnext.lat != 0 && itemnext.lng != 0
                                     ? new PointLatLngAlt(itemnext)
                                     {
-                                        Alt = itemnext.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat,
+                                        Alt = itemnext.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat,
                                                   item.lng)
                                     }
                                     : from;
@@ -156,28 +156,35 @@ namespace MissionPlanner.ArduPilot
                                 item.alt * altunitmultiplier, Color.LightBlue, loiterradius);
                         }
                     }
-                    else if (command == (ushort) MAVLink.MAV_CMD.SPLINE_WAYPOINT)
+                    else if (command == (ushort)MAVLink.MAV_CMD.SPLINE_WAYPOINT)
                     {
                         pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
-                                item.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat, item.lng),
+                                item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
                                 (a + 1).ToString())
-                            {Tag2 = "spline"});
+                        { Tag2 = "spline" });
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
                             item.alt * altunitmultiplier, Color.Green, wpradius);
                     }
-                    else if (command == (ushort) MAVLink.MAV_CMD.WAYPOINT && item.lat == 0 && item.lng == 0)
+                    else if (command == (ushort)MAVLink.MAV_CMD.WAYPOINT && item.lat == 0 && item.lng == 0)
                     {
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                     }
                     else
                     {
                         pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
-                            item.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat, item.lng),
+                            item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
                             (a + 1).ToString()));
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
-                        addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                            item.alt * altunitmultiplier, null, wpradius);
+                        if (command == (ushort)MAVLink.MAV_CMD.TAKEOFF || command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
+                        {
+                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, wpradius);
+                            //addpolygonmarker((a + 1).ToString(), item.lng, item.lat, null, Color.Orange, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
+                        }
+                        else 
+                        {
+                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, null, wpradius);
+                        }
                     }
 
                     maxlong = Math.Max(item.lng, maxlong);
@@ -189,7 +196,7 @@ namespace MissionPlanner.ArduPilot
                 {
                     pointlist.Add(null);
 
-                    int wpno = (int) Math.Max(item.p1, 0);
+                    int wpno = (int)Math.Max(item.p1, 0);
                     int repeat = (int)item.p2;
 
                     List<PointLatLngAlt> list = new List<PointLatLngAlt>();
@@ -209,7 +216,7 @@ namespace MissionPlanner.ArduPilot
                 }
                 else if (command == (ushort)MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION) // fence
                 {
-                    if(fencepoly == null)
+                    if (fencepoly == null)
                         fencepoly = new GMapPolygon(new List<PointLatLng>(), a.ToString());
                     pointlist.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
                     fencepoly.Points.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
@@ -229,7 +236,7 @@ namespace MissionPlanner.ArduPilot
                         fencepoly = new GMapPolygon(new List<PointLatLng>(), a.ToString());
                     pointlist.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
                     fencepoly.Points.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
-                    addpolygonmarker((a + 1).ToString(), item.lng, item.lat,null, Color.Red, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
+                    addpolygonmarker((a + 1).ToString(), item.lng, item.lat, null, Color.Red, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
                     if (fencepoly.Points.Count == item.p1)
                     {
                         fencepoly.Fill = new SolidBrush(Color.FromArgb(30, 255, 0, 0));
@@ -238,7 +245,7 @@ namespace MissionPlanner.ArduPilot
                         fencepoly = null;
                     }
                 }
-                else if ( command == (ushort)MAVLink.MAV_CMD.FENCE_CIRCLE_EXCLUSION) // fence
+                else if (command == (ushort)MAVLink.MAV_CMD.FENCE_CIRCLE_EXCLUSION) // fence
                 {
                     pointlist.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
                     addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
@@ -305,8 +312,8 @@ namespace MissionPlanner.ArduPilot
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMapMarker m = null;                
-                if(type == MAVLink.MAV_MISSION_TYPE.MISSION)
+                GMapMarker m = null;
+                if (type == MAVLink.MAV_MISSION_TYPE.MISSION)
                 {
                     m = new GMapMarkerWP(point, tag);
                     if (alt.HasValue)

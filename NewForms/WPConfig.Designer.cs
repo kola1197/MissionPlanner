@@ -66,8 +66,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
@@ -86,6 +87,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.Controls.Add(this.label7);
@@ -110,7 +112,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(195, 79);
+            this.label10.Location = new System.Drawing.Point(25, 115);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 12;
@@ -119,7 +121,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(256, 76);
+            this.textBox5.Location = new System.Drawing.Point(84, 112);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 11;
@@ -287,6 +289,7 @@
             this.myButton14.TabIndex = 27;
             this.myButton14.Text = "9";
             this.myButton14.UseVisualStyleBackColor = true;
+            this.myButton14.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton14_MouseUp);
             // 
             // myButton15
             // 
@@ -296,6 +299,7 @@
             this.myButton15.TabIndex = 26;
             this.myButton15.Text = "8";
             this.myButton15.UseVisualStyleBackColor = true;
+            this.myButton15.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton15_MouseUp);
             // 
             // myButton16
             // 
@@ -305,6 +309,7 @@
             this.myButton16.TabIndex = 25;
             this.myButton16.Text = "7";
             this.myButton16.UseVisualStyleBackColor = true;
+            this.myButton16.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton16_MouseUp);
             // 
             // myButton11
             // 
@@ -314,6 +319,7 @@
             this.myButton11.TabIndex = 24;
             this.myButton11.Text = "6";
             this.myButton11.UseVisualStyleBackColor = true;
+            this.myButton11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton11_MouseUp);
             // 
             // myButton12
             // 
@@ -323,6 +329,7 @@
             this.myButton12.TabIndex = 23;
             this.myButton12.Text = "5";
             this.myButton12.UseVisualStyleBackColor = true;
+            this.myButton12.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton12_MouseUp);
             // 
             // myButton13
             // 
@@ -332,6 +339,7 @@
             this.myButton13.TabIndex = 22;
             this.myButton13.Text = "4";
             this.myButton13.UseVisualStyleBackColor = true;
+            this.myButton13.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton13_MouseUp);
             // 
             // myButton10
             // 
@@ -341,6 +349,7 @@
             this.myButton10.TabIndex = 21;
             this.myButton10.Text = "3";
             this.myButton10.UseVisualStyleBackColor = true;
+            this.myButton10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton10_MouseUp);
             // 
             // myButton9
             // 
@@ -350,15 +359,19 @@
             this.myButton9.TabIndex = 20;
             this.myButton9.Text = "2";
             this.myButton9.UseVisualStyleBackColor = true;
+            this.myButton9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton9_MouseUp);
             // 
             // myButton8
             // 
+            this.myButton8.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.myButton8.Location = new System.Drawing.Point(21, 107);
             this.myButton8.Name = "myButton8";
             this.myButton8.Size = new System.Drawing.Size(127, 25);
             this.myButton8.TabIndex = 19;
             this.myButton8.Text = "1";
             this.myButton8.UseVisualStyleBackColor = true;
+            this.myButton8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton8_MouseUp);
             // 
             // checkBox2
             // 
@@ -457,6 +470,10 @@
             this.checkBox1.Text = "Удерживать БПЛА в точке";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // myButton1
             // 
             this.myButton1.Location = new System.Drawing.Point(12, 278);
@@ -467,9 +484,15 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
-            // timer1
+            // label11
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(192, 115);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Км/ч";
+            this.label11.Visible = false;
             // 
             // WPConfig
             // 
@@ -516,7 +539,7 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox textBox3;
         public System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        public System.Windows.Forms.CheckBox checkBox2;
         private Controls.MyButton myButton14;
         private Controls.MyButton myButton15;
         private Controls.MyButton myButton16;
@@ -531,5 +554,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label11;
     }
 }

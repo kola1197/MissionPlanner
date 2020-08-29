@@ -6648,6 +6648,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum +" Точка " + CurentRectMarker.Tag.ToString();
                     wpConfig_setValues();
                     wpConfig.Show();
+                    wpConfig.updateServoButtons();
                 }
             }
         }
@@ -7421,6 +7422,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     break;
                 case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
                     wpConfig.comboBox1.SelectedIndex = 2;
+                    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
                     break;
                 case (ushort)MAVLink.MAV_CMD.LAND:
                     wpConfig.comboBox1.SelectedIndex = 3;
@@ -7439,16 +7442,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void writeServosToWPConfig()
         {
-            
             int i = wpConfig.indexNow;
-            if (i + 1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            for (int k = 0; k < wpConfig.servos.Length; k++) 
+            {
+                wpConfig.servos[k] = false;
+            }
+            if (i + 1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
             {
                 do
                 {
-                            
+                    wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
+                    int index = int.Parse(Commands.Rows[i + 1].Cells[Command.Index + 1].Value.ToString());
+                    wpConfig.servos[index - 5] = true;
+                    i++;
                 }
-                while (i < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO);
+                while (i < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO);
             }
+            wpConfig.updateServoButtons();
         }
 
         private void WPConfig_actionsAdding()    //yap, this name is awfull
@@ -7475,7 +7485,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         break;
                     case 2:
                         Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox5.Text;
+                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.',','));
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
                         Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
                         break;
                     case 3:
@@ -7495,6 +7506,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             int val = (int)wpConfig.myTrackBar1.Value;
             Commands.Rows[wpConfig.indexNow].Cells[Lon.Index + 1].Value = val.ToString();
             Commands_CellUpdate(wpConfig.indexNow, Lon.Index + 1);
+
+            int index = wpConfig.indexNow;                                                                      //removing all old DO_SET_SERVO
+            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            {
+                Commands.Rows.RemoveAt(index + 1);
+            }
+
+
+            if (wpConfig.checkBox2.Checked) 
+            {
+                for (int i = 0; i < wpConfig.servos.Length; i++)                                                     //adding DO_SET_SERVO
+                {
+                    if (wpConfig.servos[i])
+                    {
+
+                        DataGridViewRow row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                        row.Cells[Command.Index + 1].Value = (i + 5).ToString();
+                        row.Cells[Command.Index + 2].Value = "2000";
+                        Commands.Rows.Insert(index + 1, row);
+                    }
+                } 
+            }
         }
     }
 }
