@@ -400,6 +400,21 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\GaugeHeading.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
+      <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\StatusControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\StatusControlPanel.Designer.cs">
+      <DependentUpon>StatusControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\VerticalSplittedProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -584,6 +599,7 @@
     <None Include="arm\libSkiaSharp.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="CurrentState.datasource" />
     <None Include="MissionPlanner.GCSViews.ConfigurationView.ConfigHWCompass2+CompassDeviceInfo.datasource" />
     <None Include="MissionPlanner_TemporaryKey.pfx" />
     <None Include="plugins\example2-menu.cs">
@@ -756,6 +772,12 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
+      <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\StatusControlPanel.resx">
+      <DependentUpon>StatusControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
