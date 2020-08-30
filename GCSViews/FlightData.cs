@@ -265,7 +265,7 @@ namespace MissionPlanner.GCSViews
             gMapControl1.Zoom = 3;
 
             gMapControl1.OnMapZoomChanged += gMapControl1_OnMapZoomChanged;
-
+            
             gMapControl1.DisableFocusOnMouseEnter = true;
 
             gMapControl1.OnMarkerEnter += gMapControl1_OnMarkerEnter;

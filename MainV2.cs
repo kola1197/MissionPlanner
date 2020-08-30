@@ -579,6 +579,10 @@ using Help = MissionPlanner.GCSViews.Help;
 
         public static AircraftMenuControl _aircraftMenuControl = new AircraftMenuControl();
 
+        public static GaugeHeading GaugeMenuHeading = new GaugeHeading(); 
+
+        public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
+
         /// <summary>
         /// All orlan connections
         /// </summary>
@@ -1215,7 +1219,12 @@ using Help = MissionPlanner.GCSViews.Help;
             ToolStripControlHost aircraftControlHost = new ToolStripControlHost(_aircraftMenuControl);
             menuStrip1.Items.Add(aircraftControlHost);
             _connectionsForm.sitlForm = Simulation;
-            // _connectionsForm.Show();
+            
+            ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
+            menuStrip1.Items.Add(headingControlHost);
+
+            ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusMenuPanel);
+            menuStrip1.Items.Add(statusControlHost);
 
             mainMenuInit();
         }
