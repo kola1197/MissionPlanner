@@ -57,6 +57,8 @@ namespace MissionPlanner
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.status1 = new MissionPlanner.Controls.Status();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
@@ -78,8 +80,6 @@ namespace MissionPlanner
             this.label1 = new System.Windows.Forms.Label();
             this.verticalProgressBar2 = new MissionPlanner.Controls.VerticalProgressBar();
             this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.status1 = new MissionPlanner.Controls.Status();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -242,33 +242,27 @@ namespace MissionPlanner
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.myButton3);
-            this.panel1.Controls.Add(this.myButton2);
-            this.panel1.Controls.Add(this.myButton1);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.verticalProgressBar6);
-            this.panel1.Controls.Add(this.verticalProgressBar5);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.verticalProgressBar4);
-            this.panel1.Controls.Add(this.verticalProgressBar3);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.verticalProgressBar2);
-            this.panel1.Controls.Add(this.verticalProgressBar1);
             this.panel1.Controls.Add(this.status1);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.MainMenu);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
+            // 
+            // status1
+            // 
+            resources.ApplyResources(this.status1, "status1");
+            this.status1.Name = "status1";
+            this.status1.Percent = 0D;
+            // 
+            // menuStrip1
+            // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
+            this.menuStrip1.ContextMenuStrip = this.CTX_mainmenu;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(45, 39);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.ShowItemToolTips = true;
             // 
             // myButton3
             // 
@@ -429,21 +423,6 @@ namespace MissionPlanner
             this.verticalProgressBar1.Value = 20;
             this.verticalProgressBar1.Click += new System.EventHandler(this.verticalProgressBar1_Click);
             // 
-            // status1
-            // 
-            resources.ApplyResources(this.status1, "status1");
-            this.status1.Name = "status1";
-            this.status1.Percent = 0D;
-            // 
-            // menuStrip1
-            // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
-            this.menuStrip1.ContextMenuStrip = this.CTX_mainmenu;
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(45, 39);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.ShowItemToolTips = true;
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Name = "toolStripButton1";
@@ -517,10 +496,31 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.myButton3);
+            this.Controls.Add(this.myButton2);
+            this.Controls.Add(this.myButton1);
             this.Controls.Add(this.myButton4);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.menu);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.verticalProgressBar1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.verticalProgressBar2);
+            this.Controls.Add(this.verticalProgressBar6);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.verticalProgressBar5);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.verticalProgressBar3);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.verticalProgressBar4);
+            this.Controls.Add(this.label4);
             this.KeyPreview = true;
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainV2";
