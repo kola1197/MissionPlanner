@@ -32,11 +32,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,15 +51,21 @@
             this.backButton2 = new MissionPlanner.Controls.MyButton();
             this.nextButton2 = new MissionPlanner.Controls.MyButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.nextButton = new MissionPlanner.Controls.MyButton();
+            this.backButton = new MissionPlanner.Controls.MyButton();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.myButton2 = new MissionPlanner.Controls.MyButton();
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
+            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,6 +104,13 @@
             this.nextButton1.Text = "Далее";
             this.nextButton1.UseVisualStyleBackColor = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
+            // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
+            this.checkListControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -159,6 +174,18 @@
             this.tabPage3.Text = "Заправка";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(260, 186);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(161, 17);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "Выставить автоматически";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -211,8 +238,8 @@
             this.maxСapacity.Size = new System.Drawing.Size(100, 20);
             this.maxСapacity.TabIndex = 13;
             this.maxСapacity.Text = "0";
-            this.maxСapacity.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.maxСapacity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maxСapacity_KeyPress);
+            this.maxСapacity.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // valueInPercentsTBox
             // 
@@ -220,8 +247,8 @@
             this.valueInPercentsTBox.Name = "valueInPercentsTBox";
             this.valueInPercentsTBox.Size = new System.Drawing.Size(100, 20);
             this.valueInPercentsTBox.TabIndex = 12;
-            this.valueInPercentsTBox.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.valueInPercentsTBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.valueInPercentsTBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // flightTimeTBox
             // 
@@ -230,8 +257,8 @@
             this.flightTimeTBox.Size = new System.Drawing.Size(100, 20);
             this.flightTimeTBox.TabIndex = 11;
             this.flightTimeTBox.Text = "0";
-            this.flightTimeTBox.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.flightTimeTBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.flightTimeTBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // batt2_voltage
             // 
@@ -239,8 +266,8 @@
             this.batt2_voltage.Name = "batt2_voltage";
             this.batt2_voltage.Size = new System.Drawing.Size(100, 20);
             this.batt2_voltage.TabIndex = 6;
-            this.batt2_voltage.TextChanged += new System.EventHandler(this.batt2_voltage_TextChanged);
             this.batt2_voltage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
+            this.batt2_voltage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // backButton2
             // 
@@ -260,9 +287,13 @@
             this.nextButton2.TabIndex = 4;
             this.nextButton2.Text = "Далее";
             this.nextButton2.UseVisualStyleBackColor = true;
+            this.nextButton2.Click += new System.EventHandler(this.nextButton2_Click);
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.nextButton);
+            this.tabPage4.Controls.Add(this.backButton);
+            this.tabPage4.Controls.Add(this.iceRun1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(438, 483);
@@ -270,14 +301,62 @@
             this.tabPage4.Text = "Запуск ДВС";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // nextButton
+            // 
+            this.nextButton.Location = new System.Drawing.Point(347, 441);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(75, 23);
+            this.nextButton.TabIndex = 2;
+            this.nextButton.Text = "Далее";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(19, 441);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(75, 23);
+            this.backButton.TabIndex = 1;
+            this.backButton.Text = "Назад";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // iceRun1
+            // 
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(432, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.iceCheck1);
+            this.tabPage5.Controls.Add(this.myButton2);
+            this.tabPage5.Controls.Add(this.myButton1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(438, 483);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // myButton2
+            // 
+            this.myButton2.Location = new System.Drawing.Point(344, 445);
+            this.myButton2.Name = "myButton2";
+            this.myButton2.Size = new System.Drawing.Size(75, 23);
+            this.myButton2.TabIndex = 3;
+            this.myButton2.Text = "Далее";
+            this.myButton2.UseVisualStyleBackColor = true;
+            // 
+            // myButton1
+            // 
+            this.myButton1.Location = new System.Drawing.Point(14, 445);
+            this.myButton1.Name = "myButton1";
+            this.myButton1.Size = new System.Drawing.Size(75, 23);
+            this.myButton1.TabIndex = 2;
+            this.myButton1.Text = "Назад";
+            this.myButton1.UseVisualStyleBackColor = true;
             // 
             // timer1
             // 
@@ -289,24 +368,12 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // checkBox1
+            // iceCheck1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(260, 186);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(161, 17);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Выставить автоматически";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkListControl1
-            // 
-            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
-            this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
-            this.checkListControl1.TabIndex = 0;
+            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
+            this.iceCheck1.Name = "iceCheck1";
+            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.TabIndex = 4;
             // 
             // PreFlightForm
             // 
@@ -322,6 +389,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -353,5 +422,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private Controls.NewControls.ICERun iceRun1;
+        private Controls.MyButton backButton;
+        private Controls.MyButton nextButton;
+        private Controls.MyButton myButton2;
+        private Controls.MyButton myButton1;
+        private Controls.NewControls.ICECheck iceCheck1;
     }
 }

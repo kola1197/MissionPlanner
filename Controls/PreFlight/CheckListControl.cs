@@ -13,7 +13,7 @@ namespace MissionPlanner.Controls.PreFlight
 
         public string configfile = Settings.GetUserDataDirectory() + "checklist.xml";
 
-        public string configfiledefault = Settings.GetRunningDirectory() + "checklistDefault1.xml";
+        public string configfiledefault = Settings.GetRunningDirectory() + "checklistDefault.xml";
 
         int rowcount = 0;
 

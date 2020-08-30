@@ -300,12 +300,13 @@ namespace UAVCAN
         public void Stop(bool closestream = true)
         {
             run = false;
-
-            foreach (var @delegate in MessageReceived.GetInvocationList())
+            if (MessageReceived != null)
             {
-                MessageReceived -= (MessageRecievedDel) @delegate;
+                foreach (var @delegate in MessageReceived.GetInvocationList())
+                {
+                    MessageReceived -= (MessageRecievedDel)@delegate;
+                }
             }
-
             if (sr != null && closestream)
             {
                 // close

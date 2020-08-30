@@ -4926,7 +4926,11 @@ using Help = MissionPlanner.GCSViews.Help;
 
         private void myButton4_Click(object sender, EventArgs e)
         {
-            MyView.ShowScreen("FlightData");
+            //MyView.ShowScreen("FlightData");
+            comPort.MAV.cs.ch1out = 1900;
+            comPort.MAV.cs.ch2out = 1900;
+            comPort.MAV.cs.ch3out = 1900;
+            comPort.MAV.cs.ch4out = 1900;
 
         }
 
