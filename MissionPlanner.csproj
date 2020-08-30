@@ -400,16 +400,31 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="ConnectionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConnectionsForm.Designer.cs">
-      <DependentUpon>ConnectionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\AircraftMenuControl.cs">
+    <Compile Include="Controls\NewControls\GaugeHeading.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AircraftMenuControl.Designer.cs">
+    <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
+      <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\StatusControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\StatusControlPanel.Designer.cs">
+      <DependentUpon>StatusControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\VerticalSplittedProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewForms\ConnectionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\ConnectionsForm.Designer.cs">
+      <DependentUpon>ConnectionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\AircraftMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\AircraftMenuControl.Designer.cs">
       <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConnectionOptions.cs">
@@ -584,6 +599,7 @@
     <None Include="arm\libSkiaSharp.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="CurrentState.datasource" />
     <None Include="MissionPlanner.GCSViews.ConfigurationView.ConfigHWCompass2+CompassDeviceInfo.datasource" />
     <None Include="MissionPlanner_TemporaryKey.pfx" />
     <None Include="plugins\example2-menu.cs">
@@ -614,11 +630,23 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>UserControl</SubType>
     </None>
+    <Compile Include="NewForms\Diagnostic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\Diagnostic.Designer.cs">
+      <DependentUpon>Diagnostic.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\MapChangeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewForms\MapChangeForm.Designer.cs">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\PreFlightForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\PreFlightForm.Designer.cs">
+      <DependentUpon>PreFlightForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -744,10 +772,16 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ConnectionsForm.resx">
+    <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
+      <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\StatusControlPanel.resx">
+      <DependentUpon>StatusControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AircraftMenuControl.resx">
+    <EmbeddedResource Include="Controls\NewControls\AircraftMenuControl.resx">
       <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlSensorsStatus.resx">
@@ -1707,8 +1741,14 @@
     <EmbeddedResource Include="Controls\paramcompare.resx">
       <DependentUpon>paramcompare.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\Diagnostic.resx">
+      <DependentUpon>Diagnostic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\PreFlightForm.resx">
+      <DependentUpon>PreFlightForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="plugins\generator.resx">
       <DependentUpon>generator.cs</DependentUpon>
@@ -4469,6 +4509,8 @@
     <Content Include="quaternion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\testCenterUL.bmp" />
+    <None Include="Resources\testCenterULActive.bmp" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

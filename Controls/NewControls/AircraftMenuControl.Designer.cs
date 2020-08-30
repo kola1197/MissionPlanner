@@ -32,6 +32,7 @@
             this.aircraft_BUT2 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT3 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT4 = new MissionPlanner.Controls.MyButton();
+            this.centerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // aircraft_BUT1
@@ -46,7 +47,7 @@
             // 
             // aircraft_BUT2
             // 
-            this.aircraft_BUT2.Location = new System.Drawing.Point(75, 0);
+            this.aircraft_BUT2.Location = new System.Drawing.Point(123, 0);
             this.aircraft_BUT2.Name = "aircraft_BUT2";
             this.aircraft_BUT2.Size = new System.Drawing.Size(75, 23);
             this.aircraft_BUT2.TabIndex = 1;
@@ -66,7 +67,7 @@
             // 
             // aircraft_BUT4
             // 
-            this.aircraft_BUT4.Location = new System.Drawing.Point(75, 24);
+            this.aircraft_BUT4.Location = new System.Drawing.Point(123, 24);
             this.aircraft_BUT4.Name = "aircraft_BUT4";
             this.aircraft_BUT4.Size = new System.Drawing.Size(75, 23);
             this.aircraft_BUT4.TabIndex = 3;
@@ -74,17 +75,29 @@
             this.aircraft_BUT4.UseVisualStyleBackColor = true;
             this.aircraft_BUT4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT4_MouseClick);
             // 
+            // centerButton
+            // 
+            this.centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterULActive;
+            this.centerButton.Location = new System.Drawing.Point(81, 3);
+            this.centerButton.Name = "centerButton";
+            this.centerButton.Size = new System.Drawing.Size(40, 40);
+            this.centerButton.TabIndex = 4;
+            this.centerButton.Text = "-";
+            this.centerButton.UseVisualStyleBackColor = true;
+            this.centerButton.Click += new System.EventHandler(this.centerButton_Click);
+            // 
             // AircraftMenuControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.Controls.Add(this.centerButton);
             this.Controls.Add(this.aircraft_BUT4);
             this.Controls.Add(this.aircraft_BUT3);
             this.Controls.Add(this.aircraft_BUT2);
             this.Controls.Add(this.aircraft_BUT1);
             this.Name = "AircraftMenuControl";
-            this.Size = new System.Drawing.Size(150, 47);
+            this.Size = new System.Drawing.Size(199, 47);
             this.ResumeLayout(false);
 
         }
@@ -95,5 +108,6 @@
         private MyButton aircraft_BUT2;
         private MyButton aircraft_BUT3;
         private MyButton aircraft_BUT4;
+        private System.Windows.Forms.Button centerButton;
     }
 }

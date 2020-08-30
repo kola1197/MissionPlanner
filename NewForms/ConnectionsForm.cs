@@ -347,6 +347,7 @@ namespace MissionPlanner
             string oldAircraftNumber = devices_LB.SelectedItem.ToString();
             string newAircraftNumber = connectedAircraftNum_TB.Text;
             renameAircraftNum(MainV2._aircraftInfo, oldAircraftNumber, newAircraftNumber);
+            
         }
 
         public static void renameAircraftNum(Dictionary<string, AircraftConnectionInfo> dic, string fromKey,
