@@ -101,7 +101,6 @@
             // 
             // altButton
             // 
-            this.altButton.Enabled = false;
             this.altButton.Location = new System.Drawing.Point(6, 169);
             this.altButton.Name = "altButton";
             this.altButton.Size = new System.Drawing.Size(86, 23);
@@ -129,7 +128,6 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Enabled = false;
             this.deleteButton.Location = new System.Drawing.Point(6, 285);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(86, 23);

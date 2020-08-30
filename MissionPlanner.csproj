@@ -433,6 +433,12 @@
     <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
       <DependentUpon>WPMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\AltChoose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\AltChoose.Designer.cs">
+      <DependentUpon>AltChoose.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -810,6 +816,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
       <DependentUpon>WPMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\AltChoose.resx">
+      <DependentUpon>AltChoose.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>

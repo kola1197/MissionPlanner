@@ -135,7 +135,7 @@ namespace MissionPlanner.GCSViews
         public GMapPolygon wppolygon;
         private GMapMarker CurrentMidLine;
         private bool menuActive = false;
-
+        AltChoose altChoose;
 
         private WPConfig wpConfig;
         public void Init()
@@ -622,7 +622,6 @@ namespace MissionPlanner.GCSViews
         /// <param name="e"></param>
         public void BUT_write_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("GOT ONE 2");
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
@@ -2950,6 +2949,17 @@ namespace MissionPlanner.GCSViews
             {
                 throw new FormatException("Invalid number on row " + (a + 1).ToString(), ex);
             }
+        }
+
+        public void removeAllWP() 
+        {
+            Commands.Rows.Clear();
+            writeKML();
+        }
+
+        public void removeWP(int i) 
+        {
+            
         }
 
         public void deleteWPToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7472,9 +7482,44 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             wpMenu1.saveButton.MouseUp += BUT_saveWPFile_Click;
             wpMenu1.writeButton.MouseUp += BUT_write_Click;
             wpMenu1.getButton.MouseUp += BUT_read_Click;
+            wpMenu1.deleteButton.MouseUp += DeleteButton_MouseUp;
+            wpMenu1.altButton.MouseUp += AltButton_MouseUp;
         }
 
-       
+        private void AltButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            altChoose = new AltChoose();
+            altChoose.TopMost = true;
+            altChoose.myButton1.MouseUp += MyButton1_MouseUp;
+            altChoose.Show();
+        }
+
+        private void MyButton1_MouseUp(object sender, MouseEventArgs e)
+        {
+            int i = 0;
+            if (int.TryParse(altChoose.textBox1.Text, out i))
+            {
+                setAltToAll(i);
+                altChoose.Close();
+            }
+            else 
+            {
+                CustomMessageBox.Show("Данные некорректные");
+            }
+        }
+
+        private void setAltToAll(int alt) 
+        {
+            for (int i = 0; i < Commands.Rows.Count; i++) 
+            {
+                Commands.Rows[i].Cells[Alt.Index].Value = alt.ToString();
+            }
+        }
+
+        private void DeleteButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            removeAllWP();
+        }
 
         private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
