@@ -14,6 +14,7 @@ namespace MissionPlanner.Controls
 {
     public partial class AircraftMenuControl : UserControl
     {
+        PreFlightForm preFlightForm;
         public class aircraftButtonInfo
         {
             public MyButton Button { get; set; }
@@ -110,7 +111,11 @@ namespace MissionPlanner.Controls
 
         private void centerButton_Click(object sender, EventArgs e)
         {
-            PreFlightForm preFlightForm = new PreFlightForm();
+            if (preFlightForm != null) 
+            {
+                preFlightForm.Close();
+            }
+            preFlightForm = new PreFlightForm();
             preFlightForm.Show();
         }
     }

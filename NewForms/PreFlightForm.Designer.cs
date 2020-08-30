@@ -31,9 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.armButton = new MissionPlanner.Controls.MyButton();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
@@ -55,17 +57,21 @@
             this.backButton = new MissionPlanner.Controls.MyButton();
             this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -75,6 +81,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -85,6 +92,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.armButton);
             this.tabPage1.Controls.Add(this.nextButton1);
             this.tabPage1.Controls.Add(this.checkListControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -94,6 +102,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Предполетная подготовка";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // armButton
+            // 
+            this.armButton.Location = new System.Drawing.Point(126, 443);
+            this.armButton.Name = "armButton";
+            this.armButton.Size = new System.Drawing.Size(75, 23);
+            this.armButton.TabIndex = 3;
+            this.armButton.Text = "Arm/Disarm";
+            this.armButton.UseVisualStyleBackColor = true;
+            this.armButton.Click += new System.EventHandler(this.armButton_Click);
             // 
             // nextButton1
             // 
@@ -114,6 +132,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.startCalibrationButton);
             this.tabPage2.Controls.Add(this.AirSpeedLabel);
             this.tabPage2.Controls.Add(this.backButton1);
             this.tabPage2.Controls.Add(this.gotReaction);
@@ -124,6 +143,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Калибровка ПВД";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // startCalibrationButton
+            // 
+            this.startCalibrationButton.Location = new System.Drawing.Point(90, 401);
+            this.startCalibrationButton.Name = "startCalibrationButton";
+            this.startCalibrationButton.Size = new System.Drawing.Size(260, 23);
+            this.startCalibrationButton.TabIndex = 6;
+            this.startCalibrationButton.Text = "Начать калибровку ПВД";
+            this.startCalibrationButton.UseVisualStyleBackColor = true;
+            this.startCalibrationButton.Click += new System.EventHandler(this.startCalibrationButton_Click);
             // 
             // AirSpeedLabel
             // 
@@ -340,14 +369,22 @@
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // iceCheck1
+            // 
+            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
+            this.iceCheck1.Name = "iceCheck1";
+            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.TabIndex = 4;
+            // 
             // myButton2
             // 
-            this.myButton2.Location = new System.Drawing.Point(344, 445);
+            this.myButton2.Location = new System.Drawing.Point(347, 445);
             this.myButton2.Name = "myButton2";
             this.myButton2.Size = new System.Drawing.Size(75, 23);
             this.myButton2.TabIndex = 3;
             this.myButton2.Text = "Далее";
             this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             // 
             // myButton1
             // 
@@ -358,6 +395,38 @@
             this.myButton1.Text = "Назад";
             this.myButton1.UseVisualStyleBackColor = true;
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.myButton4);
+            this.tabPage6.Controls.Add(this.myButton3);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(438, 483);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "ПУСК";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // myButton4
+            // 
+            this.myButton4.Location = new System.Drawing.Point(12, 445);
+            this.myButton4.Name = "myButton4";
+            this.myButton4.Size = new System.Drawing.Size(75, 23);
+            this.myButton4.TabIndex = 3;
+            this.myButton4.Text = "Назад";
+            this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
+            // 
+            // myButton3
+            // 
+            this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.myButton3.Location = new System.Drawing.Point(109, 113);
+            this.myButton3.Name = "myButton3";
+            this.myButton3.Size = new System.Drawing.Size(230, 230);
+            this.myButton3.TabIndex = 0;
+            this.myButton3.Text = "ПУСК";
+            this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -367,13 +436,6 @@
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // iceCheck1
-            // 
-            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
-            this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
-            this.iceCheck1.TabIndex = 4;
             // 
             // PreFlightForm
             // 
@@ -391,6 +453,7 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -428,5 +491,10 @@
         private Controls.MyButton myButton2;
         private Controls.MyButton myButton1;
         private Controls.NewControls.ICECheck iceCheck1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private Controls.MyButton myButton3;
+        private Controls.MyButton myButton4;
+        private Controls.MyButton startCalibrationButton;
+        private Controls.MyButton armButton;
     }
 }
