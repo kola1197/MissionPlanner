@@ -412,6 +412,12 @@
     <Compile Include="Controls\NewControls\ICERun.Designer.cs">
       <DependentUpon>ICERun.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\WPMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
+      <DependentUpon>WPMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -779,6 +785,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\ICERun.resx">
       <DependentUpon>ICERun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
+      <DependentUpon>WPMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>

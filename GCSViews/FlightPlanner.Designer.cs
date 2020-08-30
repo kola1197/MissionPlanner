@@ -222,6 +222,7 @@ namespace MissionPlanner.GCSViews
             this.зажатьЭтуТочкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wPConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wpMenu1 = new MissionPlanner.Controls.NewControls.WPMenu();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
@@ -746,6 +747,7 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.wpMenu1);
             this.panelMap.Controls.Add(this.mainMenuWidget1);
             this.panelMap.Controls.Add(this.lbl_homedist);
             this.panelMap.Controls.Add(this.lbl_prevdist);
@@ -1484,6 +1486,11 @@ namespace MissionPlanner.GCSViews
             this.wPConfigToolStripMenuItem.Name = "wPConfigToolStripMenuItem";
             resources.ApplyResources(this.wPConfigToolStripMenuItem, "wPConfigToolStripMenuItem");
             // 
+            // wpMenu1
+            // 
+            resources.ApplyResources(this.wpMenu1, "wpMenu1");
+            this.wpMenu1.Name = "wpMenu1";
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1689,5 +1696,6 @@ namespace MissionPlanner.GCSViews
         private ToolStripMenuItem зажатьЭтуТочкуToolStripMenuItem;
         private ToolStripMenuItem удалитьToolStripMenuItem;
         private ToolStripMenuItem wPConfigToolStripMenuItem;
+        private Controls.NewControls.WPMenu wpMenu1;
     }
 }
