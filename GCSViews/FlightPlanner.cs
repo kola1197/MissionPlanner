@@ -275,7 +275,7 @@ namespace MissionPlanner.GCSViews
             drawnpolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
             drawnpolygon.Stroke = new Pen(Color.Red, 2);
             drawnpolygon.Fill = Brushes.Transparent;
-            
+
             /*
             var timer = new System.Timers.Timer();
 
@@ -285,7 +285,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-
+            wpMenuLoad();
         }
 
         private void test_Click(object sender, EventArgs e)
@@ -7465,6 +7465,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             wpConfig.FormClosing += WpConfig_FormClosing;
         }
+
+        private void wpMenuLoad() 
+        {
+            wpMenu1.loadButton.MouseUp += BUT_loadwpfile_Click;
+            wpMenu1.saveButton.MouseUp += BUT_saveWPFile_Click;
+            wpMenu1.writeButton.MouseUp += BUT_write_Click;
+            wpMenu1.getButton.MouseUp += BUT_read_Click;
+        }
+
+       
 
         private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
         {

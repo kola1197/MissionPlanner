@@ -26,12 +26,12 @@ namespace MissionPlanner.Controls.NewControls
             System.Drawing.Point now = this.Location;
             int diff = 420;
             this.Location = fieldActive ? new System.Drawing.Point(now.X,now.Y - diff) : new System.Drawing.Point(now.X, now.Y + diff);
-            myButton1.Visible = fieldActive;
-            myButton2.Visible = fieldActive;
-            myButton3.Visible = fieldActive;
-            myButton4.Visible = fieldActive;
-            myButton5.Visible = fieldActive;
-            myButton6.Visible = fieldActive;
+            loadButton.Visible = fieldActive;
+            saveButton.Visible = fieldActive;
+            altButton.Visible = fieldActive;
+            writeButton.Visible = fieldActive;
+            getButton.Visible = fieldActive;
+            deleteButton.Visible = fieldActive;
         }
 
         private void myButton5_Click(object sender, EventArgs e)

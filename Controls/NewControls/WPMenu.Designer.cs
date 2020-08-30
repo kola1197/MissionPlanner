@@ -32,12 +32,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.myButton2 = new MissionPlanner.Controls.MyButton();
-            this.myButton3 = new MissionPlanner.Controls.MyButton();
-            this.myButton4 = new MissionPlanner.Controls.MyButton();
-            this.myButton5 = new MissionPlanner.Controls.MyButton();
-            this.myButton6 = new MissionPlanner.Controls.MyButton();
+            this.loadButton = new MissionPlanner.Controls.MyButton();
+            this.saveButton = new MissionPlanner.Controls.MyButton();
+            this.altButton = new MissionPlanner.Controls.MyButton();
+            this.writeButton = new MissionPlanner.Controls.MyButton();
+            this.getButton = new MissionPlanner.Controls.MyButton();
+            this.deleteButton = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // mainButton
@@ -81,70 +81,72 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "31356.0 км";
             // 
-            // myButton1
+            // loadButton
             // 
-            this.myButton1.Location = new System.Drawing.Point(6, 93);
-            this.myButton1.Name = "myButton1";
-            this.myButton1.Size = new System.Drawing.Size(86, 23);
-            this.myButton1.TabIndex = 10;
-            this.myButton1.Text = "myButton1";
-            this.myButton1.UseVisualStyleBackColor = true;
+            this.loadButton.Location = new System.Drawing.Point(6, 93);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(86, 23);
+            this.loadButton.TabIndex = 10;
+            this.loadButton.Text = "Загрузить";
+            this.loadButton.UseVisualStyleBackColor = true;
             // 
-            // myButton2
+            // saveButton
             // 
-            this.myButton2.Location = new System.Drawing.Point(6, 131);
-            this.myButton2.Name = "myButton2";
-            this.myButton2.Size = new System.Drawing.Size(86, 23);
-            this.myButton2.TabIndex = 11;
-            this.myButton2.Text = "myButton2";
-            this.myButton2.UseVisualStyleBackColor = true;
+            this.saveButton.Location = new System.Drawing.Point(6, 131);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(86, 23);
+            this.saveButton.TabIndex = 11;
+            this.saveButton.Text = "Сохранить";
+            this.saveButton.UseVisualStyleBackColor = true;
             // 
-            // myButton3
+            // altButton
             // 
-            this.myButton3.Location = new System.Drawing.Point(6, 169);
-            this.myButton3.Name = "myButton3";
-            this.myButton3.Size = new System.Drawing.Size(86, 23);
-            this.myButton3.TabIndex = 12;
-            this.myButton3.Text = "myButton3";
-            this.myButton3.UseVisualStyleBackColor = true;
+            this.altButton.Enabled = false;
+            this.altButton.Location = new System.Drawing.Point(6, 169);
+            this.altButton.Name = "altButton";
+            this.altButton.Size = new System.Drawing.Size(86, 23);
+            this.altButton.TabIndex = 12;
+            this.altButton.Text = "Высота";
+            this.altButton.UseVisualStyleBackColor = true;
             // 
-            // myButton4
+            // writeButton
             // 
-            this.myButton4.Location = new System.Drawing.Point(6, 207);
-            this.myButton4.Name = "myButton4";
-            this.myButton4.Size = new System.Drawing.Size(86, 23);
-            this.myButton4.TabIndex = 13;
-            this.myButton4.Text = "myButton4";
-            this.myButton4.UseVisualStyleBackColor = true;
+            this.writeButton.Location = new System.Drawing.Point(6, 207);
+            this.writeButton.Name = "writeButton";
+            this.writeButton.Size = new System.Drawing.Size(86, 23);
+            this.writeButton.TabIndex = 13;
+            this.writeButton.Text = "Записать";
+            this.writeButton.UseVisualStyleBackColor = true;
             // 
-            // myButton5
+            // getButton
             // 
-            this.myButton5.Location = new System.Drawing.Point(6, 247);
-            this.myButton5.Name = "myButton5";
-            this.myButton5.Size = new System.Drawing.Size(86, 23);
-            this.myButton5.TabIndex = 14;
-            this.myButton5.Text = "myButton5";
-            this.myButton5.UseVisualStyleBackColor = true;
+            this.getButton.Location = new System.Drawing.Point(6, 247);
+            this.getButton.Name = "getButton";
+            this.getButton.Size = new System.Drawing.Size(86, 23);
+            this.getButton.TabIndex = 14;
+            this.getButton.Text = "Получить";
+            this.getButton.UseVisualStyleBackColor = true;
             // 
-            // myButton6
+            // deleteButton
             // 
-            this.myButton6.Location = new System.Drawing.Point(6, 285);
-            this.myButton6.Name = "myButton6";
-            this.myButton6.Size = new System.Drawing.Size(86, 23);
-            this.myButton6.TabIndex = 15;
-            this.myButton6.Text = "myButton6";
-            this.myButton6.UseVisualStyleBackColor = true;
+            this.deleteButton.Enabled = false;
+            this.deleteButton.Location = new System.Drawing.Point(6, 285);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(86, 23);
+            this.deleteButton.TabIndex = 15;
+            this.deleteButton.Text = "Удалить";
+            this.deleteButton.UseVisualStyleBackColor = true;
             // 
             // WPMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.myButton6);
-            this.Controls.Add(this.myButton5);
-            this.Controls.Add(this.myButton4);
-            this.Controls.Add(this.myButton3);
-            this.Controls.Add(this.myButton2);
-            this.Controls.Add(this.myButton1);
+            this.Controls.Add(this.deleteButton);
+            this.Controls.Add(this.getButton);
+            this.Controls.Add(this.writeButton);
+            this.Controls.Add(this.altButton);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.loadButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -164,11 +166,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private MyButton myButton1;
-        private MyButton myButton2;
-        private MyButton myButton3;
-        private MyButton myButton4;
-        private MyButton myButton5;
-        private MyButton myButton6;
+        public MyButton loadButton;
+        public MyButton saveButton;
+        public MyButton altButton;
+        public MyButton writeButton;
+        public MyButton getButton;
+        public MyButton deleteButton;
     }
 }
