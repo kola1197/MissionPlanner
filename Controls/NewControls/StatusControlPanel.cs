@@ -44,7 +44,7 @@ namespace MissionPlanner.Controls
             }
 
             ToolStripControlHost defaultSensorControlHost =
-                new ToolStripControlHost(sensors[sensorsContextMenuStrip.Items[0]]);
+                new ToolStripControlHost(sensors[sensorsContextMenuStrip.Items[1]]);
             defaultSensorControlHost.Click += sensorsStrip_Click;
             sensorsMenuStrip.Items.Add(defaultSensorControlHost);
 

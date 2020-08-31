@@ -323,7 +323,7 @@ namespace MissionPlanner.Controls
             this.следующаяТочкаToolStripMenuItem,
             this.силаТокаToolStripMenuItem});
             this.sensorsContextMenuStrip.Name = "contextMenuStrip1";
-            this.sensorsContextMenuStrip.Size = new System.Drawing.Size(203, 224);
+            this.sensorsContextMenuStrip.Size = new System.Drawing.Size(203, 202);
             // 
             // напряжениеToolStripMenuItem
             // 
@@ -411,7 +411,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";
