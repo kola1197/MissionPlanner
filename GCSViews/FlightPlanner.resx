@@ -1173,7 +1173,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7548.31904, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7548.33066, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1231,6 +1231,9 @@
   </data>
   <data name="panelWaypoints.Text" xml:space="preserve">
     <value>Waypoints</value>
+  </data>
+  <data name="panelWaypoints.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;panelWaypoints.Name" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1605,7 +1608,7 @@
     <value>wpMenu1</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7548.31904, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7548.33066, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Parent" xml:space="preserve">
     <value>panelMap</value>

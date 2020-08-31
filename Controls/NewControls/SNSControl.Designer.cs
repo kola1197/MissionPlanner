@@ -41,6 +41,7 @@
             this.myButton1.TabIndex = 0;
             this.myButton1.Text = "СНС";
             this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton2
             // 

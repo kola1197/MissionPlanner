@@ -696,6 +696,12 @@
     <Compile Include="NewForms\PreFlightForm.Designer.cs">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\SNSInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\SNSInfo.Designer.cs">
+      <DependentUpon>SNSInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\WPConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1827,6 +1833,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\SNSInfo.resx">
+      <DependentUpon>SNSInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\WPConfig.resx">
       <DependentUpon>WPConfig.cs</DependentUpon>
