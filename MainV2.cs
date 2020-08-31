@@ -1219,12 +1219,12 @@ using Help = MissionPlanner.GCSViews.Help;
             ToolStripControlHost aircraftControlHost = new ToolStripControlHost(_aircraftMenuControl);
             menuStrip1.Items.Add(aircraftControlHost);
             _connectionsForm.sitlForm = Simulation;
-            
-            ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
-            menuStrip1.Items.Add(headingControlHost);
 
             ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusMenuPanel);
             menuStrip1.Items.Add(statusControlHost);
+
+            ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
+            menuStrip1.Items.Add(headingControlHost);
 
             mainMenuInit();
         }
