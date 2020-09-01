@@ -400,6 +400,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\CoordinatsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\CoordinatsControl.Designer.cs">
+      <DependentUpon>CoordinatsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\AdditionalSensorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -412,6 +418,18 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\servoGimbal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\servoGimbal.Designer.cs">
+      <DependentUpon>servoGimbal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\SNSControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\SNSControl.Designer.cs">
+      <DependentUpon>SNSControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\SensorUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -423,6 +441,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\StatusControlPanel.Designer.cs">
       <DependentUpon>StatusControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\TimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\TimeControl.Designer.cs">
+      <DependentUpon>TimeControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\VerticalSplittedProgressBar.cs">
       <SubType>UserControl</SubType>
@@ -438,6 +462,18 @@
     </Compile>
     <Compile Include="Controls\NewControls\ICERun.Designer.cs">
       <DependentUpon>ICERun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\WPMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
+      <DependentUpon>WPMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\AltChoose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\AltChoose.Designer.cs">
+      <DependentUpon>AltChoose.cs</DependentUpon>
     </Compile>
     <Compile Include="NewForms\ConnectionsForm.cs">
       <SubType>Form</SubType>
@@ -672,6 +708,18 @@
     <Compile Include="NewForms\PreFlightForm.Designer.cs">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\SNSInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\SNSInfo.Designer.cs">
+      <DependentUpon>SNSInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\WPConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\WPConfig.Designer.cs">
+      <DependentUpon>WPConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
@@ -796,11 +844,20 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\CoordinatsControl.resx">
+      <DependentUpon>CoordinatsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\AdditionalSensorControl.resx">
       <DependentUpon>AdditionalSensorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\servoGimbal.resx">
+      <DependentUpon>servoGimbal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\SNSControl.resx">
+      <DependentUpon>SNSControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\StatusControlPanel.resx">
       <DependentUpon>StatusControlPanel.cs</DependentUpon>
@@ -810,6 +867,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\ICERun.resx">
       <DependentUpon>ICERun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\TimeControl.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
+      <DependentUpon>WPMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\AltChoose.resx">
+      <DependentUpon>AltChoose.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\ConnectionsForm.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
@@ -1782,6 +1848,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\SNSInfo.resx">
+      <DependentUpon>SNSInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\WPConfig.resx">
+      <DependentUpon>WPConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="plugins\generator.resx">
       <DependentUpon>generator.cs</DependentUpon>

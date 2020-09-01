@@ -20,6 +20,7 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             this.TopMost = true;
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
+            //updateARMButton();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,6 +147,103 @@ namespace MissionPlanner.NewForms
             progressIndex = progressIndex >4 ? progressIndex : 4;
             selectedIndex = 4;
             tabControl1.SelectedIndex = selectedIndex;
+        }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        {
+            selectedIndex--;
+            tabControl1.SelectedIndex = selectedIndex;
+        }
+
+        private void myButton2_Click(object sender, EventArgs e)
+        {
+            if (iceCheck1.iceChecked)
+            {
+                progressIndex = progressIndex > 5 ? progressIndex : 5;
+                selectedIndex = 5;
+                tabControl1.SelectedIndex = selectedIndex;
+            }
+        }
+
+        private void startCalibrationButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+            ((Control)sender).Enabled = false;            //set 0 wp as current
+            MainV2.setCurrentWP((ushort)0);
+            ((Control)sender).Enabled = true;
+
+            MainV2.comPort.setMode("Auto");
+            //if (main)
+            //arm();                                         //arm
+        }
+
+        private void arm()
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+                return;
+
+            // arm the MAV
+            try
+            {
+                var isitarmed = MainV2.comPort.MAV.cs.armed;
+                var action = MainV2.comPort.MAV.cs.armed ? "Disarm" : "Arm";
+
+                if (isitarmed)
+                    if (CustomMessageBox.Show("Are you sure you want to " + action, action,
+                            CustomMessageBox.MessageBoxButtons.YesNo) !=
+                        CustomMessageBox.DialogResult.Yes)
+                        return;
+                StringBuilder sb = new StringBuilder();
+                var sub = MainV2.comPort.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.STATUSTEXT, message =>
+                {
+                    sb.AppendLine(Encoding.ASCII.GetString(((MAVLink.mavlink_statustext_t)message.data).text)
+                        .TrimEnd('\0'));
+                    return true;
+                });
+                bool ans = MainV2.comPort.doARM(!isitarmed);
+                MainV2.comPort.UnSubscribeToPacketType(sub);
+                if (ans == false)
+                {
+                    if (CustomMessageBox.Show(
+                            action + " failed.\n" + sb.ToString() + "\nForce " + action +
+                            " can bypass safety checks,\nwhich can lead to the vehicle crashing\nand causing serious injuries.\n\nDo you wish to Force " +
+                            action + "?", Strings.ERROR, CustomMessageBox.MessageBoxButtons.YesNo,
+                            CustomMessageBox.MessageBoxIcon.Exclamation, "Force " + action, "Cancel") ==
+                        CustomMessageBox.DialogResult.Yes)
+                    {
+                        ans = MainV2.comPort.doARM(!isitarmed, true);
+                        if (ans == false)
+                        {
+                            CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+        }
+
+        private void updateARMButton() 
+        {
+            if (MainV2.comPort.MAV.cs.armed)
+            {
+                armButton.Text = "Disarm";
+            }
+            else 
+            {
+                armButton.Text = "Arm";
+            }
+        }
+        private void armButton_Click(object sender, EventArgs e)
+        {
+            arm();
+            //updateARMButton();
         }
     }
 }

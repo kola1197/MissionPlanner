@@ -120,6 +120,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.wpMenu1 = new MissionPlanner.Controls.NewControls.WPMenu();
             this.mainMenuWidget1 = new MissionPlanner.Controls.MainMenuWidget();
             this.lbl_homedist = new System.Windows.Forms.Label();
             this.lbl_prevdist = new System.Windows.Forms.Label();
@@ -217,6 +218,10 @@ namespace MissionPlanner.GCSViews
             this.zoomToVehicleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToMissionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToHomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.GoToThisWPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.зажатьЭтуТочкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
@@ -232,6 +237,7 @@ namespace MissionPlanner.GCSViews
             this.panelBASE.SuspendLayout();
             this.contextMenuStripPoly.SuspendLayout();
             this.contextMenuStripZoom.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // CHK_verifyheight
@@ -740,6 +746,7 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.wpMenu1);
             this.panelMap.Controls.Add(this.mainMenuWidget1);
             this.panelMap.Controls.Add(this.lbl_homedist);
             this.panelMap.Controls.Add(this.lbl_prevdist);
@@ -752,6 +759,11 @@ namespace MissionPlanner.GCSViews
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
             this.panelMap.Resize += new System.EventHandler(this.panelMap_Resize);
+            // 
+            // wpMenu1
+            // 
+            resources.ApplyResources(this.wpMenu1, "wpMenu1");
+            this.wpMenu1.Name = "wpMenu1";
             // 
             // mainMenuWidget1
             // 
@@ -833,6 +845,7 @@ namespace MissionPlanner.GCSViews
             // 
             // contextMenuStrip1
             // 
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteWPToolStripMenuItem,
             this.insertWpToolStripMenuItem,
@@ -859,22 +872,21 @@ namespace MissionPlanner.GCSViews
             this.setHomeHereToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // deleteWPToolStripMenuItem
             // 
-            this.deleteWPToolStripMenuItem.Name = "deleteWPToolStripMenuItem";
             resources.ApplyResources(this.deleteWPToolStripMenuItem, "deleteWPToolStripMenuItem");
+            this.deleteWPToolStripMenuItem.Name = "deleteWPToolStripMenuItem";
             this.deleteWPToolStripMenuItem.Click += new System.EventHandler(this.deleteWPToolStripMenuItem_Click);
             // 
             // insertWpToolStripMenuItem
             // 
             this.insertWpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.currentPositionToolStripMenuItem});
-            this.insertWpToolStripMenuItem.Name = "insertWpToolStripMenuItem";
             resources.ApplyResources(this.insertWpToolStripMenuItem, "insertWpToolStripMenuItem");
+            this.insertWpToolStripMenuItem.Name = "insertWpToolStripMenuItem";
             this.insertWpToolStripMenuItem.Click += new System.EventHandler(this.insertWpToolStripMenuItem_Click);
             // 
             // currentPositionToolStripMenuItem
@@ -885,8 +897,8 @@ namespace MissionPlanner.GCSViews
             // 
             // insertSplineWPToolStripMenuItem
             // 
-            this.insertSplineWPToolStripMenuItem.Name = "insertSplineWPToolStripMenuItem";
             resources.ApplyResources(this.insertSplineWPToolStripMenuItem, "insertSplineWPToolStripMenuItem");
+            this.insertSplineWPToolStripMenuItem.Name = "insertSplineWPToolStripMenuItem";
             this.insertSplineWPToolStripMenuItem.Click += new System.EventHandler(this.insertSplineWPToolStripMenuItem_Click);
             // 
             // loiterToolStripMenuItem
@@ -895,8 +907,8 @@ namespace MissionPlanner.GCSViews
             this.loiterForeverToolStripMenuItem,
             this.loitertimeToolStripMenuItem,
             this.loitercirclesToolStripMenuItem});
-            this.loiterToolStripMenuItem.Name = "loiterToolStripMenuItem";
             resources.ApplyResources(this.loiterToolStripMenuItem, "loiterToolStripMenuItem");
+            this.loiterToolStripMenuItem.Name = "loiterToolStripMenuItem";
             // 
             // loiterForeverToolStripMenuItem
             // 
@@ -921,8 +933,8 @@ namespace MissionPlanner.GCSViews
             this.jumpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.jumpstartToolStripMenuItem,
             this.jumpwPToolStripMenuItem});
-            this.jumpToolStripMenuItem.Name = "jumpToolStripMenuItem";
             resources.ApplyResources(this.jumpToolStripMenuItem, "jumpToolStripMenuItem");
+            this.jumpToolStripMenuItem.Name = "jumpToolStripMenuItem";
             // 
             // jumpstartToolStripMenuItem
             // 
@@ -938,32 +950,32 @@ namespace MissionPlanner.GCSViews
             // 
             // rTLToolStripMenuItem
             // 
-            this.rTLToolStripMenuItem.Name = "rTLToolStripMenuItem";
             resources.ApplyResources(this.rTLToolStripMenuItem, "rTLToolStripMenuItem");
+            this.rTLToolStripMenuItem.Name = "rTLToolStripMenuItem";
             this.rTLToolStripMenuItem.Click += new System.EventHandler(this.rTLToolStripMenuItem_Click);
             // 
             // landToolStripMenuItem
             // 
-            this.landToolStripMenuItem.Name = "landToolStripMenuItem";
             resources.ApplyResources(this.landToolStripMenuItem, "landToolStripMenuItem");
+            this.landToolStripMenuItem.Name = "landToolStripMenuItem";
             this.landToolStripMenuItem.Click += new System.EventHandler(this.landToolStripMenuItem_Click);
             // 
             // takeoffToolStripMenuItem
             // 
-            this.takeoffToolStripMenuItem.Name = "takeoffToolStripMenuItem";
             resources.ApplyResources(this.takeoffToolStripMenuItem, "takeoffToolStripMenuItem");
+            this.takeoffToolStripMenuItem.Name = "takeoffToolStripMenuItem";
             this.takeoffToolStripMenuItem.Click += new System.EventHandler(this.takeoffToolStripMenuItem_Click);
             // 
             // setROIToolStripMenuItem
             // 
-            this.setROIToolStripMenuItem.Name = "setROIToolStripMenuItem";
             resources.ApplyResources(this.setROIToolStripMenuItem, "setROIToolStripMenuItem");
+            this.setROIToolStripMenuItem.Name = "setROIToolStripMenuItem";
             this.setROIToolStripMenuItem.Click += new System.EventHandler(this.setROIToolStripMenuItem_Click);
             // 
             // clearMissionToolStripMenuItem
             // 
-            this.clearMissionToolStripMenuItem.Name = "clearMissionToolStripMenuItem";
             resources.ApplyResources(this.clearMissionToolStripMenuItem, "clearMissionToolStripMenuItem");
+            this.clearMissionToolStripMenuItem.Name = "clearMissionToolStripMenuItem";
             this.clearMissionToolStripMenuItem.Click += new System.EventHandler(this.clearMissionToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -980,8 +992,8 @@ namespace MissionPlanner.GCSViews
             this.loadPolygonToolStripMenuItem2,
             this.fromSHPToolStripMenuItem2,
             this.areaToolStripMenuItem2});
-            this.polygonToolStripMenuItem.Name = "polygonToolStripMenuItem";
             resources.ApplyResources(this.polygonToolStripMenuItem, "polygonToolStripMenuItem");
+            this.polygonToolStripMenuItem.Name = "polygonToolStripMenuItem";
             // 
             // addPolygonPointToolStripMenuItem2
             // 
@@ -1028,8 +1040,8 @@ namespace MissionPlanner.GCSViews
             this.loadFromFileToolStripMenuItem,
             this.saveToFileToolStripMenuItem,
             this.clearToolStripMenuItem});
-            this.geoFenceToolStripMenuItem.Name = "geoFenceToolStripMenuItem";
             resources.ApplyResources(this.geoFenceToolStripMenuItem, "geoFenceToolStripMenuItem");
+            this.geoFenceToolStripMenuItem.Name = "geoFenceToolStripMenuItem";
             // 
             // GeoFenceuploadToolStripMenuItem
             // 
@@ -1076,8 +1088,8 @@ namespace MissionPlanner.GCSViews
             this.clearRallyPointsToolStripMenuItem,
             this.saveToFileToolStripMenuItem1,
             this.loadFromFileToolStripMenuItem1});
-            this.rallyPointsToolStripMenuItem.Name = "rallyPointsToolStripMenuItem";
             resources.ApplyResources(this.rallyPointsToolStripMenuItem, "rallyPointsToolStripMenuItem");
+            this.rallyPointsToolStripMenuItem.Name = "rallyPointsToolStripMenuItem";
             // 
             // setRallyPointToolStripMenuItem
             // 
@@ -1124,8 +1136,8 @@ namespace MissionPlanner.GCSViews
             this.textToolStripMenuItem,
             this.createCircleSurveyToolStripMenuItem,
             this.surveyGridToolStripMenuItem});
-            this.autoWPToolStripMenuItem.Name = "autoWPToolStripMenuItem";
             resources.ApplyResources(this.autoWPToolStripMenuItem, "autoWPToolStripMenuItem");
+            this.autoWPToolStripMenuItem.Name = "autoWPToolStripMenuItem";
             // 
             // createWpCircleToolStripMenuItem
             // 
@@ -1174,8 +1186,8 @@ namespace MissionPlanner.GCSViews
             this.kMLOverlayToolStripMenuItem,
             this.elevationGraphToolStripMenuItem,
             this.reverseWPsToolStripMenuItem});
-            this.mapToolToolStripMenuItem.Name = "mapToolToolStripMenuItem";
             resources.ApplyResources(this.mapToolToolStripMenuItem, "mapToolToolStripMenuItem");
+            this.mapToolToolStripMenuItem.Name = "mapToolToolStripMenuItem";
             // 
             // ContextMeasure
             // 
@@ -1233,8 +1245,8 @@ namespace MissionPlanner.GCSViews
             this.saveWPFileToolStripMenuItem,
             this.loadKMLFileToolStripMenuItem,
             this.loadSHPFileToolStripMenuItem});
-            this.fileLoadSaveToolStripMenuItem.Name = "fileLoadSaveToolStripMenuItem";
             resources.ApplyResources(this.fileLoadSaveToolStripMenuItem, "fileLoadSaveToolStripMenuItem");
+            this.fileLoadSaveToolStripMenuItem.Name = "fileLoadSaveToolStripMenuItem";
             // 
             // loadWPFileToolStripMenuItem
             // 
@@ -1272,8 +1284,8 @@ namespace MissionPlanner.GCSViews
             this.poiaddToolStripMenuItem,
             this.poideleteToolStripMenuItem,
             this.poieditToolStripMenuItem});
-            this.pOIToolStripMenuItem.Name = "pOIToolStripMenuItem";
             resources.ApplyResources(this.pOIToolStripMenuItem, "pOIToolStripMenuItem");
+            this.pOIToolStripMenuItem.Name = "pOIToolStripMenuItem";
             // 
             // poiaddToolStripMenuItem
             // 
@@ -1295,32 +1307,32 @@ namespace MissionPlanner.GCSViews
             // 
             // trackerHomeToolStripMenuItem
             // 
-            this.trackerHomeToolStripMenuItem.Name = "trackerHomeToolStripMenuItem";
             resources.ApplyResources(this.trackerHomeToolStripMenuItem, "trackerHomeToolStripMenuItem");
+            this.trackerHomeToolStripMenuItem.Name = "trackerHomeToolStripMenuItem";
             this.trackerHomeToolStripMenuItem.Click += new System.EventHandler(this.trackerHomeToolStripMenuItem_Click);
             // 
             // modifyAltToolStripMenuItem
             // 
-            this.modifyAltToolStripMenuItem.Name = "modifyAltToolStripMenuItem";
             resources.ApplyResources(this.modifyAltToolStripMenuItem, "modifyAltToolStripMenuItem");
+            this.modifyAltToolStripMenuItem.Name = "modifyAltToolStripMenuItem";
             this.modifyAltToolStripMenuItem.Click += new System.EventHandler(this.modifyAltToolStripMenuItem_Click);
             // 
             // enterUTMCoordToolStripMenuItem
             // 
-            this.enterUTMCoordToolStripMenuItem.Name = "enterUTMCoordToolStripMenuItem";
             resources.ApplyResources(this.enterUTMCoordToolStripMenuItem, "enterUTMCoordToolStripMenuItem");
+            this.enterUTMCoordToolStripMenuItem.Name = "enterUTMCoordToolStripMenuItem";
             this.enterUTMCoordToolStripMenuItem.Click += new System.EventHandler(this.enterUTMCoordToolStripMenuItem_Click);
             // 
             // switchDockingToolStripMenuItem
             // 
-            this.switchDockingToolStripMenuItem.Name = "switchDockingToolStripMenuItem";
             resources.ApplyResources(this.switchDockingToolStripMenuItem, "switchDockingToolStripMenuItem");
+            this.switchDockingToolStripMenuItem.Name = "switchDockingToolStripMenuItem";
             this.switchDockingToolStripMenuItem.Click += new System.EventHandler(this.switchDockingToolStripMenuItem_Click);
             // 
             // setHomeHereToolStripMenuItem
             // 
-            this.setHomeHereToolStripMenuItem.Name = "setHomeHereToolStripMenuItem";
             resources.ApplyResources(this.setHomeHereToolStripMenuItem, "setHomeHereToolStripMenuItem");
+            this.setHomeHereToolStripMenuItem.Name = "setHomeHereToolStripMenuItem";
             this.setHomeHereToolStripMenuItem.Click += new System.EventHandler(this.setHomeHereToolStripMenuItem_Click);
             // 
             // addPolygonPointToolStripMenuItem
@@ -1445,6 +1457,33 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.zoomToHomeToolStripMenuItem, "zoomToHomeToolStripMenuItem");
             this.zoomToHomeToolStripMenuItem.Click += new System.EventHandler(this.zoomToHomeToolStripMenuItem_Click);
             // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GoToThisWPToolStripMenuItem,
+            this.зажатьЭтуТочкуToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
+            // 
+            // GoToThisWPToolStripMenuItem
+            // 
+            this.GoToThisWPToolStripMenuItem.Name = "GoToThisWPToolStripMenuItem";
+            resources.ApplyResources(this.GoToThisWPToolStripMenuItem, "GoToThisWPToolStripMenuItem");
+            this.GoToThisWPToolStripMenuItem.Click += new System.EventHandler(this.GoToThisWPToolStripMenuItem_Click);
+            // 
+            // зажатьЭтуТочкуToolStripMenuItem
+            // 
+            this.зажатьЭтуТочкуToolStripMenuItem.Name = "зажатьЭтуТочкуToolStripMenuItem";
+            resources.ApplyResources(this.зажатьЭтуТочкуToolStripMenuItem, "зажатьЭтуТочкуToolStripMenuItem");
+            this.зажатьЭтуТочкуToolStripMenuItem.Click += new System.EventHandler(this.GoToWPAndLoiterToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            resources.ApplyResources(this.удалитьToolStripMenuItem, "удалитьToolStripMenuItem");
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.deleteWPToolStripMenuItem_Click);
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1474,6 +1513,7 @@ namespace MissionPlanner.GCSViews
             this.panelBASE.ResumeLayout(false);
             this.contextMenuStripPoly.ResumeLayout(false);
             this.contextMenuStripZoom.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1644,5 +1684,10 @@ namespace MissionPlanner.GCSViews
         private DataGridViewTextBoxColumn AZ;
         private DataGridViewTextBoxColumn TagData;
         public MainMenuWidget mainMenuWidget1;
+        private ContextMenuStrip contextMenuStrip2;
+        private ToolStripMenuItem GoToThisWPToolStripMenuItem;
+        private ToolStripMenuItem зажатьЭтуТочкуToolStripMenuItem;
+        private ToolStripMenuItem удалитьToolStripMenuItem;
+        private Controls.NewControls.WPMenu wpMenu1;
     }
 }

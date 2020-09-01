@@ -555,7 +555,7 @@ using Help = MissionPlanner.GCSViews.Help;
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0;          //0 - false, 1 - onse, 2 - always
-
+        public static bool sitlMapChangeSignal = false;
         public static int maxCapacity = 0;
         public static int flyTime = 0;
         public static int butt2RealVoltage = 0;
@@ -1716,6 +1716,7 @@ using Help = MissionPlanner.GCSViews.Help;
         public void MenuSimulation_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Simulation");
+            Simulation.plane_click();
         }
 
         private void MenuTuning_Click(object sender, EventArgs e)
@@ -4926,12 +4927,25 @@ using Help = MissionPlanner.GCSViews.Help;
 
         private void myButton4_Click(object sender, EventArgs e)
         {
-            //MyView.ShowScreen("FlightData");
-            comPort.MAV.cs.ch1out = 1900;
-            comPort.MAV.cs.ch2out = 1900;
-            comPort.MAV.cs.ch3out = 1900;
-            comPort.MAV.cs.ch4out = 1900;
+            MyView.ShowScreen("FlightData");
+            //comPort.MAV.cs.ch1out = 1900;
+            //comPort.MAV.cs.ch2out = 1900;
+            //comPort.MAV.cs.ch3out = 1900;
+            //comPort.MAV.cs.ch4out = 1900;
 
+        }
+
+        public static void setCurrentWP(ushort num)
+        {
+            try
+            {
+                //((Control)sender).Enabled = false;
+                MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, num); // set nav to
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
