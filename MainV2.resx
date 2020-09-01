@@ -953,7 +953,7 @@
     <value>status1</value>
   </data>
   <data name="&gt;&gt;status1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;status1.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -1182,403 +1182,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>986, 194</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label12.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>956, 211</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Высота (СНС)</value>
-  </data>
-  <data name="label11.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>852, 211</value>
-  </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 13</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Тр. тангажа</value>
-  </data>
-  <data name="label10.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label10.Name" xml:space="preserve">
-    <value>label10</value>
-  </data>
-  <data name="&gt;&gt;label10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 194</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 13</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>146%</value>
-  </data>
-  <data name="label9.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>656, 194</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 13</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>тут стрелочка</value>
-  </data>
-  <data name="label8.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>784, 194</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>0,0 м/с</value>
-  </data>
-  <data name="label7.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>536, 177</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>0,0 м/с</value>
-  </data>
-  <data name="label6.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>558, 207</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label5.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>546, 194</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>412, 177</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>0 об/сек</value>
-  </data>
-  <data name="label3.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>421, 194</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>421, 207</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 13</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Авто</value>
-  </data>
-  <data name="label1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>7</value>
   </data>
   <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
@@ -1604,6 +1208,9 @@
   <data name="toolStripButton8.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
   </data>
+  <data name="label13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1611,7 +1218,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1041, 71</value>
+    <value>802, 204</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 13</value>
@@ -1632,7 +1239,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>454, 10</value>
@@ -1813,7 +1420,7 @@
     <value>coordinatsControl1</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1994,7 +1601,7 @@
     <value>timeControl1</value>
   </data>
   <data name="&gt;&gt;timeControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2175,7 +1782,7 @@
     <value>servoGimbal1</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2356,7 +1963,7 @@
     <value>snsControl1</value>
   </data>
   <data name="&gt;&gt;snsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2385,11 +1992,14 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="myButton3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="myButton3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="myButton3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1226, 35</value>
+    <value>987, 168</value>
   </data>
   <data name="myButton3.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 32</value>
@@ -2412,11 +2022,14 @@
   <data name="&gt;&gt;myButton3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="myButton2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="myButton2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="myButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1338, 65</value>
+    <value>1130, 189</value>
   </data>
   <data name="myButton2.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 19</value>
@@ -2439,11 +2052,14 @@
   <data name="&gt;&gt;myButton2.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="myButton1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="myButton1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="myButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1338, 44</value>
+    <value>1130, 168</value>
   </data>
   <data name="myButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 15</value>
@@ -2466,11 +2082,14 @@
   <data name="&gt;&gt;myButton1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="myButton4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="myButton4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="myButton4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1097, 35</value>
+    <value>858, 168</value>
   </data>
   <data name="myButton4.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 32</value>
@@ -2524,169 +2143,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="verticalProgressBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>389, 180</value>
-  </data>
-  <data name="verticalProgressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="verticalProgressBar1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar1.Name" xml:space="preserve">
-    <value>verticalProgressBar1</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar1.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="verticalProgressBar2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>469, 177</value>
-  </data>
-  <data name="verticalProgressBar2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar2.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="verticalProgressBar2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar2.Name" xml:space="preserve">
-    <value>verticalProgressBar2</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar2.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="verticalProgressBar6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>729, 177</value>
-  </data>
-  <data name="verticalProgressBar6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar6.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="verticalProgressBar6.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar6.Name" xml:space="preserve">
-    <value>verticalProgressBar6</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar6.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar6.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar6.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="verticalProgressBar5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 177</value>
-  </data>
-  <data name="verticalProgressBar5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar5.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="verticalProgressBar5.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar5.Name" xml:space="preserve">
-    <value>verticalProgressBar5</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar5.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar5.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="verticalProgressBar3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 177</value>
-  </data>
-  <data name="verticalProgressBar3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar3.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="verticalProgressBar3.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar3.Name" xml:space="preserve">
-    <value>verticalProgressBar3</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar3.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar3.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="verticalProgressBar4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="verticalProgressBar4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 177</value>
-  </data>
-  <data name="verticalProgressBar4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 43</value>
-  </data>
-  <data name="verticalProgressBar4.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="verticalProgressBar4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar4.Name" xml:space="preserve">
-    <value>verticalProgressBar4</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar4.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.VerticalProgressBar, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;verticalProgressBar4.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>8</value>
   </data>
   <data name="toolStripConnectionControl1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4591,6 +4048,12 @@
   <data name="&gt;&gt;MenuConnect.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
+    <value>toolStripConnectionControl</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;MenuArduPilot.Name" xml:space="preserve">
     <value>MenuArduPilot</value>
   </data>
@@ -4651,17 +4114,11 @@
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
-    <value>toolStripConnectionControl</value>
-  </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Name" xml:space="preserve">
     <value>toolStripConnectionControl1</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7548.31863, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7549.33833, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainV2</value>
