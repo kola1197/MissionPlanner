@@ -54,21 +54,11 @@ namespace MissionPlanner
             this.MenuSimulation = new System.Windows.Forms.ToolStripButton();
             this.MenuHelp = new System.Windows.Forms.ToolStripButton();
             this.MenuConnect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.status1 = new MissionPlanner.Controls.Status();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -80,23 +70,15 @@ namespace MissionPlanner
             this.label13 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
+            this.timeControl1 = new MissionPlanner.Controls.NewControls.TimeControl();
+            this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
+            this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
-            this.verticalProgressBar1 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.verticalProgressBar2 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.verticalProgressBar6 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.verticalProgressBar5 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.verticalProgressBar3 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.verticalProgressBar4 = new MissionPlanner.Controls.VerticalProgressBar();
-            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
-            this.timeControl1 = new MissionPlanner.Controls.NewControls.TimeControl();
-            this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
-            this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
-            this.status1 = new MissionPlanner.Controls.Status();
-            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
@@ -226,6 +208,15 @@ namespace MissionPlanner
             this.MenuConnect.Name = "MenuConnect";
             this.MenuConnect.Click += new System.EventHandler(this.MenuConnect_Click);
             // 
+            // toolStripConnectionControl
+            // 
+            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
+            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
+            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
+            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
+            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
+            // 
             // MenuArduPilot
             // 
             this.MenuArduPilot.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -246,6 +237,12 @@ namespace MissionPlanner
             this.panel1.Name = "panel1";
             this.panel1.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
+            // status1
+            // 
+            resources.ApplyResources(this.status1, "status1");
+            this.status1.Name = "status1";
+            this.status1.Percent = 0D;
+            // 
             // menuStrip1
             // 
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
@@ -254,78 +251,6 @@ namespace MissionPlanner
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(45, 39);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            this.label11.Click += new System.EventHandler(this.label11_Click);
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // toolStripButton1
             // 
@@ -387,6 +312,26 @@ namespace MissionPlanner
             this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
             // 
+            // coordinatsControl1
+            // 
+            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
+            this.coordinatsControl1.Name = "coordinatsControl1";
+            // 
+            // timeControl1
+            // 
+            resources.ApplyResources(this.timeControl1, "timeControl1");
+            this.timeControl1.Name = "timeControl1";
+            // 
+            // servoGimbal1
+            // 
+            resources.ApplyResources(this.servoGimbal1, "servoGimbal1");
+            this.servoGimbal1.Name = "servoGimbal1";
+            // 
+            // snsControl1
+            // 
+            resources.ApplyResources(this.snsControl1, "snsControl1");
+            this.snsControl1.Name = "snsControl1";
+            // 
             // myButton3
             // 
             resources.ApplyResources(this.myButton3, "myButton3");
@@ -422,107 +367,6 @@ namespace MissionPlanner
             this.menu.UseVisualStyleBackColor = true;
             this.menu.MouseEnter += new System.EventHandler(this.menu_MouseEnter);
             // 
-            // verticalProgressBar1
-            // 
-            this.verticalProgressBar1.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar1, "verticalProgressBar1");
-            this.verticalProgressBar1.Label = null;
-            this.verticalProgressBar1.maxline = 0;
-            this.verticalProgressBar1.minline = 0;
-            this.verticalProgressBar1.Name = "verticalProgressBar1";
-            this.verticalProgressBar1.Value = 20;
-            this.verticalProgressBar1.Click += new System.EventHandler(this.verticalProgressBar1_Click);
-            // 
-            // verticalProgressBar2
-            // 
-            this.verticalProgressBar2.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar2, "verticalProgressBar2");
-            this.verticalProgressBar2.Label = null;
-            this.verticalProgressBar2.maxline = 0;
-            this.verticalProgressBar2.minline = 0;
-            this.verticalProgressBar2.Name = "verticalProgressBar2";
-            this.verticalProgressBar2.Value = 20;
-            this.verticalProgressBar2.Click += new System.EventHandler(this.verticalProgressBar2_Click);
-            // 
-            // verticalProgressBar6
-            // 
-            this.verticalProgressBar6.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar6, "verticalProgressBar6");
-            this.verticalProgressBar6.Label = null;
-            this.verticalProgressBar6.maxline = 0;
-            this.verticalProgressBar6.minline = 0;
-            this.verticalProgressBar6.Name = "verticalProgressBar6";
-            this.verticalProgressBar6.Value = 20;
-            this.verticalProgressBar6.Click += new System.EventHandler(this.verticalProgressBar6_Click);
-            // 
-            // verticalProgressBar5
-            // 
-            this.verticalProgressBar5.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar5, "verticalProgressBar5");
-            this.verticalProgressBar5.Label = null;
-            this.verticalProgressBar5.maxline = 0;
-            this.verticalProgressBar5.minline = 0;
-            this.verticalProgressBar5.Name = "verticalProgressBar5";
-            this.verticalProgressBar5.Value = 20;
-            this.verticalProgressBar5.Click += new System.EventHandler(this.verticalProgressBar5_Click);
-            // 
-            // verticalProgressBar3
-            // 
-            this.verticalProgressBar3.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar3, "verticalProgressBar3");
-            this.verticalProgressBar3.Label = null;
-            this.verticalProgressBar3.maxline = 0;
-            this.verticalProgressBar3.minline = 0;
-            this.verticalProgressBar3.Name = "verticalProgressBar3";
-            this.verticalProgressBar3.Value = 20;
-            this.verticalProgressBar3.Click += new System.EventHandler(this.verticalProgressBar3_Click);
-            // 
-            // verticalProgressBar4
-            // 
-            this.verticalProgressBar4.DrawLabel = true;
-            resources.ApplyResources(this.verticalProgressBar4, "verticalProgressBar4");
-            this.verticalProgressBar4.Label = null;
-            this.verticalProgressBar4.maxline = 0;
-            this.verticalProgressBar4.minline = 0;
-            this.verticalProgressBar4.Name = "verticalProgressBar4";
-            this.verticalProgressBar4.Value = 20;
-            this.verticalProgressBar4.Click += new System.EventHandler(this.verticalProgressBar4_Click);
-            // 
-            // coordinatsControl1
-            // 
-            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
-            this.coordinatsControl1.Name = "coordinatsControl1";
-            // 
-            // timeControl1
-            // 
-            resources.ApplyResources(this.timeControl1, "timeControl1");
-            this.timeControl1.Name = "timeControl1";
-            // 
-            // servoGimbal1
-            // 
-            resources.ApplyResources(this.servoGimbal1, "servoGimbal1");
-            this.servoGimbal1.Name = "servoGimbal1";
-            // 
-            // snsControl1
-            // 
-            resources.ApplyResources(this.snsControl1, "snsControl1");
-            this.snsControl1.Name = "snsControl1";
-            // 
-            // status1
-            // 
-            resources.ApplyResources(this.status1, "status1");
-            this.status1.Name = "status1";
-            this.status1.Percent = 0D;
-            // 
-            // toolStripConnectionControl
-            // 
-            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
-            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
-            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
-            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
-            // 
             // toolStripConnectionControl1
             // 
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
@@ -537,27 +381,9 @@ namespace MissionPlanner
             this.Controls.Add(this.myButton2);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.myButton4);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.menu);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.verticalProgressBar1);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.verticalProgressBar2);
-            this.Controls.Add(this.verticalProgressBar6);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.verticalProgressBar5);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.verticalProgressBar3);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.verticalProgressBar4);
-            this.Controls.Add(this.label4);
             this.KeyPreview = true;
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainV2";
@@ -606,25 +432,6 @@ namespace MissionPlanner
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
 
         #endregion
-
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private VerticalProgressBar verticalProgressBar2;
-        private VerticalProgressBar verticalProgressBar1;
-        private Label label12;
-        private Label label11;
-        private Label label10;
-        private Label label9;
-        private Label label8;
-        private VerticalProgressBar verticalProgressBar6;
-        private VerticalProgressBar verticalProgressBar5;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private VerticalProgressBar verticalProgressBar4;
-        private VerticalProgressBar verticalProgressBar3;
         private MyButton myButton2;
         private MyButton myButton1;
         private Label label13;
