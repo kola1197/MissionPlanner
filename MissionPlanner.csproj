@@ -412,6 +412,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\SensorUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\SensorUserControl.Designer.cs">
+      <DependentUpon>SensorUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\StatusControlPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

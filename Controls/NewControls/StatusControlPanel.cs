@@ -7,15 +7,16 @@ using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using MissionPlanner.Controls.NewControls;
 using MissionPlanner.Utilities;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.WinForms;
 
 namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private Dictionary<ToolStripItem, UserControl> sensors = new Dictionary<ToolStripItem, UserControl>();
+        private Dictionary<ToolStripItem, SensorUserControl> sensors = new Dictionary<ToolStripItem, SensorUserControl>();
 
-        private List<UserControl> currentSensors = new List<UserControl>();
+        private List<SensorUserControl> currentSensors = new List<SensorUserControl>();
 
         private Stopwatch stopwatch = new Stopwatch();
 
@@ -33,21 +34,23 @@ namespace MissionPlanner.Controls
             {
                 if (toolStripItem.Text == "Магнитный курс")
                 {
-                    sensors.Add(toolStripItem, new GaugeHeading());
+                    GaugeHeading gaugeHeading = new GaugeHeading();
+                    gaugeHeading.SensorOnClick += sensorsStrip_Click;
+                    sensors.Add(toolStripItem, gaugeHeading);
                 }
                 else
                 {
                     AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState);
                     sensorControl.sensorName = toolStripItem.Text;
+                    sensorControl.SensorOnClick += sensorsStrip_Click;
                     sensors.Add(toolStripItem, sensorControl);
                 }
             }
 
             ToolStripControlHost defaultSensorControlHost =
                 new ToolStripControlHost(sensors[sensorsContextMenuStrip.Items[1]]);
-            defaultSensorControlHost.Click += sensorsStrip_Click;
             sensorsMenuStrip.Items.Add(defaultSensorControlHost);
-
+            
             instance = this;
         }
 
@@ -139,7 +142,41 @@ namespace MissionPlanner.Controls
         public void sensorsStrip_Click(object sender, EventArgs e)
         {
             sensorsContextMenuStrip.Show(Cursor.Position);
-            clickedSensorControl = (ToolStripControlHost) sender;
+            object clickedHost;
+            try
+            {
+                clickedHost = (UserControl) sender;
+            }
+            catch (Exception exception)
+            {
+                try
+                {
+                    clickedHost = (UserControl) ((Control) sender).Parent;
+                }
+                catch (Exception e1)
+                {
+                    clickedHost = (UserControl) ((UserControl) sender).Parent;
+                }
+                
+            }
+
+            try
+            {
+                foreach (ToolStripControlHost controlHost in sensorsMenuStrip.Items)
+                {
+                    if (controlHost.Control == clickedHost)
+                    {
+                        clickedSensorControl = controlHost;
+                    }
+                }
+
+                // clickedSensorControl = sensors.Values.((AdditionalSensorControl) sender);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Pizdec");
+                // clickedSensorControl = (ToolStripControlHost)((Control) sender).Parent;
+            }
         }
 
         private void changeSensorMenuStripItem(int oldSensorIndex, ToolStripControlHost newSensor)
@@ -148,8 +185,7 @@ namespace MissionPlanner.Controls
             sensorsMenuStrip.Items.CopyTo(copy, 0);
             sensorsMenuStrip.Items.Clear();
             copy[oldSensorIndex] = null;
-
-            newSensor.Click += sensorsStrip_Click;
+            
             foreach (var item in copy)
             {
                 sensorsMenuStrip.Items.Add(item ?? newSensor);

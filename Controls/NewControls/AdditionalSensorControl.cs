@@ -11,7 +11,7 @@ using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls
 {
-    public partial class AdditionalSensorControl : UserControl
+    public partial class AdditionalSensorControl : SensorUserControl
     {
         private Binding textBinding;
         private BindingSource textBindingSource;
@@ -141,6 +141,21 @@ namespace MissionPlanner.Controls.NewControls
         private void AdditionalSensorControl_Click(object sender, EventArgs e)
         {
             StatusControlPanel.instance.sensorsStrip_Click(sender, e);
+        }
+        
+        public override event EventHandler SensorOnClick {
+            add {
+                base.Click += value;
+                foreach (Control control in Controls) {
+                    control.Click += value;
+                }
+            }
+            remove {
+                base.Click -= value;
+                foreach (Control control in Controls) {
+                    control.Click -= value;
+                }
+            }
         }
     }
 }
