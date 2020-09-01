@@ -135,7 +135,7 @@ namespace MissionPlanner.GCSViews
         public GMapPolygon wppolygon;
         private GMapMarker CurrentMidLine;
         private bool menuActive = false;
-
+        AltChoose altChoose;
 
         private WPConfig wpConfig;
         public void Init()
@@ -275,7 +275,7 @@ namespace MissionPlanner.GCSViews
             drawnpolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
             drawnpolygon.Stroke = new Pen(Color.Red, 2);
             drawnpolygon.Fill = Brushes.Transparent;
-            
+
             /*
             var timer = new System.Timers.Timer();
 
@@ -285,7 +285,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-
+            wpMenuLoad();
         }
 
         private void test_Click(object sender, EventArgs e)
@@ -615,6 +615,91 @@ namespace MissionPlanner.GCSViews
             frmProgressReporter.Dispose();
         }
 
+        public void writeWPToPlane() 
+        {
+            if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
+            {
+                if ((int)DialogResult.No ==
+                    CustomMessageBox.Show("Absolute Alt is selected are you sure?", "Alt Mode", MessageBoxButtons.YesNo))
+                {
+                    CMB_altmode.SelectedValue = (int)altmode.Relative;
+                }
+            }
+
+            // check home
+            Locationwp home = new Locationwp();
+            try
+            {
+                home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                home.lat = (double.Parse(TXT_homelat.Text));
+                home.lng = (double.Parse(TXT_homelng.Text));
+                home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
+            }
+            catch
+            {
+                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                return;
+            }
+
+            // check for invalid grid data
+            for (int a = 0; a < Commands.Rows.Count - 0; a++)
+            {
+                for (int b = 0; b < Commands.ColumnCount - 0; b++)
+                {
+                    double answer;
+                    if (b >= 1 && b <= 7)
+                    {
+                        if (!double.TryParse(Commands[b, a].Value.ToString(), out answer))
+                        {
+                            CustomMessageBox.Show("There are errors in your mission");
+                            return;
+                        }
+                    }
+
+                    if (TXT_altwarn.Text == "") TXT_altwarn.Text = (0).ToString();
+
+                    if (Commands.Rows[a].Cells[Command.Index].Value.ToString().Contains("UNKNOWN"))
+                        continue;
+
+                    ushort cmd =
+                        (ushort)
+                        Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[a].Cells[Command.Index].Value.ToString(), false);
+
+                    if (cmd < (ushort)MAVLink.MAV_CMD.LAST &&
+                        double.Parse(Commands[Alt.Index, a].Value.ToString()) < double.Parse(TXT_altwarn.Text))
+                    {
+                        if (cmd != (ushort)MAVLink.MAV_CMD.TAKEOFF &&
+                            cmd != (ushort)MAVLink.MAV_CMD.LAND &&
+                            cmd != (ushort)MAVLink.MAV_CMD.RETURN_TO_LAUNCH)
+                        {
+                            CustomMessageBox.Show("Low alt on WP#" + (a + 1) +
+                                                  "\nPlease reduce the alt warning, or increase the altitude");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                Text = "Sending WP's"
+            };
+
+            frmProgressReporter.DoWork += saveWPs;
+
+            frmProgressReporter.UpdateProgressAndStatus(-1, "Sending WP's");
+
+            ThemeManager.ApplyThemeTo(frmProgressReporter);
+
+            frmProgressReporter.RunBackgroundOperationAsync();
+
+            frmProgressReporter.Dispose();
+
+            MainMap.Focus();
+        }
+
         /// <summary>
         /// Writes the mission from the datagrid and values to the EEPROM
         /// </summary>
@@ -622,7 +707,6 @@ namespace MissionPlanner.GCSViews
         /// <param name="e"></param>
         public void BUT_write_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("GOT ONE 2");
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
@@ -2952,6 +3036,17 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        public void removeAllWP() 
+        {
+            Commands.Rows.Clear();
+            writeKML();
+        }
+
+        public void removeWP(int i) 
+        {
+            
+        }
+
         public void deleteWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int no = 0;
@@ -3018,6 +3113,7 @@ namespace MissionPlanner.GCSViews
                 CurentRectMarker = null;
 
             writeKML();
+            tryToWriteWP();
         }
 
         private void Dxf_newLine(dxf sender, netDxf.Entities.Line line)
@@ -6655,6 +6751,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
         {
+            bool needToWriteWP = false;
             System.Diagnostics.Debug.WriteLine("GOT ONE 3");
             if (isMouseClickOffMenu)
             {
@@ -6801,6 +6898,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         else
                         {
                             AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                            needToWriteWP = true;
                         }
                     }
                 }
@@ -6861,6 +6959,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         }
                         else
                         {
+                            needToWriteWP = true;
                             callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat,
                                 currentMarker.Position.Lng, -2);
                         }
@@ -6870,6 +6969,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             isMouseDraging = false;
+            if (needToWriteWP) 
+            {
+                tryToWriteWP();
+            }
         }
 
         private void ReCalcFence(int rowno, bool insert, bool delete)
@@ -7394,16 +7497,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //jumpwPToolStripMenuItem_Click(sender, e);
             GoToThisWPToolStripMenuItem_Click(sender,e);
             loiterForeverToolStripMenuItem_Click(sender, e);
+            tryToWriteWP();
         }
 
         private void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (CurentRectMarker != null)
             {
-                //((Control)sender).Enabled = false;
                 MainV2.setCurrentWP(ushort.Parse(CurentRectMarker.Tag.ToString()));
-                //((Control)sender).Enabled = true;
             }
+            tryToWriteWP();
         }
 
         private void wpConfig_setValues() 
@@ -7464,6 +7567,51 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void WPConfig_actionsAdding()    //yap, this name is awfull
         {
             wpConfig.FormClosing += WpConfig_FormClosing;
+        }
+
+        private void wpMenuLoad() 
+        {
+            wpMenu1.loadButton.MouseUp += BUT_loadwpfile_Click;
+            wpMenu1.saveButton.MouseUp += BUT_saveWPFile_Click;
+            wpMenu1.writeButton.MouseUp += BUT_write_Click;
+            wpMenu1.getButton.MouseUp += BUT_read_Click;
+            wpMenu1.deleteButton.MouseUp += DeleteButton_MouseUp;
+            wpMenu1.altButton.MouseUp += AltButton_MouseUp;
+        }
+
+        private void AltButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            altChoose = new AltChoose();
+            altChoose.TopMost = true;
+            altChoose.myButton1.MouseUp += MyButton1_MouseUp;
+            altChoose.Show();
+        }
+
+        private void MyButton1_MouseUp(object sender, MouseEventArgs e)
+        {
+            int i = 0;
+            if (int.TryParse(altChoose.textBox1.Text, out i))
+            {
+                setAltToAll(i);
+                altChoose.Close();
+            }
+            else 
+            {
+                CustomMessageBox.Show("Данные некорректные");
+            }
+        }
+
+        private void setAltToAll(int alt) 
+        {
+            for (int i = 0; i < Commands.Rows.Count; i++) 
+            {
+                Commands.Rows[i].Cells[Alt.Index].Value = alt.ToString();
+            }
+        }
+
+        private void DeleteButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            removeAllWP();
         }
 
         private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
@@ -7528,6 +7676,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Commands.Rows.Insert(index + 1, row);
                     }
                 } 
+            }
+            tryToWriteWP();
+        }
+
+        public void tryToWriteWP() 
+        {
+            if (MainV2.comPort.MAV.cs.connected == true)
+            {
+                writeWPToPlane();
             }
         }
     }

@@ -100,7 +100,7 @@ namespace MissionPlanner.GCSViews
 
             if (!Directory.Exists(sitldirectory))
                 Directory.CreateDirectory(sitldirectory);
-
+            //plane_click();
         }
 
         public void Activate()
@@ -108,7 +108,6 @@ namespace MissionPlanner.GCSViews
             homemarker.Position = MainV2.comPort.MAV.cs.PlannedHomeLocation;
 
             myGMAP1.Position = homemarker.Position;
-
             myGMAP1.MapProvider = GCSViews.FlightData.mymap.MapProvider;
             myGMAP1.MaxZoom = 22;
             myGMAP1.Zoom = 16;
@@ -124,11 +123,16 @@ namespace MissionPlanner.GCSViews
             Utilities.ThemeManager.ApplyThemeTo(this);
 
             MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
+            //MainV2.sitlMapChangeSignal = true;
         }
 
         private async void pictureBoxplane_Click(object sender, EventArgs e)
         {
+            plane_click();
+        }
 
+        public async void plane_click() 
+        {
             var exepath = CheckandGetSITLImage("ArduPlane.elf");
 
             if (markeroverlay.Markers.Count == 0)
@@ -140,8 +144,8 @@ namespace MissionPlanner.GCSViews
             try
             {
                 StartSITL(await exepath, "plane",
-                    BuildHomeLocation(markeroverlay.Markers[0].Position, (int) NUM_heading.Value), "",
-                    (int) num_simspeed.Value);
+                    BuildHomeLocation(markeroverlay.Markers[0].Position, (int)NUM_heading.Value), "",
+                    (int)num_simspeed.Value);
             }
             catch (Exception ex)
             {
@@ -457,7 +461,8 @@ namespace MissionPlanner.GCSViews
 
             await Task.Delay(2000);
 
-            MainV2.View.ShowScreen(MainV2.View.screens[0].Name);
+            //MainV2.View.ShowScreen(MainV2.View.screens[0].Name);
+            MainV2.View.ShowScreen(MainV2.View.screens[1].Name);
 
             var client = new Comms.TcpSerial();
 
@@ -486,6 +491,7 @@ namespace MissionPlanner.GCSViews
                 CustomMessageBox.Show(Strings.Failed_to_connect_to_SITL_instance, Strings.ERROR);
                 return;
             }
+            //plane_click();
         }
 
         static internal void rcinput()
@@ -789,7 +795,8 @@ SIM_DRIFT_TIME=0
 
             System.Threading.Thread.Sleep(2000);
 
-            MainV2.View.ShowScreen(MainV2.View.screens[0].Name);
+            //MainV2.View.ShowScreen(MainV2.View.screens[0].Name);
+            MainV2.View.ShowScreen(MainV2.View.screens[1].Name);
 
             try
             {
