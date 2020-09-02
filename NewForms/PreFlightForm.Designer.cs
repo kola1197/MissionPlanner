@@ -425,7 +425,7 @@
             this.myButton3.TabIndex = 0;
             this.myButton3.Text = "ПУСК";
             this.myButton3.UseVisualStyleBackColor = true;
-            this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
+            this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton3_MouseUp);
             // 
             // timer1
             // 

@@ -43,6 +43,18 @@ namespace MissionPlanner.Orlan
             set => _sysId = value;
         }
 
+        private DateTime _startTime = new DateTime(0);
+
+        public bool hasStartTime = false;
+        public DateTime StartOfTheFlightTime 
+        { 
+            get => _startTime;
+            set { 
+                _startTime = value;
+                hasStartTime = true;
+            }
+        }
+
         // public AircraftConnectionInfo(string number, string name, string port)
         // {
         //     this.Number = string.Copy(number);

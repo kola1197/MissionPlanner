@@ -170,16 +170,6 @@ namespace MissionPlanner.NewForms
 
         }
 
-        private void myButton3_Click(object sender, EventArgs e)
-        {
-            ((Control)sender).Enabled = false;            //set 0 wp as current
-            MainV2.setCurrentWP((ushort)0);
-            ((Control)sender).Enabled = true;
-
-            MainV2.comPort.setMode("Auto");
-            //if (main)
-            //arm();                                         //arm
-        }
 
         private void arm()
         {
@@ -244,6 +234,19 @@ namespace MissionPlanner.NewForms
         {
             arm();
             //updateARMButton();
+        }
+
+        private void myButton3_MouseUp(object sender, MouseEventArgs e)
+        {
+            ((Control)sender).Enabled = false;            //set 0 wp as current
+            MainV2.setCurrentWP((ushort)0);
+            ((Control)sender).Enabled = true;
+            Orlan.AircraftConnectionInfo info;
+            if (MainV2._aircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+            {
+                info.StartOfTheFlightTime = DateTime.Now;
+            }
+            MainV2.comPort.setMode("Auto");
         }
     }
 }
