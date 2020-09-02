@@ -448,6 +448,12 @@
     <Compile Include="Controls\NewControls\TimeControl.Designer.cs">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\TimerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\TimerControl.Designer.cs">
+      <DependentUpon>TimerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\VerticalSplittedProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -870,6 +876,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\TimerControl.resx">
+      <DependentUpon>TimerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
       <DependentUpon>WPMenu.cs</DependentUpon>
