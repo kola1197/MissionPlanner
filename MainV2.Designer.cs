@@ -73,12 +73,6 @@ namespace MissionPlanner
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
-            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
-            this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
-            this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
-            this.status1 = new MissionPlanner.Controls.Status();
-            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
-            this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -91,16 +85,6 @@ namespace MissionPlanner
             this.MainMenu.ContextMenuStrip = this.CTX_mainmenu;
             this.MainMenu.GripMargin = new System.Windows.Forms.Padding(0);
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(45, 39);
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuFlightData,
-            this.MenuFlightPlanner,
-            this.MenuInitConfig,
-            this.MenuConfigTune,
-            this.MenuSimulation,
-            this.MenuHelp,
-            this.MenuConnect,
-            this.toolStripConnectionControl,
-            this.MenuArduPilot});
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.ShowItemToolTips = true;
             this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
@@ -220,9 +204,6 @@ namespace MissionPlanner
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.status1);
-            this.panel1.Controls.Add(this.menuStrip1);
-            this.panel1.Controls.Add(this.MainMenu);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
@@ -290,9 +271,6 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
-            this.panel2.Controls.Add(this.coordinatsControl1);
-            this.panel2.Controls.Add(this.servoGimbal1);
-            this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
             // 
             // myButton3
@@ -329,41 +307,6 @@ namespace MissionPlanner
             this.menu.Name = "menu";
             this.menu.UseVisualStyleBackColor = true;
             this.menu.MouseEnter += new System.EventHandler(this.menu_MouseEnter);
-            // 
-            // coordinatsControl1
-            // 
-            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
-            this.coordinatsControl1.Name = "coordinatsControl1";
-            // 
-            // servoGimbal1
-            // 
-            resources.ApplyResources(this.servoGimbal1, "servoGimbal1");
-            this.servoGimbal1.Name = "servoGimbal1";
-            // 
-            // snsControl1
-            // 
-            resources.ApplyResources(this.snsControl1, "snsControl1");
-            this.snsControl1.Name = "snsControl1";
-            // 
-            // status1
-            // 
-            resources.ApplyResources(this.status1, "status1");
-            this.status1.Name = "status1";
-            this.status1.Percent = 0D;
-            // 
-            // toolStripConnectionControl
-            // 
-            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
-            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
-            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
-            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
-            // 
-            // toolStripConnectionControl1
-            // 
-            resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
-            this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
             // MainV2
             // 

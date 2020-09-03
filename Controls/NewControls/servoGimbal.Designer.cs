@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
@@ -39,6 +40,7 @@
             this.myButton9 = new MissionPlanner.Controls.MyButton();
             this.myButton10 = new MissionPlanner.Controls.MyButton();
             this.myButton11 = new MissionPlanner.Controls.MyButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // myButton1
@@ -50,6 +52,7 @@
             this.myButton1.Text = "Подвес";
             this.myButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton2
             // 
@@ -151,6 +154,10 @@
             this.myButton11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton11.UseVisualStyleBackColor = true;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // servoGimbal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,5 +193,6 @@
         private MyButton myButton9;
         private MyButton myButton10;
         private MyButton myButton11;
+        private System.Windows.Forms.Timer timer1;
     }
 }

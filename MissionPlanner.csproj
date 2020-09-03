@@ -418,6 +418,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\newTimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\newTimeControl.Designer.cs">
+      <DependentUpon>newTimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -864,6 +870,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\newTimeControl.resx">
+      <DependentUpon>newTimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\servoGimbal.resx">
       <DependentUpon>servoGimbal.cs</DependentUpon>

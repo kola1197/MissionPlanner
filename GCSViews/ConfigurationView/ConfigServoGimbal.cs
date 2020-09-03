@@ -102,7 +102,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MainV2.configServo[10] = 0;
             deserealaseDict();
             updateComboboxes();
-
         }
 
         public void loadConfig() 
