@@ -58,8 +58,9 @@ using MissionPlanner.Plugin;
 using MissionPlanner.Properties;
 using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
+using System.Xml.Serialization;
 
- namespace MissionPlanner
+namespace MissionPlanner
 {
     public partial class MainV2 : Form
     {
@@ -563,6 +564,44 @@ using Help = MissionPlanner.GCSViews.Help;
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
 
+        public static Dictionary<int, int> configServo = new Dictionary<int, int>();
+        public class item
+        {
+            [XmlAttribute]
+            public string id;
+            [XmlAttribute]
+            public string value;
+        }
+        string defaultConfig = "servoConfig.txt";
+
+        private void deserealaseDict()
+        {
+            if (File.Exists(defaultConfig))
+            {
+                StreamReader stream = new StreamReader(defaultConfig);
+                var orgDict = ((item[])serializer.Deserialize(stream))
+                       .ToDictionary(i => i.id, i => i.value);
+                for (int i = 0; i < 11; i++)
+                {
+                    int v;
+                    string s;
+                    Dictionary<string, string> Dict = (Dictionary<string, string>)orgDict;
+
+                    if (Dict.TryGetValue(i.ToString(), out s))
+                    {
+                        if (int.TryParse(s, out v))
+                        {
+                            MainV2.configServo[i] = v;
+                        }
+                    }
+                }
+                stream.Close();
+            }
+
+        }
+
+        public XmlSerializer serializer = new XmlSerializer(typeof(item[]),
+                                 new XmlRootAttribute() { ElementName = "items" });
         /// <summary>
         /// This 'Control' is the toolstrip control that holds the comport combo, baudrate combo etc
         /// Otiginally seperate controls, each hosted in a toolstip sqaure, combined into this custom
@@ -1228,6 +1267,7 @@ using Help = MissionPlanner.GCSViews.Help;
 
             mainMenuInit();
             coordinatsControlInit();
+            deserealaseDict();
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
