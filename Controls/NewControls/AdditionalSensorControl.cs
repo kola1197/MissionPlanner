@@ -13,8 +13,11 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class AdditionalSensorControl : SensorUserControl
     {
+        public override System.Drawing.Size ControlSize => this.MinimumSize;
+
         private Binding textBinding;
         private BindingSource textBindingSource;
+
         public string sensorName
         {
             get { return sensorName_label.Text; }
@@ -31,7 +34,7 @@ namespace MissionPlanner.Controls.NewControls
                         break;
                     case "Температура двигателя":
                         textBinding = new Binding("Text", textBindingSource, "rpm2",
-                            true); 
+                            true);
                         textBinding.Format += temp_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
                         break;
@@ -116,7 +119,6 @@ namespace MissionPlanner.Controls.NewControls
 
         private void nextWP_Format(object sender, ConvertEventArgs e)
         {
-            
             e.Value = e.Value.ToString();
         }
 
@@ -130,7 +132,6 @@ namespace MissionPlanner.Controls.NewControls
         {
             textBindingSource = bindingSource;
             InitializeComponent();
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -142,17 +143,22 @@ namespace MissionPlanner.Controls.NewControls
         {
             StatusControlPanel.instance.sensorsStrip_Click(sender, e);
         }
-        
-        public override event EventHandler SensorOnClick {
-            add {
+
+        public override event EventHandler SensorOnClick
+        {
+            add
+            {
                 base.Click += value;
-                foreach (Control control in Controls) {
+                foreach (Control control in Controls)
+                {
                     control.Click += value;
                 }
             }
-            remove {
+            remove
+            {
                 base.Click -= value;
-                foreach (Control control in Controls) {
+                foreach (Control control in Controls)
+                {
                     control.Click -= value;
                 }
             }

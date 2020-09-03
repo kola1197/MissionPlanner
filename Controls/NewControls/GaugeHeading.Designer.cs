@@ -37,13 +37,13 @@ namespace MissionPlanner.Controls
             this.bindingSourceGaugeHeading = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.headingDegrees_Label = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugeHeading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceGaugeHeading)).BeginInit();
             this.SuspendLayout();
             // 
             // Gheading
             // 
             this.Gheading.BackColor = System.Drawing.Color.Transparent;
-            this.Gheading.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Gheading.BackgroundImage")));
+            this.Gheading.BackgroundImage = ((System.Drawing.Image) (resources.GetObject("Gheading.BackgroundImage")));
             this.Gheading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Gheading.DataBindings.Add(new System.Windows.Forms.Binding("Heading", this.bindingSourceGaugeHeading, "yaw", true));
             this.Gheading.DataBindings.Add(new System.Windows.Forms.Binding("NavHeading", this.bindingSourceGaugeHeading, "nav_bearing", true));
@@ -67,9 +67,7 @@ namespace MissionPlanner.Controls
             // 
             // headingDegrees_Label
             // 
-            this.headingDegrees_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.headingDegrees_Label.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.headingDegrees_Label.Location = new System.Drawing.Point(48, 35);
             this.headingDegrees_Label.Name = "headingDegrees_Label";
             this.headingDegrees_Label.Size = new System.Drawing.Size(29, 14);
@@ -83,11 +81,11 @@ namespace MissionPlanner.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.headingDegrees_Label);
             this.Controls.Add(this.Gheading);
+            this.MinimumSize = new System.Drawing.Size(123, 123);
             this.Name = "GaugeHeading";
             this.Size = new System.Drawing.Size(123, 123);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugeHeading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceGaugeHeading)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.BindingSource bindingSourceGaugeHeading;

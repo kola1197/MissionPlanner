@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
@@ -14,7 +15,8 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private Dictionary<ToolStripItem, SensorUserControl> sensors = new Dictionary<ToolStripItem, SensorUserControl>();
+        private Dictionary<ToolStripItem, SensorUserControl> sensors =
+            new Dictionary<ToolStripItem, SensorUserControl>();
 
         private List<SensorUserControl> currentSensors = new List<SensorUserControl>();
 
@@ -40,18 +42,45 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState);
-                    sensorControl.sensorName = toolStripItem.Text;
+                    AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                    {
+                        sensorName = toolStripItem.Text
+                    };
                     sensorControl.SensorOnClick += sensorsStrip_Click;
                     sensors.Add(toolStripItem, sensorControl);
                 }
             }
 
             ToolStripControlHost defaultSensorControlHost =
-                new ToolStripControlHost(sensors[sensorsContextMenuStrip.Items[1]]);
+                new ToolStripControlHost(getDesiredSensor(sensorsContextMenuStrip.Items[1]));
             sensorsMenuStrip.Items.Add(defaultSensorControlHost);
-            
+
+            // ThemeManager.ApplyThemeTo(this);
             instance = this;
+        }
+
+        private SensorUserControl getDesiredSensor(ToolStripItem keyItem)
+        {
+            SensorUserControl desiredSensor = sensors[keyItem];
+
+            // Creating a copy of sensor to replace it in dictionary
+            if (keyItem.Text == "Магнитный курс")
+            {
+                GaugeHeading gaugeHeading = new GaugeHeading();
+                gaugeHeading.SensorOnClick += sensorsStrip_Click;
+                sensors[keyItem] = gaugeHeading;
+            }
+            else
+            {
+                AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                {
+                    sensorName = keyItem.Text
+                };
+                sensorControl.SensorOnClick += sensorsStrip_Click;
+                sensors[keyItem] = sensorControl;
+            }
+
+            return desiredSensor;
         }
 
         protected override void OnInvalidated(InvalidateEventArgs e)
@@ -133,7 +162,8 @@ namespace MissionPlanner.Controls
         private void AdditionalSensorToolStripMenuItemClick(object sender, EventArgs e)
         {
             int clickedSensorIndex = sensorsMenuStrip.Items.IndexOf(clickedSensorControl);
-            changeSensorMenuStripItem(clickedSensorIndex, new ToolStripControlHost(sensors[(ToolStripItem) sender]));
+            changeSensorMenuStripItem(clickedSensorIndex,
+                new ToolStripControlHost(getDesiredSensor((ToolStripItem) sender)));
 
             // sensor_panel.Size = new System.Drawing.Size(sensor_panel.Size.Width + 130, sensor_panel.Height);
             Invalidate();
@@ -142,40 +172,29 @@ namespace MissionPlanner.Controls
         public void sensorsStrip_Click(object sender, EventArgs e)
         {
             sensorsContextMenuStrip.Show(Cursor.Position);
-            object clickedHost;
-            try
-            {
-                clickedHost = (UserControl) sender;
-            }
-            catch (Exception exception)
-            {
-                try
-                {
-                    clickedHost = (UserControl) ((Control) sender).Parent;
-                }
-                catch (Exception e1)
-                {
-                    clickedHost = (UserControl) ((UserControl) sender).Parent;
-                }
-                
-            }
-
             try
             {
                 foreach (ToolStripControlHost controlHost in sensorsMenuStrip.Items)
                 {
-                    if (controlHost.Control == clickedHost)
+                    if (controlHost.Control == sender)
                     {
                         clickedSensorControl = controlHost;
                     }
+                    else
+                    {
+                        foreach (Control control in controlHost.Control.Controls)
+                        {
+                            if (control == sender)
+                            {
+                                clickedSensorControl = controlHost;
+                            }
+                        }
+                    }
                 }
-
-                // clickedSensorControl = sensors.Values.((AdditionalSensorControl) sender);
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Pizdec");
-                // clickedSensorControl = (ToolStripControlHost)((Control) sender).Parent;
+                clickedSensorControl = (ToolStripControlHost) sensorsMenuStrip.Items[0];
             }
         }
 
@@ -185,11 +204,31 @@ namespace MissionPlanner.Controls
             sensorsMenuStrip.Items.CopyTo(copy, 0);
             sensorsMenuStrip.Items.Clear();
             copy[oldSensorIndex] = null;
-            
+
             foreach (var item in copy)
             {
                 sensorsMenuStrip.Items.Add(item ?? newSensor);
             }
+        }
+
+        private void showSensor_BUT_Click(object sender, EventArgs e)
+        {
+            if (sensorsMenuStrip.Items.Count >= 6)
+                return;
+            SensorUserControl sensorToShow = getDesiredSensor(sensorsContextMenuStrip.Items[1]);
+            this.Size = new Size(this.Size.Width + sensorToShow.ControlSize.Width, this.Size.Height);
+            sensorsMenuStrip.Items.Add(new ToolStripControlHost(sensorToShow));
+        }
+
+        private void hideSensor_BUT_Click(object sender, EventArgs e)
+        {
+            if (sensorsMenuStrip.Items.Count < 2)
+                return;
+            int indexOfSensorToHide = sensorsMenuStrip.Items.Count - 1;
+            SensorUserControl sensorToHide =
+                (SensorUserControl) ((ToolStripControlHost) sensorsMenuStrip.Items[indexOfSensorToHide]).Control;
+            sensorsMenuStrip.Items.RemoveAt(indexOfSensorToHide);
+            this.Size = new Size(this.Size.Width - sensorToHide.ControlSize.Width, this.Size.Height);
         }
     }
 }
