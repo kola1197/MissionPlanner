@@ -31,14 +31,15 @@ namespace MissionPlanner.Controls.NewControls
             myButton9.Tag = 2;
             myButton10.Tag = 1;
             myButton11.Tag = 10;
+            timer1.Start();
         }
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
             MyButton b = (MyButton)sender;
             int i = (int)b.Tag;
-
-
+            timing[i] = 10;
+            System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -47,65 +48,71 @@ namespace MissionPlanner.Controls.NewControls
             {
                 if (timing[i] > 0) 
                 {
+                    System.Diagnostics.Debug.WriteLine("Timing " + i.ToString());
                     timing[i]--;
                     MainV2.servoValue servo;
                     if (MainV2.configServo.TryGetValue(i, out servo))
                     {
-                        switch (servo.servo)
+                        System.Diagnostics.Debug.WriteLine("Servo click!!! Servo: " + servo.servo.ToString() + " Value: " + servo.value.ToString());
+                        MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, servo.value, 0, 0, 0, 0, 0);
+
+                        /*switch (servo.servo)
                         {
                             case 0:
                                 break;
                             case 1:
-                                MainV2.comPort.MAV.cs.ch1out = 1900;
+                                //MainV2.comPort.MAV.cs.ch1in = servo.value;
+                                //MainV2.comPort.MAV.cs.ch1out = servo.value;
+                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, 1800, 0, 0, 0, 0, 0);
+                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 3, 1800, 0, 0, 0, 0, 0);
                                 break;
                             case 2:
-                                MainV2.comPort.MAV.cs.ch2out = 1900;
+                                MainV2.comPort.MAV.cs.ch2out = servo.value;
                                 break;
                             case 3:
-                                MainV2.comPort.MAV.cs.ch3out = 1900;
                                 break;
                             case 4:
-                                MainV2.comPort.MAV.cs.ch4out = 1900;
+                                MainV2.comPort.MAV.cs.ch4out = servo.value;
                                 break;
                             case 5:
-                                MainV2.comPort.MAV.cs.ch5out = 1900;
+                                MainV2.comPort.MAV.cs.ch5out = servo.value;
                                 break;
                             case 6:
-                                MainV2.comPort.MAV.cs.ch6out = 1900;
+                                MainV2.comPort.MAV.cs.ch6out = servo.value;
                                 break;
                             case 7:
-                                MainV2.comPort.MAV.cs.ch7out = 1900;
+                                MainV2.comPort.MAV.cs.ch7out = servo.value;
                                 break;
                             case 8:
-                                MainV2.comPort.MAV.cs.ch8out = 1900;
+                                MainV2.comPort.MAV.cs.ch8out = servo.value;
                                 break;
                             case 9:
-                                MainV2.comPort.MAV.cs.ch9out = 1900;
+                                MainV2.comPort.MAV.cs.ch9out = servo.value;
                                 break;
                             case 10:
-                                MainV2.comPort.MAV.cs.ch10out = 1900;
+                                MainV2.comPort.MAV.cs.ch10out = servo.value;
                                 break;
                             case 11:
-                                MainV2.comPort.MAV.cs.ch11out = 1900;
+                                MainV2.comPort.MAV.cs.ch11out = servo.value;
                                 break;
                             case 12:
-                                MainV2.comPort.MAV.cs.ch12out = 1900;
+                                MainV2.comPort.MAV.cs.ch12out = servo.value;
                                 break;
                             case 13:
-                                MainV2.comPort.MAV.cs.ch13out = 1900;
+                                MainV2.comPort.MAV.cs.ch13out = servo.value;
                                 break;
                             case 14:
-                                MainV2.comPort.MAV.cs.ch14out = 1900;
+                                MainV2.comPort.MAV.cs.ch14out = servo.value;
                                 break;
                             case 15:
-                                MainV2.comPort.MAV.cs.ch15out = 1900;
+                                MainV2.comPort.MAV.cs.ch15out = servo.value;
                                 break;
                             case 16:
-                                MainV2.comPort.MAV.cs.ch16out = 1900;
+                                MainV2.comPort.MAV.cs.ch16out = servo.value;
                                 break;
                             default:
                                 break;
-                        }
+                        }*/
                     }
                 }
             }
