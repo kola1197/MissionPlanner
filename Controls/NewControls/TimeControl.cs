@@ -16,11 +16,11 @@ namespace MissionPlanner.Controls.NewControls
         public TimeControl()
         {
             InitializeComponent();
-            updateLabels();
-            timer1.Start();
+            //updateLabels();
+            //timer1.Start();
         }
 
-        private void updateLabels() 
+        /*private void updateLabels() 
         {
             DateTime start;
             Orlan.AircraftConnectionInfo info;
@@ -50,11 +50,11 @@ namespace MissionPlanner.Controls.NewControls
                 label2.Text = "00:00:00";
             }
             label3.Text = DateTime.Now.ToString("HH:mm");
-        }
+        }*/
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            updateLabels();   
+            //updateLabels();   
         }
     }
 }
