@@ -178,7 +178,7 @@ namespace MissionPlanner.ArduPilot
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         if (command == (ushort)MAVLink.MAV_CMD.TAKEOFF || command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
                         {
-                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, wpradius);
+                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
                             //addpolygonmarker((a + 1).ToString(), item.lng, item.lat, null, Color.Orange, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
                         }
                         else 
