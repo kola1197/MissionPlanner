@@ -48,10 +48,10 @@ namespace MissionPlanner.Controls.NewControls
                 if (timing[i] > 0) 
                 {
                     timing[i]--;
-                    int servo;
+                    MainV2.servoValue servo;
                     if (MainV2.configServo.TryGetValue(i, out servo))
                     {
-                        switch (servo)
+                        switch (servo.servo)
                         {
                             case 0:
                                 break;
