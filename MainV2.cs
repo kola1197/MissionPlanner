@@ -585,7 +585,7 @@ namespace MissionPlanner
                 value = _value;
             }
         }
-        string defaultConfig = "servoConfig.txt";
+        public static string defaultConfig = Settings.GetUserDataDirectory()+"servoConfig.txt";
 
         private void deserealaseDict()
         {

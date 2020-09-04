@@ -17,7 +17,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
     {
         ComboBox [] comboBox = new ComboBox[11];
         TextBox[] textBoxes = new TextBox[11];
-        string defaultConfig = "servoConfig.txt";
         XmlSerializer serializer = new XmlSerializer(typeof(item[]),
                                  new XmlRootAttribute() { ElementName = "items" });
         public ConfigServoGimbal()
@@ -51,9 +50,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         
         private void deserealaseDict() 
         {
-            if (File.Exists(defaultConfig))
+            if (File.Exists(MainV2.defaultConfig))
             {
-                StreamReader stream = new StreamReader(defaultConfig);
+                StreamReader stream = new StreamReader(MainV2.defaultConfig);
                 var orgDict = ((item[])serializer.Deserialize(stream))
                        .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo) ,int.Parse(i.value)));
                 for (int i = 0; i < 11; i++) 
@@ -81,7 +80,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void serealaseDict()
         {
-            StreamWriter stream = new StreamWriter(defaultConfig, false);
+            StreamWriter stream = new StreamWriter(MainV2.defaultConfig, false);
             serializer.Serialize(stream,
               MainV2.configServo.Select(kv => new item() { id = kv.Key.ToString(), servo = kv.Value.servo.ToString(), value = kv.Value.value.ToString()}).ToArray());
             stream.Close();
