@@ -57,5 +57,17 @@ namespace MissionPlanner.Controls.NewControls
             fieldActive = !fieldActive;
             updateField();
         }
+
+        private void updateValues() 
+        {
+            label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+            label2.Text = MainV2.instance.FlightPlanner.Commands.Rows.Count.ToString();
+            label3.Text = MainV2.comPort.MAV.cs.wp_dist.ToString();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            updateValues();
+        }
     }
 }

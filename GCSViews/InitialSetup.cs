@@ -134,6 +134,8 @@ namespace MissionPlanner.GCSViews
                     AddBackstageViewPage(typeof(ConfigRawParamsTree), Strings.FullParameterTree);
             }
 
+
+
             if (MainV2.DisplayConfiguration.displayInstallFirmware)
             {
                 // if (!Program.WindowsStoreApp)
@@ -278,6 +280,9 @@ namespace MissionPlanner.GCSViews
                 AddBackstageViewPage(typeof(GCSViews.ConfigTerminal), "Terminal", true, adv);
 
                 AddBackstageViewPage(typeof(ConfigREPL), "Script REPL", isConnected, adv);
+
+                AddBackstageViewPage(typeof(ConfigServoGimbal), "Servo Config", true, adv);
+
             }
 
             // remeber last page accessed

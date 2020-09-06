@@ -15,6 +15,7 @@ namespace MissionPlanner.Controls
     public partial class AircraftMenuControl : UserControl
     {
         PreFlightForm preFlightForm;
+        MyButton[] buttons = new MyButton[4];
         public class aircraftButtonInfo
         {
             public MyButton Button { get; set; }
@@ -22,6 +23,8 @@ namespace MissionPlanner.Controls
 
             public aircraftButtonInfo(MyButton button, string text) => (Button, DefaultText) = (button, text);
         }
+
+        bool aircraftInAir = false;
 
         public List<aircraftButtonInfo> aircraftButtons = new List<aircraftButtonInfo>();
 
@@ -37,6 +40,11 @@ namespace MissionPlanner.Controls
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT2, aircraft_BUT2.Text));
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT3, aircraft_BUT3.Text));
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT4, aircraft_BUT4.Text));
+
+            buttons[0] = aircraft_BUT1;
+            buttons[1] = aircraft_BUT2;
+            buttons[2] = aircraft_BUT3;
+            buttons[3] = aircraft_BUT4;
         }
 
         
@@ -57,6 +65,53 @@ namespace MissionPlanner.Controls
             if (MainV2._aircraftInfo.Count > butNum && MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum != butNum)
             {
                 MainV2._connectionsForm.switchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
+            }
+            updateCentralButton();
+        }
+
+        public void updateCentralButton()
+        {
+            int butNum = -1;
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
+                aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
+                centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
+            }
+            else 
+            {
+                centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
+            }
+            switch (butNum) 
+            {
+                case 0:
+                    centerButton.Image.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                    break;
+                case 1:
+                    centerButton.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    break;
+                case 2:
+                    centerButton.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    break;
+                case 3:
+                    centerButton.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    break;
+                default: 
+                    break;
+            }
+            centerButton.Text = butNum.ToString();
+            paintButtons(butNum ); 
+            
+        }
+
+        public void paintButtons(int activeButton) 
+        {
+            for (int i =0;i<4;i++) 
+            {
+                
+                buttons[i].BGGradBot = activeButton == i ? ColorTranslator.FromHtml("#cde296") : ColorTranslator.FromHtml("#cde296");
+                buttons[i].BGGradTop = activeButton == i ? ColorTranslator.FromHtml("#174708") : ColorTranslator.FromHtml("#94c11f");
+                
             }
         }
 
@@ -111,12 +166,15 @@ namespace MissionPlanner.Controls
 
         private void centerButton_Click(object sender, EventArgs e)
         {
-            if (preFlightForm != null) 
+            if (!aircraftInAir)
             {
-                preFlightForm.Close();
+                if (preFlightForm != null)
+                {
+                    preFlightForm.Close();
+                }
+                preFlightForm = new PreFlightForm();
+                preFlightForm.Show();
             }
-            preFlightForm = new PreFlightForm();
-            preFlightForm.Show();
         }
     }
 }
