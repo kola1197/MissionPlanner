@@ -24,6 +24,8 @@ namespace MissionPlanner.Controls
             public aircraftButtonInfo(MyButton button, string text) => (Button, DefaultText) = (button, text);
         }
 
+        bool aircraftInAir = false;
+
         public List<aircraftButtonInfo> aircraftButtons = new List<aircraftButtonInfo>();
 
         public AircraftMenuControl()
@@ -73,7 +75,12 @@ namespace MissionPlanner.Controls
             if (MainV2.CurrentAircraftNum != null)
             {
                 butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
-                centerButton.Image  = global::MissionPlanner.Properties.Resources.testCenterULActive;
+                aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
+                centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
+            }
+            else 
+            {
+                centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
             }
             switch (butNum) 
             {
@@ -159,12 +166,15 @@ namespace MissionPlanner.Controls
 
         private void centerButton_Click(object sender, EventArgs e)
         {
-            if (preFlightForm != null) 
+            if (!aircraftInAir)
             {
-                preFlightForm.Close();
+                if (preFlightForm != null)
+                {
+                    preFlightForm.Close();
+                }
+                preFlightForm = new PreFlightForm();
+                preFlightForm.Show();
             }
-            preFlightForm = new PreFlightForm();
-            preFlightForm.Show();
         }
     }
 }

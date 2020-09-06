@@ -4643,6 +4643,7 @@
     </Content>
     <None Include="Resources\testCenterUL.bmp" />
     <None Include="Resources\testCenterULActive.bmp" />
+    <None Include="Resources\testCenterUnactive.bmp" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
