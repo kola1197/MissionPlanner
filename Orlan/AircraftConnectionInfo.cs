@@ -55,6 +55,13 @@ namespace MissionPlanner.Orlan
             }
         }
 
+        private bool _inAir = false;
+        public bool inAir 
+        {
+            get => _inAir; 
+            set => _inAir = value;
+        }
+
         // public AircraftConnectionInfo(string number, string name, string port)
         // {
         //     this.Number = string.Copy(number);

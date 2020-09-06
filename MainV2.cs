@@ -1605,6 +1605,7 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
+            _aircraftMenuControl.updateCentralButton();
         }
 
         /// <summary>
