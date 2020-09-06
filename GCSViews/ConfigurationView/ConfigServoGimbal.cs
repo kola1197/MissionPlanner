@@ -16,7 +16,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
     public partial class ConfigServoGimbal : UserControl
     {
         ComboBox [] comboBox = new ComboBox[11];
-        string defaultConfig = "servoConfig.txt";
+        TextBox[] textBoxes = new TextBox[11];
         XmlSerializer serializer = new XmlSerializer(typeof(item[]),
                                  new XmlRootAttribute() { ElementName = "items" });
         public ConfigServoGimbal()
@@ -33,48 +33,56 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             comboBox[8] = comboBox9;
             comboBox[9] = comboBox10;
             comboBox[10] = comboBox11;
+            textBoxes[0] = textBox1;
+            textBoxes[1] = textBox2;
+            textBoxes[2] = textBox3;
+            textBoxes[3] = textBox4;
+            textBoxes[4] = textBox5;
+            textBoxes[5] = textBox6;
+            textBoxes[6] = textBox7;
+            textBoxes[7] = textBox8;
+            textBoxes[8] = textBox9;
+            textBoxes[9] = textBox10;
+            textBoxes[10] = textBox11;
+            
             defaultDictInit();
         }
         
         private void deserealaseDict() 
         {
-            if (File.Exists(defaultConfig))
+            if (File.Exists(MainV2.defaultConfig))
             {
-                StreamReader stream = new StreamReader(defaultConfig);
+                StreamReader stream = new StreamReader(MainV2.defaultConfig);
                 var orgDict = ((item[])serializer.Deserialize(stream))
-                       .ToDictionary(i => i.id, i => i.value);
+                       .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo) ,int.Parse(i.value)));
                 for (int i = 0; i < 11; i++) 
                 {
-                    int v;
-                    string s;
-                    Dictionary<string, string> Dict = (Dictionary<string, string>)orgDict;
+                    servoValue s;
+                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>)orgDict;
                     
                     if (Dict.TryGetValue(i.ToString(), out s) )
                     {
-                        if (int.TryParse(s, out v))
-                        {
-                            MainV2.configServo[i] = v; 
-                        }
+                        MainV2.configServo[i] = s; 
                     }
                 }
                 stream.Close();
             }
-
         }
 
         private void updateComboboxes() 
         {
             for (int i = 0; i < 11; i++) 
             {
-                comboBox[i].SelectedIndex = MainV2.configServo[i];
+                comboBox[i].SelectedIndex = MainV2.configServo[i].servo;
+                textBoxes[i].Text = MainV2.configServo[i].value.ToString();
             }
         }
 
         private void serealaseDict()
         {
-            StreamWriter stream = new StreamWriter(defaultConfig, false);
+            StreamWriter stream = new StreamWriter(MainV2.defaultConfig, false);
             serializer.Serialize(stream,
-              MainV2.configServo.Select(kv => new item() { id = kv.Key.ToString(), value = kv.Value.ToString()}).ToArray());
+              MainV2.configServo.Select(kv => new item() { id = kv.Key.ToString(), servo = kv.Value.servo.ToString(), value = kv.Value.value.ToString()}).ToArray());
             stream.Close();
         }
 
@@ -88,18 +96,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     comboBox[k].Items.Add("Servo " + (i+1).ToString());
                 }
             }
-            MainV2.configServo = new Dictionary<int, int>();
-            MainV2.configServo[0] = 0;
-            MainV2.configServo[1] = 0;
-            MainV2.configServo[2] = 0;
-            MainV2.configServo[3] = 0;
-            MainV2.configServo[4] = 0;
-            MainV2.configServo[5] = 0;
-            MainV2.configServo[6] = 0;
-            MainV2.configServo[7] = 0;
-            MainV2.configServo[8] = 0;
-            MainV2.configServo[9] = 0;
-            MainV2.configServo[10] = 0;
+            MainV2.configServo = new Dictionary<int, servoValue>();
+            MainV2.configServo[0] = new servoValue(0, 1500);
+            MainV2.configServo[1] = new servoValue(0, 1500);
+            MainV2.configServo[2] = new servoValue(0, 1500);
+            MainV2.configServo[3] = new servoValue(0, 1500);
+            MainV2.configServo[4] = new servoValue(0, 1500);
+            MainV2.configServo[5] = new servoValue(0, 1500);
+            MainV2.configServo[6] = new servoValue(0, 1500);
+            MainV2.configServo[7] = new servoValue(0, 1500);
+            MainV2.configServo[8] = new servoValue(0, 1500);
+            MainV2.configServo[9] = new servoValue(0, 1500);
+            MainV2.configServo[10] = new servoValue(0, 1500);
             deserealaseDict();
             updateComboboxes();
         }
@@ -114,7 +122,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             for (int i = 0; i < 11; i++) 
             {
-                MainV2.configServo[i] = comboBox[i].SelectedIndex;
+                int v = 1500;
+                MainV2.configServo[i].servo = comboBox[i].SelectedIndex;
+                MainV2.configServo[i].value = int.TryParse(textBoxes[i].Text, out v) ? v : 1500;
             }
             serealaseDict();
         }

@@ -37,7 +37,7 @@ namespace MissionPlanner.NewForms
 
         private void nextButton1_Click(object sender, EventArgs e)
         {
-            if (checkListControl1.allRight() || true) 
+            if (checkListControl1.allRight()) 
             {
                 progressIndex = progressIndex > 1 ? progressIndex : 1;
                 selectedIndex = 1;

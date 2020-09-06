@@ -63,6 +63,7 @@
             this.myButton2.Text = "9";
             this.myButton2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton3
             // 
@@ -73,6 +74,7 @@
             this.myButton3.Text = "8";
             this.myButton3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton4
             // 
@@ -83,6 +85,7 @@
             this.myButton4.Text = "7";
             this.myButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton5
             // 
@@ -93,6 +96,7 @@
             this.myButton5.Text = "6";
             this.myButton5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton5.UseVisualStyleBackColor = true;
+            this.myButton5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton6
             // 
@@ -103,6 +107,7 @@
             this.myButton6.Text = "5";
             this.myButton6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton6.UseVisualStyleBackColor = true;
+            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton7
             // 
@@ -113,6 +118,7 @@
             this.myButton7.Text = "4";
             this.myButton7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton7.UseVisualStyleBackColor = true;
+            this.myButton7.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton8
             // 
@@ -123,6 +129,7 @@
             this.myButton8.Text = "3";
             this.myButton8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton8.UseVisualStyleBackColor = true;
+            this.myButton8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton9
             // 
@@ -133,6 +140,7 @@
             this.myButton9.Text = "2";
             this.myButton9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton9.UseVisualStyleBackColor = true;
+            this.myButton9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton10
             // 
@@ -143,6 +151,7 @@
             this.myButton10.Text = "1";
             this.myButton10.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton10.UseVisualStyleBackColor = true;
+            this.myButton10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton11
             // 
@@ -153,9 +162,11 @@
             this.myButton11.Text = "СВ";
             this.myButton11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton11.UseVisualStyleBackColor = true;
+            this.myButton11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // timer1
             // 
+            this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // servoGimbal

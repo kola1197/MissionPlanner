@@ -6763,21 +6763,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             // check if the mouse up happend over our button
-            if (polyicon.Rectangle.Contains(e.Location))
+            /*if (polyicon.Rectangle.Contains(e.Location))
             {
-                /*if (e.Button == MouseButtons.Right)
+                if (e.Button == MouseButtons.Right)
                 {
                     polyicon.IsSelected = false;
                     clearPolygonToolStripMenuItem_Click(this, null);
 
-                    contextMenuStrip1.Visible = false;
+                    contextMenuStrip2.Show(Cursor.Position);
 
                     return;
-                }*/
+                }
 
-                contextMenuStripPoly.Show(MainMap, e.Location);
-                return;
-            }
+                //contextMenuStripPoly.Show(MainMap, e.Location);
+                //return;
+            }*/
 
             if (zoomicon.Rectangle.Contains(e.Location))
             {
@@ -6896,7 +6896,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             // cant add WP in existing rect
                             //CurentRectMarker.Color = Color.Red;               //here on mouse click to wp
                             //contextMenuStrip2.
+                            isMouseDown = false;
                             contextMenuStrip2.Show(Cursor.Position);
+                            CurrentGMapMarker = null;
+                            needToWriteWP = true;
+                            CurentRectMarker.ResetColor();
+                            CurentRectMarker = null;
                         }
                         else
                         {

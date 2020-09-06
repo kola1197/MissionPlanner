@@ -52,6 +52,28 @@
             this.comboBox10 = new System.Windows.Forms.ComboBox();
             this.comboBox11 = new System.Windows.Forms.ComboBox();
             this.saveButton = new MissionPlanner.Controls.MyButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -253,18 +275,216 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(345, 376);
+            this.saveButton.Location = new System.Drawing.Point(468, 376);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(171, 23);
+            this.saveButton.Size = new System.Drawing.Size(106, 23);
             this.saveButton.TabIndex = 23;
             this.saveButton.Text = "Сохранить";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.saveButton_MouseUp);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(351, 65);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 24;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(284, 68);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 13);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "Значение:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(284, 101);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(58, 13);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "Значение:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(351, 98);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 26;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(284, 130);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(58, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Значение:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(351, 127);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 28;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(284, 159);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(58, 13);
+            this.label16.TabIndex = 31;
+            this.label16.Text = "Значение:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(351, 156);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.TabIndex = 30;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(284, 189);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 13);
+            this.label17.TabIndex = 33;
+            this.label17.Text = "Значение:";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(351, 186);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 32;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(284, 219);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(58, 13);
+            this.label18.TabIndex = 35;
+            this.label18.Text = "Значение:";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(351, 216);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(100, 20);
+            this.textBox6.TabIndex = 34;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(284, 251);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(58, 13);
+            this.label19.TabIndex = 37;
+            this.label19.Text = "Значение:";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(351, 248);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(100, 20);
+            this.textBox7.TabIndex = 36;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(284, 286);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(58, 13);
+            this.label20.TabIndex = 39;
+            this.label20.Text = "Значение:";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(351, 283);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(100, 20);
+            this.textBox8.TabIndex = 38;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(284, 318);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(58, 13);
+            this.label21.TabIndex = 41;
+            this.label21.Text = "Значение:";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(351, 315);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(100, 20);
+            this.textBox9.TabIndex = 40;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(284, 349);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(58, 13);
+            this.label22.TabIndex = 43;
+            this.label22.Text = "Значение:";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(351, 346);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(100, 20);
+            this.textBox10.TabIndex = 42;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(284, 381);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(58, 13);
+            this.label23.TabIndex = 45;
+            this.label23.Text = "Значение:";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(351, 378);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(100, 20);
+            this.textBox11.TabIndex = 44;
+            // 
             // ConfigServoGimbal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.comboBox11);
             this.Controls.Add(this.comboBox10);
@@ -290,7 +510,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ConfigServoGimbal";
-            this.Size = new System.Drawing.Size(547, 420);
+            this.Size = new System.Drawing.Size(586, 420);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,5 +542,27 @@
         private System.Windows.Forms.ComboBox comboBox10;
         private System.Windows.Forms.ComboBox comboBox11;
         private Controls.MyButton saveButton;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox11;
     }
 }

@@ -564,15 +564,28 @@ namespace MissionPlanner
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
 
-        public static Dictionary<int, int> configServo = new Dictionary<int, int>();
+        public static Dictionary<int, servoValue> configServo = new Dictionary<int, servoValue>();
         public class item
         {
             [XmlAttribute]
             public string id;
             [XmlAttribute]
+            public string servo;
+            [XmlAttribute]
             public string value;
         }
-        string defaultConfig = "servoConfig.txt";
+
+        public class servoValue 
+        {
+            public int servo;
+            public int value;
+            public servoValue(int _servo, int _value) 
+            {
+                servo = _servo;
+                value = _value;
+            }
+        }
+        public static string defaultConfig = Settings.GetUserDataDirectory()+"servoConfig.txt";
 
         private void deserealaseDict()
         {
@@ -580,24 +593,19 @@ namespace MissionPlanner
             {
                 StreamReader stream = new StreamReader(defaultConfig);
                 var orgDict = ((item[])serializer.Deserialize(stream))
-                       .ToDictionary(i => i.id, i => i.value);
+                       .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo), int.Parse(i.value)));
                 for (int i = 0; i < 11; i++)
                 {
-                    int v;
-                    string s;
-                    Dictionary<string, string> Dict = (Dictionary<string, string>)orgDict;
+                    servoValue s;
+                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>)orgDict;
 
                     if (Dict.TryGetValue(i.ToString(), out s))
                     {
-                        if (int.TryParse(s, out v))
-                        {
-                            MainV2.configServo[i] = v;
-                        }
+                        MainV2.configServo[i] = s;
                     }
                 }
                 stream.Close();
             }
-
         }
 
         public XmlSerializer serializer = new XmlSerializer(typeof(item[]),
@@ -1597,6 +1605,7 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
+            _aircraftMenuControl.updateCentralButton();
         }
 
         /// <summary>
