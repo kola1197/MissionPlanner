@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MissionPlanner.ArduPilot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -247,6 +248,28 @@ namespace MissionPlanner.NewForms
                 info.StartOfTheFlightTime = DateTime.Now;
             }
             MainV2.comPort.setMode("Auto");
+        }
+
+        private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (
+                   CustomMessageBox.Show("Вы уверены, что хотите начать калибровку?", "Action",
+                       MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
+            {
+                int param1 = 0;
+                int param3 = 1;
+
+                // request gyro
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    param1 = 1; // gyro 
+                }
+                param3 = 1; // baro / airspeed
+                if (!MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "PREFLIGHT_CALIBRATION"), param1, 0, param3, 0, 0, 0, 0))
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+            }
         }
     }
 }
