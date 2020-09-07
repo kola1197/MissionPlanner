@@ -65,6 +65,7 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -132,6 +133,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.startCalibrationButton);
             this.tabPage2.Controls.Add(this.AirSpeedLabel);
             this.tabPage2.Controls.Add(this.backButton1);
@@ -146,18 +148,19 @@
             // 
             // startCalibrationButton
             // 
-            this.startCalibrationButton.Location = new System.Drawing.Point(90, 401);
+            this.startCalibrationButton.Location = new System.Drawing.Point(97, 168);
             this.startCalibrationButton.Name = "startCalibrationButton";
-            this.startCalibrationButton.Size = new System.Drawing.Size(260, 23);
+            this.startCalibrationButton.Size = new System.Drawing.Size(260, 57);
             this.startCalibrationButton.TabIndex = 6;
             this.startCalibrationButton.Text = "Начать калибровку ПВД";
             this.startCalibrationButton.UseVisualStyleBackColor = true;
             this.startCalibrationButton.Click += new System.EventHandler(this.startCalibrationButton_Click);
+            this.startCalibrationButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.startCalibrationButton_MouseUp);
             // 
             // AirSpeedLabel
             // 
             this.AirSpeedLabel.AutoSize = true;
-            this.AirSpeedLabel.Location = new System.Drawing.Point(193, 186);
+            this.AirSpeedLabel.Location = new System.Drawing.Point(276, 349);
             this.AirSpeedLabel.Name = "AirSpeedLabel";
             this.AirSpeedLabel.Size = new System.Drawing.Size(0, 13);
             this.AirSpeedLabel.TabIndex = 5;
@@ -437,6 +440,15 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(154, 349);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(116, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Воздушная скорость:";
+            // 
             // PreFlightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -496,5 +508,6 @@
         private Controls.MyButton myButton4;
         private Controls.MyButton startCalibrationButton;
         private Controls.MyButton armButton;
+        private System.Windows.Forms.Label label6;
     }
 }
