@@ -77,7 +77,7 @@
             // 
             // centerButton
             // 
-            this.centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterULActive;
+            this.centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
             this.centerButton.Location = new System.Drawing.Point(81, 3);
             this.centerButton.Name = "centerButton";
             this.centerButton.Size = new System.Drawing.Size(40, 40);

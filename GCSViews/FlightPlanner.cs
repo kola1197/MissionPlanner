@@ -1277,6 +1277,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="alt"></param>
         public void SetMouseDisplay(double lat, double lng, int alt)
         {
+            string[] arr = new string[3];
             mouseposdisplay.Lat = lat;
             mouseposdisplay.Lng = lng;
             mouseposdisplay.Alt = alt;
@@ -1308,13 +1309,15 @@ namespace MissionPlanner.GCSViews
 
                 lbl_prevdist.Text = rm.GetString("lbl_prevdist.Text") + ": " + FormatDistance(lastdist, true) + " AZ: " +
                                                    lastbearing.ToString("0");
-
+                arr[0] = rm.GetString("lbl_prevdist.Text") + ": " + FormatDistance(lastdist, true) + " AZ: " +
+                                                   lastbearing.ToString("0");
                 // 0 is home
                 if (pointlist[0] != null)
                 {
                     double homedist = MainMap.MapProvider.Projection.GetDistance(currentMarker.Position, pointlist[0]);
 
                     lbl_homedist.Text = rm.GetString("lbl_homedist.Text") + ": " + FormatDistance(homedist, true);
+                    //arr[1] = rm.GetString("lbl_homedist.Text") + ": " + FormatDistance(homedist, true);
                 }
             }
             catch (Exception ex)
@@ -3415,7 +3418,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="distInKM">distance in kilometers</param>
         /// <param name="toMeterOrFeet">convert distance to meter or feet if true, covert to km or miles if false</param>
         /// <returns>formatted distance with unit</returns>
-        private string FormatDistance(double distInKM, bool toMeterOrFeet)
+        public string FormatDistance(double distInKM, bool toMeterOrFeet)
         {
             string sunits = Settings.Instance["distunits"];
             distances units = distances.Meters;
@@ -6760,21 +6763,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             // check if the mouse up happend over our button
-            if (polyicon.Rectangle.Contains(e.Location))
+            /*if (polyicon.Rectangle.Contains(e.Location))
             {
-                /*if (e.Button == MouseButtons.Right)
+                if (e.Button == MouseButtons.Right)
                 {
                     polyicon.IsSelected = false;
                     clearPolygonToolStripMenuItem_Click(this, null);
 
-                    contextMenuStrip1.Visible = false;
+                    contextMenuStrip2.Show(Cursor.Position);
 
                     return;
-                }*/
+                }
 
-                contextMenuStripPoly.Show(MainMap, e.Location);
-                return;
-            }
+                //contextMenuStripPoly.Show(MainMap, e.Location);
+                //return;
+            }*/
 
             if (zoomicon.Rectangle.Contains(e.Location))
             {
@@ -6893,7 +6896,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             // cant add WP in existing rect
                             //CurentRectMarker.Color = Color.Red;               //here on mouse click to wp
                             //contextMenuStrip2.
+                            isMouseDown = false;
                             contextMenuStrip2.Show(Cursor.Position);
+                            CurrentGMapMarker = null;
+                            needToWriteWP = true;
+                            CurentRectMarker.ResetColor();
+                            CurentRectMarker = null;
                         }
                         else
                         {
