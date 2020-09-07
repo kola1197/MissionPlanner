@@ -38,19 +38,18 @@
             // 
             // sensorName_label
             // 
-            this.sensorName_label.Location = new System.Drawing.Point(3, 87);
+            this.sensorName_label.Location = new System.Drawing.Point(3, 59);
             this.sensorName_label.Name = "sensorName_label";
-            this.sensorName_label.Size = new System.Drawing.Size(117, 36);
+            this.sensorName_label.Size = new System.Drawing.Size(117, 51);
             this.sensorName_label.TabIndex = 0;
             this.sensorName_label.Text = "label1";
-            this.sensorName_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.sensorName_label.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // sensorValue_label
             // 
-            this.sensorValue_label.AutoSize = true;
-            this.sensorValue_label.Location = new System.Drawing.Point(43, 49);
+            this.sensorValue_label.Location = new System.Drawing.Point(3, 46);
             this.sensorValue_label.Name = "sensorValue_label";
-            this.sensorValue_label.Size = new System.Drawing.Size(35, 13);
+            this.sensorValue_label.Size = new System.Drawing.Size(117, 13);
             this.sensorValue_label.TabIndex = 1;
             this.sensorValue_label.Text = "label2";
             this.sensorValue_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -71,11 +70,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.sensorValue_label);
             this.Controls.Add(this.sensorName_label);
+            this.MinimumSize = new System.Drawing.Size(123, 123);
             this.Name = "AdditionalSensorControl";
             this.Size = new System.Drawing.Size(123, 123);
             ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
 
         #endregion

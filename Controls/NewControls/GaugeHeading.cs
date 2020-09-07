@@ -8,6 +8,8 @@ namespace MissionPlanner.Controls
 {
     public partial class GaugeHeading : SensorUserControl
     {
+        public override System.Drawing.Size ControlSize => this.MinimumSize;
+
         public GaugeHeading()
         {
             //MainV2.comPort.MAV.cs.UpdateCurrentSettings(
@@ -28,7 +30,7 @@ namespace MissionPlanner.Controls
                 if (this.Visible)
                 {
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(
-                            bindingSourceGaugeHeading.UpdateDataSource(MainV2.comPort.MAV.cs));
+                        bindingSourceGaugeHeading.UpdateDataSource(MainV2.comPort.MAV.cs));
                 }
             }
             catch (Exception ex)
@@ -43,17 +45,22 @@ namespace MissionPlanner.Controls
             headingDegrees_Label.Text = Math.Round(MainV2.comPort.MAV.cs.yaw) + "°";
             headingDegrees_Label.Location = new System.Drawing.Point(48, 35);
         }
-        
-        public override event EventHandler SensorOnClick {
-            add {
+
+        public override event EventHandler SensorOnClick
+        {
+            add
+            {
                 base.Click += value;
-                foreach (Control control in Controls) {
+                foreach (Control control in Controls)
+                {
                     control.Click += value;
                 }
             }
-            remove {
+            remove
+            {
                 base.Click -= value;
-                foreach (Control control in Controls) {
+                foreach (Control control in Controls)
+                {
                     control.Click -= value;
                 }
             }

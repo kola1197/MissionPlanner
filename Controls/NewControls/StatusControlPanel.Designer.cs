@@ -69,11 +69,15 @@ namespace MissionPlanner.Controls
             this.airspeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.showSensor_BUT = new System.Windows.Forms.Button();
+            this.hideSensor_BUT = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rpmICE_label
@@ -390,10 +394,15 @@ namespace MissionPlanner.Controls
             // 
             // sensor_panel
             // 
+            this.sensor_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sensor_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sensor_panel.Controls.Add(this.sensorsMenuStrip);
             this.sensor_panel.Location = new System.Drawing.Point(760, 0);
+            this.sensor_panel.MinimumSize = new System.Drawing.Size(130, 123);
             this.sensor_panel.Name = "sensor_panel";
-            this.sensor_panel.Size = new System.Drawing.Size(150, 123);
+            this.sensor_panel.Size = new System.Drawing.Size(130, 123);
             this.sensor_panel.TabIndex = 77;
             // 
             // sensorsMenuStrip
@@ -402,7 +411,7 @@ namespace MissionPlanner.Controls
             this.sensorsMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sensorsMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.sensorsMenuStrip.Name = "sensorsMenuStrip";
-            this.sensorsMenuStrip.Size = new System.Drawing.Size(150, 123);
+            this.sensorsMenuStrip.Size = new System.Drawing.Size(130, 123);
             this.sensorsMenuStrip.TabIndex = 0;
             this.sensorsMenuStrip.Text = "menuStrip1";
             // 
@@ -509,10 +518,42 @@ namespace MissionPlanner.Controls
             this.splittedBar_fuel.TabIndex = 1;
             this.splittedBar_fuel.Value = 100D;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.hideSensor_BUT);
+            this.panel2.Controls.Add(this.showSensor_BUT);
+            this.panel2.Location = new System.Drawing.Point(893, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(43, 123);
+            this.panel2.TabIndex = 80;
+            // 
+            // showSensor_BUT
+            // 
+            this.showSensor_BUT.Location = new System.Drawing.Point(3, 27);
+            this.showSensor_BUT.Name = "showSensor_BUT";
+            this.showSensor_BUT.Size = new System.Drawing.Size(37, 23);
+            this.showSensor_BUT.TabIndex = 0;
+            this.showSensor_BUT.Text = ">";
+            this.showSensor_BUT.UseVisualStyleBackColor = true;
+            this.showSensor_BUT.Click += new System.EventHandler(this.showSensor_BUT_Click);
+            // 
+            // hideSensor_BUT
+            // 
+            this.hideSensor_BUT.Location = new System.Drawing.Point(3, 70);
+            this.hideSensor_BUT.Name = "hideSensor_BUT";
+            this.hideSensor_BUT.Size = new System.Drawing.Size(37, 23);
+            this.hideSensor_BUT.TabIndex = 1;
+            this.hideSensor_BUT.Text = "<";
+            this.hideSensor_BUT.UseVisualStyleBackColor = true;
+            this.hideSensor_BUT.Click += new System.EventHandler(this.hideSensor_BUT_Click);
+            // 
             // StatusControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.sensor_panel);
             this.Controls.Add(this.windDir1);
             this.Controls.Add(this.panel1);
@@ -535,13 +576,14 @@ namespace MissionPlanner.Controls
             this.Controls.Add(this.splittedBar_voltage);
             this.Controls.Add(this.splittedBar_fuel);
             this.Name = "StatusControlPanel";
-            this.Size = new System.Drawing.Size(959, 123);
+            this.Size = new System.Drawing.Size(936, 123);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -585,5 +627,8 @@ namespace MissionPlanner.Controls
         private System.Windows.Forms.ToolStripMenuItem силаТокаToolStripMenuItem;
         private System.Windows.Forms.Panel sensor_panel;
         private System.Windows.Forms.MenuStrip sensorsMenuStrip;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button hideSensor_BUT;
+        private System.Windows.Forms.Button showSensor_BUT;
     }
 }
