@@ -62,6 +62,31 @@ namespace MissionPlanner.Orlan
             set => _inAir = value;
         }
 
+        private float _butt2RealVoltage = 0;
+
+        private float _maxCapacity = 0;
+        
+        private float _flyTime = 0;
+
+        public float butt2RealVoltage
+        {
+            get => _butt2RealVoltage;
+            set => _butt2RealVoltage = value;
+        }
+
+        public float maxCapacity
+        {
+            get => _maxCapacity;
+            set => _maxCapacity = value;
+        }
+
+        public float flyTime
+        {
+            get => _flyTime;
+            set => _flyTime = value;
+        }
+
+
         // public AircraftConnectionInfo(string number, string name, string port)
         // {
         //     this.Number = string.Copy(number);
