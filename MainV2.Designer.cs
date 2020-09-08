@@ -70,15 +70,19 @@ namespace MissionPlanner
             this.label13 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.timeControl2 = new MissionPlanner.Controls.NewControls.TimeControl();
             this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
-            this.timeControl1 = new MissionPlanner.Controls.NewControls.TimeControl();
             this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
+
+
+            this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
+            this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -305,21 +309,23 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.panel2.Controls.Add(this.snsControl2);
+            this.panel2.Controls.Add(this.servoGimbal2);
+            this.panel2.Controls.Add(this.timeControl2);
             this.panel2.Controls.Add(this.coordinatsControl1);
-            this.panel2.Controls.Add(this.timeControl1);
             this.panel2.Controls.Add(this.servoGimbal1);
             this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
+            // 
+            // timeControl2
+            // 
+            resources.ApplyResources(this.timeControl2, "timeControl2");
+            this.timeControl2.Name = "timeControl2";
             // 
             // coordinatsControl1
             // 
             resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
             this.coordinatsControl1.Name = "coordinatsControl1";
-            // 
-            // timeControl1
-            // 
-            resources.ApplyResources(this.timeControl1, "timeControl1");
-            this.timeControl1.Name = "timeControl1";
             // 
             // servoGimbal1
             // 
@@ -361,6 +367,16 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
             this.rightSideMenuControl1.Name = "rightSideMenuControl1";
+            // 
+            // servoGimbal2
+            // 
+            resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
+            this.servoGimbal2.Name = "servoGimbal2";
+            // 
+            // snsControl2
+            // 
+            resources.ApplyResources(this.snsControl2, "snsControl2");
+            this.snsControl2.Name = "snsControl2";
             // 
             // MainV2
             // 
@@ -431,5 +447,8 @@ namespace MissionPlanner
         private Controls.NewControls.CoordinatsControl coordinatsControl1;
         private Controls.NewControls.TimeControl timeControl1;
         private Controls.NewControls.RightSideMenuControl rightSideMenuControl1;
+        private Controls.NewControls.TimeControl timeControl2;
+        private Controls.NewControls.SNSControl snsControl2;
+        private Controls.NewControls.servoGimbal servoGimbal2;
     }
 }

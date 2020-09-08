@@ -15,6 +15,7 @@ namespace MissionPlanner.Controls.NewControls
         public CoordinatsControl()
         {
             InitializeComponent();
+            timer1.Enabled = true;
         }
     }
 }

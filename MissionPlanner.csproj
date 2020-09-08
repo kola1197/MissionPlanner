@@ -434,6 +434,12 @@
     <Compile Include="Controls\NewControls\RightSideMenuControl.Designer.cs">
       <DependentUpon>RightSideMenuControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\newTimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\newTimeControl.Designer.cs">
+      <DependentUpon>newTimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -464,6 +470,12 @@
     <Compile Include="Controls\NewControls\TimeControl.Designer.cs">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\TimerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\TimerControl.Designer.cs">
+      <DependentUpon>TimerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\VerticalSplittedProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -484,6 +496,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
       <DependentUpon>WPMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
+      <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
@@ -876,6 +894,9 @@
     <EmbeddedResource Include="Controls\NewControls\RightSideMenuControl.resx">
       <DependentUpon>RightSideMenuControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\newTimeControl.resx">
+      <DependentUpon>newTimeControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\servoGimbal.resx">
       <DependentUpon>servoGimbal.cs</DependentUpon>
     </EmbeddedResource>
@@ -894,8 +915,14 @@
     <EmbeddedResource Include="Controls\NewControls\TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\TimerControl.resx">
+      <DependentUpon>TimerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
       <DependentUpon>WPMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigServoGimbal.resx">
+      <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\AltChoose.resx">
       <DependentUpon>AltChoose.cs</DependentUpon>
@@ -4639,6 +4666,7 @@
     </Content>
     <None Include="Resources\testCenterUL.bmp" />
     <None Include="Resources\testCenterULActive.bmp" />
+    <None Include="Resources\testCenterUnactive.bmp" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
