@@ -589,6 +589,8 @@ namespace MissionPlanner
         public static Dictionary<string, AircraftConnectionInfo> _aircraftInfo =
             new Dictionary<string, AircraftConnectionInfo>();
 
+        public static AntennaConnectionInfo _AntennaConnectionInfo = new AntennaConnectionInfo();
+
         private static string _currentAircraftNum = null;
 
         public static string CurrentAircraftNum
@@ -4696,6 +4698,11 @@ namespace MissionPlanner
             Message temp = new Message();
             ProcessCmdKey(ref temp, e.KeyData);
             Console.WriteLine("MainV2_KeyDown " + e.ToString());
+            if (e.KeyCode == Keys.Q)
+            {
+                MainMenu.Visible = !MainMenu.Visible;
+                menuStrip1.Visible = !menuStrip1.Visible;
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5178,6 +5185,11 @@ namespace MissionPlanner
 
         private void label13_Click(object sender, EventArgs e)
         {
+        }
+
+        private void Ôœ ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

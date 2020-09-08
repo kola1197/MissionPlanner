@@ -28,6 +28,7 @@ namespace MissionPlanner
         private bool waterMarkAircraftNumActive = true;
         private bool waterMarkConnectedNumActive = true;
 
+        public static ConnectionsForm instance;
 
         private static Regex regex = new Regex("^[0-9]+$", RegexOptions.Compiled);
 
@@ -51,9 +52,11 @@ namespace MissionPlanner
             aircraftNumber_TB.Text = "номер";
 
             Tracking.AddPage(this.GetType().ToString(), this.Text);
+
+            instance = this;
         }
 
-        private void UpdateComPorts()
+        public void UpdateComPorts()
         {
             CMB_serialport.Items.Clear();
             CMB_serialport.Items.AddRange(SerialPort.GetPortNames());
@@ -61,6 +64,11 @@ namespace MissionPlanner
             CMB_serialport.Items.Add("UDP");
             CMB_serialport.Items.Add("UDPCl");
             CMB_serialport.Items.Add("WS");
+        }
+
+        public object[] getComPorts()
+        {
+            return SerialPort.GetPortNames();
         }
 
         private void ConnectionsForm_Paint(object sender, PaintEventArgs e)
@@ -235,8 +243,11 @@ namespace MissionPlanner
                 aircraftNumber_TB.Text.Equals("") || !regex.IsMatch(aircraftNumber_TB.Text))
                 return;
 
-            string aircraftNumber = aircraftNumber_TB.Text;
+            addAircraft(aircraftNumber_TB.Text);
+        }
 
+        public void addAircraft(string aircraftNumber)
+        {
             MainV2._aircraftInfo.Add(aircraftNumber, new AircraftConnectionInfo());
             devices_LB.Items.Add(aircraftNumber);
             devices_LB.SetSelected(devices_LB.Items.Count - 1, true);
@@ -262,7 +273,7 @@ namespace MissionPlanner
                     MainV2.comPort.sysidcurrent = temp.sysid;
                     MainV2.comPort.compidcurrent = temp.compid;
 
-                    if (MainV2.comPort.MAV.param.Count == 0 && !(Control.ModifierKeys == Keys.Control))
+                    if (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control)
                         MainV2.comPort.getParamList();
 
                     MainV2.CurrentAircraftNum =
@@ -344,8 +355,8 @@ namespace MissionPlanner
                 aircraftNumber_TB.Text.Equals("") || !regex.IsMatch(aircraftNumber_TB.Text))
                 return;
 
-            string oldAircraftNumber = devices_LB.SelectedItem.ToString();
-            string newAircraftNumber = connectedAircraftNum_TB.Text;
+            var oldAircraftNumber = devices_LB.SelectedItem.ToString();
+            var newAircraftNumber = connectedAircraftNum_TB.Text;
             renameAircraftNum(MainV2._aircraftInfo, oldAircraftNumber, newAircraftNumber);
             
         }
