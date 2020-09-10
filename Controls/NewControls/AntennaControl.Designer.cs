@@ -47,6 +47,7 @@
             // 
             // reload_BUT
             // 
+            this.reload_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.reload_BUT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.reload_BUT.Location = new System.Drawing.Point(223, 108);
             this.reload_BUT.Name = "reload_BUT";
@@ -110,6 +111,7 @@
             // 
             // connect_BUT
             // 
+            this.connect_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.connect_BUT.Location = new System.Drawing.Point(18, 162);
             this.connect_BUT.Name = "connect_BUT";
             this.connect_BUT.Size = new System.Drawing.Size(278, 23);
@@ -140,6 +142,7 @@
             // 
             // autoMode_BUT
             // 
+            this.autoMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.autoMode_BUT.Location = new System.Drawing.Point(18, 191);
             this.autoMode_BUT.Name = "autoMode_BUT";
             this.autoMode_BUT.Size = new System.Drawing.Size(89, 23);
@@ -149,6 +152,7 @@
             // 
             // stopMode_BUT
             // 
+            this.stopMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.stopMode_BUT.Location = new System.Drawing.Point(113, 191);
             this.stopMode_BUT.Name = "stopMode_BUT";
             this.stopMode_BUT.Size = new System.Drawing.Size(89, 23);
@@ -158,6 +162,7 @@
             // 
             // manualMode_BUT
             // 
+            this.manualMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.manualMode_BUT.Location = new System.Drawing.Point(208, 191);
             this.manualMode_BUT.Name = "manualMode_BUT";
             this.manualMode_BUT.Size = new System.Drawing.Size(88, 23);
@@ -225,7 +230,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CMB_serialport);
             this.Name = "AntennaControl";
-            this.Size = new System.Drawing.Size(311, 430);
+            this.Size = new System.Drawing.Size(311, 445);
             this.ResumeLayout(false);
             this.PerformLayout();
 

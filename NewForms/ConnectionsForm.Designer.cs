@@ -35,40 +35,40 @@ namespace MissionPlanner
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(ConnectionsForm));
-            this.devices_LB = new ListBox();
-            this.label1 = new Label();
-            this.label2 = new Label();
-            this.aircraftNumber_TB = new TextBox();
-            this.addAircraft_BT = new Button();
-            this.panel1 = new Panel();
-            this.useSITL_CheckBox = new CheckBox();
-            this.reload_BUT = new Button();
-            this.CMB_baudrate = new ComboBox();
-            this.label6 = new Label();
-            this.label5 = new Label();
-            this.CMB_serialport = new ComboBox();
-            this.connectedAircraftName_TB = new TextBox();
-            this.connectedAircraftNum_TB = new TextBox();
-            this.label4 = new Label();
-            this.label3 = new Label();
-            this.connect_BUT = new Button();
-            this.timer1 = new Timer(this.components);
-            this.panel2 = new Panel();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionsForm));
+            this.devices_LB = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.aircraftNumber_TB = new System.Windows.Forms.TextBox();
+            this.addAircraft_BT = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.useSITL_CheckBox = new System.Windows.Forms.CheckBox();
+            this.reload_BUT = new System.Windows.Forms.Button();
+            this.CMB_baudrate = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.CMB_serialport = new System.Windows.Forms.ComboBox();
+            this.connectedAircraftName_TB = new System.Windows.Forms.TextBox();
+            this.connectedAircraftNum_TB = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.connect_BUT = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // devices_LB
             // 
-            this.devices_LB.BackColor = SystemColors.WindowText;
-            this.devices_LB.BorderStyle = BorderStyle.None;
-            this.devices_LB.ForeColor = SystemColors.Window;
+            this.devices_LB.BackColor = System.Drawing.SystemColors.WindowText;
+            this.devices_LB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.devices_LB.ForeColor = System.Drawing.SystemColors.Window;
             this.devices_LB.FormattingEnabled = true;
             resources.ApplyResources(this.devices_LB, "devices_LB");
             this.devices_LB.Name = "devices_LB";
-            this.devices_LB.SelectedIndexChanged += new EventHandler(this.devices_LB_SelectedIndexChanged);
+            this.devices_LB.SelectedIndexChanged += new System.EventHandler(this.devices_LB_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -84,18 +84,18 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.aircraftNumber_TB, "aircraftNumber_TB");
             this.aircraftNumber_TB.Name = "aircraftNumber_TB";
-            this.aircraftNumber_TB.KeyPress += new KeyPressEventHandler(this.aircraftNumber_TB_KeyPress);
+            this.aircraftNumber_TB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.aircraftNumber_TB_KeyPress);
             // 
             // addAircraft_BT
             // 
             resources.ApplyResources(this.addAircraft_BT, "addAircraft_BT");
             this.addAircraft_BT.Name = "addAircraft_BT";
             this.addAircraft_BT.UseVisualStyleBackColor = true;
-            this.addAircraft_BT.Click += new EventHandler(this.addAircraft_BT_Click);
+            this.addAircraft_BT.Click += new System.EventHandler(this.addAircraft_BT_Click);
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = BorderStyle.FixedSingle;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.useSITL_CheckBox);
             this.panel1.Controls.Add(this.reload_BUT);
             this.panel1.Controls.Add(this.CMB_baudrate);
@@ -114,18 +114,18 @@ namespace MissionPlanner
             resources.ApplyResources(this.useSITL_CheckBox, "useSITL_CheckBox");
             this.useSITL_CheckBox.Name = "useSITL_CheckBox";
             this.useSITL_CheckBox.UseVisualStyleBackColor = true;
-            this.useSITL_CheckBox.CheckedChanged += new EventHandler(this.useSITL_CheckBox_CheckedChanged);
+            this.useSITL_CheckBox.CheckedChanged += new System.EventHandler(this.useSITL_CheckBox_CheckedChanged);
             // 
             // reload_BUT
             // 
             resources.ApplyResources(this.reload_BUT, "reload_BUT");
             this.reload_BUT.Name = "reload_BUT";
             this.reload_BUT.UseVisualStyleBackColor = true;
-            this.reload_BUT.Click += new EventHandler(this.reload_BUT_Click);
+            this.reload_BUT.Click += new System.EventHandler(this.reload_BUT_Click);
             // 
             // CMB_baudrate
             // 
-            this.CMB_baudrate.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
             this.CMB_baudrate.Items.AddRange(new object[] {
             resources.GetString("CMB_baudrate.Items"),
@@ -156,7 +156,7 @@ namespace MissionPlanner
             // 
             // CMB_serialport
             // 
-            this.CMB_serialport.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.CMB_serialport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_serialport.FormattingEnabled = true;
             resources.ApplyResources(this.CMB_serialport, "CMB_serialport");
             this.CMB_serialport.Name = "CMB_serialport";
@@ -170,8 +170,8 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.connectedAircraftNum_TB, "connectedAircraftNum_TB");
             this.connectedAircraftNum_TB.Name = "connectedAircraftNum_TB";
-            this.connectedAircraftNum_TB.TextChanged += new EventHandler(this.connectedAircraftNum_TB_TextChanged);
-            this.connectedAircraftNum_TB.KeyPress += new KeyPressEventHandler(this.connectedAircraftNum_TB_KeyPress);
+            this.connectedAircraftNum_TB.TextChanged += new System.EventHandler(this.connectedAircraftNum_TB_TextChanged);
+            this.connectedAircraftNum_TB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.connectedAircraftNum_TB_KeyPress);
             // 
             // label4
             // 
@@ -188,16 +188,16 @@ namespace MissionPlanner
             resources.ApplyResources(this.connect_BUT, "connect_BUT");
             this.connect_BUT.Name = "connect_BUT";
             this.connect_BUT.UseVisualStyleBackColor = true;
-            this.connect_BUT.Click += new EventHandler(this.connect_BUT_Click);
+            this.connect_BUT.Click += new System.EventHandler(this.connect_BUT_Click);
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Tick += new EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // panel2
             // 
-            this.panel2.BorderStyle = BorderStyle.FixedSingle;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.connect_BUT);
             resources.ApplyResources(this.panel2, "panel2");
@@ -205,7 +205,7 @@ namespace MissionPlanner
             // 
             // ConnectionsForm
             // 
-            this.AutoScaleMode = AutoScaleMode.Inherit;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.addAircraft_BT);
@@ -213,12 +213,12 @@ namespace MissionPlanner
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.devices_LB);
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConnectionsForm";
             this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.ConnectionsForm_FormClosing);
-            this.Paint += new PaintEventHandler(this.ConnectionsForm_Paint);
-            this.MouseMove += new MouseEventHandler(this.ConnectionsForm_MouseMove);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionsForm_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ConnectionsForm_Paint);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConnectionsForm_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

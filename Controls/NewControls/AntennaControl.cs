@@ -23,8 +23,6 @@ namespace MissionPlanner.Controls.NewControls
         {
             InitializeComponent();
 
-            UpdateComPorts();
-
             ThemeManager.ApplyThemeTo(this);
 
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
@@ -32,14 +30,17 @@ namespace MissionPlanner.Controls.NewControls
 
         private void UpdateComPorts()
         {
-            ConnectionsForm.instance.UpdateComPorts();
             CMB_serialport.Items.Clear();
-            CMB_serialport.Items.AddRange(ConnectionsForm.instance.getComPorts());
+            CMB_serialport.Items.AddRange(SerialPort.GetPortNames());
+            CMB_serialport.Items.Add("TCP");
+            CMB_serialport.Items.Add("UDP");
+            CMB_serialport.Items.Add("UDPCl");
+            CMB_serialport.Items.Add("WS");
         }
 
         private void reload_BUT_Click(object sender, EventArgs e)
         {
-            UpdateComPorts();
+           // UpdateComPorts();
         }
         
         private void addAntenna()
