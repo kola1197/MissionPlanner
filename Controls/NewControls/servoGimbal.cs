@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IronPython.Modules;
 
 namespace MissionPlanner.Controls.NewControls
 {
@@ -31,18 +32,24 @@ namespace MissionPlanner.Controls.NewControls
             myButton9.Tag = 2;
             myButton10.Tag = 1;
             myButton11.Tag = 10;
-            timer1.Start();
+            //timer1.Start();
         }
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (!timer1.Enabled)
+            {
+                timer1.Start();
+            }
+
             MyButton b = (MyButton)sender;
             int i = (int)b.Tag;
             timing[i] = 10;
             System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+
+        private void timerVoid()
         {
             for (int i = 0; i<11; i++)
             {
@@ -54,9 +61,9 @@ namespace MissionPlanner.Controls.NewControls
                     if (MainV2.configServo.TryGetValue(i, out servo))
                     {
                         System.Diagnostics.Debug.WriteLine("Servo click!!! Servo: " + servo.servo.ToString() + " Value: " + servo.value.ToString());
-                        MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, servo.value, 0, 0, 0, 0, 0);
+                       MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, servo.value, 0, 0, 0, 0, 0);
 
-                        /*switch (servo.servo)
+                        switch (servo.servo)
                         {
                             case 0:
                                 break;
@@ -112,10 +119,15 @@ namespace MissionPlanner.Controls.NewControls
                                 break;
                             default:
                                 break;
-                        }*/
+                        }
                     }
                 }
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timerVoid();
         }
     }
 }

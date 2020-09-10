@@ -17,7 +17,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             InitializeComponent();
             //updateLabels();
-            timer1.Start();
+            //timer1.Start();
         }
 
         private void updateLabels() 

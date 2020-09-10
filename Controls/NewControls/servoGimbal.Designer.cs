@@ -204,6 +204,6 @@
         private MyButton myButton9;
         private MyButton myButton10;
         private MyButton myButton11;
-        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer timer1;
     }
 }

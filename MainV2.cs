@@ -1403,11 +1403,11 @@ namespace MissionPlanner
             coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
             coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
             coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+            timeControl2.timer1.Start();
             if (comPort.MAV.cs.connected && CurrentAircraftNum!=null && !_aircraftInfo[CurrentAircraftNum].inAir)
             {
                 _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
             }
-
         }
 
         void mainMenuInit() 
