@@ -106,16 +106,16 @@ namespace MissionPlanner.NewForms
         private void updateMainV2Data() 
         {
             int i;
-            MainV2.butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
-            MainV2.maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
-            if (MainV2.maxCapacity != 0)
+            if (MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity != 0)
             {
-                double d = 100 * MainV2.butt2RealVoltage / MainV2.maxCapacity;
+                double d = 100 * MainV2._aircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage / MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity;
                 percent = (int) d;
-                System.Diagnostics.Debug.WriteLine(MainV2.butt2RealVoltage.ToString() + "   " + MainV2.maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
+                System.Diagnostics.Debug.WriteLine(MainV2._aircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " + MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
             }
             valueInPercentsTBox.Text = percent.ToString();
         }

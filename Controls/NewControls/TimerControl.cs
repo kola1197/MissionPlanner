@@ -24,6 +24,7 @@ namespace MissionPlanner.Controls.NewControls
         private void label1_MouseUp(object sender, MouseEventArgs e)
         {
             stopWatchTime = new DateTime(0);
+            label1.Text = stopWatchTime.ToString("HH:mm:ss.f");
         }
 
         private void button1_MouseUp(object sender, MouseEventArgs e)
