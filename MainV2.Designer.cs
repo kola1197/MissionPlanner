@@ -70,6 +70,8 @@ namespace MissionPlanner
             this.label13 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
+            this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.timeControl2 = new MissionPlanner.Controls.NewControls.TimeControl();
             this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
             this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
@@ -80,8 +82,6 @@ namespace MissionPlanner
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
-            this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
-            this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,16 +94,7 @@ namespace MissionPlanner
             this.MainMenu.ContextMenuStrip = this.CTX_mainmenu;
             this.MainMenu.GripMargin = new System.Windows.Forms.Padding(0);
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(45, 39);
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuFlightData,
-            this.MenuFlightPlanner,
-            this.MenuInitConfig,
-            this.MenuConfigTune,
-            this.MenuSimulation,
-            this.MenuHelp,
-            this.MenuConnect,
-            this.toolStripConnectionControl,
-            this.MenuArduPilot});
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.MenuFlightData, this.MenuFlightPlanner, this.MenuInitConfig, this.MenuConfigTune, this.MenuSimulation, this.MenuHelp, this.MenuConnect, this.toolStripConnectionControl, this.MenuArduPilot});
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.ShowItemToolTips = true;
             this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
@@ -111,12 +102,7 @@ namespace MissionPlanner
             // 
             // CTX_mainmenu
             // 
-            this.CTX_mainmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autoHideToolStripMenuItem,
-            this.fullScreenToolStripMenuItem,
-            this.readonlyToolStripMenuItem,
-            this.connectionOptionsToolStripMenuItem,
-            this.connectionListToolStripMenuItem});
+            this.CTX_mainmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.autoHideToolStripMenuItem, this.fullScreenToolStripMenuItem, this.readonlyToolStripMenuItem, this.connectionOptionsToolStripMenuItem, this.connectionListToolStripMenuItem});
             this.CTX_mainmenu.Name = "CTX_mainmenu";
             resources.ApplyResources(this.CTX_mainmenu, "CTX_mainmenu");
             // 
@@ -307,7 +293,6 @@ namespace MissionPlanner
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
             this.panel2.Controls.Add(this.snsControl2);
             this.panel2.Controls.Add(this.servoGimbal2);
             this.panel2.Controls.Add(this.timeControl2);
@@ -315,6 +300,16 @@ namespace MissionPlanner
             this.panel2.Controls.Add(this.servoGimbal1);
             this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
+            // 
+            // snsControl2
+            // 
+            resources.ApplyResources(this.snsControl2, "snsControl2");
+            this.snsControl2.Name = "snsControl2";
+            // 
+            // servoGimbal2
+            // 
+            resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
+            this.servoGimbal2.Name = "servoGimbal2";
             // 
             // timeControl2
             // 
@@ -376,16 +371,6 @@ namespace MissionPlanner
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
-            // servoGimbal2
-            // 
-            resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
-            this.servoGimbal2.Name = "servoGimbal2";
-            // 
-            // snsControl2
-            // 
-            resources.ApplyResources(this.snsControl2, "snsControl2");
-            this.snsControl2.Name = "snsControl2";
-            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
@@ -412,14 +397,15 @@ namespace MissionPlanner
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.ToolStripMenuItem autoHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionOptionsToolStripMenuItem;
+        private MissionPlanner.Controls.NewControls.CoordinatsControl coordinatsControl1;
         private System.Windows.Forms.ContextMenuStrip CTX_mainmenu;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
+        private System.Windows.Forms.Label label13;
         public System.Windows.Forms.MenuStrip MainMenu;
         private MissionPlanner.Controls.MyButton menu;
         public System.Windows.Forms.ToolStripButton MenuArduPilot;
@@ -431,9 +417,20 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton MenuInitConfig;
         public System.Windows.Forms.ToolStripButton MenuSimulation;
         public System.Windows.Forms.MenuStrip menuStrip1;
+        private MissionPlanner.Controls.MyButton myButton1;
+        private MissionPlanner.Controls.MyButton myButton2;
+        private MissionPlanner.Controls.MyButton myButton3;
+        private MissionPlanner.Controls.MyButton myButton4;
         public System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
+        private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal1;
+        private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
+        private MissionPlanner.Controls.NewControls.SNSControl snsControl1;
+        private MissionPlanner.Controls.NewControls.SNSControl snsControl2;
         public MissionPlanner.Controls.Status status1;
+        private MissionPlanner.Controls.NewControls.TimeControl timeControl2;
+        private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.ToolStripButton toolStripButton1;
         public System.Windows.Forms.ToolStripButton toolStripButton2;
         public System.Windows.Forms.ToolStripButton toolStripButton3;
@@ -446,19 +443,5 @@ namespace MissionPlanner
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
 
         #endregion
-        private MyButton myButton2;
-        private MyButton myButton1;
-        private Label label13;
-        private MyButton myButton3;
-        private MyButton myButton4;
-        private Timer timer1;
-        private Panel panel2;
-        private Controls.NewControls.SNSControl snsControl1;
-        private Controls.NewControls.servoGimbal servoGimbal1;
-        private Controls.NewControls.CoordinatsControl coordinatsControl1;
-        private Controls.NewControls.TimeControl timeControl1;
-        private Controls.NewControls.TimeControl timeControl2;
-        private Controls.NewControls.SNSControl snsControl2;
-        private Controls.NewControls.servoGimbal servoGimbal2;
     }
 }
