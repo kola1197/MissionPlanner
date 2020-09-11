@@ -110,6 +110,9 @@
       <HintPath>.\extlibs\BitMiracle.LibTiff.NetStandard.dll</HintPath>
       <Private>true</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MissionPlanner, Version=1.3.7557.20441, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -118,6 +121,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System.Web.Extensions" />
@@ -400,6 +405,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\AntennaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\AntennaControl.Designer.cs">
+      <DependentUpon>AntennaControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\CoordinatsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -417,6 +428,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\RightSideMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\RightSideMenuControl.Designer.cs">
+      <DependentUpon>RightSideMenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\newTimeControl.cs">
       <SubType>UserControl</SubType>
@@ -739,6 +756,7 @@
       <DependentUpon>WPConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
+    <Compile Include="Orlan\AntennaConnectionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">
@@ -862,6 +880,9 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\AntennaControl.resx">
+      <DependentUpon>AntennaControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\CoordinatsControl.resx">
       <DependentUpon>CoordinatsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -870,6 +891,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\RightSideMenuControl.resx">
+      <DependentUpon>RightSideMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\newTimeControl.resx">
       <DependentUpon>newTimeControl.cs</DependentUpon>
