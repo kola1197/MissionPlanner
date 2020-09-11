@@ -65,12 +65,7 @@ namespace MissionPlanner
             CMB_serialport.Items.Add("UDPCl");
             CMB_serialport.Items.Add("WS");
         }
-
-        public object[] getComPorts()
-        {
-            return SerialPort.GetPortNames();
-        }
-
+        
         private void ConnectionsForm_Paint(object sender, PaintEventArgs e)
         {
 
@@ -130,6 +125,21 @@ namespace MissionPlanner
 
         private void connectAircraft(object sender)
         {
+            AircraftConnectionInfo connectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+            if (useAntenna_CheckBox.Checked)
+            {
+                if (sysid_cmb.SelectedItem == null)
+                    return;
+                connectedAircraft.SerialPort = MainV2._AntennaConnectionInfo.SerialPort;
+                connectedAircraft.Speed = MainV2._AntennaConnectionInfo.Speed;
+                connectedAircraft.Connected = true;
+                connectedAircraft.SysId = sysid_cmb.SelectedItem;
+                switchConnectedAircraft(connectedAircraft);
+                panel1.Enabled = false;
+                connect_BUT.Text = disconnectText;
+                return;
+            }
+
             if (useSITL_CheckBox.Checked)
             {
                 MainV2.instance.MenuSimulation_Click(sender, EventArgs.Empty);
@@ -162,7 +172,7 @@ namespace MissionPlanner
 
                 MainV2._connectionControl.UpdateSysIDS();
 
-                AircraftConnectionInfo connectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+                
                 connectedAircraft.SerialPort = CMB_serialport.SelectedItem.ToString();
                 
                 if (CMB_baudrate.SelectedItem != null)
@@ -254,8 +264,8 @@ namespace MissionPlanner
             MainV2._aircraftMenuControl.setAircraftButtonDefaultText(
                 MainV2._aircraftInfo[aircraftNumber].MenuNum, aircraftNumber);
             MainV2._aircraftMenuControl.updateAircraftButtonText(MainV2._aircraftInfo[aircraftNumber].MenuNum);
-            aircraftNumber_TB.Text = "";
             panel1.Enabled = true;
+            aircraftNumber_TB.Text = "";
         }
 
         public void switchConnectedAircraft(AircraftConnectionInfo selectedAircraft)
@@ -367,6 +377,79 @@ namespace MissionPlanner
             AircraftConnectionInfo value = dic[fromKey];
             dic.Remove(fromKey);
             dic.Add(toKey, value);
+        }
+
+        private void useAntenna_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            antennaPanel.Enabled = !antennaPanel.Enabled;
+            CMB_baudrate.Enabled = !CMB_baudrate.Enabled;
+            CMB_serialport.Enabled = !CMB_serialport.Enabled;
+            useSITL_CheckBox.Enabled = !useSITL_CheckBox.Enabled;
+            UpdateSysId();
+        }
+
+        private void UpdateSysId()
+        {
+            sysid_cmb.Items.Clear();
+
+            int selectidx = -1;
+
+            foreach (var port in MainV2.Comports.ToArray())
+            {
+                var list = port.MAVlist.GetRawIDS();
+
+                foreach (int item in list)
+                {
+                    var temp = new ConnectionControl.port_sysid() { compid = (item % 256), sysid = (item / 256), port = port };
+
+                    var idx = sysid_cmb.Items.Add(temp);
+
+                    if (temp.port == MainV2.comPort && temp.sysid == MainV2.comPort.sysidcurrent && temp.compid == MainV2.comPort.compidcurrent)
+                    {
+                        selectidx = idx;
+                    }
+                }
+            }
+        }
+
+        private void sysid_cmb_Format(object sender, ListControlConvertEventArgs e)
+        {
+            var temp = (ConnectionControl.port_sysid)e.Value;
+            MAVLink.MAV_COMPONENT compid = (MAVLink.MAV_COMPONENT)temp.compid;
+            string mavComponentHeader = "MAV_COMP_ID_";
+            string mavComponentString = null;
+
+            foreach (var port in MainV2.Comports)
+            {
+                if (port == temp.port)
+                {
+                    if (compid == (MAVLink.MAV_COMPONENT)1)
+                    {
+                        //use Autopilot type as displaystring instead of "FCS1"
+                        mavComponentString = port.MAVlist[temp.sysid, temp.compid].aptype.ToString();
+                    }
+                    else
+                    {
+                        //use name from enum if it exists, use the component ID otherwise
+                        mavComponentString = compid.ToString();
+                        if (mavComponentString.Length > mavComponentHeader.Length)
+                        {
+                            //remove "MAV_COMP_ID_" header
+                            mavComponentString = mavComponentString.Remove(0, mavComponentHeader.Length);
+                        }
+
+                        if (temp.port.MAVlist[temp.sysid, temp.compid].CANNode)
+                            mavComponentString =
+                                temp.compid + " " + temp.port.MAVlist[temp.sysid, temp.compid].VersionString;
+                    }
+                    e.Value = temp.port.BaseStream.PortName + "-" + ((int)temp.sysid) + "-" + mavComponentString.Replace("_", " ");
+                }
+            }
+        }
+
+        private void updateSysId_BUT_Click(object sender, EventArgs e)
+        {
+            UpdateSysId();
         }
     }
 }

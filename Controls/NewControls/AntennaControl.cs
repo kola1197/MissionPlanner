@@ -40,19 +40,19 @@ namespace MissionPlanner.Controls.NewControls
 
         private void reload_BUT_Click(object sender, EventArgs e)
         {
-           // UpdateComPorts();
+           UpdateComPorts();
         }
         
         private void addAntenna()
         {
-            ConnectionsForm.instance.addAircraft(antennaNumber);
+            MainV2._aircraftInfo.Add(antennaNumber, new AircraftConnectionInfo());
         }
 
         private void connectAircraft(object sender)
         {
             if (!MainV2._aircraftInfo.Keys.Contains(antennaNumber))
             {
-                addAntenna();
+                // addAntenna();
             }
 
             if (CMB_serialport.SelectedItem == null)
@@ -82,8 +82,6 @@ namespace MissionPlanner.Controls.NewControls
                 antenna.SysId = MainV2._connectionControl.cmb_sysid.Items[0];
                 antenna.Connected = true;
                 connect_BUT.Text = disconnectText;
-
-                ConnectionsForm.instance.switchConnectedAircraft(antenna);
             }
             catch (Exception)
             {
@@ -93,7 +91,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void disconnectAircraft()
         {
-            AircraftConnectionInfo selectedAircraft = MainV2._aircraftInfo[antennaNumber];
+            AircraftConnectionInfo selectedAircraft = MainV2._AntennaConnectionInfo;
 
             var temp = (ConnectionControl.port_sysid)selectedAircraft.SysId;
 
@@ -128,6 +126,11 @@ namespace MissionPlanner.Controls.NewControls
             {
                 connectAircraft(sender);
             }
+        }
+
+        private void CMB_serialport_DropDown(object sender, EventArgs e)
+        {
+            UpdateComPorts();
         }
     }
 }

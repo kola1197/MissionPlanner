@@ -565,51 +565,53 @@ namespace MissionPlanner
         private ConnectionStats _connectionStats;
 
         public static Dictionary<int, servoValue> configServo = new Dictionary<int, servoValue>();
+
         public class item
         {
-            [XmlAttribute]
-            public string id;
-            [XmlAttribute]
-            public string servo;
-            [XmlAttribute]
-            public string value;
+            [XmlAttribute] public string id;
+            [XmlAttribute] public string servo;
+            [XmlAttribute] public string value;
         }
 
-        public class servoValue 
+        public class servoValue
         {
             public int servo;
             public int value;
-            public servoValue(int _servo, int _value) 
+
+            public servoValue(int _servo, int _value)
             {
                 servo = _servo;
                 value = _value;
             }
         }
-        public static string defaultConfig = Settings.GetUserDataDirectory()+"servoConfig.txt";
+
+        public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
 
         private void deserealaseDict()
         {
             if (File.Exists(defaultConfig))
             {
                 StreamReader stream = new StreamReader(defaultConfig);
-                var orgDict = ((item[])serializer.Deserialize(stream))
-                       .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo), int.Parse(i.value)));
+                var orgDict = ((item[]) serializer.Deserialize(stream))
+                    .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo), int.Parse(i.value)));
                 for (int i = 0; i < 11; i++)
                 {
                     servoValue s;
-                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>)orgDict;
+                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>) orgDict;
 
                     if (Dict.TryGetValue(i.ToString(), out s))
                     {
                         MainV2.configServo[i] = s;
                     }
                 }
+
                 stream.Close();
             }
         }
 
         public XmlSerializer serializer = new XmlSerializer(typeof(item[]),
-                                 new XmlRootAttribute() { ElementName = "items" });
+            new XmlRootAttribute() {ElementName = "items"});
+
         /// <summary>
         /// This 'Control' is the toolstrip control that holds the comport combo, baudrate combo etc
         /// Otiginally seperate controls, each hosted in a toolstip sqaure, combined into this custom
@@ -1417,25 +1419,29 @@ namespace MissionPlanner
             MenuHelp.ForeColor = ThemeManager.TextColor;
         }
 
-        void coordinatsControlInit() 
+        void coordinatsControlInit()
         {
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
-            coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
+            double homedist =
+                FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
+                    FlightPlanner.pointlist[0]);
+            coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " +
+                                             FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
             coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
-            coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
-            if (comPort.MAV.cs.connected && CurrentAircraftNum!=null && !_aircraftInfo[CurrentAircraftNum].inAir)
+            coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " +
+                                             comPort.MAV.cs.lng.ToString("0.000000");
+            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !_aircraftInfo[CurrentAircraftNum].inAir)
             {
                 _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
             }
 
         }
 
-        void mainMenuInit() 
+        void mainMenuInit()
 
         {
             FlightPlanner.mainMenuWidget1.MapChoiseButton.Click += new EventHandler(mapChoiceButtonClick);
@@ -1636,6 +1642,7 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
+
             _aircraftMenuControl.updateCentralButton();
         }
 

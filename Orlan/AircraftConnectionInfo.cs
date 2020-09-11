@@ -80,6 +80,13 @@ namespace MissionPlanner.Orlan
             _aircraftCounter++;
         }
 
+        public AircraftConnectionInfo(int menuNum)
+        {
+            (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
+                ("", "", 115200, null, false, false);
+            _menuNum = menuNum;
+        }
+
 
         // public AircraftConnectionInfo(string name, string serialPort, object speed, string sysId, bool connected,
         //     bool usingSITL)

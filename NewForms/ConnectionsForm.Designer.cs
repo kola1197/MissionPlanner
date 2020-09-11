@@ -43,6 +43,10 @@ namespace MissionPlanner
             this.aircraftNumber_TB = new System.Windows.Forms.TextBox();
             this.addAircraft_BT = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.useAntenna_CheckBox = new System.Windows.Forms.CheckBox();
+            this.antennaPanel = new System.Windows.Forms.Panel();
+            this.updateSysId_BUT = new System.Windows.Forms.Button();
+            this.sysid_cmb = new System.Windows.Forms.ComboBox();
             this.useSITL_CheckBox = new System.Windows.Forms.CheckBox();
             this.reload_BUT = new System.Windows.Forms.Button();
             this.CMB_baudrate = new System.Windows.Forms.ComboBox();
@@ -57,6 +61,7 @@ namespace MissionPlanner
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.antennaPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +101,8 @@ namespace MissionPlanner
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.useAntenna_CheckBox);
+            this.panel1.Controls.Add(this.antennaPanel);
             this.panel1.Controls.Add(this.useSITL_CheckBox);
             this.panel1.Controls.Add(this.reload_BUT);
             this.panel1.Controls.Add(this.CMB_baudrate);
@@ -108,6 +115,38 @@ namespace MissionPlanner
             this.panel1.Controls.Add(this.label3);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // useAntenna_CheckBox
+            // 
+            resources.ApplyResources(this.useAntenna_CheckBox, "useAntenna_CheckBox");
+            this.useAntenna_CheckBox.Name = "useAntenna_CheckBox";
+            this.useAntenna_CheckBox.UseVisualStyleBackColor = true;
+            this.useAntenna_CheckBox.CheckedChanged += new System.EventHandler(this.useAntenna_CheckBox_CheckedChanged);
+            // 
+            // antennaPanel
+            // 
+            this.antennaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.antennaPanel.Controls.Add(this.updateSysId_BUT);
+            this.antennaPanel.Controls.Add(this.sysid_cmb);
+            resources.ApplyResources(this.antennaPanel, "antennaPanel");
+            this.antennaPanel.Name = "antennaPanel";
+            // 
+            // updateSysId_BUT
+            // 
+            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
+            this.updateSysId_BUT.Name = "updateSysId_BUT";
+            this.updateSysId_BUT.UseVisualStyleBackColor = true;
+            this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);
+            // 
+            // sysid_cmb
+            // 
+            this.sysid_cmb.BackColor = System.Drawing.Color.Black;
+            this.sysid_cmb.DropDownWidth = 160;
+            this.sysid_cmb.ForeColor = System.Drawing.Color.White;
+            this.sysid_cmb.FormattingEnabled = true;
+            resources.ApplyResources(this.sysid_cmb, "sysid_cmb");
+            this.sysid_cmb.Name = "sysid_cmb";
+            this.sysid_cmb.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.sysid_cmb_Format);
             // 
             // useSITL_CheckBox
             // 
@@ -127,20 +166,7 @@ namespace MissionPlanner
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {
-            resources.GetString("CMB_baudrate.Items"),
-            resources.GetString("CMB_baudrate.Items1"),
-            resources.GetString("CMB_baudrate.Items2"),
-            resources.GetString("CMB_baudrate.Items3"),
-            resources.GetString("CMB_baudrate.Items4"),
-            resources.GetString("CMB_baudrate.Items5"),
-            resources.GetString("CMB_baudrate.Items6"),
-            resources.GetString("CMB_baudrate.Items7"),
-            resources.GetString("CMB_baudrate.Items8"),
-            resources.GetString("CMB_baudrate.Items9"),
-            resources.GetString("CMB_baudrate.Items10"),
-            resources.GetString("CMB_baudrate.Items11"),
-            resources.GetString("CMB_baudrate.Items12")});
+            this.CMB_baudrate.Items.AddRange(new object[] {resources.GetString("CMB_baudrate.Items"), resources.GetString("CMB_baudrate.Items1"), resources.GetString("CMB_baudrate.Items2"), resources.GetString("CMB_baudrate.Items3"), resources.GetString("CMB_baudrate.Items4"), resources.GetString("CMB_baudrate.Items5"), resources.GetString("CMB_baudrate.Items6"), resources.GetString("CMB_baudrate.Items7"), resources.GetString("CMB_baudrate.Items8"), resources.GetString("CMB_baudrate.Items9"), resources.GetString("CMB_baudrate.Items10"), resources.GetString("CMB_baudrate.Items11"), resources.GetString("CMB_baudrate.Items12")});
             resources.ApplyResources(this.CMB_baudrate, "CMB_baudrate");
             this.CMB_baudrate.Name = "CMB_baudrate";
             // 
@@ -221,11 +247,13 @@ namespace MissionPlanner
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConnectionsForm_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.antennaPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.Button updateSysId_BUT;
 
         #endregion
 
@@ -248,5 +276,8 @@ namespace MissionPlanner
         private Panel panel2;
         private Button reload_BUT;
         private CheckBox useSITL_CheckBox;
+        private CheckBox useAntenna_CheckBox;
+        private Panel antennaPanel;
+        public ComboBox sysid_cmb;
     }
 }

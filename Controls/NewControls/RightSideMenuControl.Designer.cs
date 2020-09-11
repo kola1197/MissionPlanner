@@ -56,7 +56,7 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(126, 445);
+            this.menuStrip1.Size = new System.Drawing.Size(33, 445);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -90,11 +90,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.sideMenuPanel);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(37, 448);
+            this.Size = new System.Drawing.Size(34, 448);
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

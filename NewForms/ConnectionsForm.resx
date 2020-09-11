@@ -245,6 +245,106 @@
   <data name="&gt;&gt;addAircraft_BT.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="useAntenna_CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="useAntenna_CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 133</value>
+  </data>
+  <data name="useAntenna_CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 17</value>
+  </data>
+  <data name="useAntenna_CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="useAntenna_CheckBox.Text" xml:space="preserve">
+    <value>Использовать антенну</value>
+  </data>
+  <data name="&gt;&gt;useAntenna_CheckBox.Name" xml:space="preserve">
+    <value>useAntenna_CheckBox</value>
+  </data>
+  <data name="&gt;&gt;useAntenna_CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;useAntenna_CheckBox.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;useAntenna_CheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="updateSysId_BUT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="updateSysId_BUT.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 13</value>
+  </data>
+  <data name="updateSysId_BUT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 21</value>
+  </data>
+  <data name="updateSysId_BUT.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="updateSysId_BUT.Text" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="&gt;&gt;updateSysId_BUT.Name" xml:space="preserve">
+    <value>updateSysId_BUT</value>
+  </data>
+  <data name="&gt;&gt;updateSysId_BUT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;updateSysId_BUT.Parent" xml:space="preserve">
+    <value>antennaPanel</value>
+  </data>
+  <data name="&gt;&gt;updateSysId_BUT.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="sysid_cmb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 13</value>
+  </data>
+  <data name="sysid_cmb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 21</value>
+  </data>
+  <data name="sysid_cmb.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;sysid_cmb.Name" xml:space="preserve">
+    <value>sysid_cmb</value>
+  </data>
+  <data name="&gt;&gt;sysid_cmb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sysid_cmb.Parent" xml:space="preserve">
+    <value>antennaPanel</value>
+  </data>
+  <data name="&gt;&gt;sysid_cmb.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="antennaPanel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="antennaPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 156</value>
+  </data>
+  <data name="antennaPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 51</value>
+  </data>
+  <data name="antennaPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Name" xml:space="preserve">
+    <value>antennaPanel</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="useSITL_CheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -270,7 +370,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;useSITL_CheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="reload_BUT.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 56</value>
@@ -294,7 +394,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;reload_BUT.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="CMB_baudrate.Items" xml:space="preserve">
     <value>1200</value>
@@ -354,7 +454,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;CMB_baudrate.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -381,7 +481,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -408,7 +508,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="CMB_serialport.Location" type="System.Drawing.Point, System.Drawing">
     <value>68, 56</value>
@@ -429,7 +529,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;CMB_serialport.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="connectedAircraftName_TB.Location" type="System.Drawing.Point, System.Drawing">
     <value>68, 30</value>
@@ -450,7 +550,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;connectedAircraftName_TB.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="connectedAircraftNum_TB.Location" type="System.Drawing.Point, System.Drawing">
     <value>68, 4</value>
@@ -471,7 +571,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;connectedAircraftNum_TB.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -498,7 +598,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -525,7 +625,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="panel1.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>

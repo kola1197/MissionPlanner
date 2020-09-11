@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GDAL;
 
 namespace MissionPlanner.Controls.NewControls
 {
@@ -16,7 +17,9 @@ namespace MissionPlanner.Controls.NewControls
         public RightSideMenuControl()
         {
             InitializeComponent();
-            antennaControl = new AntennaControl {Visible = false, Dock = DockStyle.Fill};
+            antennaControl = new AntennaControl {Visible = false};
+            antennaControl.Location = new Point(35, 0);
+            this.Controls.Add(antennaControl);
         }
 
         private void antennaToolStripMenuItem_Click(object sender, EventArgs e)

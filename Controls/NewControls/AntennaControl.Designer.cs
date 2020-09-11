@@ -108,6 +108,7 @@
             this.CMB_serialport.Name = "CMB_serialport";
             this.CMB_serialport.Size = new System.Drawing.Size(138, 21);
             this.CMB_serialport.TabIndex = 11;
+            this.CMB_serialport.DropDown += new System.EventHandler(this.CMB_serialport_DropDown);
             // 
             // connect_BUT
             // 
@@ -230,7 +231,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CMB_serialport);
             this.Name = "AntennaControl";
-            this.Size = new System.Drawing.Size(311, 445);
+            this.Size = new System.Drawing.Size(311, 400);
             this.ResumeLayout(false);
             this.PerformLayout();
 

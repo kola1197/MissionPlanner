@@ -14,6 +14,6 @@ namespace MissionPlanner.Orlan
 
         public string Heading { get; set; }
 
-        public AntennaConnectionInfo() : base() => (Mode, satNum, Heading) = ("Unknown", "0", "0");
+        public AntennaConnectionInfo() : base(-1) => (Mode, satNum, Heading) = ("Unknown", "0", "0");
     }
 }
