@@ -137,6 +137,7 @@ namespace MissionPlanner.GCSViews
         private bool menuActive = false;
         AltChoose altChoose;
 
+        private object tagForContextMenu;
         private WPConfig wpConfig;
         public void Init()
         {
@@ -286,6 +287,7 @@ namespace MissionPlanner.GCSViews
             timer.Start();
             */
             wpMenuLoad();
+            contextMenuStrip2.Closed += contextMenuStrip2_Closed;
         }
 
         private void test_Click(object sender, EventArgs e)
@@ -3048,6 +3050,76 @@ namespace MissionPlanner.GCSViews
         public void removeWP(int i) 
         {
             
+        }
+
+        public void deleteWPToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+           int no = 0;
+            if (tagForContextMenu != null)
+            {
+                if (int.TryParse(tagForContextMenu.ToString(), out no))
+                {
+                    try
+                    {
+                        if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue ==
+                            MAVLink.MAV_MISSION_TYPE.FENCE)
+                            ReCalcFence(no - 1, false, true);
+
+                        Commands.Rows.RemoveAt(no - 1); // home is 0
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        CustomMessageBox.Show("error selecting wp, please try again.");
+                    }
+                }
+                else if (int.TryParse(tagForContextMenu.ToString().Replace("grid", ""), out no))
+                {
+                    try
+                    {
+                        drawnpolygon.Points.RemoveAt(no - 1);
+
+                        redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        CustomMessageBox.Show("Remove point Failed. Please try again.");
+                    }
+                }
+            }
+            else if (CurrentRallyPt != null)
+            {
+                rallypointoverlay.Markers.Remove(CurrentRallyPt);
+                MainMap.Invalidate(true);
+
+                CurrentRallyPt = null;
+            }
+            else if (groupmarkers.Count > 0)
+            {
+                for (int a = Commands.Rows.Count; a > 0; a--)
+                {
+                    try
+                    {
+                        if (groupmarkers.Contains(a)) Commands.Rows.RemoveAt(a - 1); // home is 0
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        CustomMessageBox.Show("error selecting wp, please try again.");
+                    }
+                }
+
+                groupmarkers.Clear();
+            }
+
+
+            if (currentMarker != null)
+                CurentRectMarker = null;
+            tagForContextMenu = null;
+            writeKML();
+            tryToWriteWP();
+         
         }
 
         public void deleteWPToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6742,12 +6814,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         wpConfig.Close();
                     }
-                    wpConfig = new WPConfig(CurentRectMarker);
-                    WPConfig_actionsAdding();
-                    wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum +" Точка " + CurentRectMarker.Tag.ToString();
-                    wpConfig_setValues();
-                    wpConfig.Show();
-                    wpConfig.updateServoButtons();
+
+                    if (CurentRectMarker.Tag.ToString() == "H")
+                    {
+                        
+                    }
+                    else
+                    {
+                        wpConfig = new WPConfig(CurentRectMarker);
+                        WPConfig_actionsAdding();
+                        wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " +
+                                        CurentRectMarker.Tag.ToString();
+                        wpConfig_setValues();
+                        wpConfig.Show();
+                        wpConfig.updateServoButtons();
+                    }
                 }
             }
         }
@@ -6897,11 +6978,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             //CurentRectMarker.Color = Color.Red;               //here on mouse click to wp
                             //contextMenuStrip2.
                             isMouseDown = false;
+                            tagForContextMenu = CurentRectMarker.Tag;
                             contextMenuStrip2.Show(Cursor.Position);
-                            CurrentGMapMarker = null;
+                            /*CurrentGMapMarker = null;
                             needToWriteWP = true;
                             CurentRectMarker.ResetColor();
-                            CurentRectMarker = null;
+                            CurentRectMarker = null;*/
                         }
                         else
                         {
@@ -7503,18 +7585,43 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void GoToWPAndLoiterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //jumpwPToolStripMenuItem_Click(sender, e);
-            GoToThisWPToolStripMenuItem_Click(sender,e);
-            loiterForeverToolStripMenuItem_Click(sender, e);
+            LoiterInThisPoint(tagForContextMenu);
+            GoToThisPoint(tagForContextMenu);
+            //loiterForeverToolStripMenuItem_Click(sender, e);
+            //writeKML();
             tryToWriteWP();
+            tagForContextMenu = null;
+        }
+
+        private void LoiterInThisPoint(object tag)
+        {
+            //selectedrow = Commands.Rows.Add();
+            if (tag != null)
+            {
+                Commands.Rows[int.Parse(tag.ToString()) - 1].Cells[Command.Index].Value =
+                    MAVLink.MAV_CMD.LOITER_UNLIM.ToString();
+            }
+            //ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_UNLIM.ToString());
+
+            //setfromMap(MouseDownEnd.Lat, MouseDownEnd.Lng, (int)float.Parse(TXT_DefaultAlt.Text));
+
+            //writeKML();
+        }
+
+        private void GoToThisPoint(object tag)
+        {
+            if (tag != null && MainV2.comPort.MAV.cs.connected)
+            {
+                MainV2.setCurrentWP(ushort.Parse(tag.ToString()));
+            }
         }
 
         private void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CurentRectMarker != null)
-            {
-                MainV2.setCurrentWP(ushort.Parse(CurentRectMarker.Tag.ToString()));
-            }
+            GoToThisPoint(tagForContextMenu);
+            writeKML();
             tryToWriteWP();
+            tagForContextMenu = null;
         }
 
         private void wpConfig_setValues() 
@@ -7693,6 +7800,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (MainV2.comPort.MAV.cs.connected == true)
             {
                 writeWPToPlane();
+            }
+        }
+
+        private void contextMenuStrip2_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            CurrentGMapMarker = null;
+            if (CurentRectMarker != null)
+            {
+                CurentRectMarker.ResetColor();
+                CurentRectMarker = null;
+                tryToWriteWP();
             }
         }
     }
