@@ -37,17 +37,38 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!timer1.Enabled)
-            {
-                timer1.Start();
-            }
+            // if (!timer1.Enabled)
+            // {
+            //     timer1.Start();
+            // }
+            //timing[i] = 10;
+            //System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
 
             MyButton b = (MyButton)sender;
             int i = (int)b.Tag;
-            timing[i] = 10;
-            System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
+            b.BGGradBot = Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));    //it is default MP shit
+            b.BGGradTop= Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            servoSet(i,false);
         }
 
+        private void myButton1_mouseDown(object sender, MouseEventArgs e)
+        {
+            MyButton b = (MyButton)sender;
+            int i = (int)b.Tag;
+            System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
+            b.BGGradBot = Color.Brown;
+            b.BGGradTop= Color.DarkRed;
+            servoSet(i,true);
+        }
+
+        private void servoSet(int i, bool downPress)
+        {
+            MainV2.servoValue servo;
+            if (MainV2.configServo.TryGetValue(i, out servo))
+            {
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value: servo.defaultValue, 0, 0, 0, 0, 0);
+            }
+        }
 
         private void timerVoid()
         {
@@ -55,7 +76,6 @@ namespace MissionPlanner.Controls.NewControls
             {
                 if (timing[i] > 0) 
                 {
-                    System.Diagnostics.Debug.WriteLine("Timing " + i.ToString());
                     timing[i]--;
                     MainV2.servoValue servo;
                     if (MainV2.configServo.TryGetValue(i, out servo))
@@ -127,7 +147,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timerVoid();
+            //timerVoid();
         }
     }
 }

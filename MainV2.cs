@@ -573,38 +573,50 @@ namespace MissionPlanner
             public string servo;
             [XmlAttribute]
             public string value;
+            [XmlAttribute]
+            public string defaultValue;
         }
 
         public class servoValue 
         {
             public int servo;
             public int value;
-            public servoValue(int _servo, int _value) 
+            public int defaultValue;
+            public servoValue(int _servo, int _value, int _defaultValue) 
             {
                 servo = _servo;
                 value = _value;
+                defaultValue = _defaultValue;
             }
         }
         public static string defaultConfig = Settings.GetUserDataDirectory()+"servoConfig.txt";
 
-        private void deserealaseDict()
+        private void deserealaseDict() 
         {
-            if (File.Exists(defaultConfig))
+            if (File.Exists(MainV2.defaultConfig))
             {
-                StreamReader stream = new StreamReader(defaultConfig);
-                var orgDict = ((item[])serializer.Deserialize(stream))
-                       .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo), int.Parse(i.value)));
-                for (int i = 0; i < 11; i++)
+                try
                 {
-                    servoValue s;
-                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>)orgDict;
-
-                    if (Dict.TryGetValue(i.ToString(), out s))
+                    StreamReader stream = new StreamReader(MainV2.defaultConfig);
+                    var orgDict = ((item[]) serializer.Deserialize(stream))
+                        .ToDictionary(i => i.id,
+                            i => new servoValue(int.Parse(i.servo), int.Parse(i.value), int.Parse(i.defaultValue)));
+                    for (int i = 0; i < 11; i++)
                     {
-                        MainV2.configServo[i] = s;
+                        servoValue s;
+                        Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>) orgDict;
+
+                        if (Dict.TryGetValue(i.ToString(), out s))
+                        {
+                            MainV2.configServo[i] = s;
+                        }
                     }
+
+                    stream.Close();
                 }
-                stream.Close();
+                catch (Exception e)
+                {
+                }
             }
         }
 
