@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -74,12 +74,34 @@
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label1.Location = new System.Drawing.Point(184, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 26);
@@ -275,9 +297,9 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(468, 376);
+            this.saveButton.Location = new System.Drawing.Point(140, 415);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(106, 23);
+            this.saveButton.Size = new System.Drawing.Size(388, 23);
             this.saveButton.TabIndex = 23;
             this.saveButton.Text = "Сохранить";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -459,10 +481,208 @@
             this.textBox11.Size = new System.Drawing.Size(100, 20);
             this.textBox11.TabIndex = 44;
             // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(596, 378);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(100, 20);
+            this.textBox12.TabIndex = 66;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(596, 346);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(100, 20);
+            this.textBox13.TabIndex = 64;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(596, 315);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(100, 20);
+            this.textBox14.TabIndex = 62;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(596, 283);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(100, 20);
+            this.textBox15.TabIndex = 60;
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(596, 248);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(100, 20);
+            this.textBox16.TabIndex = 58;
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(596, 216);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(100, 20);
+            this.textBox17.TabIndex = 56;
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(596, 186);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(100, 20);
+            this.textBox18.TabIndex = 54;
+            // 
+            // textBox19
+            // 
+            this.textBox19.Location = new System.Drawing.Point(596, 156);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(100, 20);
+            this.textBox19.TabIndex = 52;
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(596, 127);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(100, 20);
+            this.textBox20.TabIndex = 50;
+            // 
+            // textBox21
+            // 
+            this.textBox21.Location = new System.Drawing.Point(596, 98);
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new System.Drawing.Size(100, 20);
+            this.textBox21.TabIndex = 48;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(458, 68);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(132, 13);
+            this.label34.TabIndex = 47;
+            this.label34.Text = "Значение по умолчанию:";
+            // 
+            // textBox22
+            // 
+            this.textBox22.Location = new System.Drawing.Point(596, 65);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(100, 20);
+            this.textBox22.TabIndex = 46;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(458, 101);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(132, 13);
+            this.label24.TabIndex = 67;
+            this.label24.Text = "Значение по умолчанию:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(458, 130);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(132, 13);
+            this.label25.TabIndex = 68;
+            this.label25.Text = "Значение по умолчанию:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(458, 159);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(132, 13);
+            this.label26.TabIndex = 69;
+            this.label26.Text = "Значение по умолчанию:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(458, 189);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(132, 13);
+            this.label27.TabIndex = 70;
+            this.label27.Text = "Значение по умолчанию:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(457, 219);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(132, 13);
+            this.label28.TabIndex = 71;
+            this.label28.Text = "Значение по умолчанию:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(457, 251);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(132, 13);
+            this.label29.TabIndex = 72;
+            this.label29.Text = "Значение по умолчанию:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(458, 286);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(132, 13);
+            this.label30.TabIndex = 73;
+            this.label30.Text = "Значение по умолчанию:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(458, 318);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(132, 13);
+            this.label31.TabIndex = 74;
+            this.label31.Text = "Значение по умолчанию:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(458, 349);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(132, 13);
+            this.label32.TabIndex = 75;
+            this.label32.Text = "Значение по умолчанию:";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(458, 381);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(132, 13);
+            this.label33.TabIndex = 76;
+            this.label33.Text = "Значение по умолчанию:";
+            // 
             // ConfigServoGimbal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.textBox12);
+            this.Controls.Add(this.textBox13);
+            this.Controls.Add(this.textBox14);
+            this.Controls.Add(this.textBox15);
+            this.Controls.Add(this.textBox16);
+            this.Controls.Add(this.textBox17);
+            this.Controls.Add(this.textBox18);
+            this.Controls.Add(this.textBox19);
+            this.Controls.Add(this.textBox20);
+            this.Controls.Add(this.textBox21);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.textBox22);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.label22);
@@ -510,11 +730,33 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ConfigServoGimbal";
-            this.Size = new System.Drawing.Size(586, 420);
+            this.Size = new System.Drawing.Size(718, 451);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TextBox textBox21;
+        private System.Windows.Forms.TextBox textBox22;
 
         #endregion
 
