@@ -28,6 +28,19 @@ namespace MissionPlanner.Controls.NewControls
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
+        private void ChangeMode(string mode)
+        {
+            try
+            {
+                var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo?.SysId;
+                temp.port.setMode((byte) temp.port.sysidcurrent, (byte) temp.port.compidcurrent, mode);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+        }
+
         private void UpdateComPorts()
         {
             CMB_serialport.Items.Clear();
@@ -43,10 +56,10 @@ namespace MissionPlanner.Controls.NewControls
            UpdateComPorts();
         }
         
-        private void addAntenna()
-        {
-            MainV2._aircraftInfo.Add(antennaNumber, new AircraftConnectionInfo());
-        }
+        // private void addAntenna()
+        // {
+        //     MainV2._aircraftInfo.Add(antennaNumber, new AircraftConnectionInfo());
+        // }
 
         private void connectAircraft(object sender)
         {
@@ -82,6 +95,7 @@ namespace MissionPlanner.Controls.NewControls
                 antenna.SysId = MainV2._connectionControl.cmb_sysid.Items[0];
                 antenna.Connected = true;
                 connect_BUT.Text = disconnectText;
+                timer1.Enabled = true;
             }
             catch (Exception)
             {
@@ -110,6 +124,7 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.StopUpdates();
                 MainV2._aircraftMenuControl.updateAllAircraftButtonTexts();
                 connect_BUT.Text = connectText;
+                timer1.Enabled = false;
             }
             catch (Exception)
             {
@@ -131,6 +146,29 @@ namespace MissionPlanner.Controls.NewControls
         private void CMB_serialport_DropDown(object sender, EventArgs e)
         {
             UpdateComPorts();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var temp = (ConnectionControl.port_sysid)MainV2._AntennaConnectionInfo?.SysId;
+            heading_label.Text = Math.Round(temp.port.MAV.cs.yaw) + "°";
+            satNum_label.Text = temp.port.MAV.cs.satcount.ToString();
+            mode_label.Text = temp.port.MAV.cs.mode;
+        }
+
+        private void autoMode_BUT_Click(object sender, EventArgs e)
+        {
+            ChangeMode("AUTO");
+        }
+
+        private void stopMode_BUT_Click(object sender, EventArgs e)
+        {
+            ChangeMode("STOP");
+        }
+
+        private void manualMode_BUT_Click(object sender, EventArgs e)
+        {
+            ChangeMode("SERVO_TEST");
         }
     }
 }

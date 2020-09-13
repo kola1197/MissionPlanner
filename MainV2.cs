@@ -666,7 +666,7 @@ namespace MissionPlanner
 
         public static void StopUpdates()
         {
-            _subscriptionsDisposable.Dispose();
+            _subscriptionsDisposable?.Dispose();
         }
 
         public static void ShowConnectionQuality()
@@ -1420,7 +1420,7 @@ namespace MissionPlanner
         }
 
         void coordinatsControlInit()
-        {
+        { 
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
@@ -3563,10 +3563,13 @@ namespace MissionPlanner
             else
             {
                 this.PerformLayout();
-                /*log.Info("show FlightData");
+                /*
+                log.Info("show FlightData");
                 MenuFlightData_Click(this, e);
                 log.Info("show FlightData... Done");
-                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));*/
+                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));
+                */
+                // MenuFlightData_Click(this, e); 
                 MenuFlightPlanner_Click(this, e);
                 MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightPlanner));
             }
