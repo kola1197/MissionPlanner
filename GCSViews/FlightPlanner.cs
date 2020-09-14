@@ -6178,12 +6178,27 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Color.Blue, routesoverlay);
                 }
 
-                if (MainV2.comPort.MAV.cs.lat == 0 || MainV2.comPort.MAV.cs.lng == 0)
-                    return;
+                // if (MainV2.comPort.MAV.cs.lat == 0 || MainV2.comPort.MAV.cs.lng == 0)
+                    // return;
 
-                var marker = Common.getMAVMarker(MainV2.comPort.MAV);
+                
+                foreach (var port in MainV2.Comports.ToArray())
+                {
+                    // draw the mavs seen on this port
+                    foreach (var MAV in port.MAVlist)
+                    {
+                        var marker = Common.getMAVMarker(MAV);
 
-                routesoverlay.Markers.Add(marker);
+                        if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                            continue;
+                        // routesoverlay.Markers.Add(marker);
+                        addMissionRouteMarker(marker);
+                    }
+                }
+                
+                // var marker = Common.getMAVMarker(MainV2.comPort.MAV);
+
+                // routesoverlay.Markers.Add(marker);
 
                 if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
                 {
@@ -6197,6 +6212,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private void addMissionRouteMarker(GMapMarker marker)
+        {
+            BeginInvoke((Action) delegate { routesoverlay.Markers.Add(marker); });
+        }
+        
         public void trackBar1_Scroll(object sender, EventArgs e)
         {
             try

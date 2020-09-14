@@ -63,20 +63,7 @@
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "111100",
-            "115200",
-            "500000",
-            "625000",
-            "921600",
-            "1500000"});
+            this.CMB_baudrate.Items.AddRange(new object[] {"1200", "2400", "4800", "9600", "19200", "38400", "57600", "111100", "115200", "500000", "625000", "921600", "1500000"});
             this.CMB_baudrate.Location = new System.Drawing.Point(79, 135);
             this.CMB_baudrate.Name = "CMB_baudrate";
             this.CMB_baudrate.Size = new System.Drawing.Size(217, 21);
@@ -244,7 +231,6 @@
             this.Size = new System.Drawing.Size(311, 400);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Button connect_BUT;
