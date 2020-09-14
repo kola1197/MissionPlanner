@@ -295,7 +295,9 @@ namespace MissionPlanner
             this.panel2.Controls.Add(this.snsControl2);
             this.panel2.Controls.Add(this.servoGimbal2);
             this.panel2.Controls.Add(this.timeControl2);
+            this.panel2.Controls.Add(this.myButton3);
             this.panel2.Controls.Add(this.coordinatsControl1);
+            this.panel2.Controls.Add(this.myButton4);
             this.panel2.Controls.Add(this.servoGimbal1);
             this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
@@ -367,8 +369,6 @@ namespace MissionPlanner
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.rightSideMenuControl1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.myButton3);
-            this.Controls.Add(this.myButton4);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);

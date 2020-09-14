@@ -63,10 +63,15 @@ namespace MissionPlanner.Controls.NewControls
 
         private void servoSet(int i, bool downPress)
         {
-            MainV2.servoValue servo;
-            if (MainV2.configServo.TryGetValue(i, out servo))
+            if (MainV2.comPort.MAV.cs.connected)
             {
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value: servo.defaultValue, 0, 0, 0, 0, 0);
+                MainV2.servoValue servo;
+                if (MainV2.configServo.TryGetValue(i, out servo))
+                {
+                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                        MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value : servo.defaultValue, 0, 0,
+                        0, 0, 0);
+                }
             }
         }
 
