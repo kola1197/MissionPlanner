@@ -737,6 +737,12 @@
     <Compile Include="NewForms\MapChangeForm.Designer.cs">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\ModeChangeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\ModeChangeForm.Designer.cs">
+      <DependentUpon>ModeChangeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\PreFlightForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1896,6 +1902,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\ModeChangeForm.resx">
+      <DependentUpon>ModeChangeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>

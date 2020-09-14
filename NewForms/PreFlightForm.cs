@@ -26,7 +26,7 @@ namespace MissionPlanner.NewForms
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex > progressIndex)
+            if (tabControl1.SelectedIndex > progressIndex && false)      //this check was canceled
             {
                 tabControl1.SelectedIndex = selectedIndex;
             }
