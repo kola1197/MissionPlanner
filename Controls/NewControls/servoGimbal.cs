@@ -13,6 +13,7 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class servoGimbal : UserControl
     {
+        private bool[] buttonPressed = new bool[11]; 
         int [] timing = new int[11];
         public servoGimbal()
         {
@@ -43,22 +44,23 @@ namespace MissionPlanner.Controls.NewControls
             // }
             //timing[i] = 10;
             //System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
-
+            
             MyButton b = (MyButton)sender;
             int i = (int)b.Tag;
-            b.BGGradBot = Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));    //it is default MP shit
-            b.BGGradTop= Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            servoSet(i,false);
+            buttonPressed[i] = !buttonPressed[i];
+            b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));    //it is default MP shit
+            b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            servoSet(i,buttonPressed[i]);
         }
 
         private void myButton1_mouseDown(object sender, MouseEventArgs e)
         {
-            MyButton b = (MyButton)sender;
-            int i = (int)b.Tag;
-            System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
-            b.BGGradBot = Color.Brown;
-            b.BGGradTop= Color.DarkRed;
-            servoSet(i,true);
+            // MyButton b = (MyButton)sender;
+            // int i = (int)b.Tag;
+            // System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
+            // b.BGGradBot = Color.Brown;
+            // b.BGGradTop= Color.DarkRed;
+            // servoSet(i,true);
         }
 
         private void servoSet(int i, bool downPress)
