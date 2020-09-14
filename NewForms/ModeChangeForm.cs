@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace MissionPlanner.NewForms
@@ -43,5 +43,11 @@ namespace MissionPlanner.NewForms
 
             MainV2.comPort.setMode(CMB_modes.Text);
         }
+
+        private void ModeChangeForm_Load_1(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
+
 }
