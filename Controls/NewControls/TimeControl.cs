@@ -54,7 +54,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // updateLabels();   
+            updateLabels();   
         }
     }
 }
