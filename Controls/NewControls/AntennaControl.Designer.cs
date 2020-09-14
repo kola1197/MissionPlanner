@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.reload_BUT = new System.Windows.Forms.Button();
             this.CMB_baudrate = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -35,7 +36,7 @@
             this.CMB_serialport = new System.Windows.Forms.ComboBox();
             this.connect_BUT = new System.Windows.Forms.Button();
             this._label1 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.mode_label = new System.Windows.Forms.Label();
             this.autoMode_BUT = new System.Windows.Forms.Button();
             this.stopMode_BUT = new System.Windows.Forms.Button();
             this.manualMode_BUT = new System.Windows.Forms.Button();
@@ -43,6 +44,7 @@
             this.satNum_label = new System.Windows.Forms.Label();
             this.heading_label = new System.Windows.Forms.Label();
             this._label3 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // reload_BUT
@@ -61,20 +63,7 @@
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "111100",
-            "115200",
-            "500000",
-            "625000",
-            "921600",
-            "1500000"});
+            this.CMB_baudrate.Items.AddRange(new object[] {"1200", "2400", "4800", "9600", "19200", "38400", "57600", "111100", "115200", "500000", "625000", "921600", "1500000"});
             this.CMB_baudrate.Location = new System.Drawing.Point(79, 135);
             this.CMB_baudrate.Name = "CMB_baudrate";
             this.CMB_baudrate.Size = new System.Drawing.Size(217, 21);
@@ -131,15 +120,15 @@
             this._label1.TabIndex = 17;
             this._label1.Text = "Режим:";
             // 
-            // label1
+            // mode_label
             // 
-            this.label1.AutoSize = true;
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(76, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Unknown";
+            this.mode_label.AutoSize = true;
+            this.mode_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.mode_label.Location = new System.Drawing.Point(76, 86);
+            this.mode_label.Name = "mode_label";
+            this.mode_label.Size = new System.Drawing.Size(53, 13);
+            this.mode_label.TabIndex = 18;
+            this.mode_label.Text = "Unknown";
             // 
             // autoMode_BUT
             // 
@@ -150,6 +139,7 @@
             this.autoMode_BUT.TabIndex = 19;
             this.autoMode_BUT.Text = "AUTO";
             this.autoMode_BUT.UseVisualStyleBackColor = true;
+            this.autoMode_BUT.Click += new System.EventHandler(this.autoMode_BUT_Click);
             // 
             // stopMode_BUT
             // 
@@ -160,6 +150,7 @@
             this.stopMode_BUT.TabIndex = 20;
             this.stopMode_BUT.Text = "STOP";
             this.stopMode_BUT.UseVisualStyleBackColor = true;
+            this.stopMode_BUT.Click += new System.EventHandler(this.stopMode_BUT_Click);
             // 
             // manualMode_BUT
             // 
@@ -168,8 +159,9 @@
             this.manualMode_BUT.Name = "manualMode_BUT";
             this.manualMode_BUT.Size = new System.Drawing.Size(88, 23);
             this.manualMode_BUT.TabIndex = 21;
-            this.manualMode_BUT.Text = "MANUAL";
+            this.manualMode_BUT.Text = "SERVO_TEST";
             this.manualMode_BUT.UseVisualStyleBackColor = true;
+            this.manualMode_BUT.Click += new System.EventHandler(this.manualMode_BUT_Click);
             // 
             // _label2
             // 
@@ -211,6 +203,11 @@
             this._label3.TabIndex = 24;
             this._label3.Text = "Направление:";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,7 +219,7 @@
             this.Controls.Add(this.manualMode_BUT);
             this.Controls.Add(this.stopMode_BUT);
             this.Controls.Add(this.autoMode_BUT);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.mode_label);
             this.Controls.Add(this._label1);
             this.Controls.Add(this.connect_BUT);
             this.Controls.Add(this.reload_BUT);
@@ -234,7 +231,6 @@
             this.Size = new System.Drawing.Size(311, 400);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Button connect_BUT;
@@ -247,7 +243,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox CMB_serialport;
         private System.Windows.Forms.Label _label1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label mode_label;
         private System.Windows.Forms.Button autoMode_BUT;
         private System.Windows.Forms.Button stopMode_BUT;
         private System.Windows.Forms.Button manualMode_BUT;
@@ -255,5 +251,6 @@
         private System.Windows.Forms.Label satNum_label;
         private System.Windows.Forms.Label heading_label;
         private System.Windows.Forms.Label _label3;
+        private System.Windows.Forms.Timer timer1;
     }
 }
