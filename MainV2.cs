@@ -568,44 +568,57 @@ namespace MissionPlanner
 
         public class item
         {
-            [XmlAttribute] public string id;
-            [XmlAttribute] public string servo;
-            [XmlAttribute] public string value;
+            [XmlAttribute]
+            public string id;
+            [XmlAttribute]
+            public string servo;
+            [XmlAttribute]
+            public string value;
+            [XmlAttribute]
+            public string defaultValue;
         }
 
         public class servoValue
         {
             public int servo;
             public int value;
-
-            public servoValue(int _servo, int _value)
+            public int defaultValue;
+            public servoValue(int _servo, int _value, int _defaultValue) 
             {
                 servo = _servo;
                 value = _value;
+                defaultValue = _defaultValue;
             }
         }
 
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
 
-        private void deserealaseDict()
+        private void deserealaseDict() 
         {
-            if (File.Exists(defaultConfig))
+            if (File.Exists(MainV2.defaultConfig))
             {
-                StreamReader stream = new StreamReader(defaultConfig);
-                var orgDict = ((item[]) serializer.Deserialize(stream))
-                    .ToDictionary(i => i.id, i => new servoValue(int.Parse(i.servo), int.Parse(i.value)));
-                for (int i = 0; i < 11; i++)
+                try
                 {
-                    servoValue s;
-                    Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>) orgDict;
-
-                    if (Dict.TryGetValue(i.ToString(), out s))
+                    StreamReader stream = new StreamReader(MainV2.defaultConfig);
+                    var orgDict = ((item[]) serializer.Deserialize(stream))
+                        .ToDictionary(i => i.id,
+                            i => new servoValue(int.Parse(i.servo), int.Parse(i.value), int.Parse(i.defaultValue)));
+                    for (int i = 0; i < 11; i++)
                     {
-                        MainV2.configServo[i] = s;
-                    }
-                }
+                        servoValue s;
+                        Dictionary<string, servoValue> Dict = (Dictionary<string, servoValue>) orgDict;
 
-                stream.Close();
+                        if (Dict.TryGetValue(i.ToString(), out s))
+                        {
+                            MainV2.configServo[i] = s;
+                        }
+                    }
+
+                    stream.Close();
+                }
+                catch (Exception e)
+                {
+                }
             }
         }
 
@@ -1426,18 +1439,28 @@ namespace MissionPlanner
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            double homedist =
-                FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
-                    FlightPlanner.pointlist[0]);
-            coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " +
-                                             FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
-            coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
-            coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " +
-                                             comPort.MAV.cs.lng.ToString("0.000000");
-            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !_aircraftInfo[CurrentAircraftNum].inAir)
+
+            try
             {
-                _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
+                coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
+                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+                if (!timeControl2.timer1.Enabled)
+                {
+                    timeControl2.timer1.Start();
+                }
+                if (!FlightPlanner.wpMenu1.timer1.Enabled)
+                {
+                    FlightPlanner.wpMenu1.timer1.Start();
+                }
+                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !_aircraftInfo[CurrentAircraftNum].inAir)
+                {
+                    _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                }
             }
+            catch (System.IndexOutOfRangeException eee) 
+            { }
         }
 
         void mainMenuInit()
@@ -5265,7 +5288,7 @@ namespace MissionPlanner
         {
         }
 
-        private void Ôœ ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void √Ø√è√äToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
