@@ -51,6 +51,7 @@
             this.myButton2.TabIndex = 1;
             this.myButton2.Text = "Режим";
             this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton2_MouseUp);
             // 
             // SNSControl
             // 

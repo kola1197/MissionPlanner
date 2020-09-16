@@ -23,6 +23,8 @@ namespace MissionPlanner.Orlan
 
         public bool UsingSITL { get; set; }
 
+        public bool UsingAntenna { get; set; }
+
         public int MenuNum
         {
             get => _menuNum;
@@ -69,6 +71,8 @@ namespace MissionPlanner.Orlan
 
         private float _maxCapacity = 0;
         
+        private float _minCapacity = 0;
+        
         private float _flyTime = 0;
 
         public float butt2RealVoltage
@@ -81,6 +85,12 @@ namespace MissionPlanner.Orlan
         {
             get => _maxCapacity;
             set => _maxCapacity = value;
+        }
+
+        public float minCapacity
+        {
+            get => _minCapacity;
+            set => _minCapacity = value;
         }
 
         public float flyTime
@@ -99,16 +109,16 @@ namespace MissionPlanner.Orlan
 
         public AircraftConnectionInfo()
         {
-            (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
-                ("", "", 115200, null, false, false);
+            (Name, SerialPort, Speed, SysId, Connected, UsingSITL, UsingAntenna) =
+                ("", "", 115200, null, false, false, false);
             _menuNum = _aircraftCounter;
             _aircraftCounter++;
         }
 
         public AircraftConnectionInfo(int menuNum)
         {
-            (Name, SerialPort, Speed, SysId, Connected, UsingSITL) =
-                ("", "", 115200, null, false, false);
+            (Name, SerialPort, Speed, SysId, Connected, UsingSITL, UsingAntenna) =
+                ("", "", 115200, null, false, false, false);
             _menuNum = menuNum;
         }
 

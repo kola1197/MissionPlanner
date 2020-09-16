@@ -33,13 +33,16 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.armButton = new MissionPlanner.Controls.MyButton();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
             this.AirSpeedLabel = new System.Windows.Forms.Label();
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.myButton5 = new MissionPlanner.Controls.MyButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -55,9 +58,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.nextButton = new MissionPlanner.Controls.MyButton();
             this.backButton = new MissionPlanner.Controls.MyButton();
-            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -65,7 +66,11 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
+            this.myButton6 = new MissionPlanner.Controls.MyButton();
+            this.myButton7 = new MissionPlanner.Controls.MyButton();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
+            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -124,13 +129,6 @@
             this.nextButton1.UseVisualStyleBackColor = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
             // 
-            // checkListControl1
-            // 
-            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
-            this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
-            this.checkListControl1.TabIndex = 0;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label6);
@@ -145,6 +143,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Калибровка ПВД";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(154, 349);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(116, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Воздушная скорость:";
             // 
             // startCalibrationButton
             // 
@@ -187,6 +194,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.myButton7);
+            this.tabPage3.Controls.Add(this.myButton5);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.textBox1);
             this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Controls.Add(this.label4);
@@ -206,12 +217,39 @@
             this.tabPage3.Text = "Заправка";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // myButton5
+            // 
+            this.myButton5.Location = new System.Drawing.Point(119, 325);
+            this.myButton5.Name = "myButton5";
+            this.myButton5.Size = new System.Drawing.Size(187, 23);
+            this.myButton5.TabIndex = 22;
+            this.myButton5.Text = "Сохранить";
+            this.myButton5.UseVisualStyleBackColor = true;
+            this.myButton5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton5_MouseUp);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(43, 266);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(151, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Минимальная емкость бака";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(206, 263);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 20;
+            this.textBox1.Text = "0";
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(260, 186);
+            this.checkBox1.Location = new System.Drawing.Point(206, 188);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(161, 17);
             this.checkBox1.TabIndex = 19;
@@ -221,16 +259,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(366, 238);
+            this.label5.Location = new System.Drawing.Point(297, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(15, 13);
             this.label5.TabIndex = 18;
             this.label5.Text = "%";
+            this.label5.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(97, 268);
+            this.label4.Location = new System.Drawing.Point(43, 296);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(157, 13);
             this.label4.TabIndex = 17;
@@ -239,25 +278,26 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(97, 242);
+            this.label3.Location = new System.Drawing.Point(28, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "Остаток топлива";
+            this.label3.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 216);
+            this.label2.Location = new System.Drawing.Point(43, 214);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Время полета";
+            this.label2.Text = "Расход Литров./Час";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 167);
+            this.label1.Location = new System.Drawing.Point(43, 169);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 14;
@@ -265,7 +305,7 @@
             // 
             // maxСapacity
             // 
-            this.maxСapacity.Location = new System.Drawing.Point(260, 261);
+            this.maxСapacity.Location = new System.Drawing.Point(206, 293);
             this.maxСapacity.Name = "maxСapacity";
             this.maxСapacity.Size = new System.Drawing.Size(100, 20);
             this.maxСapacity.TabIndex = 13;
@@ -275,16 +315,17 @@
             // 
             // valueInPercentsTBox
             // 
-            this.valueInPercentsTBox.Location = new System.Drawing.Point(260, 235);
+            this.valueInPercentsTBox.Location = new System.Drawing.Point(191, 17);
             this.valueInPercentsTBox.Name = "valueInPercentsTBox";
             this.valueInPercentsTBox.Size = new System.Drawing.Size(100, 20);
             this.valueInPercentsTBox.TabIndex = 12;
+            this.valueInPercentsTBox.Visible = false;
             this.valueInPercentsTBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
             this.valueInPercentsTBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
             // flightTimeTBox
             // 
-            this.flightTimeTBox.Location = new System.Drawing.Point(260, 209);
+            this.flightTimeTBox.Location = new System.Drawing.Point(206, 211);
             this.flightTimeTBox.Name = "flightTimeTBox";
             this.flightTimeTBox.Size = new System.Drawing.Size(100, 20);
             this.flightTimeTBox.TabIndex = 11;
@@ -294,7 +335,7 @@
             // 
             // batt2_voltage
             // 
-            this.batt2_voltage.Location = new System.Drawing.Point(260, 160);
+            this.batt2_voltage.Location = new System.Drawing.Point(206, 162);
             this.batt2_voltage.Name = "batt2_voltage";
             this.batt2_voltage.Size = new System.Drawing.Size(100, 20);
             this.batt2_voltage.TabIndex = 6;
@@ -353,13 +394,6 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // iceRun1
-            // 
-            this.iceRun1.Location = new System.Drawing.Point(3, 3);
-            this.iceRun1.Name = "iceRun1";
-            this.iceRun1.Size = new System.Drawing.Size(432, 432);
-            this.iceRun1.TabIndex = 0;
-            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.iceCheck1);
@@ -371,13 +405,6 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // iceCheck1
-            // 
-            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
-            this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
-            this.iceCheck1.TabIndex = 4;
             // 
             // myButton2
             // 
@@ -440,20 +467,53 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // label6
+            // myButton6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(154, 349);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(116, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Воздушная скорость:";
+            this.myButton6.Location = new System.Drawing.Point(328, 297);
+            this.myButton6.Name = "myButton6";
+            this.myButton6.Size = new System.Drawing.Size(101, 23);
+            this.myButton6.TabIndex = 23;
+            this.myButton6.Text = "Выставить";
+            this.myButton6.UseVisualStyleBackColor = true;
+            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
+            // 
+            // myButton7
+            // 
+            this.myButton7.Location = new System.Drawing.Point(312, 290);
+            this.myButton7.Name = "myButton7";
+            this.myButton7.Size = new System.Drawing.Size(101, 23);
+            this.myButton7.TabIndex = 24;
+            this.myButton7.Text = "Выставить";
+            this.myButton7.UseVisualStyleBackColor = true;
+            this.myButton7.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton7_MouseUp);
+            // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
+            this.checkListControl1.TabIndex = 0;
+            // 
+            // iceRun1
+            // 
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(432, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
+            // iceCheck1
+            // 
+            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
+            this.iceCheck1.Name = "iceCheck1";
+            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.TabIndex = 4;
             // 
             // PreFlightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 526);
+            this.Controls.Add(this.myButton6);
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
@@ -509,5 +569,10 @@
         private Controls.MyButton startCalibrationButton;
         private Controls.MyButton armButton;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private Controls.MyButton myButton5;
+        private Controls.MyButton myButton7;
+        private Controls.MyButton myButton6;
     }
 }

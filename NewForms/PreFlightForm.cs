@@ -26,7 +26,7 @@ namespace MissionPlanner.NewForms
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex > progressIndex)
+            if (tabControl1.SelectedIndex > progressIndex && false)      //this check was canceled
             {
                 tabControl1.SelectedIndex = selectedIndex;
             }
@@ -270,6 +270,24 @@ namespace MissionPlanner.NewForms
                     CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
                 }
             }
+        }
+
+        private void myButton5_MouseUp(object sender, MouseEventArgs e)
+        {
+            int i = 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(textBox1.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+        }
+
+        private void myButton6_MouseUp(object sender, MouseEventArgs e)
+        {
+            textBox1.Text = batt2_voltage.Text;
+        }
+
+        private void myButton7_MouseUp(object sender, MouseEventArgs e)
+        {
+            maxСapacity.Text = batt2_voltage.Text;
         }
     }
 }

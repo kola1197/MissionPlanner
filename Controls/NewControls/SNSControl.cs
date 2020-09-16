@@ -13,6 +13,7 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class SNSControl : UserControl
     {
+        private ModeChangeForm modeChangeForm;
         private SNSInfo snsInfo;
         public SNSControl()
         {
@@ -27,6 +28,12 @@ namespace MissionPlanner.Controls.NewControls
             }
             snsInfo = new SNSInfo();
             snsInfo.Show();
+        }
+
+        private void myButton2_MouseUp(object sender, EventArgs e)
+        {
+            modeChangeForm = new ModeChangeForm();
+            modeChangeForm.Show();
         }
     }
 }

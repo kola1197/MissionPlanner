@@ -25,15 +25,16 @@ namespace MissionPlanner.Controls.NewControls
             {
                 ICERunning = true;
                 startButton.Text = "Заглушить";
-                MainV2.comPort.MAV.cs.ch1in = 2000;
-                MainV2.comPort.MAV.cs.ch1out = 2000;
-                MainV2.comPort.MAV.cs.ch10out = 2000;
+
+                //MainV2.comPort.MAV.cs.ch1in = 2000;
+                //MainV2.comPort.MAV.cs.ch1out = 2000;
+                //MainV2.comPort.MAV.cs.ch10out = 2000;
             }
             if (MainV2.comPort.MAV.cs.rpm1 < 2500)
             {
                 ICERunning = false;
                 startButton.Text = "Запустить двигатель";
-                MainV2.comPort.MAV.cs.ch10in = 900;
+                //MainV2.comPort.MAV.cs.ch10in = 900;
             }
         }
 
@@ -45,9 +46,13 @@ namespace MissionPlanner.Controls.NewControls
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (ICERunning) 
+            if (ICERunning)
             {
-                
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 3, 900, 0, 0, 0, 0, 0);
+            }
+            else 
+            {
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
             }
         }
     }
