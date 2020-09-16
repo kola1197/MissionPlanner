@@ -73,7 +73,7 @@ namespace MissionPlanner.Orlan
         
         private float _minCapacity = 0;
         
-        private float _flyTime = 0;
+        private float _fuelPerTime = 0;
 
         public float butt2RealVoltage
         {
@@ -93,10 +93,10 @@ namespace MissionPlanner.Orlan
             set => _minCapacity = value;
         }
 
-        public float flyTime
+        public float fuelPerTime
         {
-            get => _flyTime;
-            set => _flyTime = value;
+            get => _fuelPerTime;
+            set => _fuelPerTime = value;
         }
 
 

@@ -81,12 +81,7 @@ namespace MissionPlanner.NewForms
 
         private void maxСapacity_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && !Char.IsControl(number))
-            {
-                e.Handled = true;
-            }
-            //updateMainV2Data();
+
         }
 
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
@@ -108,7 +103,7 @@ namespace MissionPlanner.NewForms
             int i;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
             if (MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity != 0)
@@ -277,7 +272,7 @@ namespace MissionPlanner.NewForms
             int i = 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(textBox1.Text, out i) ? i : 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
