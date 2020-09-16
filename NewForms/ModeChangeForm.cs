@@ -46,7 +46,7 @@ namespace MissionPlanner.NewForms
 
         private void ModeChangeForm_Load_1(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 
