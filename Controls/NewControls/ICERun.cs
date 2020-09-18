@@ -25,7 +25,8 @@ namespace MissionPlanner.Controls.NewControls
             {
                 ICERunning = true;
                 startButton.Text = "Заглушить";
-
+                startButton.Enabled = false;
+                label3.Text = "Идет нагрев двигателя";
                 //MainV2.comPort.MAV.cs.ch1in = 2000;
                 //MainV2.comPort.MAV.cs.ch1out = 2000;
                 //MainV2.comPort.MAV.cs.ch10out = 2000;
@@ -36,6 +37,12 @@ namespace MissionPlanner.Controls.NewControls
                 startButton.Text = "Запустить двигатель";
                 //MainV2.comPort.MAV.cs.ch10in = 900;
             }
+            if (!startButton.Enabled && MainV2.comPort.MAV.cs.rpm2 > 40)   // temp > 40
+            {
+                startButton.Enabled = true;
+                label3.Text = "Температура двигателя ОК»;";
+                label3.ForeColor = Color.Green;
+            }
         }
 
         private void updateLabels() 
@@ -44,13 +51,13 @@ namespace MissionPlanner.Controls.NewControls
             tempLabel.Text = MainV2.comPort.MAV.cs.rpm2.ToString();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void startButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (ICERunning)
             {
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 3, 900, 0, 0, 0, 0, 0);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)900);
             }
-            else 
+            else
             {
                 MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
             }

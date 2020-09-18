@@ -128,15 +128,15 @@ namespace MissionPlanner.GCSViews
                 if (!MainV2.comPort.BaseStream.IsOpen || gotAllParams)
                     AddBackstageViewPage(typeof(ConfigRawParams), Strings.FullParameterList);
             }
-            if (MainV2.DisplayConfiguration.displayFullParamTree && !Program.MONO)
+            /*if (MainV2.DisplayConfiguration.displayFullParamTree && !Program.MONO)
             {
                 if (!MainV2.comPort.BaseStream.IsOpen || gotAllParams)
                     AddBackstageViewPage(typeof(ConfigRawParamsTree), Strings.FullParameterTree);
-            }
+            }*/
 
 
 
-            if (MainV2.DisplayConfiguration.displayInstallFirmware)
+            /*if (MainV2.DisplayConfiguration.displayInstallFirmware)
             {
                 // if (!Program.WindowsStoreApp)
                 {
@@ -147,7 +147,7 @@ namespace MissionPlanner.GCSViews
                     AddBackstageViewPage(typeof(ConfigFirmware), rm.GetString("backstageViewPagefw.Text") + " Legacy",
                         isDisConnected);
                 }
-            }
+            }*/
 
 
             var mand = AddBackstageViewPage(typeof(ConfigMandatory), rm.GetString("backstageViewPagemand.Text"), isConnected && gotAllParams);
@@ -196,7 +196,7 @@ namespace MissionPlanner.GCSViews
 
             AddBackstageViewPage(typeof(ConfigHWIDs), "HW ID", isConnected && gotAllParams, mand);
 
-            var opt = AddBackstageViewPage(typeof(ConfigOptional), rm.GetString("backstageViewPageopt.Text"));
+            /*var opt = AddBackstageViewPage(typeof(ConfigOptional), rm.GetString("backstageViewPageopt.Text"));
             AddBackstageViewPage(typeof(ConfigSerialInjectGPS), "RTK/GPS Inject", true, opt);
             if (MainV2.DisplayConfiguration.displaySikRadio)
             {
@@ -272,7 +272,7 @@ namespace MissionPlanner.GCSViews
             }
 
             AddBackstageViewPage(typeof(ConfigFFT), "FFT Setup", isConnected && gotAllParams, opt);
-
+            */
             if (MainV2.DisplayConfiguration.isAdvancedMode)
             {
                 var adv = AddBackstageViewPage(typeof(ConfigAdvanced), "Advanced");

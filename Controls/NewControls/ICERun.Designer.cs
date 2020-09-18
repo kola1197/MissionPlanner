@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tempLabel = new System.Windows.Forms.Label();
             this.spedsLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
@@ -45,7 +46,7 @@
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Запуск двигателя";
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.startButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.startButton_MouseUp);
             // 
             // timer1
             // 
@@ -85,10 +86,19 @@
             this.spedsLabel.Size = new System.Drawing.Size(0, 13);
             this.spedsLabel.TabIndex = 4;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(113, 292);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 13);
+            this.label3.TabIndex = 5;
+            // 
             // ICERun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.spedsLabel);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.label2);
@@ -109,5 +119,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label tempLabel;
         private System.Windows.Forms.Label spedsLabel;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -1719,6 +1719,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                     UnSubscribeToPacketType(sub2);
                     throw exp;
                 }
+                System.Diagnostics.Debug.WriteLine("ZALUPA SEARCH::: indexsreceived.Count = "+indexsreceived.Count.ToString() + " < "+ param_total.ToString() + " = param_total ");
             } while (indexsreceived.Count < param_total);
 
             if (indexsreceived.Count != param_total)

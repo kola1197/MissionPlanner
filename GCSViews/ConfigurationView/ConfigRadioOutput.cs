@@ -25,6 +25,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             ResumeLayout(true);
         }
 
+        public void setThrottle() 
+        {
+            var servo = String.Format("SERVO{0}", 3);
+            trim3.setup(1500, 2200, 1, 1, servo + "_MIN", MainV2.comPort.MAV.param);
+            min3.setup(1500, 2200, 1, 1, servo + "_MIN", MainV2.comPort.MAV.param);
+            try
+            {
+                MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSource1.UpdateDataSource(MainV2.comPort.MAV.cs));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
         private void setup(HorizontalProgressBar2 bAR1, MavlinkCheckBox rev1, MavlinkComboBox func1,
             MavlinkNumericUpDown min1, MavlinkNumericUpDown trim1, MavlinkNumericUpDown max1, int servono)
         {

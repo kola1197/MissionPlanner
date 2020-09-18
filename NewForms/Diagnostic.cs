@@ -29,12 +29,41 @@ namespace MissionPlanner.NewForms
             updateInfo();
         }
 
+        private bool INSGood(out string s) 
+        {
+            bool result = true;                                                                                                     // IMU??????
+            s = "Ok";
+            if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+            {
+                s = "BadGPSHealth";
+                result = false;
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
+            {
+                s = "BadGyroHealth";
+                result = false;
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
+            {
+                s = "BadBaroHealth";
+                result = false;
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
+            {
+                s = "BadAHRS";
+                result = false;
+            }
+            return result;
+        }
+
         public void updateInfo()
         {
             label3.Text = MainV2.comPort.MAV.cs.ekfstatus.ToString();
-            label5.Text = "( " + MainV2.comPort.MAV.cs.vibex.ToString() + "; " + MainV2.comPort.MAV.cs.vibey.ToString() + "; " + MainV2.comPort.MAV.cs.vibey.ToString() + " )";
-            //label7.Text = MainV2.comPort.MAV.cs.i;
-            label9.Text = MainV2.comPort.MAV.cs.gpsstatus.ToString();
+            label5.Text = "( " + MainV2.comPort.MAV.cs.vibex.ToString("0.00") + "; " + MainV2.comPort.MAV.cs.vibey.ToString("0.00") + "; " + MainV2.comPort.MAV.cs.vibey.ToString("0.00") + " )";
+            string s = "";
+            label7.ForeColor = INSGood(out s) ? Color.Green : Color.Red;
+            label7.Text = s;
+            label9.Text = MainV2.comPort.MAV.cs.satcount.ToString();
         }
 
         private void butClickAction(int butNum)
