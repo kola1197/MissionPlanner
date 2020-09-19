@@ -545,7 +545,6 @@ namespace MissionPlanner
 
         public FlightPlanner FlightPlanner;
         SITL Simulation;
-
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1458,6 +1457,7 @@ namespace MissionPlanner
                 {
                     _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
+                
             }
             catch (System.IndexOutOfRangeException eee) 
             { }

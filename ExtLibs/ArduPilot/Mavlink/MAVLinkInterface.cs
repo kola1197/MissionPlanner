@@ -1739,9 +1739,11 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             MAVlist[sysid, compid].param.Clear();
             MAVlist[sysid, compid].param.TotalReported = param_total;
             MAVlist[sysid, compid].param.AddRange(newparamlist);
+            paramsLoading = false;
             return MAVlist[sysid, compid].param;
         }
 
+        public static bool paramsLoading = false;
         private int _parampoll = 0;
 
         public void getParamPoll()

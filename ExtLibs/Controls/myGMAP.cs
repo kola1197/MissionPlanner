@@ -46,7 +46,7 @@ namespace MissionPlanner.Controls
 
             var end = DateTime.Now;
 
-            System.Diagnostics.Debug.WriteLine("map draw time " + (end-start).TotalMilliseconds);
+            //System.Diagnostics.Debug.WriteLine("map draw time " + (end-start).TotalMilliseconds);
         }
 
         protected override void WndProc(ref Message m)

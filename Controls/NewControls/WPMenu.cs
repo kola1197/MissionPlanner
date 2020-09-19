@@ -20,6 +20,8 @@ namespace MissionPlanner.Controls.NewControls
             //updateField();
         }
 
+        public bool progressBarVisible = false;
+
         private void updateField() 
         {
             this.Size = fieldActive ? new Size(95, 545) : new Size(95, 125);
@@ -60,7 +62,14 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateValues() 
         {
-            label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+            
+            if (progressBar1.Visible != progressBarVisible)
+            {
+                progressBar1.Value = 0;
+                progressBar1.Visible = progressBarVisible; 
+            }
+            //label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+            mainButton.Text = MainV2.comPort.MAV.cs.wpno.ToString();
             label2.Text = MainV2.instance.FlightPlanner.Commands.Rows.Count.ToString();
             label3.Text = MainV2.comPort.MAV.cs.wp_dist.ToString();
         }

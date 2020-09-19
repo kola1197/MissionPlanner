@@ -132,6 +132,7 @@ namespace MissionPlanner
 
         private void connectAircraft(object sender)
         {
+            MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
             if (useAntenna_CheckBox.Checked)
             {
