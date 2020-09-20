@@ -59,14 +59,15 @@ namespace MissionPlanner.ArduPilot
                     continue;
 
                 if (command < (ushort)MAVLink.MAV_CMD.LAST &&
-                    //command != (ushort) MAVLink.MAV_CMD.TAKEOFF && // doesnt have a position
+                    command != (ushort) MAVLink.MAV_CMD.TAKEOFF && // doesnt have a position
                     command != (ushort)MAVLink.MAV_CMD.VTOL_TAKEOFF && // doesnt have a position
                     command != (ushort)MAVLink.MAV_CMD.RETURN_TO_LAUNCH &&
                     command != (ushort)MAVLink.MAV_CMD.CONTINUE_AND_CHANGE_ALT &&
                     command != (ushort)MAVLink.MAV_CMD.DELAY &&
                     command != (ushort)MAVLink.MAV_CMD.GUIDED_ENABLE
                     || command == (ushort)MAVLink.MAV_CMD.DO_SET_ROI
-                    || command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
+                    //|| command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED
+                    )
                 {
                     // land can be 0,0 or a lat,lng
                     if (command == (ushort)MAVLink.MAV_CMD.LAND && item.lat == 0 && item.lng == 0)
@@ -178,8 +179,7 @@ namespace MissionPlanner.ArduPilot
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         if (command == (ushort)MAVLink.MAV_CMD.TAKEOFF || command == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
                         {
-                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
-                            //addpolygonmarker((a + 1).ToString(), item.lng, item.lat, null, Color.Orange, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
+                            //addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
                         }
                         else 
                         {

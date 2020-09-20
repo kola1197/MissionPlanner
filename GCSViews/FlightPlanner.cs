@@ -6217,7 +6217,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
                 }
 
-                if (!wpLoadingActive && needToLoadWP && !MAVLinkInterface.paramsLoading) 
+                if (MainV2.comPort.MAV.cs.connected && !wpLoadingActive && needToLoadWP && !MAVLinkInterface.paramsLoading)  
                 {
                     writeWPToPlane();
                 }
@@ -7678,24 +7678,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
             wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
-
+            int index = wpConfig.indexNow;
+            ushort cmdPrev = 0;
+            
             ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
+
+
             switch (cmd)                                        //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
             {
-                case (ushort)MAVLink.MAV_CMD.TAKEOFF:
-                    wpConfig.comboBox1.SelectedIndex = 0;
-                    break;
+                //case (ushort)MAVLink.MAV_CMD.TAKEOFF:
+                //    wpConfig.comboBox1.SelectedIndex = 0;
+                //    break;
                 case (ushort)MAVLink.MAV_CMD.WAYPOINT:
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
-                case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
-                    wpConfig.comboBox1.SelectedIndex = 2;
-                    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
-                    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
-                    break;
-                case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
-                    wpConfig.comboBox1.SelectedIndex = 3;
-                    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                //    wpConfig.comboBox1.SelectedIndex = 2;
+                //    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                //    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                //    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                //   wpConfig.comboBox1.SelectedIndex = 3;
+                //    break;
                 case (ushort)MAVLink.MAV_CMD.LOITER_TIME:
                     wpConfig.comboBox1.SelectedIndex = 1;
                     wpConfig.comboBox1.Enabled = false;
@@ -7705,7 +7709,45 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
             }
-            writeServosToWPConfig();
+            if (index > 0)
+            {
+                cmdPrev = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
+                if ((ushort)MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                {
+                    wpConfig.comboBox1.SelectedIndex = 0;
+                }
+            }
+            //writeServosToWPConfig();
+            writeOtherWPtoWPConfig(index);
+        }
+
+        private void writeOtherWPtoWPConfig(int index) 
+        {
+            while (index + 1 < Commands.Rows.Count &&
+                ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT ||
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME))
+            {
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false);
+                switch (cmd) 
+                {
+                    case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                        wpConfig.comboBox1.SelectedIndex = 3;
+                        break;
+                    case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                        wpConfig.comboBox1.SelectedIndex = 2;
+                        double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                        wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                        break;
+                    case (ushort)MAVLink.MAV_CMD.DO_SET_SERVO:
+                        wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
+                        int servoIndex = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
+                        wpConfig.servos[servoIndex - 5] = true;
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
         }
 
         private void writeServosToWPConfig()
@@ -7779,52 +7821,99 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             removeAllWP();
         }
 
-        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        private void cleanToNextWP(int index)
         {
-            Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
-            Commands_CellUpdate(wpConfig.indexNow, Lat.Index);
-            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
-            Commands_CellUpdate(wpConfig.indexNow, Lon.Index);
-            if (!wpConfig.checkBox1.Checked)
-            {
-                int selectedValue = wpConfig.comboBox1.SelectedIndex;
-                switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
-                {
-                    case 0:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-                        break;
-                    case 1:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 2:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.',','));
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
-                        Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
-                        break;
-                    case 3:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
-                        break;
-                    default:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                }
-            }
-            else{
-                Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
-                Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
-                Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
-            }
-            Commands_CellUpdate(wpConfig.indexNow, Command.Index);
-            int val = (int)wpConfig.myTrackBar1.Value;
-            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index + 1].Value = val.ToString();
-            Commands_CellUpdate(wpConfig.indexNow, Lon.Index + 1);
-
-            int index = wpConfig.indexNow;                                                                      //removing all old DO_SET_SERVO
-            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            while (index + 1 < Commands.Rows.Count && 
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT &&
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME)
             {
                 Commands.Rows.RemoveAt(index + 1);
             }
+        }
+
+        private void setLatLon(int index) 
+        {
+            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+            Commands_CellUpdate(index, Lat.Index);
+            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+            Commands_CellUpdate(index, Lon.Index);
+        }
+
+        private bool cleanToPrevWP(int index) 
+        {
+            bool result = false;
+            if (index > 0 &&
+                    (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.TAKEOFF)
+            {
+                Commands.Rows.RemoveAt(index - 1);
+                result = true;
+            }
+            return result;
+        }
+        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            int index = wpConfig.indexNow;
+            cleanToNextWP(index);
+            if (cleanToPrevWP(index)) 
+            {
+                index--;
+            }
+            
+            if (!wpConfig.checkBox1.Checked)
+            {
+                int selectedValue = wpConfig.comboBox1.SelectedIndex;
+                DataGridViewRow row;
+                switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                {
+                    case 0:
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                        row.Cells[Command.Index + 1].Value = (14).ToString();
+                        Commands.Rows.Insert(index, row);
+                        index++;
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 1:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 2:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.',','));
+                        row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
+                        Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index, Command.Index + 1);
+                        break;
+                    case 3:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
+                        row.Cells[Command.Index + 1].Value = "1";
+                        Commands.Rows.Insert(index + 1, row);
+                        break;
+                    default:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                }
+            }
+            else
+            {
+                Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                Commands_CellUpdate(index, Command.Index + 1);
+            }
+            setLatLon(index);
+            Commands_CellUpdate(index, Command.Index);
+            int val = (int)wpConfig.myTrackBar1.Value;
+            Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
+            Commands_CellUpdate(index, Lon.Index + 1);
+
+            /*int index = index;                                                                      //removing all old DO_SET_SERVO
+            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            {
+                Commands.Rows.RemoveAt(index + 1);
+            }*/
 
 
             if (wpConfig.checkBox2.Checked) 
@@ -7839,6 +7928,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         row.Cells[Command.Index + 1].Value = (i + 5).ToString();
                         row.Cells[Command.Index + 2].Value = "2000";
                         Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index + 1 , Command.Index);
                     }
                 } 
             }
