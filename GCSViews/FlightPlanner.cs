@@ -7693,7 +7693,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
                     wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
                     break;
-                case (ushort)MAVLink.MAV_CMD.LAND:
+                case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
                     wpConfig.comboBox1.SelectedIndex = 3;
                     break;
                 case (ushort)MAVLink.MAV_CMD.LOITER_TIME:
@@ -7803,7 +7803,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
                         break;
                     case 3:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                         break;
                     default:
                         Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
