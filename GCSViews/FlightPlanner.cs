@@ -6217,7 +6217,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
                 }
 
-                if (MainV2.comPort.MAV.cs.connected && !wpLoadingActive && needToLoadWP && !MAVLinkInterface.paramsLoading)  
+                if (MainV2.comPort.MAV.cs.connected && !wpLoadingActive && needToLoadWP && !MAVLinkInterface.paramsLoading && wpMenu1.fieldActive)  
                 {
                     writeWPToPlane();
                 }

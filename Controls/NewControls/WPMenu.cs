@@ -13,7 +13,7 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class WPMenu : UserControl
     {
-        bool fieldActive = false;
+        public bool fieldActive = false;
         public WPMenu()
         {
             InitializeComponent();
@@ -24,6 +24,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateField() 
         {
+            //MainV2.wpLoadMenuAcrive = 
             this.Size = fieldActive ? new Size(95, 545) : new Size(95, 125);
             System.Drawing.Point now = this.Location;
             int diff = 420;
