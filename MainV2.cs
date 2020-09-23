@@ -560,6 +560,8 @@ namespace MissionPlanner
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
 
+        
+
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
 
@@ -1664,7 +1666,12 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
-
+            if (MAVLinkInterface.paramsLoading)
+            {
+                progressBar1.Maximum = MAVLinkInterface.paramsCount;
+                progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+            }
+            progressBar1.Visible = MAVLinkInterface.paramsLoading;
             _aircraftMenuControl.updateCentralButton();
         }
 
