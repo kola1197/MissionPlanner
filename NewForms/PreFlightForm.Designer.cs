@@ -70,7 +70,6 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.myButton6 = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -496,22 +495,11 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // myButton6
-            // 
-            this.myButton6.Location = new System.Drawing.Point(328, 297);
-            this.myButton6.Name = "myButton6";
-            this.myButton6.Size = new System.Drawing.Size(101, 23);
-            this.myButton6.TabIndex = 23;
-            this.myButton6.Text = "Выставить";
-            this.myButton6.UseVisualStyleBackColor = true;
-            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
-            // 
             // PreFlightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 526);
-            this.Controls.Add(this.myButton6);
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
@@ -571,6 +559,5 @@
         private System.Windows.Forms.TextBox textBox1;
         private Controls.MyButton myButton5;
         private Controls.MyButton myButton7;
-        private Controls.MyButton myButton6;
     }
 }
