@@ -5324,5 +5324,19 @@ namespace MissionPlanner
         {
             testThrottle();
         }
+
+        private void myButton6_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (FlightPlanner.panelWaypoints.Visible)
+            {
+                FlightPlanner.panelWaypoints.Visible = false;
+                myButton6.Text = "Show wp list";
+            }
+            else {
+                FlightPlanner.panelWaypoints.Visible = true;
+                myButton6.Text = "Hide wp list";
+            }
+
+        }
     }
 }

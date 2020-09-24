@@ -33,7 +33,7 @@
             this.sensorValue_label = new System.Windows.Forms.Label();
             this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.SuspendLayout();
             // 
             // sensorName_label
@@ -73,8 +73,9 @@
             this.MinimumSize = new System.Drawing.Size(123, 123);
             this.Name = "AdditionalSensorControl";
             this.Size = new System.Drawing.Size(123, 123);
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

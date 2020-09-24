@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -52,8 +52,8 @@
             this.myButton1.Text = "Подвес";
             this.myButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton2
             // 
@@ -64,8 +64,8 @@
             this.myButton2.Text = "9";
             this.myButton2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton2.UseVisualStyleBackColor = true;
-            this.myButton2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton3
             // 
@@ -76,8 +76,8 @@
             this.myButton3.Text = "8";
             this.myButton3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton3.UseVisualStyleBackColor = true;
-            this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton4
             // 
@@ -88,8 +88,8 @@
             this.myButton4.Text = "7";
             this.myButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton4.UseVisualStyleBackColor = true;
-            this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton5
             // 
@@ -100,8 +100,8 @@
             this.myButton5.Text = "6";
             this.myButton5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton5.UseVisualStyleBackColor = true;
-            this.myButton5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton6
             // 
@@ -112,8 +112,8 @@
             this.myButton6.Text = "5";
             this.myButton6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton6.UseVisualStyleBackColor = true;
-            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton7
             // 
@@ -124,8 +124,8 @@
             this.myButton7.Text = "4";
             this.myButton7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton7.UseVisualStyleBackColor = true;
-            this.myButton7.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton7.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton8
             // 
@@ -136,8 +136,8 @@
             this.myButton8.Text = "3";
             this.myButton8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton8.UseVisualStyleBackColor = true;
-            this.myButton8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton9
             // 
@@ -148,8 +148,8 @@
             this.myButton9.Text = "2";
             this.myButton9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton9.UseVisualStyleBackColor = true;
-            this.myButton9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton10
             // 
@@ -160,8 +160,8 @@
             this.myButton10.Text = "1";
             this.myButton10.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton10.UseVisualStyleBackColor = true;
-            this.myButton10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton11
             // 
@@ -172,8 +172,8 @@
             this.myButton11.Text = "СВ";
             this.myButton11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton11.UseVisualStyleBackColor = true;
-            this.myButton11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             this.myButton11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
+            this.myButton11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // timer1
             // 
@@ -198,22 +198,21 @@
             this.Name = "servoGimbal";
             this.Size = new System.Drawing.Size(375, 26);
             this.ResumeLayout(false);
-
         }
 
-        #endregion
-
-        private MyButton myButton1;
-        private MyButton myButton2;
-        private MyButton myButton3;
-        private MyButton myButton4;
-        private MyButton myButton5;
-        private MyButton myButton6;
-        private MyButton myButton7;
-        private MyButton myButton8;
-        private MyButton myButton9;
-        private MyButton myButton10;
-        private MyButton myButton11;
+        private MissionPlanner.Controls.MyButton myButton1;
+        private MissionPlanner.Controls.MyButton myButton10;
+        private MissionPlanner.Controls.MyButton myButton11;
+        private MissionPlanner.Controls.MyButton myButton2;
+        private MissionPlanner.Controls.MyButton myButton3;
+        private MissionPlanner.Controls.MyButton myButton4;
+        private MissionPlanner.Controls.MyButton myButton5;
+        private MissionPlanner.Controls.MyButton myButton6;
+        private MissionPlanner.Controls.MyButton myButton7;
+        private MissionPlanner.Controls.MyButton myButton8;
+        private MissionPlanner.Controls.MyButton myButton9;
         public System.Windows.Forms.Timer timer1;
+
+        #endregion
     }
 }

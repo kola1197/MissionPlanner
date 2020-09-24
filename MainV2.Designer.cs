@@ -71,6 +71,7 @@ namespace MissionPlanner
             this.label13 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.myButton6 = new MissionPlanner.Controls.MyButton();
             this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
@@ -320,6 +321,8 @@ namespace MissionPlanner
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.panel2.Controls.Add(this.myButton6);
             this.panel2.Controls.Add(this.myButton5);
             this.panel2.Controls.Add(this.snsControl2);
             this.panel2.Controls.Add(this.servoGimbal2);
@@ -330,6 +333,13 @@ namespace MissionPlanner
             this.panel2.Controls.Add(this.servoGimbal1);
             this.panel2.Controls.Add(this.snsControl1);
             this.panel2.Name = "panel2";
+            // 
+            // myButton6
+            // 
+            resources.ApplyResources(this.myButton6, "myButton6");
+            this.myButton6.Name = "myButton6";
+            this.myButton6.UseVisualStyleBackColor = true;
+            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
             // 
             // myButton5
             // 
@@ -444,12 +454,14 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton MenuSimulation;
         public System.Windows.Forms.MenuStrip menuStrip1;
         private MissionPlanner.Controls.MyButton myButton1;
-        private MissionPlanner.Controls.MyButton myButton2;
         private MissionPlanner.Controls.MyButton myButton3;
         private MissionPlanner.Controls.MyButton myButton4;
+        private MissionPlanner.Controls.MyButton myButton5;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private BSE.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
+        private MissionPlanner.Controls.NewControls.RightSideMenuControl rightSideMenuControl1;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal1;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
         private MissionPlanner.Controls.NewControls.SNSControl snsControl1;
@@ -467,11 +479,10 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton toolStripButton8;
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl;
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
-        private Controls.NewControls.RightSideMenuControl rightSideMenuControl1;
+        private MissionPlanner.Controls.MyButton myButton2;
 
         #endregion
 
-        private MyButton myButton5;
-        private BSE.Windows.Forms.ProgressBar progressBar1;
+        private MyButton myButton6;
     }
 }
