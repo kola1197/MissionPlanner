@@ -70,8 +70,8 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.showSensor_BUT = new System.Windows.Forms.Button();
             this.hideSensor_BUT = new System.Windows.Forms.Button();
+            this.showSensor_BUT = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
@@ -420,7 +420,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";
@@ -529,16 +529,6 @@ namespace MissionPlanner.Controls
             this.panel2.Size = new System.Drawing.Size(43, 123);
             this.panel2.TabIndex = 80;
             // 
-            // showSensor_BUT
-            // 
-            this.showSensor_BUT.Location = new System.Drawing.Point(3, 27);
-            this.showSensor_BUT.Name = "showSensor_BUT";
-            this.showSensor_BUT.Size = new System.Drawing.Size(37, 23);
-            this.showSensor_BUT.TabIndex = 0;
-            this.showSensor_BUT.Text = ">";
-            this.showSensor_BUT.UseVisualStyleBackColor = true;
-            this.showSensor_BUT.Click += new System.EventHandler(this.showSensor_BUT_Click);
-            // 
             // hideSensor_BUT
             // 
             this.hideSensor_BUT.Location = new System.Drawing.Point(3, 70);
@@ -548,6 +538,16 @@ namespace MissionPlanner.Controls
             this.hideSensor_BUT.Text = "<";
             this.hideSensor_BUT.UseVisualStyleBackColor = true;
             this.hideSensor_BUT.Click += new System.EventHandler(this.hideSensor_BUT_Click);
+            // 
+            // showSensor_BUT
+            // 
+            this.showSensor_BUT.Location = new System.Drawing.Point(3, 27);
+            this.showSensor_BUT.Name = "showSensor_BUT";
+            this.showSensor_BUT.Size = new System.Drawing.Size(37, 23);
+            this.showSensor_BUT.TabIndex = 0;
+            this.showSensor_BUT.Text = ">";
+            this.showSensor_BUT.UseVisualStyleBackColor = true;
+            this.showSensor_BUT.Click += new System.EventHandler(this.showSensor_BUT_Click);
             // 
             // StatusControlPanel
             // 

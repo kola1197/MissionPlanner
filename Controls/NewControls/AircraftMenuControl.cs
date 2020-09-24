@@ -166,7 +166,7 @@ namespace MissionPlanner.Controls
 
         private void centerButton_Click(object sender, EventArgs e)
         {
-            if (!aircraftInAir)
+            if (!aircraftInAir && MainV2.comPort.MAV.cs.connected)
             {
                 if (preFlightForm != null)
                 {

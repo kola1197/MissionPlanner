@@ -211,6 +211,9 @@
           <e p="CoordinatsControl.cs" t="Include" />
           <e p="CoordinatsControl.Designer.cs" t="Include" />
           <e p="CoordinatsControl.resx" t="Include" />
+          <e p="FlightByCompassControl.cs" t="Include" />
+          <e p="FlightByCompassControl.Designer.cs" t="Include" />
+          <e p="FlightByCompassControl.resx" t="Include" />
           <e p="GaugeHeading.cs" t="Include" />
           <e p="GaugeHeading.Designer.cs" t="Include" />
           <e p="GaugeHeading.resx" t="Include" />

@@ -57,6 +57,7 @@ namespace MissionPlanner
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.status1 = new MissionPlanner.Controls.Status();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -82,7 +83,6 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
-            this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -241,6 +241,17 @@ namespace MissionPlanner
             this.panel1.Name = "panel1";
             this.panel1.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.BackgroundColor = System.Drawing.Color.White;
+            this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+            resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.Maximum = 100;
+            this.progressBar1.Minimum = 0;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Value = 50;
+            this.progressBar1.ValueColor = System.Drawing.Color.Lime;
+            // 
             // menuStrip1
             // 
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
@@ -387,17 +398,6 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.BackgroundColor = System.Drawing.Color.White;
-            this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            resources.ApplyResources(this.progressBar1, "progressBar1");
-            this.progressBar1.Maximum = 100;
-            this.progressBar1.Minimum = 0;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Value = 50;
-            this.progressBar1.ValueColor = System.Drawing.Color.Lime;
             // 
             // MainV2
             // 
