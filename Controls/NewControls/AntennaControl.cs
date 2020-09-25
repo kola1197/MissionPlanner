@@ -192,6 +192,8 @@ namespace MissionPlanner.Controls.NewControls
                 return;
             }
 
+            
+            
             var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {
@@ -203,6 +205,7 @@ namespace MissionPlanner.Controls.NewControls
                         heading_label.Text = Math.Round(MAV.cs.yaw) + "°";
                         satNum_label.Text = MAV.cs.satcount.ToString();
                         mode_label.Text = MAV.cs.mode;
+                        lbl_yawpwm.Text = MAV.cs.ch1out.ToString();
                     }
                 }
             }
@@ -221,6 +224,40 @@ namespace MissionPlanner.Controls.NewControls
         private void manualMode_BUT_Click(object sender, EventArgs e)
         {
             ChangeMode("SERVO_TEST");
+        }
+
+        private void BUT_test_yaw_Click(object sender, EventArgs e)
+        {
+            double output = 1500;
+            MavlinkNumericUpDown mavMinNumUD = new MavlinkNumericUpDown();
+            MavlinkNumericUpDown mavMaxNumUD = new MavlinkNumericUpDown();            
+            mavMinNumUD.setup(900, 2200, 1, 1, "RC1_MIN", MainV2.comPort.MAV.param);
+            mavMaxNumUD.setup(900, 2200, 1, 1, "RC1_MAX", MainV2.comPort.MAV.param);
+            // if (!mavlinkCheckBox1.Checked)
+            {
+                output = map(myTrackBar1.Value, myTrackBar1.Maximum, myTrackBar1.Minimum,
+                    (double) mavMinNumUD.Value, (double) mavMaxNumUD.Value);
+            }
+            // else
+            // {
+            //     output = map(myTrackBar1.Value, myTrackBar1.Minimum, myTrackBar1.Maximum,
+            //         (double)mavlinkNumericUpDown1.Value, (double)mavlinkNumericUpDown2.Value);
+            // }
+
+            try
+            {
+                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 1, (float) output, 0, 0, 0, 0, 0);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+        }
+
+        private double map(double x, double in_min, double in_max, double out_min, double out_max)
+        {
+            return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
     }
 }

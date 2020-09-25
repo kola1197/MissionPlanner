@@ -126,8 +126,8 @@ namespace MissionPlanner
         public void SetToDefault()
         {
             panel1.Enabled = true;
-            connect_BUT.Text = connectText;
             connect_BUT.Enabled = true;
+            disconnectAircraft();            
         }
 
         private void connectAircraft(object sender)
@@ -219,6 +219,9 @@ namespace MissionPlanner
                 selectedAircraft.UsingAntenna = false;
                 panel1.Enabled = true;
                 connect_BUT.Text = connectText;
+                sysid_cmb.Items.Clear();
+                sysid_cmb.SelectedIndex = -1;
+                sysid_cmb.Text = "";
                 return;
             }
 
@@ -308,7 +311,7 @@ namespace MissionPlanner
                         MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
                             (byte) MainV2.comPort.compidcurrent);
 
-                    MainV2.View.Reload();
+                    // MainV2.View.Reload();
                 }
             }
         }
@@ -502,6 +505,11 @@ namespace MissionPlanner
         }
 
         private void updateSysId_BUT_Click(object sender, EventArgs e)
+        {
+            UpdateSysId();
+        }
+
+        private void sysid_cmb_DropDown(object sender, EventArgs e)
         {
             UpdateSysId();
         }
