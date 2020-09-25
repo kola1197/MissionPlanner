@@ -45,6 +45,10 @@
             this.heading_label = new System.Windows.Forms.Label();
             this._label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbl_yawpwm = new System.Windows.Forms.Label();
+            this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
+            this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // reload_BUT
@@ -63,7 +67,20 @@
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {"1200", "2400", "4800", "9600", "19200", "38400", "57600", "111100", "115200", "500000", "625000", "921600", "1500000"});
+            this.CMB_baudrate.Items.AddRange(new object[] {
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "19200",
+            "38400",
+            "57600",
+            "111100",
+            "115200",
+            "500000",
+            "625000",
+            "921600",
+            "1500000"});
             this.CMB_baudrate.Location = new System.Drawing.Point(79, 135);
             this.CMB_baudrate.Name = "CMB_baudrate";
             this.CMB_baudrate.Size = new System.Drawing.Size(217, 21);
@@ -208,10 +225,48 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lbl_yawpwm
+            // 
+            this.lbl_yawpwm.AutoSize = true;
+            this.lbl_yawpwm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lbl_yawpwm.Location = new System.Drawing.Point(168, 225);
+            this.lbl_yawpwm.Name = "lbl_yawpwm";
+            this.lbl_yawpwm.Size = new System.Drawing.Size(31, 13);
+            this.lbl_yawpwm.TabIndex = 28;
+            this.lbl_yawpwm.Text = "1500";
+            // 
+            // BUT_test_yaw
+            // 
+            this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.BUT_test_yaw.Location = new System.Drawing.Point(208, 220);
+            this.BUT_test_yaw.Name = "BUT_test_yaw";
+            this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
+            this.BUT_test_yaw.TabIndex = 27;
+            this.BUT_test_yaw.Text = "Test";
+            this.BUT_test_yaw.UseVisualStyleBackColor = true;
+            this.BUT_test_yaw.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            // 
+            // myTrackBar1
+            // 
+            this.myTrackBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.myTrackBar1.LargeChange = 0.005F;
+            this.myTrackBar1.Location = new System.Drawing.Point(18, 220);
+            this.myTrackBar1.Maximum = 2000F;
+            this.myTrackBar1.Minimum = 1000F;
+            this.myTrackBar1.Name = "myTrackBar1";
+            this.myTrackBar1.Size = new System.Drawing.Size(144, 45);
+            this.myTrackBar1.SmallChange = 5F;
+            this.myTrackBar1.TabIndex = 26;
+            this.myTrackBar1.TickFrequency = 100F;
+            this.myTrackBar1.Value = 1500F;
+            // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_yawpwm);
+            this.Controls.Add(this.BUT_test_yaw);
+            this.Controls.Add(this.myTrackBar1);
             this.Controls.Add(this.heading_label);
             this.Controls.Add(this._label3);
             this.Controls.Add(this.satNum_label);
@@ -229,8 +284,10 @@
             this.Controls.Add(this.CMB_serialport);
             this.Name = "AntennaControl";
             this.Size = new System.Drawing.Size(311, 400);
+            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button connect_BUT;
@@ -252,5 +309,8 @@
         private System.Windows.Forms.Label heading_label;
         private System.Windows.Forms.Label _label3;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lbl_yawpwm;
+        private MyButton BUT_test_yaw;
+        private MyTrackBar myTrackBar1;
     }
 }
