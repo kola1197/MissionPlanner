@@ -139,6 +139,11 @@ namespace MissionPlanner.GCSViews
 
         private object tagForContextMenu;
         private WPConfig wpConfig;
+
+        public int CountOfLoadedWP = 0;
+        public bool wpLoadingActive = false;
+        public bool needToLoadWP = false;
+
         public void Init()
         {
             instance = this;
@@ -619,6 +624,8 @@ namespace MissionPlanner.GCSViews
 
         public void writeWPToPlane() 
         {
+            needToLoadWP = false;
+            setWpLoadingStatus(false);
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
@@ -688,17 +695,136 @@ namespace MissionPlanner.GCSViews
                 StartPosition = FormStartPosition.CenterScreen,
                 Text = "Sending WP's"
             };
+            //here we should run write
+            //frmProgressReporter.DoWork += saveWPs;
 
-            frmProgressReporter.DoWork += saveWPs;
+            //frmProgressReporter.UpdateProgressAndStatus(-1, "Sending WP's");
 
-            frmProgressReporter.UpdateProgressAndStatus(-1, "Sending WP's");
+            //ThemeManager.ApplyThemeTo(frmProgressReporter);
 
-            ThemeManager.ApplyThemeTo(frmProgressReporter);
+            //frmProgressReporter.RunBackgroundOperationAsync();
+            wpLoadingActive = true;
+            //frmProgressReporter.Dispose();
+            new System.Threading.Thread(delegate ()
+            {
+                
 
-            frmProgressReporter.RunBackgroundOperationAsync();
+                try
+                {
+                    MAVLinkInterface port = MainV2.comPort;
 
-            frmProgressReporter.Dispose();
+                    if (!port.BaseStream.IsOpen)
+                    {
+                        throw new Exception("Please connect first!");
+                    }
 
+                    int a = 0;
+
+                    // define the home point
+                    Locationwp home1 = new Locationwp();
+                    try
+                    {
+                        home1.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                        home1.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                        home1.lat = (double.Parse(TXT_homelat.Text));
+                        home1.lng = (double.Parse(TXT_homelng.Text));
+                        home1.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
+                    }
+                    catch
+                    {
+                        throw new Exception("Your home location is invalid");
+                    }
+
+                    // log
+                    log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
+                    log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
+
+                    var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+                    {
+                        return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
+                    });
+
+                    // get the command list from the datagrid
+                    var commandlist = GetCommandList();
+
+                    if (type == MAVLink.MAV_MISSION_TYPE.MISSION && MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
+                        commandlist.Insert(0, home);
+
+                    // fence does not use alt, and needs to be global
+                    if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
+                    {
+                        commandlist = commandlist.Select((fp) =>
+                        {
+                            fp.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                            return fp;
+                        }).ToList();
+                    }
+
+                    Task.Run(async () =>
+                    {
+                        await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, type,
+                            commandlist,
+                            (percent, status) =>
+                            {
+                                if (false)
+                                {
+                                    //sender.doWorkArgs.CancelAcknowledged = true;
+                                    //sender.doWorkArgs.ErrorMessage = "User Canceled";
+                                    //throw new Exception("User Canceled");
+                                }
+                                CountOfLoadedWP = percent;
+                            //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
+                        }).ConfigureAwait(false);
+
+                        try
+                        {
+                            await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
+                                (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                        }
+                        catch (Exception ex2)
+                        {
+                            log.Error(ex2);
+                            try
+                            {
+                                MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
+                                    (byte)MainV2.comPort.compidcurrent, 0);
+                            }
+                            catch (Exception ex3)
+                            {
+                                log.Error(ex3);
+                            }
+                        }
+                    }).GetAwaiter().GetResult();
+
+                    //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
+
+                    // m
+                    port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
+
+                    // cm's
+                    port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
+
+                    try
+                    {
+                        port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
+                            float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
+                    }
+                    catch
+                    {
+                    }
+
+                //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    throw;
+                }
+                System.Diagnostics.Debug.WriteLine("###################### WP Loaded ########################");
+                wpLoadingActive = false;
+                setWpLoadingStatus(true);
+                MainV2.comPort.giveComport = false;
+            }).Start();
             MainMap.Focus();
         }
 
@@ -2253,7 +2379,7 @@ namespace MissionPlanner.GCSViews
                 catch (Exception ex)
                 {
                     log.Error(ex);
-                    CustomMessageBox.Show("Invalid Lat/Long, please fix", Strings.ERROR);
+                    CustomMessageBox.Show("Invalid Lat/Long, please fix " + RowIndex.ToString(), Strings.ERROR);
                 }
             }
 
@@ -5559,122 +5685,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             SaveFile_Click(null, null);
         }
 
-        private void saveWPs(IProgressReporterDialogue sender)
-        {
-            try
-            {
-                MAVLinkInterface port = MainV2.comPort;
-
-                if (!port.BaseStream.IsOpen)
-                {
-                    throw new Exception("Please connect first!");
-                }
-
-                int a = 0;
-
-                // define the home point
-                Locationwp home = new Locationwp();
-                try
-                {
-                    home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
-                    home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                    home.lat = (double.Parse(TXT_homelat.Text));
-                    home.lng = (double.Parse(TXT_homelng.Text));
-                    home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
-                }
-                catch
-                {
-                    throw new Exception("Your home location is invalid");
-                }
-
-                // log
-                log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
-                log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
-
-                var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
-                {
-                    return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
-                });
-
-                // get the command list from the datagrid
-                var commandlist = GetCommandList();
-
-                if (type == MAVLink.MAV_MISSION_TYPE.MISSION && MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
-                    commandlist.Insert(0, home);
-
-                // fence does not use alt, and needs to be global
-                if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
-                {
-                    commandlist = commandlist.Select((fp) =>
-                    {
-                        fp.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
-                        return fp;
-                    }).ToList();
-                }
-
-                Task.Run(async () =>
-                {
-                    await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, type,
-                        commandlist,
-                        (percent, status) =>
-                        {
-                            if (sender.doWorkArgs.CancelRequested)
-                            {
-                                sender.doWorkArgs.CancelAcknowledged = true;
-                                sender.doWorkArgs.ErrorMessage = "User Canceled";
-                                throw new Exception("User Canceled");
-                            }
-
-                            sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
-                        }).ConfigureAwait(false);
-
-                    try
-                    {
-                        await MainV2.comPort.getHomePositionAsync((byte) MainV2.comPort.sysidcurrent,
-                            (byte) MainV2.comPort.compidcurrent).ConfigureAwait(false);
-                    }
-                    catch (Exception ex2)
-                    {
-                        log.Error(ex2);
-                        try
-                        {
-                            MainV2.comPort.getWP((byte) MainV2.comPort.sysidcurrent,
-                                (byte) MainV2.comPort.compidcurrent, 0);
-                        }
-                        catch (Exception ex3)
-                        {
-                            log.Error(ex3);
-                        }
-                    }
-                }).GetAwaiter().GetResult();
-
-                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
-
-                // m
-                port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
-
-                // cm's
-                port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
-
-                try
-                {
-                    port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
-                        float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
-                }
-                catch
-                {
-                }
-
-                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-                throw;
-            }
-
-            MainV2.comPort.giveComport = false;
-        }
+        
 
         private void saveWPsFast(IProgressReporterDialogue sender)
         {
@@ -6205,11 +6216,30 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     addpolygonmarker("Guided Mode", MainV2.comPort.MAV.GuidedMode.y / 1e7, MainV2.comPort.MAV.GuidedMode.x / 1e7,
                         (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
                 }
+
+                if (MainV2.comPort.MAV.cs.connected && !wpLoadingActive && needToLoadWP && !MAVLinkInterface.paramsLoading && wpMenu1.fieldActive)  
+                {
+                    writeWPToPlane();
+                }
+                if (wpLoadingActive) 
+                {
+                    wpMenu1.progressBar1.Value = CountOfLoadedWP;
+                    //wpMenu1.label1.Text = CountOfLoadedWP.ToString();
+                }
             }
             catch (Exception ex)
             {
                 log.Warn(ex);
             }
+        }
+
+        private void setWpLoadingStatus(bool b) 
+        {
+            wpMenu1.progressBarVisible = !b;
+            System.Diagnostics.Debug.WriteLine("########################################## Set visible " + b.ToString());
+            //wpMenu1.label1.ForeColor = b ? Color.Green : Color.Red;
+            //wpMenu1.label2.ForeColor = b ? Color.Green : Color.Red;
+            //wpMenu1.label4.ForeColor = b ? Color.Green : Color.Red;
         }
 
         private void addMissionRouteMarker(GMapMarker marker)
@@ -7648,24 +7678,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
             wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
-
+            int index = wpConfig.indexNow;
+            ushort cmdPrev = 0;
+            
             ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
+
+
             switch (cmd)                                        //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
             {
-                case (ushort)MAVLink.MAV_CMD.TAKEOFF:
-                    wpConfig.comboBox1.SelectedIndex = 0;
-                    break;
+                //case (ushort)MAVLink.MAV_CMD.TAKEOFF:
+                //    wpConfig.comboBox1.SelectedIndex = 0;
+                //    break;
                 case (ushort)MAVLink.MAV_CMD.WAYPOINT:
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
-                case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
-                    wpConfig.comboBox1.SelectedIndex = 2;
-                    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
-                    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
-                    break;
-                case (ushort)MAVLink.MAV_CMD.LAND:
-                    wpConfig.comboBox1.SelectedIndex = 3;
-                    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                //    wpConfig.comboBox1.SelectedIndex = 2;
+                //    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                //    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                //    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                //   wpConfig.comboBox1.SelectedIndex = 3;
+                //    break;
                 case (ushort)MAVLink.MAV_CMD.LOITER_TIME:
                     wpConfig.comboBox1.SelectedIndex = 1;
                     wpConfig.comboBox1.Enabled = false;
@@ -7675,7 +7709,45 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.comboBox1.SelectedIndex = 1;
                     break;
             }
-            writeServosToWPConfig();
+            if (index > 0)
+            {
+                cmdPrev = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
+                if ((ushort)MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                {
+                    wpConfig.comboBox1.SelectedIndex = 0;
+                }
+            }
+            //writeServosToWPConfig();
+            writeOtherWPtoWPConfig(index);
+        }
+
+        private void writeOtherWPtoWPConfig(int index) 
+        {
+            while (index + 1 < Commands.Rows.Count &&
+                ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT ||
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME))
+            {
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false);
+                switch (cmd) 
+                {
+                    case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                        wpConfig.comboBox1.SelectedIndex = 3;
+                        break;
+                    case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                        wpConfig.comboBox1.SelectedIndex = 2;
+                        double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                        wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                        break;
+                    case (ushort)MAVLink.MAV_CMD.DO_SET_SERVO:
+                        wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
+                        int servoIndex = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
+                        wpConfig.servos[servoIndex - 5] = true;
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
         }
 
         private void writeServosToWPConfig()
@@ -7749,52 +7821,99 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             removeAllWP();
         }
 
-        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        private void cleanToNextWP(int index)
         {
-            Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
-            Commands_CellUpdate(wpConfig.indexNow, Lat.Index);
-            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
-            Commands_CellUpdate(wpConfig.indexNow, Lon.Index);
-            if (!wpConfig.checkBox1.Checked)
-            {
-                int selectedValue = wpConfig.comboBox1.SelectedIndex;
-                switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
-                {
-                    case 0:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-                        break;
-                    case 1:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 2:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.',','));
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
-                        Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
-                        break;
-                    case 3:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-                        break;
-                    default:
-                        Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                }
-            }
-            else{
-                Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
-                Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
-                Commands_CellUpdate(wpConfig.indexNow, Command.Index + 1);
-            }
-            Commands_CellUpdate(wpConfig.indexNow, Command.Index);
-            int val = (int)wpConfig.myTrackBar1.Value;
-            Commands.Rows[wpConfig.indexNow].Cells[Lon.Index + 1].Value = val.ToString();
-            Commands_CellUpdate(wpConfig.indexNow, Lon.Index + 1);
-
-            int index = wpConfig.indexNow;                                                                      //removing all old DO_SET_SERVO
-            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            while (index + 1 < Commands.Rows.Count && 
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT &&
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME)
             {
                 Commands.Rows.RemoveAt(index + 1);
             }
+        }
+
+        private void setLatLon(int index) 
+        {
+            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+            Commands_CellUpdate(index, Lat.Index);
+            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+            Commands_CellUpdate(index, Lon.Index);
+        }
+
+        private bool cleanToPrevWP(int index) 
+        {
+            bool result = false;
+            if (index > 0 &&
+                    (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.TAKEOFF)
+            {
+                Commands.Rows.RemoveAt(index - 1);
+                result = true;
+            }
+            return result;
+        }
+        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            int index = wpConfig.indexNow;
+            cleanToNextWP(index);
+            if (cleanToPrevWP(index)) 
+            {
+                index--;
+            }
+            
+            if (!wpConfig.checkBox1.Checked)
+            {
+                int selectedValue = wpConfig.comboBox1.SelectedIndex;
+                DataGridViewRow row;
+                switch (selectedValue)                                       //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                {
+                    case 0:
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                        row.Cells[Command.Index + 1].Value = (14).ToString();
+                        Commands.Rows.Insert(index, row);
+                        index++;
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 1:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 2:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.',','));
+                        row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
+                        Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index, Command.Index + 1);
+                        break;
+                    case 3:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow)Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
+                        row.Cells[Command.Index + 1].Value = "1";
+                        Commands.Rows.Insert(index + 1, row);
+                        break;
+                    default:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                }
+            }
+            else
+            {
+                Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                Commands_CellUpdate(index, Command.Index + 1);
+            }
+            setLatLon(index);
+            Commands_CellUpdate(index, Command.Index);
+            int val = (int)wpConfig.myTrackBar1.Value;
+            Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
+            Commands_CellUpdate(index, Lon.Index + 1);
+
+            /*int index = index;                                                                      //removing all old DO_SET_SERVO
+            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            {
+                Commands.Rows.RemoveAt(index + 1);
+            }*/
 
 
             if (wpConfig.checkBox2.Checked) 
@@ -7809,6 +7928,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         row.Cells[Command.Index + 1].Value = (i + 5).ToString();
                         row.Cells[Command.Index + 2].Value = "2000";
                         Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index + 1 , Command.Index);
                     }
                 } 
             }
@@ -7817,10 +7937,129 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void tryToWriteWP() 
         {
-            if (MainV2.comPort.MAV.cs.connected == true)
+            System.Diagnostics.Debug.WriteLine("##################### Try to save WP ######################");
+            //if (MainV2.comPort.MAV.cs.connected == true)
+            //{
+            //    writeWPToPlane();
+            //}
+            needToLoadWP = true;
+        }
+
+        private void saveWPs(IProgressReporterDialogue sender)
+        {
+            try
             {
-                writeWPToPlane();
+                MAVLinkInterface port = MainV2.comPort;
+
+                if (!port.BaseStream.IsOpen)
+                {
+                    throw new Exception("Please connect first!");
+                }
+
+                int a = 0;
+
+                // define the home point
+                Locationwp home = new Locationwp();
+                try
+                {
+                    home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                    home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                    home.lat = (double.Parse(TXT_homelat.Text));
+                    home.lng = (double.Parse(TXT_homelng.Text));
+                    home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
+                }
+                catch
+                {
+                    throw new Exception("Your home location is invalid");
+                }
+
+                // log
+                log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
+                log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
+
+                var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+                {
+                    return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
+                });
+
+                // get the command list from the datagrid
+                var commandlist = GetCommandList();
+
+                if (type == MAVLink.MAV_MISSION_TYPE.MISSION && MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
+                    commandlist.Insert(0, home);
+
+                // fence does not use alt, and needs to be global
+                if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
+                {
+                    commandlist = commandlist.Select((fp) =>
+                    {
+                        fp.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                        return fp;
+                    }).ToList();
+                }
+
+                Task.Run(async () =>
+                {
+                    await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, type,
+                        commandlist,
+                        (percent, status) =>
+                        {
+                            if (sender.doWorkArgs.CancelRequested)
+                            {
+                                sender.doWorkArgs.CancelAcknowledged = true;
+                                sender.doWorkArgs.ErrorMessage = "User Canceled";
+                                throw new Exception("User Canceled");
+                            }
+
+                            //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
+                        }).ConfigureAwait(false);
+
+                    try
+                    {
+                        await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
+                            (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                    }
+                    catch (Exception ex2)
+                    {
+                        log.Error(ex2);
+                        try
+                        {
+                            MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
+                                (byte)MainV2.comPort.compidcurrent, 0);
+                        }
+                        catch (Exception ex3)
+                        {
+                            log.Error(ex3);
+                        }
+                    }
+                }).GetAwaiter().GetResult();
+
+                //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
+
+                // m
+                port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
+
+                // cm's
+                port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
+
+                try
+                {
+                    port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
+                        float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
+                }
+                catch
+                {
+                }
+
+                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
             }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw;
+            }
+
+            MainV2.comPort.giveComport = false;
         }
 
         private void contextMenuStrip2_Closed(object sender, ToolStripDropDownClosedEventArgs e)

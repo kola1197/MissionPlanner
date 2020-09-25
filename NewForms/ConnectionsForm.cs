@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.ArduPilot;
@@ -131,6 +132,7 @@ namespace MissionPlanner
 
         private void connectAircraft(object sender)
         {
+            MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
             if (useAntenna_CheckBox.Checked)
             {
@@ -175,6 +177,7 @@ namespace MissionPlanner
             try
             {
                 MainV2.instance.doConnect(mav, CMB_serialport.Text, CMB_baudrate.Text);
+                Thread.Sleep(1000);                              // i do not know why, but it helps with crash on params loading
 
                 MainV2.Comports.Add(mav);
 

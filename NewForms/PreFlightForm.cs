@@ -81,12 +81,7 @@ namespace MissionPlanner.NewForms
 
         private void maxСapacity_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && !Char.IsControl(number))
-            {
-                e.Handled = true;
-            }
-            //updateMainV2Data();
+
         }
 
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
@@ -108,7 +103,7 @@ namespace MissionPlanner.NewForms
             int i;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
             if (MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity != 0)
@@ -132,9 +127,18 @@ namespace MissionPlanner.NewForms
 
         private void nextButton2_Click(object sender, EventArgs e)
         {
-            progressIndex = progressIndex > 3 ? progressIndex : 3;
-            selectedIndex = 3;
-            tabControl1.SelectedIndex = selectedIndex;
+            if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+            {
+                progressIndex = progressIndex > 3 ? progressIndex : 3;
+                selectedIndex = 3;
+                tabControl1.SelectedIndex = selectedIndex;
+            }
+            else 
+            {
+                progressIndex = progressIndex > 4 ? progressIndex : 4;
+                selectedIndex = 4;
+                tabControl1.SelectedIndex = selectedIndex;
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -197,7 +201,7 @@ namespace MissionPlanner.NewForms
                 });
                 bool ans = MainV2.comPort.doARM(!isitarmed);
                 MainV2.comPort.UnSubscribeToPacketType(sub);
-                if (ans == false)
+                /*if (ans == false)
                 {
                     if (CustomMessageBox.Show(
                             action + " failed.\n" + sb.ToString() + "\nForce " + action +
@@ -212,7 +216,7 @@ namespace MissionPlanner.NewForms
                             CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
                         }
                     }
-                }
+                }*/
             }
             catch
             {
@@ -277,7 +281,7 @@ namespace MissionPlanner.NewForms
             int i = 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(textBox1.Text, out i) ? i : 0;
             MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].flyTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)

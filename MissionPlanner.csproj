@@ -423,6 +423,12 @@
     <Compile Include="Controls\NewControls\AdditionalSensorControl.Designer.cs">
       <DependentUpon>AdditionalSensorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\FlightByCompassControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\FlightByCompassControl.Designer.cs">
+      <DependentUpon>FlightByCompassControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\GaugeHeading.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -894,6 +900,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\AdditionalSensorControl.resx">
       <DependentUpon>AdditionalSensorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\FlightByCompassControl.resx">
+      <DependentUpon>FlightByCompassControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>

@@ -13,15 +13,18 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class WPMenu : UserControl
     {
-        bool fieldActive = false;
+        public bool fieldActive = false;
         public WPMenu()
         {
             InitializeComponent();
             //updateField();
         }
 
+        public bool progressBarVisible = false;
+
         private void updateField() 
         {
+            //MainV2.wpLoadMenuAcrive = 
             this.Size = fieldActive ? new Size(95, 545) : new Size(95, 125);
             System.Drawing.Point now = this.Location;
             int diff = 420;
@@ -60,7 +63,14 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateValues() 
         {
-            label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+            
+            if (progressBar1.Visible != progressBarVisible)
+            {
+                progressBar1.Value = 0;
+                progressBar1.Visible = progressBarVisible; 
+            }
+            //label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+            mainButton.Text = MainV2.comPort.MAV.cs.wpno.ToString();
             label2.Text = MainV2.instance.FlightPlanner.Commands.Rows.Count.ToString();
             label3.Text = MainV2.comPort.MAV.cs.wp_dist.ToString();
         }

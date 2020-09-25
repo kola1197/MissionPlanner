@@ -211,6 +211,9 @@
           <e p="CoordinatsControl.cs" t="Include" />
           <e p="CoordinatsControl.Designer.cs" t="Include" />
           <e p="CoordinatsControl.resx" t="Include" />
+          <e p="FlightByCompassControl.cs" t="Include" />
+          <e p="FlightByCompassControl.Designer.cs" t="Include" />
+          <e p="FlightByCompassControl.resx" t="Include" />
           <e p="GaugeHeading.cs" t="Include" />
           <e p="GaugeHeading.Designer.cs" t="Include" />
           <e p="GaugeHeading.resx" t="Include" />
@@ -498,7 +501,7 @@
           </e>
           <e p="ICoder.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="7zip.AssemblyInfo.cs" t="Include" />
               </e>
@@ -521,7 +524,7 @@
           <e p="interpolation.cs" t="Include" />
           <e p="linalg.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="alglibnet.AssemblyInfo.cs" t="Include" />
               </e>
@@ -635,7 +638,7 @@
           <e p="Maestro.cs" t="Include" />
           <e p="MissionPlanner.Antenna.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Antenna.AssemblyInfo.cs" t="Include" />
               </e>
@@ -650,7 +653,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="IArduinoComms.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="Arduino.AssemblyInfo.cs" t="Include" />
               </e>
@@ -714,7 +717,7 @@
           <e p="motor_frame_class.cs" t="Include" />
           <e p="motor_frame_type.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.ArduPilot.AssemblyInfo.cs" t="Include" />
               </e>
@@ -745,7 +748,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="EditableVideoStream.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="AviFile.AssemblyInfo.cs" t="Include" />
               </e>
@@ -776,7 +779,7 @@
             </e>
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="BouncyCastle.AssemblyInfo.cs" t="Include" />
               </e>
@@ -2569,7 +2572,7 @@
           <e p="MissionPlanner.Comms.csproj" t="IncludeRecursive" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Comms.AssemblyInfo.cs" t="Include" />
               </e>
@@ -2714,7 +2717,7 @@
           <e p="mykey.pfx" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="Core.AssemblyInfo.cs" t="Include" />
               </e>
@@ -2771,7 +2774,7 @@
           <e p="mpeg2psiparser.cs" t="Include" />
           <e p="Mpeg2Structs.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="DirectShowLib.AssemblyInfo.cs" t="Include" />
               </e>
@@ -2807,14 +2810,13 @@
         </e>
         <e p="ExtGuided" t="IncludeRecursive">
           <e p="app.config" t="Include" />
-          <e p="bin" t="ExcludeRecursive" />
           <e p="ExtGuided.csproj" t="IncludeRecursive" />
           <e p="ExtGuidedPlugin.cs" t="Include" />
           <e p="FilePick.cs" t="Include" />
           <e p="FilePick.Designer.cs" t="Include" />
           <e p="FilePick.resx" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="ExtGuided.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -2827,12 +2829,12 @@
           <e p="GDAL.NET.csproj" t="IncludeRecursive" />
           <e p="GDALProvider.cs" t="Include" />
           <e p="mykey.snk" t="Include" />
-          <e p="Native" t="Include">
+          <e p="native" t="Include">
             <e p="MP.GDAL.Native.nuspec" t="Include" />
             <e p="MP.GDAL.Native.targets" t="Include" />
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="GDAL.NET.AssemblyInfo.cs" t="Include" />
                 <e p="NuGet" t="Include">
@@ -2891,7 +2893,7 @@
           </e>
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="GeoUtility.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3098,7 +3100,7 @@
             <e p="PlateCarreeProjectionPergo.cs" t="Include" />
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="GMap.NET.Core.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3134,7 +3136,7 @@
             </e>
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="GMap.NET.Drawing.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3220,7 +3222,7 @@
           <e p="Hil.cs" t="Include" />
           <e p="MissionPlanner.HIL.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.HIL.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3282,7 +3284,7 @@
             <e p="LzwInputStream.cs" t="Include" />
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2" t="Include">
                 <e p="ICSharpCode.SharpZipLib.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3342,7 +3344,7 @@
           <e p="Installer.resx" t="Include" />
           <e p="LogManager.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="Installer.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3358,7 +3360,7 @@
           <e p="Interfaces.csproj" t="IncludeRecursive" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="Interfaces.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3410,7 +3412,7 @@
           <e p="mykey.pfx" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="KMLib.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3432,7 +3434,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="LibTessDotNet.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="LibTessDotNet.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3473,7 +3475,7 @@
           <e p="MediaPlayerState.cs" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="LibVLC.NET.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3494,7 +3496,7 @@
           <e p="mykey.snk" t="Include" />
           <e p="NativeWifi.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="ManagedNativeWifi.Simple.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3544,7 +3546,7 @@
           <e p="MissionPlanner.Maps.csproj" t="IncludeRecursive" />
           <e p="MyImageCache.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Maps.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3581,7 +3583,7 @@
           </e>
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="MAVLink.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3598,7 +3600,7 @@
           <e p="MavlinkMessagePlugin.csproj" t="IncludeRecursive" />
           <e p="message.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="MavlinkMessagePlugin.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -3735,7 +3737,7 @@
           <e p="MetadataExtractor.dtd" t="Include" />
           <e p="MetadataExtractorNew.dtd" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MetaDataExtractor.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3889,7 +3891,7 @@
           <e p="MissionPlanner.Drawing.csproj" t="IncludeRecursive" />
           <e p="MouseButtons.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Drawing.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3923,7 +3925,7 @@
           <e p="Consts.cs" t="Include" />
           <e p="MissionPlanner.Drawing.Common.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Drawing.Common.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3942,7 +3944,7 @@
           <e p="MissionPlanner.Gridv2.csproj" t="IncludeRecursive" />
           <e p="move.PNG" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="MissionPlanner.Gridv2.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -3958,7 +3960,7 @@
           <e p="app.config" t="Include" />
           <e p="MissionPlanner.Stats.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="MissionPlanner.Stats.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -3970,7 +3972,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="Mock.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netcoreapp2.2" t="Include">
                 <e p="Mock.AssemblyInfo.cs" t="Include" />
               </e>
@@ -3988,7 +3990,7 @@
           <e p="IFirmwareUpdate.cs" t="Include" />
           <e p="NetDFULib.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="NetDFULib.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4168,7 +4170,7 @@
           <e p="Matrix3.cs" t="Include" />
           <e p="netDxf.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="netDxf.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4267,7 +4269,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="Ntrip.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netcoreapp3.1" t="Include">
                 <e p="Ntrip.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4336,7 +4338,7 @@
         <e p="ParameterMetaDataGenerator" t="IncludeRecursive">
           <e p="bin" t="ExcludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="ParameterMetaDataGenerator.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4402,7 +4404,7 @@
             </e>
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="ProjNET.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4429,7 +4431,7 @@
           <e p="Firmware.cs" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netcoreapp3.1" t="Include">
                 <e p="px4uploader.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4517,7 +4519,7 @@
           <e p="Managed.Adb.csproj.vspscc" t="Include" />
           <e p="NamespaceDoc.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="SharpAdbClient.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4728,7 +4730,7 @@
             <e p="UriExtensions.cs" t="Include" />
           </e>
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="SharpKml.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4742,7 +4744,7 @@
           <e p="GridUI.pt.resx" t="Include" />
           <e p="MissionPlanner.SimpleGrid.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="MissionPlanner.SimpleGrid.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -4758,7 +4760,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="solo.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4773,7 +4775,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="MissionPlanner.Strings.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Strings.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4800,7 +4802,7 @@
           <e p="IGraphics.cs" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="SvgNet.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4837,9 +4839,8 @@
         </e>
         <e p="TestPlugin" t="IncludeRecursive">
           <e p="app.config" t="Include" />
-          <e p="bin" t="ExcludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="TestPlugin.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -4864,7 +4865,7 @@
           <e p="log.reg" t="Include" />
           <e p="mykey.snk" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="tlogThumbnailHandler.AssemblyInfo.cs" t="Include" />
               </e>
@@ -4885,7 +4886,7 @@
           <e p="GenericDevice.cs" t="Include" />
           <e p="GPSDevice.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="TrackerHomeGPS.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -4906,7 +4907,7 @@
           <e p="ManagedType_Int.cs" t="Include" />
           <e p="ManagedType_String.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="Transitions.AssemblyInfo.cs" t="Include" />
               </e>
@@ -5150,7 +5151,7 @@
           <e p="Extension.cs" t="Include" />
           <e p="IUAVCANSerialize.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="UAVCAN.AssemblyInfo.cs" t="Include" />
               </e>
@@ -5426,7 +5427,7 @@
         <e p="UAVCANFlasher" t="IncludeRecursive">
           <e p="bin" t="ExcludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="UAVCANFlasher.AssemblyInfo.cs" t="Include" />
               </e>
@@ -5537,7 +5538,7 @@
           <e p="mykey.snk" t="Include" />
           <e p="nmea.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="MissionPlanner.Utilities.AssemblyInfo.cs" t="Include" />
               </e>
@@ -5608,7 +5609,7 @@
           </e>
           <e p="libman.json" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.1" t="Include">
                 <e p="wasm.AssemblyInfo.cs" t="Include" />
               </e>
@@ -6255,7 +6256,7 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="Capture.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="WebCamService.AssemblyInfo.cs" t="Include" />
               </e>
@@ -6335,7 +6336,7 @@
           <e p="Forms.cs" t="Include" />
           <e p="IVisualElementRenderer.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="Xamarin.Forms.Platform.WinForms.AssemblyInfo.cs" t="Include" />
               </e>
@@ -6549,7 +6550,7 @@
           <e p="DomainService.cs" t="Include" />
           <e p="INetworkInterface.cs" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="netstandard2.0" t="Include">
                 <e p="Zeroconf.AssemblyInfo.cs" t="Include" />
               </e>
@@ -7595,7 +7596,7 @@
         <e p="SouthAfricaNoRPASOutlined.kmz" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
-        <e p="Release" t="Include">
+        <e p="Debug" t="Include">
           <e p="NuGet" t="Include">
             <e p="cfba36091c7aa28b8ff2c75937cc2f3ecbce782e" t="Include">
               <e p="GDAL" t="Include">
@@ -7642,7 +7643,7 @@
           <e p="FaceMapUI.Designer.cs" t="Include" />
           <e p="FaceMapUI.resx" t="Include" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="FaceMap.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -7655,7 +7656,7 @@
         <e p="Shortcuts" t="IncludeRecursive">
           <e p="bin" t="ExcludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
-            <e p="Release" t="Include">
+            <e p="Debug" t="Include">
               <e p="net461" t="Include">
                 <e p="Shortcuts.AssemblyInfo.cs" t="Include" />
               </e>
@@ -7771,8 +7772,6 @@
         <e p="Terminal.zh-Hant.resx" t="Include" />
         <e p="Terminal.zh-TW.resx" t="Include" />
         <e p="ThemeManager.cs" t="Include" />
-        <e p="x64" t="Include" />
-        <e p="x86" t="Include" />
       </e>
       <e p="Solution Items" t="Include" />
       <e p="Splash.cs" t="Include" />

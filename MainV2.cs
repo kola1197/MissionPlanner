@@ -545,7 +545,6 @@ namespace MissionPlanner
 
         public FlightPlanner FlightPlanner;
         SITL Simulation;
-
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -560,6 +559,8 @@ namespace MissionPlanner
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
+
+        
 
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
@@ -1458,6 +1459,7 @@ namespace MissionPlanner
                 {
                     _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
+                
             }
             catch (System.IndexOutOfRangeException eee) 
             { }
@@ -1664,7 +1666,12 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
-
+            if (MAVLinkInterface.paramsLoading)
+            {
+                progressBar1.Maximum = MAVLinkInterface.paramsCount;
+                progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+            }
+            progressBar1.Visible = MAVLinkInterface.paramsLoading;
             _aircraftMenuControl.updateCentralButton();
         }
 
@@ -5184,7 +5191,8 @@ namespace MissionPlanner
 
         private void myButton4_Click(object sender, EventArgs e)
         {
-            MyView.ShowScreen("FlightData");
+            //testThrottle();
+            //MyView.ShowScreen("FlightData");
             //comPort.MAV.cs.ch1out = 1900;
             //comPort.MAV.cs.ch2out = 1900;
             //comPort.MAV.cs.ch3out = 1900;
@@ -5202,6 +5210,20 @@ namespace MissionPlanner
             {
                 CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
             }
+        }
+
+        bool b = false;
+        public void testThrottle() 
+        {
+            if (b)
+            {
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
+            }
+            else 
+            {
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1100);
+            }
+            b = !b;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -5290,6 +5312,30 @@ namespace MissionPlanner
 
         private void ïÏÊToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void myButton5_Click(object sender, EventArgs e)
+        {
+            MyView.ShowScreen("FlightData");
+        }
+
+        private void myButton4_MouseUp(object sender, MouseEventArgs e)
+        {
+            testThrottle();
+        }
+
+        private void myButton6_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (FlightPlanner.panelWaypoints.Visible)
+            {
+                FlightPlanner.panelWaypoints.Visible = false;
+                myButton6.Text = "Show wp list";
+            }
+            else {
+                FlightPlanner.panelWaypoints.Visible = true;
+                myButton6.Text = "Hide wp list";
+            }
 
         }
     }
