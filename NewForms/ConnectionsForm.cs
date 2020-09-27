@@ -331,10 +331,14 @@ namespace MissionPlanner
                     MainV2.comPort.sysidcurrent = temp.sysid;
                     MainV2.comPort.compidcurrent = temp.compid;
 
-                    if (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control)
-                        MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
-                            (byte) MainV2.comPort.compidcurrent);
-
+                    if (true || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
+                    {
+                        new System.Threading.Thread(delegate ()
+                        {
+                            MainV2.comPort.getParamList((byte)MainV2.comPort.sysidcurrent,
+                              (byte)MainV2.comPort.compidcurrent);
+                        }).Start();
+                    }
                     MainV2.CurrentAircraftNum =
                         MainV2._aircraftInfo.FirstOrDefault(x => x.Value == selectedAircraft).Key;
                     devices_LB.SelectedItem = MainV2.CurrentAircraftNum;
