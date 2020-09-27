@@ -1519,7 +1519,6 @@ namespace MissionPlanner
                     mapChangeForm.lbl_status.Text = mapTitleStatus;
                 }
                 //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";
-
                 //textBoxMemory.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.00}MB of {1:0.00}MB", MainMap.Manager.MemoryCacheSize, MainMap.Manager.MemoryCacheCapacity);
             };
             try
