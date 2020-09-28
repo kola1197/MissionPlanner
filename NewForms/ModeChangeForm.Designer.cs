@@ -43,6 +43,7 @@ namespace MissionPlanner.NewForms
             this.CMB_modes.Name = "CMB_modes";
             this.CMB_modes.Size = new System.Drawing.Size(122, 21);
             this.CMB_modes.TabIndex = 71;
+            this.CMB_modes.SelectedIndexChanged += new System.EventHandler(this.CMB_modes_SelectedIndexChanged);
             // 
             // BUT_setmode
             // 
@@ -69,6 +70,7 @@ namespace MissionPlanner.NewForms
             this.Text = "ModeChangeForm";
             this.Load += new System.EventHandler(this.ModeChangeForm_Load_1);
             this.ResumeLayout(false);
+
         }
 
         private MissionPlanner.Controls.MyButton BUT_setmode;

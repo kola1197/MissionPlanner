@@ -1447,6 +1447,13 @@ namespace MissionPlanner
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+            }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine(eee.ToString());
+            }
+            try
+            {
                 if (!timeControl2.timer1.Enabled)
                 {
                     timeControl2.timer1.Start();
@@ -1459,10 +1466,12 @@ namespace MissionPlanner
                 {
                     _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
-                
+
             }
-            catch (System.IndexOutOfRangeException eee) 
-            { }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine(eee.ToString());
+            }
         }
 
         void mainMenuInit()
@@ -1518,7 +1527,7 @@ namespace MissionPlanner
                 {
                     mapChangeForm.lbl_status.Text = mapTitleStatus;
                 }
-                //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";
+                //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";ti
                 //textBoxMemory.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.00}MB of {1:0.00}MB", MainMap.Manager.MemoryCacheSize, MainMap.Manager.MemoryCacheCapacity);
             };
             try
@@ -1671,7 +1680,7 @@ namespace MissionPlanner
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
             }
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
-            _aircraftMenuControl.updateCentralButton();
+            //_aircraftMenuControl.updateCentralButton();
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace MissionPlanner.Controls.NewControls
             get { return sensorName_label.Text; }
             set
             {
-                sensorName_label.Text = value;
+                //sensorName_label.Text = value;
                 switch (value)
                 {
                     case "Напряжение":
@@ -31,48 +31,56 @@ namespace MissionPlanner.Controls.NewControls
                             true);
                         textBinding.Format += voltage_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Напряжение";
                         break;
                     case "Температура двигателя":
                         textBinding = new Binding("Text", textBindingSource, "rpm2",
                             true);
                         textBinding.Format += temp_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Температура";
                         break;
                     case "Топливо":
                         textBinding = new Binding("Text", textBindingSource, "battery_voltage2",
                             true);
                         textBinding.Format += fuel_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Топливо";
                         break;
                     case "Воздушная скорость":
                         textBinding = new Binding("Text", textBindingSource, "airspeed",
                             true);
                         textBinding.Format += speed_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Воз. скорость";
                         break;
                     case "Путевая скорость":
                         textBinding = new Binding("Text", textBindingSource, "groundspeed",
                             true);
                         textBinding.Format += speed_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Пут. скорость";
                         break;
                     case "Высота (СНС)":
                         textBinding = new Binding("Text", textBindingSource, "alt",
                             true);
                         textBinding.Format += alt_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Высота (СНС)";
                         break;
                     case "Следующая точка":
                         textBinding = new Binding("Text", textBindingSource, "wpno",
                             true);
                         textBinding.Format += nextWP_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "След. точка";
                         break;
                     case "Сила тока":
                         textBinding = new Binding("Text", textBindingSource, "battery_usedmah",
                             true);
                         textBinding.Format += amperage_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Сила тока";
                         break;
                     default:
                         sensorValue = "wrong sensor name";

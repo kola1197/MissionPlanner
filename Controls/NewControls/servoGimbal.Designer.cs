@@ -45,12 +45,19 @@
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.ColorMouseDown = System.Drawing.Color.Gray;
+            this.myButton1.ColorMouseOver = System.Drawing.Color.Gray;
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.Location = new System.Drawing.Point(3, 1);
             this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.Transparent;
             this.myButton1.Size = new System.Drawing.Size(75, 23);
             this.myButton1.TabIndex = 0;
             this.myButton1.Text = "Подвес";
             this.myButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.myButton1.TextColor = System.Drawing.Color.Black;
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.myButton1_mouseDown);
             this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
@@ -183,7 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.Controls.Add(this.myButton11);
             this.Controls.Add(this.myButton10);
             this.Controls.Add(this.myButton9);
@@ -198,6 +205,7 @@
             this.Name = "servoGimbal";
             this.Size = new System.Drawing.Size(375, 26);
             this.ResumeLayout(false);
+
         }
 
         private MissionPlanner.Controls.MyButton myButton1;

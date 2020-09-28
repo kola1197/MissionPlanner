@@ -31,8 +31,16 @@ namespace MissionPlanner.Controls.NewControls
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // SensorUserControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "SensorUserControl";
+            this.Size = new System.Drawing.Size(140, 140);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
