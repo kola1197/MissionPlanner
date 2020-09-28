@@ -1680,7 +1680,7 @@ namespace MissionPlanner
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
             }
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
-            //_aircraftMenuControl.updateCentralButton();
+            _aircraftMenuControl.updateCentralButton();
         }
 
         /// <summary>
