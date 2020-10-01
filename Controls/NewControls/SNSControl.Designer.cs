@@ -30,6 +30,7 @@
         {
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
+            this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // myButton1
@@ -53,15 +54,26 @@
             this.myButton2.UseVisualStyleBackColor = true;
             this.myButton2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton2_MouseUp);
             // 
+            // myButton3
+            // 
+            this.myButton3.Location = new System.Drawing.Point(114, 2);
+            this.myButton3.Name = "myButton3";
+            this.myButton3.Size = new System.Drawing.Size(62, 23);
+            this.myButton3.TabIndex = 2;
+            this.myButton3.Text = "Vibe";
+            this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton3_MouseUp);
+            // 
             // SNSControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.Controls.Add(this.myButton3);
             this.Controls.Add(this.myButton2);
             this.Controls.Add(this.myButton1);
             this.Name = "SNSControl";
-            this.Size = new System.Drawing.Size(108, 26);
+            this.Size = new System.Drawing.Size(174, 26);
             this.ResumeLayout(false);
 
         }
@@ -70,5 +82,6 @@
 
         private MyButton myButton1;
         private MyButton myButton2;
+        private MyButton myButton3;
     }
 }
