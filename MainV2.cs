@@ -58,6 +58,7 @@ using MissionPlanner.Properties;
 using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
+using System.Windows.Input;
 
 namespace MissionPlanner
 {
@@ -1459,7 +1460,28 @@ namespace MissionPlanner
                 {
                     _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
-                
+                if (ctrlModeActive && ctrlReliasedCounter == -1) 
+                {
+                    MainV2.comPort.setMode("Stabilize");
+                    ctrlReliasedCounter = 12;
+                    ctrlModeDebuglabel.Visible = true;
+
+                }
+                ctrlModeDebuglabel.Visible = true;
+                if (ctrlReliasedCounter > 0)
+                {
+                    ctrlReliasedCounter--;
+                    if (ctrlReliasedCounter == 1) 
+                    {
+                        //set AUTO mode
+                        MainV2.comPort.setMode("AUTO");
+                        System.Diagnostics.Debug.WriteLine("ctrl released!!!");
+                        ctrlModeDebuglabel.Visible = false;
+                        ctrlReliasedCounter = -1;
+                        ctrlModeActive = false;
+                    }
+                }
+
             }
             catch (System.IndexOutOfRangeException eee) 
             { }
@@ -4336,6 +4358,9 @@ namespace MissionPlanner
         }
 
 
+
+        private int ctrlReliasedCounter = -1;
+        private bool ctrlModeActive = false;
         /// <summary>
         /// keyboard shortcuts override
         /// </summary>
@@ -4477,6 +4502,9 @@ namespace MissionPlanner
 
             bool manualFlightMode = false;
             int[] overrides = {1500, 1500, 1500, 1500};
+
+            
+            
             if (keyData == (Keys.Control | Keys.ControlKey))
             {
                 manualFlightMode = true;
@@ -4486,70 +4514,66 @@ namespace MissionPlanner
             if (keyData == (Keys.Control | Keys.Left))
             {
                 manualFlightMode = true;
-                //CustomMessageBox.Show("LEFT ARROW!!!");
-                if (manualFlightMode)
-                {
-                    overrides[2] = 1300;
-                }
+                overrides[2] = 1300;
             }
 
             if (keyData == (Keys.Control | Keys.Right))
             {
                 manualFlightMode = true;
-                if (manualFlightMode)
-                {
-                    overrides[2] = 1700;
-                }
+                overrides[2] = 1700;
             }
 
             if (keyData == (Keys.Control | Keys.Up))
             {
                 manualFlightMode = true;
-                if (manualFlightMode)
-                {
-                    overrides[3] = 1700;
-                }
+                overrides[3] = 1700;
             }
 
             if (keyData == (Keys.Control | Keys.Down))
             {
                 manualFlightMode = true;
-                if (manualFlightMode)
-                {
-                    overrides[3] = 1300;
-                }
+                overrides[3] = 1300;
             }
 
-            if (keyData == (Keys.Control | Keys.Right | Keys.Up))
+            /*if (keyData == (Keys.Control | Keys.Right | Keys.Up))
             {
-                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                manualFlightMode = true;
+                System.Diagnostics.Debug.WriteLine("RIGHT + UP ARROW!!!");
                 overrides[2] = 1700;
                 overrides[3] = 1700;
             }
 
             if (keyData == (Keys.Control | Keys.Left | Keys.Down))
             {
-                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                manualFlightMode = true;
+                System.Diagnostics.Debug.WriteLine("LEFT + DOWN ARROW!!!");
                 overrides[2] = 1300;
                 overrides[3] = 1300;
             }
 
             if (keyData == (Keys.Control | Keys.Right | Keys.Down))
             {
-                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                manualFlightMode = true;
+                System.Diagnostics.Debug.WriteLine("RIGHT + DOWN ARROW!!!");
                 overrides[2] = 1700;
                 overrides[3] = 1300;
             }
 
             if (keyData == (Keys.Control | Keys.Left | Keys.Up))
             {
-                //CustomMessageBox.Show("RIGHT + UP ARROW!!!");
+                manualFlightMode = true;
+                System.Diagnostics.Debug.WriteLine("LEFT + UP ARROW!!!");
                 overrides[2] = 1300;
                 overrides[3] = 1700;
+            }*/
+            ctrlModeActive = manualFlightMode;
+            if (ctrlModeActive && ctrlReliasedCounter!=-1) 
+            {
+                ctrlReliasedCounter = 12;
             }
-
             if (manualFlightMode)
             {
+                
                 MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                 rc.target_component = comPort.MAV.compid;
                 rc.target_system = comPort.MAV.sysid;
@@ -4561,23 +4585,41 @@ namespace MissionPlanner
                 {
                     if (comPort.BaseStream.BytesToWrite < 50)
                     {
-                        if (sitl)
-                        {
-                            SITL.rcinput();
-                        }
-                        else
-                        {
+                        //if (sitl)
+                        //{
+                        //    SITL.rcinput();
+                        //}
+                        //else
+                        //{
                             comPort.sendPacket(rc, rc.target_system, rc.target_component);
-                        }
+                        //}
 
                         //count++;
                         //lastjoystick = DateTime.Now;
                     }
                 }
-
+                string debugOverrideInfo = "Output:";
+                if (overrides[2] < 1500) 
+                {
+                    debugOverrideInfo += " ← ";
+                }
+                if (overrides[3] > 1500)
+                {
+                    debugOverrideInfo += " ↑ ";
+                }
+                if (overrides[3] < 1500)
+                {
+                    debugOverrideInfo += " ↓ ";
+                }
+                if (overrides[2] > 1500)
+                {
+                    debugOverrideInfo += " → ";
+                }
+                ctrlModeDebuglabel.Text = debugOverrideInfo;
                 Debug.WriteLine("overrides " + overrides[2] + " " + overrides[3]);
                 return true;
             }
+            
 
             if (ProcessCmdKeyCallback != null)
             {
