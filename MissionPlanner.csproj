@@ -914,6 +914,9 @@
     <EmbeddedResource Include="Controls\NewControls\newTimeControl.resx">
       <DependentUpon>newTimeControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\SensorUserControl.resx">
+      <DependentUpon>SensorUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\servoGimbal.resx">
       <DependentUpon>servoGimbal.cs</DependentUpon>
     </EmbeddedResource>
@@ -4687,6 +4690,9 @@
     <None Include="Resources\testCenterUL.bmp" />
     <None Include="Resources\testCenterULActive.bmp" />
     <None Include="Resources\testCenterUnactive.bmp" />
+    <None Include="Resources\Group123.png" />
+    <None Include="Resources\Group140.png" />
+    <None Include="Resources\Group141.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

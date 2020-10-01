@@ -48,6 +48,11 @@ namespace MissionPlanner.NewForms
         {
             //throw new System.NotImplementedException();
         }
+
+        private void CMB_modes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
