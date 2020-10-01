@@ -70,6 +70,30 @@ namespace MissionPlanner.Controls.NewControls
                         MAVLink.MAV_CMD.DO_SET_SERVO, 2, output, 0, 0,
                         0, 0, 0);
             */
+            MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+            rc.target_component = MainV2.comPort.MAV.compid;
+            rc.target_system = MainV2.comPort.MAV.sysid;
+            rc.chan2_raw = Convert.ToUInt16(output);
+            //rc.chan3_raw = Convert.ToUInt16(overrides[3]);
+            //new DevopsUI().ShowUserControl();
+            // TODO: add right values
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                if (MainV2.comPort.BaseStream.BytesToWrite < 50)
+                {
+                    //if (sitl)
+                    //{
+                    //    SITL.rcinput();
+                    //}
+                    //else
+                    //{
+                    MainV2.comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                    //}
+
+                    //count++;
+                    //lastjoystick = DateTime.Now;
+                }
+            }
 
             preError = error;
         }
@@ -81,10 +105,12 @@ namespace MissionPlanner.Controls.NewControls
             {
                 turnOnButton.Text = "Выключить";
                 float.TryParse(directionNowLabel.Text, out directValue);
+                MainV2.comPort.setMode("Stabilize");
             }
             else 
             {
                 turnOnButton.Text = "Включить";
+                MainV2.comPort.setMode("AUTO");
             }
         }
 
