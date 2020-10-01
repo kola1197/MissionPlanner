@@ -42,6 +42,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // myButton1
@@ -160,11 +161,25 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // myButton5
+            // 
+            this.myButton5.BackColor = System.Drawing.Color.Transparent;
+            this.myButton5.BackgroundImage = global::MissionPlanner.Properties.Resources._01_05;
+            this.myButton5.BGGradBot = System.Drawing.Color.Transparent;
+            this.myButton5.BGGradTop = System.Drawing.Color.Transparent;
+            this.myButton5.Location = new System.Drawing.Point(150, 203);
+            this.myButton5.Name = "myButton5";
+            this.myButton5.Size = new System.Drawing.Size(40, 40);
+            this.myButton5.TabIndex = 13;
+            this.myButton5.Text = "1";
+            this.myButton5.UseVisualStyleBackColor = false;
+            // 
             // DiagnosticForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(202, 246);
+            this.Controls.Add(this.myButton5);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -199,5 +214,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Timer timer1;
+        public Controls.MyButton myButton5;
     }
 }

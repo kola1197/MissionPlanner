@@ -510,6 +510,7 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
     </Compile>

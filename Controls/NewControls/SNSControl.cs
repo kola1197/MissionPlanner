@@ -15,6 +15,7 @@ namespace MissionPlanner.Controls.NewControls
     {
         private ModeChangeForm modeChangeForm;
         private SNSInfo snsInfo;
+        private Vibration frm;
         public SNSControl()
         {
             InitializeComponent();
@@ -34,6 +35,18 @@ namespace MissionPlanner.Controls.NewControls
         {
             modeChangeForm = new ModeChangeForm();
             modeChangeForm.Show();
+        }
+
+        
+
+        private void myButton3_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (frm != null) {
+                frm.Close();
+            }
+            frm = new Vibration();
+            frm.TopMost = true;
+            frm.Show();
         }
     }
 }
