@@ -146,6 +146,7 @@ namespace MissionPlanner
             this.sysid_cmb.FormattingEnabled = true;
             resources.ApplyResources(this.sysid_cmb, "sysid_cmb");
             this.sysid_cmb.Name = "sysid_cmb";
+            this.sysid_cmb.DropDown += new System.EventHandler(this.sysid_cmb_DropDown);
             this.sysid_cmb.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.sysid_cmb_Format);
             // 
             // useSITL_CheckBox
@@ -166,7 +167,20 @@ namespace MissionPlanner
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {resources.GetString("CMB_baudrate.Items"), resources.GetString("CMB_baudrate.Items1"), resources.GetString("CMB_baudrate.Items2"), resources.GetString("CMB_baudrate.Items3"), resources.GetString("CMB_baudrate.Items4"), resources.GetString("CMB_baudrate.Items5"), resources.GetString("CMB_baudrate.Items6"), resources.GetString("CMB_baudrate.Items7"), resources.GetString("CMB_baudrate.Items8"), resources.GetString("CMB_baudrate.Items9"), resources.GetString("CMB_baudrate.Items10"), resources.GetString("CMB_baudrate.Items11"), resources.GetString("CMB_baudrate.Items12")});
+            this.CMB_baudrate.Items.AddRange(new object[] {
+            resources.GetString("CMB_baudrate.Items"),
+            resources.GetString("CMB_baudrate.Items1"),
+            resources.GetString("CMB_baudrate.Items2"),
+            resources.GetString("CMB_baudrate.Items3"),
+            resources.GetString("CMB_baudrate.Items4"),
+            resources.GetString("CMB_baudrate.Items5"),
+            resources.GetString("CMB_baudrate.Items6"),
+            resources.GetString("CMB_baudrate.Items7"),
+            resources.GetString("CMB_baudrate.Items8"),
+            resources.GetString("CMB_baudrate.Items9"),
+            resources.GetString("CMB_baudrate.Items10"),
+            resources.GetString("CMB_baudrate.Items11"),
+            resources.GetString("CMB_baudrate.Items12")});
             resources.ApplyResources(this.CMB_baudrate, "CMB_baudrate");
             this.CMB_baudrate.Name = "CMB_baudrate";
             // 
@@ -251,6 +265,7 @@ namespace MissionPlanner
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button updateSysId_BUT;
