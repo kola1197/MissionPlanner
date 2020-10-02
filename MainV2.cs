@@ -59,6 +59,7 @@ using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
 using System.Windows.Input;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner
 {
@@ -554,7 +555,7 @@ namespace MissionPlanner
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
         private DiagnosticForm diagnosticForm;
-
+        public static EngineController engineController;
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0; //0 - false, 1 - onse, 2 - always
@@ -1319,6 +1320,7 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1508,7 +1510,7 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
-
+            engineController = new EngineController();
             timer1.Start();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
