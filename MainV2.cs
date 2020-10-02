@@ -1508,6 +1508,7 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
+            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
 
             timer1.Start();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
@@ -1708,6 +1709,7 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Width);
             }
+
         }
 
         /// <summary>
@@ -4363,6 +4365,8 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
+            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+
         }
 
         private void MenuHelp_Click(object sender, EventArgs e)
@@ -5211,6 +5215,7 @@ namespace MissionPlanner
         private void MainV2_Load(object sender, EventArgs e)
         {
             //MyView.ShowScreen("FlightPlanner");
+
         }
 
         private void myButton3_Click(object sender, EventArgs e)
@@ -5295,7 +5300,8 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            testThrottle();
+            //testThrottle();
+            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)

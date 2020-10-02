@@ -293,6 +293,8 @@ namespace MissionPlanner.GCSViews
             */
             wpMenuLoad();
             contextMenuStrip2.Closed += contextMenuStrip2_Closed;
+
+            MainMap.Size = new Size(1920, MainMap.Size.Height);
         }
 
         private void test_Click(object sender, EventArgs e)
