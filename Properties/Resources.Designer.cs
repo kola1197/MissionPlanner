@@ -803,9 +803,69 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Group_6_140 {
+            get {
+                object obj = ResourceManager.GetObject("Group 6 140", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap group_green {
+            get {
+                object obj = ResourceManager.GetObject("group_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap group_green11 {
+            get {
+                object obj = ResourceManager.GetObject("group_green11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap group_red1 {
+            get {
+                object obj = ResourceManager.GetObject("group_red1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Group121212 {
+            get {
+                object obj = ResourceManager.GetObject("Group121212", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Group123 {
             get {
                 object obj = ResourceManager.GetObject("Group123", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Group1234 {
+            get {
+                object obj = ResourceManager.GetObject("Group1234", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -920,6 +980,36 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap hilquad {
             get {
                 object obj = ResourceManager.GetObject("hilquad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_center_button {
+            get {
+                object obj = ResourceManager.GetObject("icons8_center_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_аэропорт_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-аэропорт-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_аэропорт_100__1_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-аэропорт-100 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1215,6 +1305,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap new_3DR_04 {
             get {
                 object obj = ResourceManager.GetObject("new-3DR-04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap nonefon {
+            get {
+                object obj = ResourceManager.GetObject("nonefon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
