@@ -738,6 +738,12 @@
     <Compile Include="NewForms\Diagnostic.Designer.cs">
       <DependentUpon>Diagnostic.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\EngineControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\EngineControlForm.Designer.cs">
+      <DependentUpon>EngineControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\MapChangeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1912,6 +1918,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\Diagnostic.resx">
       <DependentUpon>Diagnostic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\EngineControlForm.resx">
+      <DependentUpon>EngineControlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.cs</DependentUpon>
