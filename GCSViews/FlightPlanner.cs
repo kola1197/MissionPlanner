@@ -293,8 +293,6 @@ namespace MissionPlanner.GCSViews
             */
             wpMenuLoad();
             contextMenuStrip2.Closed += contextMenuStrip2_Closed;
-
-            MainMap.Size = new Size(1920, MainMap.Size.Height);
         }
 
         private void test_Click(object sender, EventArgs e)
@@ -6057,7 +6055,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void switchDockingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*if (panelAction.Dock == DockStyle.Bottom)
+          /*  if (panelAction.Dock == DockStyle.Bottom)
             {
                 panelAction.Dock = DockStyle.Right;
                 panelWaypoints.Dock = DockStyle.Bottom;
