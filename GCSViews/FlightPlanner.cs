@@ -6055,7 +6055,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void switchDockingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (panelAction.Dock == DockStyle.Bottom)
+          /*  if (panelAction.Dock == DockStyle.Bottom)
             {
                 panelAction.Dock = DockStyle.Right;
                 panelWaypoints.Dock = DockStyle.Bottom;
@@ -6068,7 +6068,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 panelWaypoints.Width = Width / 2;
             }
 
-            Settings.Instance["FP_docking"] = panelAction.Dock.ToString();
+            Settings.Instance["FP_docking"] = panelAction.Dock.ToString();*/
         }
 
         public void takeoffToolStripMenuItem_Click(object sender, EventArgs e)

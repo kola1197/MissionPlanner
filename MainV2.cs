@@ -1454,6 +1454,13 @@ namespace MissionPlanner
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+            }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine(eee.ToString());
+            }
+            try
+            {
                 if (!timeControl2.timer1.Enabled)
                 {
                     timeControl2.timer1.Start();
@@ -1487,10 +1494,11 @@ namespace MissionPlanner
                         ctrlModeActive = false;
                     }
                 }
-
             }
-            catch (System.IndexOutOfRangeException eee) 
-            { }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine(eee.ToString());
+            }
         }
 
         void mainMenuInit()
@@ -1546,8 +1554,7 @@ namespace MissionPlanner
                 {
                     mapChangeForm.lbl_status.Text = mapTitleStatus;
                 }
-                //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";
-
+                //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";ti
                 //textBoxMemory.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.00}MB of {1:0.00}MB", MainMap.Manager.MemoryCacheSize, MainMap.Manager.MemoryCacheCapacity);
             };
             try
@@ -1701,6 +1708,11 @@ namespace MissionPlanner
             }
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
             _aircraftMenuControl.updateCentralButton();
+            if (FlightPlanner.MainMap.Size.Width != 1920) 
+            {
+                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Width);
+            }
+
         }
 
         /// <summary>
@@ -4356,6 +4368,8 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
+            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+
         }
 
         private void MenuHelp_Click(object sender, EventArgs e)
@@ -5204,6 +5218,7 @@ namespace MissionPlanner
         private void MainV2_Load(object sender, EventArgs e)
         {
             //MyView.ShowScreen("FlightPlanner");
+
         }
 
         private void myButton3_Click(object sender, EventArgs e)
@@ -5288,7 +5303,8 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            testThrottle();
+            //testThrottle();
+            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
