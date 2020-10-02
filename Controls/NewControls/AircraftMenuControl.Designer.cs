@@ -37,7 +37,7 @@
             // 
             // centerButton
             // 
-            this.centerButton.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_center_button;
+            this.centerButton.BackgroundImage = global::MissionPlanner.Properties.Resources.nonefon;
             this.centerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.centerButton.FlatAppearance.BorderSize = 0;
             this.centerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -62,7 +62,7 @@
             this.aircraft_BUT4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.aircraft_BUT4.ForeColor = System.Drawing.Color.Transparent;
-            this.aircraft_BUT4.Location = new System.Drawing.Point(109, 75);
+            this.aircraft_BUT4.Location = new System.Drawing.Point(0, 75);
             this.aircraft_BUT4.Name = "aircraft_BUT4";
             this.aircraft_BUT4.Outline = System.Drawing.Color.Transparent;
             this.aircraft_BUT4.Size = new System.Drawing.Size(90, 65);
@@ -84,7 +84,7 @@
             this.aircraft_BUT3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.aircraft_BUT3.ForeColor = System.Drawing.Color.Transparent;
-            this.aircraft_BUT3.Location = new System.Drawing.Point(0, 75);
+            this.aircraft_BUT3.Location = new System.Drawing.Point(109, 75);
             this.aircraft_BUT3.Name = "aircraft_BUT3";
             this.aircraft_BUT3.Outline = System.Drawing.Color.Transparent;
             this.aircraft_BUT3.Size = new System.Drawing.Size(90, 65);
@@ -146,7 +146,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.BackgroundImage = global::MissionPlanner.Properties.Resources.group_red1;
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.centerButton);
             this.Controls.Add(this.aircraft_BUT4);

@@ -78,7 +78,7 @@ namespace MissionPlanner.Controls
                 butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
                 aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
-                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_center_button;
+                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_cb2;
                 this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
             }
             else 
@@ -95,7 +95,7 @@ namespace MissionPlanner.Controls
                     break;
                 case 1:
                     //centerButton.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipY);
                     break;
                 case 2:
                     //centerButton.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
