@@ -503,6 +503,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PreFlightForm_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

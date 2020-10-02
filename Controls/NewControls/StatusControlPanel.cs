@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using MissionPlanner.Controls.NewControls;
+using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.WinForms;
@@ -15,6 +16,8 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
+
+        private EngineControlForm engineControlForm;
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
 
@@ -229,6 +232,17 @@ namespace MissionPlanner.Controls
                 (SensorUserControl) ((ToolStripControlHost) sensorsMenuStrip.Items[indexOfSensorToHide]).Control;
             sensorsMenuStrip.Items.RemoveAt(indexOfSensorToHide);
             this.Size = new Size(this.Size.Width - sensorToHide.ControlSize.Width, this.Size.Height);
+        }
+
+        private void targetAlt_label_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (engineControlForm != null) 
+            {
+                engineControlForm.Close();
+            }
+            engineControlForm = new EngineControlForm();
+            engineControlForm.TopMost = true;
+            engineControlForm.Show();
         }
     }
 }

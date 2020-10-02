@@ -15,6 +15,7 @@ namespace MissionPlanner.Controls.NewControls
         private bool testMode = true;
         bool ICERunning = false;
         private int engineoffCounter = 0;
+        private int key = -1;
         public ICERun()
         {
             InitializeComponent();
@@ -31,16 +32,14 @@ namespace MissionPlanner.Controls.NewControls
                      startButton.Text = "Заглушить";
                      startButton.Enabled = false;
                      label3.Text = "Идет нагрев двигателя";
-                    MainV2.comPort.MAV.cs.ch1in = 2000;
-                    MainV2.comPort.MAV.cs.ch1out = 2000;
-                    MainV2.comPort.MAV.cs.ch10out = 2000;
                 }
 
                 if (MainV2.comPort.MAV.cs.rpm1 < 2500)
                 {
                      ICERunning = false;
                      startButton.Text = "Запустить двигатель";
-                     MainV2.comPort.MAV.cs.ch10in = 900;
+                     //MainV2.comPort.MAV.cs.ch10in = 900;
+                     MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
                 }
             }
 
@@ -60,7 +59,25 @@ namespace MissionPlanner.Controls.NewControls
             if (engineoffCounter == 1)
             {
                 engineoffCounter--;
-                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
+                //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
+                float f = MainV2.comPort.GetParam("SERVO3_TRIM");
+                if (!MainV2.engineController.setEngineValue(f, key))
+                {
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+            }
+        }
+
+        public void focused(bool b)  //need to get engine key 
+        {
+            if (b)
+            {
+                key = MainV2.engineController.getAccessKeyToEngine();
+            }
+            else 
+            {
+                MainV2.engineController.resetKey();
+                key = -1;
             }
         }
 
@@ -75,7 +92,10 @@ namespace MissionPlanner.Controls.NewControls
             timer1.Enabled = true;
             if (ICERunning)
             {
-                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)900);
+                if (!MainV2.engineController.setEngineValue(900f, key))
+                {
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
                 if (testMode)
                 {
                     startButton.Text = "Запустить";
@@ -91,7 +111,7 @@ namespace MissionPlanner.Controls.NewControls
                     startButton.Text = "Заглушить";
                     ICERunning = true;
                 }
-                engineoffCounter = 600;
+                engineoffCounter = 300;
                 System.Diagnostics.Debug.Write("ENABLE +++++++++++++++");
             }
         }
