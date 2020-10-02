@@ -4702,6 +4702,16 @@
     <None Include="Resources\Group123.png" />
     <None Include="Resources\Group140.png" />
     <None Include="Resources\Group141.png" />
+    <None Include="Resources\Group121212.png" />
+    <None Include="Resources\Group 6 140.png" />
+    <None Include="Resources\Group1234.png" />
+    <None Include="Resources\nonefon.png" />
+    <None Include="Resources\icons8-аэропорт-100.png" />
+    <None Include="Resources\icons8-аэропорт-100 %281%29.png" />
+    <None Include="Resources\icons8_center_button.png" />
+    <None Include="Resources\group_green.png" />
+    <None Include="Resources\group_green11.png" />
+    <None Include="Resources\group_red1.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

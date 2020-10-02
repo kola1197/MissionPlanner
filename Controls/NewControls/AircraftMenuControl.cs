@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Orlan;
 using MissionPlanner.NewForms;
+using OpenTK.Input;
 
 namespace MissionPlanner.Controls
 {
@@ -76,31 +77,39 @@ namespace MissionPlanner.Controls
             {
                 butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
                 aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
-                centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
+                //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
+                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_center_button;
+                this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
             }
             else 
             {
-                centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
+                //centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
+                centerButton.BackgroundImage = global::MissionPlanner.Properties.Resources.nonefon;
+                this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
             }
             switch (butNum) 
             {
                 case 0:
-                    centerButton.Image.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                    //centerButton.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
                     break;
                 case 1:
-                    centerButton.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    //centerButton.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
                     break;
                 case 2:
-                    centerButton.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    //centerButton.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipXY);
                     break;
                 case 3:
-                    centerButton.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    //centerButton.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipX);
                     break;
                 default: 
                     break;
             }
-            centerButton.Text = butNum.ToString();
-            paintButtons(butNum ); 
+            //centerButton.Text = butNum.ToString();
+            paintButtons(butNum); 
             
         }
 
@@ -141,20 +150,20 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private void aircraft_BUT1_MouseClick(object sender, MouseEventArgs e)
+        private void aircraft_BUT1_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(0);
         }
 
-        private void aircraft_BUT2_MouseClick(object sender, MouseEventArgs e)
+        private void aircraft_BUT2_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(1);
         }
-        private void aircraft_BUT3_MouseClick(object sender, MouseEventArgs e)
+        private void aircraft_BUT3_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(2);
         }
-        private void aircraft_BUT4_MouseClick(object sender, MouseEventArgs e)
+        private void aircraft_BUT4_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(3);
         }
