@@ -1704,6 +1704,10 @@ namespace MissionPlanner
             }
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
             _aircraftMenuControl.updateCentralButton();
+            if (FlightPlanner.MainMap.Size.Width != 1920) 
+            {
+                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Width);
+            }
         }
 
         /// <summary>
