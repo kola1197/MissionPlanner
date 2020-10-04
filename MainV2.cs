@@ -560,7 +560,7 @@ namespace MissionPlanner
         private string mapTitleStatus = "";
         int centering = 0; //0 - false, 1 - onse, 2 - always
         public static bool sitlMapChangeSignal = false;
-
+        public static bool regionActive = false;
         public static int currentEngineMode = 3;
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
@@ -1710,7 +1710,7 @@ namespace MissionPlanner
             _aircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920) 
             {
-                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Width);
+                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
             }
 
         }
@@ -4368,7 +4368,7 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
-            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
 
         }
 
@@ -5304,7 +5304,31 @@ namespace MissionPlanner
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
             //testThrottle();
-            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            GMapOverlay polyOverlay = new GMapOverlay("polygons");
+            List<PointLatLng> points = new List<PointLatLng>();
+            points.Add(new PointLatLng(30, 30));
+            points.Add(new PointLatLng(60, 30));
+            points.Add(new PointLatLng(60, 60));
+            points.Add(new PointLatLng(30, 60));
+            GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+            polygon.Stroke = new Pen(Color.Red, 1);
+            polyOverlay.Polygons.Add(polygon);
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
+
+            GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+            List<PointLatLng> points1 = new List<PointLatLng>();
+            points1.Add(new PointLatLng(20, 20));
+            points1.Add(new PointLatLng(0, 30));
+            points1.Add(new PointLatLng(0, 0));
+            points1.Add(new PointLatLng(30, 0));
+            GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
+            polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
+            polygon1.Stroke = new Pen(Color.Red, 1);
+            polyOverlay1.Polygons.Add(polygon1);
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
+            //regionActive = !regionActive;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
