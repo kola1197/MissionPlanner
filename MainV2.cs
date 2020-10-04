@@ -5315,9 +5315,7 @@ namespace MissionPlanner
             polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
             polygon.Stroke = new Pen(Color.Red, 1);
             polyOverlay.Polygons.Add(polygon);
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
 
-            GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
             List<PointLatLng> points1 = new List<PointLatLng>();
             points1.Add(new PointLatLng(20, 20));
             points1.Add(new PointLatLng(0, 30));
@@ -5326,9 +5324,33 @@ namespace MissionPlanner
             GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
             polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
             polygon1.Stroke = new Pen(Color.Red, 1);
-            polyOverlay1.Polygons.Add(polygon1);
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            //regionActive = !regionActive;
+            polyOverlay.Polygons.Add(polygon1);
+            
+            foreach (var polyOverlayPolygon in polyOverlay.Polygons)
+            {
+                foreach (var pointLatLngAlt in polyOverlayPolygon.Points.CloseLoop().PrevNowNext())
+                {
+                    var now = pointLatLngAlt.Item2;
+                    var next = pointLatLngAlt.Item3;
+
+                    if (now == null || next == null)
+                        continue;
+
+                    var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
+
+                    var pnt = new GMapMarkerPlus(mid);
+                    pnt.Tag = new FlightPlanner.midline() { now = now, next = next };
+                    polyOverlay.Markers.Add(pnt);
+                }    
+            }
+            
+            
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
+
+            // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+            // polyOverlay1.Polygons.Add(polygon1);
+            // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
+            // //regionActive = !regionActive;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
