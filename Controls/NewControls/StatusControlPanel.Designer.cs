@@ -48,8 +48,6 @@ namespace MissionPlanner.Controls
             this.averageRpmICE_label = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.HorizonHUD = new MissionPlanner.Controls.HorizonHUD();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.sensorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.напряжениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.температураДвигателяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,15 +71,17 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.speedPanel = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.enginePanel = new System.Windows.Forms.Panel();
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.speedPanel.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.enginePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.SuspendLayout();
             // 
             // rpmICE_label
@@ -311,14 +311,6 @@ namespace MissionPlanner.Controls
             this.HorizonHUD.wpno = 0;
             this.HorizonHUD.xtrack_error = 0F;
             // 
-            // bindingSourceHud
-            // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // sensorsContextMenuStrip
             // 
             this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -425,7 +417,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";
@@ -569,26 +561,34 @@ namespace MissionPlanner.Controls
             this.speedPanel.Size = new System.Drawing.Size(186, 123);
             this.speedPanel.TabIndex = 1;
             // 
-            // panel3
+            // enginePanel
             // 
-            this.panel3.Controls.Add(this.splittedBar_voltage);
-            this.panel3.Controls.Add(this.splittedBar_fuel);
-            this.panel3.Controls.Add(this.rpmICE_label);
-            this.panel3.Controls.Add(this.flightMode_label);
-            this.panel3.Controls.Add(this.fuel_label);
-            this.panel3.Controls.Add(this.voltage_label);
-            this.panel3.Controls.Add(this.averageRpmICE_label);
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(161, 123);
-            this.panel3.TabIndex = 1;
+            this.enginePanel.Controls.Add(this.splittedBar_voltage);
+            this.enginePanel.Controls.Add(this.splittedBar_fuel);
+            this.enginePanel.Controls.Add(this.rpmICE_label);
+            this.enginePanel.Controls.Add(this.flightMode_label);
+            this.enginePanel.Controls.Add(this.fuel_label);
+            this.enginePanel.Controls.Add(this.voltage_label);
+            this.enginePanel.Controls.Add(this.averageRpmICE_label);
+            this.enginePanel.Location = new System.Drawing.Point(0, 0);
+            this.enginePanel.Name = "enginePanel";
+            this.enginePanel.Size = new System.Drawing.Size(161, 123);
+            this.enginePanel.TabIndex = 1;
+            // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // StatusControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.enginePanel);
             this.Controls.Add(this.speedPanel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.sensor_panel);
@@ -601,16 +601,16 @@ namespace MissionPlanner.Controls
             this.Name = "StatusControlPanel";
             this.Size = new System.Drawing.Size(936, 123);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.speedPanel.ResumeLayout(false);
             this.speedPanel.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.enginePanel.ResumeLayout(false);
+            this.enginePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -658,6 +658,6 @@ namespace MissionPlanner.Controls
         private System.Windows.Forms.Button hideSensor_BUT;
         private System.Windows.Forms.Button showSensor_BUT;
         private System.Windows.Forms.Panel speedPanel;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel enginePanel;
     }
 }
