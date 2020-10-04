@@ -4873,6 +4873,11 @@ namespace MissionPlanner
                 MainMenu.Visible = !MainMenu.Visible;
                 menuStrip1.Visible = !menuStrip1.Visible;
             }
+
+            if (e.KeyCode == Keys.S)
+            {
+                FlightPlanner.instance.MainMap_KeyDown(sender, e);
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5320,6 +5325,10 @@ namespace MissionPlanner
             }
 
         }
-        
+
+        private void myButton4_Click_1(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

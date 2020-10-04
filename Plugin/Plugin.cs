@@ -174,9 +174,9 @@ namespace MissionPlanner.Plugin
         {
             get
             {
-                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.drawnpolygon.Points),
+                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.CurrentPolygon.Points),
                     "Poly Copy")
-                { Stroke = MainV2.instance.FlightPlanner.drawnpolygon.Stroke };
+                { Stroke = MainV2.instance.FlightPlanner.CurrentPolygon.Stroke };
             }
         }
 

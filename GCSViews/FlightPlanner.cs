@@ -85,7 +85,7 @@ namespace MissionPlanner.GCSViews
         public static GMapOverlay routesoverlay;
         static public Object thisLock = new Object();
         public bool quickadd;
-        internal GMapPolygon drawnpolygon;
+        internal GMapPolygon CurrentPolygon;
         internal PointLatLng MouseDownEnd;
         internal string wpfilename;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -101,7 +101,7 @@ namespace MissionPlanner.GCSViews
         public GMapMarker currentMarker;
         private GMapMarkerPOI CurrentPOIMarker;
         private GMapMarkerRallyPt CurrentRallyPt;
-        public GMapOverlay drawnpolygonsoverlay;
+        public GMapOverlay DrawnPolygonsOverlay;
         private bool fetchpathrip;
         public GMapOverlay geofenceoverlay;
         public GMapPolygon geofencepolygon;
@@ -212,8 +212,8 @@ namespace MissionPlanner.GCSViews
             objectsoverlay = new GMapOverlay("objects");
             MainMap.Overlays.Add(objectsoverlay);
 
-            drawnpolygonsoverlay = new GMapOverlay("drawnpolygons");
-            MainMap.Overlays.Add(drawnpolygonsoverlay);
+            DrawnPolygonsOverlay = new GMapOverlay("drawnpolygons");
+            MainMap.Overlays.Add(DrawnPolygonsOverlay);
 
             MainMap.Overlays.Add(poioverlay);
 
@@ -278,9 +278,9 @@ namespace MissionPlanner.GCSViews
 
             //setup drawnpolgon
             List<PointLatLng> polygonPoints2 = new List<PointLatLng>();
-            drawnpolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
-            drawnpolygon.Stroke = new Pen(Color.Red, 2);
-            drawnpolygon.Fill = Brushes.Transparent;
+            CurrentPolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
+            CurrentPolygon.Stroke = new Pen(Color.Red, 2);
+            CurrentPolygon.Fill = Brushes.Transparent;
 
             /*
             var timer = new System.Timers.Timer();
@@ -1192,21 +1192,21 @@ namespace MissionPlanner.GCSViews
 
         public void redrawPolygonSurvey(List<PointLatLngAlt> list)                      //here wp markers lived
         {
-            drawnpolygon.Points.Clear();
-            drawnpolygonsoverlay.Clear();
+            CurrentPolygon.Points.Clear();
+            DrawnPolygonsOverlay.Clear();
             int tag = 0;
             list.ForEach(x =>
             {
                 tag++;
-                drawnpolygon.Points.Add(x);
+                CurrentPolygon.Points.Add(x);
                 addpolygonmarkergrid(tag.ToString(), x.Lng, x.Lat, 0);
             });
 
-            drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+            DrawnPolygonsOverlay.Polygons.Add(CurrentPolygon);
+            MainMap.UpdatePolygonLocalPosition(CurrentPolygon);
 
             {
-                foreach (var pointLatLngAlt in drawnpolygon.Points.CloseLoop().PrevNowNext())
+                foreach (var pointLatLngAlt in CurrentPolygon.Points.CloseLoop().PrevNowNext())
                 {
                     var now = pointLatLngAlt.Item2;
                     var next = pointLatLngAlt.Item3;
@@ -1218,7 +1218,7 @@ namespace MissionPlanner.GCSViews
 
                     var pnt = new GMapMarkerPlus(mid);
                     pnt.Tag = new midline() { now = now, next = next };
-                    drawnpolygonsoverlay.Markers.Add(pnt);
+                    DrawnPolygonsOverlay.Markers.Add(pnt);
                 }
             }
 
@@ -1812,8 +1812,8 @@ namespace MissionPlanner.GCSViews
                     mBorders.InnerMarker = m;
                 }
 
-                drawnpolygonsoverlay.Markers.Add(m);
-                drawnpolygonsoverlay.Markers.Add(mBorders);
+                DrawnPolygonsOverlay.Markers.Add(m);
+                DrawnPolygonsOverlay.Markers.Add(mBorders);
             }
             catch (Exception ex)
             {
@@ -1830,29 +1830,29 @@ namespace MissionPlanner.GCSViews
             }
 
             List<PointLatLng> polygonPoints = new List<PointLatLng>();
-            if (drawnpolygonsoverlay.Polygons.Count == 0)
+            if (DrawnPolygonsOverlay.Polygons.Count == 0)
             {
-                drawnpolygon.Points.Clear();
-                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+                CurrentPolygon.Points.Clear();
+                DrawnPolygonsOverlay.Polygons.Add(CurrentPolygon);
             }
 
-            drawnpolygon.Fill = Brushes.Transparent;
+            CurrentPolygon.Fill = Brushes.Transparent;
 
             // remove full loop is exists
-            if (drawnpolygon.Points.Count > 1 &&
-                drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
-                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
+            if (CurrentPolygon.Points.Count > 1 &&
+                CurrentPolygon.Points[0] == CurrentPolygon.Points[CurrentPolygon.Points.Count - 1])
+                CurrentPolygon.Points.RemoveAt(CurrentPolygon.Points.Count - 1); // unmake a full loop
             
-            drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
+            CurrentPolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
 
-            redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+            redrawPolygonSurvey(CurrentPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
 
             MainMap.Invalidate();
         }
 
         public void areaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            double aream2 = Math.Abs((double)calcpolygonarea(drawnpolygon.Points));
+            double aream2 = Math.Abs((double)calcpolygonarea(CurrentPolygon.Points));
 
             double areaa = aream2 * 0.000247105;
 
@@ -2159,10 +2159,10 @@ namespace MissionPlanner.GCSViews
         public void clearPolygonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             polygongridmode = false;
-            if (drawnpolygon == null)
+            if (CurrentPolygon == null)
                 return;
-            drawnpolygon.Points.Clear();
-            drawnpolygonsoverlay.Markers.Clear();
+            CurrentPolygon.Points.Clear();
+            DrawnPolygonsOverlay.Markers.Clear();
             MainMap.Invalidate();
 
             writeKML();
@@ -2218,8 +2218,8 @@ namespace MissionPlanner.GCSViews
             }
 
             // clear all
-            drawnpolygonsoverlay.Polygons.Clear();
-            drawnpolygonsoverlay.Markers.Clear();
+            DrawnPolygonsOverlay.Polygons.Clear();
+            DrawnPolygonsOverlay.Markers.Clear();
             geofenceoverlay.Polygons.Clear();
             geofencepolygon.Points.Clear();
         }
@@ -2752,7 +2752,7 @@ namespace MissionPlanner.GCSViews
 
         public void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            e.Cancel = true;
+            // e.Cancel = true;
             if (CurentRectMarker == null && CurrentRallyPt == null && groupmarkers.Count == 0)
             {
                 deleteWPToolStripMenuItem.Enabled = false;
@@ -3203,9 +3203,9 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
-                        drawnpolygon.Points.RemoveAt(no - 1);
+                        CurrentPolygon.Points.RemoveAt(no - 1);
 
-                        redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                        redrawPolygonSurvey(CurrentPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
                     }
                     catch (Exception ex)
                     {
@@ -3273,9 +3273,9 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
-                        drawnpolygon.Points.RemoveAt(no - 1);
+                        CurrentPolygon.Points.RemoveAt(no - 1);
 
-                        redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                        redrawPolygonSurvey(CurrentPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
                     }
                     catch (Exception ex)
                     {
@@ -3420,8 +3420,8 @@ namespace MissionPlanner.GCSViews
         public void FenceExclusionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int count = 0;
-            drawnpolygon.Points.ForEach(a => AddCommand(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION,
-                drawnpolygon.Points.Count, 0, 0, 0, a.Lng, a.Lat, count++));
+            CurrentPolygon.Points.ForEach(a => AddCommand(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION,
+                CurrentPolygon.Points.Count, 0, 0, 0, a.Lng, a.Lat, count++));
 
             clearPolygonToolStripMenuItem_Click(null, null);
         }
@@ -3429,8 +3429,8 @@ namespace MissionPlanner.GCSViews
         public void FenceInclusionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int count = 0;
-            drawnpolygon.Points.ForEach(a => AddCommand(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION,
-                drawnpolygon.Points.Count, 0, 0, 0, a.Lng, a.Lat, count++));
+            CurrentPolygon.Points.ForEach(a => AddCommand(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION,
+                CurrentPolygon.Points.Count, 0, 0, 0, a.Lng, a.Lat, count++));
 
             clearPolygonToolStripMenuItem_Click(null, null);
         }
@@ -3655,9 +3655,9 @@ namespace MissionPlanner.GCSViews
                 ProjectionInfo pESRIEnd = KnownCoordinateSystems.Geographic.World.WGS1984;
                 bool reproject = false;
                 // Poly Clear
-                drawnpolygonsoverlay.Markers.Clear();
-                drawnpolygonsoverlay.Polygons.Clear();
-                drawnpolygon.Points.Clear();
+                DrawnPolygonsOverlay.Markers.Clear();
+                DrawnPolygonsOverlay.Polygons.Clear();
+                CurrentPolygon.Points.Clear();
                 if (File.Exists(file))
                 {
                     string prjfile = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar +
@@ -3697,19 +3697,19 @@ namespace MissionPlanner.GCSViews
                                     point.Y = xyarray[1];
                                     point.Z = zarray[0];
                                 }
-                                drawnpolygon.Points.Add(new PointLatLng(point.Y, point.X));
-                                addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), point.X, point.Y, 0);
+                                CurrentPolygon.Points.Add(new PointLatLng(point.Y, point.X));
+                                addpolygonmarkergrid(CurrentPolygon.Points.Count.ToString(), point.X, point.Y, 0);
                             }
                             // remove loop close
-                            if (drawnpolygon.Points.Count > 1 &&
-                                drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                            if (CurrentPolygon.Points.Count > 1 &&
+                                CurrentPolygon.Points[0] == CurrentPolygon.Points[CurrentPolygon.Points.Count - 1])
                             {
-                                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
+                                CurrentPolygon.Points.RemoveAt(CurrentPolygon.Points.Count - 1);
                             }
-                            drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-                            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+                            DrawnPolygonsOverlay.Polygons.Add(CurrentPolygon);
+                            MainMap.UpdatePolygonLocalPosition(CurrentPolygon);
                             MainMap.Invalidate();
-                            MainMap.ZoomAndCenterMarkers(drawnpolygonsoverlay.Id);
+                            MainMap.ZoomAndCenterMarkers(DrawnPolygonsOverlay.Id);
                         }
                     }
                     catch (Exception ex)
@@ -3731,7 +3731,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            if (drawnpolygon == null)
+            if (CurrentPolygon == null)
             {
                 CustomMessageBox.Show("No polygon to upload");
                 return;
@@ -3743,14 +3743,14 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            if (drawnpolygon.Points.Count == 0)
+            if (CurrentPolygon.Points.Count == 0)
             {
                 CustomMessageBox.Show("No polygon drawn");
                 return;
             }
 
             // check if return is inside polygon
-            List<PointLatLng> plll = new List<PointLatLng>(drawnpolygon.Points.ToArray());
+            List<PointLatLng> plll = new List<PointLatLng>(CurrentPolygon.Points.ToArray());
             // close it
             plll.Add(plll[0]);
             // check it
@@ -3823,7 +3823,7 @@ namespace MissionPlanner.GCSViews
             }
 
             // points + return + close
-            byte pointcount = (byte)(drawnpolygon.Points.Count + 2);
+            byte pointcount = (byte)(CurrentPolygon.Points.Count + 2);
 
 
             try
@@ -3843,14 +3843,14 @@ namespace MissionPlanner.GCSViews
                 MainV2.comPort.setFencePoint(a, new PointLatLngAlt(geofenceoverlay.Markers[0].Position), pointcount);
                 a++;
                 // add points
-                foreach (var pll in drawnpolygon.Points)
+                foreach (var pll in CurrentPolygon.Points)
                 {
                     MainV2.comPort.setFencePoint(a, new PointLatLngAlt(pll), pointcount);
                     a++;
                 }
 
                 // add polygon close
-                MainV2.comPort.setFencePoint(a, new PointLatLngAlt(drawnpolygon.Points[0]), pointcount);
+                MainV2.comPort.setFencePoint(a, new PointLatLngAlt(CurrentPolygon.Points[0]), pointcount);
 
                 try
                 {
@@ -3863,15 +3863,15 @@ namespace MissionPlanner.GCSViews
                 }
 
                 // clear everything
-                drawnpolygonsoverlay.Polygons.Clear();
-                drawnpolygonsoverlay.Markers.Clear();
+                DrawnPolygonsOverlay.Polygons.Clear();
+                DrawnPolygonsOverlay.Markers.Clear();
                 geofenceoverlay.Polygons.Clear();
                 geofencepolygon.Points.Clear();
 
                 // add polygon
-                geofencepolygon.Points.AddRange(drawnpolygon.Points.ToArray());
+                geofencepolygon.Points.AddRange(CurrentPolygon.Points.ToArray());
 
-                drawnpolygon.Points.Clear();
+                CurrentPolygon.Points.Clear();
 
                 geofenceoverlay.Polygons.Add(geofencepolygon);
 
@@ -4308,9 +4308,9 @@ namespace MissionPlanner.GCSViews
                 {
                     StreamReader sr = new StreamReader(fd.OpenFile());
 
-                    drawnpolygonsoverlay.Markers.Clear();
-                    drawnpolygonsoverlay.Polygons.Clear();
-                    drawnpolygon.Points.Clear();
+                    DrawnPolygonsOverlay.Markers.Clear();
+                    DrawnPolygonsOverlay.Polygons.Clear();
+                    CurrentPolygon.Points.Clear();
 
                     int a = 0;
 
@@ -4338,10 +4338,10 @@ namespace MissionPlanner.GCSViews
                             }
                             else
                             {
-                                drawnpolygon.Points.Add(new PointLatLng(
+                                CurrentPolygon.Points.Add(new PointLatLng(
                                     double.Parse(items[0], CultureInfo.InvariantCulture),
                                     double.Parse(items[1], CultureInfo.InvariantCulture)));
-                                addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(),
+                                addpolygonmarkergrid(CurrentPolygon.Points.Count.ToString(),
                                     double.Parse(items[1], CultureInfo.InvariantCulture),
                                     double.Parse(items[0], CultureInfo.InvariantCulture), 0);
                             }
@@ -4350,15 +4350,15 @@ namespace MissionPlanner.GCSViews
                     }
 
                     // remove loop close
-                    if (drawnpolygon.Points.Count > 1 &&
-                        drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                    if (CurrentPolygon.Points.Count > 1 &&
+                        CurrentPolygon.Points[0] == CurrentPolygon.Points[CurrentPolygon.Points.Count - 1])
                     {
-                        drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
+                        CurrentPolygon.Points.RemoveAt(CurrentPolygon.Points.Count - 1);
                     }
 
-                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+                    DrawnPolygonsOverlay.Polygons.Add(CurrentPolygon);
 
-                    MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+                    MainMap.UpdatePolygonLocalPosition(CurrentPolygon);
 
                     MainMap.Invalidate();
                 }
@@ -4487,9 +4487,9 @@ namespace MissionPlanner.GCSViews
                 {
                     StreamReader sr = new StreamReader(fd.OpenFile());
 
-                    drawnpolygonsoverlay.Markers.Clear();
-                    drawnpolygonsoverlay.Polygons.Clear();
-                    drawnpolygon.Points.Clear();
+                    DrawnPolygonsOverlay.Markers.Clear();
+                    DrawnPolygonsOverlay.Polygons.Clear();
+                    CurrentPolygon.Points.Clear();
 
                     int a = 0;
 
@@ -4506,10 +4506,10 @@ namespace MissionPlanner.GCSViews
                             if (items.Length < 2)
                                 continue;
 
-                            drawnpolygon.Points.Add(new PointLatLng(
+                            CurrentPolygon.Points.Add(new PointLatLng(
                                 double.Parse(items[0], CultureInfo.InvariantCulture),
                                 double.Parse(items[1], CultureInfo.InvariantCulture)));
-                            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(),
+                            addpolygonmarkergrid(CurrentPolygon.Points.Count.ToString(),
                                 double.Parse(items[1], CultureInfo.InvariantCulture),
                                 double.Parse(items[0], CultureInfo.InvariantCulture), 0);
 
@@ -4518,19 +4518,19 @@ namespace MissionPlanner.GCSViews
                     }
 
                     // remove loop close
-                    if (drawnpolygon.Points.Count > 1 &&
-                        drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                    if (CurrentPolygon.Points.Count > 1 &&
+                        CurrentPolygon.Points[0] == CurrentPolygon.Points[CurrentPolygon.Points.Count - 1])
                     {
-                        drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
+                        CurrentPolygon.Points.RemoveAt(CurrentPolygon.Points.Count - 1);
                     }
 
-                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+                    DrawnPolygonsOverlay.Polygons.Add(CurrentPolygon);
 
-                    MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+                    MainMap.UpdatePolygonLocalPosition(CurrentPolygon);
 
                     MainMap.Invalidate();
 
-                    MainMap.ZoomAndCenterMarkers(drawnpolygonsoverlay.Id);
+                    MainMap.ZoomAndCenterMarkers(DrawnPolygonsOverlay.Id);
                 }
             }
         }
@@ -5406,7 +5406,7 @@ namespace MissionPlanner.GCSViews
 
         public void savePolygonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (drawnpolygon.Points.Count == 0)
+            if (CurrentPolygon.Points.Count == 0)
             {
                 return;
             }
@@ -5424,14 +5424,14 @@ namespace MissionPlanner.GCSViews
 
                         sw.WriteLine("#saved by Mission Planner " + Application.ProductVersion);
 
-                        if (drawnpolygon.Points.Count > 0)
+                        if (CurrentPolygon.Points.Count > 0)
                         {
-                            foreach (var pll in drawnpolygon.Points)
+                            foreach (var pll in CurrentPolygon.Points)
                             {
                                 sw.WriteLine(pll.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll.Lng.ToString(CultureInfo.InvariantCulture));
                             }
 
-                            PointLatLng pll2 = drawnpolygon.Points[0];
+                            PointLatLng pll2 = CurrentPolygon.Points[0];
 
                             sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll2.Lng.ToString(CultureInfo.InvariantCulture));
                         }
@@ -5491,14 +5491,14 @@ namespace MissionPlanner.GCSViews
 
                         sw.WriteLine(geofenceoverlay.Markers[0].Position.Lat.ToString(CultureInfo.InvariantCulture) + " " +
                                      geofenceoverlay.Markers[0].Position.Lng.ToString(CultureInfo.InvariantCulture));
-                        if (drawnpolygon.Points.Count > 0)
+                        if (CurrentPolygon.Points.Count > 0)
                         {
-                            foreach (var pll in drawnpolygon.Points)
+                            foreach (var pll in CurrentPolygon.Points)
                             {
                                 sw.WriteLine(pll.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll.Lng.ToString(CultureInfo.InvariantCulture));
                             }
 
-                            PointLatLng pll2 = drawnpolygon.Points[0];
+                            PointLatLng pll2 = CurrentPolygon.Points[0];
 
                             sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll2.Lng.ToString(CultureInfo.InvariantCulture));
                         }
@@ -6758,10 +6758,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         // check if this is a grid point
                         if (CurentRectMarker.InnerMarker.Tag.ToString().Contains("grid"))
                         {
-                            drawnpolygon.Points[
+                            CurrentPolygon.Points[
                                     int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] =
                                 new PointLatLng(point.Lat, point.Lng);
-                            redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                            redrawPolygonSurvey(CurrentPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
                         }
                     }
                     catch (Exception ex)
@@ -6942,11 +6942,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     if (polygongridmode && midline.now != null)
                     {
-                        var idx = drawnpolygon.Points.IndexOf(midline.now);
-                        drawnpolygon.Points.Insert(idx + 1,
+                        var idx = CurrentPolygon.Points.IndexOf(midline.now);
+                        CurrentPolygon.Points.Insert(idx + 1,
                             new PointLatLng(CurrentMidLine.Position.Lat, CurrentMidLine.Position.Lng));
 
-                        redrawPolygonSurvey(drawnpolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                        redrawPolygonSurvey(CurrentPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
                     }
                     else
                     {
@@ -7086,10 +7086,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         {
                             try
                             {
-                                drawnpolygon.Points[
+                                CurrentPolygon.Points[
                                         int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] =
                                     new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
-                                MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+                                MainMap.UpdatePolygonLocalPosition(CurrentPolygon);
                                 MainMap.Invalidate();
                             }
                             catch (Exception ex)
@@ -8071,6 +8071,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CurentRectMarker = null;
                 tryToWriteWP();
             }
+        }
+
+        public void MainMap_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.S)
+            {
+                // contextMenuStripPoly.Show(Cursor.Position);
+                contextMenuStrip1.Show(MainMap, Cursor.Position);
+            }
+
+            // MessageBox.Show("HUI I SUKA");
+        }
+
+        public void CreateNewPolygon()
+        {
+            
         }
     }
 }
