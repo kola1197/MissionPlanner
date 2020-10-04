@@ -6680,7 +6680,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 isMouseDown = true;
                 isMouseDraging = false;
 
-                if (currentMarker.IsVisible)
+                if (currentMarker.IsVisible && !MainV2.regionActive)
                 {
                     currentMarker.Position = MainMap.FromLocalToLatLng(e.X, e.Y);
                 }
@@ -6886,7 +6886,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
         {
             bool needToWriteWP = false;
-            System.Diagnostics.Debug.WriteLine("GOT ONE 3");
+            //System.Diagnostics.Debug.WriteLine("GOT ONE 3");
             if (isMouseClickOffMenu)
             {
                 isMouseClickOffMenu = false;
@@ -7037,8 +7037,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         }
                         else
                         {
-                            AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
-                            needToWriteWP = true;
+                            if (!MainV2.regionActive)
+                            {
+                                AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                                needToWriteWP = true;
+                            }
+                            else 
+                            {
+                                //addRegionpoint
+                                //CustomMessageBox.Show("new Point at "+currentMarker.Position.Lat.ToString()+"   " +currentMarker.Position.Lng.ToString());
+                                AddRegionpoint(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                            }
                         }
                     }
                 }
@@ -7113,6 +7122,49 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 tryToWriteWP();
             }
+        }
+
+        public void AddRegionpoint(double lat, double lng, int alt) 
+        {
+            if (polygongridmode)
+            {
+                addPolygonPointToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            if (sethome)
+            {
+                sethome = false;
+                callMeDrag("H", lat, lng, alt);
+                return;
+            }
+            // creating a WP
+
+            selectedrow = Commands.Rows.Add();
+
+            if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            {
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.RALLY_POINT.ToString());
+            }
+            else if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            {
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.FENCE_CIRCLE_EXCLUSION.ToString();
+                Commands.Rows[selectedrow].Cells[Param1.Index].Value = 5;
+                ChangeColumnHeader(MAVLink.MAV_CMD.FENCE_CIRCLE_EXCLUSION.ToString());
+            }
+            else if (splinemode)
+            {
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString());
+            }
+            else
+            {
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+            }
+
+            setfromMap(lat, lng, alt);
         }
 
         private void ReCalcFence(int rowno, bool insert, bool delete)

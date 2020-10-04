@@ -9713,6 +9713,9 @@
         <e p="Diagnostic.cs" t="Include" />
         <e p="Diagnostic.Designer.cs" t="Include" />
         <e p="Diagnostic.resx" t="Include" />
+        <e p="EngineControlForm.cs" t="Include" />
+        <e p="EngineControlForm.Designer.cs" t="Include" />
+        <e p="EngineControlForm.resx" t="Include" />
         <e p="MapChangeForm.cs" t="Include" />
         <e p="MapChangeForm.Designer.cs" t="Include" />
         <e p="MapChangeForm.resx" t="Include" />
