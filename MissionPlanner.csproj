@@ -709,6 +709,7 @@
     </None>
     <None Include="CurrentState.datasource" />
     <None Include="MissionPlanner.GCSViews.ConfigurationView.ConfigHWCompass2+CompassDeviceInfo.datasource" />
+    <None Include="MissionPlanner.GCSViews.FlightPlanner.datasource" />
     <None Include="MissionPlanner_TemporaryKey.pfx" />
     <None Include="plugins\example2-menu.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -782,6 +783,8 @@
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
+    <Compile Include="Orlan\NestedBindingProxy.cs" />
+    <Compile Include="Orlan\RegionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">

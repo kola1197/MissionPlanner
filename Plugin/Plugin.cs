@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using MissionPlanner.Controls.NewControls;
 
 namespace MissionPlanner.Plugin
 {
@@ -174,15 +175,21 @@ namespace MissionPlanner.Plugin
         {
             get
             {
-                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.CurrentPolygon.Points),
+                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.DrawingPolygon.Points),
                     "Poly Copy")
-                { Stroke = MainV2.instance.FlightPlanner.CurrentPolygon.Stroke };
+                { Stroke = MainV2.instance.FlightPlanner.DrawingPolygon.Stroke };
             }
         }
 
         public void RedrawFPPolygon(List<PointLatLngAlt> list)
         {
-            MainV2.instance.FlightPlanner.redrawPolygonSurvey(list);
+            // MainV2.instance.FlightPlanner.redrawPolygonSurvey(list);
+            
+            if (MainV2.instance.FlightPlanner.GetCurrentPolygon() == null)
+            {
+                return;
+            }
+            RegionsControl.instance.redrawPolygonSurvey(MainV2.instance.FlightPlanner.GetCurrentPolygon());
         }
 
         /// <summary>

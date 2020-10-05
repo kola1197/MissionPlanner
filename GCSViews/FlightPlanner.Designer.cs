@@ -22,7 +22,7 @@ namespace MissionPlanner.GCSViews
             }
 
             if (currentMarker != null) currentMarker.Dispose();
-            if (CurrentPolygon != null) CurrentPolygon.Dispose();
+            if (DrawingPolygon != null) DrawingPolygon.Dispose();
             if (kmlpolygonsoverlay != null) kmlpolygonsoverlay.Dispose();
             if (wppolygon != null) wppolygon.Dispose();
             if (top != null) top.Dispose();

@@ -66,7 +66,7 @@ namespace MissionPlanner
 {
     public partial class MainV2 : Form
     {
-        private static readonly ILog log =
+        public static readonly ILog log =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public static menuicons displayicons; //do not initialize to allow update of custom icons
@@ -5319,102 +5319,102 @@ namespace MissionPlanner
         }
 
 
-        GMapOverlay polyOverlay = new GMapOverlay("polygons");
+        // GMapOverlay polyOverlay = new GMapOverlay("polygons");
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            //testThrottle();
-            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-
-            List<PointLatLng> points = new List<PointLatLng>();
-            points.Add(new PointLatLng(30, 30));
-            points.Add(new PointLatLng(60, 30));
-            points.Add(new PointLatLng(60, 60));
-            points.Add(new PointLatLng(30, 60));
-            GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
-            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-            polygon.Stroke = new Pen(Color.Red, 1);
-            polyOverlay.Polygons.Add(polygon);
-
-            List<PointLatLng> points1 = new List<PointLatLng>();
-            points1.Add(new PointLatLng(20, 20));
-            points1.Add(new PointLatLng(0, 30));
-            points1.Add(new PointLatLng(0, 0));
-            points1.Add(new PointLatLng(30, 0));
-            GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
-            polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
-            polygon1.Stroke = new Pen(Color.Red, 1);
-            polyOverlay.Polygons.Add(polygon1);
-
-            foreach (var overlayPolygon in polyOverlay.Polygons)
-            {
-                redrawPolygonSurvey(overlayPolygon);
-            }
-            
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
-
-            // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
-            // polyOverlay1.Polygons.Add(polygon1);
-            // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            // //regionActive = !regionActive;
+            // //testThrottle();
+            // //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //
+            // List<PointLatLng> points = new List<PointLatLng>();
+            // points.Add(new PointLatLng(30, 30));
+            // points.Add(new PointLatLng(60, 30));
+            // points.Add(new PointLatLng(60, 60));
+            // points.Add(new PointLatLng(30, 60));
+            // GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+            // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+            // polygon.Stroke = new Pen(Color.Red, 1);
+            // polyOverlay.Polygons.Add(polygon);
+            //
+            // List<PointLatLng> points1 = new List<PointLatLng>();
+            // points1.Add(new PointLatLng(20, 20));
+            // points1.Add(new PointLatLng(0, 30));
+            // points1.Add(new PointLatLng(0, 0));
+            // points1.Add(new PointLatLng(30, 0));
+            // GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
+            // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
+            // polygon1.Stroke = new Pen(Color.Red, 1);
+            // polyOverlay.Polygons.Add(polygon1);
+            //
+            // foreach (var overlayPolygon in polyOverlay.Polygons)
+            // {
+            //     redrawPolygonSurvey(overlayPolygon);
+            // }
+            //
+            // FlightPlanner.MainMap.Overlays.Add(polyOverlay);
+            //
+            // // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+            // // polyOverlay1.Polygons.Add(polygon1);
+            // // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
+            // // //regionActive = !regionActive;
         }
 
-        public void redrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
-        {
-            List<PointLatLngAlt> list = polygon.Points.Select(a => new PointLatLngAlt(a)).ToList();
-            int tag = 0;
-            list.ForEach(x =>
-            {
-                tag++;
-                //polygon.Points.Add(x);
-                addpolygonmarkergrid(tag.ToString(), x.Lng, x.Lat, 0);
-            });
-
-            FlightPlanner.MainMap.UpdatePolygonLocalPosition(polygon);
-
-            foreach (var pointLatLngAlt in polygon.Points.CloseLoop().PrevNowNext())
-            {
-                var now = pointLatLngAlt.Item2;
-                var next = pointLatLngAlt.Item3;
-
-                if (now == null || next == null)
-                    continue;
-
-                var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
-
-                var pnt = new GMapMarkerPlus(mid);
-                pnt.Tag = new FlightPlanner.midline() {now = now, next = next};
-                polyOverlay.Markers.Add(pnt);
-            }
-
-
-            FlightPlanner.MainMap.Invalidate();
-        }
-
-        private void addpolygonmarkergrid(string tag, double lng, double lat, int alt)
-        {
-            try
-            {
-                PointLatLng point = new PointLatLng(lat, lng);
-                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
-                m.ToolTipMode = MarkerTooltipMode.Never;
-                m.ToolTipText = "grid" + tag;
-                m.Tag = "grid" + tag;
-
-                //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
-                GMapMarkerRect mBorders = new GMapMarkerRect(point);
-                {
-                    mBorders.InnerMarker = m;
-                }
-
-                polyOverlay.Markers.Add(m);
-                polyOverlay.Markers.Add(mBorders);
-            }
-            catch (Exception ex)
-            {
-                log.Info(ex.ToString());
-            }
-        }
+        // public void redrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
+        // {
+        //     List<PointLatLngAlt> list = polygon.Points.Select(a => new PointLatLngAlt(a)).ToList();
+        //     int tag = 0;
+        //     list.ForEach(x =>
+        //     {
+        //         tag++;
+        //         //polygon.Points.Add(x);
+        //         addpolygonmarkergrid(tag.ToString(), x.Lng, x.Lat, 0);
+        //     });
+        //
+        //     FlightPlanner.MainMap.UpdatePolygonLocalPosition(polygon);
+        //
+        //     foreach (var pointLatLngAlt in polygon.Points.CloseLoop().PrevNowNext())
+        //     {
+        //         var now = pointLatLngAlt.Item2;
+        //         var next = pointLatLngAlt.Item3;
+        //
+        //         if (now == null || next == null)
+        //             continue;
+        //
+        //         var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
+        //
+        //         var pnt = new GMapMarkerPlus(mid);
+        //         pnt.Tag = new FlightPlanner.midline() {now = now, next = next};
+        //         polyOverlay.Markers.Add(pnt);
+        //     }
+        //
+        //
+        //     FlightPlanner.MainMap.Invalidate();
+        // }
+        //
+        // private void addpolygonmarkergrid(string tag, double lng, double lat, int alt)
+        // {
+        //     try
+        //     {
+        //         PointLatLng point = new PointLatLng(lat, lng);
+        //         GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
+        //         m.ToolTipMode = MarkerTooltipMode.Never;
+        //         m.ToolTipText = "grid" + tag;
+        //         m.Tag = "grid" + tag;
+        //
+        //         //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
+        //         GMapMarkerRect mBorders = new GMapMarkerRect(point);
+        //         {
+        //             mBorders.InnerMarker = m;
+        //         }
+        //
+        //         polyOverlay.Markers.Add(m);
+        //         polyOverlay.Markers.Add(mBorders);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         log.Info(ex.ToString());
+        //     }
+        // }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {

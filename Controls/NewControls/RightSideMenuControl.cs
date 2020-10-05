@@ -25,7 +25,6 @@ namespace MissionPlanner.Controls.NewControls
             antennaControl = new AntennaControl {Visible = false, Location = new Point(35, 0)};
             flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 0) };
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 0) };
-            
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
             this.Controls.Add(regionsControl);
@@ -56,7 +55,7 @@ namespace MissionPlanner.Controls.NewControls
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             switchControl(regionsControl);
-            MainV2.regionActive = regionsControl.Visible;
+            MainV2.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
         }
     }
 }
