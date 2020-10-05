@@ -42,6 +42,7 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // testButton
@@ -78,7 +79,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(430, 327);
+            this.pictureBox1.Size = new System.Drawing.Size(505, 327);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -118,10 +119,10 @@
             this.progressBar3.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.progressBar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.progressBar3.Location = new System.Drawing.Point(289, 347);
-            this.progressBar3.Maximum = 59;
+            this.progressBar3.Maximum = 89;
             this.progressBar3.Minimum = 0;
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(144, 30);
+            this.progressBar3.Size = new System.Drawing.Size(216, 30);
             this.progressBar3.TabIndex = 12;
             this.progressBar3.Text = "Перегазовки";
             this.progressBar3.Value = 0;
@@ -140,7 +141,7 @@
             this.Controls.Add(this.startButton);
             this.DoubleBuffered = true;
             this.Name = "ICECheck";
-            this.Size = new System.Drawing.Size(432, 432);
+            this.Size = new System.Drawing.Size(508, 432);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
