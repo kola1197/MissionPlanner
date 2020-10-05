@@ -5305,7 +5305,7 @@ namespace MissionPlanner
         {
             //testThrottle();
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-            GMapOverlay polyOverlay = new GMapOverlay("polygons");
+            /*GMapOverlay polyOverlay = new GMapOverlay("polygons");
             List<PointLatLng> points = new List<PointLatLng>();
             points.Add(new PointLatLng(30, 30));
             points.Add(new PointLatLng(60, 30));
@@ -5327,8 +5327,8 @@ namespace MissionPlanner
             polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
             polygon1.Stroke = new Pen(Color.Red, 1);
             polyOverlay1.Polygons.Add(polygon1);
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            //regionActive = !regionActive;
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);*/
+            regionActive = !regionActive;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
