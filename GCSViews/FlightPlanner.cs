@@ -7046,7 +7046,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             {
                                 //addRegionpoint
                                 //CustomMessageBox.Show("new Point at "+currentMarker.Position.Lat.ToString()+"   " +currentMarker.Position.Lng.ToString());
-                                AddRegionpoint(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                                //AddRegionpoint(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
                             }
                         }
                     }
@@ -7126,7 +7126,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void AddRegionpoint(double lat, double lng, int alt) 
         {
-            if (polygongridmode)
+            /*if (polygongridmode)
             {
                 addPolygonPointToolStripMenuItem_Click(null, null);
                 return;
@@ -7164,7 +7164,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
 
-            setfromMap(lat, lng, alt);
+            setfromMap(lat, lng, alt);*/
         }
 
         private void ReCalcFence(int rowno, bool insert, bool delete)
