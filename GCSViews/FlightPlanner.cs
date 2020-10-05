@@ -2752,7 +2752,7 @@ namespace MissionPlanner.GCSViews
 
         public void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            // e.Cancel = true;
+            e.Cancel = true;
             if (CurentRectMarker == null && CurrentRallyPt == null && groupmarkers.Count == 0)
             {
                 deleteWPToolStripMenuItem.Enabled = false;
