@@ -158,6 +158,7 @@ namespace MissionPlanner.Controls
             this.targetAlt_label.Size = new System.Drawing.Size(46, 13);
             this.targetAlt_label.TabIndex = 12;
             this.targetAlt_label.Text = "targetAlt";
+            this.targetAlt_label.MouseClick += new System.Windows.Forms.MouseEventHandler(this.targetAlt_label_MouseClick);
             // 
             // verticalSpeed_label
             // 
@@ -420,7 +421,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";

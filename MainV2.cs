@@ -59,6 +59,7 @@ using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
 using System.Windows.Input;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner
 {
@@ -554,16 +555,22 @@ namespace MissionPlanner
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
         private DiagnosticForm diagnosticForm;
-
+        public static EngineController engineController;
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0; //0 - false, 1 - onse, 2 - always
         public static bool sitlMapChangeSignal = false;
+        public static bool regionActive = false;
+        public static int currentEngineMode = 3;
+
+        public float secondTrim = -1;
+        public float thirdTrim = -1;
+
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
 
-        
+
 
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
@@ -1319,6 +1326,7 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1471,6 +1479,8 @@ namespace MissionPlanner
                 }
                 if (ctrlModeActive && ctrlReliasedCounter == -1) 
                 {
+                    secondTrim = MainV2.comPort.GetParam("SERVO4_TRIM");
+                    thirdTrim = MainV2.comPort.GetParam("SERVO2_TRIM");
                     MainV2.comPort.setMode("Stabilize");
                     ctrlReliasedCounter = 12;
                     ctrlModeDebuglabel.Visible = true;
@@ -1508,8 +1518,7 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.centeringButton.MouseDown += new MouseEventHandler(centeringButtonClick);
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
-            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-
+            engineController = new EngineController();
             timer1.Start();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
@@ -1707,7 +1716,7 @@ namespace MissionPlanner
             _aircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920) 
             {
-                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Width);
+                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
             }
 
         }
@@ -4365,7 +4374,7 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
-            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
 
         }
 
@@ -4531,26 +4540,26 @@ namespace MissionPlanner
             if (keyData == (Keys.Control | Keys.Left))
             {
                 manualFlightMode = true;
-                overrides[2] = 1300;
+                overrides[3] = (int)(secondTrim*0.85);
             }
 
             if (keyData == (Keys.Control | Keys.Right))
             {
                 manualFlightMode = true;
-                overrides[2] = 1700;
+                overrides[3] = (int)(secondTrim * 1.15);
             }
 
             if (keyData == (Keys.Control | Keys.Up))
             {
                 manualFlightMode = true;
-                overrides[3] = 1700;
+                overrides[1] = (int)(thirdTrim * 1.15); ;
             }
 
-            if (keyData == (Keys.Control | Keys.Down))
-            {
-                manualFlightMode = true;
-                overrides[3] = 1300;
-            }
+            //if (keyData == (Keys.Control | Keys.Down))
+            //{
+                //manualFlightMode = true;
+                //overrides[3] = 1300;
+            //}
 
             /*if (keyData == (Keys.Control | Keys.Right | Keys.Up))
             {
@@ -4594,8 +4603,14 @@ namespace MissionPlanner
                 MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                 rc.target_component = comPort.MAV.compid;
                 rc.target_system = comPort.MAV.sysid;
-                rc.chan2_raw = Convert.ToUInt16(overrides[2]);
-                rc.chan3_raw = Convert.ToUInt16(overrides[3]);
+                if (overrides[1] != 1500)
+                {
+                    rc.chan2_raw = Convert.ToUInt16(overrides[1]);
+                }
+                if (overrides[3] != 1500)
+                {
+                    rc.chan4_raw = Convert.ToUInt16(overrides[3]);
+                }
                 //new DevopsUI().ShowUserControl();
                 // TODO: add right values
                 if (comPort.BaseStream.IsOpen)
@@ -4616,19 +4631,19 @@ namespace MissionPlanner
                     }
                 }
                 string debugOverrideInfo = "Output:";
-                if (overrides[2] < 1500) 
+                if (overrides[3] < 1500) 
                 {
                     debugOverrideInfo += " ← ";
                 }
-                if (overrides[3] > 1500)
+                if (overrides[1] > 1500)
                 {
                     debugOverrideInfo += " ↑ ";
                 }
-                if (overrides[3] < 1500)
+                if (overrides[1] < 1500)
                 {
                     debugOverrideInfo += " ↓ ";
                 }
-                if (overrides[2] > 1500)
+                if (overrides[3] > 1500)
                 {
                     debugOverrideInfo += " → ";
                 }
@@ -5301,7 +5316,31 @@ namespace MissionPlanner
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
             //testThrottle();
-            FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            /*GMapOverlay polyOverlay = new GMapOverlay("polygons");
+            List<PointLatLng> points = new List<PointLatLng>();
+            points.Add(new PointLatLng(30, 30));
+            points.Add(new PointLatLng(60, 30));
+            points.Add(new PointLatLng(60, 60));
+            points.Add(new PointLatLng(30, 60));
+            GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+            polygon.Stroke = new Pen(Color.Red, 1);
+            polyOverlay.Polygons.Add(polygon);
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
+
+            GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+            List<PointLatLng> points1 = new List<PointLatLng>();
+            points1.Add(new PointLatLng(20, 20));
+            points1.Add(new PointLatLng(0, 30));
+            points1.Add(new PointLatLng(0, 0));
+            points1.Add(new PointLatLng(30, 0));
+            GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
+            polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
+            polygon1.Stroke = new Pen(Color.Red, 1);
+            polyOverlay1.Polygons.Add(polygon1);
+            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);*/
+            regionActive = !regionActive;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)

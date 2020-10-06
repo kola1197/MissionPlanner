@@ -34,6 +34,15 @@ namespace MissionPlanner.NewForms
             {
                 selectedIndex = tabControl1.SelectedIndex;
             }
+            iceRun1.focused(false);
+            if (selectedIndex == 3) 
+            {
+                iceRun1.focused(true);
+            }
+            if (selectedIndex == 4)
+            {
+                iceCheck1.focused(true);
+            }
         }
 
         private void nextButton1_Click(object sender, EventArgs e)
@@ -83,6 +92,8 @@ namespace MissionPlanner.NewForms
         {
 
         }
+
+        
 
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -292,6 +303,12 @@ namespace MissionPlanner.NewForms
         private void myButton7_MouseUp(object sender, MouseEventArgs e)
         {
             maxСapacity.Text = batt2_voltage.Text;
+        }
+
+        private void PreFlightForm_FormClosing(object sender, FormClosingEventArgs e)       //release the engine
+        {
+            iceCheck1.focused(false);
+            iceRun1.focused(false);
         }
     }
 }
