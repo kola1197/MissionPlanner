@@ -4712,6 +4712,12 @@
     <None Include="Resources\group_green.png" />
     <None Include="Resources\group_green11.png" />
     <None Include="Resources\group_red1.png" />
+    <None Include="Resources\icons8_oil.png" />
+    <None Include="Resources\icons8_lightning.png" />
+    <None Include="Resources\icons8_speedometer.png" />
+    <None Include="Resources\icons8_speed_p.png" />
+    <None Include="Resources\icons8_cloud.png" />
+    <None Include="Resources\icons8_engine.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

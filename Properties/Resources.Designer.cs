@@ -1007,6 +1007,66 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_cloud {
+            get {
+                object obj = ResourceManager.GetObject("icons8_cloud", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_engine {
+            get {
+                object obj = ResourceManager.GetObject("icons8_engine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_lightning {
+            get {
+                object obj = ResourceManager.GetObject("icons8_lightning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_oil {
+            get {
+                object obj = ResourceManager.GetObject("icons8_oil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_speed_p {
+            get {
+                object obj = ResourceManager.GetObject("icons8_speed_p", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_speedometer {
+            get {
+                object obj = ResourceManager.GetObject("icons8_speedometer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_аэропорт_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-аэропорт-100", resourceCulture);
@@ -1325,6 +1385,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap nonefon {
             get {
                 object obj = ResourceManager.GetObject("nonefon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap nonefon1 {
+            get {
+                object obj = ResourceManager.GetObject("nonefon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
