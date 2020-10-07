@@ -40,8 +40,10 @@
             this.centerButton.BackgroundImage = global::MissionPlanner.Properties.Resources.nonefon;
             this.centerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.centerButton.FlatAppearance.BorderSize = 0;
+            this.centerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.centerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.centerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.centerButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.centerButton.ForeColor = System.Drawing.Color.Transparent;
             this.centerButton.Location = new System.Drawing.Point(78, 49);
             this.centerButton.Margin = new System.Windows.Forms.Padding(0);
             this.centerButton.Name = "centerButton";
@@ -71,6 +73,8 @@
             this.aircraft_BUT4.TextColor = System.Drawing.Color.White;
             this.aircraft_BUT4.UseVisualStyleBackColor = true;
             this.aircraft_BUT4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT4_MouseClick);
+            this.aircraft_BUT4.MouseLeave += new System.EventHandler(this.aircraft_BUT4_MouseLeave);
+            this.aircraft_BUT4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT4_MouseMove);
             // 
             // aircraft_BUT3
             // 
@@ -93,6 +97,8 @@
             this.aircraft_BUT3.TextColor = System.Drawing.Color.White;
             this.aircraft_BUT3.UseVisualStyleBackColor = true;
             this.aircraft_BUT3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT3_MouseClick);
+            this.aircraft_BUT3.MouseLeave += new System.EventHandler(this.aircraft_BUT3_MouseLeave);
+            this.aircraft_BUT3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT3_MouseMove);
             // 
             // aircraft_BUT2
             // 
@@ -114,7 +120,10 @@
             this.aircraft_BUT2.Text = "2";
             this.aircraft_BUT2.TextColor = System.Drawing.Color.White;
             this.aircraft_BUT2.UseVisualStyleBackColor = true;
+            this.aircraft_BUT2.Click += new System.EventHandler(this.aircraft_BUT2_Click);
             this.aircraft_BUT2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT2_MouseClick);
+            this.aircraft_BUT2.MouseLeave += new System.EventHandler(this.aircraft_BUT2_MouseLeave);
+            this.aircraft_BUT2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT2_MouseMove);
             // 
             // aircraft_BUT1
             // 
@@ -127,6 +136,7 @@
             this.aircraft_BUT1.ColorMouseOver = System.Drawing.Color.Transparent;
             this.aircraft_BUT1.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.aircraft_BUT1.FlatAppearance.BorderSize = 0;
+            this.aircraft_BUT1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.aircraft_BUT1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.aircraft_BUT1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
@@ -139,6 +149,7 @@
             this.aircraft_BUT1.Text = "1";
             this.aircraft_BUT1.TextColor = System.Drawing.Color.White;
             this.aircraft_BUT1.UseVisualStyleBackColor = false;
+            this.aircraft_BUT1.Click += new System.EventHandler(this.aircraft_BUT1_Click);
             this.aircraft_BUT1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT1_MouseClick);
             // 
             // AircraftMenuControl

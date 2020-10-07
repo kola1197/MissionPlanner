@@ -833,6 +833,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Group_MMove {
+            get {
+                object obj = ResourceManager.GetObject("Group_MMove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap group_red1 {
             get {
                 object obj = ResourceManager.GetObject("group_red1", resourceCulture);
@@ -1010,6 +1020,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap icons8_cloud {
             get {
                 object obj = ResourceManager.GetObject("icons8_cloud", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_earth {
+            get {
+                object obj = ResourceManager.GetObject("icons8_earth", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

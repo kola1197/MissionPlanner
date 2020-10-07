@@ -174,19 +174,18 @@ namespace MissionPlanner.Controls
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            if (BackgroundImage == null)
-            {
+            //if (BackgroundImage == null)
+            //{
                 _mouseover = true;
                 base.OnMouseEnter(e);
-            }
+            //}
         }
 
         protected override void OnMouseMove(MouseEventArgs mevent)
         {
-            if (BackgroundImage == null)
-            {
+            
                 base.OnMouseMove(mevent);
-            }
+            
         }
 
         protected override void OnMouseHover(EventArgs e)

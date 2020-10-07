@@ -1451,9 +1451,9 @@ namespace MissionPlanner
             try
             {
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
-                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
+                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
-                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
             }
             catch (System.Exception eee)
             {
