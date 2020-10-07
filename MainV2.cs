@@ -1461,6 +1461,10 @@ namespace MissionPlanner
             }
             try
             {
+                if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
+                {
+                    timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
+                }
                 if (!timeControl2.timer1.Enabled)
                 {
                     timeControl2.timer1.Start();

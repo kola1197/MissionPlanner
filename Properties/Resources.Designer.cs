@@ -1017,6 +1017,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_clock {
+            get {
+                object obj = ResourceManager.GetObject("icons8_clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_cloud {
             get {
                 object obj = ResourceManager.GetObject("icons8_cloud", resourceCulture);
@@ -1080,6 +1090,26 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap icons8_speedometer {
             get {
                 object obj = ResourceManager.GetObject("icons8_speedometer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_time {
+            get {
+                object obj = ResourceManager.GetObject("icons8_time", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_timer {
+            get {
+                object obj = ResourceManager.GetObject("icons8_timer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

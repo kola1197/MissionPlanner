@@ -4720,6 +4720,9 @@
     <None Include="Resources\icons8_engine.png" />
     <None Include="Resources\Group_MMove.png" />
     <None Include="Resources\icons8_earth.png" />
+    <None Include="Resources\icons8_timer.png" />
+    <None Include="Resources\icons8_time.png" />
+    <None Include="Resources\icons8_clock.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
