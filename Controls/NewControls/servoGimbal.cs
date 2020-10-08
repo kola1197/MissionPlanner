@@ -33,9 +33,20 @@ namespace MissionPlanner.Controls.NewControls
             myButton9.Tag = 2;
             myButton10.Tag = 1;
             myButton11.Tag = 10;
-            //timer1.Start();
+            timer1.Start();
         }
 
+        private void defaultButton(object sender)
+        {
+            MyButton b = (MyButton)sender;
+            if (b.BGGradTop != Color.DarkRed && b.BGGradTop != Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196))))))
+            {
+                b.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
+                b.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                b.TextColor = Color.Black;
+                b.Outline = Color.Transparent;
+            }
+        }
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
             // if (!timer1.Enabled)
@@ -48,8 +59,8 @@ namespace MissionPlanner.Controls.NewControls
             MyButton b = (MyButton)sender;
             int i = (int)b.Tag;
             buttonPressed[i] = !buttonPressed[i];
-            b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));    //it is default MP shit
-            b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
+            b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             servoSet(i,buttonPressed[i]);
         }
 
@@ -75,6 +86,21 @@ namespace MissionPlanner.Controls.NewControls
                         0, 0, 0);
                 }
             }
+        }
+        //b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
+        //b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+        private void fixButtons() {
+            defaultButton(myButton1);
+            defaultButton(myButton2);
+            defaultButton(myButton3);
+            defaultButton(myButton4);
+            defaultButton(myButton5);
+            defaultButton(myButton6);
+            defaultButton(myButton7);
+            defaultButton(myButton8);
+            defaultButton(myButton9);
+            defaultButton(myButton10);
+            defaultButton(myButton11);
         }
 
         private void timerVoid()
@@ -155,6 +181,12 @@ namespace MissionPlanner.Controls.NewControls
         private void timer1_Tick(object sender, EventArgs e)
         {
             //timerVoid();
+            fixButtons();
+        }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

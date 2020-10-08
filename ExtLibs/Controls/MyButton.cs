@@ -54,10 +54,10 @@ namespace MissionPlanner.Controls
 
         public MyButton()
         {
-            _BGGradTop = Color.FromArgb(0x94, 0xc1, 0x1f);
-            _BGGradBot = Color.FromArgb(0xcd, 0xe2, 0x96);
-            _TextColor = Color.FromArgb(0x40, 0x57, 0x04);
-            _Outline = Color.FromArgb(0x79, 0x94, 0x29);
+            //_BGGradTop = Color.FromArgb(0x94, 0xc1, 0x1f);
+            //_BGGradBot = Color.FromArgb(0xcd, 0xe2, 0x96);
+            //_TextColor = Color.FromArgb(0x40, 0x57, 0x04);
+            //_Outline = Color.FromArgb(0x79, 0x94, 0x29);
             _ColorNotEnabled = Color.FromArgb(73, 0x2b, 0x3a, 0x03);
             _ColorMouseOver = Color.FromArgb(73, 0x2b, 0x3a, 0x03);
             _ColorMouseDown = Color.FromArgb(150, 0x2b, 0x3a, 0x03);
