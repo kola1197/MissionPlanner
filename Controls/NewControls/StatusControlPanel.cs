@@ -244,5 +244,60 @@ namespace MissionPlanner.Controls
             engineControlForm.TopMost = true;
             engineControlForm.Show();
         }
+
+        private void StatusControlPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void airspeed_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void environmentTemp_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HorizonHUD_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void environmentTemp_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void engineTemp_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void engineTemp_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groundSpeed_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetAlt_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sensorsMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void windDir1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

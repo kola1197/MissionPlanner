@@ -24,7 +24,7 @@ namespace GMap.NET
       /// <summary>
       /// route info
       /// </summary>
-      public string Name;
+      public string Name { get; set; }
 
       /// <summary>
       /// custom object
