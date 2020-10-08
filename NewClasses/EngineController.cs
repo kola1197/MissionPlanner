@@ -33,7 +33,7 @@ namespace MissionPlanner.NewClasses
                 return true;
             }
             else {
-                System.Diagnostics.Debug.WriteLine("Engine is busy now");
+                System.Diagnostics.Debug.WriteLine("Engine is busy now " + key.ToString() +" != " + _key.ToString());
                 return false;
             }
         }
