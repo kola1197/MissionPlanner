@@ -242,7 +242,21 @@
 
       public readonly List<GPoint> LocalPoints = new List<GPoint>();
 
-      static GMapPolygon()
+      private static readonly Color _defaultPolyColor = Color.Yellow;
+
+      private Color _polyColor;
+        public Color PolyColor
+        {
+            get => _polyColor;
+            set
+            {
+                _polyColor = value;
+                Fill = new SolidBrush(Color.FromArgb(50, value));
+                Stroke = new Pen(value, 1);
+            }
+        }
+
+        static GMapPolygon()
       {
 #if !PocketPC
           DefaultStroke.LineJoin = LineJoin.Round;

@@ -73,6 +73,7 @@
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
             this.regionsToolStripMenuItem.Size = new System.Drawing.Size(113, 59);
             this.regionsToolStripMenuItem.Text = "Регионы";
+            this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
             // 
