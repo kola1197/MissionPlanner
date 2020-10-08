@@ -56,16 +56,17 @@ namespace MissionPlanner.Controls.NewControls
             name_TB.DataBindings.Clear();
             colorPanel.DataBindings.Clear();
 
-            regionsBindingSource.ResetBindings(false);
+            regionsBindingSource.ResetBindings(true);
 
             // Pen polygonPen = ((GMapPolygon) regionsBindingSource.Current).Stroke;
             name_TB.DataBindings.Add(new Binding("Text", regionsBindingSource.Current, "Name", true));
             colorPanel.DataBindings.Add(new Binding("BackColor", regionsBindingSource.Current, "PolyColor", true));
-
+            
             Latitude.DataPropertyName = "Lat";
             Longitude.DataPropertyName = "Lng";
+            latLong_DGV.DataSource = null;
             latLong_DGV.DataSource = ((GMapPolygon) regionsBindingSource.Current).Points;
-
+            
             if (latLong_DGV.Columns.Contains("IsEmpty"))
             {
                 latLong_DGV.Columns.Remove("IsEmpty");

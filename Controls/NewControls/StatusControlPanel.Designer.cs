@@ -48,6 +48,7 @@ namespace MissionPlanner.Controls
             this.averageRpmICE_label = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.HorizonHUD = new MissionPlanner.Controls.HorizonHUD();
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.sensorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.напряжениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.температураДвигателяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +62,7 @@ namespace MissionPlanner.Controls
             this.sensor_panel = new System.Windows.Forms.Panel();
             this.sensorsMenuStrip = new System.Windows.Forms.MenuStrip();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.hideSensor_BUT = new System.Windows.Forms.Button();
             this.showSensor_BUT = new System.Windows.Forms.Button();
@@ -72,16 +74,14 @@ namespace MissionPlanner.Controls
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.speedPanel = new System.Windows.Forms.Panel();
             this.enginePanel = new System.Windows.Forms.Panel();
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).BeginInit();
             this.panel2.SuspendLayout();
             this.speedPanel.SuspendLayout();
             this.enginePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.SuspendLayout();
             // 
             // rpmICE_label
@@ -157,7 +157,7 @@ namespace MissionPlanner.Controls
             // targetAlt_label
             // 
             this.targetAlt_label.AutoSize = true;
-            this.targetAlt_label.Location = new System.Drawing.Point(56, 102);
+            this.targetAlt_label.Location = new System.Drawing.Point(55, 54);
             this.targetAlt_label.Name = "targetAlt_label";
             this.targetAlt_label.Size = new System.Drawing.Size(46, 13);
             this.targetAlt_label.TabIndex = 12;
@@ -167,7 +167,7 @@ namespace MissionPlanner.Controls
             // verticalSpeed_label
             // 
             this.verticalSpeed_label.AutoSize = true;
-            this.verticalSpeed_label.Location = new System.Drawing.Point(56, 54);
+            this.verticalSpeed_label.Location = new System.Drawing.Point(45, 102);
             this.verticalSpeed_label.Name = "verticalSpeed_label";
             this.verticalSpeed_label.Size = new System.Drawing.Size(72, 13);
             this.verticalSpeed_label.TabIndex = 13;
@@ -262,7 +262,7 @@ namespace MissionPlanner.Controls
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("AOA", this.bindingSourceHud, "AOA", true));
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("SSA", this.bindingSourceHud, "SSA", true));
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("critAOA", this.bindingSourceHud, "crit_AOA", true));
-            this.HorizonHUD.datetime = new System.DateTime(((long)(0)));
+            this.HorizonHUD.datetime = new System.DateTime(((long) (0)));
             this.HorizonHUD.displayAOASSA = false;
             this.HorizonHUD.disttowp = 0F;
             this.HorizonHUD.distunit = null;
@@ -311,18 +311,13 @@ namespace MissionPlanner.Controls
             this.HorizonHUD.wpno = 0;
             this.HorizonHUD.xtrack_error = 0F;
             // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // sensorsContextMenuStrip
             // 
-            this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.напряжениеToolStripMenuItem,
-            this.температураДвигателяToolStripMenuItem,
-            this.топливоToolStripMenuItem,
-            this.воздушнаяСкоростьToolStripMenuItem,
-            this.путеваяСкоростьToolStripMenuItem,
-            this.высотаСНСToolStripMenuItem,
-            this.магнитныйКурсToolStripMenuItem,
-            this.следующаяТочкаToolStripMenuItem,
-            this.силаТокаToolStripMenuItem});
+            this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.напряжениеToolStripMenuItem, this.температураДвигателяToolStripMenuItem, this.топливоToolStripMenuItem, this.воздушнаяСкоростьToolStripMenuItem, this.путеваяСкоростьToolStripMenuItem, this.высотаСНСToolStripMenuItem, this.магнитныйКурсToolStripMenuItem, this.следующаяТочкаToolStripMenuItem, this.силаТокаToolStripMenuItem});
             this.sensorsContextMenuStrip.Name = "contextMenuStrip1";
             this.sensorsContextMenuStrip.Size = new System.Drawing.Size(203, 202);
             // 
@@ -391,9 +386,7 @@ namespace MissionPlanner.Controls
             // 
             // sensor_panel
             // 
-            this.sensor_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sensor_panel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.sensor_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sensor_panel.Controls.Add(this.sensorsMenuStrip);
             this.sensor_panel.Location = new System.Drawing.Point(760, 0);
@@ -417,7 +410,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";
@@ -425,10 +418,13 @@ namespace MissionPlanner.Controls
             this.windDir1.Speed = 0D;
             this.windDir1.TabIndex = 76;
             // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
             this.panel2.Controls.Add(this.hideSensor_BUT);
             this.panel2.Controls.Add(this.showSensor_BUT);
@@ -575,14 +571,6 @@ namespace MissionPlanner.Controls
             this.enginePanel.Size = new System.Drawing.Size(161, 123);
             this.enginePanel.TabIndex = 1;
             // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // bindingSourceHud
-            // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // StatusControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -601,19 +589,18 @@ namespace MissionPlanner.Controls
             this.Name = "StatusControlPanel";
             this.Size = new System.Drawing.Size(936, 123);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).EndInit();
             this.panel2.ResumeLayout(false);
             this.speedPanel.ResumeLayout(false);
             this.speedPanel.PerformLayout();
             this.enginePanel.ResumeLayout(false);
             this.enginePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Label averageRpmICE_label;
