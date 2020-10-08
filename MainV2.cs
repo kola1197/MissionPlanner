@@ -569,6 +569,7 @@ namespace MissionPlanner
         public float secondTrim = -1;
         public float thirdTrim = -1;
 
+        private static double currentConnectionRate = -1;
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
@@ -713,8 +714,12 @@ namespace MissionPlanner
                     .Select(CalculateAverage)
                     .ObserveOn(SynchronizationContext.Current)
                     .Subscribe(x =>
-                        currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%")),
+                    {
+                        currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%");
+                        currentConnectionRate = x;
+                    }),
             };
+            
             subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
         }
 
@@ -1710,6 +1715,7 @@ namespace MissionPlanner
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            alarmLabelTextCheck();
             if (centering > 0)
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
@@ -1726,6 +1732,72 @@ namespace MissionPlanner
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            }
+        }
+
+        void alarmLabelTextCheck()
+        {
+            List<string> s = new List<string>();
+            if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+            {
+                s.Add("Плохой сигнал GPS");
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
+            {
+                s.Add("Отказ гироскопов");
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
+            {
+                s.Add("Ошибка барометра");
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
+            {
+                s.Add("Ошибка ИНС");
+            }
+            else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
+            {
+                s.Add("Отказ компаса");
+            }
+            else if (MainV2.comPort.MAV.cs.ekfcompv > 1)
+            {
+                s.Add("Рассогласование компаса");
+            }
+            else if (MainV2.comPort.MAV.cs.ekfvelv > 1)
+            {
+                s.Add("Рассогласование скорости");
+            }
+            else if (MainV2.comPort.MAV.cs.battery_voltage < 11)
+            {
+                s.Add("Низкое напряжение, отказ генератора");
+            }
+            else if (MainV2.comPort.MAV.cs.rpm2 > 118)
+            {
+                s.Add("Перегрев двигателя");
+            }
+            else if (MainV2.comPort.MAV.cs.rpm1 > 8600)
+            {
+                s.Add("Превышение оборотов двигателя");
+            }
+            else if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+            {
+                s.Add("Двигатель заглох");
+            }
+            else if (MainV2.comPort.MAV.cs.mode == "RTL")
+            {
+                s.Add("Режим возврата к точке «Дом»");
+            }
+            else if (MainV2.comPort.MAV.cs.battery_voltage2/MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+            {
+                s.Add("Низкий уровень топлива");
+            }
+            else if (currentConnectionRate < 45)  
+            {
+                s.Add("Низкий уровень радиосигнала");
+            }
+
+            if (s.Count() > 0)
+            {
+                label13.Text = s[0];
             }
         }
 
