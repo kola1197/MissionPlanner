@@ -33,6 +33,8 @@ namespace MissionPlanner.Controls
         {
             InitializeComponent();
             aircraft_BUT1.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
+            //aircraft_BUT1.MouseMove += new MouseEventHandler(aircraft_BUT1_MouseMove);
+
             aircraft_BUT2.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
             aircraft_BUT3.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
             aircraft_BUT4.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
@@ -46,9 +48,19 @@ namespace MissionPlanner.Controls
             buttons[1] = aircraft_BUT2;
             buttons[2] = aircraft_BUT3;
             buttons[3] = aircraft_BUT4;
+
+            aircraft_BUT1.MouseEnter += Aircraft_BUT1_MouseEnter;
+
+            aircraft_BUT1.MouseLeave += aircraft_BUT1_MouseLeave;
         }
 
-        
+
+        private void Aircraft_BUT1_MouseEnter(object sender, EventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+            //aircraft_BUT1.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_cloud;
+        }
 
         private void butClickAction(int butNum)
         {
@@ -78,7 +90,7 @@ namespace MissionPlanner.Controls
                 butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
                 aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
-                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_center_button;
+                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_cb2;
                 this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
             }
             else 
@@ -95,7 +107,7 @@ namespace MissionPlanner.Controls
                     break;
                 case 1:
                     //centerButton.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipY);
                     break;
                 case 2:
                     //centerButton.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
@@ -184,6 +196,61 @@ namespace MissionPlanner.Controls
                 preFlightForm = new PreFlightForm();
                 preFlightForm.Show();
             }
+        }
+
+        private void aircraft_BUT1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aircraft_BUT1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            //aircraft_BUT1.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_cloud;
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+        }
+
+        private void aircraft_BUT1_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
+        }
+
+        private void aircraft_BUT2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aircraft_BUT2_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipY);
+        }
+
+        private void aircraft_BUT2_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
+        }
+
+        private void aircraft_BUT3_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipXY);
+        }
+
+        private void aircraft_BUT3_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
+        }
+
+        private void aircraft_BUT4_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipX);
+        }
+
+        private void aircraft_BUT4_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
         }
     }
 }

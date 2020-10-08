@@ -39,9 +39,9 @@
             // timerControl1
             // 
             this.timerControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerControl1.BackgroundImage")));
-            this.timerControl1.Location = new System.Drawing.Point(6, 0);
+            this.timerControl1.Location = new System.Drawing.Point(168, 79);
             this.timerControl1.Name = "timerControl1";
-            this.timerControl1.Size = new System.Drawing.Size(94, 26);
+            this.timerControl1.Size = new System.Drawing.Size(93, 26);
             this.timerControl1.TabIndex = 6;
             // 
             // label3
@@ -79,7 +79,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "newTimeControl";
-            this.Size = new System.Drawing.Size(204, 26);
+            this.Size = new System.Drawing.Size(430, 169);
             this.ResumeLayout(false);
             this.PerformLayout();
 

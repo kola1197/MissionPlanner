@@ -57,7 +57,6 @@ namespace MissionPlanner
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.status1 = new MissionPlanner.Controls.Status();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -72,6 +71,7 @@ namespace MissionPlanner
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.ctrlModeDebuglabel = new System.Windows.Forms.Label();
+            this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
             this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
@@ -82,8 +82,10 @@ namespace MissionPlanner
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
+            this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
+            this.status1 = new MissionPlanner.Controls.Status();
+            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.menu = new MissionPlanner.Controls.MyButton();
-            this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
@@ -229,17 +231,6 @@ namespace MissionPlanner
             this.panel1.Name = "panel1";
             this.panel1.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.BackgroundColor = System.Drawing.Color.White;
-            this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            resources.ApplyResources(this.progressBar1, "progressBar1");
-            this.progressBar1.Maximum = 100;
-            this.progressBar1.Minimum = 0;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Value = 50;
-            this.progressBar1.ValueColor = System.Drawing.Color.Lime;
-            // 
             // menuStrip1
             // 
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
@@ -329,17 +320,30 @@ namespace MissionPlanner
             this.ctrlModeDebuglabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ctrlModeDebuglabel.Name = "ctrlModeDebuglabel";
             // 
+            // rightSideMenuControl1
+            // 
+            resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
+            this.rightSideMenuControl1.Name = "rightSideMenuControl1";
+            // 
             // myButton6
             // 
             resources.ApplyResources(this.myButton6, "myButton6");
+            this.myButton6.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton6.BGGradTop = System.Drawing.Color.Empty;
             this.myButton6.Name = "myButton6";
+            this.myButton6.Outline = System.Drawing.Color.Empty;
+            this.myButton6.TextColor = System.Drawing.Color.Empty;
             this.myButton6.UseVisualStyleBackColor = true;
             this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
             // 
             // myButton5
             // 
             resources.ApplyResources(this.myButton5, "myButton5");
+            this.myButton5.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton5.BGGradTop = System.Drawing.Color.Empty;
             this.myButton5.Name = "myButton5";
+            this.myButton5.Outline = System.Drawing.Color.Empty;
+            this.myButton5.TextColor = System.Drawing.Color.Empty;
             this.myButton5.UseVisualStyleBackColor = true;
             this.myButton5.Click += new System.EventHandler(this.myButton5_Click);
             // 
@@ -351,37 +355,46 @@ namespace MissionPlanner
             // servoGimbal2
             // 
             resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
-            this.servoGimbal2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.servoGimbal2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.servoGimbal2.Name = "servoGimbal2";
             // 
             // timeControl2
             // 
             resources.ApplyResources(this.timeControl2, "timeControl2");
+            this.timeControl2.BackColor = System.Drawing.Color.Transparent;
             this.timeControl2.Name = "timeControl2";
             // 
             // myButton3
             // 
             resources.ApplyResources(this.myButton3, "myButton3");
+            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.Empty;
             this.myButton3.Name = "myButton3";
+            this.myButton3.Outline = System.Drawing.Color.Empty;
+            this.myButton3.TextColor = System.Drawing.Color.Empty;
             this.myButton3.UseVisualStyleBackColor = true;
             this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
             // 
             // coordinatsControl1
             // 
             resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
+            this.coordinatsControl1.BackColor = System.Drawing.Color.Transparent;
             this.coordinatsControl1.Name = "coordinatsControl1";
             // 
             // myButton4
             // 
             resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.Empty;
             this.myButton4.Name = "myButton4";
+            this.myButton4.Outline = System.Drawing.Color.Empty;
+            this.myButton4.TextColor = System.Drawing.Color.Empty;
             this.myButton4.UseVisualStyleBackColor = true;
-            this.myButton4.Click += new System.EventHandler(this.myButton4_Click_1);
             this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton4_MouseUp);
             // 
             // servoGimbal1
             // 
-            this.servoGimbal1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.servoGimbal1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.servoGimbal1, "servoGimbal1");
             this.servoGimbal1.Name = "servoGimbal1";
             // 
@@ -390,7 +403,18 @@ namespace MissionPlanner
             resources.ApplyResources(this.snsControl1, "snsControl1");
             this.snsControl1.Name = "snsControl1";
             // 
-            // menu
+            // progressBar1
+            // 
+            this.progressBar1.BackgroundColor = System.Drawing.Color.White;
+            this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+            resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.Maximum = 100;
+            this.progressBar1.Minimum = 0;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Value = 50;
+            this.progressBar1.ValueColor = System.Drawing.Color.Lime;
+            // 
+            // status1
             // 
             resources.ApplyResources(this.menu, "menu");
             this.menu.Name = "menu";
@@ -401,6 +425,17 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
             this.rightSideMenuControl1.Name = "rightSideMenuControl1";
+            // 
+            // menu
+            // 
+            this.menu.BGGradBot = System.Drawing.Color.Empty;
+            this.menu.BGGradTop = System.Drawing.Color.Empty;
+            resources.ApplyResources(this.menu, "menu");
+            this.menu.Name = "menu";
+            this.menu.Outline = System.Drawing.Color.Empty;
+            this.menu.TextColor = System.Drawing.Color.Empty;
+            this.menu.UseVisualStyleBackColor = true;
+            this.menu.MouseEnter += new System.EventHandler(this.menu_MouseEnter);
             // 
             // toolStripConnectionControl1
             // 
