@@ -59,18 +59,18 @@ using Capture = WebCamService.Capture;
 using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
 using System.Windows.Input;
+using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.NewClasses;
 
 namespace MissionPlanner
 {
     public partial class MainV2 : Form
     {
-        private static readonly ILog log =
+        public static readonly ILog log =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public static menuicons displayicons; //do not initialize to allow update of custom icons
 
-        
 
         public abstract class menuicons
         {
@@ -549,24 +549,26 @@ namespace MissionPlanner
 
         public FlightPlanner FlightPlanner;
         SITL Simulation;
+
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// MY NEW FORMS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
         private DiagnosticForm diagnosticForm;
+
         public static EngineController engineController;
         private MapChangeForm mapChangeForm;
         private string mapTitleStatus = "";
         int centering = 0; //0 - false, 1 - onse, 2 - always
         public static bool sitlMapChangeSignal = false;
         public static bool regionActive = false;
+
         public static int currentEngineMode = 3;
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
 
-        
 
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
@@ -575,14 +577,10 @@ namespace MissionPlanner
 
         public class item
         {
-            [XmlAttribute]
-            public string id;
-            [XmlAttribute]
-            public string servo;
-            [XmlAttribute]
-            public string value;
-            [XmlAttribute]
-            public string defaultValue;
+            [XmlAttribute] public string id;
+            [XmlAttribute] public string servo;
+            [XmlAttribute] public string value;
+            [XmlAttribute] public string defaultValue;
         }
 
         public class servoValue
@@ -590,7 +588,8 @@ namespace MissionPlanner
             public int servo;
             public int value;
             public int defaultValue;
-            public servoValue(int _servo, int _value, int _defaultValue) 
+
+            public servoValue(int _servo, int _value, int _defaultValue)
             {
                 servo = _servo;
                 value = _value;
@@ -600,7 +599,7 @@ namespace MissionPlanner
 
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
 
-        private void deserealaseDict() 
+        private void deserealaseDict()
         {
             if (File.Exists(MainV2.defaultConfig))
             {
@@ -1322,7 +1321,6 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
-            
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1441,50 +1439,57 @@ namespace MissionPlanner
         }
 
         void coordinatsControlInit()
-        { 
+        {
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-
             try
             {
-                double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
-                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
+                double homedist =
+                    FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
+                        FlightPlanner.pointlist[0]);
+                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "  " +
+                                                 FlightPlanner.currentMarker.Position.Lng.ToString("0.000000");
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
-                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " + comPort.MAV.cs.lng.ToString("0.000000");
+                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "  " +
+                                                 comPort.MAV.cs.lng.ToString("0.000000");
             }
             catch (System.Exception eee)
             {
                 System.Diagnostics.Debug.WriteLine(eee.ToString());
             }
+
             try
             {
                 if (!timeControl2.timer1.Enabled)
                 {
                     timeControl2.timer1.Start();
                 }
+
                 if (!FlightPlanner.wpMenu1.timer1.Enabled)
                 {
                     FlightPlanner.wpMenu1.timer1.Start();
                 }
+
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !_aircraftInfo[CurrentAircraftNum].inAir)
                 {
                     _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
-                if (ctrlModeActive && ctrlReliasedCounter == -1) 
+
+                if (ctrlModeActive && ctrlReliasedCounter == -1)
                 {
                     MainV2.comPort.setMode("Stabilize");
                     ctrlReliasedCounter = 12;
                     ctrlModeDebuglabel.Visible = true;
-
                 }
+
                 ctrlModeDebuglabel.Visible = true;
                 if (ctrlReliasedCounter > 0)
                 {
                     ctrlReliasedCounter--;
-                    if (ctrlReliasedCounter == 1) 
+                    if (ctrlReliasedCounter == 1)
                     {
                         //set AUTO mode
                         MainV2.comPort.setMode("AUTO");
@@ -1554,6 +1559,7 @@ namespace MissionPlanner
                 {
                     mapChangeForm.lbl_status.Text = mapTitleStatus;
                 }
+
                 //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";ti
                 //textBoxMemory.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.00}MB of {1:0.00}MB", MainMap.Manager.MemoryCacheSize, MainMap.Manager.MemoryCacheCapacity);
             };
@@ -1701,18 +1707,19 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
+
             if (MAVLinkInterface.paramsLoading)
             {
                 progressBar1.Maximum = MAVLinkInterface.paramsCount;
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
             }
+
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
             _aircraftMenuControl.updateCentralButton();
-            if (FlightPlanner.MainMap.Size.Width != 1920) 
+            if (FlightPlanner.MainMap.Size.Width != 1920)
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
             }
-
         }
 
         /// <summary>
@@ -4369,7 +4376,6 @@ namespace MissionPlanner
 
             log.Info("this   width " + this.Width + " height " + this.Height);
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-
         }
 
         private void MenuHelp_Click(object sender, EventArgs e)
@@ -4378,9 +4384,9 @@ namespace MissionPlanner
         }
 
 
-
         private int ctrlReliasedCounter = -1;
         private bool ctrlModeActive = false;
+
         /// <summary>
         /// keyboard shortcuts override
         /// </summary>
@@ -4523,8 +4529,7 @@ namespace MissionPlanner
             bool manualFlightMode = false;
             int[] overrides = {1500, 1500, 1500, 1500};
 
-            
-            
+
             if (keyData == (Keys.Control | Keys.ControlKey))
             {
                 manualFlightMode = true;
@@ -4587,13 +4592,13 @@ namespace MissionPlanner
                 overrides[3] = 1700;
             }*/
             ctrlModeActive = manualFlightMode;
-            if (ctrlModeActive && ctrlReliasedCounter!=-1) 
+            if (ctrlModeActive && ctrlReliasedCounter != -1)
             {
                 ctrlReliasedCounter = 12;
             }
+
             if (manualFlightMode)
             {
-                
                 MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                 rc.target_component = comPort.MAV.compid;
                 rc.target_system = comPort.MAV.sysid;
@@ -4611,35 +4616,40 @@ namespace MissionPlanner
                         //}
                         //else
                         //{
-                            comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                        comPort.sendPacket(rc, rc.target_system, rc.target_component);
                         //}
 
                         //count++;
                         //lastjoystick = DateTime.Now;
                     }
                 }
+
                 string debugOverrideInfo = "Output:";
-                if (overrides[2] < 1500) 
+                if (overrides[2] < 1500)
                 {
                     debugOverrideInfo += " ← ";
                 }
+
                 if (overrides[3] > 1500)
                 {
                     debugOverrideInfo += " ↑ ";
                 }
+
                 if (overrides[3] < 1500)
                 {
                     debugOverrideInfo += " ↓ ";
                 }
+
                 if (overrides[2] > 1500)
                 {
                     debugOverrideInfo += " → ";
                 }
+
                 ctrlModeDebuglabel.Text = debugOverrideInfo;
                 Debug.WriteLine("overrides " + overrides[2] + " " + overrides[3]);
                 return true;
             }
-            
+
 
             if (ProcessCmdKeyCallback != null)
             {
@@ -4872,6 +4882,11 @@ namespace MissionPlanner
             {
                 MainMenu.Visible = !MainMenu.Visible;
                 menuStrip1.Visible = !menuStrip1.Visible;
+            }
+
+            if (e.KeyCode == Keys.S)
+            {
+                FlightPlanner.instance.MainMap_KeyDown(sender, e);
             }
         }
 
@@ -5218,7 +5233,6 @@ namespace MissionPlanner
         private void MainV2_Load(object sender, EventArgs e)
         {
             //MyView.ShowScreen("FlightPlanner");
-
         }
 
         private void myButton3_Click(object sender, EventArgs e)
@@ -5276,60 +5290,131 @@ namespace MissionPlanner
         }
 
         bool b = false;
-        public void testThrottle() 
+
+        public void testThrottle()
         {
             if (b)
             {
-                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
+                MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    "SERVO3_MIN", (float) 1500);
             }
-            else 
+            else
             {
-                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1100);
+                MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    "SERVO3_MIN", (float) 1100);
             }
+
             b = !b;
         }
 
-        
 
         private void label13_Click(object sender, EventArgs e)
         {
         }
 
-        
+
         private void myButton5_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("FlightData");
         }
 
+
+        // GMapOverlay polyOverlay = new GMapOverlay("polygons");
+
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            //testThrottle();
-            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-            GMapOverlay polyOverlay = new GMapOverlay("polygons");
-            List<PointLatLng> points = new List<PointLatLng>();
-            points.Add(new PointLatLng(30, 30));
-            points.Add(new PointLatLng(60, 30));
-            points.Add(new PointLatLng(60, 60));
-            points.Add(new PointLatLng(30, 60));
-            GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
-            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-            polygon.Stroke = new Pen(Color.Red, 1);
-            polyOverlay.Polygons.Add(polygon);
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay);
-
-            GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
-            List<PointLatLng> points1 = new List<PointLatLng>();
-            points1.Add(new PointLatLng(20, 20));
-            points1.Add(new PointLatLng(0, 30));
-            points1.Add(new PointLatLng(0, 0));
-            points1.Add(new PointLatLng(30, 0));
-            GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
-            polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
-            polygon1.Stroke = new Pen(Color.Red, 1);
-            polyOverlay1.Polygons.Add(polygon1);
-            FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            //regionActive = !regionActive;
+            // //testThrottle();
+            // //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            //
+            // List<PointLatLng> points = new List<PointLatLng>();
+            // points.Add(new PointLatLng(30, 30));
+            // points.Add(new PointLatLng(60, 30));
+            // points.Add(new PointLatLng(60, 60));
+            // points.Add(new PointLatLng(30, 60));
+            // GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+            // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+            // polygon.Stroke = new Pen(Color.Red, 1);
+            // polyOverlay.Polygons.Add(polygon);
+            //
+            // List<PointLatLng> points1 = new List<PointLatLng>();
+            // points1.Add(new PointLatLng(20, 20));
+            // points1.Add(new PointLatLng(0, 30));
+            // points1.Add(new PointLatLng(0, 0));
+            // points1.Add(new PointLatLng(30, 0));
+            // GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
+            // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
+            // polygon1.Stroke = new Pen(Color.Red, 1);
+            // polyOverlay.Polygons.Add(polygon1);
+            //
+            // foreach (var overlayPolygon in polyOverlay.Polygons)
+            // {
+            //     redrawPolygonSurvey(overlayPolygon);
+            // }
+            //
+            // FlightPlanner.MainMap.Overlays.Add(polyOverlay);
+            //
+            // // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+            // // polyOverlay1.Polygons.Add(polygon1);
+            // // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
+            // // //regionActive = !regionActive;
         }
+
+        // public void redrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
+        // {
+        //     List<PointLatLngAlt> list = polygon.Points.Select(a => new PointLatLngAlt(a)).ToList();
+        //     int tag = 0;
+        //     list.ForEach(x =>
+        //     {
+        //         tag++;
+        //         //polygon.Points.Add(x);
+        //         addpolygonmarkergrid(tag.ToString(), x.Lng, x.Lat, 0);
+        //     });
+        //
+        //     FlightPlanner.MainMap.UpdatePolygonLocalPosition(polygon);
+        //
+        //     foreach (var pointLatLngAlt in polygon.Points.CloseLoop().PrevNowNext())
+        //     {
+        //         var now = pointLatLngAlt.Item2;
+        //         var next = pointLatLngAlt.Item3;
+        //
+        //         if (now == null || next == null)
+        //             continue;
+        //
+        //         var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
+        //
+        //         var pnt = new GMapMarkerPlus(mid);
+        //         pnt.Tag = new FlightPlanner.midline() {now = now, next = next};
+        //         polyOverlay.Markers.Add(pnt);
+        //     }
+        //
+        //
+        //     FlightPlanner.MainMap.Invalidate();
+        // }
+        //
+        // private void addpolygonmarkergrid(string tag, double lng, double lat, int alt)
+        // {
+        //     try
+        //     {
+        //         PointLatLng point = new PointLatLng(lat, lng);
+        //         GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
+        //         m.ToolTipMode = MarkerTooltipMode.Never;
+        //         m.ToolTipText = "grid" + tag;
+        //         m.Tag = "grid" + tag;
+        //
+        //         //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
+        //         GMapMarkerRect mBorders = new GMapMarkerRect(point);
+        //         {
+        //             mBorders.InnerMarker = m;
+        //         }
+        //
+        //         polyOverlay.Markers.Add(m);
+        //         polyOverlay.Markers.Add(mBorders);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         log.Info(ex.ToString());
+        //     }
+        // }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {
@@ -5338,12 +5423,15 @@ namespace MissionPlanner
                 FlightPlanner.panelWaypoints.Visible = false;
                 myButton6.Text = "Show wp list";
             }
-            else {
+            else
+            {
                 FlightPlanner.panelWaypoints.Visible = true;
                 myButton6.Text = "Hide wp list";
             }
-
         }
-        
+
+        private void myButton4_Click_1(object sender, EventArgs e)
+        {
+        }
     }
 }

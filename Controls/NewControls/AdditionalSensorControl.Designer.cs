@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.sensorName_label = new System.Windows.Forms.Label();
             this.sensorValue_label = new System.Windows.Forms.Label();
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,15 +64,15 @@
             this.sensorValue_label.Text = "0";
             this.sensorValue_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // AdditionalSensorControl
             // 
@@ -84,7 +84,7 @@
             this.Controls.Add(this.sensorValue_label);
             this.Controls.Add(this.sensorName_label);
             this.DoubleBuffered = true;
-            this.MinimumSize = new System.Drawing.Size(135, 135);
+            this.MinimumSize = new System.Drawing.Size(123, 123);
             this.Name = "AdditionalSensorControl";
             this.Size = new System.Drawing.Size(135, 135);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
