@@ -4494,6 +4494,12 @@
   <data name="&gt;&gt;MenuConnect.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
+    <value>toolStripConnectionControl</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7582.11787, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;MenuArduPilot.Name" xml:space="preserve">
     <value>MenuArduPilot</value>
   </data>

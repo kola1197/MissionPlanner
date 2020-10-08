@@ -90,7 +90,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(446, 509);
+            this.tabControl1.Size = new System.Drawing.Size(523, 509);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.TabStop = false;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -422,7 +422,7 @@
             this.tabPage5.Controls.Add(this.myButton1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(438, 483);
+            this.tabPage5.Size = new System.Drawing.Size(515, 483);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -431,7 +431,7 @@
             // 
             this.iceCheck1.Location = new System.Drawing.Point(6, 7);
             this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.Size = new System.Drawing.Size(509, 432);
             this.iceCheck1.TabIndex = 4;
             // 
             // myButton2
@@ -499,7 +499,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 526);
+            this.ClientSize = new System.Drawing.Size(661, 526);
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
