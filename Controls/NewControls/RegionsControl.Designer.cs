@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -52,9 +52,11 @@
             this.regionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.pointsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.regionsProperties_GB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // regions_LB
@@ -142,12 +144,15 @@
             this.latLong_DGV.DefaultCellStyle = dataGridViewCellStyle5;
             this.latLong_DGV.Location = new System.Drawing.Point(10, 88);
             this.latLong_DGV.Name = "latLong_DGV";
+            this.latLong_DGV.RowHeadersVisible = false;
             this.latLong_DGV.Size = new System.Drawing.Size(342, 279);
             this.latLong_DGV.TabIndex = 5;
+            this.latLong_DGV.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.latLong_DGV_CellBeginEdit);
             this.latLong_DGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellClick);
             this.latLong_DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellEndEdit);
             this.latLong_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.latLong_DGV_CellFormatting);
             this.latLong_DGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellValueChanged);
+            this.latLong_DGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.latLong_DGV_EditingControlShowing);
             // 
             // Num
             // 
@@ -232,6 +237,10 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // pointsBindingSource
+            // 
+            this.pointsBindingSource.DataSource = typeof(MissionPlanner.GCSViews.FlightPlanner);
+            // 
             // RegionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,6 +257,7 @@
             this.regionsProperties_GB.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -272,5 +282,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Num;
         private System.Windows.Forms.DataGridViewTextBoxColumn Latitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Longitude;
+        private System.Windows.Forms.BindingSource pointsBindingSource;
     }
 }
