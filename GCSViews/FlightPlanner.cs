@@ -6905,7 +6905,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             GetCurrentPolygon().Points[
                                     int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] =
                                 new PointLatLng(point.Lat, point.Lng);
-                            RegionsControl.instance.redrawPolygonSurvey(GetCurrentPolygon());
+                            RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
                         }
                     }
                     catch (Exception ex)
@@ -7107,7 +7107,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         GetCurrentPolygon().Points.Insert(temp + 1,
                             new PointLatLng(CurrentMidLine.Position.Lat, CurrentMidLine.Position.Lng));
 
-                        RegionsControl.instance.redrawPolygonSurvey(GetCurrentPolygon());
+                        RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
                     }
                     else
                     {
@@ -7218,7 +7218,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 }
 
                                 GetCurrentPolygon().Points.Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
-                                RegionsControl.instance.redrawPolygonSurvey(GetCurrentPolygon());
+                                RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
                                 MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
                                 MainMap.Invalidate();
                             }

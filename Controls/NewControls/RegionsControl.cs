@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,21 @@ namespace MissionPlanner.Controls.NewControls
     public partial class RegionsControl : UserControl
     {
         public static RegionsControl instance;
-        private static int _regionNum = 1;
+        private static int _regionNum = 0;
         private int _rowInEdit = -1;
         private PointLatLng _pointInEdit;
         private ArrayList _regionPoints = new ArrayList();
         private int _latIndex, _lngIndex;
         private TextBox _editTextBox;
+
+        private int RegionNum
+        {
+            get
+            {
+                _regionNum++;
+                return _regionNum;
+            }
+        }
 
         public RegionsControl()
         {
@@ -67,57 +77,55 @@ namespace MissionPlanner.Controls.NewControls
         {
         }
 
-        public void UpdateBindings()
+        public void ClearRegionsProperties()
         {
-            if (regionsBindingSource.Count == 0)
-            {
-                return;
-            }
+            regionsProperties_GB.Enabled = false;
+            latLong_DGV.Rows.Clear();
+            latLong_DGV.Refresh();
+            name_TB.Text = "";
+        }
 
+        private void ClearPropertiesBindings()
+        {
             name_TB.DataBindings.Clear();
             colorPanel.DataBindings.Clear();
+        }
 
+        private bool ResetPropertiesBindings()
+        {
             regionsBindingSource.ResetBindings(true);
-
-            if (regionsBindingSource.Current == null)
-            {
-                return;
-            }
+            if (regionsBindingSource.Count == 0 || regionsBindingSource.Current == null)
+                return false;
 
             pointsBindingSource.DataSource = ((GMapPolygon) regionsBindingSource.Current).Points;
             pointsBindingSource.ResetBindings(true);
+            return true;
+        }
 
+        public void UpdateBindings()
+        {
+            regionsProperties_GB.Enabled = FlightPlanner.RegionsOverlay.Polygons.Count != 0;
+            ClearPropertiesBindings();
+            if (!ResetPropertiesBindings())
+                return;
 
-            // Pen polygonPen = ((GMapPolygon) regionsBindingSource.Current).Stroke;
             name_TB.DataBindings.Add(new Binding("Text", regionsBindingSource.Current, "Name", true));
             colorPanel.DataBindings.Add(new Binding("BackColor", regionsBindingSource.Current, "PolyColor", true));
 
             Latitude.DataPropertyName = "Lat";
             Longitude.DataPropertyName = "Lng";
-            Num.DisplayIndex = 0;
-            Latitude.DisplayIndex = 1;
-            Longitude.DisplayIndex = 2;
-
-
-            // latLong_DGV.DataSource = null;
-            // latLong_DGV.DataSource = ((GMapPolygon) regionsBindingSource.Current).Points;
-
             latLong_DGV.DataSource = pointsBindingSource;
 
             if (latLong_DGV.Columns.Contains("IsEmpty"))
-            {
                 latLong_DGV.Columns.Remove("IsEmpty");
-            }
 
-            this.Invalidate();
+            Invalidate();
         }
 
         private void addRegion_BUT_Click(object sender, EventArgs e)
         {
-            // CreateRegions();
             List<PointLatLng> points = new List<PointLatLng>();
-            GMapPolygon polygon = new GMapPolygon(points, "Регион " + _regionNum);
-            _regionNum++;
+            GMapPolygon polygon = new GMapPolygon(points, "Регион " + RegionNum);
 
             FlightPlanner.RegionsOverlay.Polygons.Add(polygon);
 
@@ -126,58 +134,55 @@ namespace MissionPlanner.Controls.NewControls
             UpdateBindings();
             regions_LB.SelectedIndex = regions_LB.Items.Count - 1;
 
-            foreach (var overlayPolygon in FlightPlanner.RegionsOverlay.Polygons)
-            {
-                redrawPolygonSurvey(overlayPolygon);
-            }
+            RedrawAllPolygons();
         }
 
-        private void CreateRegions()
-        {
-            //testThrottle();
-            //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+        // private void CreateRegions()
+        // {
+        //     //testThrottle();
+        //     //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+        //
+        //     List<PointLatLng> points = new List<PointLatLng>();
+        //     points.Add(new PointLatLng(30.098767, 30));
+        //     points.Add(new PointLatLng(60, 30));
+        //     points.Add(new PointLatLng(60, 60));
+        //     points.Add(new PointLatLng(30, 60));
+        //     GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+        //     // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+        //     // polygon.Stroke = new Pen(Color.Yellow, 1);
+        //     FlightPlanner.RegionsOverlay.Polygons.Add(polygon);
+        //
+        //     List<PointLatLng> points1 = new List<PointLatLng>();
+        //     points1.Add(new PointLatLng(20, 20));
+        //     points1.Add(new PointLatLng(0, 30));
+        //     points1.Add(new PointLatLng(0, 0));
+        //     points1.Add(new PointLatLng(30, 0));
+        //     GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
+        //     // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
+        //     // polygon1.Stroke = new Pen(Color.Blue, 1);
+        //     FlightPlanner.RegionsOverlay.Polygons.Add(polygon1);
+        //
+        //     foreach (var overlayPolygon in FlightPlanner.RegionsOverlay.Polygons)
+        //     {
+        //         if (overlayPolygon.Points.Count > 1 &&
+        //             overlayPolygon.Points[0] == overlayPolygon.Points[overlayPolygon.Points.Count - 1])
+        //         {
+        //             overlayPolygon.Points.RemoveAt(overlayPolygon.Points.Count - 1); // unmake a full loop
+        //         }
+        //
+        //         redrawPolygonSurvey(overlayPolygon);
+        //     }
+        //
+        //     // regions_LB.Items.Add(polygon.Name);
+        //     // regions_LB.Items.Add(polygon1.Name);
+        //
+        //     // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
+        //     // polyOverlay1.Polygons.Add(polygon1);
+        //     // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
+        //     // //regionActive = !regionActive;
+        // }
 
-            List<PointLatLng> points = new List<PointLatLng>();
-            points.Add(new PointLatLng(30.098767, 30));
-            points.Add(new PointLatLng(60, 30));
-            points.Add(new PointLatLng(60, 60));
-            points.Add(new PointLatLng(30, 60));
-            GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
-            // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-            // polygon.Stroke = new Pen(Color.Yellow, 1);
-            FlightPlanner.RegionsOverlay.Polygons.Add(polygon);
-
-            List<PointLatLng> points1 = new List<PointLatLng>();
-            points1.Add(new PointLatLng(20, 20));
-            points1.Add(new PointLatLng(0, 30));
-            points1.Add(new PointLatLng(0, 0));
-            points1.Add(new PointLatLng(30, 0));
-            GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
-            // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
-            // polygon1.Stroke = new Pen(Color.Blue, 1);
-            FlightPlanner.RegionsOverlay.Polygons.Add(polygon1);
-
-            foreach (var overlayPolygon in FlightPlanner.RegionsOverlay.Polygons)
-            {
-                if (overlayPolygon.Points.Count > 1 &&
-                    overlayPolygon.Points[0] == overlayPolygon.Points[overlayPolygon.Points.Count - 1])
-                {
-                    overlayPolygon.Points.RemoveAt(overlayPolygon.Points.Count - 1); // unmake a full loop
-                }
-
-                redrawPolygonSurvey(overlayPolygon);
-            }
-
-            // regions_LB.Items.Add(polygon.Name);
-            // regions_LB.Items.Add(polygon1.Name);
-
-            // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
-            // polyOverlay1.Polygons.Add(polygon1);
-            // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            // //regionActive = !regionActive;
-        }
-
-        public void redrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
+        public void RedrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
         {
             UpdateBindings();
             if (polygon.Points.Count == 0)
@@ -256,7 +261,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (GetCurrentPolygon() != null)
             {
-                redrawPolygonSurvey(GetCurrentPolygon());
+                RedrawPolygonSurvey(GetCurrentPolygon());
             }
         }
 
@@ -281,12 +286,6 @@ namespace MissionPlanner.Controls.NewControls
             UpdateBindings();
         }
 
-        private void deleteRegion_BUT_Click(object sender, EventArgs e)
-        {
-            GMapPolygon polygon = FlightPlanner.RegionsOverlay.Polygons[0];
-            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-            polygon.Stroke = new Pen(Color.Yellow, 1);
-        }
 
         private void latLong_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -300,6 +299,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     e.Value = Convert.ToDouble(e.Value).ToString("F6", new CultureInfo("en-US"));
                 }
+
                 e.FormattingApplied = true;
             }
             catch (Exception exception)
@@ -328,7 +328,7 @@ namespace MissionPlanner.Controls.NewControls
 */
         }
 
-        private void readEditedValueFromTB()
+        private void ReadEditedValueFromTextBox()
         {
             double editedCoordinate;
             if (!double.TryParse(_editTextBox.Text.Replace('.', ','), out editedCoordinate))
@@ -355,7 +355,7 @@ namespace MissionPlanner.Controls.NewControls
                 return;
             }
 
-            readEditedValueFromTB();
+            ReadEditedValueFromTextBox();
 
             GMapPolygon currentPolygon = GetCurrentPolygon();
             ArrayList updatedPoints = new ArrayList();
@@ -385,7 +385,7 @@ namespace MissionPlanner.Controls.NewControls
                 currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
             }
 
-            redrawPolygonSurvey(GetCurrentPolygon());
+            RedrawPolygonSurvey(GetCurrentPolygon());
         }
 
         private void latLong_DGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -562,7 +562,8 @@ namespace MissionPlanner.Controls.NewControls
                 var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
                 // check new value.
                 var c0 = 0.0;
-                if (e.FormattedValue == null || !Double.TryParse(e.FormattedValue.ToString(), NumberStyles.Number, new CultureInfo("en-US"), out c0))
+                if (e.FormattedValue == null || !Double.TryParse(e.FormattedValue.ToString(), NumberStyles.Number,
+                    new CultureInfo("en-US"), out c0))
                 {
                     // bad value inserted
 
@@ -577,6 +578,86 @@ namespace MissionPlanner.Controls.NewControls
             catch (Exception ex)
             {
             }
+        }
+
+        private void RedrawAllPolygons()
+        {
+            if (FlightPlanner.RegionsOverlay.Polygons.Count == 0)
+            {
+                FlightPlanner.RegionsOverlay.Markers.Clear();
+                FlightPlanner.instance.MainMap.Invalidate();
+                ClearRegionsProperties();
+                UpdateBindings();
+                return;
+            }
+
+            foreach (var overlayPolygon in FlightPlanner.RegionsOverlay.Polygons)
+            {
+                RedrawPolygonSurvey(overlayPolygon);
+            }
+        }
+
+        private void deleteRegion_BUT_Click(object sender, EventArgs e)
+        {
+            regions_LB.SelectedIndexChanged -= regions_LB_SelectedIndexChanged;
+            if (FlightPlanner.RegionsOverlay.Polygons.Count == 0)
+                return;
+
+            ClearPropertiesBindings();
+            
+            FlightPlanner.RegionsOverlay.Polygons.RemoveAt(regions_LB.SelectedIndex);
+
+            RedrawAllPolygons();
+            regions_LB.SelectedIndexChanged += regions_LB_SelectedIndexChanged;
+            regions_LB.SelectedIndex = regions_LB.Items.Count - 1;
+        }
+
+        private void loadRegions_BUT_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void saveRegions_BUT_Click(object sender, EventArgs e)
+        {
+            // if (DrawingPolygon.Points.Count == 0)
+            // {
+            //     return;
+            // }
+            //
+            //
+            // using (SaveFileDialog sf = new SaveFileDialog())
+            // {
+            //     sf.Filter = "Polygon (*.poly)|*.poly";
+            //     var result = sf.ShowDialog();
+            //     if (sf.FileName != "" && result == DialogResult.OK)
+            //     {
+            //         try
+            //         {
+            //             StreamWriter sw = new StreamWriter(sf.OpenFile());
+            //
+            //             sw.WriteLine("#saved by Mission Planner " + Application.ProductVersion);
+            //
+            //             if (DrawingPolygon.Points.Count > 0)
+            //             {
+            //                 foreach (var pll in DrawingPolygon.Points)
+            //                 {
+            //                     sw.WriteLine(pll.Lat.ToString(CultureInfo.InvariantCulture) + " " +
+            //                                  pll.Lng.ToString(CultureInfo.InvariantCulture));
+            //                 }
+            //
+            //                 PointLatLng pll2 = DrawingPolygon.Points[0];
+            //
+            //                 sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " +
+            //                              pll2.Lng.ToString(CultureInfo.InvariantCulture));
+            //             }
+            //
+            //             sw.Close();
+            //         }
+            //         catch
+            //         {
+            //             CustomMessageBox.Show("Failed to write fence file");
+            //         }
+            //     }
+            // }
         }
 
         private void latLong_DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
