@@ -138,51 +138,6 @@ namespace MissionPlanner.Controls.NewControls
             RedrawAllPolygons();
         }
 
-        // private void CreateRegions()
-        // {
-        //     //testThrottle();
-        //     //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-        //
-        //     List<PointLatLng> points = new List<PointLatLng>();
-        //     points.Add(new PointLatLng(30.098767, 30));
-        //     points.Add(new PointLatLng(60, 30));
-        //     points.Add(new PointLatLng(60, 60));
-        //     points.Add(new PointLatLng(30, 60));
-        //     GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
-        //     // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-        //     // polygon.Stroke = new Pen(Color.Yellow, 1);
-        //     FlightPlanner.RegionsOverlay.Polygons.Add(polygon);
-        //
-        //     List<PointLatLng> points1 = new List<PointLatLng>();
-        //     points1.Add(new PointLatLng(20, 20));
-        //     points1.Add(new PointLatLng(0, 30));
-        //     points1.Add(new PointLatLng(0, 0));
-        //     points1.Add(new PointLatLng(30, 0));
-        //     GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
-        //     // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
-        //     // polygon1.Stroke = new Pen(Color.Blue, 1);
-        //     FlightPlanner.RegionsOverlay.Polygons.Add(polygon1);
-        //
-        //     foreach (var overlayPolygon in FlightPlanner.RegionsOverlay.Polygons)
-        //     {
-        //         if (overlayPolygon.Points.Count > 1 &&
-        //             overlayPolygon.Points[0] == overlayPolygon.Points[overlayPolygon.Points.Count - 1])
-        //         {
-        //             overlayPolygon.Points.RemoveAt(overlayPolygon.Points.Count - 1); // unmake a full loop
-        //         }
-        //
-        //         redrawPolygonSurvey(overlayPolygon);
-        //     }
-        //
-        //     // regions_LB.Items.Add(polygon.Name);
-        //     // regions_LB.Items.Add(polygon1.Name);
-        //
-        //     // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
-        //     // polyOverlay1.Polygons.Add(polygon1);
-        //     // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-        //     // //regionActive = !regionActive;
-        // }
-
         public void RedrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
         {
             UpdateBindings();
@@ -207,22 +162,6 @@ namespace MissionPlanner.Controls.NewControls
             });
 
             FlightPlanner.instance.MainMap.UpdatePolygonLocalPosition(polygon);
-
-            // foreach (var pointLatLngAlt in polygon.Points.CloseLoop().PrevNowNext())
-            // {
-            //     var now = pointLatLngAlt.Item2;
-            //     var next = pointLatLngAlt.Item3;
-            //
-            //     if (now == null || next == null)
-            //         continue;
-            //
-            //     var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
-            //
-            //     var pnt = new GMapMarkerPlus(mid);
-            //     pnt.Tag = new FlightPlanner.midline() { now = now, next = next };
-            //     FlightPlanner.RegionsOverlay.Markers.Add(pnt);
-            // }
-
 
             FlightPlanner.instance.MainMap.Invalidate();
         }
@@ -308,25 +247,6 @@ namespace MissionPlanner.Controls.NewControls
                 e.Value = 0.0;
                 Console.WriteLine(exception);
             }
-
-            /*if (e.ColumnIndex == 0 && e.RowIndex > 0)
-            {
-                e.Value = e.RowIndex + 1;
-                e.FormattingApplied = true;
-                return;
-            }
-
-            try
-            {
-                e.Value = Convert.ToDouble(e.Value).ToString("F6");
-                e.FormattingApplied = true;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-*/
         }
 
         private void ReadEditedValueFromTextBox()
@@ -396,50 +316,10 @@ namespace MissionPlanner.Controls.NewControls
 
         private void latLong_DGV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            // // Total shitcode but no clue how to do properly
-            // if (regionsBindingSource.Count == 0)
-            // {
-            //     return;
-            // }
-            //
-            // GMapPolygon currentPolygon = GetCurrentPolygon();
-            // ArrayList updatedPoints = new ArrayList();
-            //
-            // var latIndex = latLong_DGV.Columns["Latitude"].Index;
-            // var lngIndex = latLong_DGV.Columns["Longitude"].Index;
-            //
-            // foreach (DataGridViewRow row in latLong_DGV.Rows)
-            // {
-            //     var lat = Convert.ToDouble(row.Cells[latIndex].Value);
-            //     var lng = Convert.ToDouble(row.Cells[lngIndex].Value);
-            //     updatedPoints.Add(new PointLatLng(lat, lng));
-            // }
-            //
-            // currentPolygon.Points.Clear();
-            //
-            // foreach (PointLatLng point in updatedPoints)
-            // {
-            //     currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
-            // }
-
-            //
-            // PointLatLng point = ;
-            // if (latLong_DGV.CurrentCell.OwningColumn == Latitude)
-            // {
-            //     GetCurrentPolygon().Points. = Convert.ToDouble(latLong_DGV.CurrentCell.Value);
-            // }
-            // else
-            // {
-            //     point.Lng = Convert.ToDouble(latLong_DGV.CurrentCell.Value);
-            // }
         }
 
         private void latLong_DGV_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            // pointsBindingSource.DataSource = null;
-            // latLong_DGV.VirtualMode = true;
-            // latLong_DGV.CellValueNeeded += new DataGridViewCellValueEventHandler(latLong_DGV_CellValueNeeded);
-            // latLong_DGV.CellValuePushed += new DataGridViewCellValueEventHandler(latLong_DGV_CellValuePushed);
             if (e.ColumnIndex == 0)
             {
                 return;
@@ -483,36 +363,7 @@ namespace MissionPlanner.Controls.NewControls
         private void latLong_DGV_CellValuePushed(object sender,
             System.Windows.Forms.DataGridViewCellValueEventArgs e)
         {
-            MessageBox.Show(latLong_DGV.CurrentCell.Value.ToString());
-            // PointLatLng pointTmp;
-
-            // // Store a reference to the PointLatLng object for the row being edited.
-            // if (e.RowIndex < _regionPoints.Count)
-            // {
-            //     // If the user is editing a new row, create a new PointLatLng object.
-            //     pointInEdit = new PointLatLng(
-            //         ((PointLatLng) _regionPoints[e.RowIndex]).Lat,
-            //         ((PointLatLng) _regionPoints[e.RowIndex]).Lng);
-            //     pointTmp = pointInEdit;
-            //     rowInEdit = e.RowIndex;
-            // }
-            // else
-            // {
-            //     pointTmp = pointInEdit;
-            // }
-            //
-            // // Set the appropriate PointLatLng property to the cell value entered.
-            // Double newValue = Convert.ToDouble(e.Value);
-            // switch (latLong_DGV.Columns[e.ColumnIndex].Name)
-            // {
-            //     case "Latitude":
-            //         pointTmp.Lat = newValue;
-            //         break;
-            //
-            //     case "Longitude":
-            //         pointTmp.Lng = newValue;
-            //         break;
-            // }
+            // MessageBox.Show(latLong_DGV.CurrentCell.Value.ToString());
         }
 
         private void latLong_DGV_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -525,34 +376,10 @@ namespace MissionPlanner.Controls.NewControls
             _editTextBox = e.Control as TextBox;
             _editTextBox.TextChanged += EditTextBoxOnTextChanged;
             _editTextBox.KeyPress += EditTextBoxOnKeyPress;
-
-            // if (latLong_DGV.CurrentCell.OwningColumn == Latitude)
-            // {
-            //     _pointInEdit.Lat = Convert.ToDouble(_editTextBox.Text);
-            // }
-            // else
-            // {
-            //     _pointInEdit.Lng = Convert.ToDouble(_editTextBox.Text);
-            // }
         }
 
-        private void latLong_DGV_CancelRowEdit(object sender,
-            System.Windows.Forms.QuestionEventArgs e)
+        private void latLong_DGV_CancelRowEdit(object sender, System.Windows.Forms.QuestionEventArgs e)
         {
-            // if (this.rowInEdit == this.dataGridView1.Rows.Count - 2 &&
-            //     this.rowInEdit == this.customers.Count)
-            // {
-            //     // If the user has canceled the edit of a newly created row,
-            //     // replace the corresponding Customer object with a new, empty one.
-            //     this.customerInEdit = new Customer();
-            // }
-            // else
-            // {
-            // If the user has canceled the edit of an existing row,
-            // release the corresponding Customer object.
-            // this._pointInEdit = new PointLatLng();
-            // this._rowInEdit = -1;
-            // }
         }
 
         private void latLong_DGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -625,11 +452,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     StreamReader sr = new StreamReader(fd.OpenFile());
                     GMapOverlay regionsOverlay = FlightPlanner.RegionsOverlay;
-                    // regionsOverlay.Markers.Clear();
-                    // regionsOverlay.Polygons.Clear();
-                    // DrawingPolygon.Points.Clear();
 
-                    // int a = 0;
                     List<PointLatLng> points = new List<PointLatLng>();
                     GMapPolygon polygon = new GMapPolygon(points, "Load");
                     while (!sr.EndOfStream)
@@ -683,7 +506,7 @@ namespace MissionPlanner.Controls.NewControls
                             poly.Points[0] == poly.Points[poly.Points.Count - 1])
                         {
                             poly.Points.RemoveAt(poly.Points.Count - 1);
-                        }        
+                        }
                     }
 
                     RedrawAllPolygons();
