@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,6 @@ namespace MissionPlanner.Controls.NewControls
 
         private void EditTextBoxOnTextChanged(object sender, EventArgs e)
         {
-            
         }
 
         public void UpdateBindings()
@@ -292,7 +292,14 @@ namespace MissionPlanner.Controls.NewControls
         {
             try
             {
-                e.Value = Convert.ToDouble(e.Value).ToString("F6");
+                if (e.ColumnIndex == 0)
+                {
+                    e.Value = (e.RowIndex + 1).ToString();
+                }
+                else
+                {
+                    e.Value = Convert.ToDouble(e.Value).ToString("F6", new CultureInfo("en-US"));
+                }
                 e.FormattingApplied = true;
             }
             catch (Exception exception)
@@ -300,7 +307,7 @@ namespace MissionPlanner.Controls.NewControls
                 e.Value = 0.0;
                 Console.WriteLine(exception);
             }
-            
+
             /*if (e.ColumnIndex == 0 && e.RowIndex > 0)
             {
                 e.Value = e.RowIndex + 1;
@@ -436,6 +443,7 @@ namespace MissionPlanner.Controls.NewControls
             {
                 return;
             }
+
             _rowInEdit = e.RowIndex;
             double lat = Convert.ToDouble(latLong_DGV.CurrentRow.Cells[_latIndex].Value);
             double lng = Convert.ToDouble(latLong_DGV.CurrentRow.Cells[_lngIndex].Value);
@@ -516,6 +524,7 @@ namespace MissionPlanner.Controls.NewControls
             _editTextBox = e.Control as TextBox;
             _editTextBox.TextChanged += EditTextBoxOnTextChanged;
             _editTextBox.KeyPress += EditTextBoxOnKeyPress;
+
             // if (latLong_DGV.CurrentCell.OwningColumn == Latitude)
             // {
             //     _pointInEdit.Lat = Convert.ToDouble(_editTextBox.Text);
@@ -543,6 +552,44 @@ namespace MissionPlanner.Controls.NewControls
             // this._pointInEdit = new PointLatLng();
             // this._rowInEdit = -1;
             // }
+        }
+
+        private void latLong_DGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            try
+            {
+                // get current cell
+                var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+                // check new value.
+                var c0 = 0.0;
+                if (e.FormattedValue == null || !Double.TryParse(e.FormattedValue.ToString(), NumberStyles.Number, new CultureInfo("en-US"), out c0))
+                {
+                    // bad value inserted
+
+                    // e.FormattedValue - is new value
+                    // cell.Value - contains 'old' value
+
+                    // choose any:
+                    cell.Value = cell.Value; // this way we return 'old' value
+                    e.Cancel = true; // this way we make user not leave the cell until he pastes the value we expect
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void latLong_DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            if (e.RowIndex == _latIndex)
+            {
+                dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lat.ToString("N6");
+            }
+            else
+            {
+                dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lng.ToString("N6");
+            }
         }
     }
 }
