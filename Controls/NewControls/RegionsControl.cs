@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET;
@@ -604,7 +605,7 @@ namespace MissionPlanner.Controls.NewControls
                 return;
 
             ClearPropertiesBindings();
-            
+
             FlightPlanner.RegionsOverlay.Polygons.RemoveAt(regions_LB.SelectedIndex);
 
             RedrawAllPolygons();
@@ -614,50 +615,128 @@ namespace MissionPlanner.Controls.NewControls
 
         private void loadRegions_BUT_Click(object sender, EventArgs e)
         {
+            regions_LB.SelectedIndexChanged -= regions_LB_SelectedIndexChanged;
+
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                fd.Filter = "Polygon (*.poly)|*.poly";
+                fd.ShowDialog();
+                if (File.Exists(fd.FileName))
+                {
+                    StreamReader sr = new StreamReader(fd.OpenFile());
+                    GMapOverlay regionsOverlay = FlightPlanner.RegionsOverlay;
+                    // regionsOverlay.Markers.Clear();
+                    // regionsOverlay.Polygons.Clear();
+                    // DrawingPolygon.Points.Clear();
+
+                    // int a = 0;
+                    List<PointLatLng> points = new List<PointLatLng>();
+                    GMapPolygon polygon = new GMapPolygon(points, "Load");
+                    while (!sr.EndOfStream)
+                    {
+                        string line = sr.ReadLine();
+                        if (!line.StartsWith("#"))
+                        {
+                            if (line.StartsWith("Name:"))
+                            {
+                                polygon = new GMapPolygon(points, line.Replace("Name:", ""));
+                                regionsOverlay.Polygons.Add(polygon);
+                            }
+                            else
+                            {
+                                if (line.StartsWith("Color:"))
+                                {
+                                    string colorPattern = @"(?<=R=)(.*)(?=, G)|(?<=G=)(.*)(?=, B)|(?<=B=)(.*)(?=\])";
+                                    Regex rg = new Regex(colorPattern);
+                                    MatchCollection colorsMatch = rg.Matches(line);
+                                    if (colorsMatch.Count == 3)
+                                    {
+                                        int red = int.Parse(colorsMatch?[0].Value);
+                                        int green = int.Parse(colorsMatch?[1].Value);
+                                        int blue = int.Parse(colorsMatch?[2].Value);
+                                        polygon.PolyColor = Color.FromArgb(red, green, blue);
+                                    }
+                                }
+                                else
+                                {
+                                    string[] items = line.Split(new[] {' ', '\t'},
+                                        StringSplitOptions.RemoveEmptyEntries);
+
+                                    if (items.Length < 2)
+                                        continue;
+
+                                    polygon.Points.Add(new PointLatLng(
+                                        double.Parse(items[0], CultureInfo.InvariantCulture),
+                                        double.Parse(items[1], CultureInfo.InvariantCulture)));
+                                    // addPolygonMarkerGrid(DrawingPolygon.Points.Count.ToString(),
+                                    //     double.Parse(items[1], CultureInfo.InvariantCulture),
+                                    //     double.Parse(items[0], CultureInfo.InvariantCulture), 0);
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (var poly in regionsOverlay.Polygons)
+                    {
+                        // remove loop close
+                        if (poly.Points.Count > 1 &&
+                            poly.Points[0] == poly.Points[poly.Points.Count - 1])
+                        {
+                            poly.Points.RemoveAt(poly.Points.Count - 1);
+                        }        
+                    }
+
+                    RedrawAllPolygons();
+                    FlightPlanner.instance.MainMap.ZoomAndCenterMarkers(regionsOverlay.Id);
+                }
+            }
+
+            regions_LB.SelectedIndexChanged += regions_LB_SelectedIndexChanged;
         }
 
         private void saveRegions_BUT_Click(object sender, EventArgs e)
         {
-            // if (DrawingPolygon.Points.Count == 0)
-            // {
-            //     return;
-            // }
-            //
-            //
-            // using (SaveFileDialog sf = new SaveFileDialog())
-            // {
-            //     sf.Filter = "Polygon (*.poly)|*.poly";
-            //     var result = sf.ShowDialog();
-            //     if (sf.FileName != "" && result == DialogResult.OK)
-            //     {
-            //         try
-            //         {
-            //             StreamWriter sw = new StreamWriter(sf.OpenFile());
-            //
-            //             sw.WriteLine("#saved by Mission Planner " + Application.ProductVersion);
-            //
-            //             if (DrawingPolygon.Points.Count > 0)
-            //             {
-            //                 foreach (var pll in DrawingPolygon.Points)
-            //                 {
-            //                     sw.WriteLine(pll.Lat.ToString(CultureInfo.InvariantCulture) + " " +
-            //                                  pll.Lng.ToString(CultureInfo.InvariantCulture));
-            //                 }
-            //
-            //                 PointLatLng pll2 = DrawingPolygon.Points[0];
-            //
-            //                 sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " +
-            //                              pll2.Lng.ToString(CultureInfo.InvariantCulture));
-            //             }
-            //
-            //             sw.Close();
-            //         }
-            //         catch
-            //         {
-            //             CustomMessageBox.Show("Failed to write fence file");
-            //         }
-            //     }
-            // }
+            if (FlightPlanner.RegionsOverlay.Polygons.Count == 0)
+                return;
+            using (SaveFileDialog sf = new SaveFileDialog())
+            {
+                sf.Filter = "Polygon (*.poly)|*.poly";
+                var result = sf.ShowDialog();
+                if (sf.FileName != "" && result == DialogResult.OK)
+                {
+                    try
+                    {
+                        StreamWriter sw = new StreamWriter(sf.OpenFile());
+
+                        sw.WriteLine("#saved by Mission Planner " + Application.ProductVersion);
+
+                        foreach (var polygon in FlightPlanner.RegionsOverlay.Polygons)
+                        {
+                            if (polygon.Points.Count > 0)
+                            {
+                                sw.WriteLine("Name:" + polygon.Name);
+                                sw.WriteLine("Color:" + polygon.PolyColor.ToString());
+                                foreach (var point in polygon.Points)
+                                {
+                                    sw.WriteLine(point.Lat.ToString(CultureInfo.InvariantCulture) + " " +
+                                                 point.Lng.ToString(CultureInfo.InvariantCulture));
+                                }
+
+                                PointLatLng startPoint = polygon.Points[0];
+
+                                sw.WriteLine(startPoint.Lat.ToString(CultureInfo.InvariantCulture) + " " +
+                                             startPoint.Lng.ToString(CultureInfo.InvariantCulture));
+                            }
+                        }
+
+                        sw.Close();
+                    }
+                    catch
+                    {
+                        CustomMessageBox.Show("Failed to write region file");
+                    }
+                }
+            }
         }
 
         private void latLong_DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
