@@ -7224,6 +7224,20 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             }
                         }
                     }
+                    else
+                    {
+                        if (MainV2.regionActive)
+                        {
+                            foreach (var polygon in RegionsOverlay.Polygons)
+                            {
+                                if (polygon.IsInside(MouseDownEnd))
+                                {
+                                    RegionsControl.instance.regions_LB.SelectedIndex =
+                                        RegionsOverlay.Polygons.IndexOf(polygon);
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {

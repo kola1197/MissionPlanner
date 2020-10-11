@@ -74,7 +74,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.addRegion_BUT.Location = new System.Drawing.Point(3, 266);
             this.addRegion_BUT.Name = "addRegion_BUT";
-            this.addRegion_BUT.Size = new System.Drawing.Size(75, 23);
+            this.addRegion_BUT.Size = new System.Drawing.Size(120, 23);
             this.addRegion_BUT.TabIndex = 1;
             this.addRegion_BUT.Text = "Добавить";
             this.addRegion_BUT.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.deleteRegion_BUT.Location = new System.Drawing.Point(3, 295);
             this.deleteRegion_BUT.Name = "deleteRegion_BUT";
-            this.deleteRegion_BUT.Size = new System.Drawing.Size(75, 23);
+            this.deleteRegion_BUT.Size = new System.Drawing.Size(120, 23);
             this.deleteRegion_BUT.TabIndex = 2;
             this.deleteRegion_BUT.Text = "Удалить";
             this.deleteRegion_BUT.UseVisualStyleBackColor = true;
@@ -94,7 +94,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.saveRegions_BUT.Location = new System.Drawing.Point(3, 353);
             this.saveRegions_BUT.Name = "saveRegions_BUT";
-            this.saveRegions_BUT.Size = new System.Drawing.Size(75, 23);
+            this.saveRegions_BUT.Size = new System.Drawing.Size(120, 23);
             this.saveRegions_BUT.TabIndex = 3;
             this.saveRegions_BUT.Text = "Сохранить";
             this.saveRegions_BUT.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.loadRegions_BUT.Location = new System.Drawing.Point(3, 324);
             this.loadRegions_BUT.Name = "loadRegions_BUT";
-            this.loadRegions_BUT.Size = new System.Drawing.Size(75, 23);
+            this.loadRegions_BUT.Size = new System.Drawing.Size(120, 23);
             this.loadRegions_BUT.TabIndex = 4;
             this.loadRegions_BUT.Text = "Загрузить";
             this.loadRegions_BUT.UseVisualStyleBackColor = true;
@@ -271,8 +271,6 @@ namespace MissionPlanner.Controls.NewControls
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox regions_LB;
         private System.Windows.Forms.Button addRegion_BUT;
         private System.Windows.Forms.Button deleteRegion_BUT;
         private System.Windows.Forms.Button saveRegions_BUT;
@@ -291,5 +289,6 @@ namespace MissionPlanner.Controls.NewControls
         private System.Windows.Forms.DataGridViewTextBoxColumn Num;
         private System.Windows.Forms.DataGridViewTextBoxColumn Latitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Longitude;
+        public System.Windows.Forms.ListBox regions_LB;
     }
 }
