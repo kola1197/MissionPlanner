@@ -52,20 +52,20 @@ namespace MissionPlanner.Controls
 
         private void butClickAction(int butNum)
         {
-            if (!MainV2.connectedAircraftExists() && MainV2._aircraftInfo.Count > 0)
+            if (!MainV2.connectedAircraftExists() && MainV2.AircraftInfo.Count > 0)
             {
                 return;
             }
             
-            if (MainV2._aircraftInfo.Count == 0)
+            if (MainV2.AircraftInfo.Count == 0)
             {
-                MainV2._connectionsForm.Show();
+                MainV2.ConnectionsForm.Show();
                 return;
             }
 
-            if (MainV2._aircraftInfo.Count > butNum && MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum != butNum)
+            if (MainV2.AircraftInfo.Count > butNum && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].MenuNum != butNum)
             {
-                MainV2._connectionsForm.switchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
+                MainV2.ConnectionsForm.switchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
             updateCentralButton();
         }
@@ -75,8 +75,8 @@ namespace MissionPlanner.Controls
             int butNum = -1;
             if (MainV2.CurrentAircraftNum != null)
             {
-                butNum = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
-                aircraftInAir = MainV2._aircraftInfo[MainV2.CurrentAircraftNum].inAir;
+                butNum = MainV2.AircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
+                aircraftInAir = MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
                 centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_center_button;
                 this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
@@ -170,7 +170,7 @@ namespace MissionPlanner.Controls
 
         private void aircraft_BUT_DoubleClick(object sender, EventArgs e)
         {
-            MainV2._connectionsForm.Show();
+            MainV2.ConnectionsForm.Show();
         }
 
         private void centerButton_Click(object sender, EventArgs e)

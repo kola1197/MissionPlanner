@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Orlan;
 
 namespace MissionPlanner.Controls.NewControls
 {
-    public partial class SensorUserControl : UserControl, ICustomClick
+    public partial class CustomPanelControl : UserControl, ICustomClick
     {
-        public SensorUserControl()
+        public CustomPanelControl()
         {
             InitializeComponent();
         }
 
-        public virtual System.Drawing.Size ControlSize { get; }
         public virtual event EventHandler CustomOnClick;
     }
 }

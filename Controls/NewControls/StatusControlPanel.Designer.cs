@@ -66,19 +66,19 @@ namespace MissionPlanner.Controls
             this.panel2 = new System.Windows.Forms.Panel();
             this.hideSensor_BUT = new System.Windows.Forms.Button();
             this.showSensor_BUT = new System.Windows.Forms.Button();
-            this.environmentTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.speedPanel = new System.Windows.Forms.Panel();
             this.groundSpeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.engineTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.airspeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.enginePanel = new System.Windows.Forms.Panel();
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.speedPanel = new System.Windows.Forms.Panel();
-            this.enginePanel = new System.Windows.Forms.Panel();
+            this.environmentTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.engineTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.panel2.SuspendLayout();
             this.speedPanel.SuspendLayout();
             this.enginePanel.SuspendLayout();
@@ -162,7 +162,6 @@ namespace MissionPlanner.Controls
             this.targetAlt_label.Size = new System.Drawing.Size(46, 13);
             this.targetAlt_label.TabIndex = 12;
             this.targetAlt_label.Text = "targetAlt";
-            this.targetAlt_label.MouseClick += new System.Windows.Forms.MouseEventHandler(this.targetAlt_label_MouseClick);
             // 
             // verticalSpeed_label
             // 
@@ -262,7 +261,7 @@ namespace MissionPlanner.Controls
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("AOA", this.bindingSourceHud, "AOA", true));
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("SSA", this.bindingSourceHud, "SSA", true));
             this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("critAOA", this.bindingSourceHud, "crit_AOA", true));
-            this.HorizonHUD.datetime = new System.DateTime(((long) (0)));
+            this.HorizonHUD.datetime = new System.DateTime(((long)(0)));
             this.HorizonHUD.displayAOASSA = false;
             this.HorizonHUD.disttowp = 0F;
             this.HorizonHUD.distunit = null;
@@ -317,7 +316,16 @@ namespace MissionPlanner.Controls
             // 
             // sensorsContextMenuStrip
             // 
-            this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.напряжениеToolStripMenuItem, this.температураДвигателяToolStripMenuItem, this.топливоToolStripMenuItem, this.воздушнаяСкоростьToolStripMenuItem, this.путеваяСкоростьToolStripMenuItem, this.высотаСНСToolStripMenuItem, this.магнитныйКурсToolStripMenuItem, this.следующаяТочкаToolStripMenuItem, this.силаТокаToolStripMenuItem});
+            this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.напряжениеToolStripMenuItem,
+            this.температураДвигателяToolStripMenuItem,
+            this.топливоToolStripMenuItem,
+            this.воздушнаяСкоростьToolStripMenuItem,
+            this.путеваяСкоростьToolStripMenuItem,
+            this.высотаСНСToolStripMenuItem,
+            this.магнитныйКурсToolStripMenuItem,
+            this.следующаяТочкаToolStripMenuItem,
+            this.силаТокаToolStripMenuItem});
             this.sensorsContextMenuStrip.Name = "contextMenuStrip1";
             this.sensorsContextMenuStrip.Size = new System.Drawing.Size(203, 202);
             // 
@@ -386,7 +394,9 @@ namespace MissionPlanner.Controls
             // 
             // sensor_panel
             // 
-            this.sensor_panel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.sensor_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.sensor_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sensor_panel.Controls.Add(this.sensorsMenuStrip);
             this.sensor_panel.Location = new System.Drawing.Point(760, 0);
@@ -410,7 +420,7 @@ namespace MissionPlanner.Controls
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             this.windDir1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDir1.Location = new System.Drawing.Point(639, 5);
             this.windDir1.Name = "windDir1";
@@ -424,7 +434,8 @@ namespace MissionPlanner.Controls
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
             this.panel2.Controls.Add(this.hideSensor_BUT);
             this.panel2.Controls.Add(this.showSensor_BUT);
@@ -453,20 +464,20 @@ namespace MissionPlanner.Controls
             this.showSensor_BUT.UseVisualStyleBackColor = true;
             this.showSensor_BUT.Click += new System.EventHandler(this.showSensor_BUT_Click);
             // 
-            // environmentTemp_SVPB
+            // speedPanel
             // 
-            this.environmentTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.environmentTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
-            this.environmentTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "press_temp2", true));
-            this.environmentTemp_SVPB.Location = new System.Drawing.Point(385, 21);
-            this.environmentTemp_SVPB.Maximum = 50D;
-            this.environmentTemp_SVPB.Minimum = -50D;
-            this.environmentTemp_SVPB.Name = "environmentTemp_SVPB";
-            this.environmentTemp_SVPB.Size = new System.Drawing.Size(17, 99);
-            this.environmentTemp_SVPB.Step = 5D;
-            this.environmentTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.environmentTemp_SVPB.TabIndex = 5;
-            this.environmentTemp_SVPB.Value = 10D;
+            this.speedPanel.Controls.Add(this.groundSpeed_SVPB);
+            this.speedPanel.Controls.Add(this.airspeed_label);
+            this.speedPanel.Controls.Add(this.airspeed_SVPB);
+            this.speedPanel.Controls.Add(this.altitude_label);
+            this.speedPanel.Controls.Add(this.targetAlt_label);
+            this.speedPanel.Controls.Add(this.verticalSpeed_label);
+            this.speedPanel.Controls.Add(this.groundSpeed_label);
+            this.speedPanel.Location = new System.Drawing.Point(167, 0);
+            this.speedPanel.Name = "speedPanel";
+            this.speedPanel.Size = new System.Drawing.Size(186, 123);
+            this.speedPanel.TabIndex = 1;
+            this.speedPanel.Click += new System.EventHandler(this.speedPanel_Click);
             // 
             // groundSpeed_SVPB
             // 
@@ -483,21 +494,6 @@ namespace MissionPlanner.Controls
             this.groundSpeed_SVPB.TabIndex = 14;
             this.groundSpeed_SVPB.Value = 10D;
             // 
-            // engineTemp_SVPB
-            // 
-            this.engineTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.engineTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
-            this.engineTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "rpm2", true));
-            this.engineTemp_SVPB.Location = new System.Drawing.Point(616, 21);
-            this.engineTemp_SVPB.Maximum = 130D;
-            this.engineTemp_SVPB.Minimum = -50D;
-            this.engineTemp_SVPB.Name = "engineTemp_SVPB";
-            this.engineTemp_SVPB.Size = new System.Drawing.Size(17, 99);
-            this.engineTemp_SVPB.Step = 10D;
-            this.engineTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.engineTemp_SVPB.TabIndex = 9;
-            this.engineTemp_SVPB.Value = 10D;
-            // 
             // airspeed_SVPB
             // 
             this.airspeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
@@ -512,6 +508,21 @@ namespace MissionPlanner.Controls
             this.airspeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.airspeed_SVPB.TabIndex = 8;
             this.airspeed_SVPB.Value = 12D;
+            // 
+            // enginePanel
+            // 
+            this.enginePanel.Controls.Add(this.splittedBar_voltage);
+            this.enginePanel.Controls.Add(this.splittedBar_fuel);
+            this.enginePanel.Controls.Add(this.rpmICE_label);
+            this.enginePanel.Controls.Add(this.flightMode_label);
+            this.enginePanel.Controls.Add(this.fuel_label);
+            this.enginePanel.Controls.Add(this.voltage_label);
+            this.enginePanel.Controls.Add(this.averageRpmICE_label);
+            this.enginePanel.Location = new System.Drawing.Point(0, 0);
+            this.enginePanel.Name = "enginePanel";
+            this.enginePanel.Size = new System.Drawing.Size(161, 123);
+            this.enginePanel.TabIndex = 1;
+            this.enginePanel.Click += new System.EventHandler(this.enginePanel_Click);
             // 
             // splittedBar_voltage
             // 
@@ -543,33 +554,35 @@ namespace MissionPlanner.Controls
             this.splittedBar_fuel.TabIndex = 1;
             this.splittedBar_fuel.Value = 100D;
             // 
-            // speedPanel
+            // environmentTemp_SVPB
             // 
-            this.speedPanel.Controls.Add(this.groundSpeed_SVPB);
-            this.speedPanel.Controls.Add(this.airspeed_label);
-            this.speedPanel.Controls.Add(this.airspeed_SVPB);
-            this.speedPanel.Controls.Add(this.altitude_label);
-            this.speedPanel.Controls.Add(this.targetAlt_label);
-            this.speedPanel.Controls.Add(this.verticalSpeed_label);
-            this.speedPanel.Controls.Add(this.groundSpeed_label);
-            this.speedPanel.Location = new System.Drawing.Point(167, 0);
-            this.speedPanel.Name = "speedPanel";
-            this.speedPanel.Size = new System.Drawing.Size(186, 123);
-            this.speedPanel.TabIndex = 1;
+            this.environmentTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.environmentTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
+            this.environmentTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "press_temp2", true));
+            this.environmentTemp_SVPB.Location = new System.Drawing.Point(385, 21);
+            this.environmentTemp_SVPB.Maximum = 50D;
+            this.environmentTemp_SVPB.Minimum = -50D;
+            this.environmentTemp_SVPB.Name = "environmentTemp_SVPB";
+            this.environmentTemp_SVPB.Size = new System.Drawing.Size(17, 99);
+            this.environmentTemp_SVPB.Step = 5D;
+            this.environmentTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.environmentTemp_SVPB.TabIndex = 5;
+            this.environmentTemp_SVPB.Value = 10D;
             // 
-            // enginePanel
+            // engineTemp_SVPB
             // 
-            this.enginePanel.Controls.Add(this.splittedBar_voltage);
-            this.enginePanel.Controls.Add(this.splittedBar_fuel);
-            this.enginePanel.Controls.Add(this.rpmICE_label);
-            this.enginePanel.Controls.Add(this.flightMode_label);
-            this.enginePanel.Controls.Add(this.fuel_label);
-            this.enginePanel.Controls.Add(this.voltage_label);
-            this.enginePanel.Controls.Add(this.averageRpmICE_label);
-            this.enginePanel.Location = new System.Drawing.Point(0, 0);
-            this.enginePanel.Name = "enginePanel";
-            this.enginePanel.Size = new System.Drawing.Size(161, 123);
-            this.enginePanel.TabIndex = 1;
+            this.engineTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.engineTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
+            this.engineTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "rpm2", true));
+            this.engineTemp_SVPB.Location = new System.Drawing.Point(616, 21);
+            this.engineTemp_SVPB.Maximum = 130D;
+            this.engineTemp_SVPB.Minimum = -50D;
+            this.engineTemp_SVPB.Name = "engineTemp_SVPB";
+            this.engineTemp_SVPB.Size = new System.Drawing.Size(17, 99);
+            this.engineTemp_SVPB.Step = 10D;
+            this.engineTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.engineTemp_SVPB.TabIndex = 9;
+            this.engineTemp_SVPB.Value = 10D;
             // 
             // StatusControlPanel
             // 
@@ -589,11 +602,11 @@ namespace MissionPlanner.Controls
             this.Name = "StatusControlPanel";
             this.Size = new System.Drawing.Size(936, 123);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceCurrentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.panel2.ResumeLayout(false);
             this.speedPanel.ResumeLayout(false);
             this.speedPanel.PerformLayout();
@@ -601,6 +614,7 @@ namespace MissionPlanner.Controls
             this.enginePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label averageRpmICE_label;
