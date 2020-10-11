@@ -435,6 +435,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\NotificationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\NotificationControl.Designer.cs">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\RegionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -922,6 +928,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>

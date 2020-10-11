@@ -1469,6 +1469,13 @@ namespace MissionPlanner
 
             try
             {
+                if (!FlightPlanner.notificationControl1.timer1.Enabled) 
+                {
+                    FlightPlanner.notificationControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
+                }
+
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
@@ -1735,69 +1742,74 @@ namespace MissionPlanner
             }
         }
 
+        public static List<string> notifications = new List<string>();
         void alarmLabelTextCheck()
         {
-            List<string> s = new List<string>();
-            if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+            notifications = new List<string>();
+            if (MainV2.comPort.MAV.cs.connected)
             {
-                s.Add("Плохой сигнал GPS");
+                if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+                {
+                    notifications.Add("Плохой сигнал GPS");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
+                {
+                    notifications.Add("Отказ гироскопов");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
+                {
+                    notifications.Add("Ошибка барометра");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
+                {
+                    notifications.Add("Ошибка ИНС");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
+                {
+                    notifications.Add("Отказ компаса");
+                }
+                else if (MainV2.comPort.MAV.cs.ekfcompv > 1)
+                {
+                    notifications.Add("Рассогласование компаса");
+                }
+                else if (MainV2.comPort.MAV.cs.ekfvelv > 1)
+                {
+                    notifications.Add("Рассогласование скорости");
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage < 11)
+                {
+                    notifications.Add("Низкое напряжение, отказ генератора");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm2 > 118)
+                {
+                    notifications.Add("Перегрев двигателя");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm1 > 8600)
+                {
+                    notifications.Add("Превышение оборотов двигателя");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                {
+                    notifications.Add("Двигатель заглох");
+                }
+                else if (MainV2.comPort.MAV.cs.mode == "RTL")
+                {
+                    notifications.Add("Режим возврата к точке «Дом»");
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                {
+                    notifications.Add("Низкий уровень топлива");
+                }
+                else if (currentConnectionRate < 45)
+                {
+                    notifications.Add("Низкий уровень радиосигнала");
+                }
             }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
-            {
-                s.Add("Отказ гироскопов");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
-            {
-                s.Add("Ошибка барометра");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
-            {
-                s.Add("Ошибка ИНС");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
-            {
-                s.Add("Отказ компаса");
-            }
-            else if (MainV2.comPort.MAV.cs.ekfcompv > 1)
-            {
-                s.Add("Рассогласование компаса");
-            }
-            else if (MainV2.comPort.MAV.cs.ekfvelv > 1)
-            {
-                s.Add("Рассогласование скорости");
-            }
-            else if (MainV2.comPort.MAV.cs.battery_voltage < 11)
-            {
-                s.Add("Низкое напряжение, отказ генератора");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm2 > 118)
-            {
-                s.Add("Перегрев двигателя");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm1 > 8600)
-            {
-                s.Add("Превышение оборотов двигателя");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm1 < 3000)
-            {
-                s.Add("Двигатель заглох");
-            }
-            else if (MainV2.comPort.MAV.cs.mode == "RTL")
-            {
-                s.Add("Режим возврата к точке «Дом»");
-            }
-            else if (MainV2.comPort.MAV.cs.battery_voltage2/MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
-            {
-                s.Add("Низкий уровень топлива");
-            }
-            else if (currentConnectionRate < 45)  
-            {
-                s.Add("Низкий уровень радиосигнала");
-            }
-
-            if (s.Count() > 0)
-            {
-                label13.Text = s[0];
+            else {
+                for (int i = 0; i < 7; i++)
+                {
+                    notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
+                }
             }
         }
 
