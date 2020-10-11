@@ -1164,7 +1164,7 @@
     <value>status1</value>
   </data>
   <data name="&gt;&gt;status1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;status1.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -1200,7 +1200,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
@@ -1225,39 +1225,6 @@
   </data>
   <data name="toolStripButton8.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
-  </data>
-  <data name="label13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>802, 204</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 13</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Борт 747: Ошибка генератора, заданная высота &lt;100м;</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>454, 10</value>
@@ -1528,7 +1495,7 @@
     <value>snsControl2</value>
   </data>
   <data name="&gt;&gt;snsControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1712,7 +1679,7 @@
     <value>servoGimbal2</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1896,7 +1863,7 @@
     <value>timeControl2</value>
   </data>
   <data name="&gt;&gt;timeControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2107,7 +2074,7 @@
     <value>coordinatsControl1</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2318,7 +2285,7 @@
     <value>servoGimbal1</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2496,7 +2463,7 @@
     <value>snsControl1</value>
   </data>
   <data name="&gt;&gt;snsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2547,7 +2514,7 @@
     <value>rightSideMenuControl1</value>
   </data>
   <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2586,7 +2553,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="toolStripConnectionControl1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4498,7 +4465,7 @@
     <value>toolStripConnectionControl</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7582.11787, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MenuArduPilot.Name" xml:space="preserve">
     <value>MenuArduPilot</value>
@@ -4560,17 +4527,11 @@
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
-    <value>toolStripConnectionControl</value>
-  </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Name" xml:space="preserve">
     <value>toolStripConnectionControl1</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7589.32758, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainV2</value>

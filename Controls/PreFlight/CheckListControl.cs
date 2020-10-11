@@ -48,6 +48,24 @@ namespace MissionPlanner.Controls.PreFlight
             return result;
         }
 
+        public List<bool> getCheckboxesState ()
+        {
+            List<bool> result = new List<bool>();
+            int counter = 0;
+            foreach (Control itemp in panel1.Controls)
+            {
+                foreach (Control item in itemp.Controls)
+                {
+                    if (item.Name.StartsWith("utickbox"))
+                    {
+                        var tickbox = item as CheckBox;
+                        result.Add(tickbox.Checked);
+                        counter++;
+                    }
+                }
+            }
+            return result;
+        }
 
         public CheckListControl()
         {
