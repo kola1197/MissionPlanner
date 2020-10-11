@@ -4701,15 +4701,17 @@ namespace MissionPlanner
                 rc.target_system = comPort.MAV.sysid;
                 if (overrides[1] != 1500)
                 {
-                    rc.chan2_raw = Convert.ToUInt16(overrides[1]);
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, overrides[1], 0, 0, 0, 0, 0);
+                    //rc.chan2_raw = Convert.ToUInt16(overrides[1]);
                 }
                 if (overrides[3] != 1500)
                 {
-                    rc.chan4_raw = Convert.ToUInt16(overrides[3]);
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 4, overrides[1], 0, 0, 0, 0, 0);
+                    //rc.chan4_raw = Convert.ToUInt16(overrides[3]);
                 }
                 //new DevopsUI().ShowUserControl();
                 // TODO: add right values
-                if (comPort.BaseStream.IsOpen)
+                /*if (comPort.BaseStream.IsOpen)
                 {
                     if (comPort.BaseStream.BytesToWrite < 50)
                     {
@@ -4725,7 +4727,7 @@ namespace MissionPlanner
                         //count++;
                         //lastjoystick = DateTime.Now;
                     }
-                }
+                }*/
 
                 string debugOverrideInfo = "Output:";
 
