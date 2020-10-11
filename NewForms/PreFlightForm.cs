@@ -337,9 +337,6 @@ namespace MissionPlanner.NewForms
             iceRun1.focused(false);
         }
 
-        private void myButton6_MouseUp_1(object sender, MouseEventArgs e)
-        {
-            minCapacity.Text = batt2_voltage.Text;
-        }
+
     }
 }
