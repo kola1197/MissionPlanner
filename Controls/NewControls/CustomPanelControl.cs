@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 
 namespace MissionPlanner.Controls.NewControls
 {

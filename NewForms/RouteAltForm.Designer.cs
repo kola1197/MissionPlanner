@@ -42,6 +42,8 @@
             this.alt_SlidingScale.LargeTicksCount = 10;
             this.alt_SlidingScale.LargeTicksLength = 20;
             this.alt_SlidingScale.Location = new System.Drawing.Point(2, 30);
+            this.alt_SlidingScale.MaxValue = 5100D;
+            this.alt_SlidingScale.MinValue = 80D;
             this.alt_SlidingScale.Name = "alt_SlidingScale";
             this.alt_SlidingScale.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.alt_SlidingScale.ScaleRange = 1000D;
@@ -49,6 +51,7 @@
             this.alt_SlidingScale.SmallTickLength = 7;
             this.alt_SlidingScale.TabIndex = 1;
             this.alt_SlidingScale.Value = 80D;
+            this.alt_SlidingScale.ValueChanged += new System.EventHandler<MissionPlanner.ValueChangedEventArgs>(this.alt_SlidingScale_ValueChanged);
             this.alt_SlidingScale.MouseDown += new System.Windows.Forms.MouseEventHandler(this.alt_SlidingScale_MouseDown);
             this.alt_SlidingScale.MouseMove += new System.Windows.Forms.MouseEventHandler(this.alt_SlidingScale_MouseMove);
             this.alt_SlidingScale.MouseUp += new System.Windows.Forms.MouseEventHandler(this.alt_SlidingScale_MouseUp);

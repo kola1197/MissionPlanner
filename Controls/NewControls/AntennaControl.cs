@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls.BackstageView;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls

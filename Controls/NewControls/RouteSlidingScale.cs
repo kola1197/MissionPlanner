@@ -35,7 +35,7 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private void alt_SlidingScale_ValueChanged(object sender, Orlan.ValueChangedEventArgs e)
+        private void alt_SlidingScale_ValueChanged(object sender, MissionPlanner.ValueChangedEventArgs e)
         {
 
         }

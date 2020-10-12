@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 
 namespace MissionPlanner.Controls.NewControls
 {

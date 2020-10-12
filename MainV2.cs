@@ -51,7 +51,7 @@ using Microsoft.Win32;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls.PreFlight;
 using MissionPlanner.GCSViews;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using Org.BouncyCastle.Asn1.Cms;
 using MissionPlanner.Plugin;
 using MissionPlanner.Properties;
@@ -1325,17 +1325,17 @@ namespace MissionPlanner
             
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
-            InitRouteForm();
+            SetRouteFormLocation();
 
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
         }
 
-        private void InitRouteForm()
+        public void SetRouteFormLocation()
         {
             Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            RouteAltForm.Location = new Point(AircraftMenuControl.Width + locationLocal.X, locationLocal.Y);
+            RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
 
         }
 

@@ -12,7 +12,8 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using MissionPlanner.Orlan;
+using System.Linq;
+using MissionPlanner;
 
 namespace TB.Instruments
 {
@@ -75,18 +76,72 @@ namespace TB.Instruments
         ]
         public double Value
         {
-            get { return curValue; }
+            get => curValue;
             set
             {
                 double oldValue = curValue;
-
+                
+                if (!IsValueInRange(value) || oldValue == value)
+                    return;
+                
                 curValue = value;
 
                 OnValueChanged(new ValueChangedEventArgs(oldValue, value));
 
                 // Refresh only if the curValue is significant changed.
-                if (Math.Abs(oldValue - curValue) > 0.0001)
+                if (Math.Abs(oldValue - curValue) > 0.1)
                     this.Refresh();
+            }
+        }
+        
+        private double minValue = 0.0;
+        /// <summary>
+        /// The minimum position of the scale.
+        /// </summary>
+        [
+            Browsable(true),
+            DesignerSerializationVisibility(DesignerSerializationVisibility.Visible),
+            Category("Behavior"),
+            Description("The minimum position of the scale."),
+            DefaultValue(typeof(double), "0.0")
+        ]
+        public double MinValue
+        {
+            get => minValue;
+            set
+            {
+                minValue = value;
+
+                if (this.Value < minValue)
+                {
+                    this.Value = minValue;
+                }
+                this.Refresh();
+            }
+        }
+        
+        private double maxValue = 1000.0;
+        /// <summary>
+        /// The maximum position of the scale.
+        /// </summary>
+        [
+            Browsable(true),
+            DesignerSerializationVisibility(DesignerSerializationVisibility.Visible),
+            Category("Behavior"),
+            Description("The maximum position of the scale."),
+            DefaultValue(typeof(double), "1000.0")
+        ]
+        public double MaxValue
+        {
+            get => maxValue;
+            set
+            {
+                maxValue = value;
+                if (this.Value > maxValue)
+                {
+                    this.Value = maxValue;
+                }
+                this.Refresh();
             }
         }
 
@@ -374,6 +429,16 @@ namespace TB.Instruments
         private double smallTicksDistance = 0.0;
         private float smallTicksPixels = 0f;
 
+        private bool IsValueInRange(double value)
+        {
+            if (value <= MaxValue && value >= MinValue)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         private void CalculateLocals()
         {
             // Calculate help variables
@@ -592,10 +657,22 @@ namespace TB.Instruments
 
         #region [ Events ... ]
 
-        public event EventHandler<ValueChangedEventArgs> ValueChanged;
+        private event EventHandler<ValueChangedEventArgs> NewValueEvent;
+        public event EventHandler<ValueChangedEventArgs> ValueChanged
+        {
+            add
+            {
+                if (NewValueEvent == null || !NewValueEvent.GetInvocationList().Contains(value))
+                {
+                    NewValueEvent += value;
+                }
+            }
+            remove => NewValueEvent -= value;
+        }
+        
         protected virtual void OnValueChanged(ValueChangedEventArgs e)
         {
-            ValueChanged?.Invoke(this, e);
+            NewValueEvent?.Invoke(this, e);
         }
 
         #endregion [ Events ]

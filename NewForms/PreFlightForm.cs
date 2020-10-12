@@ -257,7 +257,7 @@ namespace MissionPlanner.NewForms
             ((Control)sender).Enabled = false;            //set 0 wp as current
             MainV2.setCurrentWP((ushort)0);
             ((Control)sender).Enabled = true;
-            Orlan.AircraftConnectionInfo info;
+            MissionPlanner.AircraftConnectionInfo info;
             if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
                 info.StartOfTheFlightTime = DateTime.Now;

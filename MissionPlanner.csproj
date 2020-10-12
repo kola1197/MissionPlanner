@@ -807,7 +807,7 @@
     <Compile Include="Orlan\ICustomClick.cs" />
     <Compile Include="Orlan\NestedBindingProxy.cs" />
     <Compile Include="Orlan\RegionData.cs" />
-    <Compile Include="Orlan\ValueChangedEventArgs.cs" />
+    <Compile Include="Orlan\RouteAltitude.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">

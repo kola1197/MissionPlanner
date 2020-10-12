@@ -16,7 +16,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.GCSViews;
 using MissionPlanner.Maps;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls

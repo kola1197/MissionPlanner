@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GMap.NET.WindowsForms;
 
-namespace MissionPlanner.Orlan
+namespace MissionPlanner
 {
     class RegionData
     {

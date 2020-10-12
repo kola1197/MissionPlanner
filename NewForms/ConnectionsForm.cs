@@ -14,7 +14,7 @@ using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner

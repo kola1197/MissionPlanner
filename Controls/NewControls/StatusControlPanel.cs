@@ -48,7 +48,7 @@ namespace MissionPlanner.Controls
             AddClickToSpeedPanelControls();
             AddClickToEnginePanelControls();
 
-            slidingScaleIndent = new Point(speedPanel.Width / 4, 40);
+            slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
         }
 
         public Point GetLocalRouteFormLocation()
@@ -280,6 +280,8 @@ namespace MissionPlanner.Controls
 
         private void speedPanel_Click(object sender, EventArgs e)
         {
+            MainV2.instance.SetRouteFormLocation();
+            MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
             MainV2.RouteAltForm.Show();
             MainV2.RouteAltForm.TopLevel = true;
         }
