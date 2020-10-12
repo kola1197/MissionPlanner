@@ -49,6 +49,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             if (active) 
             {
                 DateTime now = DateTime.Now;
@@ -56,6 +57,11 @@ namespace MissionPlanner.Controls.NewControls
                 last = now;
                 updateLabels();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

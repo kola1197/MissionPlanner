@@ -41,10 +41,11 @@
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.myButton6 = new MissionPlanner.Controls.MyButton();
             this.myButton7 = new MissionPlanner.Controls.MyButton();
             this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.minCapacity = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -90,7 +91,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(446, 509);
+            this.tabControl1.Size = new System.Drawing.Size(523, 509);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.TabStop = false;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -103,14 +104,14 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(438, 483);
+            this.tabPage1.Size = new System.Drawing.Size(515, 483);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Предполетная подготовка";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // armButton
             // 
-            this.armButton.Location = new System.Drawing.Point(126, 443);
+            this.armButton.Location = new System.Drawing.Point(130, 443);
             this.armButton.Name = "armButton";
             this.armButton.Size = new System.Drawing.Size(75, 23);
             this.armButton.TabIndex = 3;
@@ -120,7 +121,7 @@
             // 
             // nextButton1
             // 
-            this.nextButton1.Location = new System.Drawing.Point(357, 454);
+            this.nextButton1.Location = new System.Drawing.Point(422, 443);
             this.nextButton1.Name = "nextButton1";
             this.nextButton1.Size = new System.Drawing.Size(75, 23);
             this.nextButton1.TabIndex = 2;
@@ -132,7 +133,7 @@
             // 
             this.checkListControl1.Location = new System.Drawing.Point(6, 16);
             this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(426, 421);
+            this.checkListControl1.Size = new System.Drawing.Size(491, 421);
             this.checkListControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -145,7 +146,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(438, 483);
+            this.tabPage2.Size = new System.Drawing.Size(515, 483);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Калибровка ПВД";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -153,7 +154,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(154, 349);
+            this.label6.Location = new System.Drawing.Point(181, 349);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 13);
             this.label6.TabIndex = 7;
@@ -161,7 +162,7 @@
             // 
             // startCalibrationButton
             // 
-            this.startCalibrationButton.Location = new System.Drawing.Point(97, 168);
+            this.startCalibrationButton.Location = new System.Drawing.Point(148, 164);
             this.startCalibrationButton.Name = "startCalibrationButton";
             this.startCalibrationButton.Size = new System.Drawing.Size(260, 57);
             this.startCalibrationButton.TabIndex = 6;
@@ -190,7 +191,7 @@
             // 
             // gotReaction
             // 
-            this.gotReaction.Location = new System.Drawing.Point(357, 454);
+            this.gotReaction.Location = new System.Drawing.Point(419, 454);
             this.gotReaction.Name = "gotReaction";
             this.gotReaction.Size = new System.Drawing.Size(75, 23);
             this.gotReaction.TabIndex = 3;
@@ -200,10 +201,11 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.myButton6);
             this.tabPage3.Controls.Add(this.myButton7);
             this.tabPage3.Controls.Add(this.myButton5);
             this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.minCapacity);
             this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Controls.Add(this.label4);
@@ -218,14 +220,24 @@
             this.tabPage3.Controls.Add(this.nextButton2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(438, 483);
+            this.tabPage3.Size = new System.Drawing.Size(515, 483);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Заправка";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // myButton6
+            // 
+            this.myButton6.Location = new System.Drawing.Point(355, 270);
+            this.myButton6.Name = "myButton6";
+            this.myButton6.Size = new System.Drawing.Size(101, 23);
+            this.myButton6.TabIndex = 25;
+            this.myButton6.Text = "Выставить";
+            this.myButton6.UseVisualStyleBackColor = true;
+            this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
+            // 
             // myButton7
             // 
-            this.myButton7.Location = new System.Drawing.Point(312, 290);
+            this.myButton7.Location = new System.Drawing.Point(355, 299);
             this.myButton7.Name = "myButton7";
             this.myButton7.Size = new System.Drawing.Size(101, 23);
             this.myButton7.TabIndex = 24;
@@ -235,7 +247,7 @@
             // 
             // myButton5
             // 
-            this.myButton5.Location = new System.Drawing.Point(119, 325);
+            this.myButton5.Location = new System.Drawing.Point(162, 334);
             this.myButton5.Name = "myButton5";
             this.myButton5.Size = new System.Drawing.Size(187, 23);
             this.myButton5.TabIndex = 22;
@@ -246,26 +258,26 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(43, 266);
+            this.label7.Location = new System.Drawing.Point(86, 275);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(151, 13);
             this.label7.TabIndex = 21;
             this.label7.Text = "Минимальная емкость бака";
             // 
-            // textBox1
+            // minCapacity
             // 
-            this.textBox1.Location = new System.Drawing.Point(206, 263);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 20;
-            this.textBox1.Text = "0";
+            this.minCapacity.Location = new System.Drawing.Point(249, 272);
+            this.minCapacity.Name = "minCapacity";
+            this.minCapacity.Size = new System.Drawing.Size(100, 20);
+            this.minCapacity.TabIndex = 20;
+            this.minCapacity.Text = "0";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(206, 188);
+            this.checkBox1.Location = new System.Drawing.Point(249, 197);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(161, 17);
             this.checkBox1.TabIndex = 19;
@@ -275,7 +287,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(297, 20);
+            this.label5.Location = new System.Drawing.Point(340, 29);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(15, 13);
             this.label5.TabIndex = 18;
@@ -285,7 +297,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 296);
+            this.label4.Location = new System.Drawing.Point(86, 305);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(157, 13);
             this.label4.TabIndex = 17;
@@ -294,7 +306,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 20);
+            this.label3.Location = new System.Drawing.Point(71, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 16;
@@ -304,7 +316,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 214);
+            this.label2.Location = new System.Drawing.Point(86, 223);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 15;
@@ -313,7 +325,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 169);
+            this.label1.Location = new System.Drawing.Point(86, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 14;
@@ -321,7 +333,7 @@
             // 
             // maxСapacity
             // 
-            this.maxСapacity.Location = new System.Drawing.Point(206, 293);
+            this.maxСapacity.Location = new System.Drawing.Point(249, 302);
             this.maxСapacity.Name = "maxСapacity";
             this.maxСapacity.Size = new System.Drawing.Size(100, 20);
             this.maxСapacity.TabIndex = 13;
@@ -329,7 +341,7 @@
             // 
             // valueInPercentsTBox
             // 
-            this.valueInPercentsTBox.Location = new System.Drawing.Point(191, 17);
+            this.valueInPercentsTBox.Location = new System.Drawing.Point(234, 26);
             this.valueInPercentsTBox.Name = "valueInPercentsTBox";
             this.valueInPercentsTBox.Size = new System.Drawing.Size(100, 20);
             this.valueInPercentsTBox.TabIndex = 12;
@@ -339,7 +351,7 @@
             // 
             // flightTimeTBox
             // 
-            this.flightTimeTBox.Location = new System.Drawing.Point(206, 211);
+            this.flightTimeTBox.Location = new System.Drawing.Point(249, 220);
             this.flightTimeTBox.Name = "flightTimeTBox";
             this.flightTimeTBox.Size = new System.Drawing.Size(100, 20);
             this.flightTimeTBox.TabIndex = 11;
@@ -349,7 +361,7 @@
             // 
             // batt2_voltage
             // 
-            this.batt2_voltage.Location = new System.Drawing.Point(206, 162);
+            this.batt2_voltage.Location = new System.Drawing.Point(249, 171);
             this.batt2_voltage.Name = "batt2_voltage";
             this.batt2_voltage.Size = new System.Drawing.Size(100, 20);
             this.batt2_voltage.TabIndex = 6;
@@ -383,7 +395,7 @@
             this.tabPage4.Controls.Add(this.iceRun1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(438, 483);
+            this.tabPage4.Size = new System.Drawing.Size(515, 483);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Запуск ДВС";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -422,7 +434,7 @@
             this.tabPage5.Controls.Add(this.myButton1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(438, 483);
+            this.tabPage5.Size = new System.Drawing.Size(515, 483);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -431,7 +443,7 @@
             // 
             this.iceCheck1.Location = new System.Drawing.Point(6, 7);
             this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(432, 432);
+            this.iceCheck1.Size = new System.Drawing.Size(509, 432);
             this.iceCheck1.TabIndex = 4;
             // 
             // myButton2
@@ -459,7 +471,7 @@
             this.tabPage6.Controls.Add(this.myButton3);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(438, 483);
+            this.tabPage6.Size = new System.Drawing.Size(515, 483);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "ПУСК";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -499,7 +511,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 526);
+            this.ClientSize = new System.Drawing.Size(537, 526);
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
             this.Text = "PreFlightForm";
@@ -557,8 +569,9 @@
         private Controls.MyButton armButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox minCapacity;
         private Controls.MyButton myButton5;
         private Controls.MyButton myButton7;
+        private Controls.MyButton myButton6;
     }
 }
