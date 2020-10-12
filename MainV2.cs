@@ -1814,7 +1814,7 @@ namespace MissionPlanner
                 {
                     notifications.Add("Режим возврата к точке «Дом»");
                 }
-                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
                 {
                     notifications.Add("Низкий уровень топлива");
                 }
