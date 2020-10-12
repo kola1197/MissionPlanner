@@ -11,8 +11,8 @@ namespace GMap.NET
    public struct PointLatLng
    {
       public static readonly PointLatLng Empty = new PointLatLng();
-      private double lat;
-      private double lng;
+      private Double lat;
+      private Double lng;
 
       bool NotEmpty;
 
@@ -34,7 +34,7 @@ namespace GMap.NET
          }
       }
 
-      public double Lat
+      public Double Lat
       {
          get
          {
@@ -47,7 +47,7 @@ namespace GMap.NET
          }
       }
 
-      public double Lng
+      public Double Lng
       {
          get
          {

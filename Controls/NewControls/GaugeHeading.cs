@@ -46,7 +46,7 @@ namespace MissionPlanner.Controls
             headingDegrees_Label.Location = new System.Drawing.Point(48, 35);
         }
 
-        public override event EventHandler SensorOnClick
+        public override event EventHandler CustomOnClick
         {
             add
             {

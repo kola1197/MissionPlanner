@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls.BackstageView;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls
@@ -43,7 +43,7 @@ namespace MissionPlanner.Controls.NewControls
                 System.Threading.Thread.Sleep(200);
                 if (MainV2.CurrentAircraftNum != null)
                 {
-                    ConnectionsForm.instance.switchConnectedAircraft(MainV2._aircraftInfo[MainV2.CurrentAircraftNum]);
+                    ConnectionsForm.instance.switchConnectedAircraft(MainV2.AircraftInfo[MainV2.CurrentAircraftNum]);
                 }
             }
             catch
@@ -74,7 +74,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void connectAntenna(object sender)
         {
-            if (!MainV2._aircraftInfo.Keys.Contains(antennaNumber))
+            if (!MainV2.AircraftInfo.Keys.Contains(antennaNumber))
             {
                 // addAntenna();
             }
@@ -96,7 +96,7 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2._connectionControl.UpdateSysIDS();
 
                 System.Threading.Thread.Sleep(100);
-                AntennaConnectionInfo antenna = MainV2._AntennaConnectionInfo;
+                AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
                 antenna.SerialPort = CMB_serialport.SelectedItem.ToString();
 
                 if (CMB_baudrate.SelectedItem != null)
@@ -140,7 +140,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void disconnectAntenna()
         {
-            AircraftConnectionInfo antenna = MainV2._AntennaConnectionInfo;
+            AircraftConnectionInfo antenna = MainV2.AntennaConnectionInfo;
 
             var temp = (ConnectionControl.port_sysid) antenna.SysId;
 
@@ -157,7 +157,7 @@ namespace MissionPlanner.Controls.NewControls
                 antenna.SysId = null;
                 antenna.UsingSITL = false;
                 MainV2.StopUpdates();
-                MainV2._aircraftMenuControl.updateAllAircraftButtonTexts();
+                MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
                 connect_BUT.Text = connectText;
                 timer1.Enabled = false;
                 ConnectionsForm.instance.SetToDefault();
@@ -169,7 +169,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void connect_BUT_Click(object sender, EventArgs e)
         {
-            if (MainV2._AntennaConnectionInfo.Connected)
+            if (MainV2.AntennaConnectionInfo.Connected)
             {
                 disconnectAntenna();
             }
@@ -186,7 +186,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (MainV2._AntennaConnectionInfo.SysId == null)
+            if (MainV2.AntennaConnectionInfo.SysId == null)
             {
                 CustomMessageBox.Show("sysid == null");
                 return;
@@ -194,7 +194,7 @@ namespace MissionPlanner.Controls.NewControls
 
             
             
-            var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo.SysId;
+            var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {
                 // draw the mavs seen on this port

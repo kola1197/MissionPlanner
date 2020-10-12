@@ -152,7 +152,7 @@ namespace MissionPlanner.Controls.NewControls
             StatusControlPanel.instance.sensorsStrip_Click(sender, e);
         }
 
-        public override event EventHandler SensorOnClick
+        public override event EventHandler CustomOnClick
         {
             add
             {
