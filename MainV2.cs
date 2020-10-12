@@ -1734,9 +1734,24 @@ namespace MissionPlanner
             {
                 progressBar1.Maximum = MAVLinkInterface.paramsCount;
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+                progressBar2.Maximum = MAVLinkInterface.paramsCount;
+                progressBar2.Value = MAVLinkInterface.paramsLoadedCount;
             }
-
-            progressBar1.Visible = MAVLinkInterface.paramsLoading;
+            else
+            {
+                if (comPort.MAV.cs.connected)
+                {
+                    progressBar2.Value = progressBar2.Maximum;
+                    progressBar1.Value = progressBar1.Maximum;
+                }
+                else 
+                {
+                    progressBar1.Maximum = 100;
+                    progressBar1.Value = 5;
+                    progressBar2.Maximum = 100;
+                    progressBar2.Value = 5;
+                }
+            }
             _aircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
@@ -5446,6 +5461,15 @@ namespace MissionPlanner
 
         private void myButton4_Click_1(object sender, EventArgs e)
         {
+        }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int width = panel1.Size.Width;
+            progressBar1.Location = new Point((int)width / 2 - 2, 140);
+            progressBar2.Location = new Point( 0, 140);
+            progressBar1.Size = new Size( width / 2 + 2, 20);
+            progressBar2.Size = new Size( width / 2 + 2, 20);
         }
     }
 }
