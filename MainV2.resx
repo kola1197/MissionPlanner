@@ -908,7 +908,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1034, 140</value>
+    <value>1638, 140</value>
   </data>
   <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1128,7 +1128,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1034, 140</value>
+    <value>1638, 140</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1164,7 +1164,7 @@
     <value>status1</value>
   </data>
   <data name="&gt;&gt;status1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;status1.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -1182,7 +1182,7 @@
     <value>133332, 140</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1034, 140</value>
+    <value>1638, 140</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1528,7 +1528,7 @@
     <value>snsControl2</value>
   </data>
   <data name="&gt;&gt;snsControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1712,7 +1712,7 @@
     <value>servoGimbal2</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1896,7 +1896,7 @@
     <value>timeControl2</value>
   </data>
   <data name="&gt;&gt;timeControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2107,7 +2107,7 @@
     <value>coordinatsControl1</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2318,7 +2318,7 @@
     <value>servoGimbal1</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2496,7 +2496,7 @@
     <value>snsControl1</value>
   </data>
   <data name="&gt;&gt;snsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2535,7 +2535,7 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="rightSideMenuControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1592, 204</value>
+    <value>1592, 184</value>
   </data>
   <data name="rightSideMenuControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 448</value>
@@ -2547,7 +2547,7 @@
     <value>rightSideMenuControl1</value>
   </data>
   <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -4498,7 +4498,7 @@
     <value>toolStripConnectionControl</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7582.11787, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MenuArduPilot.Name" xml:space="preserve">
     <value>MenuArduPilot</value>
@@ -4560,17 +4560,11 @@
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
-    <value>toolStripConnectionControl</value>
-  </data>
-  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Name" xml:space="preserve">
     <value>toolStripConnectionControl1</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.5882, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainV2</value>

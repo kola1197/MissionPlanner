@@ -79,5 +79,20 @@ namespace MissionPlanner.Controls.NewControls
         {
             updateValues();
         }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -4735,6 +4735,13 @@
     <None Include="Resources\icons8_timer.png" />
     <None Include="Resources\icons8_time.png" />
     <None Include="Resources\icons8_clock.png" />
+    <None Include="Resources\icons8_delete_100.png" />
+    <None Include="Resources\icons8_delete2.png" />
+    <None Include="Resources\icons8_get.png" />
+    <None Include="Resources\icons8_write.png" />
+    <None Include="Resources\icons8_alt.png" />
+    <None Include="Resources\icons8_save.png" />
+    <None Include="Resources\icons8_dow.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
