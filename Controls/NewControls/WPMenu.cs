@@ -17,24 +17,40 @@ namespace MissionPlanner.Controls.NewControls
         public WPMenu()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(200,64,64,64);
             //updateField();
         }
 
         public bool progressBarVisible = false;
 
-        private void updateField() 
+        private void updateField()
         {
+            this.BackColor = Color.FromArgb(200, 64, 64, 64);
             //MainV2.wpLoadMenuAcrive = 
-            this.Size = fieldActive ? new Size(95, 545) : new Size(95, 125);
+            this.Size = fieldActive ? new Size(95, 652) : new Size(95, 125);
             System.Drawing.Point now = this.Location;
             int diff = 420;
-            this.Location = fieldActive ? new System.Drawing.Point(now.X,now.Y - diff) : new System.Drawing.Point(now.X, now.Y + diff);
+            //this.Location = fieldActive ? new System.Drawing.Point(now.X,now.Y - diff) : new System.Drawing.Point(now.X, now.Y + diff);
+
+            //panel1.Visible = fieldActive;
+            //panel2.Visible = fieldActive;
+            //panel3.Visible = fieldActive;
+            //panel4.Visible = fieldActive;
+            //panel5.Visible = fieldActive;
+            //panel6.Visible = fieldActive;
             loadButton.Visible = fieldActive;
             saveButton.Visible = fieldActive;
             altButton.Visible = fieldActive;
             writeButton.Visible = fieldActive;
             getButton.Visible = fieldActive;
             deleteButton.Visible = fieldActive;
+            label10.Visible = fieldActive;
+            label9.Visible = fieldActive;
+            label8.Visible = fieldActive;
+            label7.Visible = fieldActive;
+            label6.Visible = fieldActive;
+            label5.Visible = fieldActive;
+
         }
 
         private void myButton5_Click(object sender, EventArgs e)
