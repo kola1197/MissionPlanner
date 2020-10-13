@@ -47,30 +47,29 @@ namespace MissionPlanner.Controls
             AddClickToSpeedPanelControls();
             AddClickToEnginePanelControls();
 
-            // slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
+            slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
         }
 
         public Point GetLocalRouteFormLocation()
         {
-            // return new Point(speedPanel.Location.X + slidingScaleIndent.X,
-                // speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
-                return new Point(0,0);
+            return new Point(speedPanel.Location.X + slidingScaleIndent.X,
+                speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
         }
 
         private void AddClickToSpeedPanelControls()
         {
-            // foreach (Control control in speedPanel.Controls)
-            // {
-                // control.Click += speedPanel_Click;
-            // }
+            foreach (Control control in speedPanel.Controls)
+            {
+                control.Click += speedPanel_Click;
+            }
         }
 
         private void AddClickToEnginePanelControls()
         {
-            // foreach (Control control in enginePanel.Controls)
-            // {
-                // control.Click += enginePanel_Click;
-            // }
+            foreach (Control control in enginePanel.Controls)
+            {
+                control.Click += enginePanel_Click;
+            }
         }
 
         private void InitSensors()
@@ -291,61 +290,6 @@ namespace MissionPlanner.Controls
             MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
             MainV2.RouteAltForm.Show();
             MainV2.RouteAltForm.TopLevel = true;
-        }
-
-        private void StatusControlPanel_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void airspeed_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void environmentTemp_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HorizonHUD_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void environmentTemp_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void engineTemp_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void engineTemp_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groundSpeed_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void targetAlt_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sensorsMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void windDir1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
