@@ -61,6 +61,7 @@ using System.Xml.Serialization;
 using System.Windows.Input;
 using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.NewClasses;
+using Microsoft.Win32;
 
 namespace MissionPlanner
 {
@@ -1554,7 +1555,18 @@ namespace MissionPlanner
 
             mapChangeForm = new MapChangeForm();
             mapChangeForm.comboBoxMapType.ValueMember = "Name";
-            mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+
+            List<GMapProvider> providers = GMapProviders.List;
+            List<GMapProvider> filtredproviders = new List<GMapProvider>();
+            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19 };
+            foreach (int i in providersNumsToCopy)
+            {
+                filtredproviders.Add(providers[i]);
+            }
+
+            mapChangeForm.comboBoxMapType.DataSource = filtredproviders.ToArray();
+
+            //mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             mapChangeForm.comboBoxMapType.SelectedItem = FlightPlanner.MainMap.MapProvider;
             FlightPlanner.MainMap.OnTileLoadComplete += MainMap_OnTileLoadComplete;
             FlightPlanner.MainMap.OnTileLoadStart += MainMap_OnTileLoadStart;
@@ -1722,6 +1734,7 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
+        bool soundFlag = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
             alarmLabelTextCheck();
@@ -1732,6 +1745,7 @@ namespace MissionPlanner
 
             if (MAVLinkInterface.paramsLoading)
             {
+                soundFlag = true;
                 progressBar1.Maximum = MAVLinkInterface.paramsCount;
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
                 progressBar2.Maximum = MAVLinkInterface.paramsCount;
@@ -1743,6 +1757,17 @@ namespace MissionPlanner
                 {
                     progressBar2.Value = progressBar2.Maximum;
                     progressBar1.Value = progressBar1.Maximum;
+                    if (soundFlag)
+                    {
+                        System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+                        if (File.Exists("D:\\test.wav")) 
+                        {
+                            player.SoundLocation = "E:\\test.wav";
+                            player.Play();
+                            soundFlag = !soundFlag;
+                        }
+                    }
+
                 }
                 else 
                 {
@@ -5441,7 +5466,9 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            logger.write("test");
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            player.SoundLocation = "E:\\test.wav";
+            player.Play();
         }
 
 
