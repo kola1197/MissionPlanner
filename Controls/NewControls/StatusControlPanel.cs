@@ -16,7 +16,7 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-
+        private readonly Point slidingScaleIndent;
         private EngineControlForm engineControlForm;
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
@@ -47,29 +47,30 @@ namespace MissionPlanner.Controls
             AddClickToSpeedPanelControls();
             AddClickToEnginePanelControls();
 
-            slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
+            // slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
         }
 
         public Point GetLocalRouteFormLocation()
         {
-            return new Point(speedPanel.Location.X + slidingScaleIndent.X,
-                speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
+            // return new Point(speedPanel.Location.X + slidingScaleIndent.X,
+                // speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
+                return new Point(0,0);
         }
 
         private void AddClickToSpeedPanelControls()
         {
-            foreach (Control control in speedPanel.Controls)
-            {
-                control.Click += speedPanel_Click;
-            }
+            // foreach (Control control in speedPanel.Controls)
+            // {
+                // control.Click += speedPanel_Click;
+            // }
         }
 
         private void AddClickToEnginePanelControls()
         {
-            foreach (Control control in enginePanel.Controls)
-            {
-                control.Click += enginePanel_Click;
-            }
+            // foreach (Control control in enginePanel.Controls)
+            // {
+                // control.Click += enginePanel_Click;
+            // }
         }
 
         private void InitSensors()

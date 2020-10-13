@@ -72,8 +72,6 @@ namespace MissionPlanner.Controls
             this.airspeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.speedPanel = new System.Windows.Forms.Panel();
-            this.enginePanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
@@ -190,7 +188,6 @@ namespace MissionPlanner.Controls
             this.targetAlt_label.Size = new System.Drawing.Size(75, 25);
             this.targetAlt_label.TabIndex = 12;
             this.targetAlt_label.Text = "targetAlt";
-            this.targetAlt_label.MouseClick += new System.Windows.Forms.MouseEventHandler(this.targetAlt_label_MouseClick);
             // 
             // verticalSpeed_label
             // 
@@ -603,34 +600,6 @@ namespace MissionPlanner.Controls
             this.splittedBar_fuel.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_fuel.TabIndex = 1;
             this.splittedBar_fuel.Value = 100D;
-            // 
-            // speedPanel
-            // 
-            this.speedPanel.Controls.Add(this.groundSpeed_SVPB);
-            this.speedPanel.Controls.Add(this.airspeed_label);
-            this.speedPanel.Controls.Add(this.airspeed_SVPB);
-            this.speedPanel.Controls.Add(this.altitude_label);
-            this.speedPanel.Controls.Add(this.targetAlt_label);
-            this.speedPanel.Controls.Add(this.verticalSpeed_label);
-            this.speedPanel.Controls.Add(this.groundSpeed_label);
-            this.speedPanel.Location = new System.Drawing.Point(167, 0);
-            this.speedPanel.Name = "speedPanel";
-            this.speedPanel.Size = new System.Drawing.Size(186, 123);
-            this.speedPanel.TabIndex = 1;
-            // 
-            // enginePanel
-            // 
-            this.enginePanel.Controls.Add(this.splittedBar_voltage);
-            this.enginePanel.Controls.Add(this.splittedBar_fuel);
-            this.enginePanel.Controls.Add(this.rpmICE_label);
-            this.enginePanel.Controls.Add(this.flightMode_label);
-            this.enginePanel.Controls.Add(this.fuel_label);
-            this.enginePanel.Controls.Add(this.voltage_label);
-            this.enginePanel.Controls.Add(this.averageRpmICE_label);
-            this.enginePanel.Location = new System.Drawing.Point(0, 0);
-            this.enginePanel.Name = "enginePanel";
-            this.enginePanel.Size = new System.Drawing.Size(161, 123);
-            this.enginePanel.TabIndex = 1;
             // 
             // StatusControlPanel
             // 

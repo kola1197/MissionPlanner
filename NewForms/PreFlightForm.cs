@@ -316,14 +316,14 @@ namespace MissionPlanner.NewForms
         private void myButton5_MouseUp(object sender, MouseEventArgs e)
         {
             int i = 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(minCapacity.Text, out i) ? i : 0;
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {
-            textBox1.Text = batt2_voltage.Text;
+            minCapacity.Text = batt2_voltage.Text;
         }
 
         private void myButton7_MouseUp(object sender, MouseEventArgs e)
