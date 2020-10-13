@@ -40,65 +40,89 @@
             // 
             // MainButton
             // 
+            this.MainButton.BGGradBot = System.Drawing.Color.Empty;
+            this.MainButton.BGGradTop = System.Drawing.Color.Empty;
             this.MainButton.Location = new System.Drawing.Point(15, 13);
             this.MainButton.Name = "MainButton";
+            this.MainButton.Outline = System.Drawing.Color.Empty;
             this.MainButton.Size = new System.Drawing.Size(75, 69);
             this.MainButton.TabIndex = 0;
             this.MainButton.Text = "Main Button";
+            this.MainButton.TextColor = System.Drawing.Color.Empty;
             this.MainButton.UseVisualStyleBackColor = true;
             this.MainButton.Click += new System.EventHandler(this.MainButton_Click);
             this.MainButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // MapChoiseButton
             // 
+            this.MapChoiseButton.BGGradBot = System.Drawing.Color.Empty;
+            this.MapChoiseButton.BGGradTop = System.Drawing.Color.Empty;
             this.MapChoiseButton.Location = new System.Drawing.Point(109, 13);
             this.MapChoiseButton.Name = "MapChoiseButton";
+            this.MapChoiseButton.Outline = System.Drawing.Color.Empty;
             this.MapChoiseButton.Size = new System.Drawing.Size(75, 69);
             this.MapChoiseButton.TabIndex = 1;
             this.MapChoiseButton.Text = "Map Choise";
+            this.MapChoiseButton.TextColor = System.Drawing.Color.Empty;
             this.MapChoiseButton.UseVisualStyleBackColor = true;
             this.MapChoiseButton.Click += new System.EventHandler(this.MapChoiseButton_Click);
             this.MapChoiseButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // EKFButton
             // 
+            this.EKFButton.BGGradBot = System.Drawing.Color.Empty;
+            this.EKFButton.BGGradTop = System.Drawing.Color.Empty;
             this.EKFButton.Location = new System.Drawing.Point(201, 13);
             this.EKFButton.Name = "EKFButton";
+            this.EKFButton.Outline = System.Drawing.Color.Empty;
             this.EKFButton.Size = new System.Drawing.Size(75, 69);
             this.EKFButton.TabIndex = 2;
             this.EKFButton.Text = "EKF";
+            this.EKFButton.TextColor = System.Drawing.Color.Empty;
             this.EKFButton.UseVisualStyleBackColor = true;
             this.EKFButton.Click += new System.EventHandler(this.EKFButton_Click);
             this.EKFButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // ParamsButton
             // 
+            this.ParamsButton.BGGradBot = System.Drawing.Color.Empty;
+            this.ParamsButton.BGGradTop = System.Drawing.Color.Empty;
             this.ParamsButton.Location = new System.Drawing.Point(292, 13);
             this.ParamsButton.Name = "ParamsButton";
+            this.ParamsButton.Outline = System.Drawing.Color.Empty;
             this.ParamsButton.Size = new System.Drawing.Size(75, 69);
             this.ParamsButton.TabIndex = 3;
             this.ParamsButton.Text = "Params";
+            this.ParamsButton.TextColor = System.Drawing.Color.Empty;
             this.ParamsButton.UseVisualStyleBackColor = true;
             this.ParamsButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // RulerButton
             // 
+            this.RulerButton.BGGradBot = System.Drawing.Color.Empty;
+            this.RulerButton.BGGradTop = System.Drawing.Color.Empty;
             this.RulerButton.Location = new System.Drawing.Point(384, 13);
             this.RulerButton.Name = "RulerButton";
+            this.RulerButton.Outline = System.Drawing.Color.Empty;
             this.RulerButton.Size = new System.Drawing.Size(75, 69);
             this.RulerButton.TabIndex = 4;
             this.RulerButton.Text = "RulerButton";
+            this.RulerButton.TextColor = System.Drawing.Color.Empty;
             this.RulerButton.UseVisualStyleBackColor = true;
             this.RulerButton.Click += new System.EventHandler(this.RulerButton_Click);
             this.RulerButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // centeringButton
             // 
+            this.centeringButton.BGGradBot = System.Drawing.Color.Empty;
+            this.centeringButton.BGGradTop = System.Drawing.Color.Empty;
             this.centeringButton.Location = new System.Drawing.Point(475, 13);
             this.centeringButton.Name = "centeringButton";
+            this.centeringButton.Outline = System.Drawing.Color.Empty;
             this.centeringButton.Size = new System.Drawing.Size(75, 69);
             this.centeringButton.TabIndex = 5;
             this.centeringButton.Text = "Centering";
+            this.centeringButton.TextColor = System.Drawing.Color.Empty;
             this.centeringButton.UseVisualStyleBackColor = true;
             this.centeringButton.Click += new System.EventHandler(this.centeringButton_Click);
             this.centeringButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
@@ -110,20 +134,26 @@
             this.myButton2.Enabled = false;
             this.myButton2.Location = new System.Drawing.Point(565, 13);
             this.myButton2.Name = "myButton2";
+            this.myButton2.Outline = System.Drawing.Color.Empty;
             this.myButton2.Size = new System.Drawing.Size(75, 69);
             this.myButton2.TabIndex = 6;
             this.myButton2.Text = "useless";
+            this.myButton2.TextColor = System.Drawing.Color.Empty;
             this.myButton2.UseVisualStyleBackColor = true;
             this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             this.myButton2.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // homeButton
             // 
+            this.homeButton.BGGradBot = System.Drawing.Color.Empty;
+            this.homeButton.BGGradTop = System.Drawing.Color.Empty;
             this.homeButton.Location = new System.Drawing.Point(656, 13);
             this.homeButton.Name = "homeButton";
+            this.homeButton.Outline = System.Drawing.Color.Empty;
             this.homeButton.Size = new System.Drawing.Size(75, 69);
             this.homeButton.TabIndex = 7;
             this.homeButton.Text = "Home";
+            this.homeButton.TextColor = System.Drawing.Color.Empty;
             this.homeButton.UseVisualStyleBackColor = true;
             this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             this.homeButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);

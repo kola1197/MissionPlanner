@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Web.Routing;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using MissionPlanner.Controls.NewControls;
@@ -17,7 +16,7 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private readonly Point slidingScaleIndent;
+
         private EngineControlForm engineControlForm;
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
@@ -93,6 +92,13 @@ namespace MissionPlanner.Controls
                     sensors.Add(toolStripItem, sensorControl);
                 }
             }
+
+            ToolStripControlHost defaultSensorControlHost =
+                new ToolStripControlHost(getDesiredSensor(sensorsContextMenuStrip.Items[1]));
+            sensorsMenuStrip.Items.Add(defaultSensorControlHost);
+
+            // ThemeManager.ApplyThemeTo(this);
+            instance = this;
         }
 
         private SensorUserControl getDesiredSensor(ToolStripItem keyItem)
@@ -284,6 +290,61 @@ namespace MissionPlanner.Controls
             MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
             MainV2.RouteAltForm.Show();
             MainV2.RouteAltForm.TopLevel = true;
+        }
+
+        private void StatusControlPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void airspeed_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void environmentTemp_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HorizonHUD_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void environmentTemp_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void engineTemp_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void engineTemp_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groundSpeed_SVPB_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetAlt_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sensorsMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void windDir1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

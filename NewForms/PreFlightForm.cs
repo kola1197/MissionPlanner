@@ -26,6 +26,32 @@ namespace MissionPlanner.NewForms
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (selectedIndex == 0) // previos item was "preflight checkboxes"
+            {
+                if (checkListControl1.allRight())
+                {
+                    MainV2.logger.write("Все чекбоксы успешно пройдены");
+                }
+                else 
+                {
+                    MainV2.logger.write("Следующие проблемы возникли при прохождении проверки:");
+                    string[] text = new string[] 
+                        {"Количество видимых спутников < 6",
+                         "Задание не загружено на борт",
+                         "Самолет не в Arm",
+                         "Машинки не под напряжением или нейтрали не в норме",
+                         "Нет реакции на СВЕТ/ЗВУК",
+                         "Напряжение в бортовой цепи менее 11.5 вольт"};
+                    List<bool> b = checkListControl1.getCheckboxesState();
+                    for (int i = 0; i < text.Length; i++) 
+                    {
+                        if (!b[i]) 
+                        {
+                            MainV2.logger.write("Ошибка: " + text[i]);
+                        }
+                    } 
+                }
+            }
             if (tabControl1.SelectedIndex > progressIndex && false)      //this check was canceled
             {
                 tabControl1.SelectedIndex = selectedIndex;
@@ -290,9 +316,9 @@ namespace MissionPlanner.NewForms
         private void myButton5_MouseUp(object sender, MouseEventArgs e)
         {
             int i = 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(textBox1.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(minCapacity.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2._aircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
@@ -310,5 +336,7 @@ namespace MissionPlanner.NewForms
             iceCheck1.focused(false);
             iceRun1.focused(false);
         }
+
+
     }
 }
