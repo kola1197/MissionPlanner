@@ -472,7 +472,7 @@ namespace MissionPlanner.Controls
             this.windDirection.BackColor = System.Drawing.Color.Transparent;
             this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDirection.Direction = 180D;
+            this.windDirection.Direction = 360D;
             this.windDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDirection.Location = new System.Drawing.Point(615, 0);
             this.windDirection.Name = "windDirection";
@@ -546,6 +546,7 @@ namespace MissionPlanner.Controls
             this.enginePanel.Name = "enginePanel";
             this.enginePanel.Size = new System.Drawing.Size(199, 140);
             this.enginePanel.TabIndex = 82;
+            this.enginePanel.Click += new System.EventHandler(this.enginePanel_Click);
             // 
             // voltage_PB
             // 
@@ -603,6 +604,7 @@ namespace MissionPlanner.Controls
             this.speedPanel.Name = "speedPanel";
             this.speedPanel.Size = new System.Drawing.Size(199, 140);
             this.speedPanel.TabIndex = 83;
+            this.speedPanel.Click += new System.EventHandler(this.speedPanel_Click);
             // 
             // groundspeed_PB
             // 
