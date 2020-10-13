@@ -30,15 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.mainButton = new MissionPlanner.Controls.MyButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.loadButton = new MissionPlanner.Controls.MyButton();
             this.saveButton = new MissionPlanner.Controls.MyButton();
             this.altButton = new MissionPlanner.Controls.MyButton();
             this.writeButton = new MissionPlanner.Controls.MyButton();
             this.getButton = new MissionPlanner.Controls.MyButton();
-            this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,50 +45,39 @@
             this.label10 = new System.Windows.Forms.Label();
             this.deleteButton = new MissionPlanner.Controls.MyButton();
             this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // mainButton
             // 
             this.mainButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.mainButton.BackColor = System.Drawing.Color.Transparent;
+            this.mainButton.BackgroundImage = global::MissionPlanner.Properties.Resources.home_v0;
+            this.mainButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mainButton.BGGradBot = System.Drawing.Color.Empty;
             this.mainButton.BGGradTop = System.Drawing.Color.Empty;
-            this.mainButton.Location = new System.Drawing.Point(-3, 553);
+            this.mainButton.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.mainButton.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.mainButton.ColorNotEnabled = System.Drawing.Color.Transparent;
+            this.mainButton.FlatAppearance.BorderSize = 0;
+            this.mainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mainButton.Location = new System.Drawing.Point(0, 536);
             this.mainButton.Name = "mainButton";
             this.mainButton.Outline = System.Drawing.Color.Empty;
-            this.mainButton.Size = new System.Drawing.Size(89, 76);
+            this.mainButton.Size = new System.Drawing.Size(95, 76);
             this.mainButton.TabIndex = 0;
             this.mainButton.Text = "Дом";
             this.mainButton.TextColor = System.Drawing.Color.Empty;
-            this.mainButton.UseVisualStyleBackColor = true;
+            this.mainButton.UseVisualStyleBackColor = false;
             this.mainButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mainButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 537);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(19, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "14";
-            this.label1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 537);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "14";
-            this.label2.Visible = false;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 632);
+            this.label3.Location = new System.Drawing.Point(13, 615);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 9;
@@ -109,7 +95,7 @@
             this.loadButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.loadButton.FlatAppearance.BorderSize = 0;
             this.loadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadButton.Location = new System.Drawing.Point(4, 7);
+            this.loadButton.Location = new System.Drawing.Point(0, 0);
             this.loadButton.Name = "loadButton";
             this.loadButton.Outline = System.Drawing.Color.Empty;
             this.loadButton.Size = new System.Drawing.Size(95, 54);
@@ -130,7 +116,7 @@
             this.saveButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Location = new System.Drawing.Point(4, 91);
+            this.saveButton.Location = new System.Drawing.Point(0, 84);
             this.saveButton.Name = "saveButton";
             this.saveButton.Outline = System.Drawing.Color.Empty;
             this.saveButton.Size = new System.Drawing.Size(95, 54);
@@ -170,7 +156,7 @@
             this.writeButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.writeButton.FlatAppearance.BorderSize = 0;
             this.writeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.writeButton.Location = new System.Drawing.Point(-3, 259);
+            this.writeButton.Location = new System.Drawing.Point(0, 256);
             this.writeButton.Name = "writeButton";
             this.writeButton.Outline = System.Drawing.Color.Empty;
             this.writeButton.Size = new System.Drawing.Size(95, 54);
@@ -190,7 +176,7 @@
             this.getButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.getButton.FlatAppearance.BorderSize = 0;
             this.getButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.getButton.Location = new System.Drawing.Point(0, 343);
+            this.getButton.Location = new System.Drawing.Point(0, 340);
             this.getButton.MinimumSize = new System.Drawing.Size(95, 54);
             this.getButton.Name = "getButton";
             this.getButton.Outline = System.Drawing.Color.Empty;
@@ -199,17 +185,6 @@
             this.getButton.TextColor = System.Drawing.Color.Empty;
             this.getButton.UseVisualStyleBackColor = false;
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 537);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "/";
-            this.label4.Visible = false;
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
@@ -217,7 +192,7 @@
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar1.Location = new System.Drawing.Point(3, 513);
+            this.progressBar1.Location = new System.Drawing.Point(3, 631);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(89, 21);
             this.progressBar1.TabIndex = 17;
@@ -230,7 +205,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label6.Location = new System.Drawing.Point(0, 400);
+            this.label6.Location = new System.Drawing.Point(0, 397);
             this.label6.MinimumSize = new System.Drawing.Size(95, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 24);
@@ -244,7 +219,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label7.Location = new System.Drawing.Point(-3, 313);
+            this.label7.Location = new System.Drawing.Point(0, 313);
             this.label7.MinimumSize = new System.Drawing.Size(95, 24);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 24);
@@ -258,13 +233,14 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label8.Location = new System.Drawing.Point(4, 229);
+            this.label8.Location = new System.Drawing.Point(0, 229);
             this.label8.MinimumSize = new System.Drawing.Size(95, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 24);
             this.label8.TabIndex = 16;
             this.label8.Text = "Высота";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
@@ -272,7 +248,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label9.Location = new System.Drawing.Point(4, 145);
+            this.label9.Location = new System.Drawing.Point(0, 141);
             this.label9.MinimumSize = new System.Drawing.Size(95, 24);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(95, 24);
@@ -286,7 +262,7 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label10.Location = new System.Drawing.Point(4, 61);
+            this.label10.Location = new System.Drawing.Point(0, 57);
             this.label10.MinimumSize = new System.Drawing.Size(95, 24);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(95, 24);
@@ -307,7 +283,7 @@
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.Color.Transparent;
-            this.deleteButton.Location = new System.Drawing.Point(-3, 427);
+            this.deleteButton.Location = new System.Drawing.Point(0, 424);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Outline = System.Drawing.Color.Empty;
             this.deleteButton.Size = new System.Drawing.Size(95, 54);
@@ -322,13 +298,46 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.label5.Location = new System.Drawing.Point(-3, 481);
+            this.label5.Location = new System.Drawing.Point(0, 481);
             this.label5.MinimumSize = new System.Drawing.Size(95, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(95, 24);
             this.label5.TabIndex = 16;
             this.label5.Text = "Удалить";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(56, 193);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "14";
+            this.label2.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(38, 193);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "/";
+            this.label4.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 193);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(19, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "14";
+            this.label1.Visible = false;
             // 
             // WPMenu
             // 
@@ -367,15 +376,12 @@
         #endregion
 
         private MyButton mainButton;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label label3;
         public MyButton loadButton;
         public MyButton saveButton;
         public MyButton altButton;
         public MyButton writeButton;
         public MyButton getButton;
-        public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label6;
@@ -385,5 +391,8 @@
         private System.Windows.Forms.Label label10;
         public MyButton deleteButton;
         private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label1;
     }
 }

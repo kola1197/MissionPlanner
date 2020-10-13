@@ -8,15 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotSpatial.Topology;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using HRGN = System.IntPtr;
+using HWND = System.IntPtr;
 
 namespace MissionPlanner.Controls.NewControls
 {
     public partial class WPMenu : UserControl
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+           int nLeftRect, // x-coordinate of upper-left corner
+           int nTopRect, // y-coordinate of upper-left corner
+           int nRightRect, // x-coordinate of lower-right corner
+           int nBottomRect, // y-coordinate of lower-right corner
+           int nWidthEllipse, // height of ellipse
+           int nHeightEllipse // width of ellipse
+        );
+
         public bool fieldActive = false;
         public WPMenu()
         {
             InitializeComponent();
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
             this.BackColor = Color.FromArgb(200,64,64,64);
             //updateField();
         }
@@ -77,6 +93,12 @@ namespace MissionPlanner.Controls.NewControls
             updateField();
         }
 
+        /*private void driweForm(object sender, EventArgs e)
+        {
+            System.Drawing.Drawing2D.GraphicsPath form_path = new System.Drawing.Drawing2D.GraphicsPath();
+            form_path.
+        }*/
+
         private void updateValues() 
         {
             
@@ -107,6 +129,11 @@ namespace MissionPlanner.Controls.NewControls
         }
 
         private void loadButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
         {
 
         }

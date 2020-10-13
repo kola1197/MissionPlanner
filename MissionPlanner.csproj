@@ -4742,6 +4742,8 @@
     <None Include="Resources\icons8_alt.png" />
     <None Include="Resources\icons8_save.png" />
     <None Include="Resources\icons8_dow.png" />
+    <None Include="Resources\home_v0.png" />
+    <None Include="Resources\home_panel_v0.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
