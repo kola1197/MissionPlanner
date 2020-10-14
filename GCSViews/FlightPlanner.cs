@@ -8157,6 +8157,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         row = (DataGridViewRow) Commands.Rows[index].Clone();
                         row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
                         row.Cells[Command.Index + 1].Value = (14).ToString();
+                        int v = (int)wpConfig.myTrackBar1.Value;
+                        row.Cells[Lon.Index + 1].Value = v.ToString();
                         Commands.Rows.Insert(index, row);
                         index++;
                         Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
