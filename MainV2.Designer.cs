@@ -457,6 +457,7 @@ namespace MissionPlanner
             this.Name = "MainV2";
             this.Load += new System.EventHandler(this.MainV2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainV2_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainV2_KeyUp);
             this.Resize += new System.EventHandler(this.MainV2_Resize);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
