@@ -52,12 +52,12 @@ namespace MissionPlanner.Controls
         {
             if (!active)
             {
-                this.Size = new Size(57, 57);
+                this.Size = new Size(60, 60);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
             else 
             {
-                this.Size = new Size(415, 57);
+                this.Size = new Size(450, 60);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
         }
