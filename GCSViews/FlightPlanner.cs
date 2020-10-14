@@ -176,7 +176,15 @@ namespace MissionPlanner.GCSViews
 
             // get map type
             comboBoxMapType.ValueMember = "Name";
-            comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+            List<GMapProvider> providers = GMapProviders.List;
+            List<GMapProvider> filtredproviders = new List<GMapProvider>();
+            int[] providersNumsToCopy = new int[] {16,17,18,19 };
+            foreach (int i in providersNumsToCopy)
+            {
+                filtredproviders.Add(providers[i]);
+            }
+            
+            comboBoxMapType.DataSource = filtredproviders.ToArray();
             comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
             comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;

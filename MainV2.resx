@@ -929,19 +929,40 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="progressBar2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 140</value>
+  </data>
+  <data name="progressBar2.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="progressBar2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>517, 20</value>
+  </data>
+  <data name="progressBar2.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Name" xml:space="preserve">
+    <value>progressBar2</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Type" xml:space="preserve">
+    <value>BSE.Windows.Forms.ProgressBar, BSE.Windows.Forms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 100</value>
+    <value>517, 140</value>
   </data>
   <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 37</value>
+    <value>517, 20</value>
   </data>
   <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
-  </data>
-  <data name="progressBar1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
     <value>progressBar1</value>
@@ -953,7 +974,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>339, 10</value>
@@ -1124,6 +1145,9 @@
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="menuStrip1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>66666, 140</value>
+  </data>
   <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
@@ -1146,13 +1170,13 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="status1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="status1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 123</value>
+    <value>0, 143</value>
   </data>
   <data name="status1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1034, 17</value>
@@ -1170,7 +1194,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;status1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 42</value>
@@ -1179,7 +1203,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="panel1.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>133332, 140</value>
+    <value>133332, 160</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1638, 140</value>
@@ -1200,7 +1224,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
@@ -1225,39 +1249,6 @@
   </data>
   <data name="toolStripButton8.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
-  </data>
-  <data name="label13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>802, 204</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 13</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Борт 747: Ошибка генератора, заданная высота &lt;100м;</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>454, 10</value>
@@ -2586,7 +2577,37 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
+  </data>
+  <data name="rightSideMenuControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="rightSideMenuControl1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rightSideMenuControl1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="rightSideMenuControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1592, 204</value>
+  </data>
+  <data name="rightSideMenuControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 448</value>
+  </data>
+  <data name="rightSideMenuControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Name" xml:space="preserve">
+    <value>rightSideMenuControl1</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7591.5030, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="toolStripConnectionControl1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4407,6 +4428,9 @@
         AAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 15</value>
   </data>
@@ -4500,6 +4524,7 @@
   <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
     <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7586.37418, Culture=neutral, PublicKeyToken=null</value>
   </data>
+
   <data name="&gt;&gt;MenuArduPilot.Name" xml:space="preserve">
     <value>MenuArduPilot</value>
   </data>
@@ -4559,6 +4584,12 @@
   </data>
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Name" xml:space="preserve">
+    <value>toolStripConnectionControl</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7591.5030, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Name" xml:space="preserve">
     <value>toolStripConnectionControl1</value>

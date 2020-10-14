@@ -1,6 +1,6 @@
 ﻿namespace MissionPlanner.Controls.NewControls
 {
-    partial class RulerControl
+    partial class NotificationControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,41 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // label1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-
-            this.pictureBox1.Size = new System.Drawing.Size(200, 24);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.WaitOnLoad = true;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.MaximumSize = new System.Drawing.Size(330, 1080);
+            this.label1.MinimumSize = new System.Drawing.Size(330, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(330, 41);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // RulerControl
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // NotificationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.pictureBox1);
-            this.Name = "RulerControl";
-
-            this.Size = new System.Drawing.Size(200, 24);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
+            this.Name = "NotificationControl";
+            this.Size = new System.Drawing.Size(330, 41);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-
+        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Timer timer1;
     }
 }
