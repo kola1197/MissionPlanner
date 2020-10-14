@@ -1466,11 +1466,16 @@ namespace MissionPlanner
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: "+eee.ToString());
             }
 
             try
             {
+                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                {
+                    FlightPlanner.rulerControl1.timer1.Enabled = true;
+                    FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
+                }
                 if (!FlightPlanner.notificationControl1.timer1.Enabled) 
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
@@ -1523,7 +1528,7 @@ namespace MissionPlanner
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
             }
         }
 
