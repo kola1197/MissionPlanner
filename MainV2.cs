@@ -1860,10 +1860,10 @@ namespace MissionPlanner
             if (MAVLinkInterface.paramsLoading)
             {
                 soundFlag = true;
-                progressBar1.Maximum = MAVLinkInterface.paramsCount;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
-                progressBar2.Maximum = MAVLinkInterface.paramsCount;
-                progressBar2.Value = MAVLinkInterface.paramsLoadedCount;
+                progressBar1.Maximum = MAVLinkInterface.paramsCount + 1;
+                progressBar1.Value = MAVLinkInterface.paramsLoadedCount + 1;
+                progressBar2.Maximum = MAVLinkInterface.paramsCount + 1;
+                progressBar2.Value = MAVLinkInterface.paramsLoadedCount + 1;
             }
             else
             {
@@ -2465,6 +2465,7 @@ namespace MissionPlanner
                                     });
 
                                     ftpfile = true;
+                                    MAVLinkInterface.paramsLoading = false;
                                 }
                             }
                         };
@@ -5151,6 +5152,7 @@ namespace MissionPlanner
 
             if (keyData == (Keys.ControlKey))
             {
+                logger.write("Ручное управление завершено");
                 System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
                 overrideModeActive = false;
                 if (comPort.MAV.cs.mode != "Auto") 
@@ -5198,6 +5200,7 @@ namespace MissionPlanner
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
             if (keyData == (Keys.Control | Keys.ControlKey))
             {
+                logger.write("Ручное управление активировано");
                 System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
                 overrideModeActive = true;
                 if (comPort.MAV.cs.mode != "Stabilize")         //FBWB
