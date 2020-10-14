@@ -1545,7 +1545,21 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             engineController = new EngineController();
             timer1.Start();
+            FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
+            FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
+            FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
+            /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel4.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel5.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
+            */
+            
+
+
             logger = new Logger();
+
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 

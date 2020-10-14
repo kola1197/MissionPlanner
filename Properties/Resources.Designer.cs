@@ -1037,6 +1037,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_cenButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_cenButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_center_button {
             get {
                 object obj = ResourceManager.GetObject("icons8_center_button", resourceCulture);
@@ -1107,6 +1117,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_EKFButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_EKFButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_engine {
             get {
                 object obj = ResourceManager.GetObject("icons8_engine", resourceCulture);
@@ -1127,6 +1147,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_homeButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_homeButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_lightning {
             get {
                 object obj = ResourceManager.GetObject("icons8_lightning", resourceCulture);
@@ -1137,9 +1167,49 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_MainButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_MainButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_MapChoiseButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_MapChoiseButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_oil {
             get {
                 object obj = ResourceManager.GetObject("icons8_oil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_ParamsButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_ParamsButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_RulerButton {
+            get {
+                object obj = ResourceManager.GetObject("icons8_RulerButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
