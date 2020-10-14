@@ -118,6 +118,8 @@ namespace MissionPlanner.GCSViews
             this.BUT_Add = new MissionPlanner.Controls.MyButton();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.notificationControl1 = new MissionPlanner.Controls.NewControls.NotificationControl();
+            this.rulerControl1 = new MissionPlanner.Controls.NewControls.RulerControl();
             this.wpMenu1 = new MissionPlanner.Controls.NewControls.WPMenu();
             this.mainMenuWidget1 = new MissionPlanner.Controls.MainMenuWidget();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -763,6 +765,8 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.notificationControl1);
+            this.panelMap.Controls.Add(this.rulerControl1);
             this.panelMap.Controls.Add(this.wpMenu1);
             this.panelMap.Controls.Add(this.mainMenuWidget1);
             this.panelMap.Controls.Add(this.lbl_homedist);
@@ -774,6 +778,17 @@ namespace MissionPlanner.GCSViews
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
             this.panelMap.Resize += new System.EventHandler(this.panelMap_Resize);
+            // 
+            // notificationControl1
+            // 
+            resources.ApplyResources(this.notificationControl1, "notificationControl1");
+            this.notificationControl1.Name = "notificationControl1";
+            // 
+            // rulerControl1
+            // 
+            this.rulerControl1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.rulerControl1, "rulerControl1");
+            this.rulerControl1.Name = "rulerControl1";
             // 
             // wpMenu1
             // 
@@ -1681,5 +1696,7 @@ namespace MissionPlanner.GCSViews
         private ToolStripMenuItem зажатьЭтуТочкуToolStripMenuItem;
         private ToolStripMenuItem удалитьToolStripMenuItem;
         public Controls.NewControls.WPMenu wpMenu1;
+        public Controls.NewControls.RulerControl rulerControl1;
+        public Controls.NewControls.NotificationControl notificationControl1;
     }
 }

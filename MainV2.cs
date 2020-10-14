@@ -1471,7 +1471,7 @@ namespace MissionPlanner
 
             try
             {
-                /*if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
@@ -1481,7 +1481,7 @@ namespace MissionPlanner
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
-                }*/
+                }
 
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
