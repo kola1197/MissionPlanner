@@ -42,7 +42,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateField()
         {
-            this.BackColor = Color.FromArgb(200, 64, 64, 64);
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             //MainV2.wpLoadMenuAcrive = 
             this.Size = fieldActive ? new Size(95, 652) : new Size(95, 125);
             System.Drawing.Point now = this.Location;

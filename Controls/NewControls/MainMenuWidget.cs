@@ -32,6 +32,7 @@ namespace MissionPlanner.Controls
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             updateSize();
         }
 
@@ -57,7 +58,7 @@ namespace MissionPlanner.Controls
             }
             else 
             {
-                this.Size = new Size(450, 60);
+                this.Size = new Size(417, 60);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
         }

@@ -7,17 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace MissionPlanner.Controls.NewControls
 {
     public partial class NotificationControl : UserControl
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+           int nLeftRect, // x-coordinate of upper-left corner
+           int nTopRect, // y-coordinate of upper-left corner
+           int nRightRect, // x-coordinate of lower-right corner
+           int nBottomRect, // y-coordinate of lower-right corner
+           int nWidthEllipse, // height of ellipse
+           int nHeightEllipse // width of ellipse
+        );
         public NotificationControl()
         {
             InitializeComponent();
             defaultSize = new Size(this.Size.Width, this.Size.Height);       // 265; 41
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, -20, Width, Height, 20, 20));
+            
             //label1.Text = "Время полета: 00:00:00";
             redraw();
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
 
         }
         private bool fullSize = false;
@@ -86,6 +100,8 @@ namespace MissionPlanner.Controls.NewControls
         private void redraw() 
         {
             this.Size = fullSize ? new Size(330, 180) : new Size(330, 40);
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, -20, Width, Height, 20, 20));
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             label10.Visible = fullSize;
             label9.Visible = fullSize;
             label8.Visible = fullSize;
