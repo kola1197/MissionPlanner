@@ -1696,7 +1696,7 @@ namespace MissionPlanner.GCSViews
         private DataGridViewImageColumn Down;
         private DataGridViewTextBoxColumn Grad;
         private DataGridViewTextBoxColumn Angle;
-        private DataGridViewTextBoxColumn Dist;
+        public DataGridViewTextBoxColumn Dist;
         private DataGridViewTextBoxColumn AZ;
         private DataGridViewTextBoxColumn TagData;
         public MainMenuWidget mainMenuWidget1;

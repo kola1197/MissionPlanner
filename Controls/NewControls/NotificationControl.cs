@@ -39,6 +39,7 @@ namespace MissionPlanner.Controls.NewControls
         private void timer1_Tick(object sender, EventArgs e)
         {
             string currentFlightTime = "";
+            string startFlightTime = "";
             Orlan.AircraftConnectionInfo info;
             if (MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraftNum != null)
             {
@@ -49,21 +50,25 @@ namespace MissionPlanner.Controls.NewControls
                     if (info.hasStartTime)
                     {
                         diff += now - info.StartOfTheFlightTime;
+                        startFlightTime = info.StartOfTheFlightTime.ToString("HH.mm.ss");
                         currentFlightTime = diff.ToString("HH.mm.ss");
                     }
                     else
                     {
                         currentFlightTime = "00:00:00";
+                        startFlightTime = "00:00:00";
                     }
                 }
                 else
                 {
                     currentFlightTime = "00:00:00";
+                    startFlightTime = "00:00:00";
                 }
             }
             else
             {
                 currentFlightTime = "00:00:00";
+                startFlightTime = "00:00:00";
             }
             if (fullSize)
             {
@@ -72,6 +77,7 @@ namespace MissionPlanner.Controls.NewControls
                 //label1.Text += "Длинна маршрута";
                 //label1.Text += "Удаление от дома";
                 label2.Text =  currentFlightTime;
+                label9.Text = startFlightTime;
             }
             else {
                 label2.Text = currentFlightTime;
