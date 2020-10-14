@@ -435,6 +435,18 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
+      <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\RegionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\RegionsControl.Designer.cs">
+      <DependentUpon>RegionsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\RightSideMenuControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -703,6 +715,7 @@
     </None>
     <None Include="CurrentState.datasource" />
     <None Include="MissionPlanner.GCSViews.ConfigurationView.ConfigHWCompass2+CompassDeviceInfo.datasource" />
+    <None Include="MissionPlanner.GCSViews.FlightPlanner.datasource" />
     <None Include="MissionPlanner_TemporaryKey.pfx" />
     <None Include="plugins\example2-menu.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -776,6 +789,8 @@
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
+    <Compile Include="Orlan\NestedBindingProxy.cs" />
+    <Compile Include="Orlan\RegionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">
@@ -913,6 +928,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
+      <DependentUpon>RegionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RightSideMenuControl.resx">
       <DependentUpon>RightSideMenuControl.cs</DependentUpon>
@@ -4712,6 +4730,26 @@
     <None Include="Resources\group_green.png" />
     <None Include="Resources\group_green11.png" />
     <None Include="Resources\group_red1.png" />
+    <None Include="Resources\icons8_oil.png" />
+    <None Include="Resources\icons8_lightning.png" />
+    <None Include="Resources\icons8_speedometer.png" />
+    <None Include="Resources\icons8_speed_p.png" />
+    <None Include="Resources\icons8_cloud.png" />
+    <None Include="Resources\icons8_engine.png" />
+    <None Include="Resources\Group_MMove.png" />
+    <None Include="Resources\icons8_earth.png" />
+    <None Include="Resources\icons8_timer.png" />
+    <None Include="Resources\icons8_time.png" />
+    <None Include="Resources\icons8_clock.png" />
+    <None Include="Resources\icons8_delete_100.png" />
+    <None Include="Resources\icons8_delete2.png" />
+    <None Include="Resources\icons8_get.png" />
+    <None Include="Resources\icons8_write.png" />
+    <None Include="Resources\icons8_alt.png" />
+    <None Include="Resources\icons8_save.png" />
+    <None Include="Resources\icons8_dow.png" />
+    <None Include="Resources\home_v0.png" />
+    <None Include="Resources\home_panel_v0.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

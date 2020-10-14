@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.sensorName_label = new System.Windows.Forms.Label();
             this.sensorValue_label = new System.Windows.Forms.Label();
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,9 +43,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sensorName_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.sensorName_label.ForeColor = System.Drawing.Color.White;
-            this.sensorName_label.Location = new System.Drawing.Point(0, 104);
+            this.sensorName_label.Location = new System.Drawing.Point(0, 99);
+            this.sensorName_label.MinimumSize = new System.Drawing.Size(135, 21);
             this.sensorName_label.Name = "sensorName_label";
-            this.sensorName_label.Size = new System.Drawing.Size(138, 21);
+            this.sensorName_label.Size = new System.Drawing.Size(135, 21);
             this.sensorName_label.TabIndex = 0;
             this.sensorName_label.Text = "Температура";
             this.sensorName_label.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -57,22 +58,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sensorValue_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.sensorValue_label.ForeColor = System.Drawing.Color.White;
-            this.sensorValue_label.Location = new System.Drawing.Point(0, 50);
+            this.sensorValue_label.Location = new System.Drawing.Point(0, 51);
+            this.sensorValue_label.MinimumSize = new System.Drawing.Size(138, 29);
             this.sensorValue_label.Name = "sensorValue_label";
             this.sensorValue_label.Size = new System.Drawing.Size(138, 29);
             this.sensorValue_label.TabIndex = 1;
             this.sensorValue_label.Text = "0";
             this.sensorValue_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // AdditionalSensorControl
             // 

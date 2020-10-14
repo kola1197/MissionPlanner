@@ -17,5 +17,10 @@ namespace MissionPlanner.Controls.NewControls
             InitializeComponent();
             timer1.Enabled = true;
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
