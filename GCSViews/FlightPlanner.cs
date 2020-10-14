@@ -178,13 +178,13 @@ namespace MissionPlanner.GCSViews
             comboBoxMapType.ValueMember = "Name";
             List<GMapProvider> providers = GMapProviders.List;
             List<GMapProvider> filtredproviders = new List<GMapProvider>();
-            int[] providersNumsToCopy = new int[] {16,17,18,19 };
-            foreach (int i in providersNumsToCopy)
-            {
-                filtredproviders.Add(providers[i]);
-            }
+            //int[] providersNumsToCopy = new int[] {16,17,18,19 };
+            //foreach (int i in providersNumsToCopy)
+            // {
+            //    filtredproviders.Add(providers[i]);
+            //}
             
-            comboBoxMapType.DataSource = filtredproviders.ToArray();
+            comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
             comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
@@ -8157,6 +8157,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         row = (DataGridViewRow) Commands.Rows[index].Clone();
                         row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
                         row.Cells[Command.Index + 1].Value = (14).ToString();
+                        int v = (int)wpConfig.myTrackBar1.Value;
+                        row.Cells[Lon.Index + 1].Value = v.ToString();
                         Commands.Rows.Insert(index, row);
                         index++;
                         Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
@@ -8376,6 +8378,20 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void CreateNewPolygon()
         {
+        }
+
+        private void MainMap_SizeChanged(object sender, EventArgs e)
+        {
+            wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
+            notificationControl1.Location = new Point(MainMap.Size.Width/2 - notificationControl1.Size.Width/2, 0);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
+        }
+
+        private void wpMenu1_SizeChanged(object sender, EventArgs e)
+        {
+            wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
+            notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
     }
 }

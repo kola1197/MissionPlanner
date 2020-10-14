@@ -56,7 +56,7 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(126, 445);
+            this.menuStrip1.Size = new System.Drawing.Size(33, 445);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -64,27 +64,27 @@
             // ppkToolStripMenuItem
             // 
             this.ppkToolStripMenuItem.Name = "ppkToolStripMenuItem";
-            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
+            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
             this.ppkToolStripMenuItem.Text = "ПпК";
             this.ppkToolStripMenuItem.Click += new System.EventHandler(this.ppkToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(113, 59);
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(20, 59);
             this.regionsToolStripMenuItem.Text = "Регионы";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
             // 
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
-            this.gskToolStripMenuItem.Size = new System.Drawing.Size(113, 32);
+            this.gskToolStripMenuItem.Size = new System.Drawing.Size(20, 32);
             this.gskToolStripMenuItem.Text = "ГСК";
             // 
             // antennaToolStripMenuItem
             // 
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
             this.antennaToolStripMenuItem.Text = "АНТ";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
@@ -94,7 +94,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.sideMenuPanel);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(34, 448);
+            this.Size = new System.Drawing.Size(34, 178);
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

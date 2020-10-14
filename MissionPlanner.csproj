@@ -435,11 +435,23 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
+      <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.Designer.cs">
       <DependentUpon>NotificationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\NotificationListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\NotificationListControl.Designer.cs">
+      <DependentUpon>NotificationListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\RegionsControl.cs">
       <SubType>UserControl</SubType>
@@ -936,8 +948,14 @@
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
+      <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
       <DependentUpon>NotificationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\NotificationListControl.resx">
+      <DependentUpon>NotificationListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>
@@ -4754,6 +4772,22 @@
     <None Include="Resources\icons8_timer.png" />
     <None Include="Resources\icons8_time.png" />
     <None Include="Resources\icons8_clock.png" />
+    <None Include="Resources\icons8_delete_100.png" />
+    <None Include="Resources\icons8_delete2.png" />
+    <None Include="Resources\icons8_get.png" />
+    <None Include="Resources\icons8_write.png" />
+    <None Include="Resources\icons8_alt.png" />
+    <None Include="Resources\icons8_save.png" />
+    <None Include="Resources\icons8_dow.png" />
+    <None Include="Resources\home_v0.png" />
+    <None Include="Resources\home_panel_v0.png" />
+    <None Include="Resources\icons8_MainButton.png" />
+    <None Include="Resources\icons8_MapChoiseButton.png" />
+    <None Include="Resources\icons8_EKFButton.png" />
+    <None Include="Resources\icons8_ParamsButton.png" />
+    <None Include="Resources\icons8_RulerButton.png" />
+    <None Include="Resources\icons8_cenButton.png" />
+    <None Include="Resources\icons8_homeButton.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

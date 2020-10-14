@@ -1463,6 +1463,14 @@ namespace MissionPlanner
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
+                //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
+                double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y), FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y));
+                
+                //FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+
+                FlightPlanner.rulerControl1.recalculate(distance1);
             }
             catch (System.Exception eee)
             {
@@ -1471,6 +1479,7 @@ namespace MissionPlanner
 
             try
             {
+                snsControl2.setButtonColors();
                 if (!FlightPlanner.rulerControl1.timer1.Enabled) 
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
@@ -1480,9 +1489,14 @@ namespace MissionPlanner
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200,64,64,64);
                 }
-
+                if (!FlightPlanner.notificationListControl1.timer1.Enabled)
+                {
+                    FlightPlanner.notificationListControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
+                    FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+                }
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
@@ -1532,6 +1546,34 @@ namespace MissionPlanner
             }
         }
 
+        public static string FormatDistance(double distInKM, bool toMeterOrFeet)
+        {
+            string sunits = Settings.Instance["distunits"];
+            distances units = distances.Meters;
+
+            if (sunits != null)
+                try
+                {
+                    units = (distances)Enum.Parse(typeof(distances), sunits);
+                }
+                catch (Exception)
+                {
+                }
+
+            switch (units)
+            {
+                case distances.Feet:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 3280.8399).ToString("0.00 ft"))
+                        : string.Format((distInKM * 0.621371).ToString("0.0000 miles"));
+                case distances.Meters:
+                default:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 1000).ToString("0.00 m"))
+                        : string.Format(distInKM.ToString("0.0000 km"));
+            }
+        }
+
         void mainMenuInit()
 
         {
@@ -1545,7 +1587,21 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             engineController = new EngineController();
             timer1.Start();
+            FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
+            //FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
+            FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
+            /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel4.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel5.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
+            */
+            
+
+
             logger = new Logger();
+
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
@@ -1578,6 +1634,7 @@ namespace MissionPlanner
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
+            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
             mapChangeForm.Show();
         }
 
@@ -5502,6 +5559,16 @@ namespace MissionPlanner
             progressBar2.Location = new Point( 0, 140);
             progressBar1.Size = new Size( width / 2 + 2, 20);
             progressBar2.Size = new Size( width / 2 + 2, 20);
+            label1.Location = new Point((int)width / 2 - 2 - label1.Size.Width/2, 140);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (notifications.Count > 0) 
+            {
+                FlightPlanner.notificationListControl1.fullList = true;
+                FlightPlanner.notificationListControl1.redraw();
+            }
         }
     }
 }
