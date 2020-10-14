@@ -15,7 +15,12 @@ namespace MissionPlanner.NewForms
         public EngineControlForm()
         {
             InitializeComponent();
+            maxDefault = MainV2.comPort.GetParam("THR_MAX");
+            minDefault = MainV2.comPort.GetParam("THR_MIN");
         }
+
+        private float maxDefault = 0;
+        private float minDefault = 0;
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
@@ -28,8 +33,39 @@ namespace MissionPlanner.NewForms
             Button senderButton = (Button)sender;
             string tag = senderButton.Tag.ToString();
             int i = int.Parse(tag);
-            MainV2.currentEngineMode = i; 
+            MainV2.currentEngineMode = i;
+            setEngineMode();
             updateButtons(MainV2.currentEngineMode);
+        }
+
+        private void setEngineMode() 
+        {
+            switch (MainV2.currentEngineMode) 
+            {
+                case 0:                                             //set thr_max = 30
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MAX", 30);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MIN", minDefault);
+                    break;
+                case 1:
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MAX", minDefault);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MIN", minDefault);
+                    break;
+                case 2:
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MAX", maxDefault);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MIN", maxDefault);
+                    break;
+                case 3:
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MAX", maxDefault);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MIN", minDefault);
+                    break;
+                case 4:
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MAX", (float)trackBar1.Value * 1.001);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "THR_MIN", (float)trackBar1.Value * 0.999);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void updateButtons(int i) 

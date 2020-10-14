@@ -15,33 +15,39 @@ namespace MissionPlanner.Controls.NewControls
         public RulerControl()
         {
             InitializeComponent();
+
+            this.DoubleBuffered = true;
+            recalculate(0,0);
         }
+
         Bitmap myBitmap;
 
-        public void updateRuler(int a, int b) 
+        protected override void OnPaint(PaintEventArgs e)
         {
-        
+            
         }
 
-
-        protected override void OnPaint(PaintEventArgs e)
+        public void recalculate(int a, int b) 
         {
             int width = this.Size.Width;
             int height = this.Size.Height;
             myBitmap = new Bitmap(width, height);
-            base.OnPaint(e);
+
+            //base.OnPaint(e);
             Graphics g;
             g = Graphics.FromImage(myBitmap);
             Pen myPen = new Pen(Color.White);
             myPen.Width = 4;
-           
-            g.DrawLine(myPen, 1, height/2, width - 1, height/2);
-            //g.DrawLine(myPen, 1, 300, width - 1, 300);
-            
+
+
+            g.DrawLine(myPen, 1, height / 2, width - 1, height / 2);
+            g.DrawLine(myPen, 1, 0, 1, height);
+            g.DrawLine(myPen, width-1, 0, width - 1, height);
+
 
             Pen p = new Pen(Color.Green);
             p.Width = 3;
-            
+
             pictureBox1.Image = myBitmap;
         }
     }

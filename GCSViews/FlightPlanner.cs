@@ -176,6 +176,14 @@ namespace MissionPlanner.GCSViews
 
             // get map type
             comboBoxMapType.ValueMember = "Name";
+            List<GMapProvider> providers = GMapProviders.List;
+            List<GMapProvider> filtredproviders = new List<GMapProvider>();
+            //int[] providersNumsToCopy = new int[] {16,17,18,19 };
+            //foreach (int i in providersNumsToCopy)
+            // {
+            //    filtredproviders.Add(providers[i]);
+            //}
+            
             comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
@@ -8373,11 +8381,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void MainMap_SizeChanged(object sender, EventArgs e)
         {
             wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
+            notificationControl1.Location = new Point(MainMap.Size.Width/2 - notificationControl1.Size.Width/2, 0);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
 
         private void wpMenu1_SizeChanged(object sender, EventArgs e)
         {
             wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
+            notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
     }
 }

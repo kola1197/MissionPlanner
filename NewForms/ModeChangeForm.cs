@@ -18,16 +18,22 @@ namespace MissionPlanner.NewForms
 
         private void BUTsetmode_MouseUp(object sender, MouseEventArgs e)
         {
-            if (MainV2.comPort.MAV.cs.failsafe)
+            if (MainV2.comPort.MAV.cs.connected)
             {
-                if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) !=
-                    (int) DialogResult.Yes)
+                if (MainV2.comPort.MAV.cs.failsafe)
                 {
-                    return;
+                    if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) !=
+                        (int)DialogResult.Yes)
+                    {
+                        return;
+                    }
                 }
+                if (MainV2.comPort.MAV.cs.mode == "Auto")
+                {
+                    MainV2.logger.write("Смена режима с AUTO на " + CMB_modes.Text);
+                }
+                MainV2.comPort.setMode(CMB_modes.Text);
             }
-
-            MainV2.comPort.setMode(CMB_modes.Text);
         }
 
         private void BUT_setmode_Click(object sender, EventArgs e)

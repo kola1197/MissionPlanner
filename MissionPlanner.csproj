@@ -441,6 +441,12 @@
     <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\NotificationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\NotificationControl.Designer.cs">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\RegionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -458,6 +464,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\newTimeControl.Designer.cs">
       <DependentUpon>newTimeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\RulerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\RulerControl.Designer.cs">
+      <DependentUpon>RulerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
@@ -523,6 +535,7 @@
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
     <Compile Include="NewClasses\EngineController.cs" />
+    <Compile Include="NewClasses\Logger.cs" />
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -932,6 +945,9 @@
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -940,6 +956,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\newTimeControl.resx">
       <DependentUpon>newTimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\RulerControl.resx">
+      <DependentUpon>RulerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\SensorUserControl.resx">
       <DependentUpon>SensorUserControl.cs</DependentUpon>

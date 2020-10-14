@@ -61,6 +61,7 @@ using System.Xml.Serialization;
 using System.Windows.Input;
 using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.NewClasses;
+using Microsoft.Win32;
 
 namespace MissionPlanner
 {
@@ -574,7 +575,7 @@ namespace MissionPlanner
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
 
-
+        public static Logger logger;
 
         private Form connectionStatsForm;
         private ConnectionStats _connectionStats;
@@ -604,6 +605,7 @@ namespace MissionPlanner
         }
 
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
+        public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
 
         private void deserealaseDict()
         {
@@ -1464,11 +1466,23 @@ namespace MissionPlanner
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: "+eee.ToString());
             }
 
             try
             {
+                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                {
+                    FlightPlanner.rulerControl1.timer1.Enabled = true;
+                    FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
+                }
+                if (!FlightPlanner.notificationControl1.timer1.Enabled) 
+                {
+                    FlightPlanner.notificationControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
+                }
+
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
@@ -1514,7 +1528,7 @@ namespace MissionPlanner
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
             }
         }
 
@@ -1543,6 +1557,9 @@ namespace MissionPlanner
             */
             
 
+
+            logger = new Logger();
+
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
@@ -1557,13 +1574,25 @@ namespace MissionPlanner
 
             mapChangeForm = new MapChangeForm();
             mapChangeForm.comboBoxMapType.ValueMember = "Name";
-            mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+
+            List<GMapProvider> providers = GMapProviders.List;
+            List<GMapProvider> filtredproviders = new List<GMapProvider>();
+            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19 };
+            foreach (int i in providersNumsToCopy)
+            {
+                filtredproviders.Add(providers[i]);
+            }
+
+            mapChangeForm.comboBoxMapType.DataSource = filtredproviders.ToArray();
+
+            //mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             mapChangeForm.comboBoxMapType.SelectedItem = FlightPlanner.MainMap.MapProvider;
             FlightPlanner.MainMap.OnTileLoadComplete += MainMap_OnTileLoadComplete;
             FlightPlanner.MainMap.OnTileLoadStart += MainMap_OnTileLoadStart;
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
+            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
             mapChangeForm.Show();
         }
 
@@ -1725,6 +1754,7 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
+        bool soundFlag = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
             alarmLabelTextCheck();
@@ -1735,11 +1765,38 @@ namespace MissionPlanner
 
             if (MAVLinkInterface.paramsLoading)
             {
+                soundFlag = true;
                 progressBar1.Maximum = MAVLinkInterface.paramsCount;
                 progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+                progressBar2.Maximum = MAVLinkInterface.paramsCount;
+                progressBar2.Value = MAVLinkInterface.paramsLoadedCount;
             }
+            else
+            {
+                if (comPort.MAV.cs.connected)
+                {
+                    progressBar2.Value = progressBar2.Maximum;
+                    progressBar1.Value = progressBar1.Maximum;
+                    if (soundFlag)
+                    {
+                        System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+                        if (File.Exists("D:\\test.wav")) 
+                        {
+                            player.SoundLocation = "E:\\test.wav";
+                            player.Play();
+                            soundFlag = !soundFlag;
+                        }
+                    }
 
-            progressBar1.Visible = MAVLinkInterface.paramsLoading;
+                }
+                else 
+                {
+                    progressBar1.Maximum = 100;
+                    progressBar1.Value = 5;
+                    progressBar2.Maximum = 100;
+                    progressBar2.Value = 5;
+                }
+            }
             _aircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
@@ -1747,69 +1804,78 @@ namespace MissionPlanner
             }
         }
 
+        public static List<string> notifications = new List<string>();
         void alarmLabelTextCheck()
         {
-            List<string> s = new List<string>();
-            if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+            notifications = new List<string>();
+            if (MainV2.comPort.MAV.cs.connected)
             {
-                s.Add("Плохой сигнал GPS");
+                if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+                {
+                    notifications.Add("Плохой сигнал GPS");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
+                {
+                    notifications.Add("Отказ гироскопов");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
+                {
+                    notifications.Add("Ошибка барометра");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
+                {
+                    notifications.Add("Ошибка ИНС");
+                }
+                else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
+                {
+                    notifications.Add("Отказ компаса");
+                }
+                else if (MainV2.comPort.MAV.cs.ekfcompv > 1)
+                {
+                    notifications.Add("Рассогласование компаса");
+                }
+                else if (MainV2.comPort.MAV.cs.ekfvelv > 1)
+                {
+                    notifications.Add("Рассогласование скорости");
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage < 11)
+                {
+                    notifications.Add("Низкое напряжение, отказ генератора");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm2 > 118)
+                {
+                    notifications.Add("Перегрев двигателя");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm1 > 8600)
+                {
+                    notifications.Add("Превышение оборотов двигателя");
+                }
+                else if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                {
+                    notifications.Add("Двигатель заглох");
+                }
+                else if (MainV2.comPort.MAV.cs.mode == "RTL")
+                {
+                    notifications.Add("Режим возврата к точке «Дом»");
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                {
+                    notifications.Add("Низкий уровень топлива");
+                }
+                else if (currentConnectionRate < 45)
+                {
+                    notifications.Add("Низкий уровень радиосигнала");
+                }
+                foreach (var v in notifications) 
+                {
+                    logger.write(v);
+                }
             }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
-            {
-                s.Add("Отказ гироскопов");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
-            {
-                s.Add("Ошибка барометра");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
-            {
-                s.Add("Ошибка ИНС");
-            }
-            else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
-            {
-                s.Add("Отказ компаса");
-            }
-            else if (MainV2.comPort.MAV.cs.ekfcompv > 1)
-            {
-                s.Add("Рассогласование компаса");
-            }
-            else if (MainV2.comPort.MAV.cs.ekfvelv > 1)
-            {
-                s.Add("Рассогласование скорости");
-            }
-            else if (MainV2.comPort.MAV.cs.battery_voltage < 11)
-            {
-                s.Add("Низкое напряжение, отказ генератора");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm2 > 118)
-            {
-                s.Add("Перегрев двигателя");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm1 > 8600)
-            {
-                s.Add("Превышение оборотов двигателя");
-            }
-            else if (MainV2.comPort.MAV.cs.rpm1 < 3000)
-            {
-                s.Add("Двигатель заглох");
-            }
-            else if (MainV2.comPort.MAV.cs.mode == "RTL")
-            {
-                s.Add("Режим возврата к точке «Дом»");
-            }
-            else if (MainV2.comPort.MAV.cs.battery_voltage2/MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
-            {
-                s.Add("Низкий уровень топлива");
-            }
-            else if (currentConnectionRate < 45)  
-            {
-                s.Add("Низкий уровень радиосигнала");
-            }
-
-            if (s.Count() > 0)
-            {
-                label13.Text = s[0];
+            else {
+                for (int i = 0; i < 7; i++)
+                {
+                    notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
+                }
             }
         }
 
@@ -4695,15 +4761,17 @@ namespace MissionPlanner
                 rc.target_system = comPort.MAV.sysid;
                 if (overrides[1] != 1500)
                 {
-                    rc.chan2_raw = Convert.ToUInt16(overrides[1]);
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, overrides[1], 0, 0, 0, 0, 0);
+                    //rc.chan2_raw = Convert.ToUInt16(overrides[1]);
                 }
                 if (overrides[3] != 1500)
                 {
-                    rc.chan4_raw = Convert.ToUInt16(overrides[3]);
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 4, overrides[1], 0, 0, 0, 0, 0);
+                    //rc.chan4_raw = Convert.ToUInt16(overrides[3]);
                 }
                 //new DevopsUI().ShowUserControl();
                 // TODO: add right values
-                if (comPort.BaseStream.IsOpen)
+                /*if (comPort.BaseStream.IsOpen)
                 {
                     if (comPort.BaseStream.BytesToWrite < 50)
                     {
@@ -4719,7 +4787,7 @@ namespace MissionPlanner
                         //count++;
                         //lastjoystick = DateTime.Now;
                     }
-                }
+                }*/
 
                 string debugOverrideInfo = "Output:";
 
@@ -5418,98 +5486,11 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            // //testThrottle();
-            // //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
-            //
-            // List<PointLatLng> points = new List<PointLatLng>();
-            // points.Add(new PointLatLng(30, 30));
-            // points.Add(new PointLatLng(60, 30));
-            // points.Add(new PointLatLng(60, 60));
-            // points.Add(new PointLatLng(30, 60));
-            // GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
-            // polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Yellow));
-            // polygon.Stroke = new Pen(Color.Red, 1);
-            // polyOverlay.Polygons.Add(polygon);
-            //
-            // List<PointLatLng> points1 = new List<PointLatLng>();
-            // points1.Add(new PointLatLng(20, 20));
-            // points1.Add(new PointLatLng(0, 30));
-            // points1.Add(new PointLatLng(0, 0));
-            // points1.Add(new PointLatLng(30, 0));
-            // GMapPolygon polygon1 = new GMapPolygon(points1, "mypolygon1");
-            // polygon1.Fill = new SolidBrush(Color.FromArgb(50, Color.Blue));
-            // polygon1.Stroke = new Pen(Color.Red, 1);
-            // polyOverlay.Polygons.Add(polygon1);
-            //
-            // foreach (var overlayPolygon in polyOverlay.Polygons)
-            // {
-            //     redrawPolygonSurvey(overlayPolygon);
-            // }
-            //
-            // FlightPlanner.MainMap.Overlays.Add(polyOverlay);
-            //
-            // // GMapOverlay polyOverlay1 = new GMapOverlay("polygons");
-            // // polyOverlay1.Polygons.Add(polygon1);
-            // // FlightPlanner.MainMap.Overlays.Add(polyOverlay1);
-            // // //regionActive = !regionActive;
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            player.SoundLocation = "E:\\test.wav";
+            player.Play();
         }
 
-        // public void redrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
-        // {
-        //     List<PointLatLngAlt> list = polygon.Points.Select(a => new PointLatLngAlt(a)).ToList();
-        //     int tag = 0;
-        //     list.ForEach(x =>
-        //     {
-        //         tag++;
-        //         //polygon.Points.Add(x);
-        //         addpolygonmarkergrid(tag.ToString(), x.Lng, x.Lat, 0);
-        //     });
-        //
-        //     FlightPlanner.MainMap.UpdatePolygonLocalPosition(polygon);
-        //
-        //     foreach (var pointLatLngAlt in polygon.Points.CloseLoop().PrevNowNext())
-        //     {
-        //         var now = pointLatLngAlt.Item2;
-        //         var next = pointLatLngAlt.Item3;
-        //
-        //         if (now == null || next == null)
-        //             continue;
-        //
-        //         var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2, 0);
-        //
-        //         var pnt = new GMapMarkerPlus(mid);
-        //         pnt.Tag = new FlightPlanner.midline() {now = now, next = next};
-        //         polyOverlay.Markers.Add(pnt);
-        //     }
-        //
-        //
-        //     FlightPlanner.MainMap.Invalidate();
-        // }
-        //
-        // private void addpolygonmarkergrid(string tag, double lng, double lat, int alt)
-        // {
-        //     try
-        //     {
-        //         PointLatLng point = new PointLatLng(lat, lng);
-        //         GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
-        //         m.ToolTipMode = MarkerTooltipMode.Never;
-        //         m.ToolTipText = "grid" + tag;
-        //         m.Tag = "grid" + tag;
-        //
-        //         //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
-        //         GMapMarkerRect mBorders = new GMapMarkerRect(point);
-        //         {
-        //             mBorders.InnerMarker = m;
-        //         }
-        //
-        //         polyOverlay.Markers.Add(m);
-        //         polyOverlay.Markers.Add(mBorders);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         log.Info(ex.ToString());
-        //     }
-        // }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {
@@ -5527,6 +5508,15 @@ namespace MissionPlanner
 
         private void myButton4_Click_1(object sender, EventArgs e)
         {
+        }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int width = panel1.Size.Width;
+            progressBar1.Location = new Point((int)width / 2 - 2, 140);
+            progressBar2.Location = new Point( 0, 140);
+            progressBar1.Size = new Size( width / 2 + 2, 20);
+            progressBar2.Size = new Size( width / 2 + 2, 20);
         }
     }
 }
