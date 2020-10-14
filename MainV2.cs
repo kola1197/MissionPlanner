@@ -1578,6 +1578,7 @@ namespace MissionPlanner
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
+            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
             mapChangeForm.Show();
         }
 
