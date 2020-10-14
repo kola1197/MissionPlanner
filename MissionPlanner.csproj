@@ -435,6 +435,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
+      <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\RegionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
