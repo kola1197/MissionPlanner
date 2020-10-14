@@ -54,8 +54,8 @@
             // 
             this.mainButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mainButton.BackColor = System.Drawing.Color.Transparent;
-            this.mainButton.BackgroundImage = global::MissionPlanner.Properties.Resources.home_v0;
-            this.mainButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mainButton.BackgroundImage = global::MissionPlanner.Properties.Resources.home_v1;
+            this.mainButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.mainButton.BGGradBot = System.Drawing.Color.Empty;
             this.mainButton.BGGradTop = System.Drawing.Color.Empty;
             this.mainButton.ColorMouseDown = System.Drawing.Color.Transparent;
@@ -63,10 +63,11 @@
             this.mainButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.mainButton.FlatAppearance.BorderSize = 0;
             this.mainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mainButton.Location = new System.Drawing.Point(0, 536);
+            this.mainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.mainButton.Location = new System.Drawing.Point(0, 527);
             this.mainButton.Name = "mainButton";
             this.mainButton.Outline = System.Drawing.Color.Empty;
-            this.mainButton.Size = new System.Drawing.Size(95, 76);
+            this.mainButton.Size = new System.Drawing.Size(95, 125);
             this.mainButton.TabIndex = 0;
             this.mainButton.Text = "Дом";
             this.mainButton.TextColor = System.Drawing.Color.Empty;
@@ -77,11 +78,16 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 615);
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Image = global::MissionPlanner.Properties.Resources.home_v1;
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label3.Location = new System.Drawing.Point(0, 609);
+            this.label3.MinimumSize = new System.Drawing.Size(95, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(95, 43);
             this.label3.TabIndex = 9;
             this.label3.Text = "31356.0 км";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // loadButton
             // 
@@ -192,9 +198,9 @@
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar1.Location = new System.Drawing.Point(3, 631);
+            this.progressBar1.Location = new System.Drawing.Point(0, 631);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(89, 21);
+            this.progressBar1.Size = new System.Drawing.Size(95, 21);
             this.progressBar1.TabIndex = 17;
             this.progressBar1.Visible = false;
             this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);

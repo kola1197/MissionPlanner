@@ -1017,6 +1017,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap home_v1 {
+            get {
+                object obj = ResourceManager.GetObject("home_v1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_alt {
             get {
                 object obj = ResourceManager.GetObject("icons8_alt", resourceCulture);
