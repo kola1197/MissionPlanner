@@ -28,7 +28,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (fullList)
             {
-                this.Size = new Size(this.Width, 50 * MainV2.notifications.Count);
+                this.Size = new Size(this.Width, 50 * MainV2.notifications.Count + 50);
                 this.Visible = true;
             }
             else 

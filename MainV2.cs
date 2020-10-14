@@ -1933,12 +1933,22 @@ namespace MissionPlanner
                 {
                     logger.write(v);
                 }
+                if (notifications.Count > 0)
+                {
+                    label1.BackColor = Color.DarkRed;
+                    label1.Text = "ОШИБКА!!!";
+                }
+                else 
+                {
+                    label1.BackColor = Color.Lime;
+                    label1.Text = "";
+                }
             }
             else {
-                for (int i = 0; i < 7; i++)
+                /*for (int i = 0; i < 7; i++)
                 {
                     notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
-                }
+                }*/
             }
         }
 
