@@ -82,8 +82,6 @@ namespace MissionPlanner
             this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
             this.servoGimbal1 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.snsControl1 = new MissionPlanner.Controls.NewControls.SNSControl();
-            this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
-            this.menu = new MissionPlanner.Controls.MyButton();
             this.status1 = new MissionPlanner.Controls.Status();
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
@@ -241,12 +239,12 @@ namespace MissionPlanner
             // progressBar1
             // 
             this.progressBar1.BackgroundColor = System.Drawing.Color.White;
-            this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+            this.progressBar1.BorderColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.progressBar1, "progressBar1");
             this.progressBar1.Maximum = 100;
             this.progressBar1.Minimum = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Value = 50;
+            this.progressBar1.Value = 10;
             this.progressBar1.ValueColor = System.Drawing.Color.Lime;
             // 
             // menuStrip1
@@ -431,10 +429,6 @@ namespace MissionPlanner
             resources.ApplyResources(this.snsControl1, "snsControl1");
             this.snsControl1.Name = "snsControl1";
             // 
-            // rightSideMenuControl1
-            // 
-            resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
-            this.rightSideMenuControl1.Name = "rightSideMenuControl1";
             // status1
             // 
             resources.ApplyResources(this.status1, "status1");
@@ -522,7 +516,7 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton toolStripButton6;
         public System.Windows.Forms.ToolStripButton toolStripButton7;
         public System.Windows.Forms.ToolStripButton toolStripButton8;
-        //private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl;
+        private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl;
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
         private MissionPlanner.Controls.MyButton myButton2;
 

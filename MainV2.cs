@@ -1471,7 +1471,7 @@ namespace MissionPlanner
 
             try
             {
-                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                /*if (!FlightPlanner.rulerControl1.timer1.Enabled) 
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
@@ -1481,7 +1481,7 @@ namespace MissionPlanner
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
-                }
+                }*/
 
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
@@ -1545,18 +1545,6 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             engineController = new EngineController();
             timer1.Start();
-
-
-            FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
-            /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
-            FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
-            FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;
-            FlightPlanner.wpMenu1.panel4.Parent = FlightPlanner.wpMenu1;
-            FlightPlanner.wpMenu1.panel5.Parent = FlightPlanner.wpMenu1;
-            FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
-            */
-            
-
             logger = new Logger();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
