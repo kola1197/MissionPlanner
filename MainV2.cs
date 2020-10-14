@@ -1460,17 +1460,38 @@ namespace MissionPlanner
             try
             {
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+                string homedistString = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
-                coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
+                coordinatsControl1.label2.Text = homedistString;
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
                 //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
                 double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y), FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y));
-                
+
                 //FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
 
                 FlightPlanner.rulerControl1.recalculate(distance1);
+
+                if (comPort.MAV.cs.connected)
+                {
+                    double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane, true);
+                    FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
+                }
+                else
+                {
+                    FlightPlanner.notificationControl1.label3.Text = "0 м";
+                }
+                FlightPlanner.notificationControl1.label5.Text = comPort.MAV.cs.wp_dist.ToString();
+                double lengthCountr = 0;
+                for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++) 
+                {
+                    string s = FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString();
+                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString());
+                }
+                FlightPlanner.notificationControl1.label7.Text = lengthCountr.ToString("0.00") + " м";
+                
             }
             catch (System.Exception eee)
             {
