@@ -929,6 +929,9 @@
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
+      <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -4750,6 +4753,13 @@
     <None Include="Resources\icons8_dow.png" />
     <None Include="Resources\home_v0.png" />
     <None Include="Resources\home_panel_v0.png" />
+    <None Include="Resources\icons8_MainButton.png" />
+    <None Include="Resources\icons8_MapChoiseButton.png" />
+    <None Include="Resources\icons8_EKFButton.png" />
+    <None Include="Resources\icons8_ParamsButton.png" />
+    <None Include="Resources\icons8_RulerButton.png" />
+    <None Include="Resources\icons8_cenButton.png" />
+    <None Include="Resources\icons8_homeButton.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
