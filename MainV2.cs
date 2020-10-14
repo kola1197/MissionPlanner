@@ -1471,6 +1471,7 @@ namespace MissionPlanner
 
             try
             {
+                snsControl2.setButtonColors();
                 if (!FlightPlanner.rulerControl1.timer1.Enabled) 
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
@@ -1482,7 +1483,12 @@ namespace MissionPlanner
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200,64,64,64);
                 }
-
+                if (!FlightPlanner.notificationListControl1.timer1.Enabled)
+                {
+                    FlightPlanner.notificationListControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
+                    FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+                }
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
@@ -5517,6 +5523,16 @@ namespace MissionPlanner
             progressBar2.Location = new Point( 0, 140);
             progressBar1.Size = new Size( width / 2 + 2, 20);
             progressBar2.Size = new Size( width / 2 + 2, 20);
+            label1.Location = new Point((int)width / 2 - 2 - label1.Size.Width/2, 140);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (notifications.Count > 0) 
+            {
+                FlightPlanner.notificationListControl1.fullList = true;
+                FlightPlanner.notificationListControl1.redraw();
+            }
         }
     }
 }

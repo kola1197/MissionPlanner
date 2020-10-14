@@ -16,9 +16,34 @@ namespace MissionPlanner.Controls.NewControls
         private ModeChangeForm modeChangeForm;
         private SNSInfo snsInfo;
         private Vibration frm;
+        bool colorsChanged=false;
         public SNSControl()
         {
             InitializeComponent();
+            
+
+        }
+
+        public void setButtonColors() 
+        {
+            if (!colorsChanged)
+            {
+                colorsChanged = true;
+                myButton1.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton2.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton3.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+
+                myButton1.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton2.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton3.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+
+                myButton1.ForeColor = Color.Black;
+                myButton2.ForeColor = Color.Black;
+                myButton3.ForeColor = Color.Black;
+                myButton1.TextColor = Color.Black;
+                myButton2.TextColor = Color.Black;
+                myButton3.TextColor = Color.Black;
+            }
         }
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
