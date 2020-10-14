@@ -1463,6 +1463,14 @@ namespace MissionPlanner
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
                 coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
+                //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
+                double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y), FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y));
+                
+                //FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+
+                FlightPlanner.rulerControl1.recalculate(distance1);
             }
             catch (System.Exception eee)
             {
@@ -1535,6 +1543,34 @@ namespace MissionPlanner
             catch (System.Exception eee)
             {
                 System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+        }
+
+        public static string FormatDistance(double distInKM, bool toMeterOrFeet)
+        {
+            string sunits = Settings.Instance["distunits"];
+            distances units = distances.Meters;
+
+            if (sunits != null)
+                try
+                {
+                    units = (distances)Enum.Parse(typeof(distances), sunits);
+                }
+                catch (Exception)
+                {
+                }
+
+            switch (units)
+            {
+                case distances.Feet:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 3280.8399).ToString("0.00 ft"))
+                        : string.Format((distInKM * 0.621371).ToString("0.0000 miles"));
+                case distances.Meters:
+                default:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 1000).ToString("0.00 m"))
+                        : string.Format(distInKM.ToString("0.0000 km"));
             }
         }
 

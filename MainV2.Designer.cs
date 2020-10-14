@@ -77,9 +77,9 @@ namespace MissionPlanner
             this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
+            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
             this.timeControl2 = new MissionPlanner.Controls.NewControls.TimeControl();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
-            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
@@ -389,6 +389,12 @@ namespace MissionPlanner
             this.servoGimbal2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.servoGimbal2.Name = "servoGimbal2";
             // 
+            // coordinatsControl1
+            // 
+            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
+            this.coordinatsControl1.BackColor = System.Drawing.Color.Transparent;
+            this.coordinatsControl1.Name = "coordinatsControl1";
+            // 
             // timeControl2
             // 
             resources.ApplyResources(this.timeControl2, "timeControl2");
@@ -405,12 +411,6 @@ namespace MissionPlanner
             this.myButton3.TextColor = System.Drawing.Color.Empty;
             this.myButton3.UseVisualStyleBackColor = true;
             this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
-            // 
-            // coordinatsControl1
-            // 
-            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
-            this.coordinatsControl1.BackColor = System.Drawing.Color.Transparent;
-            this.coordinatsControl1.Name = "coordinatsControl1";
             // 
             // myButton4
             // 
