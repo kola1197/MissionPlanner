@@ -1841,23 +1841,26 @@ namespace MissionPlanner
                 if (centering != 1)
                 {
                     centering = 1;
-                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
-                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Red;
+                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
+                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
                     //System.Diagnostics.Debug.WriteLine("Right");
                 }
                 else
                 {
                     centering = 0;
-                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                    FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
+                    FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
+                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
+                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 }
             }
 
             if (e.Button == MouseButtons.Left)
             {
                 centering = 0;
-                FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
+                FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
+                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
+                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 //System.Diagnostics.Debug.WriteLine("Left");
             }
 
