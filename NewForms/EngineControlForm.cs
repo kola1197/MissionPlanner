@@ -14,9 +14,16 @@ namespace MissionPlanner.NewForms
     {
         public EngineControlForm()
         {
-            InitializeComponent();
-            maxDefault = MainV2.comPort.GetParam("THR_MAX");
-            minDefault = MainV2.comPort.GetParam("THR_MIN");
+            if (!MainV2.comPort.MAV.cs.connected)
+            {
+                Close();
+            }
+            else
+            {
+                InitializeComponent();
+                maxDefault = MainV2.comPort.GetParam("THR_MAX");
+                minDefault = MainV2.comPort.GetParam("THR_MIN");
+            }
         }
 
         private float maxDefault = 0;

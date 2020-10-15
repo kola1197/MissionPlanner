@@ -423,6 +423,12 @@
     <Compile Include="Controls\NewControls\AdditionalSensorControl.Designer.cs">
       <DependentUpon>AdditionalSensorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\CustomPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\CustomPanelControl.Designer.cs">
+      <DependentUpon>CustomPanelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\FlightByCompassControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -477,11 +483,20 @@
     <Compile Include="Controls\NewControls\RulerControl.Designer.cs">
       <DependentUpon>RulerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\RouteSlidingScale.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\RouteSlidingScale.Designer.cs">
+      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.Designer.cs">
       <DependentUpon>servoGimbal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\SlidingScale.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\NewControls\SNSControl.cs">
       <SubType>UserControl</SubType>
@@ -794,6 +809,12 @@
     <Compile Include="NewForms\PreFlightForm.Designer.cs">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\RouteAltForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\RouteAltForm.Designer.cs">
+      <DependentUpon>RouteAltForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\SNSInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -808,8 +829,10 @@
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
+    <Compile Include="Orlan\ICustomClick.cs" />
     <Compile Include="Orlan\NestedBindingProxy.cs" />
     <Compile Include="Orlan\RegionData.cs" />
+    <Compile Include="Orlan\RouteAltitude.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">
@@ -942,6 +965,9 @@
     <EmbeddedResource Include="Controls\NewControls\AdditionalSensorControl.resx">
       <DependentUpon>AdditionalSensorControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\CustomPanelControl.resx">
+      <DependentUpon>CustomPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\FlightByCompassControl.resx">
       <DependentUpon>FlightByCompassControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -968,6 +994,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RulerControl.resx">
       <DependentUpon>RulerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\RouteSlidingScale.resx">
+      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\SensorUserControl.resx">
       <DependentUpon>SensorUserControl.cs</DependentUpon>
@@ -1979,6 +2008,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\RouteAltForm.resx">
+      <DependentUpon>RouteAltForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\SNSInfo.resx">
       <DependentUpon>SNSInfo.cs</DependentUpon>

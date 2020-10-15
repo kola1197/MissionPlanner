@@ -14,7 +14,7 @@ using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner
@@ -79,7 +79,7 @@ namespace MissionPlanner
                 if (isMarked)
                 {
                     isMarked = false;
-                    if (MainV2._aircraftInfo.Count == 0 || textBox == aircraftNumber_TB)
+                    if (MainV2.AircraftInfo.Count == 0 || textBox == aircraftNumber_TB)
                     {
                         textBox.Text = "";
                     }
@@ -133,13 +133,13 @@ namespace MissionPlanner
         private void connectAircraft(object sender)
         {
             MAVLinkInterface.paramsLoading = true;
-            AircraftConnectionInfo connectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+            AircraftConnectionInfo connectedAircraft = MainV2.AircraftInfo[devices_LB.SelectedItem.ToString()];
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
                     return;
-                connectedAircraft.SerialPort = MainV2._AntennaConnectionInfo.SerialPort;
-                connectedAircraft.Speed = MainV2._AntennaConnectionInfo.Speed;
+                connectedAircraft.SerialPort = MainV2.AntennaConnectionInfo.SerialPort;
+                connectedAircraft.Speed = MainV2.AntennaConnectionInfo.Speed;
                 connectedAircraft.Connected = true;
                 connectedAircraft.SysId = sysid_cmb.SelectedItem;
                 connectedAircraft.UsingAntenna = true;
@@ -153,7 +153,7 @@ namespace MissionPlanner
             if (useSITL_CheckBox.Checked)
             {
                 MainV2.instance.MenuSimulation_Click(sender, EventArgs.Empty);
-                sitlForm.aircraftSITLInfo = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+                sitlForm.aircraftSITLInfo = MainV2.AircraftInfo[devices_LB.SelectedItem.ToString()];
                 sitlForm.aircraftSITLInfo.UsingSITL = true;
                 sitlForm.aircraftSITLInfo.Connected = true;
 
@@ -208,7 +208,7 @@ namespace MissionPlanner
 
         private void disconnectAircraft()
         {
-            AircraftConnectionInfo selectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+            AircraftConnectionInfo selectedAircraft = MainV2.AircraftInfo[devices_LB.SelectedItem.ToString()];
 
             if (selectedAircraft.UsingAntenna)
             {
@@ -249,7 +249,7 @@ namespace MissionPlanner
                 selectedAircraft.SysId = null;
                 selectedAircraft.UsingSITL = false;
                 MainV2.StopUpdates();
-                MainV2._aircraftMenuControl.updateAllAircraftButtonTexts();
+                MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
 
                 panel1.Enabled = true;
                 connect_BUT.Text = connectText;
@@ -261,7 +261,7 @@ namespace MissionPlanner
 
         private void connect_BUT_Click(object sender, EventArgs e)
         {
-            if (MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()].Connected)
+            if (MainV2.AircraftInfo[devices_LB.SelectedItem.ToString()].Connected)
             {
                 disconnectAircraft();
             }
@@ -273,7 +273,7 @@ namespace MissionPlanner
 
         private void addAircraft_BT_Click(object sender, EventArgs e)
         {
-            if (MainV2._aircraftInfo.Count > 4 || MainV2._aircraftInfo.Keys.Contains(aircraftNumber_TB.Text) ||
+            if (MainV2.AircraftInfo.Count > 4 || MainV2.AircraftInfo.Keys.Contains(aircraftNumber_TB.Text) ||
                 aircraftNumber_TB.Text.Equals("") || !regex.IsMatch(aircraftNumber_TB.Text))
                 return;
 
@@ -282,22 +282,22 @@ namespace MissionPlanner
 
         public void addAircraft(string aircraftNumber)
         {
-            MainV2._aircraftInfo.Add(aircraftNumber, new AircraftConnectionInfo());
+            MainV2.AircraftInfo.Add(aircraftNumber, new AircraftConnectionInfo());
             devices_LB.Items.Add(aircraftNumber);
             devices_LB.SetSelected(devices_LB.Items.Count - 1, true);
-            MainV2._aircraftMenuControl.setAircraftButtonDefaultText(
-                MainV2._aircraftInfo[aircraftNumber].MenuNum, aircraftNumber);
-            MainV2._aircraftMenuControl.updateAircraftButtonText(MainV2._aircraftInfo[aircraftNumber].MenuNum);
+            MainV2.AircraftMenuControl.setAircraftButtonDefaultText(
+                MainV2.AircraftInfo[aircraftNumber].MenuNum, aircraftNumber);
+            MainV2.AircraftMenuControl.updateAircraftButtonText(MainV2.AircraftInfo[aircraftNumber].MenuNum);
             panel1.Enabled = true;
             aircraftNumber_TB.Text = "";
         }
 
         public void switchToAntenna()
         {
-            if (MainV2._AntennaConnectionInfo.SysId == null)
+            if (MainV2.AntennaConnectionInfo.SysId == null)
                 return;
 
-            var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo.SysId;
+            var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
 
             foreach (var port in MainV2.Comports)
             {
@@ -340,7 +340,7 @@ namespace MissionPlanner
                         }).Start();
                     }
                     MainV2.CurrentAircraftNum =
-                        MainV2._aircraftInfo.FirstOrDefault(x => x.Value == selectedAircraft).Key;
+                        MainV2.AircraftInfo.FirstOrDefault(x => x.Value == selectedAircraft).Key;
                     devices_LB.SelectedItem = MainV2.CurrentAircraftNum;
                     MainV2.View.Reload();
                 }
@@ -349,7 +349,7 @@ namespace MissionPlanner
 
         private void devices_LB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AircraftConnectionInfo selectedAircraft = MainV2._aircraftInfo[devices_LB.SelectedItem.ToString()];
+            AircraftConnectionInfo selectedAircraft = MainV2.AircraftInfo[devices_LB.SelectedItem.ToString()];
             connectedAircraftNum_TB.Text = devices_LB.SelectedItem.ToString();
             connectedAircraftName_TB.Text = selectedAircraft.Name;
             useSITL_CheckBox.Checked = selectedAircraft.UsingSITL;
@@ -419,13 +419,13 @@ namespace MissionPlanner
 
         private void connectedAircraftNum_TB_TextChanged(object sender, EventArgs e)
         {
-            if (MainV2._aircraftInfo == null || MainV2._aircraftInfo.Keys.Contains(aircraftNumber_TB.Text) ||
+            if (MainV2.AircraftInfo == null || MainV2.AircraftInfo.Keys.Contains(aircraftNumber_TB.Text) ||
                 aircraftNumber_TB.Text.Equals("") || !regex.IsMatch(aircraftNumber_TB.Text))
                 return;
 
             var oldAircraftNumber = devices_LB.SelectedItem.ToString();
             var newAircraftNumber = connectedAircraftNum_TB.Text;
-            renameAircraftNum(MainV2._aircraftInfo, oldAircraftNumber, newAircraftNumber);
+            renameAircraftNum(MainV2.AircraftInfo, oldAircraftNumber, newAircraftNumber);
         }
 
         public static void renameAircraftNum(Dictionary<string, AircraftConnectionInfo> dic, string fromKey,

@@ -16,7 +16,7 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-
+        private readonly Point slidingScaleIndent;
         private EngineControlForm engineControlForm;
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
@@ -35,12 +35,51 @@ namespace MissionPlanner.Controls
         {
             InitializeComponent();
 
+            InitSensors();
+
+            ToolStripControlHost defaultSensorControlHost =
+                new ToolStripControlHost(getDesiredSensor(sensorsContextMenuStrip.Items[1]));
+            sensorsMenuStrip.Items.Add(defaultSensorControlHost);
+
+            // ThemeManager.ApplyThemeTo(this);
+            instance = this;
+
+            AddClickToSpeedPanelControls();
+            AddClickToEnginePanelControls();
+
+            slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
+        }
+
+        public Point GetLocalRouteFormLocation()
+        {
+            return new Point(speedPanel.Location.X + slidingScaleIndent.X,
+                speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
+        }
+
+        private void AddClickToSpeedPanelControls()
+        {
+            foreach (Control control in speedPanel.Controls)
+            {
+                control.Click += speedPanel_Click;
+            }
+        }
+
+        private void AddClickToEnginePanelControls()
+        {
+            foreach (Control control in enginePanel.Controls)
+            {
+                control.Click += enginePanel_Click;
+            }
+        }
+
+        private void InitSensors()
+        {
             foreach (ToolStripItem toolStripItem in sensorsContextMenuStrip.Items)
             {
                 if (toolStripItem.Text == "Магнитный курс")
                 {
                     GaugeHeading gaugeHeading = new GaugeHeading();
-                    gaugeHeading.SensorOnClick += sensorsStrip_Click;
+                    gaugeHeading.CustomOnClick += sensorsStrip_Click;
                     sensors.Add(toolStripItem, gaugeHeading);
                 }
                 else
@@ -49,7 +88,7 @@ namespace MissionPlanner.Controls
                     {
                         sensorName = toolStripItem.Text
                     };
-                    sensorControl.SensorOnClick += sensorsStrip_Click;
+                    sensorControl.CustomOnClick += sensorsStrip_Click;
                     sensors.Add(toolStripItem, sensorControl);
                 }
             }
@@ -70,7 +109,7 @@ namespace MissionPlanner.Controls
             if (keyItem.Text == "Магнитный курс")
             {
                 GaugeHeading gaugeHeading = new GaugeHeading();
-                gaugeHeading.SensorOnClick += sensorsStrip_Click;
+                gaugeHeading.CustomOnClick += sensorsStrip_Click;
                 sensors[keyItem] = gaugeHeading;
             }
             else
@@ -79,7 +118,7 @@ namespace MissionPlanner.Controls
                 {
                     sensorName = keyItem.Text
                 };
-                sensorControl.SensorOnClick += sensorsStrip_Click;
+                sensorControl.CustomOnClick += sensorsStrip_Click;
                 sensors[keyItem] = sensorControl;
             }
 
@@ -234,7 +273,7 @@ namespace MissionPlanner.Controls
             this.Size = new Size(this.Size.Width - sensorToHide.ControlSize.Width, this.Size.Height);
         }
 
-        private void targetAlt_label_MouseClick(object sender, MouseEventArgs e)
+        private void enginePanel_Click(object sender, EventArgs e)
         {
             if (engineControlForm != null) 
             {
@@ -245,59 +284,12 @@ namespace MissionPlanner.Controls
             engineControlForm.Show();
         }
 
-        private void StatusControlPanel_Load(object sender, EventArgs e)
+        private void speedPanel_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void airspeed_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void environmentTemp_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HorizonHUD_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void environmentTemp_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void engineTemp_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void engineTemp_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groundSpeed_SVPB_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void targetAlt_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sensorsMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void windDir1_Load(object sender, EventArgs e)
-        {
-
+            MainV2.instance.SetRouteFormLocation();
+            MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
+            MainV2.RouteAltForm.Show();
+            MainV2.RouteAltForm.TopLevel = true;
         }
     }
 }
