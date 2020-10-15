@@ -1687,7 +1687,7 @@ namespace MissionPlanner
 
             List<GMapProvider> providers = GMapProviders.List;
             List<GMapProvider> filtredproviders = new List<GMapProvider>();
-            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19 };
+            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19, 64, 65 };
             foreach (int i in providersNumsToCopy)
             {
                 filtredproviders.Add(providers[i]);
