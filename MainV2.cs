@@ -51,7 +51,7 @@ using Microsoft.Win32;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls.PreFlight;
 using MissionPlanner.GCSViews;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 using Org.BouncyCastle.Asn1.Cms;
 using MissionPlanner.Plugin;
 using MissionPlanner.Properties;
@@ -60,6 +60,7 @@ using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
 using System.Windows.Input;
 using GMap.NET.WindowsForms.Markers;
+using MissionPlanner.Controls.NewControls;
 using MissionPlanner.NewClasses;
 using Microsoft.Win32;
 
@@ -651,21 +652,26 @@ namespace MissionPlanner
         /// <summary>
         /// Form for orlan connections
         /// </summary>
-        public static ConnectionsForm _connectionsForm = new ConnectionsForm();
+        public static ConnectionsForm ConnectionsForm = new ConnectionsForm();
 
-        public static AircraftMenuControl _aircraftMenuControl = new AircraftMenuControl();
+        public static AircraftMenuControl AircraftMenuControl = new AircraftMenuControl();
 
         public static GaugeHeading GaugeMenuHeading = new GaugeHeading();
+
+        public static RouteAltForm RouteAltForm = new RouteAltForm() { Visible = false, StartPosition = FormStartPosition.Manual};
 
         public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
 
         /// <summary>
-        /// All orlan connections
+        /// All orlan connections data
         /// </summary>
-        public static Dictionary<string, AircraftConnectionInfo> _aircraftInfo =
+        public static Dictionary<string, AircraftConnectionInfo> AircraftInfo =
             new Dictionary<string, AircraftConnectionInfo>();
 
-        public static AntennaConnectionInfo _AntennaConnectionInfo = new AntennaConnectionInfo();
+        /// <summary>
+        /// Antenna connection data
+        /// </summary>
+        public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
         private static string _currentAircraftNum = null;
 
@@ -677,7 +683,7 @@ namespace MissionPlanner
                 if (_currentAircraftNum != null)
                 {
                     StopUpdates();
-                    _aircraftMenuControl.updateAllAircraftButtonTexts();
+                    AircraftMenuControl.updateAllAircraftButtonTexts();
                 }
 
                 _currentAircraftNum = value;
@@ -701,9 +707,9 @@ namespace MissionPlanner
             _subscriptionsDisposable = new CompositeDisposable();
 
             int currentNum = Int32.Parse(_currentAircraftNum);
-            AircraftConnectionInfo currentAircraftInfo = _aircraftInfo[_currentAircraftNum];
+            AircraftConnectionInfo currentAircraftInfo = AircraftInfo[_currentAircraftNum];
             AircraftMenuControl.aircraftButtonInfo currentMenuButton =
-                _aircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
+                AircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
             _mavlink = comPort;
             var subscriptions = new List<IDisposable>
             {
@@ -1320,19 +1326,29 @@ namespace MissionPlanner
             testButton.Text = "Done";
             aircraftPanel.Controls.Add(testButton);*/
 
-            ToolStripControlHost aircraftControlHost = new ToolStripControlHost(_aircraftMenuControl);
+            // RouteSlidingScale = new RouteSlidingScale() { Visible = false };
+
+            ToolStripControlHost aircraftControlHost = new ToolStripControlHost(AircraftMenuControl);
             menuStrip1.Items.Add(aircraftControlHost);
-            _connectionsForm.sitlForm = Simulation;
+            ConnectionsForm.sitlForm = Simulation;
 
             ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusMenuPanel);
             menuStrip1.Items.Add(statusControlHost);
-
+            
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
+            SetRouteFormLocation();
 
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+        }
+
+        public void SetRouteFormLocation()
+        {
+            //Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
+            //RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
+
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1532,9 +1548,9 @@ namespace MissionPlanner
                     FlightPlanner.wpMenu1.timer1.Start();
                 }
 
-                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !_aircraftInfo[CurrentAircraftNum].inAir)
+                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !AircraftInfo[CurrentAircraftNum].inAir)
                 {
-                    _aircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                    AircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
 
                 /*if (ctrlModeActive && ctrlReliasedCounter == -1)
@@ -1892,6 +1908,8 @@ namespace MissionPlanner
                 }
             }
             _aircraftMenuControl.updateCentralButton();
+
+            //AircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
@@ -1952,7 +1970,7 @@ namespace MissionPlanner
                 {
                     notifications.Add("Режим возврата к точке «Дом»");
                 }
-                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2._aircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
                 {
                     notifications.Add("Низкий уровень топлива");
                 }
@@ -4861,18 +4879,24 @@ namespace MissionPlanner
             /*
             if (manualFlightMode)
             {
+                
                 MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                 rc.target_component = comPort.MAV.compid;
                 rc.target_system = comPort.MAV.sysid;
+                rc.chan1_raw = Convert.ToUInt16(1500);
+                rc.chan2_raw = Convert.ToUInt16(1500);
+                rc.chan3_raw = Convert.ToUInt16(1500);
+                rc.chan4_raw = Convert.ToUInt16(1500);
                 if (overrides[1] != 1500)
                 {
-                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, overrides[1], 0, 0, 0, 0, 0);
-                    //rc.chan2_raw = Convert.ToUInt16(overrides[1]);
+                    //MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, overrides[1], 0, 0, 0, 0, 0);
+                    rc.chan2_raw = Convert.ToUInt16(overrides[1]);
+                    
                 }
                 if (overrides[3] != 1500)
                 {
-                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 4, overrides[1], 0, 0, 0, 0, 0);
-                    //rc.chan4_raw = Convert.ToUInt16(overrides[3]);
+                    //MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 4, overrides[1], 0, 0, 0, 0, 0);
+                    rc.chan4_raw = Convert.ToUInt16(overrides[3]);
                 }
                 //new DevopsUI().ShowUserControl();
                 // TODO: add right values
@@ -5195,7 +5219,6 @@ namespace MissionPlanner
             {
                 FlightPlanner.instance.MainMap_KeyDown(sender, e);
             }
-
             Keys keyData = e.KeyData;
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
             if (keyData == (Keys.Control | Keys.ControlKey))
@@ -5236,9 +5259,11 @@ namespace MissionPlanner
             else {
                 ctrlModeDebuglabel.Text = "";
             }
-            //debugOverrideInfo += " ↓ ";
-
-         
+            //debugOverrideInfo += " ↓ ";       
+            //if (e.KeyCode == Keys.G)
+            //{
+            //    CustomMessageBox.Show(Cursor.Position.ToString());
+            //}
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5593,7 +5618,7 @@ namespace MissionPlanner
 
         public AircraftConnectionInfo getAircraftByButtonNumber(int butNum)
         {
-            foreach (var aircraft in MainV2._aircraftInfo)
+            foreach (var aircraft in MainV2.AircraftInfo)
             {
                 if (aircraft.Value.MenuNum == butNum)
                 {
@@ -5606,7 +5631,7 @@ namespace MissionPlanner
 
         public static bool connectedAircraftExists()
         {
-            foreach (var aircraft in MainV2._aircraftInfo)
+            foreach (var aircraft in MainV2.AircraftInfo)
             {
                 if (aircraft.Value.Connected)
                 {

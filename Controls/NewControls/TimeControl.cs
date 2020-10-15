@@ -23,10 +23,10 @@ namespace MissionPlanner.Controls.NewControls
         private void updateLabels() 
         {
             DateTime start;
-            Orlan.AircraftConnectionInfo info;
+            MissionPlanner.AircraftConnectionInfo info;
             if (MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraftNum!= null)
             {
-                if (MainV2._aircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
                 {
                     DateTime now = DateTime.Now;
                     DateTime diff = new DateTime(0);

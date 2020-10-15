@@ -821,9 +821,23 @@ namespace MissionPlanner
         [DisplayText("Xtrack Error (m)")]
         public float xtrack_error { get; set; }
 
+        private float _wpno;
         [GroupText("NAV")]
         [DisplayText("WP No")]
-        public float wpno { get; set; }
+        public float wpno
+        {
+            get => _wpno;
+            set
+            {
+                float oldValue = _wpno;
+                
+                if (oldValue == value)
+                    return;
+                
+                _wpno = value;
+                OnValueChanged(new ValueChangedEventArgs(oldValue, value));
+            } 
+        }
 
         [GroupText("NAV")]
         [DisplayText("Mode")]
@@ -3336,6 +3350,25 @@ namespace MissionPlanner
 
             //low pass the outputs for better results!
         }
+        
+        #region [ Events ... ]
+        private event EventHandler<ValueChangedEventArgs> NewWpNoEvent;
+        public event EventHandler<ValueChangedEventArgs> WpNoValueChanged
+        {
+            add
+            {
+                if (NewWpNoEvent == null || !NewWpNoEvent.GetInvocationList().Contains(value))
+                {
+                    NewWpNoEvent += value;
+                }
+            }
+            remove => NewWpNoEvent -= value;
+        }
+        protected virtual void OnValueChanged(ValueChangedEventArgs e)
+        {
+            NewWpNoEvent?.Invoke(this, e);
+        }
+        #endregion [ Events ]
 
         /// <summary>
         ///     derived from MAV_SYS_STATUS_SENSOR
