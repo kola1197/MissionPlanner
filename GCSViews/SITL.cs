@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MissionPlanner.Orlan;
+using MissionPlanner;
 
 namespace MissionPlanner.GCSViews
 {
@@ -483,7 +483,7 @@ namespace MissionPlanner.GCSViews
                 {
                     aircraftSITLInfo.SysId =
                         MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
-                    MainV2.CurrentAircraftNum = MainV2._aircraftInfo.FirstOrDefault(x => x.Value == aircraftSITLInfo).Key;
+                    MainV2.CurrentAircraftNum = MainV2.AircraftInfo.FirstOrDefault(x => x.Value == aircraftSITLInfo).Key;
                 }
             }
             catch

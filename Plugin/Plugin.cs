@@ -189,7 +189,7 @@ namespace MissionPlanner.Plugin
             {
                 return;
             }
-            RegionsControl.instance.redrawPolygonSurvey(MainV2.instance.FlightPlanner.GetCurrentPolygon());
+            RegionsControl.instance.RedrawPolygonSurvey(MainV2.instance.FlightPlanner.GetCurrentPolygon());
         }
 
         /// <summary>
