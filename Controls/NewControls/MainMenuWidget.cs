@@ -9,17 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner;
 using static MissionPlanner.Log.LogOutput;
+using System.Runtime.InteropServices;
 
 namespace MissionPlanner.Controls
 {
     public partial class MainMenuWidget : MyUserControl
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+           int nLeftRect, // x-coordinate of upper-left corner
+           int nTopRect, // y-coordinate of upper-left corner
+           int nRightRect, // x-coordinate of lower-right corner
+           int nBottomRect, // y-coordinate of lower-right corner
+           int nWidthEllipse, // height of ellipse
+           int nHeightEllipse // width of ellipse
+        );
         Delegate test;
         private bool active = false;
         private int X = 0;
         public MainMenuWidget()
         {
             InitializeComponent();
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             updateSize();
         }
 
@@ -40,11 +53,13 @@ namespace MissionPlanner.Controls
         {
             if (!active)
             {
-                this.Size = new Size(100, 100);
+                this.Size = new Size(60, 60);
+                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
             else 
             {
-                this.Size = new Size(750, 100);
+                this.Size = new Size(417, 60);
+                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
         }
 

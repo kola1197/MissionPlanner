@@ -43,10 +43,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sensorName_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.sensorName_label.ForeColor = System.Drawing.Color.White;
-            this.sensorName_label.Location = new System.Drawing.Point(3, 99);
-            this.sensorName_label.MinimumSize = new System.Drawing.Size(138, 21);
+            this.sensorName_label.Location = new System.Drawing.Point(0, 99);
+            this.sensorName_label.MinimumSize = new System.Drawing.Size(135, 21);
             this.sensorName_label.Name = "sensorName_label";
-            this.sensorName_label.Size = new System.Drawing.Size(138, 21);
+            this.sensorName_label.Size = new System.Drawing.Size(135, 21);
             this.sensorName_label.TabIndex = 0;
             this.sensorName_label.Text = "Температура";
             this.sensorName_label.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -86,7 +86,7 @@
             this.Controls.Add(this.sensorValue_label);
             this.Controls.Add(this.sensorName_label);
             this.DoubleBuffered = true;
-            this.MinimumSize = new System.Drawing.Size(123, 123);
+            this.MinimumSize = new System.Drawing.Size(135, 135);
             this.Name = "AdditionalSensorControl";
             this.Size = new System.Drawing.Size(135, 135);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();

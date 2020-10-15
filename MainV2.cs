@@ -62,6 +62,7 @@ using System.Windows.Input;
 using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.Controls.NewControls;
 using MissionPlanner.NewClasses;
+using Microsoft.Win32;
 
 namespace MissionPlanner
 {
@@ -1475,24 +1476,64 @@ namespace MissionPlanner
             try
             {
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+                string homedistString = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
-                coordinatsControl1.label2.Text = FlightPlanner.FormatDistance(homedist, true);
+                coordinatsControl1.label2.Text = homedistString;
                 coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
+                //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
+                //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
+                double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y), FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y));
+
+                //FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+
+                FlightPlanner.rulerControl1.recalculate(distance1);
+
+                if (comPort.MAV.cs.connected)
+                {
+                    double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane, true);
+                    FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
+                }
+                else
+                {
+                    FlightPlanner.notificationControl1.label3.Text = "0 м";
+                }
+                FlightPlanner.notificationControl1.label5.Text = comPort.MAV.cs.wp_dist.ToString();
+                double lengthCountr = 0;
+                for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++) 
+                {
+                    string s = FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString();
+                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString());
+                }
+                FlightPlanner.notificationControl1.label7.Text = lengthCountr.ToString("0.00") + " м";
+                
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: "+eee.ToString());
             }
 
             try
             {
+                snsControl2.setButtonColors();
+                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                {
+                    FlightPlanner.rulerControl1.timer1.Enabled = true;
+                    FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
+                }
                 if (!FlightPlanner.notificationControl1.timer1.Enabled) 
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(155,255,255,255);
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200,64,64,64);
                 }
-
+                if (!FlightPlanner.notificationListControl1.timer1.Enabled)
+                {
+                    FlightPlanner.notificationListControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
+                    FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+                }
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
@@ -1512,7 +1553,7 @@ namespace MissionPlanner
                     AircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
 
-                if (ctrlModeActive && ctrlReliasedCounter == -1)
+                /*if (ctrlModeActive && ctrlReliasedCounter == -1)
                 {
                     secondTrim = MainV2.comPort.GetParam("SERVO4_TRIM");
                     thirdTrim = MainV2.comPort.GetParam("SERVO2_TRIM");
@@ -1534,11 +1575,70 @@ namespace MissionPlanner
                         ctrlReliasedCounter = -1;
                         ctrlModeActive = false;
                     }
+                }*/
+                if (overrideModeActive)
+                {
+                    MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+                    rc.target_component = comPort.MAV.compid;
+                    rc.target_system = comPort.MAV.sysid;
+                    rc.chan1_raw = (ushort)overrides[0];
+                    rc.chan2_raw = (ushort)overrides[1];
+                    rc.chan3_raw = (ushort)overrides[2];
+                    rc.chan4_raw = (ushort)overrides[3];
+                    if (comPort.BaseStream.IsOpen)
+                    {
+                        if (comPort.BaseStream.BytesToWrite < 50)
+                        {
+                            //if (sitl)
+                            //{
+                            //    SITL.rcinput();
+                            //}
+                            //else
+                            //{
+                            comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                            System.Diagnostics.Debug.WriteLine("rc sent");
+
+                            //}
+
+                            //count++;
+                            //lastjoystick = DateTime.Now;
+                        }
+                    }
+                    
                 }
+
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine(eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+        }
+
+        public static string FormatDistance(double distInKM, bool toMeterOrFeet)
+        {
+            string sunits = Settings.Instance["distunits"];
+            distances units = distances.Meters;
+
+            if (sunits != null)
+                try
+                {
+                    units = (distances)Enum.Parse(typeof(distances), sunits);
+                }
+                catch (Exception)
+                {
+                }
+
+            switch (units)
+            {
+                case distances.Feet:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 3280.8399).ToString("0.00 ft"))
+                        : string.Format((distInKM * 0.621371).ToString("0.0000 miles"));
+                case distances.Meters:
+                default:
+                    return toMeterOrFeet
+                        ? string.Format((distInKM * 1000).ToString("0.00 m"))
+                        : string.Format(distInKM.ToString("0.0000 km"));
             }
         }
 
@@ -1555,7 +1655,21 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             engineController = new EngineController();
             timer1.Start();
+            FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
+            //FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
+            FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
+            /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel4.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel5.Parent = FlightPlanner.wpMenu1;
+            FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
+            */
+            
+
+
             logger = new Logger();
+
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
@@ -1570,13 +1684,25 @@ namespace MissionPlanner
 
             mapChangeForm = new MapChangeForm();
             mapChangeForm.comboBoxMapType.ValueMember = "Name";
-            mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+
+            List<GMapProvider> providers = GMapProviders.List;
+            List<GMapProvider> filtredproviders = new List<GMapProvider>();
+            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19 };
+            foreach (int i in providersNumsToCopy)
+            {
+                filtredproviders.Add(providers[i]);
+            }
+
+            mapChangeForm.comboBoxMapType.DataSource = filtredproviders.ToArray();
+
+            //mapChangeForm.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             mapChangeForm.comboBoxMapType.SelectedItem = FlightPlanner.MainMap.MapProvider;
             FlightPlanner.MainMap.OnTileLoadComplete += MainMap_OnTileLoadComplete;
             FlightPlanner.MainMap.OnTileLoadStart += MainMap_OnTileLoadStart;
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
+            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
             mapChangeForm.Show();
         }
 
@@ -1738,6 +1864,7 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
+        bool soundFlag = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
             alarmLabelTextCheck();
@@ -1748,12 +1875,41 @@ namespace MissionPlanner
 
             if (MAVLinkInterface.paramsLoading)
             {
-                progressBar1.Maximum = MAVLinkInterface.paramsCount;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+                soundFlag = true;
+                progressBar1.Maximum = MAVLinkInterface.paramsCount + 1;
+                progressBar1.Value = MAVLinkInterface.paramsLoadedCount + 1;
+                progressBar2.Maximum = MAVLinkInterface.paramsCount + 1;
+                progressBar2.Value = MAVLinkInterface.paramsLoadedCount + 1;
             }
+            else
+            {
+                if (comPort.MAV.cs.connected)
+                {
+                    progressBar2.Value = progressBar2.Maximum;
+                    progressBar1.Value = progressBar1.Maximum;
+                    if (soundFlag)
+                    {
+                        System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+                        if (File.Exists("D:\\test.wav")) 
+                        {
+                            player.SoundLocation = "E:\\test.wav";
+                            player.Play();
+                            soundFlag = !soundFlag;
+                        }
+                    }
 
-            progressBar1.Visible = MAVLinkInterface.paramsLoading;
-            AircraftMenuControl.updateCentralButton();
+                }
+                else 
+                {
+                    progressBar1.Maximum = 100;
+                    progressBar1.Value = 5;
+                    progressBar2.Maximum = 100;
+                    progressBar2.Value = 5;
+                }
+            }
+            _aircraftMenuControl.updateCentralButton();
+
+            //AircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
@@ -1826,12 +1982,22 @@ namespace MissionPlanner
                 {
                     logger.write(v);
                 }
+                if (notifications.Count > 0)
+                {
+                    label1.BackColor = Color.DarkRed;
+                    label1.Text = "ОШИБКА!!!";
+                }
+                else 
+                {
+                    label1.BackColor = Color.Lime;
+                    label1.Text = "";
+                }
             }
             else {
-                for (int i = 0; i < 7; i++)
+                /*for (int i = 0; i < 7; i++)
                 {
                     notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
-                }
+                }*/
             }
         }
 
@@ -1840,7 +2006,7 @@ namespace MissionPlanner
         /// </summary>
         void adsb_UpdatePlanePosition(object sender, adsb.PointLatLngAltHdg adsb)
         {
-            System.Diagnostics.Debug.WriteLine("LOOOOOOOOOOOOOOOp");
+            //System.Diagnostics.Debug.WriteLine("LOOOOOOOOOOOOOOOp");
             lock (adsblock)
             {
                 var id = adsb.Tag;
@@ -2317,6 +2483,7 @@ namespace MissionPlanner
                                     });
 
                                     ftpfile = true;
+                                    MAVLinkInterface.paramsLoading = false;
                                 }
                             }
                         };
@@ -4639,7 +4806,7 @@ namespace MissionPlanner
                 return true;
             }
 
-            bool manualFlightMode = false;
+           /* bool manualFlightMode = false;
             int[] overrides = {1500, 1500, 1500, 1500};
 
 
@@ -4665,7 +4832,7 @@ namespace MissionPlanner
             {
                 manualFlightMode = true;
                 overrides[1] = (int)(thirdTrim * 1.15); ;
-            }
+            }*/
 
             //if (keyData == (Keys.Control | Keys.Down))
             //{
@@ -4704,12 +4871,12 @@ namespace MissionPlanner
                 overrides[2] = 1300;
                 overrides[3] = 1700;
             }*/
-            ctrlModeActive = manualFlightMode;
+            /*ctrlModeActive = manualFlightMode;
             if (ctrlModeActive && ctrlReliasedCounter != -1)
             {
                 ctrlReliasedCounter = 12;
-            }
-
+            }*/
+            /*
             if (manualFlightMode)
             {
                 
@@ -4773,7 +4940,7 @@ namespace MissionPlanner
                 ctrlModeDebuglabel.Text = debugOverrideInfo;
                 Debug.WriteLine("overrides " + overrides[2] + " " + overrides[3]);
                 return true;
-            }
+            }*/
 
 
             if (ProcessCmdKeyCallback != null)
@@ -4783,6 +4950,7 @@ namespace MissionPlanner
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
 
         public delegate bool ProcessCmdKeyHandler(ref Message msg, Keys keyData);
 
@@ -4998,10 +5166,48 @@ namespace MissionPlanner
             }
         }
 
+        private float[] overrides = new float[] { 1500, 1500, 1500, 1500 };
+        private static bool overrideModeActive = false;
+        private void MainV2_KeyUp(object sender, KeyEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
+
+            Keys keyData = e.KeyData;
+
+            if (keyData == (Keys.ControlKey))
+            {
+                logger.write("Ручное управление завершено");
+                System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
+                overrideModeActive = false;
+                if (comPort.MAV.cs.mode != "Auto") 
+                {
+                    MainV2.comPort.setMode("AUTO");
+                }
+            }
+
+            if (keyData == (Keys.Control | Keys.Left))
+            {
+                System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
+                overrides[3] = 1500f;
+            }
+
+            if (keyData == (Keys.Control | Keys.Right))
+            {
+                System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
+                overrides[3] = 1500f;
+            }
+
+            if (keyData == (Keys.Control | Keys.Up))
+            {
+                System.Diagnostics.Debug.WriteLine("UP is RELEASED");
+                overrides[1] = 1500f;
+            }
+        }
+
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
         {
             Message temp = new Message();
-            ProcessCmdKey(ref temp, e.KeyData);
+            //ProcessCmdKey(ref temp, e.KeyData);
             Console.WriteLine("MainV2_KeyDown " + e.ToString());
             if (e.KeyCode == Keys.Q)
             {
@@ -5013,11 +5219,51 @@ namespace MissionPlanner
             {
                 FlightPlanner.instance.MainMap_KeyDown(sender, e);
             }
-
-            if (e.KeyCode == Keys.G)
+            Keys keyData = e.KeyData;
+            string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
+            if (keyData == (Keys.Control | Keys.ControlKey))
             {
-                CustomMessageBox.Show(Cursor.Position.ToString());
+                logger.write("Ручное управление активировано");
+                System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
+                overrideModeActive = true;
+                if (comPort.MAV.cs.mode != "Stabilize")         //FBWB
+                {
+                    MainV2.comPort.setMode("Stabilize");
+                }
             }
+
+            if (keyData == (Keys.Control | Keys.Left))
+            {
+                System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
+                overrides[3] = secondTrim * 0.85f;
+                debugOverrideInfo += " ← ";
+            }
+
+            if (keyData == (Keys.Control | Keys.Right))
+            {
+                System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
+                overrides[3] = secondTrim * 1.15f;
+                debugOverrideInfo += " → ";
+            }
+
+            if (keyData == (Keys.Control | Keys.Up))
+            {
+                System.Diagnostics.Debug.WriteLine("UP is PRESSED");
+                overrides[1] = thirdTrim * 1.15f;
+                debugOverrideInfo += " ↑ ";
+            }
+            if (overrideModeActive)
+            {
+                ctrlModeDebuglabel.Text = debugOverrideInfo;
+            }
+            else {
+                ctrlModeDebuglabel.Text = "";
+            }
+            //debugOverrideInfo += " ↓ ";       
+            //if (e.KeyCode == Keys.G)
+            //{
+            //    CustomMessageBox.Show(Cursor.Position.ToString());
+            //}
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5453,7 +5699,9 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            logger.write("test");
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            player.SoundLocation = "E:\\test.wav";
+            player.Play();
         }
 
 
@@ -5474,5 +5722,26 @@ namespace MissionPlanner
         private void myButton4_Click_1(object sender, EventArgs e)
         {
         }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int width = panel1.Size.Width;
+            progressBar1.Location = new Point((int)width / 2 - 2, 140);
+            progressBar2.Location = new Point( 0, 140);
+            progressBar1.Size = new Size( width / 2 + 2, 20);
+            progressBar2.Size = new Size( width / 2 + 2, 20);
+            label1.Location = new Point((int)width / 2 - 2 - label1.Size.Width/2, 140);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (notifications.Count > 0) 
+            {
+                FlightPlanner.notificationListControl1.fullList = true;
+                FlightPlanner.notificationListControl1.redraw();
+            }
+        }
+
+       
     }
 }
