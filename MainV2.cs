@@ -1907,9 +1907,9 @@ namespace MissionPlanner
                     progressBar2.Value = 5;
                 }
             }
-            _aircraftMenuControl.updateCentralButton();
+            //_aircraftMenuControl.updateCentralButton();
 
-            //AircraftMenuControl.updateCentralButton();
+            AircraftMenuControl.updateCentralButton();
             if (FlightPlanner.MainMap.Size.Width != 1920)
             {
                 FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
