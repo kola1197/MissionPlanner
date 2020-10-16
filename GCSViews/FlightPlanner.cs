@@ -50,6 +50,7 @@ using Resources = MissionPlanner.Properties.Resources;
 using MissionPlanner.NewForms;
 using System.Text;
 using System.Timers;
+using System.Web.UI.WebControls;
 using DotSpatial.Topology.Algorithm;
 using MissionPlanner.Controls.Icon;
 using MissionPlanner.Controls.NewControls;
@@ -2831,33 +2832,70 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private double GetTotalDistance()
+        {
+            double totalDistance = 0;
+            for (int i = 0; i < GetRulerRoute().Points.Count - 1; i++)
+            {
+                totalDistance += GetDistanceBetweenTwoPoints(GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
+            }
+            return totalDistance;
+        }
+
+        // private void DrawTotalDistance(PaintEventArgs e)
+        // {
+        //     GPoint rectangleLocation = MainMap.FromLatLngToLocal(GetRulerRoute().Points.Last());
+        //     Rectangle rectangle = new Rectangle(rectangleLocation.X, rectangleLocation.Y,50, 50);
+        //     e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100,Color.Black)), rectangle);
+        //     e.Graphics.DrawString(rectangle.Width / 2, rectangle.Height / 2);
+        // }
+        
         private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
         {
             GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
+            float drawingAngle = GetDistanceDrawingAngle(p1, p2);
+            float azimuthAngle = GetAzimuthAngle(p1, p2) + 90;
+            if (azimuthAngle < 0)
+            {
+                azimuthAngle += 360;
+            }
+            
+            string formatAzimuthAngle = azimuthAngle.ToString("F1") + "°";
             e.Graphics.ResetTransform();
 
             e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
-            e.Graphics.RotateTransform(GetDistanceDrawingAngle(p1, p2));
-            e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2), SystemFonts.DefaultFont,
+            e.Graphics.RotateTransform(drawingAngle);
+            e.Graphics.DrawString(formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2)), SystemFonts.DefaultFont,
                 new SolidBrush(Color.White), 0, 0);
 
             e.Graphics.ResetTransform();
         }
 
-        public float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
+        
+        
+        private double GetAngleBetweenPoints(PointLatLng p1, PointLatLng p2)
         {
             GPoint localPoint1 = MainMap.FromLatLngToLocal(p1);
             GPoint localPoint2 = MainMap.FromLatLngToLocal(p2);
-            GPoint localPoint3 = new GPoint(localPoint1.X, localPoint2.Y);
-            var cathetus1 = Math.Sqrt(Math.Pow(localPoint2.X - localPoint3.X, 2) +
-                                       Math.Pow(localPoint2.Y - localPoint3.Y, 2));
-            var cathetus2 = Math.Sqrt(Math.Pow(localPoint1.X - localPoint3.X, 2) +
-                                     Math.Pow(localPoint1.Y - localPoint3.Y, 2));
-            var alpha = Math.Atan2(localPoint2.Y - localPoint1.Y,  localPoint2.X - localPoint1.X);
+            return Math.Atan2(localPoint2.Y - localPoint1.Y, localPoint2.X - localPoint1.X);
+        }
+
+        private float GetAzimuthAngle(PointLatLng p1, PointLatLng p2)
+        {
+            return (float) (GetAngleBetweenPoints(p1, p2) * 180 / Math.PI);
+        }
+        private float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
+        {
+            var alpha = GetAngleBetweenPoints(p1, p2);
+            if (alpha >= Math.PI / 2 && alpha <= Math.PI || alpha >= -Math.PI && alpha <= -Math.PI / 2)
+            {
+                alpha += -Math.Sign(alpha) * Math.PI;
+            }
+
             return (float) (alpha * 180 / Math.PI);
         }
 
-        public GPoint GetDistanceDrawingPoint(PointLatLng p1, PointLatLng p2)
+        private GPoint GetDistanceDrawingPoint(PointLatLng p1, PointLatLng p2)
         {
             double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
             double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
@@ -2866,9 +2904,13 @@ namespace MissionPlanner.GCSViews
             return MainMap.FromLatLngToLocal(new PointLatLng(x, y));
         }
 
-        public string GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
+        private double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
         {
-            double distance = MainMap.MapProvider.Projection.GetDistance(p1, p2);
+            return MainMap.MapProvider.Projection.GetDistance(p1, p2);
+        }
+
+        private string FormatDistance(double distance)
+        {
             if (Math.Truncate(distance) == 0)
             {
                 distance *= 1000;
