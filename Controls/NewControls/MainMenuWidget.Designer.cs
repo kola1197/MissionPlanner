@@ -102,7 +102,6 @@
             this.EKFButton.TabIndex = 2;
             this.EKFButton.TextColor = System.Drawing.Color.Empty;
             this.EKFButton.UseVisualStyleBackColor = false;
-            this.EKFButton.Click += new System.EventHandler(this.EKFButton_Click);
             this.EKFButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // ParamsButton
@@ -147,7 +146,7 @@
             this.RulerButton.TabIndex = 4;
             this.RulerButton.TextColor = System.Drawing.Color.Empty;
             this.RulerButton.UseVisualStyleBackColor = false;
-            this.RulerButton.Click += new System.EventHandler(this.RulerButton_Click);
+            this.RulerButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RulerButton_MouseDown);
             this.RulerButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // centeringButton
@@ -170,7 +169,6 @@
             this.centeringButton.TabIndex = 5;
             this.centeringButton.TextColor = System.Drawing.Color.Empty;
             this.centeringButton.UseVisualStyleBackColor = false;
-            this.centeringButton.Click += new System.EventHandler(this.centeringButton_Click);
             this.centeringButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // homeButton
@@ -193,7 +191,6 @@
             this.homeButton.TabIndex = 7;
             this.homeButton.TextColor = System.Drawing.Color.Empty;
             this.homeButton.UseVisualStyleBackColor = false;
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             this.homeButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             // 
             // MainMenuWidget

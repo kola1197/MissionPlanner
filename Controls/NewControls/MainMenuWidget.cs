@@ -10,30 +10,70 @@ using System.Windows.Forms;
 using MissionPlanner;
 using static MissionPlanner.Log.LogOutput;
 using System.Runtime.InteropServices;
+using AltitudeAngelWings.Models;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MissionPlanner.GCSViews;
+using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls
 {
     public partial class MainMenuWidget : MyUserControl
     {
+        private bool _rulerClicked = false;
+        public static MainMenuWidget Instance;
+        private GMapRoute _rulerRoute;
+        private bool RulerClicked
+        {
+            get => _rulerClicked;
+            set
+            {
+                if (value)
+                {
+                    RulerButton.BackColor = Color.Chartreuse;
+                }
+                else
+                {
+                    RulerButton.BackColor = Color.Transparent;
+                }
+                RulerButton.Invalidate();
+                _rulerClicked = value;
+            }
+        }
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
-           int nLeftRect, // x-coordinate of upper-left corner
-           int nTopRect, // y-coordinate of upper-left corner
-           int nRightRect, // x-coordinate of lower-right corner
-           int nBottomRect, // y-coordinate of lower-right corner
-           int nWidthEllipse, // height of ellipse
-           int nHeightEllipse // width of ellipse
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
         );
+
         Delegate test;
         private bool active = false;
         private int X = 0;
+
         public MainMenuWidget()
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             this.BackColor = Color.FromArgb(200, 32, 32, 32);
             updateSize();
+            Instance = this;
+        }
+
+        public void InitRuler()
+        {
+            List<PointLatLng> points = new List<PointLatLng>();
+            _rulerRoute = new GMapRoute(points, "Distance measure");
+            _rulerRoute.Stroke.Width = 2;
+            _rulerRoute.Stroke.Color = Color.Red;
+            FlightPlanner.RulerOverlay.Routes.Add(_rulerRoute);
+            RedrawRulerSurvey(_rulerRoute);
         }
 
         public MainMenuWidget(Delegate t)
@@ -49,26 +89,26 @@ namespace MissionPlanner.Controls
             //updateSize();
         }
 
-        private void updateSize() 
+        private void updateSize()
         {
             if (!active)
             {
                 this.Size = new Size(60, 60);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
-            else 
+            else
             {
                 this.Size = new Size(417, 60);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
         }
 
-        public void setState(bool _active) 
+        public void setState(bool _active)
         {
             //active = _active;
             updateSize();
         }
-        
+
         private void MainMenuWidget_MouseEnter(object sender, EventArgs e)
         {
             active = true;
@@ -96,30 +136,71 @@ namespace MissionPlanner.Controls
             //System.Diagnostics.Debug.WriteLine("WWWWWWWWWWWWWWWWWWWWWWW");
         }
 
-        private void myButton2_Click(object sender, EventArgs e)
+        private void RulerButton_MouseDown(object sender, MouseEventArgs e)
         {
+            RulerClicked = FlightPlanner.rulerActive = !RulerClicked;
+            if (!FlightPlanner.rulerActive)
+            {
+                _rulerRoute.Points.Clear();
+                FlightPlanner.RulerOverlay.Markers.Clear();
+                RedrawRulerSurvey(_rulerRoute);
+            }
+            // FlightPlanner.instance.MeasureDistance();
+            
+        }
+        
+        public void RedrawRulerSurvey(GMapRoute route) //here wp markers lived
+        {
+            if (route.Points.Count == 0)
+            {
+                FlightPlanner.RulerOverlay.Markers.Clear();
+                FlightPlanner.instance.MainMap.Invalidate();
+                return;
+            }
 
+            PointLatLng[] pointCopyList = new PointLatLng[route.Points.Count];
+            route.Points.CopyTo(pointCopyList);
+            route.Points.Clear();
+            FlightPlanner.RulerOverlay.Markers.Clear();
+
+            int tag = 0;
+            pointCopyList.ForEach(x =>
+            {
+                tag++;
+                route.Points.Add(x);
+                addRouteMarkerGrid(tag.ToString(), x.Lng, x.Lat, 0);
+            });
+
+            FlightPlanner.instance.MainMap.UpdateRouteLocalPosition(route);
+
+            FlightPlanner.instance.MainMap.Invalidate();
         }
 
-        private void centeringButton_Click(object sender, EventArgs e)
+        private void addRouteMarkerGrid(string tag, double lng, double lat, int alt)
         {
+            try
+            {
+                PointLatLng point = new PointLatLng(lat, lng);
+                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
+                m.ToolTipMode = MarkerTooltipMode.Never;
+                m.ToolTipText = "grid" + tag;
+                m.Tag = "grid" + tag;
 
+                //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
+                GMapMarkerRect mBorders = new GMapMarkerRect(point);
+                {
+                    mBorders.InnerMarker = m;
+                }
+
+                FlightPlanner.RulerOverlay.Markers.Add(m);
+                FlightPlanner.RulerOverlay.Markers.Add(mBorders);
+            }
+            catch (Exception ex)
+            {
+                MainV2.log.Info(ex.ToString());
+            }
         }
 
-        private void RulerButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EKFButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void homeButton_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
-    
 }
