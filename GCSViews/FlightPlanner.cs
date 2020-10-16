@@ -2781,47 +2781,47 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public void MeasureDistance()
-        {
-            if (startmeasure.IsEmpty)
-            {
-                startmeasure = MouseDownStart;
-                RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
-                MainMap.Invalidate();
-                // Common.MessageShowAgain("Measure Dist",
-                //     "You can now pan/zoom around.\nClick this option again to get the distance.");
-            }
-            else
-            {
-                List<PointLatLng> polygonPoints = new List<PointLatLng>
-                {
-                    // startmeasure,
-                    // MouseDownStart,
-                    new PointLatLng(0, 0),
-                    new PointLatLng(10, 10),
-                    new PointLatLng(-10, 10)
-                };
-
-                GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
-                GMapRoute route = new GMapRoute(polygonPoints, "measure route");
-                route.Stroke.Color = Color.Green;
-
-                RulerOverlay.Routes.Add(route);
-
-                RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
-                MainMap.Invalidate();
-                // CustomMessageBox.Show("Distance: " +
-                //                       FormatDistance(
-                //                           MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart),
-                //                           true) +
-                //                       " AZ: " +
-                //                       (MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
-                //                           .ToString("0")));
-                // polygonsoverlay.Polygons.Remove(line);
-                // polygonsoverlay.Markers.Clear();
-                // startmeasure = new PointLatLng();
-            }
-        }
+        // public void MeasureDistance()
+        // {
+        //     if (startmeasure.IsEmpty)
+        //     {
+        //         startmeasure = MouseDownStart;
+        //         RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
+        //         MainMap.Invalidate();
+        //         // Common.MessageShowAgain("Measure Dist",
+        //         //     "You can now pan/zoom around.\nClick this option again to get the distance.");
+        //     }
+        //     else
+        //     {
+        //         List<PointLatLng> polygonPoints = new List<PointLatLng>
+        //         {
+        //             // startmeasure,
+        //             // MouseDownStart,
+        //             new PointLatLng(0, 0),
+        //             new PointLatLng(10, 10),
+        //             new PointLatLng(-10, 10)
+        //         };
+        //
+        //         GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
+        //         GMapRoute route = new GMapRoute(polygonPoints, "measure route");
+        //         route.Stroke.Color = Color.Green;
+        //
+        //         RulerOverlay.Routes.Add(route);
+        //
+        //         RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
+        //         MainMap.Invalidate();
+        //         // CustomMessageBox.Show("Distance: " +
+        //         //                       FormatDistance(
+        //         //                           MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart),
+        //         //                           true) +
+        //         //                       " AZ: " +
+        //         //                       (MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
+        //         //                           .ToString("0")));
+        //         // polygonsoverlay.Polygons.Remove(line);
+        //         // polygonsoverlay.Markers.Clear();
+        //         // startmeasure = new PointLatLng();
+        //     }
+        // }
 
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
@@ -2835,13 +2835,16 @@ namespace MissionPlanner.GCSViews
         {
             double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
             double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
-            x =  (p1.Lat + p2.Lat) / 2;
-            y =  (p1.Lng + p2.Lng) / 2;
+            x = (p1.Lat + p2.Lat) / 2;
+            y = (p1.Lng + p2.Lng) / 2;
             PointLatLng temp = new PointLatLng(x, y);
             GPoint drawPoint = MainMap.FromLatLngToLocal(temp);
-                e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2).ToString(),SystemFonts.DefaultFont, new SolidBrush(Color.Red), drawPoint.X, drawPoint.Y);
+            e.Graphics.ResetTransform();
+            e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2).ToString(), SystemFonts.DefaultFont,
+                new SolidBrush(Color.White), drawPoint.X, drawPoint.Y);
+            e.Graphics.ResetTransform();
         }
-        
+
         public double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
         {
             return MainMap.MapProvider.Projection.GetDistance(p1, p2);
@@ -4992,13 +4995,13 @@ namespace MissionPlanner.GCSViews
 
                     e.Graphics.DrawLine(new Pen(MainMap.SelectionPen.Color, 1), x1, y1, x2, y2);
                 }
-
-                if (RulerOverlay.Routes.Count != 0)
-                {
-                    DrawDistanceOnRuler(e);
-                }
             }
 
+            if (RulerOverlay.Routes.Count != 0)
+            {
+                DrawDistanceOnRuler(e);
+            }
+            
             e.Graphics.ResetTransform();
 
             polyicon.Location = new Point(10, 100);

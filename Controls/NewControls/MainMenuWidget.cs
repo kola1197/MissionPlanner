@@ -24,7 +24,9 @@ namespace MissionPlanner.Controls
     {
         private bool _rulerClicked = false;
         public static MainMenuWidget Instance;
-        private GMapRoute _rulerRoute;
+
+        public GMapRoute RulerRoute;
+
         private bool RulerClicked
         {
             get => _rulerClicked;
@@ -38,10 +40,12 @@ namespace MissionPlanner.Controls
                 {
                     RulerButton.BackColor = Color.Transparent;
                 }
+
                 RulerButton.Invalidate();
                 _rulerClicked = value;
             }
         }
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -69,11 +73,12 @@ namespace MissionPlanner.Controls
         public void InitRuler()
         {
             List<PointLatLng> points = new List<PointLatLng>();
-            _rulerRoute = new GMapRoute(points, "Distance measure");
-            _rulerRoute.Stroke.Width = 2;
-            _rulerRoute.Stroke.Color = Color.Red;
-            FlightPlanner.RulerOverlay.Routes.Add(_rulerRoute);
-            RedrawRulerSurvey(_rulerRoute);
+            RulerRoute = new GMapRoute(points, "Distance measure")
+                {Stroke = new Pen(Color.FromArgb(144, Color.Red), 2)};
+            // RulerRoute.Stroke.Width = 2;
+            // RulerRoute.Stroke.Color = Color.Red;
+            FlightPlanner.RulerOverlay.Routes.Add(RulerRoute);
+            RedrawRulerSurvey(RulerRoute);
         }
 
         public MainMenuWidget(Delegate t)
@@ -136,18 +141,33 @@ namespace MissionPlanner.Controls
             //System.Diagnostics.Debug.WriteLine("WWWWWWWWWWWWWWWWWWWWWWW");
         }
 
+        // public void ForceUpdateOverlays()
+        // {
+        //     if (FlightPlanner.instance.MainMap.Core.IsStarted)
+        //     {
+        //         FlightPlanner.instance.MainMap.ForceUpdateOverlays();
+        //     }
+        // }
+
         private void RulerButton_MouseDown(object sender, MouseEventArgs e)
         {
             RulerClicked = FlightPlanner.rulerActive = !RulerClicked;
+            RulerRoute = FlightPlanner.instance.GetRulerRoute();
             if (!FlightPlanner.rulerActive)
             {
-                _rulerRoute.Points.Clear();
-                RedrawRulerSurvey(_rulerRoute);
+                RulerRoute.Points.Clear();
+                RedrawRulerSurvey(RulerRoute);
+                FlightPlanner.RulerOverlay.ForceUpdate();
             }
+            else
+            {
+                RulerRoute.Stroke.Color = Color.FromArgb(144, Color.Red);
+                RedrawRulerSurvey(RulerRoute);
+            }
+
             // FlightPlanner.instance.MeasureDistance();
-            
         }
-        
+
         public void RedrawRulerSurvey(GMapRoute route) //here wp markers lived
         {
             if (route.Points.Count == 0)
@@ -199,7 +219,5 @@ namespace MissionPlanner.Controls
                 MainV2.log.Info(ex.ToString());
             }
         }
-
-        
     }
 }

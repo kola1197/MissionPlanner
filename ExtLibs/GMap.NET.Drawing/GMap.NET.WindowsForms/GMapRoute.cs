@@ -152,6 +152,25 @@
       }
 #endif
 
+        // private void DrawDistanceBetweenTwoPoints(IGraphics g, PointLatLng p1, PointLatLng p2)
+        // {
+        //     double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
+        //     double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
+        //     x = (p1.Lat + p2.Lat) / 2;
+        //     y = (p1.Lng + p2.Lng) / 2;
+        //     PointLatLng temp = new PointLatLng(x, y);
+        //     GPoint drawPoint = MainMap.FromLatLngToLocal(temp);
+        //     e.Graphics.ResetTransform();
+        //     e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2).ToString(), SystemFonts.DefaultFont,
+        //         new SolidBrush(Color.White), drawPoint.X, drawPoint.Y);
+        //     e.Graphics.ResetTransform();
+        // }
+        //
+        // private void DrawDistance(IGraphics g)
+        // {
+        //     
+        // }
+        
         public virtual void OnRender(IGraphics g)
         {
 #if !PocketPC
@@ -248,7 +267,7 @@
 #if !PocketPC
         public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(144, Color.Red));
 #else
-        public static readonly Pen DefaultStroke = new Pen(Color.MidnightBlue);
+        public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(144, Color.Red));
 #endif
 
         /// <summary>
@@ -264,7 +283,7 @@
 #if !PocketPC
             DefaultStroke.LineJoin = LineJoin.Round;
 #endif
-            DefaultStroke.Width = 5;
+            DefaultStroke.Width = 2;
         }
 
         public GMapRoute(string name)

@@ -207,7 +207,7 @@
         private Random _random = new Random();
 
 #if !PocketPC
-        public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(155, Color.MidnightBlue));
+        public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(155, Color.Red));
 #else
       public static readonly Pen DefaultStroke = new Pen(Color.MidnightBlue);
 #endif
