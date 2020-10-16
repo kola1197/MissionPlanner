@@ -79,6 +79,9 @@ namespace MissionPlanner.Controls
             // RulerRoute.Stroke.Color = Color.Red;
             FlightPlanner.RulerOverlay.Routes.Add(RulerRoute);
             RedrawRulerSurvey(RulerRoute);
+
+            FlightPlanner.instance.OutlineForeColor = Color.FromArgb(255, Color.White);
+            FlightPlanner.instance.OutlineWidth = 2;
         }
 
         public MainMenuWidget(Delegate t)

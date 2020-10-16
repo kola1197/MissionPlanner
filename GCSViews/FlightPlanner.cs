@@ -2830,6 +2830,11 @@ namespace MissionPlanner.GCSViews
             {
                 DrawDistanceBetweenTwoPoints(e, GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
             }
+
+            if (GetRulerRoute().Points.Count > 1)
+            {
+                DrawTotalDistance(e);
+            }
         }
 
         private double GetTotalDistance()
@@ -2839,17 +2844,45 @@ namespace MissionPlanner.GCSViews
             {
                 totalDistance += GetDistanceBetweenTwoPoints(GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
             }
+
             return totalDistance;
         }
 
-        // private void DrawTotalDistance(PaintEventArgs e)
-        // {
-        //     GPoint rectangleLocation = MainMap.FromLatLngToLocal(GetRulerRoute().Points.Last());
-        //     Rectangle rectangle = new Rectangle(rectangleLocation.X, rectangleLocation.Y,50, 50);
-        //     e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100,Color.Black)), rectangle);
-        //     e.Graphics.DrawString(rectangle.Width / 2, rectangle.Height / 2);
-        // }
-        
+        public Color OutlineForeColor { get; set; }
+        public float OutlineWidth { get; set; }
+
+        private void DrawTotalDistance(PaintEventArgs e)
+        {
+            e.Graphics.ResetTransform();
+            Font font = new Font(Font, FontStyle.Bold);
+            string textToDraw = FormatDistance(GetTotalDistance());
+            GPoint rectangleLocation = MainMap.FromLatLngToLocal(GetRulerRoute().Points.Last());
+            Rectangle rectangle = new Rectangle((int) rectangleLocation.X, (int) rectangleLocation.Y,
+                (int) Math.Truncate(font.SizeInPoints + 3) * textToDraw.Length, font.Height + 5);
+            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100, Color.Black)), rectangle);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.Black)), rectangle);
+            // e.Graphics.DrawString(FormatDistance(GetTotalDistance()), SystemFonts.DefaultFont,
+            //     new SolidBrush(Color.White), rectangleLocation.X + rectangle.Width / 4,
+            //     rectangleLocation.Y + rectangle.Height / 4);
+            //
+
+            using (GraphicsPath gp = new GraphicsPath())
+            using (Pen outline = new Pen(OutlineForeColor, OutlineWidth)
+                {LineJoin = LineJoin.Round})
+            using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
+            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Black)))
+            {
+                gp.AddString(textToDraw, font.FontFamily, (int) font.Style,
+                    15, rectangle, sf);
+                // e.Graphics.ScaleTransform(1.3f, 1.35f);
+                e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                e.Graphics.DrawPath(outline, gp);
+                e.Graphics.FillPath(foreBrush, gp);
+            }
+
+            e.Graphics.ResetTransform();
+        }
+
         private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
         {
             GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
@@ -2859,20 +2892,48 @@ namespace MissionPlanner.GCSViews
             {
                 azimuthAngle += 360;
             }
-            
+
             string formatAzimuthAngle = azimuthAngle.ToString("F1") + "°";
+            string textToDraw = formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2));
             e.Graphics.ResetTransform();
 
             e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
             e.Graphics.RotateTransform(drawingAngle);
-            e.Graphics.DrawString(formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2)), SystemFonts.DefaultFont,
-                new SolidBrush(Color.White), 0, 0);
+            // e.Graphics.DrawString(textToDraw,
+            // SystemFonts.DefaultFont,
+            // new SolidBrush(Color.Black), 0, 0);
+            Font font = new Font(Font, FontStyle.Bold);
+            Rectangle rectangle;
+            if (azimuthAngle > 0 && azimuthAngle < 180)
+            {
+                rectangle = new Rectangle(0, 0, (int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 100);
+            }
+            else
+            {
+                rectangle = new Rectangle(-(int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 0,
+                    (int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 100);
+            }
+
+            e.Graphics.DrawRectangle(new Pen(Color.Transparent), rectangle);
+            e.Graphics.FillRectangle(new SolidBrush(Color.Transparent), rectangle);
+            using (GraphicsPath gp = new GraphicsPath())
+            using (Pen outline = new Pen(OutlineForeColor, OutlineWidth)
+                {LineJoin = LineJoin.Round})
+            using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
+            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Black)))
+            {
+                gp.AddString(textToDraw, font.FontFamily, (int) font.Style,
+                    15, rectangle, sf);
+                // e.Graphics.ScaleTransform(1.3f, 1.35f);
+                e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                e.Graphics.DrawPath(outline, gp);
+                e.Graphics.FillPath(foreBrush, gp);
+            }
 
             e.Graphics.ResetTransform();
         }
 
-        
-        
+
         private double GetAngleBetweenPoints(PointLatLng p1, PointLatLng p2)
         {
             GPoint localPoint1 = MainMap.FromLatLngToLocal(p1);
@@ -2884,9 +2945,10 @@ namespace MissionPlanner.GCSViews
         {
             return (float) (GetAngleBetweenPoints(p1, p2) * 180 / Math.PI);
         }
+
         private float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
         {
-            var alpha = GetAngleBetweenPoints(p1, p2);
+            var alpha = GetAngleBetweenPoints(p2, p1);
             if (alpha >= Math.PI / 2 && alpha <= Math.PI || alpha >= -Math.PI && alpha <= -Math.PI / 2)
             {
                 alpha += -Math.Sign(alpha) * Math.PI;
@@ -2897,11 +2959,12 @@ namespace MissionPlanner.GCSViews
 
         private GPoint GetDistanceDrawingPoint(PointLatLng p1, PointLatLng p2)
         {
-            double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
-            double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
-            x = (p1.Lat + p2.Lat) / 2;
-            y = (p1.Lng + p2.Lng) / 2;
-            return MainMap.FromLatLngToLocal(new PointLatLng(x, y));
+            // long x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
+            // long y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
+            // x = (p1.Lat + p2.Lat) / 2;
+            // y = (p1.Lng + p2.Lng) / 2;
+
+            return MainMap.FromLatLngToLocal(p1);
         }
 
         private double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
