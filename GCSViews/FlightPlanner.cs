@@ -2823,9 +2823,23 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public void DrawDistanceBetweenTwoPoints()
+        public void DrawDistanceOnRuler(PaintEventArgs e)
         {
-            
+            for (int i = 0; i < GetRulerRoute().Points.Count - 1; i++)
+            {
+                DrawDistanceBetweenTwoPoints(e, GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
+            }
+        }
+
+        private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
+        {
+            double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
+            double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
+            x =  (p1.Lat + p2.Lat) / 2;
+            y =  (p1.Lng + p2.Lng) / 2;
+            PointLatLng temp = new PointLatLng(x, y);
+            GPoint drawPoint = MainMap.FromLatLngToLocal(temp);
+                e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2).ToString(),SystemFonts.DefaultFont, new SolidBrush(Color.Red), drawPoint.X, drawPoint.Y);
         }
         
         public double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
@@ -4977,6 +4991,11 @@ namespace MissionPlanner.GCSViews
                     int y2 = (int) p2.Y;
 
                     e.Graphics.DrawLine(new Pen(MainMap.SelectionPen.Color, 1), x1, y1, x2, y2);
+                }
+
+                if (RulerOverlay.Routes.Count != 0)
+                {
+                    DrawDistanceOnRuler(e);
                 }
             }
 

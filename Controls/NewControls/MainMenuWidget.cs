@@ -142,7 +142,6 @@ namespace MissionPlanner.Controls
             if (!FlightPlanner.rulerActive)
             {
                 _rulerRoute.Points.Clear();
-                FlightPlanner.RulerOverlay.Markers.Clear();
                 RedrawRulerSurvey(_rulerRoute);
             }
             // FlightPlanner.instance.MeasureDistance();
