@@ -246,7 +246,7 @@
         }
 
 #if !PocketPC
-        public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(144, Color.MidnightBlue));
+        public static readonly Pen DefaultStroke = new Pen(Color.FromArgb(144, Color.Red));
 #else
         public static readonly Pen DefaultStroke = new Pen(Color.MidnightBlue);
 #endif
