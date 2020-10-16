@@ -2833,21 +2833,51 @@ namespace MissionPlanner.GCSViews
 
         private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
         {
+            GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
+            e.Graphics.ResetTransform();
+
+            e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
+            e.Graphics.RotateTransform(GetDistanceDrawingAngle(p1, p2));
+            e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2), SystemFonts.DefaultFont,
+                new SolidBrush(Color.White), 0, 0);
+
+            e.Graphics.ResetTransform();
+        }
+
+        public float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
+        {
+            GPoint localPoint1 = MainMap.FromLatLngToLocal(p1);
+            GPoint localPoint2 = MainMap.FromLatLngToLocal(p2);
+            GPoint localPoint3 = new GPoint(localPoint1.X, localPoint2.Y);
+            var cathetus1 = Math.Sqrt(Math.Pow(localPoint2.X - localPoint3.X, 2) +
+                                       Math.Pow(localPoint2.Y - localPoint3.Y, 2));
+            var cathetus2 = Math.Sqrt(Math.Pow(localPoint1.X - localPoint3.X, 2) +
+                                     Math.Pow(localPoint1.Y - localPoint3.Y, 2));
+            var alpha = Math.Atan2(localPoint2.Y - localPoint1.Y,  localPoint2.X - localPoint1.X);
+            return (float) (alpha * 180 / Math.PI);
+        }
+
+        public GPoint GetDistanceDrawingPoint(PointLatLng p1, PointLatLng p2)
+        {
             double x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
             double y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
             x = (p1.Lat + p2.Lat) / 2;
             y = (p1.Lng + p2.Lng) / 2;
-            PointLatLng temp = new PointLatLng(x, y);
-            GPoint drawPoint = MainMap.FromLatLngToLocal(temp);
-            e.Graphics.ResetTransform();
-            e.Graphics.DrawString(GetDistanceBetweenTwoPoints(p1, p2).ToString(), SystemFonts.DefaultFont,
-                new SolidBrush(Color.White), drawPoint.X, drawPoint.Y);
-            e.Graphics.ResetTransform();
+            return MainMap.FromLatLngToLocal(new PointLatLng(x, y));
         }
 
-        public double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
+        public string GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
         {
-            return MainMap.MapProvider.Projection.GetDistance(p1, p2);
+            double distance = MainMap.MapProvider.Projection.GetDistance(p1, p2);
+            if (Math.Truncate(distance) == 0)
+            {
+                distance *= 1000;
+                return distance.ToString("F0") + " м";
+            }
+            else
+            {
+                return distance.ToString("F2") + " км";
+            }
         }
 
         public void ContextMeasure_Click(object sender, EventArgs e)
@@ -5001,7 +5031,7 @@ namespace MissionPlanner.GCSViews
             {
                 DrawDistanceOnRuler(e);
             }
-            
+
             e.Graphics.ResetTransform();
 
             polyicon.Location = new Point(10, 100);
