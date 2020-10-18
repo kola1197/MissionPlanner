@@ -17,7 +17,7 @@ namespace MissionPlanner.Controls
     public partial class StatusControlPanel : UserControl
     {
         private readonly Point slidingScaleIndent;
-        private EngineControlForm engineControlForm;
+
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
 
@@ -271,13 +271,8 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
-            if (engineControlForm != null) 
-            {
-                engineControlForm.Close();
-            }
-            engineControlForm = new EngineControlForm();
-            engineControlForm.TopMost = true;
-            engineControlForm.Show();
+            MainV2.instance.SetEngineFormLocation();
+            MainV2.EngineControlForm.Show();
         }
 
         private void speedPanel_Click(object sender, EventArgs e)
