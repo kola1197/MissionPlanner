@@ -1343,17 +1343,16 @@ namespace MissionPlanner
             deserealaseDict();
         }
 
+        void cmb_sysid_Click(object sender, EventArgs e)
+        {
+            MainV2._connectionControl.UpdateSysIDS();
+        }
+        
         public void SetRouteFormLocation()
         {
             // THIS MUST NOT BE COMMENTED
             Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
             RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
-
-        }
-
-        void cmb_sysid_Click(object sender, EventArgs e)
-        {
-            MainV2._connectionControl.UpdateSysIDS();
         }
 
         void comPort_MavChanged(object sender, EventArgs e)
