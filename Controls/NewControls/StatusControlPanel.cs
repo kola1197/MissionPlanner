@@ -37,10 +37,6 @@ namespace MissionPlanner.Controls
 
             InitSensors();
 
-            ToolStripControlHost defaultSensorControlHost =
-                new ToolStripControlHost(getDesiredSensor(sensorsContextMenuStrip.Items[1]));
-            sensorsMenuStrip.Items.Add(defaultSensorControlHost);
-
             // ThemeManager.ApplyThemeTo(this);
             instance = this;
 
