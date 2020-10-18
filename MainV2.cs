@@ -1345,8 +1345,9 @@ namespace MissionPlanner
 
         public void SetRouteFormLocation()
         {
-            //Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            //RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
+            // THIS MUST NOT BE COMMENTED
+            Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
+            RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
 
         }
 
