@@ -2824,6 +2824,53 @@ namespace MissionPlanner.GCSViews
         //     }
         // }
 
+        public List<PointLatLng> GetWaypointsPositions()
+        {
+            // Dictionary<string, PointLatLng> dest = new Dictionary<string, PointLatLng>();
+            //
+            // var markers = MainMap.Overlays.First(a => a.Id == "WPOverlay");
+            //
+            // foreach (var markerid in groupmarkers.Distinct())
+            // {
+            //     for (int a = 0; a < markers.Markers.Count; a++)
+            //     {
+            //         var marker = markers.Markers[a];
+            //
+            //         if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+            //         {
+            //             dest[marker.Tag.ToString()] = marker.Position;
+            //             break;
+            //         }
+            //     }
+            // }
+            
+            
+            var wpOverlay = MainMap.Overlays.First(a => a.Id == "WPOverlay");
+            List<PointLatLng> waypoints = new List<PointLatLng>();
+            // foreach (var markerid in groupmarkers.Distinct())
+            {
+                foreach (var marker in wpOverlay.Markers)
+                {
+                    // if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+                    if (marker.Tag != null && marker is GMapMarkerWP)
+                    {
+                        waypoints.Add(marker.Position);
+                    }
+                }
+            }
+
+            return waypoints;
+        }
+        
+        public void DrawDistanceBetweenWaypoints(PaintEventArgs e)
+        {
+            List<PointLatLng> waypoints = GetWaypointsPositions();
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                DrawDistanceBetweenTwoPoints(e, waypoints[i], waypoints[i + 1]);
+            }
+        }
+        
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
             List<PointLatLng> points = GetRulerRoute().Points;
@@ -5123,6 +5170,11 @@ namespace MissionPlanner.GCSViews
             if (RulerOverlay.Routes.Count != 0)
             {
                 DrawDistanceOnRuler(e);
+            }
+
+            if (Commands.Rows.Count > 0)
+            {
+                DrawDistanceBetweenWaypoints(e);
             }
 
             e.Graphics.ResetTransform();
