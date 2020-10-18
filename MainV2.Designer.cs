@@ -54,14 +54,12 @@ namespace MissionPlanner
             this.MenuSimulation = new System.Windows.Forms.ToolStripButton();
             this.MenuHelp = new System.Windows.Forms.ToolStripButton();
             this.MenuConnect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar2 = new BSE.Windows.Forms.ProgressBar();
             this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.status1 = new MissionPlanner.Controls.Status();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -75,14 +73,16 @@ namespace MissionPlanner
             this.ctrlModeDebuglabel = new System.Windows.Forms.Label();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
             this.myButton5 = new MissionPlanner.Controls.MyButton();
-            this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
-            this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
-            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
-            this.timeControl2 = new MissionPlanner.Controls.NewControls.TimeControl();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
+            this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
+            this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
+            this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
+            this.timeControl2 = new MissionPlanner.Controls.NewControls.TimeControl();
+            this.status1 = new MissionPlanner.Controls.Status();
+            this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
@@ -212,15 +212,6 @@ namespace MissionPlanner
             this.MenuConnect.Name = "MenuConnect";
             this.MenuConnect.Click += new System.EventHandler(this.MenuConnect_Click);
             // 
-            // toolStripConnectionControl
-            // 
-            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
-            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
-            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
-            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
-            // 
             // MenuArduPilot
             // 
             this.MenuArduPilot.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -283,12 +274,6 @@ namespace MissionPlanner
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(45, 39);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
-            // 
-            // status1
-            // 
-            resources.ApplyResources(this.status1, "status1");
-            this.status1.Name = "status1";
-            this.status1.Percent = 0D;
             // 
             // toolStripButton1
             // 
@@ -378,29 +363,6 @@ namespace MissionPlanner
             this.myButton5.UseVisualStyleBackColor = true;
             this.myButton5.Click += new System.EventHandler(this.myButton5_Click);
             // 
-            // snsControl2
-            // 
-            resources.ApplyResources(this.snsControl2, "snsControl2");
-            this.snsControl2.Name = "snsControl2";
-            // 
-            // servoGimbal2
-            // 
-            resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
-            this.servoGimbal2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.servoGimbal2.Name = "servoGimbal2";
-            // 
-            // coordinatsControl1
-            // 
-            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
-            this.coordinatsControl1.BackColor = System.Drawing.Color.Transparent;
-            this.coordinatsControl1.Name = "coordinatsControl1";
-            // 
-            // timeControl2
-            // 
-            resources.ApplyResources(this.timeControl2, "timeControl2");
-            this.timeControl2.BackColor = System.Drawing.Color.Transparent;
-            this.timeControl2.Name = "timeControl2";
-            // 
             // myButton3
             // 
             resources.ApplyResources(this.myButton3, "myButton3");
@@ -438,6 +400,44 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
             this.rightSideMenuControl1.Name = "rightSideMenuControl1";
+            // 
+            // snsControl2
+            // 
+            resources.ApplyResources(this.snsControl2, "snsControl2");
+            this.snsControl2.Name = "snsControl2";
+            // 
+            // servoGimbal2
+            // 
+            resources.ApplyResources(this.servoGimbal2, "servoGimbal2");
+            this.servoGimbal2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.servoGimbal2.Name = "servoGimbal2";
+            // 
+            // coordinatsControl1
+            // 
+            resources.ApplyResources(this.coordinatsControl1, "coordinatsControl1");
+            this.coordinatsControl1.BackColor = System.Drawing.Color.Transparent;
+            this.coordinatsControl1.Name = "coordinatsControl1";
+            // 
+            // timeControl2
+            // 
+            resources.ApplyResources(this.timeControl2, "timeControl2");
+            this.timeControl2.BackColor = System.Drawing.Color.Transparent;
+            this.timeControl2.Name = "timeControl2";
+            // 
+            // status1
+            // 
+            resources.ApplyResources(this.status1, "status1");
+            this.status1.Name = "status1";
+            this.status1.Percent = 0D;
+            // 
+            // toolStripConnectionControl
+            // 
+            this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
+            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
+            this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
+            this.toolStripConnectionControl.Name = "toolStripConnectionControl";
+            this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
             // toolStripConnectionControl1
             // 

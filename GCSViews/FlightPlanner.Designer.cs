@@ -231,9 +231,9 @@ namespace MissionPlanner.GCSViews
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.Commands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelBASE.SuspendLayout();
@@ -383,7 +383,7 @@ namespace MissionPlanner.GCSViews
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image) (resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             // 
@@ -392,7 +392,7 @@ namespace MissionPlanner.GCSViews
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
-            this.dataGridViewImageColumn2.Image = ((System.Drawing.Image) (resources.GetObject("dataGridViewImageColumn2.Image")));
+            this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
             // 
@@ -570,17 +570,38 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.Commands, "Commands");
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.Commands.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Command, this.Param1, this.Param2, this.Param3, this.Param4, this.Lat, this.Lon, this.Alt, this.Frame, this.coordZone, this.coordEasting, this.coordNorthing, this.MGRS, this.Delete, this.Up, this.Down, this.Grad, this.Angle, this.Dist, this.AZ, this.TagData});
+            this.Commands.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Command,
+            this.Param1,
+            this.Param2,
+            this.Param3,
+            this.Param4,
+            this.Lat,
+            this.Lon,
+            this.Alt,
+            this.Frame,
+            this.coordZone,
+            this.coordEasting,
+            this.coordNorthing,
+            this.MGRS,
+            this.Delete,
+            this.Up,
+            this.Down,
+            this.Grad,
+            this.Angle,
+            this.Dist,
+            this.AZ,
+            this.TagData});
             this.Commands.Name = "Commands";
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle7.Format = "N0";
             dataGridViewCellStyle7.NullValue = "0";
@@ -601,7 +622,7 @@ namespace MissionPlanner.GCSViews
             // 
             // Command
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (67)))), ((int) (((byte) (68)))), ((int) (((byte) (69)))));
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
             this.Command.DefaultCellStyle = dataGridViewCellStyle4;
             this.Command.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
@@ -685,7 +706,7 @@ namespace MissionPlanner.GCSViews
             // 
             this.Up.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.Up, "Up");
-            this.Up.Image = ((System.Drawing.Image) (resources.GetObject("Up.Image")));
+            this.Up.Image = ((System.Drawing.Image)(resources.GetObject("Up.Image")));
             this.Up.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Up.Name = "Up";
             // 
@@ -693,7 +714,7 @@ namespace MissionPlanner.GCSViews
             // 
             this.Down.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.Down, "Down");
-            this.Down.Image = ((System.Drawing.Image) (resources.GetObject("Down.Image")));
+            this.Down.Image = ((System.Drawing.Image)(resources.GetObject("Down.Image")));
             this.Down.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Down.Name = "Down";
             // 
@@ -768,13 +789,13 @@ namespace MissionPlanner.GCSViews
             // 
             // notificationListControl1
             // 
-            this.notificationListControl1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.notificationListControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             resources.ApplyResources(this.notificationListControl1, "notificationListControl1");
             this.notificationListControl1.Name = "notificationListControl1";
             // 
             // notificationControl1
             // 
-            this.notificationControl1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.notificationControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             resources.ApplyResources(this.notificationControl1, "notificationControl1");
             this.notificationControl1.Name = "notificationControl1";
             // 
@@ -786,14 +807,14 @@ namespace MissionPlanner.GCSViews
             // 
             // wpMenu1
             // 
-            this.wpMenu1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.wpMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             resources.ApplyResources(this.wpMenu1, "wpMenu1");
             this.wpMenu1.Name = "wpMenu1";
             this.wpMenu1.SizeChanged += new System.EventHandler(this.wpMenu1_SizeChanged);
             // 
             // mainMenuWidget1
             // 
-            this.mainMenuWidget1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.mainMenuWidget1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             resources.ApplyResources(this.mainMenuWidget1, "mainMenuWidget1");
             this.mainMenuWidget1.Name = "mainMenuWidget1";
             // 
@@ -816,14 +837,17 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.cmb_missiontype, "cmb_missiontype");
             this.cmb_missiontype.FormattingEnabled = true;
-            this.cmb_missiontype.Items.AddRange(new object[] {resources.GetString("cmb_missiontype.Items"), resources.GetString("cmb_missiontype.Items1"), resources.GetString("cmb_missiontype.Items2")});
+            this.cmb_missiontype.Items.AddRange(new object[] {
+            resources.GetString("cmb_missiontype.Items"),
+            resources.GetString("cmb_missiontype.Items1"),
+            resources.GetString("cmb_missiontype.Items2")});
             this.cmb_missiontype.Name = "cmb_missiontype";
             this.cmb_missiontype.SelectedIndexChanged += new System.EventHandler(this.Cmb_missiontype_SelectedIndexChanged);
             // 
             // MainMap
             // 
             resources.ApplyResources(this.MainMap, "MainMap");
-            this.MainMap.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (38)))), ((int) (((byte) (39)))), ((int) (((byte) (40)))));
+            this.MainMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
             this.MainMap.Bearing = 0F;
             this.MainMap.CanDragMap = true;
             this.MainMap.ContextMenuStrip = this.contextMenuStrip1;
@@ -843,7 +867,7 @@ namespace MissionPlanner.GCSViews
             this.MainMap.RetryLoadTile = 0;
             this.MainMap.RoutesEnabled = false;
             this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
-            this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int) (((byte) (33)))), ((int) (((byte) (65)))), ((int) (((byte) (105)))), ((int) (((byte) (225)))));
+            this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
             this.MainMap.Zoom = 0D;
             this.MainMap.SizeChanged += new System.EventHandler(this.MainMap_SizeChanged);
@@ -852,7 +876,30 @@ namespace MissionPlanner.GCSViews
             // contextMenuStrip1
             // 
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.deleteWPToolStripMenuItem, this.insertWpToolStripMenuItem, this.insertSplineWPToolStripMenuItem, this.loiterToolStripMenuItem, this.jumpToolStripMenuItem, this.rTLToolStripMenuItem, this.landToolStripMenuItem, this.takeoffToolStripMenuItem, this.setROIToolStripMenuItem, this.clearMissionToolStripMenuItem, this.toolStripSeparator1, this.polygonToolStripMenuItem, this.geoFenceToolStripMenuItem, this.rallyPointsToolStripMenuItem, this.autoWPToolStripMenuItem, this.mapToolToolStripMenuItem, this.fileLoadSaveToolStripMenuItem, this.pOIToolStripMenuItem, this.trackerHomeToolStripMenuItem, this.modifyAltToolStripMenuItem, this.enterUTMCoordToolStripMenuItem, this.switchDockingToolStripMenuItem, this.setHomeHereToolStripMenuItem});
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteWPToolStripMenuItem,
+            this.insertWpToolStripMenuItem,
+            this.insertSplineWPToolStripMenuItem,
+            this.loiterToolStripMenuItem,
+            this.jumpToolStripMenuItem,
+            this.rTLToolStripMenuItem,
+            this.landToolStripMenuItem,
+            this.takeoffToolStripMenuItem,
+            this.setROIToolStripMenuItem,
+            this.clearMissionToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.polygonToolStripMenuItem,
+            this.geoFenceToolStripMenuItem,
+            this.rallyPointsToolStripMenuItem,
+            this.autoWPToolStripMenuItem,
+            this.mapToolToolStripMenuItem,
+            this.fileLoadSaveToolStripMenuItem,
+            this.pOIToolStripMenuItem,
+            this.trackerHomeToolStripMenuItem,
+            this.modifyAltToolStripMenuItem,
+            this.enterUTMCoordToolStripMenuItem,
+            this.switchDockingToolStripMenuItem,
+            this.setHomeHereToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
@@ -866,7 +913,8 @@ namespace MissionPlanner.GCSViews
             // 
             // insertWpToolStripMenuItem
             // 
-            this.insertWpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.currentPositionToolStripMenuItem});
+            this.insertWpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentPositionToolStripMenuItem});
             resources.ApplyResources(this.insertWpToolStripMenuItem, "insertWpToolStripMenuItem");
             this.insertWpToolStripMenuItem.Name = "insertWpToolStripMenuItem";
             this.insertWpToolStripMenuItem.Click += new System.EventHandler(this.insertWpToolStripMenuItem_Click);
@@ -885,7 +933,10 @@ namespace MissionPlanner.GCSViews
             // 
             // loiterToolStripMenuItem
             // 
-            this.loiterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.loiterForeverToolStripMenuItem, this.loitertimeToolStripMenuItem, this.loitercirclesToolStripMenuItem});
+            this.loiterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loiterForeverToolStripMenuItem,
+            this.loitertimeToolStripMenuItem,
+            this.loitercirclesToolStripMenuItem});
             resources.ApplyResources(this.loiterToolStripMenuItem, "loiterToolStripMenuItem");
             this.loiterToolStripMenuItem.Name = "loiterToolStripMenuItem";
             // 
@@ -909,7 +960,9 @@ namespace MissionPlanner.GCSViews
             // 
             // jumpToolStripMenuItem
             // 
-            this.jumpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.jumpstartToolStripMenuItem, this.jumpwPToolStripMenuItem});
+            this.jumpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jumpstartToolStripMenuItem,
+            this.jumpwPToolStripMenuItem});
             resources.ApplyResources(this.jumpToolStripMenuItem, "jumpToolStripMenuItem");
             this.jumpToolStripMenuItem.Name = "jumpToolStripMenuItem";
             // 
@@ -962,7 +1015,13 @@ namespace MissionPlanner.GCSViews
             // 
             // polygonToolStripMenuItem
             // 
-            this.polygonToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.addPolygonPointToolStripMenuItem2, this.clearPolygonToolStripMenuItem2, this.savePolygonToolStripMenuItem2, this.loadPolygonToolStripMenuItem2, this.fromSHPToolStripMenuItem2, this.areaToolStripMenuItem2});
+            this.polygonToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPolygonPointToolStripMenuItem2,
+            this.clearPolygonToolStripMenuItem2,
+            this.savePolygonToolStripMenuItem2,
+            this.loadPolygonToolStripMenuItem2,
+            this.fromSHPToolStripMenuItem2,
+            this.areaToolStripMenuItem2});
             resources.ApplyResources(this.polygonToolStripMenuItem, "polygonToolStripMenuItem");
             this.polygonToolStripMenuItem.Name = "polygonToolStripMenuItem";
             // 
@@ -1004,7 +1063,13 @@ namespace MissionPlanner.GCSViews
             // 
             // geoFenceToolStripMenuItem
             // 
-            this.geoFenceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.GeoFenceuploadToolStripMenuItem, this.GeoFencedownloadToolStripMenuItem, this.setReturnLocationToolStripMenuItem, this.loadFromFileToolStripMenuItem, this.saveToFileToolStripMenuItem, this.clearToolStripMenuItem});
+            this.geoFenceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GeoFenceuploadToolStripMenuItem,
+            this.GeoFencedownloadToolStripMenuItem,
+            this.setReturnLocationToolStripMenuItem,
+            this.loadFromFileToolStripMenuItem,
+            this.saveToFileToolStripMenuItem,
+            this.clearToolStripMenuItem});
             resources.ApplyResources(this.geoFenceToolStripMenuItem, "geoFenceToolStripMenuItem");
             this.geoFenceToolStripMenuItem.Name = "geoFenceToolStripMenuItem";
             // 
@@ -1046,7 +1111,13 @@ namespace MissionPlanner.GCSViews
             // 
             // rallyPointsToolStripMenuItem
             // 
-            this.rallyPointsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.setRallyPointToolStripMenuItem, this.getRallyPointsToolStripMenuItem, this.saveRallyPointsToolStripMenuItem, this.clearRallyPointsToolStripMenuItem, this.saveToFileToolStripMenuItem1, this.loadFromFileToolStripMenuItem1});
+            this.rallyPointsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setRallyPointToolStripMenuItem,
+            this.getRallyPointsToolStripMenuItem,
+            this.saveRallyPointsToolStripMenuItem,
+            this.clearRallyPointsToolStripMenuItem,
+            this.saveToFileToolStripMenuItem1,
+            this.loadFromFileToolStripMenuItem1});
             resources.ApplyResources(this.rallyPointsToolStripMenuItem, "rallyPointsToolStripMenuItem");
             this.rallyPointsToolStripMenuItem.Name = "rallyPointsToolStripMenuItem";
             // 
@@ -1088,7 +1159,13 @@ namespace MissionPlanner.GCSViews
             // 
             // autoWPToolStripMenuItem
             // 
-            this.autoWPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.createWpCircleToolStripMenuItem, this.createSplineCircleToolStripMenuItem, this.areaToolStripMenuItem1, this.textToolStripMenuItem, this.createCircleSurveyToolStripMenuItem, this.surveyGridToolStripMenuItem});
+            this.autoWPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createWpCircleToolStripMenuItem,
+            this.createSplineCircleToolStripMenuItem,
+            this.areaToolStripMenuItem1,
+            this.textToolStripMenuItem,
+            this.createCircleSurveyToolStripMenuItem,
+            this.surveyGridToolStripMenuItem});
             resources.ApplyResources(this.autoWPToolStripMenuItem, "autoWPToolStripMenuItem");
             this.autoWPToolStripMenuItem.Name = "autoWPToolStripMenuItem";
             // 
@@ -1130,7 +1207,15 @@ namespace MissionPlanner.GCSViews
             // 
             // mapToolToolStripMenuItem
             // 
-            this.mapToolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.ContextMeasure, this.rotateMapToolStripMenuItem, this.zoomToToolStripMenuItem, this.prefetchToolStripMenuItem, this.prefetchWPPathToolStripMenuItem, this.kMLOverlayToolStripMenuItem, this.elevationGraphToolStripMenuItem, this.reverseWPsToolStripMenuItem});
+            this.mapToolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMeasure,
+            this.rotateMapToolStripMenuItem,
+            this.zoomToToolStripMenuItem,
+            this.prefetchToolStripMenuItem,
+            this.prefetchWPPathToolStripMenuItem,
+            this.kMLOverlayToolStripMenuItem,
+            this.elevationGraphToolStripMenuItem,
+            this.reverseWPsToolStripMenuItem});
             resources.ApplyResources(this.mapToolToolStripMenuItem, "mapToolToolStripMenuItem");
             this.mapToolToolStripMenuItem.Name = "mapToolToolStripMenuItem";
             // 
@@ -1184,7 +1269,12 @@ namespace MissionPlanner.GCSViews
             // 
             // fileLoadSaveToolStripMenuItem
             // 
-            this.fileLoadSaveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.loadWPFileToolStripMenuItem, this.loadAndAppendToolStripMenuItem, this.saveWPFileToolStripMenuItem, this.loadKMLFileToolStripMenuItem, this.loadSHPFileToolStripMenuItem});
+            this.fileLoadSaveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadWPFileToolStripMenuItem,
+            this.loadAndAppendToolStripMenuItem,
+            this.saveWPFileToolStripMenuItem,
+            this.loadKMLFileToolStripMenuItem,
+            this.loadSHPFileToolStripMenuItem});
             resources.ApplyResources(this.fileLoadSaveToolStripMenuItem, "fileLoadSaveToolStripMenuItem");
             this.fileLoadSaveToolStripMenuItem.Name = "fileLoadSaveToolStripMenuItem";
             // 
@@ -1220,7 +1310,10 @@ namespace MissionPlanner.GCSViews
             // 
             // pOIToolStripMenuItem
             // 
-            this.pOIToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.poiaddToolStripMenuItem, this.poideleteToolStripMenuItem, this.poieditToolStripMenuItem});
+            this.pOIToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.poiaddToolStripMenuItem,
+            this.poideleteToolStripMenuItem,
+            this.poieditToolStripMenuItem});
             resources.ApplyResources(this.pOIToolStripMenuItem, "pOIToolStripMenuItem");
             this.pOIToolStripMenuItem.Name = "pOIToolStripMenuItem";
             // 
@@ -1336,7 +1429,15 @@ namespace MissionPlanner.GCSViews
             // 
             // contextMenuStripPoly
             // 
-            this.contextMenuStripPoly.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.addPolygonPointToolStripMenuItem, this.clearPolygonToolStripMenuItem, this.savePolygonToolStripMenuItem, this.loadPolygonToolStripMenuItem, this.fromSHPToolStripMenuItem, this.areaToolStripMenuItem, this.fenceInclusionToolStripMenuItem, this.fenceExclusionToolStripMenuItem});
+            this.contextMenuStripPoly.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPolygonPointToolStripMenuItem,
+            this.clearPolygonToolStripMenuItem,
+            this.savePolygonToolStripMenuItem,
+            this.loadPolygonToolStripMenuItem,
+            this.fromSHPToolStripMenuItem,
+            this.areaToolStripMenuItem,
+            this.fenceInclusionToolStripMenuItem,
+            this.fenceExclusionToolStripMenuItem});
             this.contextMenuStripPoly.Name = "contextMenuStripPoly";
             this.contextMenuStripPoly.ShowImageMargin = false;
             resources.ApplyResources(this.contextMenuStripPoly, "contextMenuStripPoly");
@@ -1359,7 +1460,10 @@ namespace MissionPlanner.GCSViews
             // 
             // contextMenuStripZoom
             // 
-            this.contextMenuStripZoom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.zoomToVehicleToolStripMenuItem, this.zoomToMissionToolStripMenuItem, this.zoomToHomeToolStripMenuItem});
+            this.contextMenuStripZoom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zoomToVehicleToolStripMenuItem,
+            this.zoomToMissionToolStripMenuItem,
+            this.zoomToHomeToolStripMenuItem});
             this.contextMenuStripZoom.Name = "contextMenuStripZoom";
             resources.ApplyResources(this.contextMenuStripZoom, "contextMenuStripZoom");
             // 
@@ -1383,7 +1487,10 @@ namespace MissionPlanner.GCSViews
             // 
             // contextMenuStrip2
             // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.GoToThisWPToolStripMenuItem, this.зажатьЭтуТочкуToolStripMenuItem, this.удалитьToolStripMenuItem});
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GoToThisWPToolStripMenuItem,
+            this.зажатьЭтуТочкуToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
             this.contextMenuStrip2.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip2_Closed);
@@ -1422,10 +1529,10 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.Commands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1434,6 +1541,7 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripZoom.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
 
