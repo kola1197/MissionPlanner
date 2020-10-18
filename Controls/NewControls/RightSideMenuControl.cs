@@ -55,7 +55,7 @@ namespace MissionPlanner.Controls.NewControls
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             switchControl(regionsControl);
-            MainV2.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
+            FlightPlanner.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
         }
     }
 }
