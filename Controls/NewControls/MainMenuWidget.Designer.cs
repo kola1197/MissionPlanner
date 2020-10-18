@@ -49,7 +49,7 @@
             this.MainButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.MainButton.FlatAppearance.BorderSize = 0;
             this.MainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MainButton.Location = new System.Drawing.Point(3, 3);
+            this.MainButton.Location = new System.Drawing.Point(10, 10);
             this.MainButton.Name = "MainButton";
             this.MainButton.Outline = System.Drawing.Color.Empty;
             this.MainButton.Size = new System.Drawing.Size(48, 48);
@@ -71,7 +71,7 @@
             this.MapChoiseButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.MapChoiseButton.FlatAppearance.BorderSize = 0;
             this.MapChoiseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MapChoiseButton.Location = new System.Drawing.Point(71, 3);
+            this.MapChoiseButton.Location = new System.Drawing.Point(71, 10);
             this.MapChoiseButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.MapChoiseButton.Name = "MapChoiseButton";
             this.MapChoiseButton.Outline = System.Drawing.Color.Empty;
@@ -94,7 +94,7 @@
             this.EKFButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.EKFButton.FlatAppearance.BorderSize = 0;
             this.EKFButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EKFButton.Location = new System.Drawing.Point(132, 3);
+            this.EKFButton.Location = new System.Drawing.Point(132, 10);
             this.EKFButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.EKFButton.Name = "EKFButton";
             this.EKFButton.Outline = System.Drawing.Color.Empty;
@@ -117,7 +117,7 @@
             this.ParamsButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.ParamsButton.FlatAppearance.BorderSize = 0;
             this.ParamsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ParamsButton.Location = new System.Drawing.Point(187, 3);
+            this.ParamsButton.Location = new System.Drawing.Point(187, 10);
             this.ParamsButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.ParamsButton.Name = "ParamsButton";
             this.ParamsButton.Outline = System.Drawing.Color.Empty;
@@ -139,7 +139,7 @@
             this.RulerButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.RulerButton.FlatAppearance.BorderSize = 0;
             this.RulerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RulerButton.Location = new System.Drawing.Point(245, 3);
+            this.RulerButton.Location = new System.Drawing.Point(245, 10);
             this.RulerButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.RulerButton.Name = "RulerButton";
             this.RulerButton.Outline = System.Drawing.Color.Empty;
@@ -162,7 +162,7 @@
             this.centeringButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.centeringButton.FlatAppearance.BorderSize = 0;
             this.centeringButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.centeringButton.Location = new System.Drawing.Point(303, 3);
+            this.centeringButton.Location = new System.Drawing.Point(303, 10);
             this.centeringButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.centeringButton.Name = "centeringButton";
             this.centeringButton.Outline = System.Drawing.Color.Empty;
@@ -185,7 +185,7 @@
             this.homeButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.homeButton.FlatAppearance.BorderSize = 0;
             this.homeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.homeButton.Location = new System.Drawing.Point(361, 3);
+            this.homeButton.Location = new System.Drawing.Point(361, 10);
             this.homeButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.homeButton.Name = "homeButton";
             this.homeButton.Outline = System.Drawing.Color.Empty;
@@ -209,7 +209,7 @@
             this.Controls.Add(this.EKFButton);
             this.Controls.Add(this.MainButton);
             this.Name = "MainMenuWidget";
-            this.Size = new System.Drawing.Size(417, 60);
+            this.Size = new System.Drawing.Size(420, 70);
             this.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainMenuWidget_MouseLeave);
             this.ResumeLayout(false);
