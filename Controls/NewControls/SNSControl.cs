@@ -16,6 +16,7 @@ namespace MissionPlanner.Controls.NewControls
         private ModeChangeForm modeChangeForm;
         private SNSInfo snsInfo;
         private Vibration frm;
+        private ParachuteForm parachuteForm;
         bool colorsChanged=false;
         public SNSControl()
         {
@@ -72,6 +73,22 @@ namespace MissionPlanner.Controls.NewControls
             frm = new Vibration();
             frm.TopMost = true;
             frm.Show();
+        }
+
+        public void openParachuteForm() 
+        {
+            if (parachuteForm != null)
+            {
+                parachuteForm.Close();
+            }
+            parachuteForm = new ParachuteForm();
+            parachuteForm.TopMost = true;
+            parachuteForm.Show();
+        }
+
+        private void myButton4_MouseUp(object sender, MouseEventArgs e)
+        {
+            openParachuteForm();
         }
     }
 }

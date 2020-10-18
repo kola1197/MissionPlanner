@@ -803,6 +803,12 @@
     <Compile Include="NewForms\ModeChangeForm.Designer.cs">
       <DependentUpon>ModeChangeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\ParachuteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\ParachuteForm.Designer.cs">
+      <DependentUpon>ParachuteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\PreFlightForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -820,6 +826,12 @@
     </Compile>
     <Compile Include="NewForms\SNSInfo.Designer.cs">
       <DependentUpon>SNSInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\VibeGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\VibeGraph.Designer.cs">
+      <DependentUpon>VibeGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="NewForms\WPConfig.cs">
       <SubType>Form</SubType>
@@ -2006,6 +2018,9 @@
     <EmbeddedResource Include="NewForms\ModeChangeForm.resx">
       <DependentUpon>ModeChangeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\ParachuteForm.resx">
+      <DependentUpon>ParachuteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -2014,6 +2029,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\SNSInfo.resx">
       <DependentUpon>SNSInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\VibeGraph.resx">
+      <DependentUpon>VibeGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\WPConfig.resx">
       <DependentUpon>WPConfig.cs</DependentUpon>
@@ -3795,6 +3813,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWParachute.resx">
       <DependentUpon>ConfigHWParachute.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWParachute.ar.resx">
       <DependentUpon>ConfigHWParachute.cs</DependentUpon>
