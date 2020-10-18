@@ -102,7 +102,7 @@ namespace MissionPlanner.Controls
         {
             if (!active)
             {
-                this.Size = new Size(60, 70);
+                this.Size = new Size(70, 70);
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
             }
             else
@@ -114,7 +114,7 @@ namespace MissionPlanner.Controls
 
         public void setState(bool _active)
         {
-            //active = _active;
+            active = _active;
             updateSize();
         }
 

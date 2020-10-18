@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -205,12 +205,12 @@
             this.Controls.Add(this.ParamsButton);
             this.Controls.Add(this.EKFButton);
             this.Controls.Add(this.MainButton);
+            this.DoubleBuffered = true;
             this.Name = "MainMenuWidget";
             this.Size = new System.Drawing.Size(420, 70);
             this.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainMenuWidget_MouseLeave);
             this.ResumeLayout(false);
-
         }
 
         #endregion
