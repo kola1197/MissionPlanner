@@ -2826,25 +2826,6 @@ namespace MissionPlanner.GCSViews
 
         public List<PointLatLng> GetWaypointsPositions()
         {
-            // Dictionary<string, PointLatLng> dest = new Dictionary<string, PointLatLng>();
-            //
-            // var markers = MainMap.Overlays.First(a => a.Id == "WPOverlay");
-            //
-            // foreach (var markerid in groupmarkers.Distinct())
-            // {
-            //     for (int a = 0; a < markers.Markers.Count; a++)
-            //     {
-            //         var marker = markers.Markers[a];
-            //
-            //         if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
-            //         {
-            //             dest[marker.Tag.ToString()] = marker.Position;
-            //             break;
-            //         }
-            //     }
-            // }
-            
-            
             var wpOverlay = MainMap.Overlays.First(a => a.Id == "WPOverlay");
             List<PointLatLng> waypoints = new List<PointLatLng>();
             // foreach (var markerid in groupmarkers.Distinct())
@@ -5172,7 +5153,7 @@ namespace MissionPlanner.GCSViews
                 DrawDistanceOnRuler(e);
             }
 
-            if (Commands.Rows.Count > 0)
+            if (Commands.Rows.Count > 0 && wpMenu1.fieldActive)
             {
                 DrawDistanceBetweenWaypoints(e);
             }
