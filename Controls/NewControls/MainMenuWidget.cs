@@ -74,7 +74,7 @@ namespace MissionPlanner.Controls
         {
             List<PointLatLng> points = new List<PointLatLng>();
             RulerRoute = new GMapRoute(points, "Distance measure")
-                {Stroke = new Pen(Color.FromArgb(144, Color.Red), 2)};
+                {Stroke = new Pen(Color.FromArgb(200, Color.Red), 2)};
             // RulerRoute.Stroke.Width = 2;
             // RulerRoute.Stroke.Color = Color.Red;
             FlightPlanner.RulerOverlay.Routes.Add(RulerRoute);

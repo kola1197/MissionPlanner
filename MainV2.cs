@@ -660,7 +660,7 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static EngineControlForm engineControlForm = new EngineControlForm()
+        public static EngineControlForm EngineControlForm = new EngineControlForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
         public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
@@ -1341,15 +1341,29 @@ namespace MissionPlanner
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
             SetRouteFormLocation();
-
+            SetEngineFormLocation();
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            
         }
 
+        private void MakeRightSideMenuTransparent()
+        {
+            // rightSideMenuControl1.Parent = FlightPlanner.MainMap;
+            // Point p = rightSideMenuControl1.Location;
+        }
+        
         void cmb_sysid_Click(object sender, EventArgs e)
         {
             MainV2._connectionControl.UpdateSysIDS();
+        }
+
+        public void SetEngineFormLocation()
+        {
+            Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
+            EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+                this.Location.Y + locationLocal.Y);
         }
 
         public void SetRouteFormLocation()
@@ -1678,6 +1692,7 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
             //FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
             FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
+            MakeRightSideMenuTransparent();
             /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
             FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
             FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;

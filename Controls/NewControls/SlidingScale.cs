@@ -370,30 +370,56 @@ namespace TB.Instruments
             }
         }
 
-        private Color centerRectangleColor = Color.FromArgb(200, Color.DodgerBlue);
+        private Color _centerRectangleEnabledColor = Color.FromArgb(200, Color.DodgerBlue);
 
         /// <summary>
-        /// The color of rectangle in center.
+        /// The color of rectangle enabled in center.
         /// </summary>
         [
             Browsable(true),
             DesignerSerializationVisibility(DesignerSerializationVisibility.Visible),
             Category("Appearance"),
-            Description("The color of rectangle in center."),
+            Description("The color of rectangle enabled in center."),
             DefaultValue(typeof(Color), "DodgerBlue")
         ]
-        public Color CenterRectangleColor
+        public Color CenterRectangleEnabledColor
         {
-            get => centerRectangleColor;
+            get => _centerRectangleEnabledColor;
             set
             {
-                if (value != centerRectangleColor)
+                if (value != _centerRectangleEnabledColor)
                 {
-                    centerRectangleColor = value;
+                    _centerRectangleEnabledColor = value;
                     this.Invalidate();
                 }
             }
         }
+
+        private Color _centerRectangleDisabledColor = Color.FromArgb(200, Color.Gray);
+
+        /// <summary>
+        /// The color of rectangle disabled in center.
+        /// </summary>
+        [
+            Browsable(true),
+            DesignerSerializationVisibility(DesignerSerializationVisibility.Visible),
+            Category("Appearance"),
+            Description("The color of rectangle disabled in center."),
+            DefaultValue(typeof(Color), "Gray")
+        ]
+        public Color CenterRectangleDisabledColor
+        {
+            get => _centerRectangleDisabledColor;
+            set
+            {
+                if (value != _centerRectangleDisabledColor)
+                {
+                    _centerRectangleDisabledColor = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
 
         private Color centerValueColor = Color.FromArgb(255, Color.Azure);
 
@@ -415,6 +441,33 @@ namespace TB.Instruments
                 if (value != centerValueColor)
                 {
                     centerValueColor = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
+
+
+        private Font centerFont = SystemFonts.DefaultFont;
+
+        /// <summary>
+        /// The font of value in center.
+        /// </summary>
+        [
+            Browsable(true),
+            DesignerSerializationVisibility(DesignerSerializationVisibility.Visible),
+            Category("Appearance"),
+            Description("The font of value in center."),
+            DefaultValue(typeof(Font), "DefaultFont")
+        ]
+        public Font CenterFont
+        {
+            get => centerFont;
+            set
+            {
+                if (value != centerFont)
+                {
+                    centerFont = value;
                     this.Invalidate();
                 }
             }
@@ -608,8 +661,8 @@ namespace TB.Instruments
             g.DrawLine(new Pen(NeedleColor), 0, Hm + 1, W, Hm + 1);
 
             // Draw rectangle in center
-            Pen penCenter = new Pen(CenterRectangleColor);
-            Brush centerBrush = new SolidBrush(CenterRectangleColor);
+            Pen penCenter = new Pen(CenterRectangleEnabledColor);
+            Brush centerBrush = new SolidBrush(CenterRectangleEnabledColor);
             Rectangle centerRectangle = new Rectangle(0, Height / 7 * 3, Width, Height / 7);
             g.DrawRectangle(penCenter, centerRectangle);
             g.FillRectangle(centerBrush, centerRectangle);
@@ -619,7 +672,7 @@ namespace TB.Instruments
             StringFormat sfCenter = new StringFormat();
             sfCenter.Alignment = StringAlignment.Center;
             sfCenter.LineAlignment = StringAlignment.Center;
-            g.DrawString(Value.ToString(), Font, valueBrush, new PointF((W + largeTicksLength) / 2, Height / 2),
+            g.DrawString(Value.ToString() + " ì", CenterFont, valueBrush, new PointF((W + largeTicksLength) / 2, Height / 2),
                 sfCenter);
         }
 

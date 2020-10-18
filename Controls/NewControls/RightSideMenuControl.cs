@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GDAL;
 using MissionPlanner.GCSViews;
+using Color = System.Drawing.Color;
 using Region = KMLib.Region;
 
 namespace MissionPlanner.Controls.NewControls
@@ -19,6 +20,7 @@ namespace MissionPlanner.Controls.NewControls
         private AntennaControl antennaControl;
         private FlightByCompassControl flightByCompassControl;
         private RegionsControl regionsControl;
+        // public RightSideMenuControl Instance;
         public RightSideMenuControl()
         {
             InitializeComponent();
@@ -28,6 +30,17 @@ namespace MissionPlanner.Controls.NewControls
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
             this.Controls.Add(regionsControl);
+            this.BackColor = Color.FromArgb(200, Color.Black);
+            // Instance = this;
+        }
+
+        public void Init()
+        {
+            // foreach (Control control in Controls)
+            // {
+            //     control.Parent = this.Parent;
+            //     control.BackColor = Color.FromArgb(200, Color.Black);
+            // }
         }
 
         private void switchControl(UserControl control) 

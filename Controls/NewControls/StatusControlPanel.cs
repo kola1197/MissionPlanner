@@ -271,7 +271,8 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
-            MainV2.engineControlForm.Show();
+            MainV2.instance.SetEngineFormLocation();
+            MainV2.EngineControlForm.Show();
         }
 
         private void speedPanel_Click(object sender, EventArgs e)
