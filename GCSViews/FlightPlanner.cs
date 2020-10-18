@@ -49,8 +49,15 @@ using Point = System.Drawing.Point;
 using Resources = MissionPlanner.Properties.Resources;
 using MissionPlanner.NewForms;
 using System.Text;
+using System.Timers;
+using System.Web.UI.WebControls;
 using DotSpatial.Topology.Algorithm;
+using MissionPlanner.Controls.Icon;
 using MissionPlanner.Controls.NewControls;
+using netDxf.Entities;
+using File = System.IO.File;
+using Polygon = SharpKml.Dom.Polygon;
+using Timer = System.Timers.Timer;
 
 namespace MissionPlanner.GCSViews
 {
@@ -63,7 +70,7 @@ namespace MissionPlanner.GCSViews
         }
 
 
-        private void but_mincommands_Click(object sender, System.EventArgs e)
+        private void but_mincommands_Click(object sender, EventArgs e)
         {
             if (panelWaypoints.Height <= 30)
             {
@@ -78,6 +85,7 @@ namespace MissionPlanner.GCSViews
         }
 
         public static GMapOverlay RegionsOverlay;
+        public static GMapOverlay RulerOverlay;
         public static GMapOverlay airportsoverlay;
         public static GMapOverlay objectsoverlay;
         public static GMapOverlay poioverlay = new GMapOverlay("POI");
@@ -124,8 +132,8 @@ namespace MissionPlanner.GCSViews
         private PointLatLngAlt mouseposdisplay = new PointLatLngAlt(0, 0);
         private WPOverlay overlay;
         public bool polygongridmode { get; set; }
-        private MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
-        private MissionPlanner.Controls.Icon.Zoom zoomicon = new MissionPlanner.Controls.Icon.Zoom();
+        private Controls.Icon.Polygon polyicon = new Controls.Icon.Polygon();
+        private Zoom zoomicon = new Zoom();
         private ComponentResourceManager rm = new ComponentResourceManager(typeof(FlightPlanner));
         private int selectedrow;
         private bool sethome;
@@ -143,6 +151,8 @@ namespace MissionPlanner.GCSViews
         public int CountOfLoadedWP = 0;
         public bool wpLoadingActive = false;
         public bool needToLoadWP = false;
+        public static bool regionActive = false;
+        public static bool rulerActive = false;
 
         public void Init()
         {
@@ -183,7 +193,7 @@ namespace MissionPlanner.GCSViews
             // {
             //    filtredproviders.Add(providers[i]);
             //}
-            
+
             comboBoxMapType.DataSource = GMapProviders.List.ToArray();
             comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
@@ -228,6 +238,11 @@ namespace MissionPlanner.GCSViews
             RegionsOverlay = new GMapOverlay("regions");
             MainMap.Overlays.Add(RegionsOverlay);
             RegionsControl.instance.Init();
+
+            // Init ruler overalay
+            RulerOverlay = new GMapOverlay("ruler");
+            MainMap.Overlays.Add(RulerOverlay);
+            MainMenuWidget.Instance.InitRuler();
 
             prop = new Propagation(MainMap);
 
@@ -309,7 +324,7 @@ namespace MissionPlanner.GCSViews
 
         private void test_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("SuckSess");
+            Debug.WriteLine("SuckSess");
         }
 
         public static FlightPlanner instance { get; set; }
@@ -724,7 +739,7 @@ namespace MissionPlanner.GCSViews
             //frmProgressReporter.RunBackgroundOperationAsync();
             wpLoadingActive = true;
             //frmProgressReporter.Dispose();
-            new System.Threading.Thread(delegate()
+            new Thread(delegate()
             {
                 try
                 {
@@ -841,7 +856,7 @@ namespace MissionPlanner.GCSViews
                     throw;
                 }
 
-                System.Diagnostics.Debug.WriteLine("###################### WP Loaded ########################");
+                Debug.WriteLine("###################### WP Loaded ########################");
                 wpLoadingActive = false;
                 setWpLoadingStatus(true);
                 MainV2.comPort.giveComport = false;
@@ -950,7 +965,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="alt"></param>
         public void callMeDrag(string pointno, double lat, double lng, int alt)
         {
-            System.Diagnostics.Debug.WriteLine("GOT ONE 1");
+            Debug.WriteLine("GOT ONE 1");
 
             if (pointno == "")
             {
@@ -2767,6 +2782,197 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        // public void MeasureDistance()
+        // {
+        //     if (startmeasure.IsEmpty)
+        //     {
+        //         startmeasure = MouseDownStart;
+        //         RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
+        //         MainMap.Invalidate();
+        //         // Common.MessageShowAgain("Measure Dist",
+        //         //     "You can now pan/zoom around.\nClick this option again to get the distance.");
+        //     }
+        //     else
+        //     {
+        //         List<PointLatLng> polygonPoints = new List<PointLatLng>
+        //         {
+        //             // startmeasure,
+        //             // MouseDownStart,
+        //             new PointLatLng(0, 0),
+        //             new PointLatLng(10, 10),
+        //             new PointLatLng(-10, 10)
+        //         };
+        //
+        //         GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
+        //         GMapRoute route = new GMapRoute(polygonPoints, "measure route");
+        //         route.Stroke.Color = Color.Green;
+        //
+        //         RulerOverlay.Routes.Add(route);
+        //
+        //         RulerOverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
+        //         MainMap.Invalidate();
+        //         // CustomMessageBox.Show("Distance: " +
+        //         //                       FormatDistance(
+        //         //                           MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart),
+        //         //                           true) +
+        //         //                       " AZ: " +
+        //         //                       (MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
+        //         //                           .ToString("0")));
+        //         // polygonsoverlay.Polygons.Remove(line);
+        //         // polygonsoverlay.Markers.Clear();
+        //         // startmeasure = new PointLatLng();
+        //     }
+        // }
+
+        public void DrawDistanceOnRuler(PaintEventArgs e)
+        {
+            List<PointLatLng> points = GetRulerRoute().Points;
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                DrawDistanceBetweenTwoPoints(e, points[i], points[i + 1]);
+            }
+
+            if (points.Count > 1)
+            {
+                DrawTotalDistance(e);
+            }
+        }
+
+        private double GetTotalDistance()
+        {
+            double totalDistance = 0;
+            for (int i = 0; i < GetRulerRoute().Points.Count - 1; i++)
+            {
+                totalDistance += GetDistanceBetweenTwoPoints(GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
+            }
+
+            return totalDistance;
+        }
+
+        public Color OutlineTotalDistanceColor { get; set; }
+
+        public Color OutlineDistanceBetweenPointsColor { get; set; }
+
+        public float OutlineWidth { get; set; }
+
+        private Font font = new Font(SystemFonts.DefaultFont, FontStyle.Italic | FontStyle.Bold);
+
+        private void DrawTotalDistance(PaintEventArgs e)
+        {
+            string distance = FormatDistance(GetTotalDistance());
+            GPoint rectangleLocation = MainMap.FromLatLngToLocal(GetRulerRoute().Points.Last());
+            Rectangle rectangle = new Rectangle((int) rectangleLocation.X, (int) rectangleLocation.Y,
+                (int) Math.Truncate(font.SizeInPoints + 3) * distance.Length, font.Height + 5);
+
+            e.Graphics.ResetTransform();
+
+            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100, Color.Black)), rectangle);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.Black)), rectangle);
+            DrawDistanceString(e, distance, rectangle);
+
+            e.Graphics.ResetTransform();
+        }
+
+        private void DrawDistanceString(PaintEventArgs e, string distance, Rectangle rectangle)
+        {
+            using (GraphicsPath gp = new GraphicsPath())
+            using (Pen outline = new Pen(OutlineTotalDistanceColor, OutlineWidth)
+                {LineJoin = LineJoin.Round})
+            using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
+            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.White)))
+            {
+                gp.AddString(distance, font.FontFamily, (int) font.Style,
+                    15, rectangle, sf);
+                // e.Graphics.ScaleTransform(1.3f, 1.35f);
+                e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                e.Graphics.DrawPath(outline, gp);
+                e.Graphics.FillPath(foreBrush, gp);
+            }
+        }
+
+        private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
+        {
+            GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
+            float drawingAngle = GetDistanceDrawingAngle(p1, p2);
+            float azimuthAngle = GetAzimuthAngle(p1, p2) + 90;
+
+            if (azimuthAngle < 0)
+                azimuthAngle += 360;
+
+            string formatAzimuthAngle = azimuthAngle.ToString("F1") + "°";
+            string distance = formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2));
+            Point rectangleLocation = new Point(0, 0);
+            Rectangle rectangle;
+
+            e.Graphics.ResetTransform();
+
+            e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
+            e.Graphics.RotateTransform(drawingAngle);
+
+            if (!(azimuthAngle > 0 && azimuthAngle < 180))
+            {
+                rectangleLocation = new Point(-(int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 0);
+            }
+
+            rectangle = new Rectangle(rectangleLocation, new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
+
+            DrawDistanceString(e, distance, rectangle);
+
+            e.Graphics.ResetTransform();
+        }
+
+
+        private double GetAngleBetweenPoints(PointLatLng p1, PointLatLng p2)
+        {
+            GPoint localPoint1 = MainMap.FromLatLngToLocal(p1);
+            GPoint localPoint2 = MainMap.FromLatLngToLocal(p2);
+            return Math.Atan2(localPoint2.Y - localPoint1.Y, localPoint2.X - localPoint1.X);
+        }
+
+        private float GetAzimuthAngle(PointLatLng p1, PointLatLng p2)
+        {
+            return (float) (GetAngleBetweenPoints(p1, p2) * 180 / Math.PI);
+        }
+
+        private float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
+        {
+            var alpha = GetAngleBetweenPoints(p2, p1);
+            if (alpha >= Math.PI / 2 && alpha <= Math.PI || alpha >= -Math.PI && alpha <= -Math.PI / 2)
+            {
+                alpha += -Math.Sign(alpha) * Math.PI;
+            }
+
+            return (float) (alpha * 180 / Math.PI);
+        }
+
+        private GPoint GetDistanceDrawingPoint(PointLatLng p1, PointLatLng p2)
+        {
+            // long x = (MainMap.FromLatLngToLocal(p1).X + MainMap.FromLatLngToLocal(p2).X) / 2;
+            // long y = (MainMap.FromLatLngToLocal(p1).Y + MainMap.FromLatLngToLocal(p2).Y) / 2;
+            // x = (p1.Lat + p2.Lat) / 2;
+            // y = (p1.Lng + p2.Lng) / 2;
+
+            return MainMap.FromLatLngToLocal(p1);
+        }
+
+        private double GetDistanceBetweenTwoPoints(PointLatLng p1, PointLatLng p2)
+        {
+            return MainMap.MapProvider.Projection.GetDistance(p1, p2);
+        }
+
+        private string FormatDistance(double distance)
+        {
+            if (Math.Truncate(distance) == 0)
+            {
+                distance *= 1000;
+                return distance.ToString("F0") + " м";
+            }
+            else
+            {
+                return distance.ToString("F2") + " км";
+            }
+        }
+
         public void ContextMeasure_Click(object sender, EventArgs e)
         {
             if (startmeasure.IsEmpty)
@@ -2995,7 +3201,7 @@ namespace MissionPlanner.GCSViews
 
         public void createCircleSurveyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utilities.CircleSurveyMission.createGrid(MouseDownEnd);
+            CircleSurveyMission.createGrid(MouseDownEnd);
         }
 
         public void createSplineCircleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3384,7 +3590,7 @@ namespace MissionPlanner.GCSViews
             tryToWriteWP();
         }
 
-        private void Dxf_newLine(dxf sender, netDxf.Entities.Line line)
+        private void Dxf_newLine(dxf sender, Line line)
         {
             var route = new GMapRoute(line.Handle);
             route.Points.Add(new PointLatLng(line.StartPoint.Y, line.StartPoint.X));
@@ -3398,7 +3604,7 @@ namespace MissionPlanner.GCSViews
             kmlpolygonsoverlay.Routes.Add(route);
         }
 
-        private void Dxf_newLwPolyline(dxf sender, netDxf.Entities.LwPolyline pline)
+        private void Dxf_newLwPolyline(dxf sender, LwPolyline pline)
         {
             var route = new GMapRoute(pline.Handle);
             foreach (var item in pline.Vertexes)
@@ -3414,7 +3620,7 @@ namespace MissionPlanner.GCSViews
             kmlpolygonsoverlay.Routes.Add(route);
         }
 
-        private void Dxf_newMLine(dxf sender, netDxf.Entities.MLine pline)
+        private void Dxf_newMLine(dxf sender, MLine pline)
         {
             var route = new GMapRoute(pline.Handle);
             foreach (var item in pline.Vertexes)
@@ -3430,7 +3636,7 @@ namespace MissionPlanner.GCSViews
             kmlpolygonsoverlay.Routes.Add(route);
         }
 
-        private void Dxf_newPolyLine(dxf sender, netDxf.Entities.Polyline pline)
+        private void Dxf_newPolyLine(dxf sender, Polyline pline)
         {
             var route = new GMapRoute(pline.Handle);
             foreach (var item in pline.Vertexes)
@@ -4914,6 +5120,11 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
+            if (RulerOverlay.Routes.Count != 0)
+            {
+                DrawDistanceOnRuler(e);
+            }
+
             e.Graphics.ResetTransform();
 
             polyicon.Location = new Point(10, 100);
@@ -5938,7 +6149,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             return;
                         }
 
-                        System.Threading.Thread.Sleep(10);
+                        Thread.Sleep(10);
                     }
                 }
 
@@ -6254,7 +6465,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             string size = "5";
             InputBox.Show("Enter size", "Enter size", ref size);
 
-            using (Font font = new System.Drawing.Font("1CamBam_Stick_3", float.Parse(size) * 1.35f, FontStyle.Regular))
+            using (Font font = new Font("1CamBam_Stick_3", float.Parse(size) * 1.35f, FontStyle.Regular))
             using (GraphicsPath gp = new GraphicsPath())
             using (StringFormat sf = new StringFormat())
             {
@@ -6366,8 +6577,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void setWpLoadingStatus(bool b)
         {
             wpMenu1.progressBarVisible = !b;
-            System.Diagnostics.Debug.WriteLine("########################################## Set visible " +
-                                               b.ToString());
+            Debug.WriteLine("########################################## Set visible " +
+                            b.ToString());
             //wpMenu1.label1.ForeColor = b ? Color.Green : Color.Red;
             //wpMenu1.label2.ForeColor = b ? Color.Green : Color.Red;
             //wpMenu1.label4.ForeColor = b ? Color.Green : Color.Red;
@@ -6655,12 +6866,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             });
         }
 
-        private void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
+        private void updateMapType(object sender, ElapsedEventArgs e)
         {
             log.Info("updateMapType invoke req? " + comboBoxMapType.InvokeRequired);
 
-            if (sender is System.Timers.Timer)
-                ((System.Timers.Timer) sender).Stop();
+            if (sender is Timer)
+                ((Timer) sender).Stop();
 
             string mapType = Settings.Instance["MapType"];
             if (!string.IsNullOrEmpty(mapType))
@@ -6783,7 +6994,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void groupmarkeradd(GMapMarker marker)
         {
-            System.Diagnostics.Debug.WriteLine("add marker " + marker.Tag.ToString());
+            Debug.WriteLine("add marker " + marker.Tag.ToString());
             groupmarkers.Add(int.Parse(marker.Tag.ToString()));
             if (marker is GMapMarkerWP)
             {
@@ -6821,7 +7032,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 isMouseDown = true;
                 isMouseDraging = false;
 
-                if (currentMarker.IsVisible && !MainV2.regionActive)
+                if (currentMarker.IsVisible && !regionActive && !rulerActive)
                 {
                     currentMarker.Position = MainMap.FromLocalToLatLng(e.X, e.Y);
                 }
@@ -6905,15 +7116,32 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             // redrawPolygonSurvey(DrawingPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
 
                             /// Moving region with markers
-                            if (GetCurrentPolygon() == null)
+                            if (CurentRectMarker.Overlay == RegionsOverlay)
                             {
-                                return;
-                            }
+                                if (GetCurrentPolygon() == null)
+                                {
+                                    return;
+                                }
 
-                            GetCurrentPolygon().Points[
-                                    int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] =
-                                new PointLatLng(point.Lat, point.Lng);
-                            RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                                GetCurrentPolygon().Points[
+                                        int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) -
+                                        1] =
+                                    new PointLatLng(point.Lat, point.Lng);
+                                RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                            }
+                            else
+                            {
+                                if (RulerOverlay.Routes.Count == 0)
+                                {
+                                    return;
+                                }
+
+                                GetRulerRoute().Points[
+                                        int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) -
+                                        1] =
+                                    new PointLatLng(point.Lat, point.Lng);
+                                MainMenuWidget.Instance.RedrawRulerSurvey(GetRulerRoute());
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -7011,7 +7239,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (CurentRectMarker != null)
+                if (CurentRectMarker != null && !(CurentRectMarker.Overlay == RegionsOverlay) &&
+                    !(CurentRectMarker.Overlay == RulerOverlay))
                 {
                     if (wpConfig != null)
                     {
@@ -7038,6 +7267,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         public GMapPolygon GetCurrentPolygon()
         {
             return RegionsControl.instance.GetCurrentPolygon();
+        }
+
+        public GMapRoute GetRulerRoute()
+        {
+            return RulerOverlay.Routes.First();
         }
 
         private void MainMap_MouseUp(object sender, MouseEventArgs e)
@@ -7106,16 +7340,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         // redrawPolygonSurvey(DrawingPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
 
                         /// Inserting Region Marker in the middle of region's side
-                        if (GetCurrentPolygon() == null)
+
+                        if (currentMarker.Overlay == RegionsOverlay)
                         {
-                            return;
+                            if (GetCurrentPolygon() == null)
+                            {
+                                return;
+                            }
+
+                            var temp = GetCurrentPolygon().Points.IndexOf(midline.now);
+                            GetCurrentPolygon().Points.Insert(temp + 1,
+                                new PointLatLng(CurrentMidLine.Position.Lat, CurrentMidLine.Position.Lng));
+
+                            RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
                         }
+                        else
+                        {
+                            if (RulerOverlay.Routes.Count == 0)
+                            {
+                                return;
+                            }
 
-                        var temp = GetCurrentPolygon().Points.IndexOf(midline.now);
-                        GetCurrentPolygon().Points.Insert(temp + 1,
-                            new PointLatLng(CurrentMidLine.Position.Lat, CurrentMidLine.Position.Lng));
+                            var temp = GetRulerRoute().Points.IndexOf(midline.now);
+                            GetRulerRoute().Points.Insert(temp + 1,
+                                new PointLatLng(CurrentMidLine.Position.Lat, CurrentMidLine.Position.Lng));
 
-                        RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                            MainMenuWidget.Instance.RedrawRulerSurvey(GetRulerRoute());
+                        }
                     }
                     else
                     {
@@ -7208,33 +7459,48 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         }
                         else
                         {
-                            if (!MainV2.regionActive)
+                            if (!regionActive && !rulerActive)
                             {
                                 AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
                                 needToWriteWP = true;
                             }
                             else
                             {
-                                //addRegionpoint
-                                //CustomMessageBox.Show("new Point at "+currentMarker.Position.Lat.ToString()+"   " +currentMarker.Position.Lng.ToString());
-                                //AddRegionpoint(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
-
-                                ///Add Region Point
-                                if (GetCurrentPolygon() == null)
+                                if (rulerActive)
                                 {
-                                    return;
-                                }
+                                    if (RulerOverlay.Routes.Count == 0)
+                                    {
+                                        return;
+                                    }
 
-                                GetCurrentPolygon().Points.Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
-                                RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
-                                MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
-                                MainMap.Invalidate();
+                                    GetRulerRoute().Points.Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
+                                    MainMenuWidget.Instance.RedrawRulerSurvey(GetRulerRoute());
+                                    MainMap.UpdateRouteLocalPosition(GetRulerRoute());
+                                    MainMap.Invalidate();
+                                }
+                                else
+                                {
+                                    if (regionActive)
+                                    {
+                                        ///Add Region Point
+                                        if (GetCurrentPolygon() == null)
+                                        {
+                                            return;
+                                        }
+
+                                        GetCurrentPolygon().Points
+                                            .Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
+                                        RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                                        MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
+                                        MainMap.Invalidate();
+                                    }
+                                }
                             }
                         }
                     }
                     else
                     {
-                        if (MainV2.regionActive)
+                        if (regionActive)
                         {
                             foreach (var polygon in RegionsOverlay.Polygons)
                             {
@@ -7296,7 +7562,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 //     new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
                                 //
                                 /// Do smth with region point
-                                if (GetCurrentPolygon() == null)
+                                if (GetCurrentPolygon() == null || CurentRectMarker.Overlay == RulerOverlay)
                                 {
                                     return;
                                 }
@@ -8171,7 +8437,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         row = (DataGridViewRow) Commands.Rows[index].Clone();
                         row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
                         row.Cells[Command.Index + 1].Value = (14).ToString();
-                        int v = (int)wpConfig.myTrackBar1.Value;
+                        int v = (int) wpConfig.myTrackBar1.Value;
                         row.Cells[Lon.Index + 1].Value = v.ToString();
                         Commands.Rows.Insert(index, row);
                         index++;
@@ -8242,7 +8508,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void tryToWriteWP()
         {
-            System.Diagnostics.Debug.WriteLine("##################### Try to save WP ######################");
+            Debug.WriteLine("##################### Try to save WP ######################");
             //if (MainV2.comPort.MAV.cs.connected == true)
             //{
             //    writeWPToPlane();
@@ -8394,7 +8660,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             return Alt.Index;
         }
-        
+
         public void CreateNewPolygon()
         {
         }
@@ -8402,15 +8668,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void MainMap_SizeChanged(object sender, EventArgs e)
         {
             wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
-            notificationControl1.Location = new Point(MainMap.Size.Width/2 - notificationControl1.Size.Width/2, 0);
-            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
+            notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10,
+                MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
 
         private void wpMenu1_SizeChanged(object sender, EventArgs e)
         {
             wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
             notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
-            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10, MainMap.Size.Height - rulerControl1.Size.Height - 60);
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10,
+                MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
     }
 }
