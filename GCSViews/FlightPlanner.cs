@@ -318,6 +318,10 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
+            
+            //Init RightSideMenu
+            MainV2.instance.rightSideMenuControl1.Init();
+
             wpMenuLoad();
             contextMenuStrip2.Closed += contextMenuStrip2_Closed;
         }
@@ -2824,6 +2828,34 @@ namespace MissionPlanner.GCSViews
         //     }
         // }
 
+        public List<PointLatLng> GetWaypointsPositions()
+        {
+            var wpOverlay = MainMap.Overlays.First(a => a.Id == "WPOverlay");
+            List<PointLatLng> waypoints = new List<PointLatLng>();
+            // foreach (var markerid in groupmarkers.Distinct())
+            {
+                foreach (var marker in wpOverlay.Markers)
+                {
+                    // if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+                    if (marker.Tag != null && marker is GMapMarkerWP)
+                    {
+                        waypoints.Add(marker.Position);
+                    }
+                }
+            }
+
+            return waypoints;
+        }
+        
+        public void DrawDistanceBetweenWaypoints(PaintEventArgs e)
+        {
+            List<PointLatLng> waypoints = GetWaypointsPositions();
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                DrawDistanceBetweenTwoPoints(e, waypoints[i], waypoints[i + 1]);
+            }
+        }
+        
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
             List<PointLatLng> points = GetRulerRoute().Points;
@@ -5123,6 +5155,11 @@ namespace MissionPlanner.GCSViews
             if (RulerOverlay.Routes.Count != 0)
             {
                 DrawDistanceOnRuler(e);
+            }
+
+            if (Commands.Rows.Count > 0 && wpMenu1.fieldActive)
+            {
+                DrawDistanceBetweenWaypoints(e);
             }
 
             e.Graphics.ResetTransform();

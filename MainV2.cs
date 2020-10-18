@@ -657,7 +657,11 @@ namespace MissionPlanner
 
         public static GaugeHeading GaugeMenuHeading = new GaugeHeading();
 
-        public static RouteAltForm RouteAltForm = new RouteAltForm() { Visible = false, StartPosition = FormStartPosition.Manual};
+        public static RouteAltForm RouteAltForm = new RouteAltForm()
+            {Visible = false, StartPosition = FormStartPosition.Manual};
+
+        public static EngineControlForm EngineControlForm = new EngineControlForm()
+            {Visible = false, StartPosition = FormStartPosition.Manual};
 
         public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
 
@@ -726,7 +730,7 @@ namespace MissionPlanner
                         currentConnectionRate = x;
                     }),
             };
-            
+
             subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
         }
 
@@ -1333,26 +1337,41 @@ namespace MissionPlanner
 
             ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusMenuPanel);
             menuStrip1.Items.Add(statusControlHost);
-            
+
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
             SetRouteFormLocation();
-
+            SetEngineFormLocation();
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            
         }
 
+        private void MakeRightSideMenuTransparent()
+        {
+            // rightSideMenuControl1.Parent = FlightPlanner.MainMap;
+            // Point p = rightSideMenuControl1.Location;
+        }
+        
         void cmb_sysid_Click(object sender, EventArgs e)
         {
             MainV2._connectionControl.UpdateSysIDS();
         }
-        
+
+        public void SetEngineFormLocation()
+        {
+            Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
+            EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+                this.Location.Y + locationLocal.Y);
+        }
+
         public void SetRouteFormLocation()
         {
             // THIS MUST NOT BE COMMENTED
             Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X, this.Location.Y + locationLocal.Y);
+            RouteAltForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+                this.Location.Y + locationLocal.Y);
         }
 
         void comPort_MavChanged(object sender, EventArgs e)
@@ -1474,15 +1493,24 @@ namespace MissionPlanner
         {
             try
             {
-                double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
+                double homedist =
+                    FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
+                        FlightPlanner.pointlist[0]);
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
-                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
+                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " +
+                                                 FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
                 coordinatsControl1.label2.Text = homedistString;
-                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " + comPort.MAV.cs.lng.ToString("0.000000") + "°";
+                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " +
+                                                 comPort.MAV.cs.lng.ToString("0.000000") + "°";
                 //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
-                double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y), FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y));
+                double distance1 = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
+                    FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X,
+                        FlightPlanner.rulerControl1.Location.Y),
+                    FlightPlanner.MainMap.FromLocalToLatLng(
+                        FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width,
+                        FlightPlanner.rulerControl1.Location.Y));
 
                 //FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
 
@@ -1490,7 +1518,8 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected)
                 {
-                    double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                    double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
+                        new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
                     string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane, true);
                     FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
                 }
@@ -1498,45 +1527,51 @@ namespace MissionPlanner
                 {
                     FlightPlanner.notificationControl1.label3.Text = "0 м";
                 }
+
                 FlightPlanner.notificationControl1.label5.Text = comPort.MAV.cs.wp_dist.ToString();
                 double lengthCountr = 0;
-                for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++) 
+                for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++)
                 {
                     string s = FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString();
-                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString());
+                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value
+                        .ToString());
                 }
+
                 FlightPlanner.notificationControl1.label7.Text = lengthCountr.ToString("0.00") + " м";
-                
             }
             catch (System.Exception eee)
             {
-                System.Diagnostics.Debug.WriteLine("Timer error: "+eee.ToString());
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
             }
 
             try
             {
                 snsControl2.setButtonColors();
-                if (!FlightPlanner.rulerControl1.timer1.Enabled) 
+                if (!FlightPlanner.rulerControl1.timer1.Enabled)
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
                 }
-                if (!FlightPlanner.notificationControl1.timer1.Enabled) 
+
+                if (!FlightPlanner.notificationControl1.timer1.Enabled)
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200,64,64,64);
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
                 }
+
                 if (!FlightPlanner.notificationListControl1.timer1.Enabled)
                 {
                     FlightPlanner.notificationListControl1.timer1.Enabled = true;
                     FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
                 }
+
                 if (timeControl2.timerControl1.timetButton.BackColor != Color.Transparent)
                 {
                     timeControl2.timerControl1.timetButton.BackColor = Color.Transparent;
                 }
+
                 if (!timeControl2.timer1.Enabled)
                 {
                     timeControl2.timer1.Start();
@@ -1580,11 +1615,12 @@ namespace MissionPlanner
                     MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                     rc.target_component = comPort.MAV.compid;
                     rc.target_system = comPort.MAV.sysid;
-                    rc.chan1_raw = (ushort)overrides[0];
-                    rc.chan2_raw = (ushort)overrides[1];
-                    rc.chan3_raw = (ushort)overrides[2];
-                    rc.chan4_raw = (ushort)overrides[3];
-                    System.Diagnostics.Debug.WriteLine("Overrides: "+overrides[0]+" "+ overrides[1] + " "+ overrides[2] + " "+ overrides[3] + " ");
+                    rc.chan1_raw = (ushort) overrides[0];
+                    rc.chan2_raw = (ushort) overrides[1];
+                    rc.chan3_raw = (ushort) overrides[2];
+                    rc.chan4_raw = (ushort) overrides[3];
+                    System.Diagnostics.Debug.WriteLine("Overrides: " + overrides[0] + " " + overrides[1] + " " +
+                                                       overrides[2] + " " + overrides[3] + " ");
                     if (comPort.BaseStream.IsOpen)
                     {
                         if (comPort.BaseStream.BytesToWrite < 50)
@@ -1604,9 +1640,7 @@ namespace MissionPlanner
                             //lastjoystick = DateTime.Now;
                         }
                     }
-                    
                 }
-
             }
             catch (System.Exception eee)
             {
@@ -1622,7 +1656,7 @@ namespace MissionPlanner
             if (sunits != null)
                 try
                 {
-                    units = (distances)Enum.Parse(typeof(distances), sunits);
+                    units = (distances) Enum.Parse(typeof(distances), sunits);
                 }
                 catch (Exception)
                 {
@@ -1658,6 +1692,7 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
             //FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
             FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
+            MakeRightSideMenuTransparent();
             /*FlightPlanner.wpMenu1.panel1.Parent = FlightPlanner.wpMenu1;
             FlightPlanner.wpMenu1.panel2.Parent = FlightPlanner.wpMenu1;
             FlightPlanner.wpMenu1.panel3.Parent = FlightPlanner.wpMenu1;
@@ -1665,7 +1700,6 @@ namespace MissionPlanner
             FlightPlanner.wpMenu1.panel5.Parent = FlightPlanner.wpMenu1;
             FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
             */
-            
 
 
             logger = new Logger();
@@ -1687,7 +1721,7 @@ namespace MissionPlanner
 
             List<GMapProvider> providers = GMapProviders.List;
             List<GMapProvider> filtredproviders = new List<GMapProvider>();
-            int[] providersNumsToCopy = new int[] { 16, 17, 18, 19, 64, 65 };
+            int[] providersNumsToCopy = new int[] {16, 17, 18, 19, 64, 65};
             foreach (int i in providersNumsToCopy)
             {
                 filtredproviders.Add(providers[i]);
@@ -1868,6 +1902,7 @@ namespace MissionPlanner
         }
 
         bool soundFlag = false;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             alarmLabelTextCheck();
@@ -1893,16 +1928,15 @@ namespace MissionPlanner
                     if (soundFlag)
                     {
                         System.Media.SoundPlayer player = new System.Media.SoundPlayer();
-                        if (File.Exists("D:\\test.wav")) 
+                        if (File.Exists("D:\\test.wav"))
                         {
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
                             soundFlag = !soundFlag;
                         }
                     }
-
                 }
-                else 
+                else
                 {
                     progressBar1.Maximum = 100;
                     progressBar1.Value = 5;
@@ -1920,28 +1954,35 @@ namespace MissionPlanner
         }
 
         public static List<string> notifications = new List<string>();
+
         void alarmLabelTextCheck()
         {
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected)
             {
-                if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps && MainV2.comPort.MAV.cs.sensors_present.gps)     //BadGPSHealth
+                if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps &&
+                    MainV2.comPort.MAV.cs.sensors_present.gps) //BadGPSHealth
                 {
                     notifications.Add("Плохой сигнал GPS");
                 }
-                else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
+                else if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro &&
+                         MainV2.comPort.MAV.cs.sensors_present.gyro) //BadGyroHealth
                 {
                     notifications.Add("Отказ гироскопов");
                 }
-                else if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
+                else if (!MainV2.comPort.MAV.cs.sensors_health.barometer &&
+                         MainV2.comPort.MAV.cs.sensors_enabled.barometer &&
+                         MainV2.comPort.MAV.cs.sensors_present.barometer) //BadBaroHealth
                 {
                     notifications.Add("Ошибка барометра");
                 }
-                else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
+                else if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs &&
+                         MainV2.comPort.MAV.cs.sensors_present.ahrs) //BadAHRS
                 {
                     notifications.Add("Ошибка ИНС");
                 }
-                else if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
+                else if (!MainV2.comPort.MAV.cs.sensors_health.compass &&
+                         MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
                 {
                     notifications.Add("Отказ компаса");
                 }
@@ -1973,7 +2014,8 @@ namespace MissionPlanner
                 {
                     notifications.Add("Режим возврата к точке «Дом»");
                 }
-                else if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                else if (MainV2.comPort.MAV.cs.battery_voltage2 /
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15) //check in persents
                 {
                     notifications.Add("Низкий уровень топлива");
                 }
@@ -1981,22 +2023,25 @@ namespace MissionPlanner
                 {
                     notifications.Add("Низкий уровень радиосигнала");
                 }
-                foreach (var v in notifications) 
+
+                foreach (var v in notifications)
                 {
                     logger.write(v);
                 }
+
                 if (notifications.Count > 0)
                 {
                     label1.BackColor = Color.DarkRed;
                     label1.Text = "ОШИБКА!!!";
                 }
-                else 
+                else
                 {
                     label1.BackColor = Color.Lime;
                     label1.Text = "";
                 }
             }
-            else {
+            else
+            {
                 /*for (int i = 0; i < 7; i++)
                 {
                     notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
@@ -4809,38 +4854,38 @@ namespace MissionPlanner
                 return true;
             }
 
-           /* bool manualFlightMode = false;
-            int[] overrides = {1500, 1500, 1500, 1500};
-
-
-            if (keyData == (Keys.Control | Keys.ControlKey))
-            {
-                manualFlightMode = true;
-                //CustomMessageBox.Show("CTRL!!!");
-            }
-
-            if (keyData == (Keys.Control | Keys.Left))
-            {
-                manualFlightMode = true;
-                overrides[3] = (int)(secondTrim*0.85);
-            }
-
-            if (keyData == (Keys.Control | Keys.Right))
-            {
-                manualFlightMode = true;
-                overrides[3] = (int)(secondTrim * 1.15);
-            }
-
-            if (keyData == (Keys.Control | Keys.Up))
-            {
-                manualFlightMode = true;
-                overrides[1] = (int)(thirdTrim * 1.15); ;
-            }*/
+            /* bool manualFlightMode = false;
+             int[] overrides = {1500, 1500, 1500, 1500};
+ 
+ 
+             if (keyData == (Keys.Control | Keys.ControlKey))
+             {
+                 manualFlightMode = true;
+                 //CustomMessageBox.Show("CTRL!!!");
+             }
+ 
+             if (keyData == (Keys.Control | Keys.Left))
+             {
+                 manualFlightMode = true;
+                 overrides[3] = (int)(secondTrim*0.85);
+             }
+ 
+             if (keyData == (Keys.Control | Keys.Right))
+             {
+                 manualFlightMode = true;
+                 overrides[3] = (int)(secondTrim * 1.15);
+             }
+ 
+             if (keyData == (Keys.Control | Keys.Up))
+             {
+                 manualFlightMode = true;
+                 overrides[1] = (int)(thirdTrim * 1.15); ;
+             }*/
 
             //if (keyData == (Keys.Control | Keys.Down))
             //{
-                //manualFlightMode = true;
-                //overrides[3] = 1300;
+            //manualFlightMode = true;
+            //overrides[3] = 1300;
             //}
 
             /*if (keyData == (Keys.Control | Keys.Right | Keys.Up))
@@ -5169,8 +5214,9 @@ namespace MissionPlanner
             }
         }
 
-        private ushort[] overrides = new ushort[] { 1500, 1500, 1500, 1500 };
+        private ushort[] overrides = new ushort[] {1500, 1500, 1500, 1500};
         private static bool overrideModeActive = false;
+
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
@@ -5182,7 +5228,7 @@ namespace MissionPlanner
                 logger.write("Ручное управление завершено");
                 System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
                 overrideModeActive = false;
-                if (comPort.MAV.cs.mode != "Auto") 
+                if (comPort.MAV.cs.mode != "Auto")
                 {
                     MainV2.comPort.setMode("AUTO");
                 }
@@ -5222,16 +5268,17 @@ namespace MissionPlanner
             {
                 FlightPlanner.instance.MainMap_KeyDown(sender, e);
             }
+
             Keys keyData = e.KeyData;
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
             if (keyData == (Keys.Control | Keys.ControlKey))
             {
-                secondTrim = (ushort)MainV2.comPort.GetParam("SERVO4_TRIM");
-                thirdTrim = (ushort)MainV2.comPort.GetParam("SERVO2_TRIM");
+                secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
+                thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
                 logger.write("Ручное управление активировано");
                 System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
                 overrideModeActive = true;
-                if (comPort.MAV.cs.mode != "FBWB")         //FBWB
+                if (comPort.MAV.cs.mode != "FBWB") //FBWB
                 {
                     MainV2.comPort.setMode("FBWB");
                 }
@@ -5240,30 +5287,33 @@ namespace MissionPlanner
             if (keyData == (Keys.Control | Keys.Left))
             {
                 System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                overrides[3] = (ushort)(secondTrim - 0.15 * (secondTrim - 900) -100);
+                overrides[3] = (ushort) (secondTrim - 0.15 * (secondTrim - 900) - 100);
                 debugOverrideInfo += " ← ";
             }
 
             if (keyData == (Keys.Control | Keys.Right))
             {
                 System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                overrides[3] = (ushort)(secondTrim + 0.15 * (secondTrim - 900));
+                overrides[3] = (ushort) (secondTrim + 0.15 * (secondTrim - 900));
                 debugOverrideInfo += " → ";
             }
 
             if (keyData == (Keys.Control | Keys.Up))
             {
                 System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                overrides[1] = (ushort)(thirdTrim + 0.15 * (thirdTrim - 900));
+                overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));
                 debugOverrideInfo += " ↑ ";
             }
+
             if (overrideModeActive)
             {
                 ctrlModeDebuglabel.Text = debugOverrideInfo;
             }
-            else {
+            else
+            {
                 ctrlModeDebuglabel.Text = "";
             }
+
             //debugOverrideInfo += " ↓ ";       
             //if (e.KeyCode == Keys.G)
             //{
@@ -5731,22 +5781,20 @@ namespace MissionPlanner
         private void panel1_SizeChanged(object sender, EventArgs e)
         {
             int width = panel1.Size.Width;
-            progressBar1.Location = new Point((int)width / 2 - 2, 140);
-            progressBar2.Location = new Point( 0, 140);
-            progressBar1.Size = new Size( width / 2 + 2, 20);
-            progressBar2.Size = new Size( width / 2 + 2, 20);
-            label1.Location = new Point((int)width / 2 - 2 - label1.Size.Width/2, 140);
+            progressBar1.Location = new Point((int) width / 2 - 2, 140);
+            progressBar2.Location = new Point(0, 140);
+            progressBar1.Size = new Size(width / 2 + 2, 20);
+            progressBar2.Size = new Size(width / 2 + 2, 20);
+            label1.Location = new Point((int) width / 2 - 2 - label1.Size.Width / 2, 140);
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            if (notifications.Count > 0) 
+            if (notifications.Count > 0)
             {
                 FlightPlanner.notificationListControl1.fullList = true;
                 FlightPlanner.notificationListControl1.redraw();
             }
         }
-
-       
     }
 }
