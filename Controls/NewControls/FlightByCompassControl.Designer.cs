@@ -71,9 +71,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(68, 169);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 13);
+            this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Полет по компасу";
+            this.label3.Text = "Текущий курс";
             // 
             // directionNowLabel
             // 
@@ -86,6 +86,8 @@
             // 
             // turnOnButton
             // 
+            this.turnOnButton.BGGradBot = System.Drawing.Color.Empty;
+            this.turnOnButton.BGGradTop = System.Drawing.Color.Empty;
             this.turnOnButton.Location = new System.Drawing.Point(119, 88);
             this.turnOnButton.Name = "turnOnButton";
             this.turnOnButton.Size = new System.Drawing.Size(75, 23);

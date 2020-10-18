@@ -567,8 +567,8 @@ namespace MissionPlanner
 
         public static int currentEngineMode = 3;
 
-        public float secondTrim = -1;
-        public float thirdTrim = -1;
+        public ushort secondTrim = 1500;
+        public ushort thirdTrim = 1500;
 
         private static double currentConnectionRate = -1;
         // public static int maxCapacity = 0;
@@ -1584,6 +1584,7 @@ namespace MissionPlanner
                     rc.chan2_raw = (ushort)overrides[1];
                     rc.chan3_raw = (ushort)overrides[2];
                     rc.chan4_raw = (ushort)overrides[3];
+                    System.Diagnostics.Debug.WriteLine("Overrides: "+overrides[0]+" "+ overrides[1] + " "+ overrides[2] + " "+ overrides[3] + " ");
                     if (comPort.BaseStream.IsOpen)
                     {
                         if (comPort.BaseStream.BytesToWrite < 50)
@@ -5168,7 +5169,7 @@ namespace MissionPlanner
             }
         }
 
-        private float[] overrides = new float[] { 1500, 1500, 1500, 1500 };
+        private ushort[] overrides = new ushort[] { 1500, 1500, 1500, 1500 };
         private static bool overrideModeActive = false;
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
@@ -5190,25 +5191,25 @@ namespace MissionPlanner
             if (keyData == (Keys.Control | Keys.Left))
             {
                 System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
-                overrides[3] = 1500f;
+                overrides[3] = 1500;
             }
 
             if (keyData == (Keys.Control | Keys.Right))
             {
                 System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
-                overrides[3] = 1500f;
+                overrides[3] = 1500;
             }
 
             if (keyData == (Keys.Control | Keys.Up))
             {
                 System.Diagnostics.Debug.WriteLine("UP is RELEASED");
-                overrides[1] = 1500f;
+                overrides[1] = 1500;
             }
         }
 
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
         {
-            Message temp = new Message();
+            //Message temp = new Message();
             //ProcessCmdKey(ref temp, e.KeyData);
             Console.WriteLine("MainV2_KeyDown " + e.ToString());
             if (e.KeyCode == Keys.Q)
@@ -5225,33 +5226,35 @@ namespace MissionPlanner
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
             if (keyData == (Keys.Control | Keys.ControlKey))
             {
+                secondTrim = (ushort)MainV2.comPort.GetParam("SERVO4_TRIM");
+                thirdTrim = (ushort)MainV2.comPort.GetParam("SERVO2_TRIM");
                 logger.write("Ручное управление активировано");
                 System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
                 overrideModeActive = true;
-                if (comPort.MAV.cs.mode != "Stabilize")         //FBWB
+                if (comPort.MAV.cs.mode != "FBWB")         //FBWB
                 {
-                    MainV2.comPort.setMode("Stabilize");
+                    MainV2.comPort.setMode("FBWB");
                 }
             }
 
             if (keyData == (Keys.Control | Keys.Left))
             {
                 System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                overrides[3] = secondTrim * 0.85f;
+                overrides[3] = (ushort)(secondTrim - 0.15 * (secondTrim - 900) -100);
                 debugOverrideInfo += " ← ";
             }
 
             if (keyData == (Keys.Control | Keys.Right))
             {
                 System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                overrides[3] = secondTrim * 1.15f;
+                overrides[3] = (ushort)(secondTrim + 0.15 * (secondTrim - 900));
                 debugOverrideInfo += " → ";
             }
 
             if (keyData == (Keys.Control | Keys.Up))
             {
                 System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                overrides[1] = thirdTrim * 1.15f;
+                overrides[1] = (ushort)(thirdTrim + 0.15 * (thirdTrim - 900));
                 debugOverrideInfo += " ↑ ";
             }
             if (overrideModeActive)

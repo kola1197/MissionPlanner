@@ -26,7 +26,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            directionNowLabel.Text = MainV2.comPort.MAV.cs.connected ? MainV2.comPort.MAV.cs.nav_bearing.ToString() : "null";
+            directionNowLabel.Text = MainV2.comPort.MAV.cs.connected ? MainV2.comPort.MAV.cs.yaw.ToString() : "null";
             if (enabled)
             {
                 computePID();
@@ -40,9 +40,11 @@ namespace MissionPlanner.Controls.NewControls
 
         private void computePID() 
         {
+            float.TryParse(textBox1.Text, out directValue);
+
             float dt = timer1.Interval;
             dt /= 1000;
-            float error = MainV2.comPort.MAV.cs.nav_bearing - directValue;
+            float error = MainV2.comPort.MAV.cs.yaw - directValue;
             while (error > 180)
             {
                 error -= 360;
@@ -62,8 +64,8 @@ namespace MissionPlanner.Controls.NewControls
             float derevative = (error - preError) / dt;           //we have the same time with timer
             float Dout = Kd * derevative;
 
-            float output = Pout + Iout + Dout;
-            output /= 100;
+            float output = Pout /*+ Iout*/ + Dout;
+            output /= 2.5f;
             
             System.Diagnostics.Debug.WriteLine("PID answer: " + output.ToString());
             /*MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
@@ -73,7 +75,12 @@ namespace MissionPlanner.Controls.NewControls
             MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
             rc.target_component = MainV2.comPort.MAV.compid;
             rc.target_system = MainV2.comPort.MAV.sysid;
-            rc.chan2_raw = Convert.ToUInt16(output);
+            rc.chan1_raw = 1500;
+            rc.chan2_raw = 1500;
+            rc.chan3_raw = 1500;
+            if (output > 100) { output = 100; }
+            if (output < -100) { output = -100; }
+            rc.chan4_raw = Convert.ToUInt16(1500 - output);
             //rc.chan3_raw = Convert.ToUInt16(overrides[3]);
             //new DevopsUI().ShowUserControl();
             // TODO: add right values
@@ -105,7 +112,7 @@ namespace MissionPlanner.Controls.NewControls
             {
                 turnOnButton.Text = "Выключить";
                 float.TryParse(directionNowLabel.Text, out directValue);
-                MainV2.comPort.setMode("Stabilize");
+                MainV2.comPort.setMode("FBWB");
             }
             else 
             {
