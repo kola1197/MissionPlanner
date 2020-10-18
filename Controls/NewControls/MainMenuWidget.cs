@@ -80,7 +80,8 @@ namespace MissionPlanner.Controls
             FlightPlanner.RulerOverlay.Routes.Add(RulerRoute);
             RedrawRulerSurvey(RulerRoute);
 
-            FlightPlanner.instance.OutlineForeColor = Color.FromArgb(255, Color.White);
+            FlightPlanner.instance.OutlineTotalDistanceColor = Color.FromArgb(255, Color.Black);
+            FlightPlanner.instance.OutlineDistanceBetweenPointsColor = Color.FromArgb(255, Color.Black);
             FlightPlanner.instance.OutlineWidth = 2;
         }
 

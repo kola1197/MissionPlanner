@@ -2826,12 +2826,13 @@ namespace MissionPlanner.GCSViews
 
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
-            for (int i = 0; i < GetRulerRoute().Points.Count - 1; i++)
+            List<PointLatLng> points = GetRulerRoute().Points;
+            for (int i = 0; i < points.Count - 1; i++)
             {
-                DrawDistanceBetweenTwoPoints(e, GetRulerRoute().Points[i], GetRulerRoute().Points[i + 1]);
+                DrawDistanceBetweenTwoPoints(e, points[i], points[i + 1]);
             }
 
-            if (GetRulerRoute().Points.Count > 1)
+            if (points.Count > 1)
             {
                 DrawTotalDistance(e);
             }
@@ -2848,39 +2849,45 @@ namespace MissionPlanner.GCSViews
             return totalDistance;
         }
 
-        public Color OutlineForeColor { get; set; }
+        public Color OutlineTotalDistanceColor { get; set; }
+
+        public Color OutlineDistanceBetweenPointsColor { get; set; }
+
         public float OutlineWidth { get; set; }
+
+        private Font font = new Font(SystemFonts.DefaultFont, FontStyle.Italic | FontStyle.Bold);
 
         private void DrawTotalDistance(PaintEventArgs e)
         {
-            e.Graphics.ResetTransform();
-            Font font = new Font(Font, FontStyle.Bold);
-            string textToDraw = FormatDistance(GetTotalDistance());
+            string distance = FormatDistance(GetTotalDistance());
             GPoint rectangleLocation = MainMap.FromLatLngToLocal(GetRulerRoute().Points.Last());
             Rectangle rectangle = new Rectangle((int) rectangleLocation.X, (int) rectangleLocation.Y,
-                (int) Math.Truncate(font.SizeInPoints + 3) * textToDraw.Length, font.Height + 5);
+                (int) Math.Truncate(font.SizeInPoints + 3) * distance.Length, font.Height + 5);
+
+            e.Graphics.ResetTransform();
+
             e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100, Color.Black)), rectangle);
             e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.Black)), rectangle);
-            // e.Graphics.DrawString(FormatDistance(GetTotalDistance()), SystemFonts.DefaultFont,
-            //     new SolidBrush(Color.White), rectangleLocation.X + rectangle.Width / 4,
-            //     rectangleLocation.Y + rectangle.Height / 4);
-            //
+            DrawDistanceString(e, distance, rectangle);
 
+            e.Graphics.ResetTransform();
+        }
+
+        private void DrawDistanceString(PaintEventArgs e, string distance, Rectangle rectangle)
+        {
             using (GraphicsPath gp = new GraphicsPath())
-            using (Pen outline = new Pen(OutlineForeColor, OutlineWidth)
+            using (Pen outline = new Pen(OutlineTotalDistanceColor, OutlineWidth)
                 {LineJoin = LineJoin.Round})
             using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
-            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Black)))
+            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.White)))
             {
-                gp.AddString(textToDraw, font.FontFamily, (int) font.Style,
+                gp.AddString(distance, font.FontFamily, (int) font.Style,
                     15, rectangle, sf);
                 // e.Graphics.ScaleTransform(1.3f, 1.35f);
                 e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
                 e.Graphics.DrawPath(outline, gp);
                 e.Graphics.FillPath(foreBrush, gp);
             }
-
-            e.Graphics.ResetTransform();
         }
 
         private void DrawDistanceBetweenTwoPoints(PaintEventArgs e, PointLatLng p1, PointLatLng p2)
@@ -2888,47 +2895,28 @@ namespace MissionPlanner.GCSViews
             GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
             float drawingAngle = GetDistanceDrawingAngle(p1, p2);
             float azimuthAngle = GetAzimuthAngle(p1, p2) + 90;
+
             if (azimuthAngle < 0)
-            {
                 azimuthAngle += 360;
-            }
 
             string formatAzimuthAngle = azimuthAngle.ToString("F1") + "°";
-            string textToDraw = formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2));
+            string distance = formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2));
+            Point rectangleLocation = new Point(0, 0);
+            Rectangle rectangle;
+
             e.Graphics.ResetTransform();
 
             e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
             e.Graphics.RotateTransform(drawingAngle);
-            // e.Graphics.DrawString(textToDraw,
-            // SystemFonts.DefaultFont,
-            // new SolidBrush(Color.Black), 0, 0);
-            Font font = new Font(Font, FontStyle.Bold);
-            Rectangle rectangle;
-            if (azimuthAngle > 0 && azimuthAngle < 180)
+
+            if (!(azimuthAngle > 0 && azimuthAngle < 180))
             {
-                rectangle = new Rectangle(0, 0, (int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 100);
-            }
-            else
-            {
-                rectangle = new Rectangle(-(int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 0,
-                    (int) Math.Truncate(font.SizeInPoints + 1) * textToDraw.Length, 100);
+                rectangleLocation = new Point(-(int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 0);
             }
 
-            e.Graphics.DrawRectangle(new Pen(Color.Transparent), rectangle);
-            e.Graphics.FillRectangle(new SolidBrush(Color.Transparent), rectangle);
-            using (GraphicsPath gp = new GraphicsPath())
-            using (Pen outline = new Pen(OutlineForeColor, OutlineWidth)
-                {LineJoin = LineJoin.Round})
-            using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
-            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Black)))
-            {
-                gp.AddString(textToDraw, font.FontFamily, (int) font.Style,
-                    15, rectangle, sf);
-                // e.Graphics.ScaleTransform(1.3f, 1.35f);
-                e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-                e.Graphics.DrawPath(outline, gp);
-                e.Graphics.FillPath(foreBrush, gp);
-            }
+            rectangle = new Rectangle(rectangleLocation, new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
+
+            DrawDistanceString(e, distance, rectangle);
 
             e.Graphics.ResetTransform();
         }

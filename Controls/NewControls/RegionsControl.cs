@@ -57,6 +57,7 @@ namespace MissionPlanner.Controls.NewControls
 
             regions_LB.DisplayMember = "Name";
             // regions_LB.ValueMember = "Name";
+            // regions_LB.Invoke((Action)(() => regions_LB.DataSource = regionsBindingSource));
             regions_LB.DataSource = regionsBindingSource;
 
             _latIndex = latLong_DGV.Columns["Latitude"].Index;
@@ -120,7 +121,7 @@ namespace MissionPlanner.Controls.NewControls
             if (latLong_DGV.Columns.Contains("IsEmpty"))
                 latLong_DGV.Columns.Remove("IsEmpty");
 
-            Invalidate();
+            // Invalidate();
         }
 
         private void addRegion_BUT_Click(object sender, EventArgs e)
@@ -162,7 +163,7 @@ namespace MissionPlanner.Controls.NewControls
             });
 
             FlightPlanner.instance.MainMap.UpdatePolygonLocalPosition(polygon);
-
+            
             FlightPlanner.instance.MainMap.Invalidate();
         }
 
