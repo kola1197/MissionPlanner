@@ -13,6 +13,7 @@ namespace MissionPlanner.Maps
     public class GMapMarkerPlus : GMapMarker
     {
         private static readonly Bitmap icong = new Bitmap(global::MissionPlanner.Maps.Resources.plus.ToBitmap(), new Size(20, 20));
+        private static readonly Bitmap iconGreen = new Bitmap(global::MissionPlanner.Maps.Resources.plus_green.ToBitmap(), new Size(20, 20));
 
         public GMapMarkerPlus(PointLatLng p)
             : base(p)
@@ -29,11 +30,16 @@ namespace MissionPlanner.Maps
 
             if (IsMouseOver)
             {
-                g.TranslateTransform(icong.Width / 2, icong.Height / -4);
-                g.RotateTransform(45);
+                g.DrawImageUnscaled(iconGreen, 0, 0);// icong.Width / -2, icong.Height / -2);
+                // g.TranslateTransform(icong.Width / 2, icong.Height / -4);
+                // g.RotateTransform(45);
+            }
+            else
+            {
+                g.DrawImageUnscaled(icong, 0, 0);// icong.Width / -2, icong.Height / -2);
             }
 
-            g.DrawImageUnscaled(icong, 0, 0);// icong.Width / -2, icong.Height / -2);
+            // g.DrawImageUnscaled(icong, 0, 0);// icong.Width / -2, icong.Height / -2);
 
             g.Transform = temp;
         }
