@@ -564,7 +564,6 @@ namespace MissionPlanner
         private string mapTitleStatus = "";
         int centering = 0; //0 - false, 1 - onse, 2 - always
         public static bool sitlMapChangeSignal = false;
-        public static bool regionActive = false;
 
         public static int currentEngineMode = 3;
 

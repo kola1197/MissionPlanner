@@ -171,7 +171,7 @@ namespace MissionPlanner.Controls.NewControls
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red);
+                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.yellow);
                 m.ToolTipMode = MarkerTooltipMode.Never;
                 m.ToolTipText = "grid" + tag;
                 m.Tag = "grid" + tag;
