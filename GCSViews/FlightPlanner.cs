@@ -1115,7 +1115,8 @@ namespace MissionPlanner.GCSViews
                 new GMarkerGoogle(new PointLatLng(geofencepolygon.Points[0].Lat, geofencepolygon.Points[0].Lng),
                     GMarkerGoogleType.red)
                 {
-                    ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                    // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                    ToolTipMode = MarkerTooltipMode.Never,
                     ToolTipText = "GeoFence Return"
                 });
             geofencepolygon.Points.RemoveAt(0);
@@ -1184,7 +1185,8 @@ namespace MissionPlanner.GCSViews
                     rallypointoverlay.Markers.Add(new GMapMarkerRallyPt(new PointLatLng(plla.plla.Lat, plla.plla.Lng))
                     {
                         Alt = (int) plla.plla.Alt,
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        ToolTipMode = MarkerTooltipMode.Never,
                         ToolTipText = "Rally Point" + "\nAlt: " + (plla.plla.Alt * CurrentState.multiplieralt)
                     });
                 }
@@ -4659,7 +4661,8 @@ namespace MissionPlanner.GCSViews
                                             double.Parse(items[1], CultureInfo.InvariantCulture)),
                                         GMarkerGoogleType.red)
                                     {
-                                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                                        ToolTipMode = MarkerTooltipMode.Never,
                                         ToolTipText = "GeoFence Return"
                                     });
                                 MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
@@ -6327,7 +6330,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 rallypointoverlay.Markers.Add(
                     new GMapMarkerRallyPt(rallypt)
                     {
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        ToolTipMode = MarkerTooltipMode.Never,
                         ToolTipText = "Rally Point" + "\nAlt: " + alt,
                         Tag = rallypointoverlay.Markers.Count,
                         Alt = (int) rallypt.Alt
@@ -6346,8 +6350,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             geofenceoverlay.Markers.Clear();
             geofenceoverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
-                    GMarkerGoogleType.red)
-                {ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return"});
+                GMarkerGoogleType.red)
+            {
+                // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                ToolTipMode = MarkerTooltipMode.Never,
+                ToolTipText = "GeoFence Return"
+            });
 
             MainMap.Invalidate();
         }
@@ -7808,7 +7816,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     airportsoverlay.Markers.Add(new GMapMarkerAirport(item)
                     {
                         ToolTipText = item.Tag,
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver
+                        ToolTipMode = MarkerTooltipMode.Never
                     });
                 }
             }
@@ -7892,7 +7901,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private WpInfoForm _wpInfoForm;
+        private static WaypointInfoControl _wpControl=new WaypointInfoControl() {Visible = false};
 
         private void MainMap_OnMarkerEnter(GMapMarker item)
         {
@@ -7922,13 +7931,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     CurentRectMarker = rc;
 
-                    if (rc.Tag == "H")
-                    {
-                        _wpInfoForm = new WpInfoForm(0, (int) Math.Truncate(double.Parse(TXT_homealt.Text)), "HOME", "")
-                            {Visible = false, StartPosition = FormStartPosition.Manual};
-                        _wpInfoForm.Location = new Point(Cursor.Position.X + 20, Cursor.Position.Y);
-                        _wpInfoForm.Show();
-                    }
+                    ShowPopupWpInfo(rc);
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -7955,15 +7958,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
-                    GMapMarkerWP currentWp = item as GMapMarkerWP;
-                    int wpno = Convert.ToInt32(currentWp.Tag);
-                    int alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
-                    string type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
-                    string homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], currentWp.Position));
-                    _wpInfoForm = new WpInfoForm(wpno, alt, type, homeDist)
-                        {Visible = false, StartPosition = FormStartPosition.Manual};
-                    _wpInfoForm.Location = new Point(Cursor.Position.X + 20, Cursor.Position.Y);
-                    _wpInfoForm.Show();
+                    ShowPopupWpInfo(item);
                 }
 
                 if (item is GMapMarker)
@@ -7971,6 +7966,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     //CurrentGMapMarker = item;
                 }
             }
+        }
+
+        private void ShowPopupWpInfo(GMapMarker marker)
+        {
+            int wpno, alt;
+            string type, homeDist;
+            if (marker.Tag == "H")
+            {
+                wpno = 0;
+                alt = (int) Math.Truncate(double.Parse(TXT_homealt.Text));
+                type = "HOME";
+                homeDist = "";
+            }
+            else
+            {
+                wpno = Convert.ToInt32(marker.Tag);
+                alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
+                type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
+                homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
+            }
+
+            Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
+                (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
+            _wpControl.SetInfo(wpno, alt, type, homeDist);
+            _wpControl.Parent = MainMap;
+            _wpControl.Location = location;
+            _wpControl.Show();
         }
 
         private void MainMap_OnMarkerLeave(GMapMarker item)
@@ -7983,6 +8005,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.ResetColor();
                     MainMap.Invalidate(false);
+
+                    if (rc.Tag == "H")
+                    {
+                        _wpControl.Hide();
+                    }
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -8008,7 +8035,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
-                    _wpInfoForm.Close();
+                    _wpControl.Hide();
                 }
             }
         }

@@ -660,9 +660,6 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static EngineControlForm EngineControlForm = new EngineControlForm()
-            {Visible = false, StartPosition = FormStartPosition.Manual};
-
         public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
 
         /// <summary>
@@ -1341,7 +1338,6 @@ namespace MissionPlanner
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
             SetRouteFormLocation();
-            SetEngineFormLocation();
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
@@ -1362,7 +1358,7 @@ namespace MissionPlanner
         public void SetEngineFormLocation()
         {
             Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+            StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
                 this.Location.Y + locationLocal.Y);
         }
 

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Utilities;
+using CustomMessageBox = MissionPlanner.MsgBox.CustomMessageBox;
 
 namespace MissionPlanner.NewForms
 {
@@ -19,7 +21,8 @@ namespace MissionPlanner.NewForms
             wpInfoControl.alt_label.Text = altitude + " м";
             wpInfoControl.type_label.Text = type;
             wpInfoControl.homeDist_label.Text = homeDist;
-
+            // AllowTransparency = true;
+            // Opacity = 0.85;
             if (type == "HOME")
             {
                 wpInfoControl.label14.Text = "";

@@ -47,6 +47,7 @@
             this.wpInfo_GB.Controls.Add(this.type_label);
             this.wpInfo_GB.Controls.Add(this.label12);
             this.wpInfo_GB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpInfo_GB.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.wpInfo_GB.Location = new System.Drawing.Point(0, 0);
             this.wpInfo_GB.Name = "wpInfo_GB";
             this.wpInfo_GB.Size = new System.Drawing.Size(159, 113);

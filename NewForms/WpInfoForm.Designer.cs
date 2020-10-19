@@ -33,7 +33,8 @@
             // 
             // wpInfoControl
             // 
-            this.wpInfoControl.Location = new System.Drawing.Point(10, 7);
+            this.wpInfoControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.wpInfoControl.Location = new System.Drawing.Point(0, 3);
             this.wpInfoControl.Name = "wpInfoControl";
             this.wpInfoControl.Size = new System.Drawing.Size(159, 113);
             this.wpInfoControl.TabIndex = 0;
@@ -44,15 +45,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(177, 130);
+            this.ClientSize = new System.Drawing.Size(163, 120);
             this.Controls.Add(this.wpInfoControl);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WpInfoForm";
             this.Text = "WpInfoForm";
             this.ResumeLayout(false);
-
         }
 
         #endregion
