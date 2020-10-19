@@ -28,26 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sideMenuPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ppkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.antennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sideMenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // sideMenuPanel
-            // 
-            this.sideMenuPanel.Controls.Add(this.menuStrip1);
-            this.sideMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.sideMenuPanel.Name = "sideMenuPanel";
-            this.sideMenuPanel.Size = new System.Drawing.Size(34, 178);
-            this.sideMenuPanel.TabIndex = 1;
-            // 
             // menuStrip1
             // 
+            this.menuStrip1.BackgroundImage = global::MissionPlanner.Properties.Resources._01_05;
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ppkToolStripMenuItem,
@@ -56,7 +47,7 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(126, 178);
+            this.menuStrip1.Size = new System.Drawing.Size(33, 300);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -85,7 +76,7 @@
             // 
             this.antennaToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
             this.antennaToolStripMenuItem.Text = "АНТ";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
@@ -93,22 +84,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.sideMenuPanel);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(40, 300);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(37, 181);
-            this.sideMenuPanel.ResumeLayout(false);
-            this.sideMenuPanel.PerformLayout();
+            this.Size = new System.Drawing.Size(300, 300);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel sideMenuPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ppkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regionsToolStripMenuItem;

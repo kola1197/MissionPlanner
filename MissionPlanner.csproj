@@ -447,6 +447,12 @@
     <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.Designer.cs">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -988,6 +994,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\newRightSideMenuControl.resx">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
       <DependentUpon>NotificationControl.cs</DependentUpon>

@@ -281,36 +281,6 @@
   <metadata name="CTX_mainmenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>206, 10</value>
   </metadata>
-  <data name="autoHideToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="autoHideToolStripMenuItem.Text" xml:space="preserve">
-    <value>AutoHide</value>
-  </data>
-  <data name="fullScreenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="fullScreenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Full Screen</value>
-  </data>
-  <data name="readonlyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="readonlyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Readonly</value>
-  </data>
-  <data name="connectionOptionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="connectionOptionsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Connection Options</value>
-  </data>
-  <data name="connectionListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="connectionListToolStripMenuItem.Text" xml:space="preserve">
-    <value>Connection List</value>
-  </data>
   <data name="CTX_mainmenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 114</value>
   </data>
@@ -931,6 +901,129 @@
   <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="autoHideToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="autoHideToolStripMenuItem.Text" xml:space="preserve">
+    <value>AutoHide</value>
+  </data>
+  <data name="fullScreenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="fullScreenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Full Screen</value>
+  </data>
+  <data name="readonlyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="readonlyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Readonly</value>
+  </data>
+  <data name="connectionOptionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="connectionOptionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Connection Options</value>
+  </data>
+  <data name="connectionListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="connectionListToolStripMenuItem.Text" xml:space="preserve">
+    <value>Connection List</value>
+  </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>339, 10</value>
+  </metadata>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Name" xml:space="preserve">
+    <value>progressBar2</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Type" xml:space="preserve">
+    <value>BSE.Windows.Forms.ProgressBar, BSE.Windows.Forms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
+    <value>progressBar1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
+    <value>BSE.Windows.Forms.ProgressBar, BSE.Windows.Forms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;status1.Name" xml:space="preserve">
+    <value>status1</value>
+  </data>
+  <data name="&gt;&gt;status1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7597.40509, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;status1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;status1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 42</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="panel1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>133332, 160</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1034, 160</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="panel1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1208,60 +1301,6 @@
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="status1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="status1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 143</value>
-  </data>
-  <data name="status1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1034, 17</value>
-  </data>
-  <data name="status1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;status1.Name" xml:space="preserve">
-    <value>status1</value>
-  </data>
-  <data name="&gt;&gt;status1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;status1.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;status1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 42</value>
-  </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="panel1.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>133332, 160</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1034, 160</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="panel1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
   </data>
@@ -1291,6 +1330,135 @@
   </metadata>
   <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;ctrlModeDebuglabel.Name" xml:space="preserve">
+    <value>ctrlModeDebuglabel</value>
+  </data>
+  <data name="&gt;&gt;ctrlModeDebuglabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ctrlModeDebuglabel.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;ctrlModeDebuglabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;myButton6.Name" xml:space="preserve">
+    <value>myButton6</value>
+  </data>
+  <data name="&gt;&gt;myButton6.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton6.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;myButton5.Name" xml:space="preserve">
+    <value>myButton5</value>
+  </data>
+  <data name="&gt;&gt;myButton5.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton5.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;snsControl2.Name" xml:space="preserve">
+    <value>snsControl2</value>
+  </data>
+  <data name="&gt;&gt;snsControl2.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7597.40509, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;snsControl2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;snsControl2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;servoGimbal2.Name" xml:space="preserve">
+    <value>servoGimbal2</value>
+  </data>
+  <data name="&gt;&gt;servoGimbal2.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7597.40509, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoGimbal2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;servoGimbal2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;coordinatsControl1.Name" xml:space="preserve">
+    <value>coordinatsControl1</value>
+  </data>
+  <data name="&gt;&gt;coordinatsControl1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7597.40509, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;coordinatsControl1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;coordinatsControl1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;timeControl2.Name" xml:space="preserve">
+    <value>timeControl2</value>
+  </data>
+  <data name="&gt;&gt;timeControl2.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7597.40509, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;timeControl2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;timeControl2.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Name" xml:space="preserve">
+    <value>myButton3</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Name" xml:space="preserve">
+    <value>myButton4</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton4.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 778</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1629, 58</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="ctrlModeDebuglabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1378,6 +1546,132 @@
   </data>
   <data name="&gt;&gt;myButton5.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="myButton3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="myButton3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="myButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 3</value>
+  </data>
+  <data name="myButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 32</value>
+  </data>
+  <data name="myButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="myButton3.Text" xml:space="preserve">
+    <value>BackToMap</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Name" xml:space="preserve">
+    <value>myButton3</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton3.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="myButton4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="myButton4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="myButton4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>703, 3</value>
+  </data>
+  <data name="myButton4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 32</value>
+  </data>
+  <data name="myButton4.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="myButton4.Text" xml:space="preserve">
+    <value>test1</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Name" xml:space="preserve">
+    <value>myButton4</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;myButton4.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;myButton4.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="menu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="menu.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="menu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="menu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1629, 28</value>
+  </data>
+  <data name="menu.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="menu.Text" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="&gt;&gt;menu.Name" xml:space="preserve">
+    <value>menu</value>
+  </data>
+  <data name="&gt;&gt;menu.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;menu.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="rightSideMenuControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="rightSideMenuControl1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rightSideMenuControl1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="rightSideMenuControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1596, 204</value>
+  </data>
+  <data name="rightSideMenuControl1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>40, 300</value>
+  </data>
+  <data name="rightSideMenuControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 300</value>
+  </data>
+  <data name="rightSideMenuControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Name" xml:space="preserve">
+    <value>rightSideMenuControl1</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;rightSideMenuControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="snsControl2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1552,7 +1846,7 @@
     <value>snsControl2</value>
   </data>
   <data name="&gt;&gt;snsControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.SNSControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;snsControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1736,7 +2030,7 @@
     <value>servoGimbal2</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.servoGimbal, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoGimbal2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -1917,7 +2211,7 @@
     <value>coordinatsControl1</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.CoordinatsControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;coordinatsControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2101,7 +2395,7 @@
     <value>timeControl2</value>
   </data>
   <data name="&gt;&gt;timeControl2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.TimeControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -2109,149 +2403,29 @@
   <data name="&gt;&gt;timeControl2.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="myButton3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="status1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="myButton3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="status1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 143</value>
   </data>
-  <data name="myButton3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>828, 3</value>
+  <data name="status1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1034, 17</value>
   </data>
-  <data name="myButton3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 32</value>
+  <data name="status1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="myButton3.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="&gt;&gt;status1.Name" xml:space="preserve">
+    <value>status1</value>
   </data>
-  <data name="myButton3.Text" xml:space="preserve">
-    <value>BackToMap</value>
+  <data name="&gt;&gt;status1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.Status, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;myButton3.Name" xml:space="preserve">
-    <value>myButton3</value>
+  <data name="&gt;&gt;status1.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="&gt;&gt;myButton3.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;myButton3.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;myButton3.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="myButton4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="myButton4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="myButton4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>703, 3</value>
-  </data>
-  <data name="myButton4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 32</value>
-  </data>
-  <data name="myButton4.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="myButton4.Text" xml:space="preserve">
-    <value>test1</value>
-  </data>
-  <data name="&gt;&gt;myButton4.Name" xml:space="preserve">
-    <value>myButton4</value>
-  </data>
-  <data name="&gt;&gt;myButton4.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;myButton4.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;myButton4.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 778</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1629, 58</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="menu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="menu.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="menu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="menu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1629, 28</value>
-  </data>
-  <data name="menu.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="menu.Text" xml:space="preserve">
-    <value>Menu</value>
-  </data>
-  <data name="&gt;&gt;menu.Name" xml:space="preserve">
-    <value>menu</value>
-  </data>
-  <data name="&gt;&gt;menu.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;menu.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;status1.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="rightSideMenuControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="rightSideMenuControl1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="rightSideMenuControl1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="rightSideMenuControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1592, 204</value>
-  </data>
-  <data name="rightSideMenuControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 448</value>
-  </data>
-  <data name="rightSideMenuControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Name" xml:space="preserve">
-    <value>rightSideMenuControl1</value>
-  </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;rightSideMenuControl1.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="toolStripConnectionControl1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4072,9 +4246,6 @@
         AAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 15</value>
   </data>
@@ -4226,13 +4397,13 @@
     <value>toolStripConnectionControl</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7597.2244, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Name" xml:space="preserve">
     <value>toolStripConnectionControl1</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7596.43193, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.3.7597.40677, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainV2</value>

@@ -1345,13 +1345,13 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
-            
+            rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width, 200);
         }
 
         private void MakeRightSideMenuTransparent()
         {
-            // rightSideMenuControl1.Parent = FlightPlanner.MainMap;
-            // Point p = rightSideMenuControl1.Location;
+            rightSideMenuControl1.Parent = FlightPlanner.MainMap;
+            rightSideMenuControl1.Location = new Point(500, 500);
         }
         
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -4704,6 +4704,8 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
+            rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideMenuControl1.Size.Width,200);
+            //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }
 
