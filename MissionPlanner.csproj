@@ -4842,6 +4842,7 @@
     <None Include="Resources\home_v1.png" />
     <None Include="Resources\speedAir.png" />
     <None Include="Resources\speedFly.png" />
+    <None Include="Resources\test0.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
