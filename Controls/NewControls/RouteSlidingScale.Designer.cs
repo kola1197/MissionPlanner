@@ -35,7 +35,7 @@
             // 
             this.alt_SlidingScale.BackColor = System.Drawing.Color.White;
             this.alt_SlidingScale.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.alt_SlidingScale.CenterRectangleColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
+            this.alt_SlidingScale.CenterRectangleEnabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
             this.alt_SlidingScale.CenterValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.alt_SlidingScale.ForeColor = System.Drawing.Color.Black;
             this.alt_SlidingScale.LargeTicksCount = 10;

@@ -4841,6 +4841,8 @@
     <None Include="Resources\icons8_cenButton.png" />
     <None Include="Resources\icons8_homeButton.png" />
     <None Include="Resources\home_v1.png" />
+    <None Include="Resources\speedAir.png" />
+    <None Include="Resources\speedFly.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

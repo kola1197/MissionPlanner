@@ -472,7 +472,7 @@ namespace MissionPlanner.Controls
             this.windDirection.BackColor = System.Drawing.Color.Transparent;
             this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
             this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDirection.Direction = 360D;
+            this.windDirection.Direction = 180D;
             this.windDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.windDirection.Location = new System.Drawing.Point(615, 0);
             this.windDirection.Name = "windDirection";
@@ -524,9 +524,9 @@ namespace MissionPlanner.Controls
             this.fuel_PB.BackColor = System.Drawing.Color.Transparent;
             this.fuel_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_oil;
             this.fuel_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.fuel_PB.Location = new System.Drawing.Point(0, 120);
+            this.fuel_PB.Location = new System.Drawing.Point(0, 115);
             this.fuel_PB.Name = "fuel_PB";
-            this.fuel_PB.Size = new System.Drawing.Size(17, 17);
+            this.fuel_PB.Size = new System.Drawing.Size(25, 25);
             this.fuel_PB.TabIndex = 81;
             this.fuel_PB.TabStop = false;
             // 
@@ -552,9 +552,9 @@ namespace MissionPlanner.Controls
             // 
             this.voltage_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_lightning;
             this.voltage_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.voltage_PB.Location = new System.Drawing.Point(179, 120);
+            this.voltage_PB.Location = new System.Drawing.Point(174, 115);
             this.voltage_PB.Name = "voltage_PB";
-            this.voltage_PB.Size = new System.Drawing.Size(17, 17);
+            this.voltage_PB.Size = new System.Drawing.Size(25, 25);
             this.voltage_PB.TabIndex = 82;
             this.voltage_PB.TabStop = false;
             // 
@@ -563,11 +563,11 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
             this.splittedBar_voltage.Color = System.Drawing.Color.LimeGreen;
             this.splittedBar_voltage.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage", true));
-            this.splittedBar_voltage.Location = new System.Drawing.Point(179, 16);
+            this.splittedBar_voltage.Location = new System.Drawing.Point(174, 16);
             this.splittedBar_voltage.Maximum = 12.6D;
             this.splittedBar_voltage.Minimum = 9.9D;
             this.splittedBar_voltage.Name = "splittedBar_voltage";
-            this.splittedBar_voltage.Size = new System.Drawing.Size(17, 100);
+            this.splittedBar_voltage.Size = new System.Drawing.Size(25, 99);
             this.splittedBar_voltage.Step = 1.4D;
             this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_voltage.TabIndex = 2;
@@ -582,7 +582,7 @@ namespace MissionPlanner.Controls
             this.splittedBar_fuel.Maximum = 100D;
             this.splittedBar_fuel.Minimum = 0D;
             this.splittedBar_fuel.Name = "splittedBar_fuel";
-            this.splittedBar_fuel.Size = new System.Drawing.Size(17, 100);
+            this.splittedBar_fuel.Size = new System.Drawing.Size(25, 99);
             this.splittedBar_fuel.Step = 10D;
             this.splittedBar_fuel.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_fuel.TabIndex = 1;
@@ -609,22 +609,22 @@ namespace MissionPlanner.Controls
             // groundspeed_PB
             // 
             this.groundspeed_PB.BackColor = System.Drawing.Color.Transparent;
-            this.groundspeed_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_speed_p;
+            this.groundspeed_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.speedFly;
             this.groundspeed_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.groundspeed_PB.Location = new System.Drawing.Point(179, 120);
+            this.groundspeed_PB.Location = new System.Drawing.Point(174, 115);
             this.groundspeed_PB.Name = "groundspeed_PB";
-            this.groundspeed_PB.Size = new System.Drawing.Size(17, 17);
+            this.groundspeed_PB.Size = new System.Drawing.Size(25, 25);
             this.groundspeed_PB.TabIndex = 17;
             this.groundspeed_PB.TabStop = false;
             // 
             // airspeed_PB
             // 
             this.airspeed_PB.BackColor = System.Drawing.Color.Transparent;
-            this.airspeed_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_speedometer;
+            this.airspeed_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.speedAir;
             this.airspeed_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.airspeed_PB.Location = new System.Drawing.Point(0, 120);
+            this.airspeed_PB.Location = new System.Drawing.Point(0, 115);
             this.airspeed_PB.Name = "airspeed_PB";
-            this.airspeed_PB.Size = new System.Drawing.Size(17, 17);
+            this.airspeed_PB.Size = new System.Drawing.Size(25, 25);
             this.airspeed_PB.TabIndex = 16;
             this.airspeed_PB.TabStop = false;
             // 
@@ -637,7 +637,7 @@ namespace MissionPlanner.Controls
             this.airspeed_SVPB.Maximum = 40D;
             this.airspeed_SVPB.Minimum = 0D;
             this.airspeed_SVPB.Name = "airspeed_SVPB";
-            this.airspeed_SVPB.Size = new System.Drawing.Size(17, 100);
+            this.airspeed_SVPB.Size = new System.Drawing.Size(25, 99);
             this.airspeed_SVPB.Step = 2D;
             this.airspeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.airspeed_SVPB.TabIndex = 8;
@@ -648,11 +648,11 @@ namespace MissionPlanner.Controls
             this.groundSpeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
             this.groundSpeed_SVPB.Color = System.Drawing.Color.LimeGreen;
             this.groundSpeed_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "groundspeed", true));
-            this.groundSpeed_SVPB.Location = new System.Drawing.Point(179, 16);
+            this.groundSpeed_SVPB.Location = new System.Drawing.Point(174, 16);
             this.groundSpeed_SVPB.Maximum = 40D;
             this.groundSpeed_SVPB.Minimum = 0D;
             this.groundSpeed_SVPB.Name = "groundSpeed_SVPB";
-            this.groundSpeed_SVPB.Size = new System.Drawing.Size(17, 100);
+            this.groundSpeed_SVPB.Size = new System.Drawing.Size(25, 99);
             this.groundSpeed_SVPB.Step = 2D;
             this.groundSpeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.groundSpeed_SVPB.TabIndex = 14;
@@ -678,9 +678,9 @@ namespace MissionPlanner.Controls
             this.engineTemp_PB.BackColor = System.Drawing.Color.Transparent;
             this.engineTemp_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_engine;
             this.engineTemp_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.engineTemp_PB.Location = new System.Drawing.Point(179, 120);
+            this.engineTemp_PB.Location = new System.Drawing.Point(174, 115);
             this.engineTemp_PB.Name = "engineTemp_PB";
-            this.engineTemp_PB.Size = new System.Drawing.Size(17, 17);
+            this.engineTemp_PB.Size = new System.Drawing.Size(25, 25);
             this.engineTemp_PB.TabIndex = 20;
             this.engineTemp_PB.TabStop = false;
             // 
@@ -689,9 +689,9 @@ namespace MissionPlanner.Controls
             this.environmentTemp_PB.BackColor = System.Drawing.Color.Transparent;
             this.environmentTemp_PB.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_cloud;
             this.environmentTemp_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.environmentTemp_PB.Location = new System.Drawing.Point(0, 120);
+            this.environmentTemp_PB.Location = new System.Drawing.Point(0, 115);
             this.environmentTemp_PB.Name = "environmentTemp_PB";
-            this.environmentTemp_PB.Size = new System.Drawing.Size(17, 17);
+            this.environmentTemp_PB.Size = new System.Drawing.Size(25, 25);
             this.environmentTemp_PB.TabIndex = 18;
             this.environmentTemp_PB.TabStop = false;
             // 
@@ -704,7 +704,7 @@ namespace MissionPlanner.Controls
             this.environmentTemp_SVPB.Maximum = 50D;
             this.environmentTemp_SVPB.Minimum = -50D;
             this.environmentTemp_SVPB.Name = "environmentTemp_SVPB";
-            this.environmentTemp_SVPB.Size = new System.Drawing.Size(17, 100);
+            this.environmentTemp_SVPB.Size = new System.Drawing.Size(25, 99);
             this.environmentTemp_SVPB.Step = 5D;
             this.environmentTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.environmentTemp_SVPB.TabIndex = 5;
@@ -715,11 +715,11 @@ namespace MissionPlanner.Controls
             this.engineTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
             this.engineTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
             this.engineTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "rpm2", true));
-            this.engineTemp_SVPB.Location = new System.Drawing.Point(179, 16);
+            this.engineTemp_SVPB.Location = new System.Drawing.Point(174, 16);
             this.engineTemp_SVPB.Maximum = 130D;
             this.engineTemp_SVPB.Minimum = -50D;
             this.engineTemp_SVPB.Name = "engineTemp_SVPB";
-            this.engineTemp_SVPB.Size = new System.Drawing.Size(17, 100);
+            this.engineTemp_SVPB.Size = new System.Drawing.Size(25, 99);
             this.engineTemp_SVPB.Step = 10D;
             this.engineTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.engineTemp_SVPB.TabIndex = 9;

@@ -43,7 +43,7 @@
             this.sideMenuPanel.Controls.Add(this.menuStrip1);
             this.sideMenuPanel.Location = new System.Drawing.Point(0, 0);
             this.sideMenuPanel.Name = "sideMenuPanel";
-            this.sideMenuPanel.Size = new System.Drawing.Size(34, 445);
+            this.sideMenuPanel.Size = new System.Drawing.Size(34, 178);
             this.sideMenuPanel.TabIndex = 1;
             // 
             // menuStrip1
@@ -56,7 +56,7 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(33, 445);
+            this.menuStrip1.Size = new System.Drawing.Size(126, 178);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -83,8 +83,9 @@
             // 
             // antennaToolStripMenuItem
             // 
+            this.antennaToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
             this.antennaToolStripMenuItem.Text = "АНТ";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
@@ -92,9 +93,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.sideMenuPanel);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(34, 178);
+            this.Size = new System.Drawing.Size(37, 181);
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
