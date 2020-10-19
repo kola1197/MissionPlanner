@@ -318,7 +318,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-            
+
             //Init RightSideMenu
             MainV2.instance.rightSideMenuControl1.Init();
 
@@ -2846,7 +2846,7 @@ namespace MissionPlanner.GCSViews
 
             return waypoints;
         }
-        
+
         public void DrawDistanceBetweenWaypoints(PaintEventArgs e)
         {
             List<PointLatLng> waypoints = GetWaypointsPositions();
@@ -2855,7 +2855,7 @@ namespace MissionPlanner.GCSViews
                 DrawDistanceBetweenTwoPoints(e, waypoints[i], waypoints[i + 1]);
             }
         }
-        
+
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
             List<PointLatLng> points = GetRulerRoute().Points;
@@ -2946,7 +2946,8 @@ namespace MissionPlanner.GCSViews
                 rectangleLocation = new Point(-(int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 0);
             }
 
-            rectangle = new Rectangle(rectangleLocation, new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
+            rectangle = new Rectangle(rectangleLocation,
+                new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
 
             DrawDistanceString(e, distance, rectangle);
 
@@ -7891,6 +7892,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private WpInfoForm _wpInfoForm;
+
         private void MainMap_OnMarkerEnter(GMapMarker item)
         {
             if (!isMouseDown)
@@ -7918,6 +7921,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
 
                     CurentRectMarker = rc;
+
+                    if (rc.Tag == "H")
+                    {
+                        _wpInfoForm = new WpInfoForm(0, (int) Math.Truncate(double.Parse(TXT_homealt.Text)), "HOME", "")
+                            {Visible = false, StartPosition = FormStartPosition.Manual};
+                        _wpInfoForm.Location = new Point(Cursor.Position.X + 20, Cursor.Position.Y);
+                        _wpInfoForm.Show();
+                    }
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -7942,9 +7953,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurrentPOIMarker = item as GMapMarkerPOI;
                 }
 
-                if (item is GMapMarkerWP)
+                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
-                    //CurrentGMapMarker = item;
+                    GMapMarkerWP currentWp = item as GMapMarkerWP;
+                    int wpno = Convert.ToInt32(currentWp.Tag);
+                    int alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
+                    string type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
+                    string homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], currentWp.Position));
+                    _wpInfoForm = new WpInfoForm(wpno, alt, type, homeDist)
+                        {Visible = false, StartPosition = FormStartPosition.Manual};
+                    _wpInfoForm.Location = new Point(Cursor.Position.X + 20, Cursor.Position.Y);
+                    _wpInfoForm.Show();
                 }
 
                 if (item is GMapMarker)
@@ -7985,6 +8004,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     // when you click the context menu this triggers and causes problems
                     CurrentGMapMarker = null;
+                }
+
+                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
+                {
+                    _wpInfoForm.Close();
                 }
             }
         }
@@ -8716,6 +8740,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
             rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10,
                 MainMap.Size.Height - rulerControl1.Size.Height - 60);
+        }
+
+        private void Commands_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CustomMessageBox.Show(e.RowIndex + "; " + e.ColumnIndex);
         }
     }
 }

@@ -821,11 +821,23 @@
     <Compile Include="NewForms\SNSInfo.Designer.cs">
       <DependentUpon>SNSInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\WaypointInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\WaypointInfoControl.Designer.cs">
+      <DependentUpon>WaypointInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\WPConfig.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewForms\WPConfig.Designer.cs">
       <DependentUpon>WPConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\WpInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\WpInfoForm.Designer.cs">
+      <DependentUpon>WpInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
@@ -2015,8 +2027,14 @@
     <EmbeddedResource Include="NewForms\SNSInfo.resx">
       <DependentUpon>SNSInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\WaypointInfoControl.resx">
+      <DependentUpon>WaypointInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\WPConfig.resx">
       <DependentUpon>WPConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\WpInfoForm.resx">
+      <DependentUpon>WpInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="plugins\generator.resx">
       <DependentUpon>generator.cs</DependentUpon>
