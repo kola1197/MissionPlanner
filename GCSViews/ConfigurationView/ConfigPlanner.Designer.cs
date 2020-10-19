@@ -22,8 +22,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -105,8 +105,8 @@
             this.num_gcsid = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.CHK_params_bg = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.NUM_tracklength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.num_gcsid)).BeginInit();
             this.SuspendLayout();
             // 
             // label33
@@ -118,22 +118,7 @@
             // 
             this.CMB_ratesensors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_ratesensors.FormattingEnabled = true;
-            this.CMB_ratesensors.Items.AddRange(new object[] {
-            resources.GetString("CMB_ratesensors.Items"),
-            resources.GetString("CMB_ratesensors.Items1"),
-            resources.GetString("CMB_ratesensors.Items2"),
-            resources.GetString("CMB_ratesensors.Items3"),
-            resources.GetString("CMB_ratesensors.Items4"),
-            resources.GetString("CMB_ratesensors.Items5"),
-            resources.GetString("CMB_ratesensors.Items6"),
-            resources.GetString("CMB_ratesensors.Items7"),
-            resources.GetString("CMB_ratesensors.Items8"),
-            resources.GetString("CMB_ratesensors.Items9"),
-            resources.GetString("CMB_ratesensors.Items10"),
-            resources.GetString("CMB_ratesensors.Items11"),
-            resources.GetString("CMB_ratesensors.Items12"),
-            resources.GetString("CMB_ratesensors.Items13"),
-            resources.GetString("CMB_ratesensors.Items14")});
+            this.CMB_ratesensors.Items.AddRange(new object[] {resources.GetString("CMB_ratesensors.Items"), resources.GetString("CMB_ratesensors.Items1"), resources.GetString("CMB_ratesensors.Items2"), resources.GetString("CMB_ratesensors.Items3"), resources.GetString("CMB_ratesensors.Items4"), resources.GetString("CMB_ratesensors.Items5"), resources.GetString("CMB_ratesensors.Items6"), resources.GetString("CMB_ratesensors.Items7"), resources.GetString("CMB_ratesensors.Items8"), resources.GetString("CMB_ratesensors.Items9"), resources.GetString("CMB_ratesensors.Items10"), resources.GetString("CMB_ratesensors.Items11"), resources.GetString("CMB_ratesensors.Items12"), resources.GetString("CMB_ratesensors.Items13"), resources.GetString("CMB_ratesensors.Items14")});
             resources.ApplyResources(this.CMB_ratesensors, "CMB_ratesensors");
             this.CMB_ratesensors.Name = "CMB_ratesensors";
             this.CMB_ratesensors.SelectedIndexChanged += new System.EventHandler(this.CMB_ratesensors_SelectedIndexChanged);
@@ -181,28 +166,12 @@
             // 
             // NUM_tracklength
             // 
-            this.NUM_tracklength.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.NUM_tracklength.Increment = new decimal(new int[] {100, 0, 0, 0});
             resources.ApplyResources(this.NUM_tracklength, "NUM_tracklength");
-            this.NUM_tracklength.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.NUM_tracklength.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.NUM_tracklength.Maximum = new decimal(new int[] {2000, 0, 0, 0});
+            this.NUM_tracklength.Minimum = new decimal(new int[] {100, 0, 0, 0});
             this.NUM_tracklength.Name = "NUM_tracklength";
-            this.NUM_tracklength.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
+            this.NUM_tracklength.Value = new decimal(new int[] {200, 0, 0, 0});
             this.NUM_tracklength.ValueChanged += new System.EventHandler(this.NUM_tracklength_ValueChanged);
             // 
             // CHK_speechaltwarning
@@ -240,22 +209,7 @@
             // 
             this.CMB_raterc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_raterc.FormattingEnabled = true;
-            this.CMB_raterc.Items.AddRange(new object[] {
-            resources.GetString("CMB_raterc.Items"),
-            resources.GetString("CMB_raterc.Items1"),
-            resources.GetString("CMB_raterc.Items2"),
-            resources.GetString("CMB_raterc.Items3"),
-            resources.GetString("CMB_raterc.Items4"),
-            resources.GetString("CMB_raterc.Items5"),
-            resources.GetString("CMB_raterc.Items6"),
-            resources.GetString("CMB_raterc.Items7"),
-            resources.GetString("CMB_raterc.Items8"),
-            resources.GetString("CMB_raterc.Items9"),
-            resources.GetString("CMB_raterc.Items10"),
-            resources.GetString("CMB_raterc.Items11"),
-            resources.GetString("CMB_raterc.Items12"),
-            resources.GetString("CMB_raterc.Items13"),
-            resources.GetString("CMB_raterc.Items14")});
+            this.CMB_raterc.Items.AddRange(new object[] {resources.GetString("CMB_raterc.Items"), resources.GetString("CMB_raterc.Items1"), resources.GetString("CMB_raterc.Items2"), resources.GetString("CMB_raterc.Items3"), resources.GetString("CMB_raterc.Items4"), resources.GetString("CMB_raterc.Items5"), resources.GetString("CMB_raterc.Items6"), resources.GetString("CMB_raterc.Items7"), resources.GetString("CMB_raterc.Items8"), resources.GetString("CMB_raterc.Items9"), resources.GetString("CMB_raterc.Items10"), resources.GetString("CMB_raterc.Items11"), resources.GetString("CMB_raterc.Items12"), resources.GetString("CMB_raterc.Items13"), resources.GetString("CMB_raterc.Items14")});
             resources.ApplyResources(this.CMB_raterc, "CMB_raterc");
             this.CMB_raterc.Name = "CMB_raterc";
             this.CMB_raterc.SelectedIndexChanged += new System.EventHandler(this.CMB_raterc_SelectedIndexChanged);
@@ -284,22 +238,7 @@
             // 
             this.CMB_ratestatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_ratestatus.FormattingEnabled = true;
-            this.CMB_ratestatus.Items.AddRange(new object[] {
-            resources.GetString("CMB_ratestatus.Items"),
-            resources.GetString("CMB_ratestatus.Items1"),
-            resources.GetString("CMB_ratestatus.Items2"),
-            resources.GetString("CMB_ratestatus.Items3"),
-            resources.GetString("CMB_ratestatus.Items4"),
-            resources.GetString("CMB_ratestatus.Items5"),
-            resources.GetString("CMB_ratestatus.Items6"),
-            resources.GetString("CMB_ratestatus.Items7"),
-            resources.GetString("CMB_ratestatus.Items8"),
-            resources.GetString("CMB_ratestatus.Items9"),
-            resources.GetString("CMB_ratestatus.Items10"),
-            resources.GetString("CMB_ratestatus.Items11"),
-            resources.GetString("CMB_ratestatus.Items12"),
-            resources.GetString("CMB_ratestatus.Items13"),
-            resources.GetString("CMB_ratestatus.Items14")});
+            this.CMB_ratestatus.Items.AddRange(new object[] {resources.GetString("CMB_ratestatus.Items"), resources.GetString("CMB_ratestatus.Items1"), resources.GetString("CMB_ratestatus.Items2"), resources.GetString("CMB_ratestatus.Items3"), resources.GetString("CMB_ratestatus.Items4"), resources.GetString("CMB_ratestatus.Items5"), resources.GetString("CMB_ratestatus.Items6"), resources.GetString("CMB_ratestatus.Items7"), resources.GetString("CMB_ratestatus.Items8"), resources.GetString("CMB_ratestatus.Items9"), resources.GetString("CMB_ratestatus.Items10"), resources.GetString("CMB_ratestatus.Items11"), resources.GetString("CMB_ratestatus.Items12"), resources.GetString("CMB_ratestatus.Items13"), resources.GetString("CMB_ratestatus.Items14")});
             resources.ApplyResources(this.CMB_ratestatus, "CMB_ratestatus");
             this.CMB_ratestatus.Name = "CMB_ratestatus";
             this.CMB_ratestatus.SelectedIndexChanged += new System.EventHandler(this.CMB_ratestatus_SelectedIndexChanged);
@@ -308,22 +247,7 @@
             // 
             this.CMB_rateposition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_rateposition.FormattingEnabled = true;
-            this.CMB_rateposition.Items.AddRange(new object[] {
-            resources.GetString("CMB_rateposition.Items"),
-            resources.GetString("CMB_rateposition.Items1"),
-            resources.GetString("CMB_rateposition.Items2"),
-            resources.GetString("CMB_rateposition.Items3"),
-            resources.GetString("CMB_rateposition.Items4"),
-            resources.GetString("CMB_rateposition.Items5"),
-            resources.GetString("CMB_rateposition.Items6"),
-            resources.GetString("CMB_rateposition.Items7"),
-            resources.GetString("CMB_rateposition.Items8"),
-            resources.GetString("CMB_rateposition.Items9"),
-            resources.GetString("CMB_rateposition.Items10"),
-            resources.GetString("CMB_rateposition.Items11"),
-            resources.GetString("CMB_rateposition.Items12"),
-            resources.GetString("CMB_rateposition.Items13"),
-            resources.GetString("CMB_rateposition.Items14")});
+            this.CMB_rateposition.Items.AddRange(new object[] {resources.GetString("CMB_rateposition.Items"), resources.GetString("CMB_rateposition.Items1"), resources.GetString("CMB_rateposition.Items2"), resources.GetString("CMB_rateposition.Items3"), resources.GetString("CMB_rateposition.Items4"), resources.GetString("CMB_rateposition.Items5"), resources.GetString("CMB_rateposition.Items6"), resources.GetString("CMB_rateposition.Items7"), resources.GetString("CMB_rateposition.Items8"), resources.GetString("CMB_rateposition.Items9"), resources.GetString("CMB_rateposition.Items10"), resources.GetString("CMB_rateposition.Items11"), resources.GetString("CMB_rateposition.Items12"), resources.GetString("CMB_rateposition.Items13"), resources.GetString("CMB_rateposition.Items14")});
             resources.ApplyResources(this.CMB_rateposition, "CMB_rateposition");
             this.CMB_rateposition.Name = "CMB_rateposition";
             this.CMB_rateposition.SelectedIndexChanged += new System.EventHandler(this.CMB_rateposition_SelectedIndexChanged);
@@ -332,21 +256,7 @@
             // 
             this.CMB_rateattitude.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_rateattitude.FormattingEnabled = true;
-            this.CMB_rateattitude.Items.AddRange(new object[] {
-            resources.GetString("CMB_rateattitude.Items"),
-            resources.GetString("CMB_rateattitude.Items1"),
-            resources.GetString("CMB_rateattitude.Items2"),
-            resources.GetString("CMB_rateattitude.Items3"),
-            resources.GetString("CMB_rateattitude.Items4"),
-            resources.GetString("CMB_rateattitude.Items5"),
-            resources.GetString("CMB_rateattitude.Items6"),
-            resources.GetString("CMB_rateattitude.Items7"),
-            resources.GetString("CMB_rateattitude.Items8"),
-            resources.GetString("CMB_rateattitude.Items9"),
-            resources.GetString("CMB_rateattitude.Items10"),
-            resources.GetString("CMB_rateattitude.Items11"),
-            resources.GetString("CMB_rateattitude.Items12"),
-            resources.GetString("CMB_rateattitude.Items13")});
+            this.CMB_rateattitude.Items.AddRange(new object[] {resources.GetString("CMB_rateattitude.Items"), resources.GetString("CMB_rateattitude.Items1"), resources.GetString("CMB_rateattitude.Items2"), resources.GetString("CMB_rateattitude.Items3"), resources.GetString("CMB_rateattitude.Items4"), resources.GetString("CMB_rateattitude.Items5"), resources.GetString("CMB_rateattitude.Items6"), resources.GetString("CMB_rateattitude.Items7"), resources.GetString("CMB_rateattitude.Items8"), resources.GetString("CMB_rateattitude.Items9"), resources.GetString("CMB_rateattitude.Items10"), resources.GetString("CMB_rateattitude.Items11"), resources.GetString("CMB_rateattitude.Items12"), resources.GetString("CMB_rateattitude.Items13")});
             resources.ApplyResources(this.CMB_rateattitude, "CMB_rateattitude");
             this.CMB_rateattitude.Name = "CMB_rateattitude";
             this.CMB_rateattitude.SelectedIndexChanged += new System.EventHandler(this.CMB_rateattitude_SelectedIndexChanged);
@@ -506,6 +416,8 @@
             // 
             // BUT_Joystick
             // 
+            this.BUT_Joystick.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_Joystick.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_Joystick, "BUT_Joystick");
             this.BUT_Joystick.Name = "BUT_Joystick";
             this.BUT_Joystick.UseVisualStyleBackColor = true;
@@ -513,6 +425,8 @@
             // 
             // BUT_videostop
             // 
+            this.BUT_videostop.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_videostop.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_videostop, "BUT_videostop");
             this.BUT_videostop.Name = "BUT_videostop";
             this.BUT_videostop.UseVisualStyleBackColor = true;
@@ -520,6 +434,8 @@
             // 
             // BUT_videostart
             // 
+            this.BUT_videostart.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_videostart.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_videostart, "BUT_videostart");
             this.BUT_videostart.Name = "BUT_videostart";
             this.BUT_videostart.UseVisualStyleBackColor = true;
@@ -537,6 +453,8 @@
             // 
             // BUT_logdirbrowse
             // 
+            this.BUT_logdirbrowse.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_logdirbrowse.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_logdirbrowse, "BUT_logdirbrowse");
             this.BUT_logdirbrowse.Name = "BUT_logdirbrowse";
             this.BUT_logdirbrowse.UseVisualStyleBackColor = true;
@@ -557,6 +475,8 @@
             // 
             // BUT_themecustom
             // 
+            this.BUT_themecustom.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_themecustom.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_themecustom, "BUT_themecustom");
             this.BUT_themecustom.Name = "BUT_themecustom";
             this.BUT_themecustom.UseVisualStyleBackColor = true;
@@ -571,6 +491,8 @@
             // 
             // BUT_Vario
             // 
+            this.BUT_Vario.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_Vario.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_Vario, "BUT_Vario");
             this.BUT_Vario.Name = "BUT_Vario";
             this.BUT_Vario.UseVisualStyleBackColor = true;
@@ -645,6 +567,8 @@
             // 
             // but_AAsignin
             // 
+            this.but_AAsignin.BGGradBot = System.Drawing.Color.Empty;
+            this.but_AAsignin.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.but_AAsignin, "but_AAsignin");
             this.but_AAsignin.Name = "but_AAsignin";
             this.but_AAsignin.UseVisualStyleBackColor = true;
@@ -697,22 +621,10 @@
             // num_gcsid
             // 
             resources.ApplyResources(this.num_gcsid, "num_gcsid");
-            this.num_gcsid.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.num_gcsid.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.num_gcsid.Maximum = new decimal(new int[] {255, 0, 0, 0});
+            this.num_gcsid.Minimum = new decimal(new int[] {1, 0, 0, 0});
             this.num_gcsid.Name = "num_gcsid";
-            this.num_gcsid.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.num_gcsid.Value = new decimal(new int[] {255, 0, 0, 0});
             this.num_gcsid.ValueChanged += new System.EventHandler(this.num_gcsid_ValueChanged);
             // 
             // label7
@@ -808,90 +720,89 @@
             this.Controls.Add(this.BUT_videostart);
             this.Name = "ConfigPlanner";
             this.Load += new System.EventHandler(this.ConfigPlanner_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.NUM_tracklength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.num_gcsid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
-        #endregion
-
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox CMB_ratesensors;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.ComboBox CMB_videoresolutions;
-        private System.Windows.Forms.Label label12;
+        private MissionPlanner.Controls.MyButton but_AAsignin;
+        private MissionPlanner.Controls.MyButton BUT_Joystick;
+        private MissionPlanner.Controls.MyButton BUT_logdirbrowse;
+        private MissionPlanner.Controls.MyButton BUT_themecustom;
+        private MissionPlanner.Controls.MyButton BUT_Vario;
+        private MissionPlanner.Controls.MyButton BUT_videostart;
+        private MissionPlanner.Controls.MyButton BUT_videostop;
+        private System.Windows.Forms.CheckBox chk_ADSB;
+        private System.Windows.Forms.CheckBox chk_analytics;
+        private System.Windows.Forms.CheckBox CHK_AutoParamCommit;
+        private System.Windows.Forms.CheckBox CHK_beta;
+        private System.Windows.Forms.CheckBox CHK_disttohomeflightdata;
+        private System.Windows.Forms.CheckBox CHK_enablespeech;
         private System.Windows.Forms.CheckBox CHK_GDIPlus;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.CheckBox CHK_hudshow;
         private System.Windows.Forms.CheckBox CHK_loadwponconnect;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.NumericUpDown NUM_tracklength;
-        private System.Windows.Forms.CheckBox CHK_speechaltwarning;
-        private System.Windows.Forms.Label label108;
-        private System.Windows.Forms.CheckBox CHK_resetapmonconnect;
+        private System.Windows.Forms.CheckBox CHK_maprotation;
         private System.Windows.Forms.CheckBox CHK_mavdebug;
-        private System.Windows.Forms.Label label107;
-        private System.Windows.Forms.ComboBox CMB_raterc;
-        private System.Windows.Forms.Label label104;
-        private System.Windows.Forms.Label label103;
-        private System.Windows.Forms.Label label102;
-        private System.Windows.Forms.Label label101;
-        private System.Windows.Forms.ComboBox CMB_ratestatus;
-        private System.Windows.Forms.ComboBox CMB_rateposition;
-        private System.Windows.Forms.ComboBox CMB_rateattitude;
-        private System.Windows.Forms.Label label99;
-        private System.Windows.Forms.Label label98;
-        private System.Windows.Forms.Label label97;
-        private System.Windows.Forms.ComboBox CMB_speedunits;
-        private System.Windows.Forms.ComboBox CMB_distunits;
-        private System.Windows.Forms.Label label96;
-        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.CheckBox chk_norcreceiver;
+        private System.Windows.Forms.CheckBox CHK_params_bg;
+        private System.Windows.Forms.CheckBox CHK_Password;
+        private System.Windows.Forms.CheckBox CHK_resetapmonconnect;
+        private System.Windows.Forms.CheckBox CHK_showairports;
+        private System.Windows.Forms.CheckBox chk_shownofly;
+        private System.Windows.Forms.CheckBox CHK_speechaltwarning;
+        private System.Windows.Forms.CheckBox CHK_speecharmdisarm;
         private System.Windows.Forms.CheckBox CHK_speechbattery;
         private System.Windows.Forms.CheckBox CHK_speechcustom;
+        private System.Windows.Forms.CheckBox CHK_speechlowspeed;
         private System.Windows.Forms.CheckBox CHK_speechmode;
         private System.Windows.Forms.CheckBox CHK_speechwaypoint;
-        private System.Windows.Forms.Label label94;
-        private System.Windows.Forms.ComboBox CMB_osdcolor;
-        private System.Windows.Forms.ComboBox CMB_language;
-        private System.Windows.Forms.Label label93;
-        private System.Windows.Forms.CheckBox CHK_enablespeech;
-        private System.Windows.Forms.CheckBox CHK_hudshow;
-        private System.Windows.Forms.Label label92;
-        private System.Windows.Forms.ComboBox CMB_videosources;
-        private Controls.MyButton BUT_Joystick;
-        private Controls.MyButton BUT_videostop;
-        private Controls.MyButton BUT_videostart;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox CHK_maprotation;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox CHK_disttohomeflightdata;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txt_log_dir;
-        private Controls.MyButton BUT_logdirbrowse;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox CMB_theme;
-        private Controls.MyButton BUT_themecustom;
-        private System.Windows.Forms.CheckBox CHK_speecharmdisarm;
-        private Controls.MyButton BUT_Vario;
-        private System.Windows.Forms.CheckBox chk_analytics;
-        private System.Windows.Forms.CheckBox CHK_beta;
-        private System.Windows.Forms.CheckBox CHK_Password;
-        private System.Windows.Forms.CheckBox CHK_speechlowspeed;
-        private System.Windows.Forms.CheckBox CHK_showairports;
-        private System.Windows.Forms.CheckBox chk_ADSB;
-        private System.Windows.Forms.CheckBox chk_tfr;
         private System.Windows.Forms.CheckBox chk_temp;
-        private System.Windows.Forms.CheckBox chk_norcreceiver;
-        private Controls.MyButton but_AAsignin;
-        public System.Windows.Forms.ComboBox CMB_Layout;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox CHK_AutoParamCommit;
-        private System.Windows.Forms.CheckBox chk_shownofly;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chk_tfr;
         private System.Windows.Forms.ComboBox CMB_altunits;
-        private System.Windows.Forms.NumericUpDown num_gcsid;
+        private System.Windows.Forms.ComboBox CMB_distunits;
+        private System.Windows.Forms.ComboBox CMB_language;
+        public System.Windows.Forms.ComboBox CMB_Layout;
+        private System.Windows.Forms.ComboBox CMB_osdcolor;
+        private System.Windows.Forms.ComboBox CMB_rateattitude;
+        private System.Windows.Forms.ComboBox CMB_rateposition;
+        private System.Windows.Forms.ComboBox CMB_raterc;
+        private System.Windows.Forms.ComboBox CMB_ratesensors;
+        private System.Windows.Forms.ComboBox CMB_ratestatus;
+        private System.Windows.Forms.ComboBox CMB_speedunits;
+        private System.Windows.Forms.ComboBox CMB_theme;
+        private System.Windows.Forms.ComboBox CMB_videoresolutions;
+        private System.Windows.Forms.ComboBox CMB_videosources;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.Label label102;
+        private System.Windows.Forms.Label label103;
+        private System.Windows.Forms.Label label104;
+        private System.Windows.Forms.Label label107;
+        private System.Windows.Forms.Label label108;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox CHK_params_bg;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.Label label93;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.NumericUpDown num_gcsid;
+        private System.Windows.Forms.NumericUpDown NUM_tracklength;
+        private System.Windows.Forms.TextBox txt_log_dir;
+
+        #endregion
     }
 }

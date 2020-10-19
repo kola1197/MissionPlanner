@@ -938,8 +938,7 @@ namespace MissionPlanner
             //Init Theme table and load BurntKermit as a default
             ThemeManager.thmColor = new ThemeColorTable(); //Init colortable
             ThemeManager.thmColor.InitColors(); //This fills up the table with BurntKermit defaults. 
-            ThemeManager.thmColor
-                .SetTheme(); //Set the colors, this need to handle the case when not all colors are defined in the theme file
+            ThemeManager.thmColor.SetTheme(); //Set the colors, this need to handle the case when not all colors are defined in the theme file
 
 
             if (Settings.Instance["theme"] == null) Settings.Instance["theme"] = "BurntKermit.mpsystheme";
@@ -1713,6 +1712,7 @@ namespace MissionPlanner
 
             logger = new Logger();
             vibeData = new VibeData();
+            Settings.Instance["loadwpsonconnect"] = true.ToString();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
@@ -5702,6 +5702,7 @@ namespace MissionPlanner
 
         private void myButton4_Click(object sender, EventArgs e)
         {
+
             //testThrottle();
             //MyView.ShowScreen("FlightData");
             //comPort.MAV.cs.ch1out = 1900;
@@ -5757,9 +5758,11 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            MyView.ShowScreen("SWConfig");
+
+            /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
-            player.Play();
+            player.Play();*/
         }
 
 

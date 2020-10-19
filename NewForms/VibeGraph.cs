@@ -55,13 +55,30 @@ namespace MissionPlanner.NewForms
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
+        { 
+            if (label1.ForeColor != Color.Red)
+            {
+                label1.ForeColor = Color.Red;
+            }
+            if (label2.ForeColor != Color.Lime)
+            {
+                label2.ForeColor = Color.Lime;
+            }
+            if (label3.ForeColor != Color.Blue)
+            {
+                label3.ForeColor = Color.Blue;
+            }
             Invalidate();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_ForeColorChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("fuck");
         }
     }
 }
