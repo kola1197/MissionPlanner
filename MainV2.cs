@@ -575,6 +575,8 @@ namespace MissionPlanner
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
 
+        public static VibeData vibeData; 
+
         public static Logger logger;
 
         private Form connectionStatsForm;
@@ -1483,6 +1485,7 @@ namespace MissionPlanner
             }
             try
             {
+                vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
                 coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " + FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
@@ -1675,6 +1678,7 @@ namespace MissionPlanner
             FlightPlanner.wpMenu1.panel6.Parent = FlightPlanner.wpMenu1;
             */
             logger = new Logger();
+            vibeData = new VibeData();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 

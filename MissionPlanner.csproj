@@ -557,6 +557,7 @@
     </Compile>
     <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewClasses\Logger.cs" />
+    <Compile Include="NewClasses\VibeData.cs" />
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -15,7 +15,7 @@ namespace MissionPlanner.Controls.NewControls
     {
         private ModeChangeForm modeChangeForm;
         private SNSInfo snsInfo;
-        private Vibration frm;
+        private VibeGraph frm;
         private ParachuteForm parachuteForm;
         bool colorsChanged=false;
         public SNSControl()
@@ -33,17 +33,21 @@ namespace MissionPlanner.Controls.NewControls
                 myButton1.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
                 myButton2.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
                 myButton3.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton4.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
 
                 myButton1.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
                 myButton2.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
                 myButton3.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                myButton4.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
 
                 myButton1.ForeColor = Color.Black;
                 myButton2.ForeColor = Color.Black;
                 myButton3.ForeColor = Color.Black;
+                myButton4.ForeColor = Color.Black;
                 myButton1.TextColor = Color.Black;
                 myButton2.TextColor = Color.Black;
                 myButton3.TextColor = Color.Black;
+                myButton4.TextColor = Color.Black;
             }
         }
 
@@ -70,8 +74,10 @@ namespace MissionPlanner.Controls.NewControls
             if (frm != null) {
                 frm.Close();
             }
-            frm = new Vibration();
+            //frm = new Vibration();
+            frm = new VibeGraph();
             frm.TopMost = true;
+            frm.timer1.Enabled = true;
             frm.Show();
         }
 
