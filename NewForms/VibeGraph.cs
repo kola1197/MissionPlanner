@@ -38,7 +38,7 @@ namespace MissionPlanner.NewForms
             }*/
             drawVibe(0, Color.Red, g);
             drawVibe(1, Color.Green, g);
-            drawVibe(2, Color.Blue, g);
+            drawVibe(2, Color.Cyan, g);
 
             pictureBox1.Image = myBitmap;
 
@@ -64,9 +64,9 @@ namespace MissionPlanner.NewForms
             {
                 label2.ForeColor = Color.Lime;
             }
-            if (label3.ForeColor != Color.Blue)
+            if (label3.ForeColor != Color.Cyan)
             {
-                label3.ForeColor = Color.Blue;
+                label3.ForeColor = Color.Cyan;
             }
             Invalidate();
         }
