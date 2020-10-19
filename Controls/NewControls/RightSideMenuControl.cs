@@ -11,11 +11,23 @@ using GDAL;
 using MissionPlanner.GCSViews;
 using Color = System.Drawing.Color;
 using Region = KMLib.Region;
+using System.Runtime.InteropServices;
 
 namespace MissionPlanner.Controls.NewControls
 {
     public partial class RightSideMenuControl : UserControl
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+        );
+
         private UserControl activeControl = null;
         private AntennaControl antennaControl;
         private FlightByCompassControl flightByCompassControl;
@@ -27,6 +39,7 @@ namespace MissionPlanner.Controls.NewControls
             antennaControl = new AntennaControl {Visible = false, Location = new Point(35, 0)};
             flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 0) };
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 0) };
+            
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
             this.Controls.Add(regionsControl);

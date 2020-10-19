@@ -55,29 +55,34 @@
             // ppkToolStripMenuItem
             // 
             this.ppkToolStripMenuItem.Name = "ppkToolStripMenuItem";
-            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
+            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(33, 34);
             this.ppkToolStripMenuItem.Text = "ПпК";
             this.ppkToolStripMenuItem.Click += new System.EventHandler(this.ppkToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(20, 59);
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(33, 59);
             this.regionsToolStripMenuItem.Text = "Регионы";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
             // 
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
-            this.gskToolStripMenuItem.Size = new System.Drawing.Size(20, 32);
+            this.gskToolStripMenuItem.Size = new System.Drawing.Size(33, 32);
             this.gskToolStripMenuItem.Text = "ГСК";
             // 
             // antennaToolStripMenuItem
             // 
             this.antennaToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.antennaToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.test0;
+            this.antennaToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.antennaToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.antennaToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, 0, 0);
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
             this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
             this.antennaToolStripMenuItem.Text = "АНТ";
+            this.antennaToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
             // RightSideMenuControl
@@ -104,5 +109,6 @@
         private System.Windows.Forms.ToolStripMenuItem regionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem antennaToolStripMenuItem;
+        
     }
 }

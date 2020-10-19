@@ -2132,6 +2132,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap test0 {
+            get {
+                object obj = ResourceManager.GetObject("test0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap testCenterUL {
             get {
                 object obj = ResourceManager.GetObject("testCenterUL", resourceCulture);
