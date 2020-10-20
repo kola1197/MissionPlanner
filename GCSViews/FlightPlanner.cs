@@ -2943,7 +2943,7 @@ namespace MissionPlanner.GCSViews
             e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
             e.Graphics.RotateTransform(drawingAngle);
 
-            if (!(azimuthAngle > 0 && azimuthAngle < 180))
+            if (!(azimuthAngle >= 0 && azimuthAngle <= 180))
             {
                 rectangleLocation = new Point(-(int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 0);
             }
@@ -6582,12 +6582,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     // draw the mavs seen on this port
                     foreach (var MAV in port.MAVlist)
                     {
-                        var marker = Common.getMAVMarker(MAV);
+                        // Todo: draw planes only when they are connected
+                        if (MAV.cs.connected || true)
+                        {
+                            var marker = Common.getMAVMarker(MAV);
 
-                        if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
-                            continue;
-                        // routesoverlay.Markers.Add(marker);
-                        addMissionRouteMarker(marker);
+                            if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                                continue;
+                            // routesoverlay.Markers.Add(marker);
+                            addMissionRouteMarker(marker);   
+                        }
                     }
                 }
 
