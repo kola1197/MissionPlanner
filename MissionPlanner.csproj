@@ -441,6 +441,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\GskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\GskControl.Designer.cs">
+      <DependentUpon>GskControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\MainMenuWidget.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -985,6 +991,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\GskControl.resx">
+      <DependentUpon>GskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>

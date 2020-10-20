@@ -56,7 +56,7 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(33, 178);
+            this.menuStrip1.Size = new System.Drawing.Size(126, 178);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -64,28 +64,29 @@
             // ppkToolStripMenuItem
             // 
             this.ppkToolStripMenuItem.Name = "ppkToolStripMenuItem";
-            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
+            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
             this.ppkToolStripMenuItem.Text = "ПпК";
             this.ppkToolStripMenuItem.Click += new System.EventHandler(this.ppkToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(20, 59);
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(113, 59);
             this.regionsToolStripMenuItem.Text = "Регионы";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
             // 
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
-            this.gskToolStripMenuItem.Size = new System.Drawing.Size(20, 32);
+            this.gskToolStripMenuItem.Size = new System.Drawing.Size(113, 32);
             this.gskToolStripMenuItem.Text = "ГСК";
+            this.gskToolStripMenuItem.Click += new System.EventHandler(this.gskToolStripMenuItem_Click);
             // 
             // antennaToolStripMenuItem
             // 
             this.antennaToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
             this.antennaToolStripMenuItem.Text = "АНТ";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
