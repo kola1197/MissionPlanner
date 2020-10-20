@@ -38,7 +38,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackgroundImage = global::MissionPlanner.Properties.Resources._01_05;
+            this.menuStrip1.BackgroundImage = global::MissionPlanner.Properties.Resources.nonefon;
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ppkToolStripMenuItem,
@@ -47,41 +47,55 @@
             this.antennaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(33, 300);
+            this.menuStrip1.Size = new System.Drawing.Size(126, 300);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
             // 
             // ppkToolStripMenuItem
             // 
+            this.ppkToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
+            this.ppkToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.ppkV1;
+            this.ppkToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ppkToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ppkToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.ppkToolStripMenuItem.Name = "ppkToolStripMenuItem";
-            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(33, 34);
-            this.ppkToolStripMenuItem.Text = "ПпК";
+            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
+            this.ppkToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.ppkToolStripMenuItem.Click += new System.EventHandler(this.ppkToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
+            this.regionsToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
+            this.regionsToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.regionsV1;
+            this.regionsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.regionsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.regionsToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(33, 59);
-            this.regionsToolStripMenuItem.Text = "Регионы";
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
+            this.regionsToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
             // 
+            this.gskToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
+            this.gskToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.gskV1;
+            this.gskToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.gskToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.gskToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
-            this.gskToolStripMenuItem.Size = new System.Drawing.Size(33, 32);
-            this.gskToolStripMenuItem.Text = "ГСК";
+            this.gskToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
+            this.gskToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
             // antennaToolStripMenuItem
             // 
             this.antennaToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.antennaToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.test0;
+            this.antennaToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.antV1;
             this.antennaToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.antennaToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.antennaToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, 0, 0);
+            this.antennaToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(20, 34);
-            this.antennaToolStripMenuItem.Text = "АНТ";
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
             this.antennaToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
@@ -95,7 +109,7 @@
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(40, 300);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(300, 300);
+            this.Size = new System.Drawing.Size(40, 300);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

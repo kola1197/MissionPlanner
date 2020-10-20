@@ -4852,6 +4852,14 @@
     <None Include="Resources\speedAir.png" />
     <None Include="Resources\speedFly.png" />
     <None Include="Resources\test0.png" />
+    <None Include="Resources\regionsV0.png" />
+    <None Include="Resources\ppkV0.png" />
+    <None Include="Resources\gskV0.png" />
+    <None Include="Resources\antV0.png" />
+    <None Include="Resources\ppkV1.png" />
+    <None Include="Resources\regionsV1.png" />
+    <None Include="Resources\gskV1.png" />
+    <None Include="Resources\antV1.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
