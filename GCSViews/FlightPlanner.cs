@@ -635,12 +635,32 @@ namespace MissionPlanner.GCSViews
                 {
                     if (
                         CustomMessageBox.Show("This will clear your existing points, Continue?", "Confirm",
-                            MessageBoxButtons.OKCancel) != (int) DialogResult.OK)
+                            MessageBoxButtons.OKCancel) != (int)DialogResult.OK)
                     {
                         return;
                     }
                 }
             }
+            getWPFromPlane();
+        }
+
+        public void getWPFromPlane() 
+        {
+            /*if (Commands.Rows.Count > 0)
+            {
+                if (sender is FlightData)
+                {
+                }
+                else
+                {
+                    if (
+                        CustomMessageBox.Show("This will clear your existing points, Continue?", "Confirm",
+                            MessageBoxButtons.OKCancel) != (int)DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+            }*/
 
             IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
             {

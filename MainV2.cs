@@ -1712,7 +1712,7 @@ namespace MissionPlanner
 
             logger = new Logger();
             vibeData = new VibeData();
-            Settings.Instance["loadwpsonconnect"] = true.ToString();
+            Settings.Instance["loadwpsonconnect"] = false.ToString();
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
@@ -1941,8 +1941,9 @@ namespace MissionPlanner
                         {
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
-                            soundFlag = !soundFlag;
                         }
+                        soundFlag = !soundFlag;
+                        FlightPlanner.getWPFromPlane();
                     }
                 }
                 else
@@ -1963,56 +1964,58 @@ namespace MissionPlanner
         }
 
         public static List<string> notifications = new List<string>();
+        public static List<string> warnings = new List<string>();
 
         void alarmLabelTextCheck()
         {
+            warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected)
             {
                 if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps &&
                     MainV2.comPort.MAV.cs.sensors_present.gps) //BadGPSHealth
                 {
-                    notifications.Add("Плохой сигнал GPS");
+                    warnings.Add("Плохой сигнал GPS");
                 }
                 if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro && MainV2.comPort.MAV.cs.sensors_present.gyro)               //BadGyroHealth
                 {
-                    notifications.Add("Отказ гироскопов");
+                    warnings.Add("Отказ гироскопов");
                 }
                 if (!MainV2.comPort.MAV.cs.sensors_health.barometer && MainV2.comPort.MAV.cs.sensors_enabled.barometer && MainV2.comPort.MAV.cs.sensors_present.barometer)      //BadBaroHealth
                 {
-                    notifications.Add("Ошибка барометра");
+                    warnings.Add("Ошибка барометра");
                 }
                 if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs && MainV2.comPort.MAV.cs.sensors_present.ahrs)  //BadAHRS
                 {
-                    notifications.Add("Ошибка ИНС");
+                    warnings.Add("Ошибка ИНС");
                 }
                 if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass && MainV2.comPort.MAV.cs.sensors_present.compass)
                 {
-                    notifications.Add("Отказ компаса");
+                    warnings.Add("Отказ компаса");
                 }
                 if (MainV2.comPort.MAV.cs.ekfcompv > 1)
                 {
-                    notifications.Add("Рассогласование компаса");
+                    warnings.Add("Рассогласование компаса");
                 }
                 if (MainV2.comPort.MAV.cs.ekfvelv > 1)
                 {
-                    notifications.Add("Рассогласование скорости");
+                    warnings.Add("Рассогласование скорости");
                 }
                 if (MainV2.comPort.MAV.cs.battery_voltage < 11)
                 {
-                    notifications.Add("Низкое напряжение, отказ генератора");
+                    warnings.Add("Низкое напряжение, отказ генератора");
                 }
                 if (MainV2.comPort.MAV.cs.rpm2 > 118)
                 {
-                    notifications.Add("Перегрев двигателя");
+                    warnings.Add("Перегрев двигателя");
                 }
                 if (MainV2.comPort.MAV.cs.rpm1 > 8600)
                 {
-                    notifications.Add("Превышение оборотов двигателя");
+                    warnings.Add("Превышение оборотов двигателя");
                 }
                 if (MainV2.comPort.MAV.cs.rpm1 < 3000)
                 {
-                    notifications.Add("Двигатель заглох");
+                    warnings.Add("Двигатель заглох");
                 }
                 if (MainV2.comPort.MAV.cs.mode == "RTL")
                 {
@@ -2020,27 +2023,47 @@ namespace MissionPlanner
                 }
                 if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
                 {
-                    notifications.Add("Низкий уровень топлива");
+                    warnings.Add("Низкий уровень топлива");
+                }
+                if (parachuteReleased) 
+                {
+                    notifications.Add("Парашют выпущен");
                 }
                 if (currentConnectionRate < 45)
                 {
-                    notifications.Add("Низкий уровень радиосигнала");
+                    warnings.Add("Низкий уровень радиосигнала");
                 }
 
+                foreach (var v in warnings)
+                {
+                    logger.write(v);
+                }
                 foreach (var v in notifications)
                 {
                     logger.write(v);
                 }
-
-                if (notifications.Count > 0)
+                if (warnings.Count > 0 && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir)
                 {
                     label1.BackColor = Color.DarkRed;
-                    label1.Text = "ОШИБКА!!!";
+                    progressBar1.ValueColor = Color.Red;
+                    progressBar2.ValueColor = Color.Red;
+                    label1.Text = "ОШИБКИ (" + warnings.Count.ToString() + ")";
                 }
                 else
                 {
+                    if (progressBar1.ValueColor != Color.Lime) 
+                    {
+                        progressBar1.ValueColor = Color.Lime;
+                        progressBar2.ValueColor = Color.Lime;
+                    }
                     label1.BackColor = Color.Lime;
-                    label1.Text = "";
+                    if (notifications.Count == 0)
+                    {
+                        label1.Text = "";
+                    }
+                    else {
+                        label1.Text = notifications[notifications.Count-1];             //parachute released is more important message than rtl
+                    }
                 }
             }
             else
