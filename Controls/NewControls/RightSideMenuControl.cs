@@ -73,6 +73,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             switchControl(regionsControl);
             FlightPlanner.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
+            regionsControl.RedrawPolygonSurvey(regionsControl.GetCurrentPolygon());
         }
 
         private void gskToolStripMenuItem_Click(object sender, EventArgs e)
