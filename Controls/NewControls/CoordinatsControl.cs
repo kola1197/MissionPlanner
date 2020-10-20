@@ -33,7 +33,10 @@ namespace MissionPlanner.Controls.NewControls
             }
             coordinatsModeForm = new CoordinatsModeForm();
             coordinatsModeForm.TopMost = true;
+            coordinatsModeForm.updateButtons();
             coordinatsModeForm.Show();
+            coordinatsModeForm.updateButtons();
+
         }
     }
 }

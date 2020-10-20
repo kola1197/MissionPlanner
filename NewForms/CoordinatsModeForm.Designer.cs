@@ -28,90 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.wgs_gButton = new System.Windows.Forms.Button();
+            this.wgs_gmButton = new System.Windows.Forms.Button();
+            this.wgs_gmsButton = new System.Windows.Forms.Button();
+            this.sk_gButton = new System.Windows.Forms.Button();
+            this.sk_gmButton = new System.Windows.Forms.Button();
+            this.sk_gmsButton = new System.Windows.Forms.Button();
+            this.orthogonalСoordinatesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // wgs_gButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Г (WGS84)";
-            this.button1.UseVisualStyleBackColor = true;
+            this.wgs_gButton.Location = new System.Drawing.Point(12, 12);
+            this.wgs_gButton.Name = "wgs_gButton";
+            this.wgs_gButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gButton.TabIndex = 0;
+            this.wgs_gButton.Tag = "0";
+            this.wgs_gButton.Text = "Г (WGS84)";
+            this.wgs_gButton.UseVisualStyleBackColor = true;
+            this.wgs_gButton.BackColorChanged += new System.EventHandler(this.wgs_gButton_BackColorChanged);
+            this.wgs_gButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button2
+            // wgs_gmButton
             // 
-            this.button2.Location = new System.Drawing.Point(12, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "ГМ (WGS84)";
-            this.button2.UseVisualStyleBackColor = true;
+            this.wgs_gmButton.Location = new System.Drawing.Point(12, 41);
+            this.wgs_gmButton.Name = "wgs_gmButton";
+            this.wgs_gmButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gmButton.TabIndex = 1;
+            this.wgs_gmButton.Tag = "1";
+            this.wgs_gmButton.Text = "ГМ (WGS84)";
+            this.wgs_gmButton.UseVisualStyleBackColor = true;
+            this.wgs_gmButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button3
+            // wgs_gmsButton
             // 
-            this.button3.Location = new System.Drawing.Point(12, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "ГМС (WGS84)";
-            this.button3.UseVisualStyleBackColor = true;
+            this.wgs_gmsButton.Location = new System.Drawing.Point(12, 70);
+            this.wgs_gmsButton.Name = "wgs_gmsButton";
+            this.wgs_gmsButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gmsButton.TabIndex = 2;
+            this.wgs_gmsButton.Tag = "2";
+            this.wgs_gmsButton.Text = "ГМС (WGS84)";
+            this.wgs_gmsButton.UseVisualStyleBackColor = true;
+            this.wgs_gmsButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button4
+            // sk_gButton
             // 
-            this.button4.Location = new System.Drawing.Point(12, 99);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Г (СК42)";
-            this.button4.UseVisualStyleBackColor = true;
+            this.sk_gButton.Location = new System.Drawing.Point(12, 99);
+            this.sk_gButton.Name = "sk_gButton";
+            this.sk_gButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gButton.TabIndex = 3;
+            this.sk_gButton.Tag = "3";
+            this.sk_gButton.Text = "Г (СК42)";
+            this.sk_gButton.UseVisualStyleBackColor = true;
+            this.sk_gButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button5
+            // sk_gmButton
             // 
-            this.button5.Location = new System.Drawing.Point(12, 128);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(123, 23);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "ГМ (WGS84)";
-            this.button5.UseVisualStyleBackColor = true;
+            this.sk_gmButton.Location = new System.Drawing.Point(12, 128);
+            this.sk_gmButton.Name = "sk_gmButton";
+            this.sk_gmButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gmButton.TabIndex = 4;
+            this.sk_gmButton.Tag = "4";
+            this.sk_gmButton.Text = "ГМ (WGS84)";
+            this.sk_gmButton.UseVisualStyleBackColor = true;
+            this.sk_gmButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button6
+            // sk_gmsButton
             // 
-            this.button6.Location = new System.Drawing.Point(12, 157);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(123, 23);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "ГМС (WGS84)";
-            this.button6.UseVisualStyleBackColor = true;
+            this.sk_gmsButton.Location = new System.Drawing.Point(12, 157);
+            this.sk_gmsButton.Name = "sk_gmsButton";
+            this.sk_gmsButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gmsButton.TabIndex = 5;
+            this.sk_gmsButton.Tag = "5";
+            this.sk_gmsButton.Text = "ГМС (WGS84)";
+            this.sk_gmsButton.UseVisualStyleBackColor = true;
+            this.sk_gmsButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // button7
+            // orthogonalСoordinatesButton
             // 
-            this.button7.Location = new System.Drawing.Point(11, 186);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(123, 48);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "Прямоугольные координаты";
-            this.button7.UseVisualStyleBackColor = true;
+            this.orthogonalСoordinatesButton.Location = new System.Drawing.Point(11, 186);
+            this.orthogonalСoordinatesButton.Name = "orthogonalСoordinatesButton";
+            this.orthogonalСoordinatesButton.Size = new System.Drawing.Size(123, 48);
+            this.orthogonalСoordinatesButton.TabIndex = 6;
+            this.orthogonalСoordinatesButton.Tag = "6";
+            this.orthogonalСoordinatesButton.Text = "Прямоугольные координаты";
+            this.orthogonalСoordinatesButton.UseVisualStyleBackColor = true;
+            this.orthogonalСoordinatesButton.Click += new System.EventHandler(this.Button_Click);
             // 
             // CoordinatsModeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(147, 244);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.orthogonalСoordinatesButton);
+            this.Controls.Add(this.sk_gmsButton);
+            this.Controls.Add(this.sk_gmButton);
+            this.Controls.Add(this.sk_gButton);
+            this.Controls.Add(this.wgs_gmsButton);
+            this.Controls.Add(this.wgs_gmButton);
+            this.Controls.Add(this.wgs_gButton);
             this.Name = "CoordinatsModeForm";
             this.Text = "CoordinatsModeForm";
             this.ResumeLayout(false);
@@ -120,12 +135,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        public System.Windows.Forms.Button wgs_gButton;
+        public System.Windows.Forms.Button wgs_gmButton;
+        public System.Windows.Forms.Button wgs_gmsButton;
+        public System.Windows.Forms.Button sk_gButton;
+        public System.Windows.Forms.Button sk_gmButton;
+        public System.Windows.Forms.Button sk_gmsButton;
+        public System.Windows.Forms.Button orthogonalСoordinatesButton;
     }
 }

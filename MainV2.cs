@@ -1491,6 +1491,7 @@ namespace MissionPlanner
         }
 
         public static bool parachuteReleased = false;
+        public static int coordinatsShowMode = 0;
         private void Timer1_Tick(object sender, EventArgs e)
         {
             if (comPort.MAV.cs.connected && !parachuteReleased) 
@@ -1506,11 +1507,46 @@ namespace MissionPlanner
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
-                coordinatsControl1.label1.Text = FlightPlanner.currentMarker.Position.Lat.ToString("0.000000") + "°, " +
-                                                 FlightPlanner.currentMarker.Position.Lng.ToString("0.000000") + "°";
+                string currentMousePosition = "";
+                string currentPosition = "";
+                double currentMousePositionLat = FlightPlanner.currentMarker.Position.Lat;
+                double currentMousePositionLng = FlightPlanner.currentMarker.Position.Lng;
+                double currentMousePositionAlt = 20;
+                double currentPositionLat = comPort.MAV.cs.lat;
+                double currentPositionLng = comPort.MAV.cs.lat;
+                double currentPositionAlt = comPort.MAV.cs.alt;
+                switch (coordinatsShowMode) 
+                {
+                    case 0:
+                        currentMousePosition = CoordinatsConverter.toWGS_G(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toWGS_G(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    case 1:
+                        currentMousePosition = CoordinatsConverter.toWGS_GM(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toWGS_GM(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    case 2:
+                        currentMousePosition = CoordinatsConverter.toWGS_GMS(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toWGS_GMS(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    case 3:
+                        currentMousePosition = CoordinatsConverter.toSK42_G(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toSK42_G(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    case 4:
+                        currentMousePosition = CoordinatsConverter.toSK42_GM(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toSK42_GM(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    case 5:
+                        currentMousePosition = CoordinatsConverter.toSK42_GMS(currentMousePositionLat, currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toSK42_GMS(currentPositionLat, currentPositionLng, currentPositionAlt);
+                        break;
+                    default:
+                        break;
+                }
+                coordinatsControl1.label1.Text = currentMousePosition;
                 coordinatsControl1.label2.Text = homedistString;
-                coordinatsControl1.label3.Text = comPort.MAV.cs.lat.ToString("0.000000") + "°, " +
-                                                 comPort.MAV.cs.lng.ToString("0.000000") + "°";
+                coordinatsControl1.label3.Text = currentPosition;
                 //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //string test2 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() + " " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X + FlightPlanner.rulerControl1.Size.Width, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
                 //System.Diagnostics.Debug.WriteLine("TEST RULER: "+test1 + "  - " + test2);
@@ -5502,8 +5538,11 @@ namespace MissionPlanner
 
                     if (child is Form)
                     {
-                        log.Debug("ApplyThemeTo " + child.Name);
-                        ThemeManager.ApplyThemeTo(child);
+                        if (child.Name != "CoordinatsModeForm")
+                        {
+                            log.Debug("ApplyThemeTo " + child.Name);
+                            ThemeManager.ApplyThemeTo(child);
+                        }
                     }
 
                     break;
@@ -5781,8 +5820,8 @@ namespace MissionPlanner
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            MyView.ShowScreen("SWConfig");
-
+            //MyView.ShowScreen("SWConfig");
+            CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656,20));
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
