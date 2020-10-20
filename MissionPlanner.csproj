@@ -780,6 +780,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>UserControl</SubType>
     </None>
+    <Compile Include="NewForms\CoordinatsModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\CoordinatsModeForm.Designer.cs">
+      <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\Diagnostic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2006,6 +2012,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\paramcompare.resx">
       <DependentUpon>paramcompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\CoordinatsModeForm.resx">
+      <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\Diagnostic.resx">
       <DependentUpon>Diagnostic.cs</DependentUpon>
