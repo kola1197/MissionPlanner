@@ -33,12 +33,17 @@ namespace MissionPlanner.Controls.NewControls
         private FlightByCompassControl flightByCompassControl;
         private RegionsControl regionsControl;
         // public RightSideMenuControl Instance;
+        private Control some_control;
+        private Point some_point;
         public RightSideMenuControl()
         {
             InitializeComponent();
-            antennaControl = new AntennaControl {Visible = false, Location = new Point(35, 0)};
-            flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 0) };
-            regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 0) };
+            antennaControl = new AntennaControl { Visible = false, Location = new Point(35, 4)}; //локацию по Y не трош!!!!!!!!!!!!!
+            flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 4) };
+            regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 4) };
+
+            some_control = menuStrip1.Parent;
+            some_point = menuStrip1.Location;
             
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
@@ -63,6 +68,18 @@ namespace MissionPlanner.Controls.NewControls
                 activeControl.Visible = (control == activeControl); 
             }
             control.Visible = !control.Visible;
+            /*if (control.Visible)
+            {
+                //menuStrip1.Parent = control;
+                //menuStrip1.Location = new Point(-126, 0);
+                //menuStrip1.Visible = true;
+                control.Parent = menuStrip1;
+            } else
+            {
+                //menuStrip1.Parent = some_control;
+                // menuStrip1.Location = some_point;
+                control.Parent = this;
+            }*/
             activeControl = control.Visible ? control : null;
             Invalidate();
         }

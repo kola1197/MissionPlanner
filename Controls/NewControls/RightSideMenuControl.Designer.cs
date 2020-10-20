@@ -107,9 +107,9 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
-            this.MinimumSize = new System.Drawing.Size(40, 300);
+            this.MinimumSize = new System.Drawing.Size(35, 300);
             this.Name = "RightSideMenuControl";
-            this.Size = new System.Drawing.Size(40, 300);
+            this.Size = new System.Drawing.Size(35, 300);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
