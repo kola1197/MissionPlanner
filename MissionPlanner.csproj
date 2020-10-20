@@ -483,11 +483,11 @@
     <Compile Include="Controls\NewControls\RulerControl.Designer.cs">
       <DependentUpon>RulerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NewControls\RouteSlidingScale.cs">
+    <Compile Include="Controls\NewControls\WpAltSlidingScale.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NewControls\RouteSlidingScale.Designer.cs">
-      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
+    <Compile Include="Controls\NewControls\WpAltSlidingScale.Designer.cs">
+      <DependentUpon>WpAltSlidingScale.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
@@ -1007,8 +1007,8 @@
     <EmbeddedResource Include="Controls\NewControls\RulerControl.resx">
       <DependentUpon>RulerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NewControls\RouteSlidingScale.resx">
-      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\NewControls\WpAltSlidingScale.resx">
+      <DependentUpon>WpAltSlidingScale.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\SensorUserControl.resx">
       <DependentUpon>SensorUserControl.cs</DependentUpon>
