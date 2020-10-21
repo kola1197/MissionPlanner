@@ -441,6 +441,12 @@
     <Compile Include="Controls\NewControls\GaugeHeading.Designer.cs">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\GskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\GskControl.Designer.cs">
+      <DependentUpon>GskControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\MainMenuWidget.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -483,11 +489,11 @@
     <Compile Include="Controls\NewControls\RulerControl.Designer.cs">
       <DependentUpon>RulerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NewControls\RouteSlidingScale.cs">
+    <Compile Include="Controls\NewControls\WpAltSlidingScale.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NewControls\RouteSlidingScale.Designer.cs">
-      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
+    <Compile Include="Controls\NewControls\WpAltSlidingScale.Designer.cs">
+      <DependentUpon>WpAltSlidingScale.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\servoGimbal.cs">
       <SubType>UserControl</SubType>
@@ -841,11 +847,23 @@
     <Compile Include="NewForms\VibeGraph.Designer.cs">
       <DependentUpon>VibeGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\WaypointInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\WaypointInfoControl.Designer.cs">
+      <DependentUpon>WaypointInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\WPConfig.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewForms\WPConfig.Designer.cs">
       <DependentUpon>WPConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\WpInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\WpInfoForm.Designer.cs">
+      <DependentUpon>WpInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
@@ -994,6 +1012,9 @@
     <EmbeddedResource Include="Controls\NewControls\GaugeHeading.resx">
       <DependentUpon>GaugeHeading.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\GskControl.resx">
+      <DependentUpon>GskControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </EmbeddedResource>
@@ -1015,8 +1036,8 @@
     <EmbeddedResource Include="Controls\NewControls\RulerControl.resx">
       <DependentUpon>RulerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NewControls\RouteSlidingScale.resx">
-      <DependentUpon>RouteSlidingScale.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\NewControls\WpAltSlidingScale.resx">
+      <DependentUpon>WpAltSlidingScale.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\SensorUserControl.resx">
       <DependentUpon>SensorUserControl.cs</DependentUpon>
@@ -2044,8 +2065,14 @@
     <EmbeddedResource Include="NewForms\VibeGraph.resx">
       <DependentUpon>VibeGraph.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\WaypointInfoControl.resx">
+      <DependentUpon>WaypointInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\WPConfig.resx">
       <DependentUpon>WPConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\WpInfoForm.resx">
+      <DependentUpon>WpInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="plugins\generator.resx">
       <DependentUpon>generator.cs</DependentUpon>

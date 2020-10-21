@@ -318,7 +318,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-            
+
             //Init RightSideMenu
             MainV2.instance.rightSideMenuControl1.Init();
 
@@ -1135,7 +1135,8 @@ namespace MissionPlanner.GCSViews
                 new GMarkerGoogle(new PointLatLng(geofencepolygon.Points[0].Lat, geofencepolygon.Points[0].Lng),
                     GMarkerGoogleType.red)
                 {
-                    ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                    // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                    ToolTipMode = MarkerTooltipMode.Never,
                     ToolTipText = "GeoFence Return"
                 });
             geofencepolygon.Points.RemoveAt(0);
@@ -1204,7 +1205,8 @@ namespace MissionPlanner.GCSViews
                     rallypointoverlay.Markers.Add(new GMapMarkerRallyPt(new PointLatLng(plla.plla.Lat, plla.plla.Lng))
                     {
                         Alt = (int) plla.plla.Alt,
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        ToolTipMode = MarkerTooltipMode.Never,
                         ToolTipText = "Rally Point" + "\nAlt: " + (plla.plla.Alt * CurrentState.multiplieralt)
                     });
                 }
@@ -2866,7 +2868,7 @@ namespace MissionPlanner.GCSViews
 
             return waypoints;
         }
-        
+
         public void DrawDistanceBetweenWaypoints(PaintEventArgs e)
         {
             List<PointLatLng> waypoints = GetWaypointsPositions();
@@ -2875,7 +2877,7 @@ namespace MissionPlanner.GCSViews
                 DrawDistanceBetweenTwoPoints(e, waypoints[i], waypoints[i + 1]);
             }
         }
-        
+
         public void DrawDistanceOnRuler(PaintEventArgs e)
         {
             List<PointLatLng> points = GetRulerRoute().Points;
@@ -2961,12 +2963,13 @@ namespace MissionPlanner.GCSViews
             e.Graphics.TranslateTransform(drawingPoint.X, drawingPoint.Y);
             e.Graphics.RotateTransform(drawingAngle);
 
-            if (!(azimuthAngle > 0 && azimuthAngle < 180))
+            if (!(azimuthAngle >= 0 && azimuthAngle <= 180))
             {
                 rectangleLocation = new Point(-(int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 0);
             }
 
-            rectangle = new Rectangle(rectangleLocation, new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
+            rectangle = new Rectangle(rectangleLocation,
+                new Size((int) Math.Truncate(font.SizeInPoints + 1) * distance.Length, 100));
 
             DrawDistanceString(e, distance, rectangle);
 
@@ -4678,7 +4681,8 @@ namespace MissionPlanner.GCSViews
                                             double.Parse(items[1], CultureInfo.InvariantCulture)),
                                         GMarkerGoogleType.red)
                                     {
-                                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                                        ToolTipMode = MarkerTooltipMode.Never,
                                         ToolTipText = "GeoFence Return"
                                     });
                                 MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
@@ -6346,7 +6350,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 rallypointoverlay.Markers.Add(
                     new GMapMarkerRallyPt(rallypt)
                     {
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                        ToolTipMode = MarkerTooltipMode.Never,
                         ToolTipText = "Rally Point" + "\nAlt: " + alt,
                         Tag = rallypointoverlay.Markers.Count,
                         Alt = (int) rallypt.Alt
@@ -6365,8 +6370,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             geofenceoverlay.Markers.Clear();
             geofenceoverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
-                    GMarkerGoogleType.red)
-                {ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return"});
+                GMarkerGoogleType.red)
+            {
+                // ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                ToolTipMode = MarkerTooltipMode.Never,
+                ToolTipText = "GeoFence Return"
+            });
 
             MainMap.Invalidate();
         }
@@ -6593,12 +6602,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     // draw the mavs seen on this port
                     foreach (var MAV in port.MAVlist)
                     {
-                        var marker = Common.getMAVMarker(MAV);
+                        // Todo: draw planes only when they are connected
+                        if (MAV.cs.connected || true)
+                        {
+                            var marker = Common.getMAVMarker(MAV);
 
-                        if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
-                            continue;
-                        // routesoverlay.Markers.Add(marker);
-                        addMissionRouteMarker(marker);
+                            if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                                continue;
+                            // routesoverlay.Markers.Add(marker);
+                            addMissionRouteMarker(marker);   
+                        }
                     }
                 }
 
@@ -7310,17 +7323,164 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     else
                     {
                         wpConfig = new WPConfig(CurentRectMarker);
-                        WPConfig_actionsAdding();
+                        WpConfigAddEvents();
                         wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " +
                                         CurentRectMarker.Tag.ToString();
-                        wpConfig_setValues();
+                        WpConfigSetValues();
                         wpConfig.Show();
                         wpConfig.updateServoButtons();
                     }
                 }
             }
         }
+        
+        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            int index = wpConfig.indexNow;
+            cleanToNextWP(index);
+            if (cleanToPrevWP(index))
+            {
+                index--;
+            }
 
+            if (!wpConfig.checkBox1.Checked)
+            {
+                int selectedValue = wpConfig.comboBox1.SelectedIndex;
+                DataGridViewRow row;
+                switch (selectedValue) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                {
+                    case 0:
+                        row = (DataGridViewRow) Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                        row.Cells[Command.Index + 1].Value = (14).ToString();
+                        int v = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+                        row.Cells[Lon.Index + 1].Value = v.ToString();
+                        Commands.Rows.Insert(index, row);
+                        index++;
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 1:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                    case 2:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow) Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
+                        row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
+                        Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index, Command.Index + 1);
+                        break;
+                    case 3:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        row = (DataGridViewRow) Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
+                        row.Cells[Command.Index + 1].Value = "1";
+                        Commands.Rows.Insert(index + 1, row);
+                        break;
+                    default:
+                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                        break;
+                }
+            }
+            else
+            {
+                Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                Commands_CellUpdate(index, Command.Index + 1);
+            }
+
+            setLatLon(index);
+            Commands_CellUpdate(index, Command.Index);
+            int val = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+            Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
+            Commands_CellUpdate(index, Lon.Index + 1);
+
+            /*int index = index;                                                                      //removing all old DO_SET_SERVO
+            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+            {
+                Commands.Rows.RemoveAt(index + 1);
+            }*/
+
+
+            if (wpConfig.checkBox2.Checked)
+            {
+                for (int i = 0; i < wpConfig.servos.Length; i++) //adding DO_SET_SERVO
+                {
+                    if (wpConfig.servos[i])
+                    {
+                        DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
+                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                        row.Cells[Command.Index + 1].Value = (i + 5).ToString();
+                        row.Cells[Command.Index + 2].Value = "2000";
+                        Commands.Rows.Insert(index + 1, row);
+                        Commands_CellUpdate(index + 1, Command.Index);
+                    }
+                }
+            }
+
+            tryToWriteWP();
+        }
+        
+        // OOPA YAP YAP
+        private void WpConfigAddEvents() //yap, this name is awfull
+        {
+            wpConfig.FormClosing += WpConfig_FormClosing;
+        }
+
+        private void WpConfigSetValues()
+        {
+            wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
+            wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
+            int index = wpConfig.indexNow;
+            ushort cmdPrev = 0;
+
+            wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value = Convert.ToDouble(Commands.Rows[index].Cells[Alt.Index].Value);
+            
+            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
+
+
+            switch (cmd) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+            {
+                //case (ushort)MAVLink.MAV_CMD.TAKEOFF:
+                //    wpConfig.comboBox1.SelectedIndex = 0;
+                //    break;
+                case (ushort) MAVLink.MAV_CMD.WAYPOINT:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                //    wpConfig.comboBox1.SelectedIndex = 2;
+                //    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                //    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                //    break;
+                //case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                //   wpConfig.comboBox1.SelectedIndex = 3;
+                //    break;
+                case (ushort) MAVLink.MAV_CMD.LOITER_TIME:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    wpConfig.comboBox1.Enabled = false;
+                    wpConfig.checkBox1.Checked = true;
+                    break;
+                default:
+                    wpConfig.comboBox1.SelectedIndex = 1;
+                    break;
+            }
+
+            if (index > 0)
+            {
+                cmdPrev = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
+                if ((ushort) MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                {
+                    wpConfig.comboBox1.SelectedIndex = 0;
+                }
+            }
+
+            //writeServosToWPConfig();
+            writeOtherWPtoWPConfig(index);
+        }
+        
         public GMapPolygon GetCurrentPolygon()
         {
             return RegionsControl.instance.GetCurrentPolygon();
@@ -7827,7 +7987,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     airportsoverlay.Markers.Add(new GMapMarkerAirport(item)
                     {
                         ToolTipText = item.Tag,
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver
+                        // ToolTipMode = MarkerTooltipMode.OnMouseOver
+                        ToolTipMode = MarkerTooltipMode.Never
                     });
                 }
             }
@@ -7911,6 +8072,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private static WaypointInfoControl _wpControl=new WaypointInfoControl() {Visible = false};
+
         private void MainMap_OnMarkerEnter(GMapMarker item)
         {
             if (!isMouseDown)
@@ -7938,6 +8101,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
 
                     CurentRectMarker = rc;
+
+                    ShowPopupWpInfo(rc);
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -7962,9 +8127,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurrentPOIMarker = item as GMapMarkerPOI;
                 }
 
-                if (item is GMapMarkerWP)
+                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
-                    //CurrentGMapMarker = item;
+                    ShowPopupWpInfo(item);
                 }
 
                 if (item is GMapMarker)
@@ -7972,6 +8137,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     //CurrentGMapMarker = item;
                 }
             }
+        }
+
+        private void ShowPopupWpInfo(GMapMarker marker)
+        {
+            int wpno, alt;
+            string type, homeDist;
+            if (marker.Tag == "H")
+            {
+                wpno = 0;
+                alt = (int) Math.Truncate(double.Parse(TXT_homealt.Text));
+                type = "HOME";
+                homeDist = "";
+            }
+            else
+            {
+                wpno = Convert.ToInt32(marker.Tag);
+                alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
+                type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
+                homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
+            }
+
+            Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
+                (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
+            _wpControl.SetInfo(wpno, alt, type, homeDist);
+            _wpControl.Parent = MainMap;
+            _wpControl.Location = location;
+            _wpControl.Show();
         }
 
         private void MainMap_OnMarkerLeave(GMapMarker item)
@@ -7984,6 +8176,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.ResetColor();
                     MainMap.Invalidate(false);
+
+                    if (rc.Tag == "H")
+                    {
+                        _wpControl.Hide();
+                    }
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -8005,6 +8202,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     // when you click the context menu this triggers and causes problems
                     CurrentGMapMarker = null;
+                }
+
+                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
+                {
+                    _wpControl.Hide();
                 }
             }
         }
@@ -8274,56 +8476,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             tagForContextMenu = null;
         }
 
-        private void wpConfig_setValues()
-        {
-            wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
-            wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
-            int index = wpConfig.indexNow;
-            ushort cmdPrev = 0;
-
-            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
-
-
-            switch (cmd) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
-            {
-                //case (ushort)MAVLink.MAV_CMD.TAKEOFF:
-                //    wpConfig.comboBox1.SelectedIndex = 0;
-                //    break;
-                case (ushort) MAVLink.MAV_CMD.WAYPOINT:
-                    wpConfig.comboBox1.SelectedIndex = 1;
-                    break;
-                //case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
-                //    wpConfig.comboBox1.SelectedIndex = 2;
-                //    double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
-                //    wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
-                //    break;
-                //case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
-                //   wpConfig.comboBox1.SelectedIndex = 3;
-                //    break;
-                case (ushort) MAVLink.MAV_CMD.LOITER_TIME:
-                    wpConfig.comboBox1.SelectedIndex = 1;
-                    wpConfig.comboBox1.Enabled = false;
-                    wpConfig.checkBox1.Checked = true;
-                    break;
-                default:
-                    wpConfig.comboBox1.SelectedIndex = 1;
-                    break;
-            }
-
-            if (index > 0)
-            {
-                cmdPrev = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                    Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
-                if ((ushort) MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
-                {
-                    wpConfig.comboBox1.SelectedIndex = 0;
-                }
-            }
-
-            //writeServosToWPConfig();
-            writeOtherWPtoWPConfig(index);
-        }
+        
 
         private void writeOtherWPtoWPConfig(int index)
         {
@@ -8386,11 +8539,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             wpConfig.updateServoButtons();
-        }
-
-        private void WPConfig_actionsAdding() //yap, this name is awfull
-        {
-            wpConfig.FormClosing += WpConfig_FormClosing;
         }
 
         private void wpMenuLoad()
@@ -8473,94 +8621,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             return result;
-        }
-
-        private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            int index = wpConfig.indexNow;
-            cleanToNextWP(index);
-            if (cleanToPrevWP(index))
-            {
-                index--;
-            }
-
-            if (!wpConfig.checkBox1.Checked)
-            {
-                int selectedValue = wpConfig.comboBox1.SelectedIndex;
-                DataGridViewRow row;
-                switch (selectedValue) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
-                {
-                    case 0:
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-                        row.Cells[Command.Index + 1].Value = (14).ToString();
-                        int v = (int) wpConfig.myTrackBar1.Value;
-                        row.Cells[Lon.Index + 1].Value = v.ToString();
-                        Commands.Rows.Insert(index, row);
-                        index++;
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 1:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 2:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
-                        row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
-                        Commands.Rows.Insert(index + 1, row);
-                        Commands_CellUpdate(index, Command.Index + 1);
-                        break;
-                    case 3:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
-                        row.Cells[Command.Index + 1].Value = "1";
-                        Commands.Rows.Insert(index + 1, row);
-                        break;
-                    default:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                }
-            }
-            else
-            {
-                Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
-                Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
-                Commands_CellUpdate(index, Command.Index + 1);
-            }
-
-            setLatLon(index);
-            Commands_CellUpdate(index, Command.Index);
-            int val = (int) wpConfig.myTrackBar1.Value;
-            Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
-            Commands_CellUpdate(index, Lon.Index + 1);
-
-            /*int index = index;                                                                      //removing all old DO_SET_SERVO
-            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
-            {
-                Commands.Rows.RemoveAt(index + 1);
-            }*/
-
-
-            if (wpConfig.checkBox2.Checked)
-            {
-                for (int i = 0; i < wpConfig.servos.Length; i++) //adding DO_SET_SERVO
-                {
-                    if (wpConfig.servos[i])
-                    {
-                        DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
-                        row.Cells[Command.Index + 1].Value = (i + 5).ToString();
-                        row.Cells[Command.Index + 2].Value = "2000";
-                        Commands.Rows.Insert(index + 1, row);
-                        Commands_CellUpdate(index + 1, Command.Index);
-                    }
-                }
-            }
-
-            tryToWriteWP();
         }
 
         public void tryToWriteWP()
@@ -8736,6 +8796,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
             rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10,
                 MainMap.Size.Height - rulerControl1.Size.Height - 60);
+        }
+
+        private void Commands_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CustomMessageBox.Show(e.RowIndex + "; " + e.ColumnIndex);
         }
     }
 }

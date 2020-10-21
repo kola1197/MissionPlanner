@@ -22,13 +22,13 @@ namespace MissionPlanner.NewForms
             this.TopMost = true;
         }
         public int indexNow = -1;
-        public WPConfig(GMapMarkerRect CurentRectMarker)
+        public WPConfig(GMapMarkerRect currentRectMarker)
         {
 
             InitializeComponent();
             this.TopMost = true;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + CurentRectMarker.Tag.ToString();
-            indexNow = int.Parse(CurentRectMarker.Tag.ToString()) -1;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + currentRectMarker.Tag.ToString();
+            indexNow = int.Parse(currentRectMarker.Tag.ToString()) -1;
             textBox1.Text = "";
         }
 
@@ -71,17 +71,7 @@ namespace MissionPlanner.NewForms
                 checkBox2.Enabled = true;
             }
         }
-
-        private void myTrackBar1_Scroll(object sender, EventArgs e)
-        {
-            label6.Text = myTrackBar1.Value.ToString() + " M";
-        }
-
-        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void myButton2_Click(object sender, EventArgs e)
         {
             textBox3.Text = "1";

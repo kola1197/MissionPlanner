@@ -31,13 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -68,10 +64,9 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.label11 = new System.Windows.Forms.Label();
+            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,14 +82,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox5);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.myTrackBar1);
             this.tabPage1.Controls.Add(this.comboBox1);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.textBox2);
@@ -108,6 +99,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(192, 115);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Км/ч";
+            this.label11.Visible = false;
             // 
             // label10
             // 
@@ -126,57 +127,6 @@
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 11;
             this.textBox5.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(253, 115);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Выбрано:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(314, 115);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "100 М";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(340, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "5000 М";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(340, 182);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "100 М";
-            // 
-            // myTrackBar1
-            // 
-            this.myTrackBar1.LargeChange = 100F;
-            this.myTrackBar1.Location = new System.Drawing.Point(389, 19);
-            this.myTrackBar1.Maximum = 5000F;
-            this.myTrackBar1.Minimum = 100F;
-            this.myTrackBar1.Name = "myTrackBar1";
-            this.myTrackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.myTrackBar1.Size = new System.Drawing.Size(45, 176);
-            this.myTrackBar1.SmallChange = 100F;
-            this.myTrackBar1.TabIndex = 6;
-            this.myTrackBar1.TickFrequency = 100F;
-            this.myTrackBar1.Value = 100F;
-            this.myTrackBar1.Scroll += new System.EventHandler(this.myTrackBar1_Scroll);
             // 
             // comboBox1
             // 
@@ -283,6 +233,8 @@
             // 
             // myButton14
             // 
+            this.myButton14.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton14.BGGradTop = System.Drawing.Color.Empty;
             this.myButton14.Location = new System.Drawing.Point(286, 169);
             this.myButton14.Name = "myButton14";
             this.myButton14.Size = new System.Drawing.Size(126, 25);
@@ -293,6 +245,8 @@
             // 
             // myButton15
             // 
+            this.myButton15.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton15.BGGradTop = System.Drawing.Color.Empty;
             this.myButton15.Location = new System.Drawing.Point(154, 169);
             this.myButton15.Name = "myButton15";
             this.myButton15.Size = new System.Drawing.Size(126, 25);
@@ -303,6 +257,8 @@
             // 
             // myButton16
             // 
+            this.myButton16.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton16.BGGradTop = System.Drawing.Color.Empty;
             this.myButton16.Location = new System.Drawing.Point(21, 169);
             this.myButton16.Name = "myButton16";
             this.myButton16.Size = new System.Drawing.Size(127, 25);
@@ -313,6 +269,8 @@
             // 
             // myButton11
             // 
+            this.myButton11.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton11.BGGradTop = System.Drawing.Color.Empty;
             this.myButton11.Location = new System.Drawing.Point(286, 138);
             this.myButton11.Name = "myButton11";
             this.myButton11.Size = new System.Drawing.Size(126, 25);
@@ -323,6 +281,8 @@
             // 
             // myButton12
             // 
+            this.myButton12.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton12.BGGradTop = System.Drawing.Color.Empty;
             this.myButton12.Location = new System.Drawing.Point(154, 138);
             this.myButton12.Name = "myButton12";
             this.myButton12.Size = new System.Drawing.Size(126, 25);
@@ -333,6 +293,8 @@
             // 
             // myButton13
             // 
+            this.myButton13.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton13.BGGradTop = System.Drawing.Color.Empty;
             this.myButton13.Location = new System.Drawing.Point(21, 138);
             this.myButton13.Name = "myButton13";
             this.myButton13.Size = new System.Drawing.Size(127, 25);
@@ -343,6 +305,8 @@
             // 
             // myButton10
             // 
+            this.myButton10.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton10.BGGradTop = System.Drawing.Color.Empty;
             this.myButton10.Location = new System.Drawing.Point(286, 107);
             this.myButton10.Name = "myButton10";
             this.myButton10.Size = new System.Drawing.Size(126, 25);
@@ -353,6 +317,8 @@
             // 
             // myButton9
             // 
+            this.myButton9.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton9.BGGradTop = System.Drawing.Color.Empty;
             this.myButton9.Location = new System.Drawing.Point(154, 107);
             this.myButton9.Name = "myButton9";
             this.myButton9.Size = new System.Drawing.Size(126, 25);
@@ -385,6 +351,8 @@
             // 
             // myButton7
             // 
+            this.myButton7.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton7.BGGradTop = System.Drawing.Color.Empty;
             this.myButton7.Location = new System.Drawing.Point(352, 55);
             this.myButton7.Name = "myButton7";
             this.myButton7.Size = new System.Drawing.Size(60, 25);
@@ -395,6 +363,8 @@
             // 
             // myButton6
             // 
+            this.myButton6.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton6.BGGradTop = System.Drawing.Color.Empty;
             this.myButton6.Location = new System.Drawing.Point(286, 55);
             this.myButton6.Name = "myButton6";
             this.myButton6.Size = new System.Drawing.Size(60, 25);
@@ -405,6 +375,8 @@
             // 
             // myButton5
             // 
+            this.myButton5.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton5.BGGradTop = System.Drawing.Color.Empty;
             this.myButton5.Location = new System.Drawing.Point(220, 55);
             this.myButton5.Name = "myButton5";
             this.myButton5.Size = new System.Drawing.Size(60, 25);
@@ -415,6 +387,8 @@
             // 
             // myButton4
             // 
+            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.Empty;
             this.myButton4.Location = new System.Drawing.Point(154, 55);
             this.myButton4.Name = "myButton4";
             this.myButton4.Size = new System.Drawing.Size(60, 25);
@@ -425,6 +399,8 @@
             // 
             // myButton3
             // 
+            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.Empty;
             this.myButton3.Location = new System.Drawing.Point(88, 55);
             this.myButton3.Name = "myButton3";
             this.myButton3.Size = new System.Drawing.Size(60, 25);
@@ -435,6 +411,8 @@
             // 
             // myButton2
             // 
+            this.myButton2.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton2.BGGradTop = System.Drawing.Color.Empty;
             this.myButton2.Location = new System.Drawing.Point(21, 55);
             this.myButton2.Name = "myButton2";
             this.myButton2.Size = new System.Drawing.Size(60, 25);
@@ -476,6 +454,8 @@
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton1.BGGradTop = System.Drawing.Color.Empty;
             this.myButton1.Location = new System.Drawing.Point(12, 278);
             this.myButton1.Name = "myButton1";
             this.myButton1.Size = new System.Drawing.Size(457, 23);
@@ -484,15 +464,12 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
-            // label11
+            // wpAltSlidingScale1
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(192, 115);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Км/ч";
-            this.label11.Visible = false;
+            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
+            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
+            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
+            this.wpAltSlidingScale1.TabIndex = 14;
             // 
             // WPConfig
             // 
@@ -506,7 +483,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -524,11 +500,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        public Controls.MyTrackBar myTrackBar1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private Controls.MyButton myButton1;
         private Controls.MyButton myButton7;
         private Controls.MyButton myButton6;
@@ -555,5 +526,6 @@
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label11;
+        public Controls.NewControls.WpAltSlidingScale wpAltSlidingScale1;
     }
 }
