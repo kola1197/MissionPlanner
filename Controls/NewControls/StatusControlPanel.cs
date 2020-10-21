@@ -31,8 +31,6 @@ namespace MissionPlanner.Controls
 
         private ToolStripControlHost clickedSensorControl;
 
-        public EngineControlForm EngineControlForm; 
-
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -169,7 +167,7 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, System.EventArgs e)
         {
             fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
 
@@ -273,13 +271,8 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
-            EngineControlForm = new EngineControlForm()
-                {Visible = false, StartPosition = FormStartPosition.Manual};
             MainV2.instance.SetEngineFormLocation();
-            if (!EngineControlForm.IsDisposed)
-            {
-                EngineControlForm.Show();
-            }
+            //MainV2.EngineControlForm.Show();
         }
 
         private void speedPanel_Click(object sender, EventArgs e)

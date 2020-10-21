@@ -60,13 +60,8 @@
             this.ppkToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.ppkToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.ppkToolStripMenuItem.Name = "ppkToolStripMenuItem";
-<<<<<<< HEAD
-            this.ppkToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
-            this.ppkToolStripMenuItem.Text = "ПпК";
-=======
             this.ppkToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
             this.ppkToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
->>>>>>> 943c61767858c020a7988cf61ad1fc74cc295a3f
             this.ppkToolStripMenuItem.Click += new System.EventHandler(this.ppkToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
@@ -77,13 +72,8 @@
             this.regionsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.regionsToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-<<<<<<< HEAD
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(113, 59);
-            this.regionsToolStripMenuItem.Text = "Регионы";
-=======
             this.regionsToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
             this.regionsToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
->>>>>>> 943c61767858c020a7988cf61ad1fc74cc295a3f
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // gskToolStripMenuItem
@@ -94,14 +84,8 @@
             this.gskToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.gskToolStripMenuItem.Margin = new System.Windows.Forms.Padding(-6, 0, -6, -4);
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
-<<<<<<< HEAD
-            this.gskToolStripMenuItem.Size = new System.Drawing.Size(113, 32);
-            this.gskToolStripMenuItem.Text = "ГСК";
-            this.gskToolStripMenuItem.Click += new System.EventHandler(this.gskToolStripMenuItem_Click);
-=======
             this.gskToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
             this.gskToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
->>>>>>> 943c61767858c020a7988cf61ad1fc74cc295a3f
             // 
             // antennaToolStripMenuItem
             // 

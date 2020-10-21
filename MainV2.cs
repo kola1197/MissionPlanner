@@ -1358,8 +1358,8 @@ namespace MissionPlanner
         public void SetEngineFormLocation()
         {
             Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
-                this.Location.Y + locationLocal.Y);
+            //StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+            //    this.Location.Y + locationLocal.Y);
         }
 
         public void SetRouteFormLocation()
