@@ -7336,90 +7336,93 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         
         private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
-            int index = wpConfig.indexNow;
-            cleanToNextWP(index);
-            if (cleanToPrevWP(index))
+            if (wpConfig.closedByButton)
             {
-                index--;
-            }
-
-            if (!wpConfig.checkBox1.Checked)
-            {
-                int selectedValue = wpConfig.comboBox1.SelectedIndex;
-                DataGridViewRow row;
-                switch (selectedValue) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                int index = wpConfig.indexNow;
+                cleanToNextWP(index);
+                if (cleanToPrevWP(index))
                 {
-                    case 0:
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-                        row.Cells[Command.Index + 1].Value = (14).ToString();
-                        int v = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
-                        row.Cells[Lon.Index + 1].Value = v.ToString();
-                        Commands.Rows.Insert(index, row);
-                        index++;
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 1:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
-                    case 2:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
-                        double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
-                        row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
-                        Commands.Rows.Insert(index + 1, row);
-                        Commands_CellUpdate(index, Command.Index + 1);
-                        break;
-                    case 3:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
-                        row.Cells[Command.Index + 1].Value = "1";
-                        Commands.Rows.Insert(index + 1, row);
-                        break;
-                    default:
-                        Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                        break;
+                    index--;
                 }
-            }
-            else
-            {
-                Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
-                Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
-                Commands_CellUpdate(index, Command.Index + 1);
-            }
 
-            setLatLon(index);
-            Commands_CellUpdate(index, Command.Index);
-            int val = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
-            Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
-            Commands_CellUpdate(index, Lon.Index + 1);
-
-            /*int index = index;                                                                      //removing all old DO_SET_SERVO
-            while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
-            {
-                Commands.Rows.RemoveAt(index + 1);
-            }*/
-
-
-            if (wpConfig.checkBox2.Checked)
-            {
-                for (int i = 0; i < wpConfig.servos.Length; i++) //adding DO_SET_SERVO
+                if (!wpConfig.checkBox1.Checked)
                 {
-                    if (wpConfig.servos[i])
+                    int selectedValue = wpConfig.comboBox1.SelectedIndex;
+                    DataGridViewRow row;
+                    switch (selectedValue) //Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
                     {
-                        DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
-                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
-                        row.Cells[Command.Index + 1].Value = (i + 5).ToString();
-                        row.Cells[Command.Index + 2].Value = "2000";
-                        Commands.Rows.Insert(index + 1, row);
-                        Commands_CellUpdate(index + 1, Command.Index);
+                        case 0:
+                            row = (DataGridViewRow)Commands.Rows[index].Clone();
+                            row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                            row.Cells[Command.Index + 1].Value = (14).ToString();
+                            int v = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+                            row.Cells[Lon.Index + 1].Value = v.ToString();
+                            Commands.Rows.Insert(index, row);
+                            index++;
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                            break;
+                        case 1:
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                            break;
+                        case 2:
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                            row = (DataGridViewRow)Commands.Rows[index].Clone();
+                            row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                            double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
+                            row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
+                            Commands.Rows.Insert(index + 1, row);
+                            Commands_CellUpdate(index, Command.Index + 1);
+                            break;
+                        case 3:
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                            row = (DataGridViewRow)Commands.Rows[index].Clone();
+                            row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
+                            row.Cells[Command.Index + 1].Value = "1";
+                            Commands.Rows.Insert(index + 1, row);
+                            break;
+                        default:
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                            break;
                     }
                 }
-            }
+                else
+                {
+                    Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                    Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                    Commands_CellUpdate(index, Command.Index + 1);
+                }
 
-            tryToWriteWP();
+                setLatLon(index);
+                Commands_CellUpdate(index, Command.Index);
+                int val = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+                Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
+                Commands_CellUpdate(index, Lon.Index + 1);
+
+                /*int index = index;                                                                      //removing all old DO_SET_SERVO
+                while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                {
+                    Commands.Rows.RemoveAt(index + 1);
+                }*/
+
+
+                if (wpConfig.checkBox2.Checked)
+                {
+                    for (int i = 0; i < wpConfig.servos.Length; i++) //adding DO_SET_SERVO
+                    {
+                        if (wpConfig.servos[i])
+                        {
+                            DataGridViewRow row = (DataGridViewRow)Commands.Rows[index].Clone();
+                            row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                            row.Cells[Command.Index + 1].Value = (i + 5).ToString();
+                            row.Cells[Command.Index + 2].Value = "2000";
+                            Commands.Rows.Insert(index + 1, row);
+                            Commands_CellUpdate(index + 1, Command.Index);
+                        }
+                    }
+                }
+
+                tryToWriteWP();
+            }
         }
         
         // OOPA YAP YAP
