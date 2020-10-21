@@ -1357,9 +1357,9 @@ namespace MissionPlanner
 
         public void SetEngineFormLocation()
         {
-            Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            //StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
-            //    this.Location.Y + locationLocal.Y);
+            Point locationLocal = StatusMenuPanel.GetLocalEngineFormLocation();
+            StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+            this.Location.Y + locationLocal.Y);
         }
 
         public void SetRouteFormLocation()
@@ -1501,7 +1501,7 @@ namespace MissionPlanner
             {
                 if (StatusMenuPanel != null)
                 {
-                    StatusMenuPanel.airspeedDirectionControl1.updateData();
+                   // StatusMenuPanel.airspeedDirectionControl1.updateData();
                 }
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
@@ -2082,7 +2082,7 @@ namespace MissionPlanner
                 {
                     logger.write(v);
                 }
-                if (warnings.Count > 0 && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir)
+                if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
                 {
                     label1.BackColor = Color.DarkRed;
                     progressBar1.ValueColor = Color.Red;

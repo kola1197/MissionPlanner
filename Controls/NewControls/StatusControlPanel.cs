@@ -30,6 +30,8 @@ namespace MissionPlanner.Controls
         public static StatusControlPanel instance;
 
         private ToolStripControlHost clickedSensorControl;
+        
+        public EngineControlForm EngineControlForm; 
 
         public StatusControlPanel()
         {
@@ -52,6 +54,12 @@ namespace MissionPlanner.Controls
                 speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
         }
 
+        public Point GetLocalEngineFormLocation()
+        {
+            return new Point(enginePanel.Location.X + slidingScaleIndent.X,
+                enginePanel.Location.Y + this.Height + slidingScaleIndent.Y);
+        }
+        
         private void AddClickToSpeedPanelControls()
         {
             foreach (Control control in speedPanel.Controls)
@@ -271,8 +279,13 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
+            EngineControlForm = new EngineControlForm()
+                {Visible = false, StartPosition = FormStartPosition.Manual};
             MainV2.instance.SetEngineFormLocation();
-            //MainV2.EngineControlForm.Show();
+            if (!EngineControlForm.IsDisposed)
+            {
+                EngineControlForm.Show();
+            }
         }
 
         private void speedPanel_Click(object sender, EventArgs e)

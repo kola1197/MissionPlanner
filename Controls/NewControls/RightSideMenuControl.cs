@@ -43,7 +43,7 @@ namespace MissionPlanner.Controls.NewControls
             antennaControl = new AntennaControl { Visible = false, Location = new Point(35, 4)}; //локацию по Y не трош!!!!!!!!!!!!!
             flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 4) };
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 4) };
-            gskControl = new GskControl(){Visible = false, Location = new Point(35, 0) };
+            gskControl = new GskControl(){Visible = false, Location = new Point(35, 4) };
 
             some_control = menuStrip1.Parent;
             some_point = menuStrip1.Location;
