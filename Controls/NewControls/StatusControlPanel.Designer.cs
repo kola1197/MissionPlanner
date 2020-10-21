@@ -48,6 +48,8 @@ namespace MissionPlanner.Controls
             this.environmentTemp_label = new System.Windows.Forms.Label();
             this.averageRpmICE_label = new System.Windows.Forms.Label();
             this.hudPanel = new System.Windows.Forms.Panel();
+            this.HorizonHUD = new MissionPlanner.Controls.HorizonHUD();
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.sensorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.напряжениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.температураДвигателяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,37 +68,35 @@ namespace MissionPlanner.Controls
             this.fuel_PB = new System.Windows.Forms.PictureBox();
             this.enginePanel = new System.Windows.Forms.Panel();
             this.voltage_PB = new System.Windows.Forms.PictureBox();
+            this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
+            this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.speedPanel = new System.Windows.Forms.Panel();
             this.groundspeed_PB = new System.Windows.Forms.PictureBox();
             this.airspeed_PB = new System.Windows.Forms.PictureBox();
+            this.airspeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.groundSpeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.temperaturePanel = new System.Windows.Forms.Panel();
             this.engineTemp_PB = new System.Windows.Forms.PictureBox();
             this.environmentTemp_PB = new System.Windows.Forms.PictureBox();
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
-            this.HorizonHUD = new MissionPlanner.Controls.HorizonHUD();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
-            this.airspeedDirectionControl2 = new MissionPlanner.Controls.NewControls.AirspeedDirectionControl();
             this.environmentTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.engineTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.airspeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.groundSpeed_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
-            this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.airspeedDirectionControl2 = new MissionPlanner.Controls.NewControls.AirspeedDirectionControl();
             this.hudPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
             this.addOrRemovePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fuel_PB)).BeginInit();
             this.enginePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.speedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groundspeed_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.airspeed_PB)).BeginInit();
             this.temperaturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.engineTemp_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.environmentTemp_PB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.SuspendLayout();
             // 
             // rpmICE_label
@@ -256,6 +256,112 @@ namespace MissionPlanner.Controls
             this.hudPanel.Name = "hudPanel";
             this.hudPanel.Size = new System.Drawing.Size(150, 100);
             this.hudPanel.TabIndex = 19;
+            // 
+            // HorizonHUD
+            // 
+            this.HorizonHUD.airspeed = 0F;
+            this.HorizonHUD.alt = 0F;
+            this.HorizonHUD.altunit = null;
+            this.HorizonHUD.AOA = 0F;
+            this.HorizonHUD.BackColor = System.Drawing.Color.Black;
+            this.HorizonHUD.batterylevel = 0F;
+            this.HorizonHUD.batteryremaining = 0F;
+            this.HorizonHUD.bgimage = null;
+            this.HorizonHUD.connected = false;
+            this.HorizonHUD.critAOA = 25F;
+            this.HorizonHUD.critSSA = 30F;
+            this.HorizonHUD.current = 0F;
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("airspeed", this.bindingSourceHud, "airspeed", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("alt", this.bindingSourceHud, "alt", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("batterylevel", this.bindingSourceHud, "battery_voltage", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("batteryremaining", this.bindingSourceHud, "battery_remaining", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("connected", this.bindingSourceHud, "connected", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("current", this.bindingSourceHud, "current", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("datetime", this.bindingSourceHud, "datetime", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("disttowp", this.bindingSourceHud, "wp_dist", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("ekfstatus", this.bindingSourceHud, "ekfstatus", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("failsafe", this.bindingSourceHud, "failsafe", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpsfix", this.bindingSourceHud, "gpsstatus", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpsfix2", this.bindingSourceHud, "gpsstatus2", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpshdop", this.bindingSourceHud, "gpshdop", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpshdop2", this.bindingSourceHud, "gpshdop2", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundalt", this.bindingSourceHud, "HomeAlt", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundcourse", this.bindingSourceHud, "groundcourse", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundspeed", this.bindingSourceHud, "groundspeed", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("heading", this.bindingSourceHud, "yaw", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("linkqualitygcs", this.bindingSourceHud, "linkqualitygcs", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("message", this.bindingSourceHud, "messageHigh", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("mode", this.bindingSourceHud, "mode", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("navpitch", this.bindingSourceHud, "nav_pitch", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("navroll", this.bindingSourceHud, "nav_roll", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("pitch", this.bindingSourceHud, "pitch", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("roll", this.bindingSourceHud, "roll", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("status", this.bindingSourceHud, "armed", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetalt", this.bindingSourceHud, "targetalt", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetheading", this.bindingSourceHud, "nav_bearing", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetspeed", this.bindingSourceHud, "targetairspeed", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("turnrate", this.bindingSourceHud, "turnrate", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("verticalspeed", this.bindingSourceHud, "verticalspeed", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibex", this.bindingSourceHud, "vibex", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibey", this.bindingSourceHud, "vibey", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibez", this.bindingSourceHud, "vibez", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("wpno", this.bindingSourceHud, "wpno", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("xtrack_error", this.bindingSourceHud, "xtrack_error", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("AOA", this.bindingSourceHud, "AOA", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("SSA", this.bindingSourceHud, "SSA", true));
+            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("critAOA", this.bindingSourceHud, "crit_AOA", true));
+            this.HorizonHUD.datetime = new System.DateTime(((long)(0)));
+            this.HorizonHUD.displayAOASSA = false;
+            this.HorizonHUD.disttowp = 0F;
+            this.HorizonHUD.distunit = null;
+            this.HorizonHUD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.HorizonHUD.ekfstatus = 0F;
+            this.HorizonHUD.failsafe = false;
+            this.HorizonHUD.gpsfix = 0F;
+            this.HorizonHUD.gpsfix2 = 0F;
+            this.HorizonHUD.gpshdop = 0F;
+            this.HorizonHUD.gpshdop2 = 0F;
+            this.HorizonHUD.groundalt = 0F;
+            this.HorizonHUD.groundcourse = 0F;
+            this.HorizonHUD.groundspeed = 0F;
+            this.HorizonHUD.heading = 0F;
+            this.HorizonHUD.hudcolor = System.Drawing.Color.LightGray;
+            this.HorizonHUD.linkqualitygcs = 0F;
+            this.HorizonHUD.Location = new System.Drawing.Point(0, 0);
+            this.HorizonHUD.lowairspeed = false;
+            this.HorizonHUD.lowgroundspeed = false;
+            this.HorizonHUD.lowvoltagealert = false;
+            this.HorizonHUD.message = "";
+            this.HorizonHUD.mode = "Unknown";
+            this.HorizonHUD.Name = "HorizonHUD";
+            this.HorizonHUD.navpitch = 0F;
+            this.HorizonHUD.navroll = 0F;
+            this.HorizonHUD.pitch = 0F;
+            this.HorizonHUD.roll = 0F;
+            this.HorizonHUD.Russian = false;
+            this.HorizonHUD.Size = new System.Drawing.Size(150, 100);
+            this.HorizonHUD.skyColor1 = System.Drawing.Color.Blue;
+            this.HorizonHUD.skyColor2 = System.Drawing.Color.LightBlue;
+            this.HorizonHUD.speedunit = null;
+            this.HorizonHUD.SSA = 0F;
+            this.HorizonHUD.status = false;
+            this.HorizonHUD.streamjpg = null;
+            this.HorizonHUD.TabIndex = 2;
+            this.HorizonHUD.targetalt = 0F;
+            this.HorizonHUD.targetheading = 0F;
+            this.HorizonHUD.targetspeed = 0F;
+            this.HorizonHUD.turnrate = 0F;
+            this.HorizonHUD.verticalspeed = 0F;
+            this.HorizonHUD.vibex = 0F;
+            this.HorizonHUD.vibey = 0F;
+            this.HorizonHUD.vibez = 0F;
+            this.HorizonHUD.VSync = false;
+            this.HorizonHUD.wpno = 0;
+            this.HorizonHUD.xtrack_error = 0F;
+            // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // sensorsContextMenuStrip
             // 
@@ -436,6 +542,40 @@ namespace MissionPlanner.Controls
             this.voltage_PB.TabIndex = 82;
             this.voltage_PB.TabStop = false;
             // 
+            // splittedBar_voltage
+            // 
+            this.splittedBar_voltage.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.splittedBar_voltage.Color = System.Drawing.Color.LimeGreen;
+            this.splittedBar_voltage.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage", true));
+            this.splittedBar_voltage.Location = new System.Drawing.Point(174, 16);
+            this.splittedBar_voltage.Maximum = 12.6D;
+            this.splittedBar_voltage.Minimum = 9.9D;
+            this.splittedBar_voltage.Name = "splittedBar_voltage";
+            this.splittedBar_voltage.Size = new System.Drawing.Size(25, 99);
+            this.splittedBar_voltage.Step = 1.4D;
+            this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.splittedBar_voltage.TabIndex = 2;
+            this.splittedBar_voltage.Value = 12D;
+            // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // splittedBar_fuel
+            // 
+            this.splittedBar_fuel.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.splittedBar_fuel.Color = System.Drawing.Color.LimeGreen;
+            this.splittedBar_fuel.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage2", true));
+            this.splittedBar_fuel.Location = new System.Drawing.Point(0, 16);
+            this.splittedBar_fuel.Maximum = 100D;
+            this.splittedBar_fuel.Minimum = 0D;
+            this.splittedBar_fuel.Name = "splittedBar_fuel";
+            this.splittedBar_fuel.Size = new System.Drawing.Size(25, 99);
+            this.splittedBar_fuel.Step = 10D;
+            this.splittedBar_fuel.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.splittedBar_fuel.TabIndex = 1;
+            this.splittedBar_fuel.Value = 100D;
+            // 
             // speedPanel
             // 
             this.speedPanel.BackColor = System.Drawing.Color.Transparent;
@@ -476,6 +616,36 @@ namespace MissionPlanner.Controls
             this.airspeed_PB.TabIndex = 16;
             this.airspeed_PB.TabStop = false;
             // 
+            // airspeed_SVPB
+            // 
+            this.airspeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.airspeed_SVPB.Color = System.Drawing.Color.LimeGreen;
+            this.airspeed_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "airspeed", true));
+            this.airspeed_SVPB.Location = new System.Drawing.Point(0, 16);
+            this.airspeed_SVPB.Maximum = 40D;
+            this.airspeed_SVPB.Minimum = 0D;
+            this.airspeed_SVPB.Name = "airspeed_SVPB";
+            this.airspeed_SVPB.Size = new System.Drawing.Size(25, 99);
+            this.airspeed_SVPB.Step = 2D;
+            this.airspeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.airspeed_SVPB.TabIndex = 8;
+            this.airspeed_SVPB.Value = 12D;
+            // 
+            // groundSpeed_SVPB
+            // 
+            this.groundSpeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
+            this.groundSpeed_SVPB.Color = System.Drawing.Color.LimeGreen;
+            this.groundSpeed_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "groundspeed", true));
+            this.groundSpeed_SVPB.Location = new System.Drawing.Point(174, 16);
+            this.groundSpeed_SVPB.Maximum = 40D;
+            this.groundSpeed_SVPB.Minimum = 0D;
+            this.groundSpeed_SVPB.Name = "groundSpeed_SVPB";
+            this.groundSpeed_SVPB.Size = new System.Drawing.Size(25, 99);
+            this.groundSpeed_SVPB.Step = 2D;
+            this.groundSpeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
+            this.groundSpeed_SVPB.TabIndex = 14;
+            this.groundSpeed_SVPB.Value = 10D;
+            // 
             // temperaturePanel
             // 
             this.temperaturePanel.BackColor = System.Drawing.Color.Transparent;
@@ -513,127 +683,6 @@ namespace MissionPlanner.Controls
             this.environmentTemp_PB.TabIndex = 18;
             this.environmentTemp_PB.TabStop = false;
             // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // HorizonHUD
-            // 
-            this.HorizonHUD.airspeed = 0F;
-            this.HorizonHUD.alt = 0F;
-            this.HorizonHUD.altunit = null;
-            this.HorizonHUD.AOA = 0F;
-            this.HorizonHUD.BackColor = System.Drawing.Color.Black;
-            this.HorizonHUD.batterylevel = 0F;
-            this.HorizonHUD.batteryremaining = 0F;
-            this.HorizonHUD.bgimage = null;
-            this.HorizonHUD.connected = false;
-            this.HorizonHUD.critAOA = 25F;
-            this.HorizonHUD.critSSA = 30F;
-            this.HorizonHUD.current = 0F;
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("airspeed", this.bindingSourceHud, "airspeed", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("alt", this.bindingSourceHud, "alt", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("batterylevel", this.bindingSourceHud, "battery_voltage", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("batteryremaining", this.bindingSourceHud, "battery_remaining", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("connected", this.bindingSourceHud, "connected", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("current", this.bindingSourceHud, "current", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("datetime", this.bindingSourceHud, "datetime", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("disttowp", this.bindingSourceHud, "wp_dist", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("ekfstatus", this.bindingSourceHud, "ekfstatus", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("failsafe", this.bindingSourceHud, "failsafe", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpsfix", this.bindingSourceHud, "gpsstatus", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpsfix2", this.bindingSourceHud, "gpsstatus2", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpshdop", this.bindingSourceHud, "gpshdop", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("gpshdop2", this.bindingSourceHud, "gpshdop2", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundalt", this.bindingSourceHud, "HomeAlt", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundcourse", this.bindingSourceHud, "groundcourse", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("groundspeed", this.bindingSourceHud, "groundspeed", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("heading", this.bindingSourceHud, "yaw", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("linkqualitygcs", this.bindingSourceHud, "linkqualitygcs", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("message", this.bindingSourceHud, "messageHigh", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("mode", this.bindingSourceHud, "mode", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("navpitch", this.bindingSourceHud, "nav_pitch", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("navroll", this.bindingSourceHud, "nav_roll", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("pitch", this.bindingSourceHud, "pitch", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("roll", this.bindingSourceHud, "roll", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("status", this.bindingSourceHud, "armed", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetalt", this.bindingSourceHud, "targetalt", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetheading", this.bindingSourceHud, "nav_bearing", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("targetspeed", this.bindingSourceHud, "targetairspeed", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("turnrate", this.bindingSourceHud, "turnrate", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("verticalspeed", this.bindingSourceHud, "verticalspeed", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibex", this.bindingSourceHud, "vibex", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibey", this.bindingSourceHud, "vibey", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("vibez", this.bindingSourceHud, "vibez", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("wpno", this.bindingSourceHud, "wpno", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("xtrack_error", this.bindingSourceHud, "xtrack_error", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("AOA", this.bindingSourceHud, "AOA", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("SSA", this.bindingSourceHud, "SSA", true));
-            this.HorizonHUD.DataBindings.Add(new System.Windows.Forms.Binding("critAOA", this.bindingSourceHud, "crit_AOA", true));
-            this.HorizonHUD.datetime = new System.DateTime(((long)(0)));
-            this.HorizonHUD.displayAOASSA = false;
-            this.HorizonHUD.disttowp = 0F;
-            this.HorizonHUD.distunit = null;
-            this.HorizonHUD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HorizonHUD.ekfstatus = 0F;
-            this.HorizonHUD.failsafe = false;
-            this.HorizonHUD.gpsfix = 0F;
-            this.HorizonHUD.gpsfix2 = 0F;
-            this.HorizonHUD.gpshdop = 0F;
-            this.HorizonHUD.gpshdop2 = 0F;
-            this.HorizonHUD.groundalt = 0F;
-            this.HorizonHUD.groundcourse = 0F;
-            this.HorizonHUD.groundspeed = 0F;
-            this.HorizonHUD.heading = 0F;
-            this.HorizonHUD.hudcolor = System.Drawing.Color.LightGray;
-            this.HorizonHUD.linkqualitygcs = 0F;
-            this.HorizonHUD.Location = new System.Drawing.Point(0, 0);
-            this.HorizonHUD.lowairspeed = false;
-            this.HorizonHUD.lowgroundspeed = false;
-            this.HorizonHUD.lowvoltagealert = false;
-            this.HorizonHUD.message = "";
-            this.HorizonHUD.mode = "Unknown";
-            this.HorizonHUD.Name = "HorizonHUD";
-            this.HorizonHUD.navpitch = 0F;
-            this.HorizonHUD.navroll = 0F;
-            this.HorizonHUD.pitch = 0F;
-            this.HorizonHUD.roll = 0F;
-            this.HorizonHUD.Russian = false;
-            this.HorizonHUD.Size = new System.Drawing.Size(150, 100);
-            this.HorizonHUD.skyColor1 = System.Drawing.Color.Blue;
-            this.HorizonHUD.skyColor2 = System.Drawing.Color.LightBlue;
-            this.HorizonHUD.speedunit = null;
-            this.HorizonHUD.SSA = 0F;
-            this.HorizonHUD.status = false;
-            this.HorizonHUD.streamjpg = null;
-            this.HorizonHUD.TabIndex = 2;
-            this.HorizonHUD.targetalt = 0F;
-            this.HorizonHUD.targetheading = 0F;
-            this.HorizonHUD.targetspeed = 0F;
-            this.HorizonHUD.turnrate = 0F;
-            this.HorizonHUD.verticalspeed = 0F;
-            this.HorizonHUD.vibex = 0F;
-            this.HorizonHUD.vibey = 0F;
-            this.HorizonHUD.vibez = 0F;
-            this.HorizonHUD.VSync = false;
-            this.HorizonHUD.wpno = 0;
-            this.HorizonHUD.xtrack_error = 0F;
-            // 
-            // bindingSourceHud
-            // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // airspeedDirectionControl2
-            // 
-            this.airspeedDirectionControl2.AutoScroll = true;
-            this.airspeedDirectionControl2.BackColor = System.Drawing.Color.Transparent;
-            this.airspeedDirectionControl2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("airspeedDirectionControl2.BackgroundImage")));
-            this.airspeedDirectionControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.airspeedDirectionControl2.Location = new System.Drawing.Point(615, 3);
-            this.airspeedDirectionControl2.Name = "airspeedDirectionControl2";
-            this.airspeedDirectionControl2.Size = new System.Drawing.Size(134, 134);
-            this.airspeedDirectionControl2.TabIndex = 85;
-            // 
             // environmentTemp_SVPB
             // 
             this.environmentTemp_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
@@ -664,65 +713,16 @@ namespace MissionPlanner.Controls
             this.engineTemp_SVPB.TabIndex = 9;
             this.engineTemp_SVPB.Value = 10D;
             // 
-            // airspeed_SVPB
+            // airspeedDirectionControl2
             // 
-            this.airspeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.airspeed_SVPB.Color = System.Drawing.Color.LimeGreen;
-            this.airspeed_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "airspeed", true));
-            this.airspeed_SVPB.Location = new System.Drawing.Point(0, 16);
-            this.airspeed_SVPB.Maximum = 40D;
-            this.airspeed_SVPB.Minimum = 0D;
-            this.airspeed_SVPB.Name = "airspeed_SVPB";
-            this.airspeed_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.airspeed_SVPB.Step = 2D;
-            this.airspeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.airspeed_SVPB.TabIndex = 8;
-            this.airspeed_SVPB.Value = 12D;
-            // 
-            // groundSpeed_SVPB
-            // 
-            this.groundSpeed_SVPB.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.groundSpeed_SVPB.Color = System.Drawing.Color.LimeGreen;
-            this.groundSpeed_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "groundspeed", true));
-            this.groundSpeed_SVPB.Location = new System.Drawing.Point(174, 16);
-            this.groundSpeed_SVPB.Maximum = 40D;
-            this.groundSpeed_SVPB.Minimum = 0D;
-            this.groundSpeed_SVPB.Name = "groundSpeed_SVPB";
-            this.groundSpeed_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.groundSpeed_SVPB.Step = 2D;
-            this.groundSpeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.groundSpeed_SVPB.TabIndex = 14;
-            this.groundSpeed_SVPB.Value = 10D;
-            // 
-            // splittedBar_voltage
-            // 
-            this.splittedBar_voltage.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.splittedBar_voltage.Color = System.Drawing.Color.LimeGreen;
-            this.splittedBar_voltage.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage", true));
-            this.splittedBar_voltage.Location = new System.Drawing.Point(174, 16);
-            this.splittedBar_voltage.Maximum = 12.6D;
-            this.splittedBar_voltage.Minimum = 9.9D;
-            this.splittedBar_voltage.Name = "splittedBar_voltage";
-            this.splittedBar_voltage.Size = new System.Drawing.Size(25, 99);
-            this.splittedBar_voltage.Step = 1.4D;
-            this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.splittedBar_voltage.TabIndex = 2;
-            this.splittedBar_voltage.Value = 12D;
-            // 
-            // splittedBar_fuel
-            // 
-            this.splittedBar_fuel.BorderStyle = MissionPlanner.Controls.NewControls.BorderStyles.Classic;
-            this.splittedBar_fuel.Color = System.Drawing.Color.LimeGreen;
-            this.splittedBar_fuel.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage2", true));
-            this.splittedBar_fuel.Location = new System.Drawing.Point(0, 16);
-            this.splittedBar_fuel.Maximum = 100D;
-            this.splittedBar_fuel.Minimum = 0D;
-            this.splittedBar_fuel.Name = "splittedBar_fuel";
-            this.splittedBar_fuel.Size = new System.Drawing.Size(25, 99);
-            this.splittedBar_fuel.Step = 10D;
-            this.splittedBar_fuel.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
-            this.splittedBar_fuel.TabIndex = 1;
-            this.splittedBar_fuel.Value = 100D;
+            this.airspeedDirectionControl2.AutoScroll = true;
+            this.airspeedDirectionControl2.BackColor = System.Drawing.Color.Transparent;
+            this.airspeedDirectionControl2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("airspeedDirectionControl2.BackgroundImage")));
+            this.airspeedDirectionControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.airspeedDirectionControl2.Location = new System.Drawing.Point(615, 3);
+            this.airspeedDirectionControl2.Name = "airspeedDirectionControl2";
+            this.airspeedDirectionControl2.Size = new System.Drawing.Size(134, 134);
+            this.airspeedDirectionControl2.TabIndex = 85;
             // 
             // StatusControlPanel
             // 
@@ -738,6 +738,7 @@ namespace MissionPlanner.Controls
             this.Name = "StatusControlPanel";
             this.Size = new System.Drawing.Size(967, 140);
             this.hudPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
@@ -746,6 +747,7 @@ namespace MissionPlanner.Controls
             this.enginePanel.ResumeLayout(false);
             this.enginePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.speedPanel.ResumeLayout(false);
             this.speedPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groundspeed_PB)).EndInit();
@@ -754,8 +756,6 @@ namespace MissionPlanner.Controls
             this.temperaturePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.engineTemp_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.environmentTemp_PB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -811,6 +811,6 @@ namespace MissionPlanner.Controls
         #endregion
 
         public AirspeedDirectionControl airspeedDirectionControl1;
-        private AirspeedDirectionControl airspeedDirectionControl2;
+        public AirspeedDirectionControl airspeedDirectionControl2;
     }
 }

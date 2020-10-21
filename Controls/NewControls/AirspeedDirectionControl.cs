@@ -29,7 +29,7 @@ namespace MissionPlanner.Controls.NewControls
             }
             else 
             {
-                bitmap1 = RotateImage(bitmap, 0);
+                bitmap1 = RotateImage(bitmap, counter);
                 //counter++;
             }
             this.BackgroundImage = bitmap1;

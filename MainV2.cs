@@ -1347,7 +1347,7 @@ namespace MissionPlanner
         private void MakeRightSideMenuTransparent()
         {
             rightSideMenuControl1.Parent = FlightPlanner.MainMap;
-            rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width +10, 200);
+            rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width +10, 100);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1499,9 +1499,9 @@ namespace MissionPlanner
             }
             try
             {
-                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl1 != null)
+                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
-                    StatusMenuPanel.airspeedDirectionControl1.updateData();
+                    StatusMenuPanel.airspeedDirectionControl2.updateData();
                 }
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
