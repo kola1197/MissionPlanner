@@ -405,6 +405,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.Designer.cs">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\AntennaControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -982,6 +988,9 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\AirspeedDirectionControl.resx">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\AntennaControl.resx">
       <DependentUpon>AntennaControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -4871,6 +4880,7 @@
     <None Include="Resources\regionsV1.png" />
     <None Include="Resources\gskV1.png" />
     <None Include="Resources\antV1.png" />
+    <None Include="Resources\airspeedDirection.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

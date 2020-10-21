@@ -1503,6 +1503,10 @@ namespace MissionPlanner
             }
             try
             {
+                if (StatusMenuPanel != null)
+                {
+                    StatusMenuPanel.airspeedDirectionControl1.updateData();
+                }
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
@@ -2056,10 +2060,15 @@ namespace MissionPlanner
                 {
                     notifications.Add("Режим возврата к точке «Дом»");
                 }
-                if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                try
                 {
-                    warnings.Add("Низкий уровень топлива");
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                    {
+                        warnings.Add("Низкий уровень топлива");
+                    }
                 }
+                catch (Exception e) 
+                { }
                 if (parachuteReleased) 
                 {
                     notifications.Add("Парашют выпущен");

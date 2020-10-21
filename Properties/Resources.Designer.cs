@@ -123,6 +123,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap airspeedDirection {
+            get {
+                object obj = ResourceManager.GetObject("airspeedDirection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Antenna_Tracker_01 {
             get {
                 object obj = ResourceManager.GetObject("Antenna Tracker-01", resourceCulture);
