@@ -2108,10 +2108,10 @@ namespace MissionPlanner
             }
             else
             {
-                /*for (int i = 0; i < 7; i++)
-                {
-                    notifications.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
-                }*/
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    warnings.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
+                //}
             }
         }
 
@@ -5865,7 +5865,7 @@ namespace MissionPlanner
 
         private void label1_Click(object sender, EventArgs e)
         {
-            if (notifications.Count > 0)
+            if (warnings.Count > 0)
             {
                 FlightPlanner.notificationListControl1.fullList = true;
                 FlightPlanner.notificationListControl1.redraw();
