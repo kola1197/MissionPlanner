@@ -43,6 +43,8 @@ namespace MissionPlanner.Controls.NewControls
         public RegionsControl()
         {
             InitializeComponent();
+
+            this.BackColor = Color.FromArgb(32, 32, 32);
             instance = this;
         }
 

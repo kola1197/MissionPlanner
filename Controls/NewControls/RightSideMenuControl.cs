@@ -11,11 +11,23 @@ using GDAL;
 using MissionPlanner.GCSViews;
 using Color = System.Drawing.Color;
 using Region = KMLib.Region;
+using System.Runtime.InteropServices;
 
 namespace MissionPlanner.Controls.NewControls
 {
     public partial class RightSideMenuControl : UserControl
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+        );
+
         private UserControl activeControl = null;
         private AntennaControl antennaControl;
         private FlightByCompassControl flightByCompassControl;
@@ -23,13 +35,25 @@ namespace MissionPlanner.Controls.NewControls
 
         private GskControl gskControl;
         // public RightSideMenuControl Instance;
+        private Control some_control;
+        private Point some_point;
         public RightSideMenuControl()
         {
             InitializeComponent();
+<<<<<<< HEAD
             antennaControl = new AntennaControl {Visible = false, Location = new Point(35, 0)};
             flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 0) };
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 0) };
             gskControl = new GskControl(){Visible = false, Location = new Point(35, 0) };
+=======
+            antennaControl = new AntennaControl { Visible = false, Location = new Point(35, 4)}; //локацию по Y не трош!!!!!!!!!!!!!
+            flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 4) };
+            regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 4) };
+
+            some_control = menuStrip1.Parent;
+            some_point = menuStrip1.Location;
+            
+>>>>>>> 943c61767858c020a7988cf61ad1fc74cc295a3f
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
             this.Controls.Add(regionsControl);
@@ -54,6 +78,18 @@ namespace MissionPlanner.Controls.NewControls
                 activeControl.Visible = (control == activeControl); 
             }
             control.Visible = !control.Visible;
+            /*if (control.Visible)
+            {
+                //menuStrip1.Parent = control;
+                //menuStrip1.Location = new Point(-126, 0);
+                //menuStrip1.Visible = true;
+                control.Parent = menuStrip1;
+            } else
+            {
+                //menuStrip1.Parent = some_control;
+                // menuStrip1.Location = some_point;
+                control.Parent = this;
+            }*/
             activeControl = control.Visible ? control : null;
             Invalidate();
         }

@@ -405,6 +405,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.Designer.cs">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\AntennaControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -452,6 +458,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.Designer.cs">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.cs">
       <SubType>UserControl</SubType>
@@ -994,6 +1006,9 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\AirspeedDirectionControl.resx">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\AntennaControl.resx">
       <DependentUpon>AntennaControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1017,6 +1032,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\newRightSideMenuControl.resx">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
       <DependentUpon>NotificationControl.cs</DependentUpon>
@@ -4880,6 +4898,16 @@
     <None Include="Resources\home_v1.png" />
     <None Include="Resources\speedAir.png" />
     <None Include="Resources\speedFly.png" />
+    <None Include="Resources\test0.png" />
+    <None Include="Resources\regionsV0.png" />
+    <None Include="Resources\ppkV0.png" />
+    <None Include="Resources\gskV0.png" />
+    <None Include="Resources\antV0.png" />
+    <None Include="Resources\ppkV1.png" />
+    <None Include="Resources\regionsV1.png" />
+    <None Include="Resources\gskV1.png" />
+    <None Include="Resources\antV1.png" />
+    <None Include="Resources\airspeedDirection.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

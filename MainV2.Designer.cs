@@ -437,7 +437,7 @@ namespace MissionPlanner
             // rightSideMenuControl1
             // 
             resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
-            this.rightSideMenuControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.rightSideMenuControl1.BackColor = System.Drawing.Color.Transparent;
             this.rightSideMenuControl1.Name = "rightSideMenuControl1";
             // 
             // toolStripConnectionControl1
