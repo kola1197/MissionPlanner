@@ -7493,11 +7493,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             ushort cmdPrev = 0;
             int result = 1;
+            index--;
             if (index > 0)
             {
                 cmdPrev = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
-                if ((ushort)MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                ushort tekeoff = (ushort)MAVLink.MAV_CMD.TAKEOFF;
+                if (tekeoff == cmdPrev)
                 {
                     result = 0;
                 }
@@ -8209,7 +8211,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
-            _wpControl.SetInfo(wpno, alt, type, homeDist);
+            _wpControl.SetInfo(wpno, alt, type, homeDist,getWPType(wpno));
             _wpControl.Parent = MainMap;
             _wpControl.Location = location;
             _wpControl.Show();
