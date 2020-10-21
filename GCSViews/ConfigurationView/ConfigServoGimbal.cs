@@ -88,6 +88,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             }
         }
 
+        private void checkForDisabledServos()
+        {
+            int[] blackList = new int[] {1, 2, 3, 4, 6, 10, 12};
+            for (int k = 0; k < 11; k++)
+            {
+                if (blackList.Contains(comboBox[k].SelectedIndex))
+                {
+                    comboBox[k].SelectedIndex = 0;
+                }
+            }
+        }
+
         private void updateComboboxes() 
         {
             for (int i = 0; i < 11; i++) 
@@ -148,6 +160,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 MainV2.configServo[i].defaultValue = int.TryParse(textBoxesForDefault[i].Text, out v) ? v : 1500;                
             }
             serealaseDict();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkForDisabledServos();
         }
     }
 }

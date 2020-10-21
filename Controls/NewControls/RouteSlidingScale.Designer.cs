@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -35,8 +35,10 @@
             // 
             this.alt_SlidingScale.BackColor = System.Drawing.Color.White;
             this.alt_SlidingScale.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.alt_SlidingScale.CenterRectangleEnabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
-            this.alt_SlidingScale.CenterValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.alt_SlidingScale.CenterFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.alt_SlidingScale.CenterRectangleDisabledColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (128)))), ((int) (((byte) (128)))), ((int) (((byte) (128)))));
+            this.alt_SlidingScale.CenterRectangleEnabledColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (30)))), ((int) (((byte) (144)))), ((int) (((byte) (255)))));
+            this.alt_SlidingScale.CenterValueColor = System.Drawing.Color.FromArgb(((int) (((byte) (240)))), ((int) (((byte) (255)))), ((int) (((byte) (255)))));
             this.alt_SlidingScale.ForeColor = System.Drawing.Color.Black;
             this.alt_SlidingScale.LargeTicksCount = 10;
             this.alt_SlidingScale.LargeTicksLength = 20;
@@ -62,11 +64,10 @@
             this.Name = "RouteSlidingScale";
             this.Size = new System.Drawing.Size(86, 240);
             this.ResumeLayout(false);
-
         }
 
-        #endregion
-
         private TB.Instruments.SlidingScale alt_SlidingScale;
+
+        #endregion
     }
 }

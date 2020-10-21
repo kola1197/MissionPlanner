@@ -2125,7 +2125,7 @@
     <value>32</value>
   </data>
   <data name="myButton3.Text" xml:space="preserve">
-    <value>BackToMap</value>
+    <value>На главный экран</value>
   </data>
   <data name="&gt;&gt;myButton3.Name" xml:space="preserve">
     <value>myButton3</value>

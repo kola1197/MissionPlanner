@@ -1473,7 +1473,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1575,7 +1575,7 @@
     <value>79, 0</value>
   </data>
   <data name="notificationListControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 23</value>
+    <value>400, 23</value>
   </data>
   <data name="notificationListControl1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -1587,7 +1587,7 @@
     <value>notificationListControl1</value>
   </data>
   <data name="&gt;&gt;notificationListControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.NotificationListControl, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.NotificationListControl, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;notificationListControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1608,7 +1608,7 @@
     <value>notificationControl1</value>
   </data>
   <data name="&gt;&gt;notificationControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.NotificationControl, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.NotificationControl, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;notificationControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1629,7 +1629,7 @@
     <value>rulerControl1</value>
   </data>
   <data name="&gt;&gt;rulerControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RulerControl, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.RulerControl, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;rulerControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1653,7 +1653,7 @@
     <value>wpMenu1</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1677,7 +1677,7 @@
     <value>mainMenuWidget1</value>
   </data>
   <data name="&gt;&gt;mainMenuWidget1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MainMenuWidget, MissionPlanner, Version=1.3.7597.2375, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MainMenuWidget, MissionPlanner, Version=1.3.7598.32910, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mainMenuWidget1.Parent" xml:space="preserve">
     <value>panelMap</value>
