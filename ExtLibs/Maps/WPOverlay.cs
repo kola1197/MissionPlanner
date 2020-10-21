@@ -318,7 +318,8 @@ namespace MissionPlanner.ArduPilot
                     m = new GMapMarkerWP(point, tag);
                     if (alt.HasValue)
                     {
-                        m.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        // m.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        m.ToolTipMode = MarkerTooltipMode.Never;
                         m.ToolTipText = "Alt: " + alt.Value.ToString("0");
                     }
                     m.Tag = tag;

@@ -662,9 +662,6 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static EngineControlForm EngineControlForm = new EngineControlForm()
-            {Visible = false, StartPosition = FormStartPosition.Manual};
-
         public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
 
         /// <summary>
@@ -1342,19 +1339,17 @@ namespace MissionPlanner
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
             // menuStrip1.Items.Add(headingControlHost);
             SetRouteFormLocation();
-            SetEngineFormLocation();
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
-            
         }
 
         private void MakeRightSideMenuTransparent()
         {
-            // rightSideMenuControl1.Parent = FlightPlanner.MainMap;
-            // Point p = rightSideMenuControl1.Location;
+            rightSideMenuControl1.Parent = FlightPlanner.MainMap;
+            rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width +10, 200);
         }
-        
+
         void cmb_sysid_Click(object sender, EventArgs e)
         {
             MainV2._connectionControl.UpdateSysIDS();
@@ -1362,9 +1357,9 @@ namespace MissionPlanner
 
         public void SetEngineFormLocation()
         {
-            Point locationLocal = StatusMenuPanel.GetLocalRouteFormLocation();
-            EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
-                this.Location.Y + locationLocal.Y);
+            Point locationLocal = StatusMenuPanel.GetLocalEngineFormLocation();
+            StatusControlPanel.instance.EngineControlForm.Location = new Point(AircraftMenuControl.Width + this.Location.X + locationLocal.X,
+            this.Location.Y + locationLocal.Y);
         }
 
         public void SetRouteFormLocation()
@@ -1504,6 +1499,10 @@ namespace MissionPlanner
             }
             try
             {
+                if (StatusMenuPanel != null)
+                {
+                   // StatusMenuPanel.airspeedDirectionControl1.updateData();
+                }
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
@@ -2057,10 +2056,15 @@ namespace MissionPlanner
                 {
                     notifications.Add("Режим возврата к точке «Дом»");
                 }
-                if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                try
                 {
-                    warnings.Add("Низкий уровень топлива");
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                    {
+                        warnings.Add("Низкий уровень топлива");
+                    }
                 }
+                catch (Exception e) 
+                { }
                 if (parachuteReleased) 
                 {
                     notifications.Add("Парашют выпущен");
@@ -2078,7 +2082,7 @@ namespace MissionPlanner
                 {
                     logger.write(v);
                 }
-                if (warnings.Count > 0 && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir)
+                if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
                 {
                     label1.BackColor = Color.DarkRed;
                     progressBar1.ValueColor = Color.Red;
@@ -4765,6 +4769,9 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
+            MakeRightSideMenuTransparent();
+            //rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideMenuControl1.Size.Width,200);
+            //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }
 

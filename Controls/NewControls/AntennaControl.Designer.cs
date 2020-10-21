@@ -237,6 +237,8 @@
             // 
             // BUT_test_yaw
             // 
+            this.BUT_test_yaw.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_test_yaw.BGGradTop = System.Drawing.Color.Empty;
             this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BUT_test_yaw.Location = new System.Drawing.Point(208, 220);
             this.BUT_test_yaw.Name = "BUT_test_yaw";
@@ -264,6 +266,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.Controls.Add(this.lbl_yawpwm);
             this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);

@@ -1144,6 +1144,38 @@ namespace MissionPlanner.Controls
             }
         }
 
+        // public void DrawRoundedRectangle(Pen p,
+        //     int x, int y, int w, int h, int rx, int ry)
+        // {
+        //     System.Drawing.Drawing2D.GraphicsPath path
+        //         = new System.Drawing.Drawing2D.GraphicsPath();
+        //     path.AddArc(x, y, rx + rx, ry + ry, 180, 90);
+        //     path.AddLine(x + rx, y, x + w - rx, y);
+        //     path.AddArc(x + w - 2 * rx, y, 2 * rx, 2 * ry, 270, 90);
+        //     path.AddLine(x + w, y + ry, x + w, y + h - ry);
+        //     path.AddArc(x + w - 2 * rx, y + h - 2 * ry, rx + rx, ry + ry, 0, 91);
+        //     path.AddLine(x + rx, y + h, x + w - rx, y + h);
+        //     path.AddArc(x, y + h - 2 * ry, 2 * rx, 2 * ry, 90, 91);
+        //     path.CloseFigure();
+        //     graphicsObject.DrawPath(p, path);
+        // }
+        
+        public void DrawRoundedRectangle(Pen p, Brush brush, Rectangle rectangle, int rx, int ry)
+        {
+            System.Drawing.Drawing2D.GraphicsPath path
+                = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddArc(rectangle.X, rectangle.Y, rx + rx, ry + ry, 180, 90);
+            path.AddLine(rectangle.X + rx, rectangle.Y, rectangle.X + rectangle.Width - rx, rectangle.Y);
+            path.AddArc(rectangle.X + rectangle.Width - 2 * rx, rectangle.Y, 2 * rx, 2 * ry, 270, 90);
+            path.AddLine(rectangle.X + rectangle.Width, rectangle.Y + ry, rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height - ry);
+            path.AddArc(rectangle.X + rectangle.Width - 2 * rx, rectangle.Y + rectangle.Height - 2 * ry, rx + rx, ry + ry, 0, 91);
+            path.AddLine(rectangle.X + rx, rectangle.Y + rectangle.Height, rectangle.X + rectangle.Width - rx, rectangle.Y + rectangle.Height);
+            path.AddArc(rectangle.X, rectangle.Y + rectangle.Height - 2 * ry, 2 * rx, 2 * ry, 90, 91);
+            path.CloseFigure();
+            graphicsObject.DrawPath(p, path);
+            graphicsObject.FillPath(brush, path);
+        }
+
         public void DrawEllipse(Pen penn, Rectangle rect)
         {
             if (opengl)
@@ -1348,7 +1380,6 @@ namespace MissionPlanner.Controls
 
                     GL.Begin(PrimitiveType.TriangleFan);
                     GL.Color4(((SolidBrush) brushh).Color);
-                    GL.Vertex2(0, 0);
                     foreach (var pnt in list)
                     {
                         GL.Vertex2(pnt.X, pnt.Y);
@@ -1375,7 +1406,6 @@ namespace MissionPlanner.Controls
 
                     GL.Begin(PrimitiveType.TriangleFan);
                     GL.Color4(((SolidBrush) brushh).Color);
-                    GL.Vertex2(0, 0);
                     foreach (var pnt in list)
                     {
                         GL.Vertex2(pnt.X, pnt.Y);
@@ -1889,7 +1919,7 @@ namespace MissionPlanner.Controls
                     // draw roll ind
                     RectangleF arcrect = new RectangleF(-lengthlong * 3 - extra, -lengthlong * 3 - extra,
                         (extra + lengthlong * 3) * 2f, (extra + lengthlong * 3) * 2f);
-                    
+
                     /// graphicsObject.DrawArc(this._whitePen, arcrect, 180 + 30 + -_roll, 120); // 120
 
                     graphicsObject.ResetTransform();
@@ -2083,7 +2113,7 @@ namespace MissionPlanner.Controls
 
                 if (displayxtrack)
                 {
-                    float xtspace = this.Width / 8.0f / 3.0f;
+                    float xtspace = this.Width / 8.0f;
                     int pad = 10;
 
                     float myxtrack_error = _xtrack_error;
@@ -2120,23 +2150,46 @@ namespace MissionPlanner.Controls
                     // graphicsObject.DrawLine(this._whitePen, this.Width / 10 + xtspace * 2, headbg.Bottom + 5 + pad,
                     //     this.Width / 10 + xtspace * 2, headbg.Bottom + this.Height / 10 - pad);
 
-                    // rate of turn
+                    // rate of turn (lateral displacement)
                     graphicsObject.ResetTransform();
                     graphicsObject.ResetClip();
                     graphicsObject.TranslateTransform(this.Width / 5 * 2, this.Height / 7 * 3);
 
                     this._whitePen.Width = 4;
-                    graphicsObject.DrawLine(this._whitePen, this.Width / 10 - xtspace * 2 - xtspace / 2,
-                        headbg.Bottom + this.Height / 10 + 10, this.Width / 10 - xtspace * 2 - xtspace / 2 + xtspace,
-                        headbg.Bottom + this.Height / 10 + 10);
+                    Rectangle rectangle =
+                        new Rectangle((int) Math.Truncate(this.Width / 10 - xtspace * 2 - xtspace / 2),
+                            headbg.Bottom + this.Height / 10 + 10, (int) Math.Truncate(xtspace * 5), 10);
+                    PointF[] pointFs = new PointF[]
+                    {
+                        new PointF(this.Width / 10 - xtspace * 2 - xtspace / 2, headbg.Bottom + this.Height / 10 + 15),
+                        new PointF(this.Width / 10 - xtspace * 2 - xtspace / 2, headbg.Bottom + this.Height / 10 + 10),
+                        new PointF(this.Width / 10 + xtspace * 2 - xtspace / 2 + xtspace,
+                            headbg.Bottom + this.Height / 10 + 10),
+                        new PointF(this.Width / 10 + xtspace * 2 - xtspace / 2 + xtspace,
+                            headbg.Bottom + this.Height / 10 + 15),
+                        // new PointF(this.Width / 10 - xtspace * 2 - xtspace / 2, headbg.Bottom + this.Height / 10 + 10),
+                    };
 
-                    graphicsObject.DrawLine(this._whitePen, this.Width / 10 - xtspace * 0 - xtspace / 2,
-                        headbg.Bottom + this.Height / 10 + 10, this.Width / 10 - xtspace * 0 - xtspace / 2 + xtspace,
-                        headbg.Bottom + this.Height / 10 + 10);
 
-                    graphicsObject.DrawLine(this._whitePen, this.Width / 10 + xtspace * 2 - xtspace / 2,
-                        headbg.Bottom + this.Height / 10 + 10, this.Width / 10 + xtspace * 2 - xtspace / 2 + xtspace,
-                        headbg.Bottom + this.Height / 10 + 10);
+                    Color outlineColor = Color.FromArgb(255, Color.Gray);
+                    int outlineWidth = 2;
+                    using (Pen outline = new Pen(outlineColor, outlineWidth) {LineJoin = LineJoin.Round})
+                    using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.DarkGray)))
+                    {
+                        graphicsObject.DrawRoundedRectangle(outline, foreBrush, rectangle, 5, 5);
+                    }
+
+                    // graphicsObject.DrawLine(this._whitePen, this.Width / 10 - xtspace * 2 - xtspace / 2,
+                    //     headbg.Bottom + this.Height / 10 + 10, this.Width / 10 - xtspace * 2 - xtspace / 2 + xtspace,
+                    //     headbg.Bottom + this.Height / 10 + 10);
+                    //
+                    // graphicsObject.DrawLine(this._whitePen, this.Width / 10 - xtspace * 0 - xtspace / 2,
+                    //     headbg.Bottom + this.Height / 10 + 10, this.Width / 10 - xtspace * 0 - xtspace / 2 + xtspace,
+                    //     headbg.Bottom + this.Height / 10 + 10);
+                    //
+                    // graphicsObject.DrawLine(this._whitePen, this.Width / 10 + xtspace * 2 - xtspace / 2,
+                    //     headbg.Bottom + this.Height / 10 + 10, this.Width / 10 + xtspace * 2 - xtspace / 2 + xtspace,
+                    //     headbg.Bottom + this.Height / 10 + 10);
 
                     float myturnrate = _turnrate;
                     float trwidth = (this.Width / 10 + xtspace * 2 - xtspace / 2) -
@@ -2150,20 +2203,34 @@ namespace MissionPlanner.Controls
                     loc = myturnrate / range * trwidth;
 
                     this._greenPen.Width = 4;
-
+                    
+                    Color turnRateColor = Color.FromArgb(220, Color.DodgerBlue);
                     if (Math.Abs(myturnrate) == (range / 2))
                     {
+                        turnRateColor = Color.FromArgb(220, Color.Crimson);
                         this._greenPen.Color = Color.FromArgb(128, this._greenPen.Color);
                     }
 
-                    graphicsObject.DrawLine(this._greenPen, this.Width / 10 + loc - xtspace / 2,
-                        headbg.Bottom + this.Height / 10 + 10 + 3, this.Width / 10 + loc + xtspace / 2,
-                        headbg.Bottom + this.Height / 10 + 10 + 3);
-                    graphicsObject.DrawLine(this._greenPen, this.Width / 10 + loc,
-                        headbg.Bottom + this.Height / 10 + 10 + 3, this.Width / 10 + loc,
-                        headbg.Bottom + this.Height / 10 + 10 + 15);
-
-                    this._greenPen.Color = Color.FromArgb(255, this._greenPen.Color);
+                    int turnRateWidth = 2;
+                    using (Pen turnPen = new Pen(turnRateColor, turnRateWidth) {LineJoin = LineJoin.Round})
+                    using (Brush turnBrush = new SolidBrush(Color.FromArgb(255, turnRateColor)))
+                    {
+                        int radius = 3;
+                        Rectangle turnRateRectangle = new Rectangle((int) Math.Truncate(this.Width / 10 + loc - radius),
+                            headbg.Bottom + this.Height / 10 + 12, radius * 2, radius * 2);
+                        graphicsObject.DrawRoundedRectangle(turnPen, turnBrush, turnRateRectangle,
+                            radius, radius);
+                    }
+                    
+                    
+                    // graphicsObject.DrawLine(this._greenPen, this.Width / 10 + loc - xtspace / 2,
+                    //     headbg.Bottom + this.Height / 10 + 10 + 3, this.Width / 10 + loc + xtspace / 2,
+                    //     headbg.Bottom + this.Height / 10 + 10 + 3);
+                    // graphicsObject.DrawLine(this._greenPen, this.Width / 10 + loc,
+                    //     headbg.Bottom + this.Height / 10 + 10 + 3, this.Width / 10 + loc,
+                    //     headbg.Bottom + this.Height / 10 + 10 + 15);
+                    //
+                    // this._greenPen.Color = Color.FromArgb(255, this._greenPen.Color);
 
                     this._whitePen.Width = 2;
                     graphicsObject.ResetTransform();
@@ -2581,7 +2648,7 @@ namespace MissionPlanner.Controls
                 // if (false)
                 //     drawstring("NaN Error " + DateTime.Now, font, this.Height / 30 + 10,
                 //         (SolidBrush) Brushes.Red, 50, 50);
-                
+
                 // custom user items
                 // graphicsObject.ResetTransform();
                 // int height = this.Height - ((fontsize + 2) * 3) - fontoffset - fontsize - 8;

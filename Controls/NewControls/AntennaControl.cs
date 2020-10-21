@@ -26,6 +26,7 @@ namespace MissionPlanner.Controls.NewControls
             InitializeComponent();
 
             ThemeManager.ApplyThemeTo(this);
+            this.BackColor = Color.FromArgb(32, 32, 32);
 
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
