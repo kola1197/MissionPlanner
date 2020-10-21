@@ -7116,6 +7116,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseMove(object sender, MouseEventArgs e)
         {
+            mainMenuWidget1.setState(false);
             PointLatLng point = MainMap.FromLocalToLatLng(e.X, e.Y);
 
             if (MouseDownStart == point)
