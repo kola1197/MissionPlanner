@@ -7480,7 +7480,53 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //writeServosToWPConfig();
             writeOtherWPtoWPConfig(index);
         }
-        
+
+        /// <summary>
+        ///  0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int getWPType(int index)
+        {
+            ushort cmdPrev = 0;
+            int result = 1;
+            if (index > 0)
+            {
+                cmdPrev = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
+                if ((ushort)MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                {
+                    result = 0;
+                }
+            }
+
+            while (index + 1 < Commands.Rows.Count &&
+                   ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT &&
+                    (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME))
+            {
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false);
+                switch (cmd)
+                {
+                    case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
+                        result = 3;
+                        break;
+                    case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                        result = 2;
+                        //double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
+                        //wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                        break;
+                    default:
+                        break;
+                }
+
+                index++;
+            }
+
+
+            return result;
+        }
+
         public GMapPolygon GetCurrentPolygon()
         {
             return RegionsControl.instance.GetCurrentPolygon();
@@ -8481,12 +8527,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void writeOtherWPtoWPConfig(int index)
         {
             while (index + 1 < Commands.Rows.Count &&
-                   ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                        Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) !=
-                    (ushort) MAVLink.MAV_CMD.WAYPOINT ||
-                    (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                        Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) !=
-                    (ushort) MAVLink.MAV_CMD.LOITER_TIME))
+                   ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort) MAVLink.MAV_CMD.WAYPOINT &&
+                    (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort) MAVLink.MAV_CMD.LOITER_TIME))
             {
                 ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false);
