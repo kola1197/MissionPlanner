@@ -1499,9 +1499,9 @@ namespace MissionPlanner
             }
             try
             {
-                if (StatusMenuPanel != null)
+                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl1 != null)
                 {
-                   // StatusMenuPanel.airspeedDirectionControl1.updateData();
+                    StatusMenuPanel.airspeedDirectionControl1.updateData();
                 }
                 vibeData.update();
                 double homedist = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position, FlightPlanner.pointlist[0]);
