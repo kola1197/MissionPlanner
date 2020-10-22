@@ -1499,6 +1499,7 @@ namespace MissionPlanner
             }
             try
             {
+                cheatParachuteLandingTrigger();
                 if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
@@ -1689,6 +1690,18 @@ namespace MissionPlanner
             catch (System.Exception eee)
             {
                 System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+        }
+
+        private void cheatParachuteLandingTrigger()
+        {
+            bool nextPointIsDoParachute = false;
+            ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
+            nextPointIsDoParachute = cmd ==(ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
+            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+            {
+                testVisualisation = true;
             }
         }
 
@@ -5824,14 +5837,16 @@ namespace MissionPlanner
 
 
         // GMapOverlay polyOverlay = new GMapOverlay("polygons");
-
+        public static bool testVisualisation = false;
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
+            testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656,20));
+            //CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656,20));
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
+
         }
 
 
