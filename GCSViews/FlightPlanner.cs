@@ -7329,10 +7329,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                     else
                     {
-                        wpConfig = new WPConfig(CurentRectMarker);
+                        wpConfig = new WPConfig(CurentRectMarker,getWPSerialNumber(int.Parse(CurentRectMarker.Tag.ToString()) -1));
                         WpConfigAddEvents();
                         wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " +
-                                        CurentRectMarker.Tag.ToString();
+                                        wpConfig.SerialNum.ToString();
                         WpConfigSetValues();
                         wpConfig.Show();
                         wpConfig.updateServoButtons();
@@ -7490,6 +7490,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //writeServosToWPConfig();
             writeOtherWPtoWPConfig(index);
+        }
+
+        public int getWPSerialNumber(int index)
+        {
+            int result = 0;
+            for (int i = 0; i < index+1; i++)
+            {
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
+                if (cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT )
+                {
+                    result++;
+                }
+            }
+            return result;
         }
 
         /// <summary>
