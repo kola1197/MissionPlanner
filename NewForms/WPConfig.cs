@@ -14,6 +14,7 @@ namespace MissionPlanner.NewForms
 {
     public partial class WPConfig : Form
     {
+        public bool closedByButton = false;
         public bool[] servos = new bool[9];
 
         public WPConfig()
@@ -35,6 +36,7 @@ namespace MissionPlanner.NewForms
        
         private void myButton1_Click(object sender, EventArgs e)
         {
+            closedByButton = true;
             this.Close();
         }
 

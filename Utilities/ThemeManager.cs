@@ -284,8 +284,10 @@ namespace MissionPlanner.Utilities
         {
             if (control is ContainerControl)
                 ((ContainerControl)control).AutoScaleMode = AutoScaleMode.None;
-
-            ApplyTheme(control, 0);
+            //if (control != VibeControl)
+            //{
+                ApplyTheme(control, 0);
+            //}
         }
 
 

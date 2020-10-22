@@ -405,6 +405,12 @@
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\AirspeedDirectionControl.Designer.cs">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\AntennaControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -452,6 +458,12 @@
     </Compile>
     <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\newRightSideMenuControl.Designer.cs">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.cs">
       <SubType>UserControl</SubType>
@@ -561,8 +573,10 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewClasses\Logger.cs" />
+    <Compile Include="NewClasses\VibeData.cs" />
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -785,6 +799,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>UserControl</SubType>
     </None>
+    <Compile Include="NewForms\CoordinatsModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\CoordinatsModeForm.Designer.cs">
+      <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\Diagnostic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -809,6 +829,12 @@
     <Compile Include="NewForms\ModeChangeForm.Designer.cs">
       <DependentUpon>ModeChangeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\ParachuteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\ParachuteForm.Designer.cs">
+      <DependentUpon>ParachuteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\PreFlightForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -826,6 +852,12 @@
     </Compile>
     <Compile Include="NewForms\SNSInfo.Designer.cs">
       <DependentUpon>SNSInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewForms\VibeGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\VibeGraph.Designer.cs">
+      <DependentUpon>VibeGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\WaypointInfoControl.cs">
       <SubType>UserControl</SubType>
@@ -974,6 +1006,9 @@
     <Compile Include="Log\LogStrings.Designer.cs">
       <DependentUpon>LogStrings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NewControls\AirspeedDirectionControl.resx">
+      <DependentUpon>AirspeedDirectionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\AntennaControl.resx">
       <DependentUpon>AntennaControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -997,6 +1032,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\newRightSideMenuControl.resx">
+      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
       <DependentUpon>NotificationControl.cs</DependentUpon>
@@ -2015,6 +2053,9 @@
     <EmbeddedResource Include="Controls\paramcompare.resx">
       <DependentUpon>paramcompare.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\CoordinatsModeForm.resx">
+      <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\Diagnostic.resx">
       <DependentUpon>Diagnostic.cs</DependentUpon>
     </EmbeddedResource>
@@ -2027,6 +2068,9 @@
     <EmbeddedResource Include="NewForms\ModeChangeForm.resx">
       <DependentUpon>ModeChangeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\ParachuteForm.resx">
+      <DependentUpon>ParachuteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewForms\PreFlightForm.resx">
       <DependentUpon>PreFlightForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -2035,6 +2079,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\SNSInfo.resx">
       <DependentUpon>SNSInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\VibeGraph.resx">
+      <DependentUpon>VibeGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\WaypointInfoControl.resx">
       <DependentUpon>WaypointInfoControl.cs</DependentUpon>
@@ -3822,6 +3869,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWParachute.resx">
       <DependentUpon>ConfigHWParachute.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWParachute.ar.resx">
       <DependentUpon>ConfigHWParachute.cs</DependentUpon>
@@ -4848,6 +4896,18 @@
     <None Include="Resources\icons8_cenButton.png" />
     <None Include="Resources\icons8_homeButton.png" />
     <None Include="Resources\home_v1.png" />
+    <None Include="Resources\speedAir.png" />
+    <None Include="Resources\speedFly.png" />
+    <None Include="Resources\test0.png" />
+    <None Include="Resources\regionsV0.png" />
+    <None Include="Resources\ppkV0.png" />
+    <None Include="Resources\gskV0.png" />
+    <None Include="Resources\antV0.png" />
+    <None Include="Resources\ppkV1.png" />
+    <None Include="Resources\regionsV1.png" />
+    <None Include="Resources\gskV1.png" />
+    <None Include="Resources\antV1.png" />
+    <None Include="Resources\airspeedDirection.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -30,7 +30,7 @@ namespace MissionPlanner.Controls
         public static StatusControlPanel instance;
 
         private ToolStripControlHost clickedSensorControl;
-
+        
         public EngineControlForm EngineControlForm; 
 
         public StatusControlPanel()
@@ -54,6 +54,12 @@ namespace MissionPlanner.Controls
                 speedPanel.Location.Y + this.Height + slidingScaleIndent.Y);
         }
 
+        public Point GetLocalEngineFormLocation()
+        {
+            return new Point(enginePanel.Location.X + slidingScaleIndent.X,
+                enginePanel.Location.Y + this.Height + slidingScaleIndent.Y);
+        }
+        
         private void AddClickToSpeedPanelControls()
         {
             foreach (Control control in speedPanel.Controls)
@@ -169,7 +175,7 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, System.EventArgs e)
         {
             fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
 

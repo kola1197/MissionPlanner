@@ -22,6 +22,8 @@ namespace MissionPlanner.Controls.NewControls
         public FlightByCompassControl()
         {
             InitializeComponent();
+
+            this.BackColor = Color.FromArgb(32, 32, 32);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

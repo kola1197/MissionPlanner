@@ -45,11 +45,11 @@
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.ColorMouseDown = System.Drawing.Color.Gray;
             this.myButton1.ColorMouseOver = System.Drawing.Color.Firebrick;
-            this.myButton1.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.ForeColor = System.Drawing.Color.Black;
             this.myButton1.Location = new System.Drawing.Point(0, 0);
             this.myButton1.Name = "myButton1";
@@ -65,8 +65,8 @@
             // 
             // myButton2
             // 
-            this.myButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton2.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton2.Location = new System.Drawing.Point(75, 0);
             this.myButton2.Name = "myButton2";
             this.myButton2.Outline = System.Drawing.Color.Black;
@@ -81,8 +81,8 @@
             // 
             // myButton3
             // 
-            this.myButton3.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton3.Location = new System.Drawing.Point(101, 0);
             this.myButton3.Name = "myButton3";
             this.myButton3.Outline = System.Drawing.Color.Black;
@@ -232,7 +232,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.Controls.Add(this.myButton11);
             this.Controls.Add(this.myButton10);
             this.Controls.Add(this.myButton9);
@@ -248,7 +248,6 @@
             this.Name = "servoGimbal";
             this.Size = new System.Drawing.Size(339, 26);
             this.ResumeLayout(false);
-
         }
 
         private MissionPlanner.Controls.MyButton myButton1;
