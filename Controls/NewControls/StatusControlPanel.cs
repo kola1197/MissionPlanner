@@ -279,19 +279,30 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
+            if (EngineControlForm != null && EngineControlForm.Visible)
+            {
+                MainV2.FormConnector.DisconnectForm(EngineControlForm);
+                EngineControlForm.Close();
+                return;
+            }
             EngineControlForm = new EngineControlForm()
                 {Visible = false, StartPosition = FormStartPosition.Manual};
-            MainV2.instance.SetEngineFormLocation();
             if (!EngineControlForm.IsDisposed)
             {
+                MainV2.FormConnector.ConnectForm(EngineControlForm);
                 EngineControlForm.Show();
             }
         }
 
         private void speedPanel_Click(object sender, EventArgs e)
         {
-            MainV2.instance.SetRouteFormLocation();
+            if (MainV2.RouteAltForm.Visible)
+            {
+                MainV2.RouteAltForm.Hide();
+                return;
+            }
             MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
+            MainV2.FormConnector.ConnectForm(MainV2.RouteAltForm);
             MainV2.RouteAltForm.Show();
             MainV2.RouteAltForm.TopLevel = true;
         }

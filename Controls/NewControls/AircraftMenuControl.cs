@@ -17,6 +17,7 @@ namespace MissionPlanner.Controls
     {
         PreFlightForm preFlightForm;
         MyButton[] buttons = new MyButton[4];
+        public static AircraftMenuControl Instance;
         public class aircraftButtonInfo
         {
             public MyButton Button { get; set; }
@@ -49,6 +50,7 @@ namespace MissionPlanner.Controls
             buttons[2] = aircraft_BUT3;
             buttons[3] = aircraft_BUT4;
 
+            Instance = this;
             //aircraft_BUT1.MouseEnter += Aircraft_BUT1_MouseEnter;
 
             //aircraft_BUT1.MouseLeave += aircraft_BUT1_MouseLeave;
