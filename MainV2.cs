@@ -1965,7 +1965,14 @@ namespace MissionPlanner
             alarmLabelTextCheck();
             if (centering > 0)
             {
-                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                if (!testVisualisation)
+                {
+                    FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                }
+                else
+                {
+                    FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat,FlightPlanner.landPoint.Lng);
+                }
             }
 
             if (MAVLinkInterface.paramsLoading)
@@ -2016,6 +2023,8 @@ namespace MissionPlanner
 
         void alarmLabelTextCheck()
         {
+            bool isSitl = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null &&
+                                   !AircraftInfo[_currentAircraftNum].UsingSITL;
             warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected)
@@ -2053,15 +2062,15 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
-                if (MainV2.comPort.MAV.cs.rpm2 > 118)
+                if (MainV2.comPort.MAV.cs.rpm2 > 118 && isSitl)
                 {
                     warnings.Add("Перегрев двигателя");
                 }
-                if (MainV2.comPort.MAV.cs.rpm1 > 8600)
+                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && isSitl)
                 {
                     warnings.Add("Превышение оборотов двигателя");
                 }
-                if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                if (MainV2.comPort.MAV.cs.rpm1 < 3000 && isSitl)
                 {
                     warnings.Add("Двигатель заглох");
                 }
@@ -2071,7 +2080,7 @@ namespace MissionPlanner
                 }
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15)  //check in persents
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
