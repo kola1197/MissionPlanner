@@ -33,6 +33,7 @@ namespace MissionPlanner.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusControlPanel));
             this.rpmICE_label = new System.Windows.Forms.Label();
             this.flightMode_label = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -49,7 +50,6 @@ namespace MissionPlanner.Controls
             this.hudPanel = new System.Windows.Forms.Panel();
             this.HorizonHUD = new MissionPlanner.Controls.HorizonHUD();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.sensorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.напряжениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.температураДвигателяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +62,6 @@ namespace MissionPlanner.Controls
             this.силаТокаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sensor_panel = new System.Windows.Forms.Panel();
             this.sensorsMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.windDirection = new MissionPlanner.Controls.WindDir();
             this.addOrRemovePanel = new System.Windows.Forms.Panel();
             this.hideSensor_BUT = new System.Windows.Forms.Button();
             this.showSensor_BUT = new System.Windows.Forms.Button();
@@ -70,6 +69,7 @@ namespace MissionPlanner.Controls
             this.enginePanel = new System.Windows.Forms.Panel();
             this.voltage_PB = new System.Windows.Forms.PictureBox();
             this.splittedBar_voltage = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.bindingSourceCurrentState = new System.Windows.Forms.BindingSource(this.components);
             this.splittedBar_fuel = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.speedPanel = new System.Windows.Forms.Panel();
             this.groundspeed_PB = new System.Windows.Forms.PictureBox();
@@ -81,15 +81,16 @@ namespace MissionPlanner.Controls
             this.environmentTemp_PB = new System.Windows.Forms.PictureBox();
             this.environmentTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.engineTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
+            this.airspeedDirectionControl2 = new MissionPlanner.Controls.NewControls.AirspeedDirectionControl();
             this.hudPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
             this.sensor_panel.SuspendLayout();
             this.addOrRemovePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fuel_PB)).BeginInit();
             this.enginePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).BeginInit();
             this.speedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groundspeed_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.airspeed_PB)).BeginInit();
@@ -362,10 +363,6 @@ namespace MissionPlanner.Controls
             // 
             this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // bindingSourceCurrentState
-            // 
-            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // sensorsContextMenuStrip
             // 
             this.sensorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -467,19 +464,6 @@ namespace MissionPlanner.Controls
             this.sensorsMenuStrip.TabIndex = 0;
             this.sensorsMenuStrip.Text = "menuStrip1";
             // 
-            // windDirection
-            // 
-            this.windDirection.BackColor = System.Drawing.Color.Transparent;
-            this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSourceCurrentState, "wind_dir", true));
-            this.windDirection.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSourceCurrentState, "wind_vel", true));
-            this.windDirection.Direction = 180D;
-            this.windDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.windDirection.Location = new System.Drawing.Point(615, 0);
-            this.windDirection.Name = "windDirection";
-            this.windDirection.Size = new System.Drawing.Size(140, 140);
-            this.windDirection.Speed = 0D;
-            this.windDirection.TabIndex = 76;
-            // 
             // addOrRemovePanel
             // 
             this.addOrRemovePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -572,6 +556,10 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_voltage.TabIndex = 2;
             this.splittedBar_voltage.Value = 12D;
+            // 
+            // bindingSourceCurrentState
+            // 
+            this.bindingSourceCurrentState.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // splittedBar_fuel
             // 
@@ -725,22 +713,32 @@ namespace MissionPlanner.Controls
             this.engineTemp_SVPB.TabIndex = 9;
             this.engineTemp_SVPB.Value = 10D;
             // 
+            // airspeedDirectionControl2
+            // 
+            this.airspeedDirectionControl2.AutoScroll = true;
+            this.airspeedDirectionControl2.BackColor = System.Drawing.Color.Transparent;
+            this.airspeedDirectionControl2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("airspeedDirectionControl2.BackgroundImage")));
+            this.airspeedDirectionControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.airspeedDirectionControl2.Location = new System.Drawing.Point(615, 3);
+            this.airspeedDirectionControl2.Name = "airspeedDirectionControl2";
+            this.airspeedDirectionControl2.Size = new System.Drawing.Size(134, 134);
+            this.airspeedDirectionControl2.TabIndex = 85;
+            // 
             // StatusControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.airspeedDirectionControl2);
             this.Controls.Add(this.temperaturePanel);
             this.Controls.Add(this.speedPanel);
             this.Controls.Add(this.enginePanel);
             this.Controls.Add(this.addOrRemovePanel);
             this.Controls.Add(this.sensor_panel);
-            this.Controls.Add(this.windDirection);
             this.Name = "StatusControlPanel";
             this.Size = new System.Drawing.Size(967, 140);
             this.hudPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.sensorsContextMenuStrip.ResumeLayout(false);
             this.sensor_panel.ResumeLayout(false);
             this.sensor_panel.PerformLayout();
@@ -749,6 +747,7 @@ namespace MissionPlanner.Controls
             this.enginePanel.ResumeLayout(false);
             this.enginePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCurrentState)).EndInit();
             this.speedPanel.ResumeLayout(false);
             this.speedPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groundspeed_PB)).EndInit();
@@ -761,55 +760,57 @@ namespace MissionPlanner.Controls
 
         }
 
-        private System.Windows.Forms.Label averageRpmICE_label;
-        private System.Windows.Forms.Panel hudPanel;
-
-        #endregion
-        private VerticalSplittedProgressBar splittedBar_fuel;
-        private VerticalSplittedProgressBar splittedBar_voltage;
-        private System.Windows.Forms.Label rpmICE_label;
-        private System.Windows.Forms.Label flightMode_label;
-        private System.Windows.Forms.BindingSource bindingSourceCurrentState;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label fuel_label;
-        private System.Windows.Forms.Label voltage_label;
+        private System.Windows.Forms.Panel addOrRemovePanel;
         private System.Windows.Forms.Label airspeed_label;
-        private VerticalSplittedProgressBar airspeed_SVPB;
-        private VerticalSplittedProgressBar engineTemp_SVPB;
-        private System.Windows.Forms.Label engineTemp_label;
+        private System.Windows.Forms.PictureBox airspeed_PB;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar airspeed_SVPB;
         private System.Windows.Forms.Label altitude_label;
-        private System.Windows.Forms.Label targetAlt_label;
-        private System.Windows.Forms.Label verticalSpeed_label;
-        private VerticalSplittedProgressBar groundSpeed_SVPB;
-        private System.Windows.Forms.Label groundSpeed_label;
-        private VerticalSplittedProgressBar environmentTemp_SVPB;
-        private System.Windows.Forms.Label environmentTemp_label;
+        private System.Windows.Forms.Label averageRpmICE_label;
+        private System.Windows.Forms.BindingSource bindingSourceCurrentState;
         private System.Windows.Forms.BindingSource bindingSourceHud;
-        public WindDir windDirection;
+        private System.Windows.Forms.Panel enginePanel;
+        private System.Windows.Forms.Label engineTemp_label;
+        private System.Windows.Forms.PictureBox engineTemp_PB;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar engineTemp_SVPB;
+        private System.Windows.Forms.Label environmentTemp_label;
+        private System.Windows.Forms.PictureBox environmentTemp_PB;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar environmentTemp_SVPB;
+        private System.Windows.Forms.Label flightMode_label;
+        private System.Windows.Forms.Label fuel_label;
+        private System.Windows.Forms.PictureBox fuel_PB;
+        private System.Windows.Forms.Label groundSpeed_label;
+        private System.Windows.Forms.PictureBox groundspeed_PB;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar groundSpeed_SVPB;
+        private System.Windows.Forms.Button hideSensor_BUT;
+        private MissionPlanner.Controls.HorizonHUD HorizonHUD;
+        private System.Windows.Forms.Panel hudPanel;
+        private System.Windows.Forms.Label rpmICE_label;
+        private System.Windows.Forms.Panel sensor_panel;
         private System.Windows.Forms.ContextMenuStrip sensorsContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem напряжениеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem температураДвигателяToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem топливоToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip sensorsMenuStrip;
+        private System.Windows.Forms.Button showSensor_BUT;
+        private System.Windows.Forms.Panel speedPanel;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar splittedBar_fuel;
+        private MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar splittedBar_voltage;
+        private System.Windows.Forms.Label targetAlt_label;
+        private System.Windows.Forms.Panel temperaturePanel;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label verticalSpeed_label;
+        private System.Windows.Forms.Label voltage_label;
+        private System.Windows.Forms.PictureBox voltage_PB;
         private System.Windows.Forms.ToolStripMenuItem воздушнаяСкоростьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem путеваяСкоростьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem высотаСНСToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem магнитныйКурсToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem следующаяТочкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem напряжениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem путеваяСкоростьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem силаТокаToolStripMenuItem;
-        private System.Windows.Forms.Panel sensor_panel;
-        private System.Windows.Forms.MenuStrip sensorsMenuStrip;
-        private System.Windows.Forms.Panel addOrRemovePanel;
-        private System.Windows.Forms.Button hideSensor_BUT;
-        private System.Windows.Forms.Button showSensor_BUT;
-        private System.Windows.Forms.PictureBox fuel_PB;
-        private System.Windows.Forms.Panel enginePanel;
-        private System.Windows.Forms.PictureBox voltage_PB;
-        private System.Windows.Forms.Panel speedPanel;
-        private System.Windows.Forms.PictureBox airspeed_PB;
-        private System.Windows.Forms.PictureBox groundspeed_PB;
-        private HorizonHUD HorizonHUD;
-        private System.Windows.Forms.Panel temperaturePanel;
-        private System.Windows.Forms.PictureBox environmentTemp_PB;
-        private System.Windows.Forms.PictureBox engineTemp_PB;
+        private System.Windows.Forms.ToolStripMenuItem следующаяТочкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem температураДвигателяToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem топливоToolStripMenuItem;
+
+        #endregion
+
+        public AirspeedDirectionControl airspeedDirectionControl1;
+        public AirspeedDirectionControl airspeedDirectionControl2;
     }
 }

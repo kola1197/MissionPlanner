@@ -76,7 +76,7 @@ namespace MissionPlanner.Controls.NewControls
                         sensorName_label.Text = "След. точка";
                         break;
                     case "Сила тока":
-                        textBinding = new Binding("Text", textBindingSource, "battery_usedmah",
+                        textBinding = new Binding("Text", textBindingSource, "current",
                             true);
                         textBinding.Format += amperage_Format;
                         sensorValue_label.DataBindings.Add(textBinding);

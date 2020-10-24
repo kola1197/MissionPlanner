@@ -143,6 +143,9 @@ namespace MissionPlanner.Controls.NewControls
 
         public void RedrawPolygonSurvey(GMapPolygon polygon) //here wp markers lived
         {
+            if (polygon == null)
+                return;
+            
             UpdateBindings();
             if (polygon.Points.Count == 0)
             {
@@ -161,7 +164,10 @@ namespace MissionPlanner.Controls.NewControls
             {
                 tag++;
                 polygon.Points.Add(x);
-                addPolygonMarkerGrid(tag.ToString(), x.Lng, x.Lat, 0);
+                if (FlightPlanner.regionActive)
+                {
+                    addPolygonMarkerGrid(tag.ToString(), x.Lng, x.Lat, 0);
+                }
             });
 
             FlightPlanner.instance.MainMap.UpdatePolygonLocalPosition(polygon);

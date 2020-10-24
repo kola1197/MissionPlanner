@@ -86,6 +86,7 @@
             this.gskToolStripMenuItem.Name = "gskToolStripMenuItem";
             this.gskToolStripMenuItem.Size = new System.Drawing.Size(125, 68);
             this.gskToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.gskToolStripMenuItem.Click += new System.EventHandler(this.gskToolStripMenuItem_Click);
             // 
             // antennaToolStripMenuItem
             // 

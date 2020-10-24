@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using System;
+
+namespace MissionPlanner.NewForms
 {
     partial class RouteAltForm
     {
@@ -83,8 +85,8 @@
             this.MinimizeBox = false;
             this.Name = "RouteAltForm";
             this.Text = "RouteAltForm";
-            this.Deactivate += new System.EventHandler(this.RouteAltForm_Deactivate);
             this.ResumeLayout(false);
+            this.Shown += new EventHandler(this.RouteAltForm_Shown);
         }
 
         private TB.Instruments.SlidingScale alt_SlidingScale;

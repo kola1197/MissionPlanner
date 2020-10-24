@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.GCSViews;
 using MissionPlanner;
+using MissionPlanner.Controls;
+using MissionPlanner.NewClasses;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class RouteAltForm : Form
+    public partial class RouteAltForm : Form, IFormConnectable
     {
         private bool _isMouseDown = false;
         private Point _previousMouseLocation;
@@ -21,6 +23,7 @@ namespace MissionPlanner.NewForms
         private readonly int _altStep = 20;
         private readonly int _mouseMoveScale = 5;
         private RouteAltitude _routeAltitude = new RouteAltitude();
+
         public RouteAltForm()
         {
             InitializeComponent();
@@ -40,7 +43,7 @@ namespace MissionPlanner.NewForms
             int altChange = (e.Delta / _wheelDelta) * _altStep;
             alt_SlidingScale.Value += altChange;
         }
-        
+
         private void alt_SlidingScale_MouseDown(object sender, MouseEventArgs e)
         {
             _isMouseDown = true;
@@ -84,7 +87,7 @@ namespace MissionPlanner.NewForms
             alt_SlidingScale.Value = GetFormattedAlt();
             alt_SlidingScale.ValueChanged += alt_SlidingScale_ValueChanged;
         }
-        
+
         private int GetFormattedAlt()
         {
             return ((int) Math.Round(MainV2.comPort.MAV.cs.targetalt / 20)) * 20;
@@ -94,7 +97,7 @@ namespace MissionPlanner.NewForms
         {
             if (!MainV2.comPort.MAV.cs.connected)
                 return;
-            
+
             int newAlt = (int) alt_SlidingScale.Value;
             int currentAlt = (int) MainV2.comPort.MAV.cs.targetalt;
 
@@ -107,7 +110,7 @@ namespace MissionPlanner.NewForms
                 MainV2.comPort.MAV.cs.WpNoValueChanged += CsOnWpNoValueChanged;
             }
         }
-        
+
         private void route_BUT_Click(object sender, EventArgs e)
         {
             var altIndex = FlightPlanner.instance.GetAltIndex();
@@ -124,7 +127,7 @@ namespace MissionPlanner.NewForms
             }
 
             SetNewWPAlt(newAlt);
-            
+
             _routeAltitude.StopHoldingAlt();
         }
 
@@ -139,7 +142,27 @@ namespace MissionPlanner.NewForms
                 CustomMessageBox.Show(Strings.ErrorCommunicating, Strings.ERROR);
                 return false;
             }
+
             return true;
+        }
+
+        private void RouteAltForm_Shown(object sender, EventArgs e)
+        {
+            SetFormLocation();
+            SetToTop();
+        }
+
+        public void SetToTop()
+        {
+            this.TopMost = true;
+        }
+
+        public void SetFormLocation()
+        {
+            Point locationLocal = MainV2.StatusMenuPanel.GetLocalRouteFormLocation();
+            MainV2.RouteAltForm.Location = new Point(
+                AircraftMenuControl.Instance.Width + this.Location.X + locationLocal.X,
+                this.Location.Y + locationLocal.Y);
         }
     }
 }

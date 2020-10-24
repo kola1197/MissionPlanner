@@ -14,6 +14,7 @@ namespace MissionPlanner.NewForms
 {
     public partial class WPConfig : Form
     {
+        public bool closedByButton = false;
         public bool[] servos = new bool[9];
 
         public WPConfig()
@@ -22,19 +23,22 @@ namespace MissionPlanner.NewForms
             this.TopMost = true;
         }
         public int indexNow = -1;
-        public WPConfig(GMapMarkerRect CurentRectMarker)
+        public int SerialNum = -1;
+        public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
         {
 
             InitializeComponent();
             this.TopMost = true;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + CurentRectMarker.Tag.ToString();
-            indexNow = int.Parse(CurentRectMarker.Tag.ToString()) -1;
+            SerialNum = _serNum;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + SerialNum.ToString();
+            indexNow = int.Parse(currentRectMarker.Tag.ToString()) -1;
             textBox1.Text = "";
         }
 
        
         private void myButton1_Click(object sender, EventArgs e)
         {
+            closedByButton = true;
             this.Close();
         }
 
@@ -71,17 +75,7 @@ namespace MissionPlanner.NewForms
                 checkBox2.Enabled = true;
             }
         }
-
-        private void myTrackBar1_Scroll(object sender, EventArgs e)
-        {
-            label6.Text = myTrackBar1.Value.ToString() + " M";
-        }
-
-        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void myButton2_Click(object sender, EventArgs e)
         {
             textBox3.Text = "1";

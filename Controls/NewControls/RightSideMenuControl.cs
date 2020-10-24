@@ -32,6 +32,8 @@ namespace MissionPlanner.Controls.NewControls
         private AntennaControl antennaControl;
         private FlightByCompassControl flightByCompassControl;
         private RegionsControl regionsControl;
+
+        private GskControl gskControl;
         // public RightSideMenuControl Instance;
         private Control some_control;
         private Point some_point;
@@ -41,6 +43,7 @@ namespace MissionPlanner.Controls.NewControls
             antennaControl = new AntennaControl { Visible = false, Location = new Point(35, 4)}; //локацию по Y не трош!!!!!!!!!!!!!
             flightByCompassControl = new FlightByCompassControl { Visible = false, Location = new Point(35, 4) };
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 4) };
+            gskControl = new GskControl(){Visible = false, Location = new Point(35, 4) };
 
             some_control = menuStrip1.Parent;
             some_point = menuStrip1.Location;
@@ -48,6 +51,7 @@ namespace MissionPlanner.Controls.NewControls
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
             this.Controls.Add(regionsControl);
+            this.Controls.Add(gskControl);
             this.BackColor = Color.FromArgb(200, Color.Black);
             // Instance = this;
         }
@@ -99,6 +103,12 @@ namespace MissionPlanner.Controls.NewControls
         {
             switchControl(regionsControl);
             FlightPlanner.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
+            regionsControl.RedrawPolygonSurvey(regionsControl.GetCurrentPolygon());
+        }
+
+        private void gskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switchControl(gskControl);
         }
     }
 }

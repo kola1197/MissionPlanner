@@ -35,11 +35,13 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton1.BGGradTop = System.Drawing.Color.Empty;
             this.myButton1.Location = new System.Drawing.Point(12, 50);
             this.myButton1.Name = "myButton1";
             this.myButton1.Size = new System.Drawing.Size(75, 23);
@@ -51,6 +53,8 @@
             // 
             // myButton3
             // 
+            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.Empty;
             this.myButton3.Location = new System.Drawing.Point(12, 93);
             this.myButton3.Name = "myButton3";
             this.myButton3.Size = new System.Drawing.Size(75, 23);
@@ -62,6 +66,8 @@
             // 
             // myButton4
             // 
+            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.Empty;
             this.myButton4.Location = new System.Drawing.Point(109, 93);
             this.myButton4.Name = "myButton4";
             this.myButton4.Size = new System.Drawing.Size(75, 23);
@@ -73,6 +79,8 @@
             // 
             // myButton5
             // 
+            this.myButton5.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton5.BGGradTop = System.Drawing.Color.Empty;
             this.myButton5.Location = new System.Drawing.Point(109, 50);
             this.myButton5.Name = "myButton5";
             this.myButton5.Size = new System.Drawing.Size(75, 23);
@@ -102,6 +110,8 @@
             // 
             // myButton6
             // 
+            this.myButton6.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton6.BGGradTop = System.Drawing.Color.Empty;
             this.myButton6.Location = new System.Drawing.Point(12, 137);
             this.myButton6.Name = "myButton6";
             this.myButton6.Size = new System.Drawing.Size(172, 23);
@@ -115,6 +125,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(197, 254);
             this.Controls.Add(this.myButton6);
             this.Controls.Add(this.label1);
@@ -123,13 +135,16 @@
             this.Controls.Add(this.myButton4);
             this.Controls.Add(this.myButton3);
             this.Controls.Add(this.myButton1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EngineControlForm";
             this.Text = "EngineControlForm";
             this.Load += new System.EventHandler(this.EngineControlForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.Shown += new System.EventHandler(this.EngineControlForm_Shown);
+            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
