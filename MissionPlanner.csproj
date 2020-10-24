@@ -575,6 +575,8 @@
     </Compile>
     <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
+    <Compile Include="NewClasses\FormConnector.cs" />
+    <Compile Include="NewClasses\IFormConnectable.cs" />
     <Compile Include="NewClasses\Logger.cs" />
     <Compile Include="NewClasses\VibeData.cs" />
     <Compile Include="NewForms\AltChoose.cs">

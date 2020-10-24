@@ -1008,8 +1008,12 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                     {
                         Array.Resize(ref data, (int)info.minlength);
                     }
-
-                    //Console.WriteLine(DateTime.Now + " PC Doing req "+ messageType + " " + this.BytesToRead);
+                    //
+                    // if (debugmavlink)
+                    // {
+                    //     System.Diagnostics.Debug.WriteLine(DateTime.Now + " PC Doing req "+ messageType + " " + this.BytesToRead);
+                    // }
+                    
                     packet = new byte[data.Length + 6 + 2];
 
                     packet[0] = MAVLINK_STX_MAVLINK1;
@@ -1113,7 +1117,10 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                         sig[0] = MAVlist[sysid, compid].sendlinkid;
                         Array.Copy(timebytes, 0, sig, 1, 6); // timestamp
 
-                        //Console.WriteLine("gen linkid {0}, time {1} {2} {3} {4} {5} {6} {7}", sig[0], sig[1], sig[2], sig[3], sig[4], sig[5], sig[6], timestamp);
+                        // if (debugmavlink)
+                        // {
+                        //     System.Diagnostics.Debug.WriteLine("gen linkid {0}, time {1} {2} {3} {4} {5} {6} {7}", sig[0], sig[1], sig[2], sig[3], sig[4], sig[5], sig[6], timestamp);
+                        // }
 
                         var signingKey = MAVlist[sysid, compid].signingKey;
 
