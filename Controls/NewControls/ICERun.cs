@@ -12,7 +12,7 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class ICERun : UserControl
     {
-        private bool testMode = true;
+        private bool testMode = false;
         bool ICERunning = false;
         private int engineoffCounter = 0;
         private int key = -1;
@@ -96,6 +96,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
                 if (testMode)
                 {
                     startButton.Text = "Запустить";

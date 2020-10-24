@@ -2162,7 +2162,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             }
             else if (actionid == MAV_CMD.PREFLIGHT_CALIBRATION)
             {
-                retrys = 1;
+                retrys = 3;
                 timeout = 25000;
             }
             else if (actionid == MAV_CMD.FLASH_BOOTLOADER)

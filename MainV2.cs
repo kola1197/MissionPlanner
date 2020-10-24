@@ -2023,11 +2023,12 @@ namespace MissionPlanner
 
         void alarmLabelTextCheck()
         {
+            bool isPlane = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null;
             bool isSitl = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null &&
                                    !AircraftInfo[_currentAircraftNum].UsingSITL;
             warnings = new List<string>();
             notifications = new List<string>();
-            if (MainV2.comPort.MAV.cs.connected)
+            if (MainV2.comPort.MAV.cs.connected && isPlane)
             {
                 if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps &&
                     MainV2.comPort.MAV.cs.sensors_present.gps) //BadGPSHealth
@@ -2062,15 +2063,15 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
-                if (MainV2.comPort.MAV.cs.rpm2 > 118 && isSitl)
+                if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl)
                 {
                     warnings.Add("Перегрев двигателя");
                 }
-                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && isSitl)
+                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl)
                 {
                     warnings.Add("Превышение оборотов двигателя");
                 }
-                if (MainV2.comPort.MAV.cs.rpm1 < 3000 && isSitl)
+                if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
                 {
                     warnings.Add("Двигатель заглох");
                 }
