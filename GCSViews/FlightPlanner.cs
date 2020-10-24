@@ -6607,7 +6607,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         if (MAV.cs.connected || true)
                         {
                             var marker = Common.getMAVMarker(MAV);
-                            if (MainV2.testVisualisation  && landPoint.Lat != 0) 
+                            if (MainV2.testVisualisation  && landPoint.Lat != 0)
                             {
                                 marker.Position = landPoint;
                             }
@@ -8720,11 +8720,31 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void tryToWriteWP()
         {
-            Debug.WriteLine("##################### Try to save WP ######################");
             //if (MainV2.comPort.MAV.cs.connected == true)
             //{
             //    writeWPToPlane();
             //}
+            if (MainV2._currentAircraftNum != null && MainV2.AircraftInfo[MainV2._currentAircraftNum] != null && MainV2.AircraftInfo[MainV2._currentAircraftNum].UsingSITL) 
+            {
+                for (int i = 0; i < Commands.Rows.Count;i++) 
+                {
+                    if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.LAND) 
+                    {
+                        int k = i;
+                        bool b = false;
+                        while (k > 0 && !b) 
+                        {
+                            k--;
+                            if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[k].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.WAYPOINT) 
+                            {
+                                b = true;
+                                Commands.Rows[i].Cells[Lat.Index].Value = Commands.Rows[k].Cells[Lat.Index].Value;
+                                Commands.Rows[i].Cells[Lon.Index].Value = Commands.Rows[k].Cells[Lon.Index].Value;
+                            }
+                        }
+                    }
+                }
+            }
             needToLoadWP = true;
         }
 
@@ -8864,8 +8884,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 // contextMenuStripPoly.Show(Cursor.Position);
                 contextMenuStrip1.Show(MainMap, Cursor.Position);
             }
-
-            // MessageBox.Show("HUI I SUKA");
         }
 
         public int GetAltIndex()

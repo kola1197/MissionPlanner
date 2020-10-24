@@ -677,7 +677,7 @@ namespace MissionPlanner
         /// </summary>
         public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
-        private static string _currentAircraftNum = null;
+        public static string _currentAircraftNum = null;
 
         public static string CurrentAircraftNum
         {
@@ -1932,24 +1932,27 @@ namespace MissionPlanner
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
-            FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
-            //System.Diagnostics.Debug.WriteLine("HERE");
+
+            if (!testVisualisation)
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+            }
+            else
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat, FlightPlanner.landPoint.Lng);
+            }            
             if (e.Button == MouseButtons.Right)
             {
                 if (centering != 1)
                 {
                     centering = 1;
                     FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Red;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
-                    //System.Diagnostics.Debug.WriteLine("Right");
+
                 }
                 else
                 {
                     centering = 0;
                     FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 }
             }
 
@@ -1957,12 +1960,7 @@ namespace MissionPlanner
             {
                 centering = 0;
                 FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
-                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
-                //System.Diagnostics.Debug.WriteLine("Left");
             }
-
-            //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
         }
 
         bool soundFlag = false;
