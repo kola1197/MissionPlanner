@@ -1337,9 +1337,6 @@
   <data name="myButton6.Text" xml:space="preserve">
     <value>Hide wp list</value>
   </data>
-  <data name="myButton6.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;myButton6.Name" xml:space="preserve">
     <value>myButton6</value>
   </data>
@@ -2159,9 +2156,6 @@
   </data>
   <data name="myButton4.Text" xml:space="preserve">
     <value>test1</value>
-  </data>
-  <data name="myButton4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;myButton4.Name" xml:space="preserve">
     <value>myButton4</value>

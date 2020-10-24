@@ -461,8 +461,10 @@ namespace MissionPlanner
         private System.Windows.Forms.ToolStripMenuItem connectionListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionOptionsToolStripMenuItem;
         private MissionPlanner.Controls.NewControls.CoordinatsControl coordinatsControl1;
+        private System.Windows.Forms.Label ctrlModeDebuglabel;
         private System.Windows.Forms.ContextMenuStrip CTX_mainmenu;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.MenuStrip MainMenu;
         private MissionPlanner.Controls.MyButton menu;
         public System.Windows.Forms.ToolStripButton MenuArduPilot;
@@ -474,13 +476,14 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton MenuInitConfig;
         public System.Windows.Forms.ToolStripButton MenuSimulation;
         public System.Windows.Forms.MenuStrip menuStrip1;
-        private MissionPlanner.Controls.MyButton myButton1;
         private MissionPlanner.Controls.MyButton myButton3;
         private MissionPlanner.Controls.MyButton myButton4;
         private MissionPlanner.Controls.MyButton myButton5;
+        private MissionPlanner.Controls.MyButton myButton6;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private BSE.Windows.Forms.ProgressBar progressBar1;
+        private BSE.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
         public MissionPlanner.Controls.NewControls.RightSideMenuControl rightSideMenuControl1;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
@@ -498,13 +501,10 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton toolStripButton8;
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl;
         private MissionPlanner.Controls.ToolStripConnectionControl toolStripConnectionControl1;
+
+        private MissionPlanner.Controls.MyButton myButton1;
         private MissionPlanner.Controls.MyButton myButton2;
 
         #endregion
-
-        private MyButton myButton6;
-        private Label ctrlModeDebuglabel;
-        private BSE.Windows.Forms.ProgressBar progressBar2;
-        private Label label1;
     }
 }

@@ -1490,6 +1490,7 @@ namespace MissionPlanner
 
             try
             {
+                cheatParachuteLandingTrigger();
                 if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
@@ -1696,6 +1697,18 @@ namespace MissionPlanner
             catch (System.Exception eee)
             {
                 System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+        }
+
+        private void cheatParachuteLandingTrigger()
+        {
+            bool nextPointIsDoParachute = false;
+            ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
+            nextPointIsDoParachute = cmd ==(ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
+            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+            {
+                testVisualisation = true;
             }
         }
 
@@ -1959,7 +1972,14 @@ namespace MissionPlanner
             alarmLabelTextCheck();
             if (centering > 0)
             {
-                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                if (!testVisualisation)
+                {
+                    FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                }
+                else
+                {
+                    FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat,FlightPlanner.landPoint.Lng);
+                }
             }
 
             if (MAVLinkInterface.paramsLoading)
@@ -2011,9 +2031,12 @@ namespace MissionPlanner
 
         void alarmLabelTextCheck()
         {
+            bool isPlane = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null;
+            bool isSitl = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null &&
+                                   !AircraftInfo[_currentAircraftNum].UsingSITL;
             warnings = new List<string>();
             notifications = new List<string>();
-            if (MainV2.comPort.MAV.cs.connected)
+            if (MainV2.comPort.MAV.cs.connected && isPlane)
             {
                 if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps &&
                     MainV2.comPort.MAV.cs.sensors_present.gps) //BadGPSHealth
@@ -2060,18 +2083,15 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
-
-                if (MainV2.comPort.MAV.cs.rpm2 > 118)
+                if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl)
                 {
                     warnings.Add("Перегрев двигателя");
                 }
-
-                if (MainV2.comPort.MAV.cs.rpm1 > 8600)
+                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl)
                 {
                     warnings.Add("Превышение оборотов двигателя");
                 }
-
-                if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
                 {
                     warnings.Add("Двигатель заглох");
                 }
@@ -2083,8 +2103,7 @@ namespace MissionPlanner
 
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 /
-                        MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15) //check in persents
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -5858,14 +5877,16 @@ namespace MissionPlanner
 
 
         // GMapOverlay polyOverlay = new GMapOverlay("polygons");
-
+        public static bool testVisualisation = false;
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
+            testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656, 20));
+            //CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656,20));
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
+
         }
 
 

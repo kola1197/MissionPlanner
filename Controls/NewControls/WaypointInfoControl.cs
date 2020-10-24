@@ -19,7 +19,7 @@ namespace MissionPlanner.NewForms
 
         public void SetInfo(int wpno, int altitude, string type, string homeDist, int typeCode)
         {
-            wpInfo_GB.Text = "Точка " + wpno;
+            wpInfo_GB.Text = "Точка " + MainV2.instance.FlightPlanner.getWPSerialNumber(wpno - 1);
             alt_label.Text = altitude + " м";
 
             if (type == "HOME")

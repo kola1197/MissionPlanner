@@ -153,6 +153,7 @@ namespace MissionPlanner.GCSViews
         public bool needToLoadWP = false;
         public static bool regionActive = false;
         public static bool rulerActive = false;
+        public PointLatLng landPoint = new PointLatLng(0,0);
 
         public void Init()
         {
@@ -6606,6 +6607,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         if (MAV.cs.connected || true)
                         {
                             var marker = Common.getMAVMarker(MAV);
+                            if (MainV2.testVisualisation  && landPoint.Lat != 0) 
+                            {
+                                marker.Position = landPoint;
+                            }
 
                             if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
                                 continue;
@@ -7116,6 +7121,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseMove(object sender, MouseEventArgs e)
         {
+            
+                                                            //hide popupItem for wp
+            /*foreach (var markerid in groupmarkers)
+            {
+                if (seen.ContainsKey(markerid))
+                    continue;
+                seen[markerid] = 1; 
+                for (int a = 0; a < markers.Markers.Count; a++) {
+                    var marker = markers.Markers[a];
+                    if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+                    { var temp = new PointLatLng(marker.Position.Lat, marker.Position.Lng); temp.Offset(latdif, -lngdif);
+                        marker.Position = temp;
+                    }
+                }
+            }     */                                           
+            //_wpControl.Visible = false;
             mainMenuWidget1.setState(false);
             PointLatLng point = MainMap.FromLocalToLatLng(e.X, e.Y);
 
@@ -7323,10 +7344,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                     else
                     {
-                        wpConfig = new WPConfig(CurentRectMarker);
+                        wpConfig = new WPConfig(CurentRectMarker,getWPSerialNumber(int.Parse(CurentRectMarker.Tag.ToString()) -1));
                         WpConfigAddEvents();
                         wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " +
-                                        CurentRectMarker.Tag.ToString();
+                                        wpConfig.SerialNum.ToString();
                         WpConfigSetValues();
                         wpConfig.Show();
                         wpConfig.updateServoButtons();
@@ -7375,11 +7396,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             Commands_CellUpdate(index, Command.Index + 1);
                             break;
                         case 3:
+                            landPoint = new PointLatLng(double.Parse(wpConfig.textBox1.Text),
+                                double.Parse(wpConfig.textBox2.Text));
                             Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-                            row = (DataGridViewRow)Commands.Rows[index].Clone();
+                            row = (DataGridViewRow) Commands.Rows[index].Clone();
                             row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                             row.Cells[Command.Index + 1].Value = "1";
                             Commands.Rows.Insert(index + 1, row);
+                            if (MainV2.CurrentAircraftNum != null && MainV2.AircraftInfo[MainV2.CurrentAircraftNum]!=null && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+                            {
+                                
+                                DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
+                                row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                                row1.Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+                                row1.Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+                                Commands.Rows.Insert(index + 2, row1);
+                            }
                             break;
                         default:
                             Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
@@ -7483,6 +7515,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //writeServosToWPConfig();
             writeOtherWPtoWPConfig(index);
+        }
+
+        public int getWPSerialNumber(int index)
+        {
+            int result = 0;
+            for (int i = 0; i < index+1; i++)
+            {
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
+                if (cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT )
+                {
+                    result++;
+                }
+            }
+            return result;
         }
 
         /// <summary>

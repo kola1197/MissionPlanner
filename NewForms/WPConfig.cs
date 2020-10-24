@@ -23,12 +23,14 @@ namespace MissionPlanner.NewForms
             this.TopMost = true;
         }
         public int indexNow = -1;
-        public WPConfig(GMapMarkerRect currentRectMarker)
+        public int SerialNum = -1;
+        public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
         {
 
             InitializeComponent();
             this.TopMost = true;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + currentRectMarker.Tag.ToString();
+            SerialNum = _serNum;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + SerialNum.ToString();
             indexNow = int.Parse(currentRectMarker.Tag.ToString()) -1;
             textBox1.Text = "";
         }

@@ -9,10 +9,12 @@ using GMap.NET.WindowsForms.Markers;
 namespace MissionPlanner.Maps
 {
     [Serializable]
+    
     public class GMapMarkerWP : GMarkerGoogle
     {
         string wpno = "";
         public bool selected = false;
+        public bool drawNumber = false;
         SizeF txtsize = SizeF.Empty;
         static Dictionary<string, Bitmap> fontBitmaps = new Dictionary<string, Bitmap>();
         static Font font;
@@ -23,7 +25,7 @@ namespace MissionPlanner.Maps
             this.wpno = wpno;
             if (font == null)
                 font = SystemFonts.DefaultFont;
-
+            
             if (!fontBitmaps.ContainsKey(wpno))
             {
                 Bitmap temp = new Bitmap(100,40, PixelFormat.Format32bppArgb);
@@ -53,7 +55,7 @@ namespace MissionPlanner.Maps
             if (txtsize.Width > 15)
                 midw -= 4;
 
-            if (Overlay.Control.Zoom> 16 || IsMouseOver)
+            if ((Overlay.Control.Zoom> 16 || IsMouseOver) && drawNumber)
                 g.DrawImageUnscaled(fontBitmaps[wpno], midw,midh);
         }
     }
