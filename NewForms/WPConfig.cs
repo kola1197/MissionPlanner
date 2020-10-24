@@ -22,9 +22,37 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             this.TopMost = true;
         }
+
+        public WPConfig(string s)
+        {
+            InitializeComponent();
+            this.TopMost = true;
+            Text = s;
+            if (s == "Home")
+            {
+                
+            }
+        }
+
         public int indexNow = -1;
         public int SerialNum = -1;
-        public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
+        
+        public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
+        {
+
+            InitializeComponent();
+            this.TopMost = true;
+            //SerialNum = _serNum;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + SerialNum.ToString();
+            if (currentRectMarker.Tag.ToString() != "H")
+            {
+                indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
+            }
+
+            textBox1.Text = "";
+        }
+        
+        /*public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
         {
 
             InitializeComponent();
@@ -33,7 +61,7 @@ namespace MissionPlanner.NewForms
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + SerialNum.ToString();
             indexNow = int.Parse(currentRectMarker.Tag.ToString()) -1;
             textBox1.Text = "";
-        }
+        }*/
 
        
         private void myButton1_Click(object sender, EventArgs e)
