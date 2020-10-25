@@ -323,7 +323,7 @@ namespace MissionPlanner.NewForms
             MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             
             //Todo: make bindings
-            StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity,
+            StatusControlPanel.instance.SetFuelPbMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity,
                 MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
         }
 

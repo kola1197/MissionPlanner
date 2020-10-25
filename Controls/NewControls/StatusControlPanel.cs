@@ -30,8 +30,8 @@ namespace MissionPlanner.Controls
         public static StatusControlPanel instance;
 
         private ToolStripControlHost clickedSensorControl;
-        
-        public EngineControlForm EngineControlForm; 
+
+        public EngineControlForm EngineControlForm;
 
         public StatusControlPanel()
         {
@@ -48,13 +48,13 @@ namespace MissionPlanner.Controls
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
         }
 
-        public void SetFuelPBMinMax(double min, double max)
+        public void SetFuelPbMinMax(double min, double max)
         {
             splittedBar_fuel.Minimum = min;
             splittedBar_fuel.Maximum = max;
             splittedBar_fuel.Step = (max - min) / 10;
         }
-        
+
         public Point GetLocalRouteFormLocation()
         {
             return new Point(speedPanel.Location.X + slidingScaleIndent.X,
@@ -66,7 +66,7 @@ namespace MissionPlanner.Controls
             return new Point(enginePanel.Location.X + slidingScaleIndent.X,
                 enginePanel.Location.Y + this.Height + slidingScaleIndent.Y);
         }
-        
+
         private void AddClickToSpeedPanelControls()
         {
             foreach (Control control in speedPanel.Controls)
@@ -87,51 +87,51 @@ namespace MissionPlanner.Controls
         {
             foreach (ToolStripItem toolStripItem in sensorsContextMenuStrip.Items)
             {
-                if (toolStripItem.Text == "Магнитный курс")
+                // if (toolStripItem.Text == "Магнитный курс")
+                // {
+                //     GaugeHeading gaugeHeading = new GaugeHeading();
+                //     gaugeHeading.CustomOnClick += sensorsStrip_Click;
+                //     sensors.Add(toolStripItem, gaugeHeading);
+                // }
+                // else
+                // {
+                AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
                 {
-                    GaugeHeading gaugeHeading = new GaugeHeading();
-                    gaugeHeading.CustomOnClick += sensorsStrip_Click;
-                    sensors.Add(toolStripItem, gaugeHeading);
-                }
-                else
-                {
-                    AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
-                    {
-                        sensorName = toolStripItem.Text
-                    };
-                    sensorControl.CustomOnClick += sensorsStrip_Click;
-                    sensors.Add(toolStripItem, sensorControl);
-                }
+                    sensorName = toolStripItem.Text
+                };
+                sensorControl.CustomOnClick += sensorsStrip_Click;
+                sensors.Add(toolStripItem, sensorControl);
+                // }
             }
 
             ToolStripControlHost defaultSensorControlHost =
-                new ToolStripControlHost(getDesiredSensor(sensorsContextMenuStrip.Items[1]));
+                new ToolStripControlHost(GetDesiredSensor(sensorsContextMenuStrip.Items[1]));
             sensorsMenuStrip.Items.Add(defaultSensorControlHost);
 
             // ThemeManager.ApplyThemeTo(this);
             instance = this;
         }
 
-        private SensorUserControl getDesiredSensor(ToolStripItem keyItem)
+        private SensorUserControl GetDesiredSensor(ToolStripItem keyItem)
         {
             SensorUserControl desiredSensor = sensors[keyItem];
 
             // Creating a copy of sensor to replace it in dictionary
-            if (keyItem.Text == "Магнитный курс")
+            // if (keyItem.Text == "Магнитный курс")
+            // {
+            //     GaugeHeading gaugeHeading = new GaugeHeading();
+            //     gaugeHeading.CustomOnClick += sensorsStrip_Click;
+            //     sensors[keyItem] = gaugeHeading;
+            // }
+            // else
+            // {
+            AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
             {
-                GaugeHeading gaugeHeading = new GaugeHeading();
-                gaugeHeading.CustomOnClick += sensorsStrip_Click;
-                sensors[keyItem] = gaugeHeading;
-            }
-            else
-            {
-                AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
-                {
-                    sensorName = keyItem.Text
-                };
-                sensorControl.CustomOnClick += sensorsStrip_Click;
-                sensors[keyItem] = sensorControl;
-            }
+                sensorName = keyItem.Text
+            };
+            sensorControl.CustomOnClick += sensorsStrip_Click;
+            sensors[keyItem] = sensorControl;
+            // }
 
             return desiredSensor;
         }
@@ -144,15 +144,15 @@ namespace MissionPlanner.Controls
             }
 
             base.OnInvalidated(e);
-            updateBindingSourceWork();
+            UpdateBindingSourceWork();
         }
 
-        private double calculateAverageRpm()
+        private double CalculateAverageRpm()
         {
             return rpmQueue.Sum() / rpmQueue.Count;
         }
 
-        private void updateBindingSourceWork()
+        private void UpdateBindingSourceWork()
         {
             rpmQueue.Enqueue(MainV2.comPort.MAV.cs.rpm1);
             if (stopwatch.ElapsedMilliseconds > 2000)
@@ -182,18 +182,18 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private int CalcFuelPercentage()
+        public int CalcFuelPercentage()
         {
             int percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
             return percent;
-        } 
-        
+        }
+
         private void timer1_Tick(object sender, System.EventArgs e)
         {
             // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
             fuel_label.Text = CalcFuelPercentage().ToString() + "%";
 
-            
+
             voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
 
             rpmICE_label.Text = MainV2.comPort.MAV.cs.rpm1.ToString("F2") + " об/м";
@@ -215,7 +215,7 @@ namespace MissionPlanner.Controls
             string flightMode = MainV2.comPort.MAV.cs.mode;
             flightMode_label.Text = flightMode == "Unknown" ? "Не подключен" : MainV2.comPort.MAV.cs.mode;
 
-            averageRpmICE_label.Text = calculateAverageRpm().ToString("F2");
+            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F2");
 
             this.Invalidate();
         }
@@ -224,7 +224,7 @@ namespace MissionPlanner.Controls
         {
             int clickedSensorIndex = sensorsMenuStrip.Items.IndexOf(clickedSensorControl);
             changeSensorMenuStripItem(clickedSensorIndex,
-                new ToolStripControlHost(getDesiredSensor((ToolStripItem) sender)));
+                new ToolStripControlHost(GetDesiredSensor((ToolStripItem) sender)));
 
             // sensor_panel.Size = new System.Drawing.Size(sensor_panel.Size.Width + 130, sensor_panel.Height);
             Invalidate();
@@ -276,7 +276,7 @@ namespace MissionPlanner.Controls
         {
             if (sensorsMenuStrip.Items.Count >= 6)
                 return;
-            SensorUserControl sensorToShow = getDesiredSensor(sensorsContextMenuStrip.Items[1]);
+            SensorUserControl sensorToShow = GetDesiredSensor(sensorsContextMenuStrip.Items[1]);
             this.Size = new Size(this.Size.Width + sensorToShow.ControlSize.Width, this.Size.Height);
             sensorsMenuStrip.Items.Add(new ToolStripControlHost(sensorToShow));
         }
@@ -300,6 +300,7 @@ namespace MissionPlanner.Controls
                 EngineControlForm.Close();
                 return;
             }
+
             EngineControlForm = new EngineControlForm()
                 {Visible = false, StartPosition = FormStartPosition.Manual};
             if (!EngineControlForm.IsDisposed)
@@ -316,6 +317,7 @@ namespace MissionPlanner.Controls
                 MainV2.RouteAltForm.Hide();
                 return;
             }
+
             MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
             MainV2.FormConnector.ConnectForm(MainV2.RouteAltForm);
             MainV2.RouteAltForm.Show();
