@@ -135,7 +135,7 @@ namespace MissionPlanner.Controls.NewControls
         private void alt_Format(object sender, ConvertEventArgs e)
         {
             double alt = (float) e.Value;
-            e.Value = alt.ToString("F2");
+            e.Value = alt.ToString("F2") + " м";
         }
 
         private void nextWP_Format(object sender, ConvertEventArgs e)

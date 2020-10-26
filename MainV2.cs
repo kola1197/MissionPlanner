@@ -570,7 +570,6 @@ namespace MissionPlanner
         public ushort secondTrim = 1500;
         public ushort thirdTrim = 1500;
 
-        private static double currentConnectionRate = -1;
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
@@ -686,12 +685,12 @@ namespace MissionPlanner
             {
                 if (_currentAircraftNum != null)
                 {
-                    StopUpdates();
+                    // StopUpdates();
                     AircraftMenuControl.updateAllAircraftButtonTexts();
                 }
 
                 _currentAircraftNum = value;
-                if (connectedAircraftExists())
+                if (ConnectedAircraftExists())
                 {
                     ShowConnectionQuality();
                 }
@@ -715,26 +714,39 @@ namespace MissionPlanner
             AircraftMenuControl.aircraftButtonInfo currentMenuButton =
                 AircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
             _mavlink = comPort;
-            var subscriptions = new List<IDisposable>
-            {
-                // Link quality is a percentage of the number of good packets received
-                // to the number of packets missed (detected by mavlink seq no.)
-                // Calculated as an average over the last 3 seconds (non weighted)
-                // Calculated every second
-                CombineWithDefault(_mavlink.WhenPacketReceived, _mavlink.WhenPacketLost, Tuple.Create)
-                    .Buffer(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1))
-                    .Select(CalculateAverage)
-                    .ObserveOn(SynchronizationContext.Current)
-                    .Subscribe(x =>
-                    {
-                        currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%");
-                        currentConnectionRate = x;
-                    }),
-            };
-
-            subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
+            
+            // var subscriptions = new List<IDisposable>
+            // {
+            //     // Link quality is a percentage of the number of good packets received
+            //     // to the number of packets missed (detected by mavlink seq no.)
+            //     // Calculated as an average over the last 3 seconds (non weighted)
+            //     // Calculated every second
+            //     CombineWithDefault(_mavlink.WhenPacketReceived, _mavlink.WhenPacketLost, Tuple.Create)
+            //         .Buffer(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1))
+            //         .Select(CalculateAverage)
+            //         .ObserveOn(SynchronizationContext.Current)
+            //         .Subscribe(x =>
+            //         {
+            //             currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%");
+            //             currentConnectionRate = x;
+            //         }),
+            // };
+            //
+            // subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
+            
+            // currentMenuButton.Button.Text =
+            //     currentMenuButton.DefaultText + " | " + comPort.MAV.cs.linkqualitygcs.ToString() + "%";
         }
 
+        public AircraftConnectionInfo GetCurrentAircraft()
+        {
+            if (CurrentAircraftNum == null)
+            {
+                return null;
+            }
+            return AircraftInfo[CurrentAircraftNum];
+        }
+        
         private static IObservable<TResult> CombineWithDefault<TSource, TResult>(IObservable<TSource> first,
             Subject<TSource> second, Func<TSource, TSource, TResult> resultSelector)
         {
@@ -2117,7 +2129,7 @@ namespace MissionPlanner
                     notifications.Add("Парашют выпущен");
                 }
 
-                if (currentConnectionRate < 45)
+                if (comPort.MAV.cs.linkqualitygcs < 45)
                 {
                     warnings.Add("Низкий уровень радиосигнала");
                 }
@@ -5810,7 +5822,7 @@ namespace MissionPlanner
             return null;
         }
 
-        public static bool connectedAircraftExists()
+        public static bool ConnectedAircraftExists()
         {
             foreach (var aircraft in MainV2.AircraftInfo)
             {
