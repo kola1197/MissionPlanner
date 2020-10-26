@@ -138,7 +138,13 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки"});
+            this.comboBox1.Items.AddRange(new object[] {
+            "Точка дом",
+            "Точка взлета",
+            "Маршрутная точка",
+            "Изменение скорости",
+            "Точка посадки",
+            "Точка Rally"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
@@ -332,8 +338,8 @@
             // 
             // myButton8
             // 
-            this.myButton8.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (255)))), ((int) (((byte) (192)))));
-            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (255)))), ((int) (((byte) (128)))));
+            this.myButton8.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.myButton8.Location = new System.Drawing.Point(21, 107);
             this.myButton8.Name = "myButton8";
             this.myButton8.Size = new System.Drawing.Size(127, 25);
@@ -450,6 +456,7 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Удерживать БПЛА в точке";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // timer1
             // 
@@ -482,6 +489,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         public System.Windows.Forms.CheckBox checkBox1;
