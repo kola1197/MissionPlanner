@@ -1914,7 +1914,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
             catch (FormatException ex)
-          git  {
+            {
                 CustomMessageBox.Show(Strings.InvalidNumberEntered + "\n" + ex.Message, Strings.ERROR);
             }
         }
