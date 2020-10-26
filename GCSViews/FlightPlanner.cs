@@ -150,7 +150,11 @@ namespace MissionPlanner.GCSViews
         private WPConfig wpConfig;
 
         public int CountOfLoadedWP = 0;
-        public bool wpLoadingActive = false;
+        
+        //public bool wpLoadingActive = false;
+        public int wpLoadingActive = 0;      //0 - done, 1 - need to write wp, 2 - need to write rally
+
+
         public bool needToLoadWP = false;
         public static bool regionActive = false;
         public static bool rulerActive = false;
@@ -680,8 +684,10 @@ namespace MissionPlanner.GCSViews
             frmProgressReporter.Dispose();
         }
 
+        public bool wpLoadMutexBusy = false;
         public void writeWPToPlane()
         {
+            wpLoadMutexBusy = true;
             needToLoadWP = false;
             setWpLoadingStatus(false);
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
@@ -763,7 +769,10 @@ namespace MissionPlanner.GCSViews
             //ThemeManager.ApplyThemeTo(frmProgressReporter);
 
             //frmProgressReporter.RunBackgroundOperationAsync();
-            wpLoadingActive = true;
+            if (wpLoadingActive != 2)
+            {
+                wpLoadingActive = 1;
+            }
             //frmProgressReporter.Dispose();
             new Thread(delegate ()
             {
@@ -818,45 +827,97 @@ namespace MissionPlanner.GCSViews
                             return fp;
                         }).ToList();
                     }
-
-                    Task.Run(async () =>
+                    if (wpLoadingActive == 2) 
                     {
-                        await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
-                            type,
-                            commandlist,
-                            (percent, status) =>
-                            {
-                                if (false)
+                        type = MAVLink.MAV_MISSION_TYPE.RALLY;
+                    }
+                    if (wpLoadingActive != 2)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                                type,
+                                commandlist,
+                                (percent, status) =>
                                 {
-                                    //sender.doWorkArgs.CancelAcknowledged = true;
-                                    //sender.doWorkArgs.ErrorMessage = "User Canceled";
-                                    //throw new Exception("User Canceled");
-                                }
+                                    if (false)
+                                    {
+                                        //sender.doWorkArgs.CancelAcknowledged = true;
+                                        //sender.doWorkArgs.ErrorMessage = "User Canceled";
+                                        //throw new Exception("User Canceled");
+                                    }
 
-                                CountOfLoadedWP = percent;
-                                //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
-                            }).ConfigureAwait(false);
+                                    CountOfLoadedWP = percent;
+                                    //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
+                                }).ConfigureAwait(false);
 
-                        try
-                        {
-                            await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
-                                (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
-                        }
-                        catch (Exception ex2)
-                        {
-                            log.Error(ex2);
                             try
                             {
-                                MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
-                                    (byte)MainV2.comPort.compidcurrent, 0);
+                                await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
+                                    (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
                             }
-                            catch (Exception ex3)
+                            catch (Exception ex2)
                             {
-                                log.Error(ex3);
+                                log.Error(ex2);
+                                try
+                                {
+                                    MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
+                                        (byte)MainV2.comPort.compidcurrent, 0);
+                                }
+                                catch (Exception ex3)
+                                {
+                                    log.Error(ex3);
+                                }
                             }
+                        }).GetAwaiter().GetResult();
+                    }
+                    else 
+                    {
+                        System.Diagnostics.Debug.WriteLine("##############################################  Rally write");
+                        List<Locationwp> commandlist1 = new List<Locationwp>();
+                        if (rallyWp.lat != 0)
+                        {
+                            commandlist1.Add(rallyWp);
                         }
-                    }).GetAwaiter().GetResult();
+                        Task.Run(async () =>
+                        {
+                            await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                                type,
+                                commandlist1,
+                                (percent, status) =>
+                                {
+                                    if (false)
+                                    {
+                                        //sender.doWorkArgs.CancelAcknowledged = true;
+                                        //sender.doWorkArgs.ErrorMessage = "User Canceled";
+                                        //throw new Exception("User Canceled");
+                                    }
 
+                                    CountOfLoadedWP = percent;
+                                    //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
+                                }).ConfigureAwait(false);
+
+                            try
+                            {
+                                await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
+                                    (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                            }
+                            catch (Exception ex2)
+                            {
+                                log.Error(ex2);
+                                try
+                                {
+                                    MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
+                                        (byte)MainV2.comPort.compidcurrent, 0);
+                                }
+                                catch (Exception ex3)
+                                {
+                                    log.Error(ex3);
+                                }
+                            }
+                        }).GetAwaiter().GetResult();
+
+                    }
                     //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
 
                     // m
@@ -883,7 +944,18 @@ namespace MissionPlanner.GCSViews
                 }
 
                 Debug.WriteLine("###################### WP Loaded ########################");
-                wpLoadingActive = false;
+                
+                
+                if (wpLoadingActive == 2)
+                {
+                    wpLoadingActive = 0;
+                    wpLoadMutexBusy = false;
+                }
+                else {
+                    wpLoadingActive = 2;
+                    needToLoadWP = true;
+                    wpLoadMutexBusy = false;
+                }
                 setWpLoadingStatus(true);
                 MainV2.comPort.giveComport = false;
             }).Start();
@@ -1842,7 +1914,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
             catch (FormatException ex)
-            {
+          git  {
                 CustomMessageBox.Show(Strings.InvalidNumberEntered + "\n" + ex.Message, Strings.ERROR);
             }
         }
@@ -4349,10 +4421,10 @@ namespace MissionPlanner.GCSViews
         private void getWPs(IProgressReporterDialogue sender)
         {
             var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
-          {
+            {
               return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
-          });
-
+            });
+            type = MAVLink.MAV_MISSION_TYPE.MISSION;
             List<Locationwp> cmds = Task.Run(async () => await mav_mission.download(MainV2.comPort,
                 MainV2.comPort.MAV.sysid,
                 MainV2.comPort.MAV.compid,
@@ -4368,8 +4440,28 @@ namespace MissionPlanner.GCSViews
 
                     sender.UpdateProgressAndStatus(percent, status);
                 }).ConfigureAwait(false)).Result;
-
             WPtoScreen(cmds);
+            type = MAVLink.MAV_MISSION_TYPE.RALLY;
+            cmds.Clear();
+            cmds = Task.Run(async () => await mav_mission.download(MainV2.comPort,
+                MainV2.comPort.MAV.sysid,
+                MainV2.comPort.MAV.compid,
+                type,
+                (percent, status) =>
+                {
+                    if (sender.doWorkArgs.CancelRequested)
+                    {
+                        sender.doWorkArgs.CancelAcknowledged = true;
+                        sender.doWorkArgs.ErrorMessage = "User Canceled";
+                        throw new Exception("User Canceled");
+                    }
+
+                    sender.UpdateProgressAndStatus(percent, status);
+                }).ConfigureAwait(false)).Result;
+            if (cmds.Count > 0)
+            {
+                rallyWp = cmds[0];
+            }
         }
 
         public void insertSplineWPToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6655,13 +6747,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
                 }
 
-                if (MainV2.comPort.MAV.cs.connected && !wpLoadingActive && needToLoadWP &&
+                if (MainV2.comPort.MAV.cs.connected && !wpLoadMutexBusy && needToLoadWP &&
                     !MAVLinkInterface.paramsLoading && wpMenu1.fieldActive)
                 {
                     writeWPToPlane();
                 }
 
-                if (wpLoadingActive)
+                if (wpLoadingActive!=0)
                 {
                     wpMenu1.progressBar1.Value = CountOfLoadedWP;
                     //wpMenu1.label1.Text = CountOfLoadedWP.ToString();
