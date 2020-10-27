@@ -32,6 +32,7 @@ namespace MissionPlanner.GCSViews
         public SoftwareConfig()
         {
             InitializeComponent();
+            backstageView.myButton1.MouseUp += MyButton1_MouseUp;
         }
 
         public void Activate()
@@ -189,6 +190,11 @@ namespace MissionPlanner.GCSViews
             {
                 log.Error(ex);
             }
+        }
+
+        private void MyButton1_MouseUp(object sender, MouseEventArgs e)
+        {
+            MainV2.instance.MyView.ShowScreen("FlightPlanner");
         }
 
         private void SoftwareConfig_FormClosing(object sender, FormClosingEventArgs e)
