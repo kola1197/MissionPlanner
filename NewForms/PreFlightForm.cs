@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Controls;
 
 namespace MissionPlanner.NewForms
 {
@@ -83,7 +84,7 @@ namespace MissionPlanner.NewForms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString();
+            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString()+" м/с";
         }
 
         private void backButton1_Click(object sender, EventArgs e)
@@ -294,7 +295,7 @@ namespace MissionPlanner.NewForms
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (
-                   CustomMessageBox.Show("Вы уверены, что хотите начать калибровку?", "Action",
+                   CustomMessageBox.Show("Вы уверены, что хотите начать калибровку?", "Калибровка",
                        MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
             {
                 int param1 = 0;
@@ -315,10 +316,15 @@ namespace MissionPlanner.NewForms
 
         private void myButton5_MouseUp(object sender, MouseEventArgs e)
         {
-            int i = 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = int.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            float i = 0;
+            //double.pa
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = float.Parse(minCapacity.Text);//double.TryParse(minCapacity.Text, out i) ? i : 0;
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(maxСapacity.Text);//double.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            
+            //Todo: make bindings
+            StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity,
+                MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
         }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
@@ -337,6 +343,9 @@ namespace MissionPlanner.NewForms
             iceRun1.focused(false);
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -1585,6 +1585,8 @@ namespace MissionPlanner.GCSViews
                     // request gyro
                     if (CMB_action.Text == "PREFLIGHT_CALIBRATION")
                     {
+                        MainV2.comPort.debugmavlink = true;
+                        System.Diagnostics.Debug.WriteLine("Started Debug Mavlink...............");
                         if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                             param1 = 1; // gyro
                         param3 = 1; // baro / airspeed
@@ -1594,7 +1596,7 @@ namespace MissionPlanner.GCSViews
                     {
                         param1 = 1; // reboot
                     }
-
+                    
                     if (MainV2.comPort.doCommand((MAVLink.MAV_CMD) Enum.Parse(typeof(MAVLink.MAV_CMD), CMB_action.Text),
                         param1, 0, param3, 0, 0, 0, 0))
                     {

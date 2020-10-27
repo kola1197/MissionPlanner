@@ -38,11 +38,13 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(47, 41);
+            this.label1.Location = new System.Drawing.Point(0, 41);
+            this.label1.MinimumSize = new System.Drawing.Size(133, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 29);
+            this.label1.Size = new System.Drawing.Size(133, 29);
             this.label1.TabIndex = 1;
             this.label1.Text = "0.0";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -50,11 +52,13 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(42, 70);
+            this.label2.Location = new System.Drawing.Point(0, 70);
+            this.label2.MinimumSize = new System.Drawing.Size(133, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 29);
+            this.label2.Size = new System.Drawing.Size(133, 29);
             this.label2.TabIndex = 2;
             this.label2.Text = "м/с";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AirspeedDirectionControl
             // 

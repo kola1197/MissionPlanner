@@ -33,7 +33,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.armButton = new MissionPlanner.Controls.MyButton();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.startCalibrationButton = new MissionPlanner.Controls.MyButton();
@@ -61,9 +60,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.nextButton = new MissionPlanner.Controls.MyButton();
             this.backButton = new MissionPlanner.Controls.MyButton();
-            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -71,6 +68,9 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
+            this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -82,9 +82,9 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
@@ -111,6 +111,8 @@
             // 
             // armButton
             // 
+            this.armButton.BGGradBot = System.Drawing.Color.Empty;
+            this.armButton.BGGradTop = System.Drawing.Color.Empty;
             this.armButton.Location = new System.Drawing.Point(130, 443);
             this.armButton.Name = "armButton";
             this.armButton.Size = new System.Drawing.Size(75, 23);
@@ -121,6 +123,8 @@
             // 
             // nextButton1
             // 
+            this.nextButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.nextButton1.BGGradTop = System.Drawing.Color.Empty;
             this.nextButton1.Location = new System.Drawing.Point(422, 443);
             this.nextButton1.Name = "nextButton1";
             this.nextButton1.Size = new System.Drawing.Size(75, 23);
@@ -128,13 +132,6 @@
             this.nextButton1.Text = "Далее";
             this.nextButton1.UseVisualStyleBackColor = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
-            // 
-            // checkListControl1
-            // 
-            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
-            this.checkListControl1.Name = "checkListControl1";
-            this.checkListControl1.Size = new System.Drawing.Size(491, 421);
-            this.checkListControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -154,14 +151,17 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(181, 349);
+            this.label6.Location = new System.Drawing.Point(145, 328);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "Воздушная скорость:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // startCalibrationButton
             // 
+            this.startCalibrationButton.BGGradBot = System.Drawing.Color.Empty;
+            this.startCalibrationButton.BGGradTop = System.Drawing.Color.Empty;
             this.startCalibrationButton.Location = new System.Drawing.Point(148, 164);
             this.startCalibrationButton.Name = "startCalibrationButton";
             this.startCalibrationButton.Size = new System.Drawing.Size(260, 57);
@@ -174,13 +174,15 @@
             // AirSpeedLabel
             // 
             this.AirSpeedLabel.AutoSize = true;
-            this.AirSpeedLabel.Location = new System.Drawing.Point(276, 349);
+            this.AirSpeedLabel.Location = new System.Drawing.Point(270, 328);
             this.AirSpeedLabel.Name = "AirSpeedLabel";
             this.AirSpeedLabel.Size = new System.Drawing.Size(0, 13);
             this.AirSpeedLabel.TabIndex = 5;
             // 
             // backButton1
             // 
+            this.backButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.backButton1.BGGradTop = System.Drawing.Color.Empty;
             this.backButton1.Location = new System.Drawing.Point(6, 454);
             this.backButton1.Name = "backButton1";
             this.backButton1.Size = new System.Drawing.Size(75, 23);
@@ -191,6 +193,8 @@
             // 
             // gotReaction
             // 
+            this.gotReaction.BGGradBot = System.Drawing.Color.Empty;
+            this.gotReaction.BGGradTop = System.Drawing.Color.Empty;
             this.gotReaction.Location = new System.Drawing.Point(419, 454);
             this.gotReaction.Name = "gotReaction";
             this.gotReaction.Size = new System.Drawing.Size(75, 23);
@@ -227,6 +231,8 @@
             // 
             // myButton6
             // 
+            this.myButton6.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton6.BGGradTop = System.Drawing.Color.Empty;
             this.myButton6.Location = new System.Drawing.Point(355, 270);
             this.myButton6.Name = "myButton6";
             this.myButton6.Size = new System.Drawing.Size(101, 23);
@@ -237,6 +243,8 @@
             // 
             // myButton7
             // 
+            this.myButton7.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton7.BGGradTop = System.Drawing.Color.Empty;
             this.myButton7.Location = new System.Drawing.Point(355, 299);
             this.myButton7.Name = "myButton7";
             this.myButton7.Size = new System.Drawing.Size(101, 23);
@@ -247,6 +255,8 @@
             // 
             // myButton5
             // 
+            this.myButton5.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton5.BGGradTop = System.Drawing.Color.Empty;
             this.myButton5.Location = new System.Drawing.Point(162, 334);
             this.myButton5.Name = "myButton5";
             this.myButton5.Size = new System.Drawing.Size(187, 23);
@@ -370,6 +380,8 @@
             // 
             // backButton2
             // 
+            this.backButton2.BGGradBot = System.Drawing.Color.Empty;
+            this.backButton2.BGGradTop = System.Drawing.Color.Empty;
             this.backButton2.Location = new System.Drawing.Point(24, 440);
             this.backButton2.Name = "backButton2";
             this.backButton2.Size = new System.Drawing.Size(75, 23);
@@ -380,6 +392,8 @@
             // 
             // nextButton2
             // 
+            this.nextButton2.BGGradBot = System.Drawing.Color.Empty;
+            this.nextButton2.BGGradTop = System.Drawing.Color.Empty;
             this.nextButton2.Location = new System.Drawing.Point(338, 440);
             this.nextButton2.Name = "nextButton2";
             this.nextButton2.Size = new System.Drawing.Size(75, 23);
@@ -402,6 +416,8 @@
             // 
             // nextButton
             // 
+            this.nextButton.BGGradBot = System.Drawing.Color.Empty;
+            this.nextButton.BGGradTop = System.Drawing.Color.Empty;
             this.nextButton.Location = new System.Drawing.Point(347, 441);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(75, 23);
@@ -412,6 +428,8 @@
             // 
             // backButton
             // 
+            this.backButton.BGGradBot = System.Drawing.Color.Empty;
+            this.backButton.BGGradTop = System.Drawing.Color.Empty;
             this.backButton.Location = new System.Drawing.Point(19, 441);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(75, 23);
@@ -419,13 +437,6 @@
             this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
-            // 
-            // iceRun1
-            // 
-            this.iceRun1.Location = new System.Drawing.Point(3, 3);
-            this.iceRun1.Name = "iceRun1";
-            this.iceRun1.Size = new System.Drawing.Size(432, 432);
-            this.iceRun1.TabIndex = 0;
             // 
             // tabPage5
             // 
@@ -439,15 +450,10 @@
             this.tabPage5.Text = "Проверка";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // iceCheck1
-            // 
-            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
-            this.iceCheck1.Name = "iceCheck1";
-            this.iceCheck1.Size = new System.Drawing.Size(509, 432);
-            this.iceCheck1.TabIndex = 4;
-            // 
             // myButton2
             // 
+            this.myButton2.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton2.BGGradTop = System.Drawing.Color.Empty;
             this.myButton2.Location = new System.Drawing.Point(347, 445);
             this.myButton2.Name = "myButton2";
             this.myButton2.Size = new System.Drawing.Size(75, 23);
@@ -458,6 +464,8 @@
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton1.BGGradTop = System.Drawing.Color.Empty;
             this.myButton1.Location = new System.Drawing.Point(14, 445);
             this.myButton1.Name = "myButton1";
             this.myButton1.Size = new System.Drawing.Size(75, 23);
@@ -478,6 +486,8 @@
             // 
             // myButton4
             // 
+            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.Empty;
             this.myButton4.Location = new System.Drawing.Point(12, 445);
             this.myButton4.Name = "myButton4";
             this.myButton4.Size = new System.Drawing.Size(75, 23);
@@ -488,6 +498,8 @@
             // 
             // myButton3
             // 
+            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.Empty;
             this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.myButton3.Location = new System.Drawing.Point(109, 113);
             this.myButton3.Name = "myButton3";
@@ -506,6 +518,27 @@
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // checkListControl1
+            // 
+            this.checkListControl1.Location = new System.Drawing.Point(6, 16);
+            this.checkListControl1.Name = "checkListControl1";
+            this.checkListControl1.Size = new System.Drawing.Size(491, 421);
+            this.checkListControl1.TabIndex = 0;
+            // 
+            // iceRun1
+            // 
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(432, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
+            // iceCheck1
+            // 
+            this.iceCheck1.Location = new System.Drawing.Point(6, 7);
+            this.iceCheck1.Name = "iceCheck1";
+            this.iceCheck1.Size = new System.Drawing.Size(509, 432);
+            this.iceCheck1.TabIndex = 4;
             // 
             // PreFlightForm
             // 

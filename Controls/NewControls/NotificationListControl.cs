@@ -41,7 +41,8 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (fullList)
             {
-                this.Size = new Size(this.Width, 50 * MainV2.notifications.Count);
+                this.Size = new Size(this.Width, 50 * (MainV2.warnings.Count + MainV2.notifications.Count));
+                label1.Size = new Size(this.Width, 50 * (MainV2.warnings.Count + MainV2.notifications.Count));
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, -20, Width, Height, 20, 20));
                 this.BackColor = Color.FromArgb(200, 32, 32, 32);
                 this.Visible = true;
@@ -55,12 +56,19 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = "";
+            //label1.BackColor = Color.White;
+            label1.Text = "________";
+            for (int i = 0; i < MainV2.warnings.Count; i++)
+            {
+                label1.Text += "\n";
+                label1.Text += MainV2.warnings[i];
+                //label1.Text += "\n";
+            }
             for (int i = 0; i < MainV2.notifications.Count; i++)
             {
                 label1.Text += "\n";
                 label1.Text += MainV2.notifications[i];
-                label1.Text += "\n";
+                
             }
         }
     }

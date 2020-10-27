@@ -48,6 +48,13 @@ namespace MissionPlanner.Controls
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
         }
 
+        public void SetFuelPBMinMax(double min, double max)
+        {
+            splittedBar_fuel.Minimum = min;
+            splittedBar_fuel.Maximum = max;
+            splittedBar_fuel.Step = (max - min) / 10;
+        }
+        
         public Point GetLocalRouteFormLocation()
         {
             return new Point(speedPanel.Location.X + slidingScaleIndent.X,
@@ -175,10 +182,18 @@ namespace MissionPlanner.Controls
             }
         }
 
+        private int CalcFuelPercentage()
+        {
+            int percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
+            return percent;
+        } 
+        
         private void timer1_Tick(object sender, System.EventArgs e)
         {
-            fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+            // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+            fuel_label.Text = CalcFuelPercentage().ToString() + "%";
 
+            
             voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
 
             rpmICE_label.Text = MainV2.comPort.MAV.cs.rpm1.ToString("F2") + " об/м";
@@ -279,19 +294,31 @@ namespace MissionPlanner.Controls
 
         private void enginePanel_Click(object sender, EventArgs e)
         {
+            if (EngineControlForm != null && EngineControlForm.Visible)
+            {
+                MainV2.FormConnector.DisconnectForm(EngineControlForm);
+                EngineControlForm.Close();
+                return;
+            }
             EngineControlForm = new EngineControlForm()
                 {Visible = false, StartPosition = FormStartPosition.Manual};
-            MainV2.instance.SetEngineFormLocation();
             if (!EngineControlForm.IsDisposed)
             {
+                //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
+                MainV2.FormConnector.ConnectForm(EngineControlForm);
                 EngineControlForm.Show();
             }
         }
 
         private void speedPanel_Click(object sender, EventArgs e)
         {
-            MainV2.instance.SetRouteFormLocation();
+            if (MainV2.RouteAltForm.Visible)
+            {
+                MainV2.RouteAltForm.Hide();
+                return;
+            }
             MainV2.RouteAltForm.SetSlidingScaleFormattedValue();
+            MainV2.FormConnector.ConnectForm(MainV2.RouteAltForm);
             MainV2.RouteAltForm.Show();
             MainV2.RouteAltForm.TopLevel = true;
         }

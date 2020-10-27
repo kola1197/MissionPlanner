@@ -575,6 +575,8 @@
     </Compile>
     <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
+    <Compile Include="NewClasses\FormConnector.cs" />
+    <Compile Include="NewClasses\IFormConnectable.cs" />
     <Compile Include="NewClasses\Logger.cs" />
     <Compile Include="NewClasses\VibeData.cs" />
     <Compile Include="NewForms\AltChoose.cs">
@@ -1083,6 +1085,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
       <DependentUpon>WPMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PreFlight\CheckListControl.resx">
+      <DependentUpon>CheckListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigServoGimbal.resx">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>

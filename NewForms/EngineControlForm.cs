@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Controls;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class EngineControlForm : Form
+    public partial class EngineControlForm : Form, IFormConnectable
     {
         public EngineControlForm()
         {
@@ -102,6 +104,25 @@ namespace MissionPlanner.NewForms
         private void EngineControlForm_Load(object sender, EventArgs e)
         {
             updateButtons(MainV2.currentEngineMode);
+        }
+
+        private void EngineControlForm_Shown(object sender, EventArgs e)
+        {
+            SetFormLocation();
+            SetToTop();
+        }
+
+        public void SetToTop()
+        {
+            this.TopMost = true;
+        }
+
+        public void SetFormLocation()
+        {
+            Point locationLocal = MainV2.StatusMenuPanel.GetLocalEngineFormLocation();
+            StatusControlPanel.instance.EngineControlForm.Location = new Point(
+                AircraftMenuControl.Instance.Width + this.Location.X + locationLocal.X,
+                this.Location.Y + locationLocal.Y);
         }
     }
 }
