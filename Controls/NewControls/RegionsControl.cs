@@ -44,7 +44,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             InitializeComponent();
 
-            this.BackColor = Color.FromArgb(32, 32, 32);
+            //this.BackColor = Color.FromArgb(32, 32, 32);
             instance = this;
         }
 
