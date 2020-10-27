@@ -1102,13 +1102,16 @@ mc:Ignorable=""d""
                 else if (ctl.GetType() == typeof(MyButton))
                 {
                     Controls.MyButton but = (MyButton)ctl;
-                    but.BGGradTop = ButBG;
-                    but.BGGradBot = ButBGBot;
-                    but.TextColor = ButtonTextColor;
-                    but.Outline = ButBorder;
-                    but.ColorMouseDown = ColorMouseDown;        //sets the colour of buttons for different situations
-                    but.ColorMouseOver = ColorMouseOver;
-                    but.ColorNotEnabled = ColorNotEnabled;
+                    if (but.DefaultTheme)
+                    {
+                        but.BGGradTop = ButBG;
+                        but.BGGradBot = ButBGBot;
+                        but.TextColor = ButtonTextColor;
+                        but.Outline = ButBorder;
+                        but.ColorMouseDown = ColorMouseDown;        //sets the colour of buttons for different situations
+                        but.ColorMouseOver = ColorMouseOver;
+                        but.ColorNotEnabled = ColorNotEnabled;
+                    }
                 }
                 else if (ctl.GetType() == typeof(TextBox))
                 {

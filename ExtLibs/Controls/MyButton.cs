@@ -26,6 +26,14 @@ namespace MissionPlanner.Controls
 
         bool inOnPaint = false;
 
+        internal bool _DefaultTheme = true;
+
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Bools")]
+        [DefaultValue(true)]
+
+        public bool DefaultTheme { get { return _DefaultTheme; } set { _DefaultTheme = value; this.Invalidate(); } }
+        
+
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Colors")]
         [DefaultValue(typeof(Color), "0x94, 0xc1, 0x1f")]
         public Color BGGradTop { get { return _BGGradTop; } set { _BGGradTop = value; this.Invalidate(); } }
