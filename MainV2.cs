@@ -2004,7 +2004,7 @@ namespace MissionPlanner
                         }
 
                         soundFlag = !soundFlag;
-                        FlightPlanner.getWPFromPlane();
+                        //FlightPlanner.getWPFromPlane();
                     }
                 }
                 else

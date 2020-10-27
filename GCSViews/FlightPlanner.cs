@@ -667,7 +667,23 @@ namespace MissionPlanner.GCSViews
                     }
                 }
             }*/
+            if ((MainV2.comPort.MAV.cs.capabilities & (uint)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
+            {
+                if (!MainV2.comPort.BaseStream.IsOpen)
+                {
+                    CustomMessageBox.Show("Необходимо подключиться к самолету");
+                    return;
+                }
 
+                List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                    MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
+
+                if (cmds.Count() > 0)
+                {
+                    rallyWp = cmds[cmds.Count - 1];
+                }
+                writeKML();
+            }
             IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
             {
                 StartPosition = FormStartPosition.CenterScreen,
@@ -682,6 +698,7 @@ namespace MissionPlanner.GCSViews
             frmProgressReporter.RunBackgroundOperationAsync();
 
             frmProgressReporter.Dispose();
+
         }
 
         public bool wpLoadMutexBusy = false;
@@ -873,7 +890,43 @@ namespace MissionPlanner.GCSViews
                     }
                     else 
                     {
-                        System.Diagnostics.Debug.WriteLine("##############################################  Rally write");
+
+                        byte count = 0;
+
+                        //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,"RALLY_TOTAL", rallypointoverlay.Markers.Count);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 0);
+                        if (rallyWp.lng != 0 || rallyWp.lat != 0)
+                        {
+                            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 1);
+                            // TODO: may be array of raly points?
+                            try
+                            {
+                                MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(rallyWp.lat, rallyWp.lng) { Alt = rallyWp.alt }, 0, 0, 0,
+                                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                            }
+                            catch (Exception e)
+                            {
+                                CustomMessageBox.Show("Failed to write rally point \n " + e.Message, Strings.ERROR);
+                                return;
+                            }
+                        }
+                        /*foreach (GMapMarkerRallyPt pnt in rallypointoverlay.Markers)
+                        {
+                            try
+                            {
+                                MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
+                                    (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                                count++;
+                            }
+                            catch
+                            {
+                                CustomMessageBox.Show("Failed to save rally point", Strings.ERROR);
+                                return;
+                            }
+                        }*/
+
+
+                        /*System.Diagnostics.Debug.WriteLine("##############################################  Rally write");
                         List<Locationwp> commandlist1 = new List<Locationwp>();
                         if (rallyWp.lat != 0)
                         {
@@ -915,7 +968,7 @@ namespace MissionPlanner.GCSViews
                                     log.Error(ex3);
                                 }
                             }
-                        }).GetAwaiter().GetResult();
+                        }).GetAwaiter().GetResult();*/
 
                     }
                     //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
@@ -1262,8 +1315,14 @@ namespace MissionPlanner.GCSViews
                     return;
                 }
 
-                mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
                     MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
+
+                if (cmds.Count() > 0) 
+                {
+                    rallyWp = cmds[cmds.Count-1];
+                }
+                writeKML();
                 return;
             }
 
@@ -3170,7 +3229,7 @@ namespace MissionPlanner.GCSViews
 
         public void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            e.Cancel = true;
+            //e.Cancel = true;
             if (CurentRectMarker == null && CurrentRallyPt == null && groupmarkers.Count == 0)
             {
                 deleteWPToolStripMenuItem.Enabled = false;

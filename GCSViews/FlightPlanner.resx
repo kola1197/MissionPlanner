@@ -1473,7 +1473,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1587,7 +1587,7 @@
     <value>notificationListControl1</value>
   </data>
   <data name="&gt;&gt;notificationListControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.NotificationListControl, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.NotificationListControl, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;notificationListControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1608,7 +1608,7 @@
     <value>notificationControl1</value>
   </data>
   <data name="&gt;&gt;notificationControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.NotificationControl, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.NotificationControl, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;notificationControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1629,7 +1629,7 @@
     <value>rulerControl1</value>
   </data>
   <data name="&gt;&gt;rulerControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RulerControl, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.RulerControl, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;rulerControl1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1653,7 +1653,7 @@
     <value>wpMenu1</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.NewControls.WPMenu, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;wpMenu1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1677,7 +1677,7 @@
     <value>mainMenuWidget1</value>
   </data>
   <data name="&gt;&gt;mainMenuWidget1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MainMenuWidget, MissionPlanner, Version=1.3.7602.36297, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MainMenuWidget, MissionPlanner, Version=1.3.7604.35452, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mainMenuWidget1.Parent" xml:space="preserve">
     <value>panelMap</value>
@@ -1823,9 +1823,6 @@
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="contextMenuStrip1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="deleteWPToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -2080,9 +2077,6 @@
   </data>
   <data name="loadFromFileToolStripMenuItem1.Text" xml:space="preserve">
     <value>Load Rally from File</value>
-  </data>
-  <data name="rallyPointsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="rallyPointsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 22</value>
