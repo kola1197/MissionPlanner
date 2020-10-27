@@ -23,7 +23,20 @@ namespace MissionPlanner.Controls.NewControls
         {
             InitializeComponent();
 
-            this.BackColor = Color.FromArgb(32, 32, 32);
+            //this.BackColor = Color.FromArgb(32, 32, 32);
+            defaultButton(turnOnButton);
+        }
+
+        private void defaultButton(object sender)
+        {
+            MyButton b = (MyButton)sender;
+            if (b.BGGradTop != Color.DarkRed && b.BGGradTop != Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196))))))
+            {
+                b.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
+                b.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                b.TextColor = Color.Black;
+                b.Outline = Color.Transparent;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
