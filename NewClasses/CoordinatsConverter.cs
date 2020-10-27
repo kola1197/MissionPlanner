@@ -67,6 +67,25 @@ namespace MissionPlanner.NewClasses
             return result;
         }
 
+        const double piConverter = 1;
+        public static string toRectFromWGS(double Lat, double Lon, double alt) 
+        {
+            string result = "";
+            double X = (N(Lat) + alt) * Math.Cos(Lat* piConverter) * Math.Cos(Lon* piConverter);
+            double Y = (N(Lat) + alt) * Math.Cos(Lat*piConverter) * Math.Sin(Lon* piConverter);
+            result = X.ToString("0.0") + ", " + Y.ToString("0.0");
+            return result;
+
+        }
+
+        private static double N(double B ) 
+        {
+            double aa = 6378137;
+            double aaa = 1 / 298.257223563;
+            //double b = 6356863.019;
+            double sqre = 2 * aaa - aaa * aaa;//(aa*aa - b*b)/(aa*aa);
+            return aa / Math.Sqrt(1 - sqre*Math.Sin(B * piConverter) *Math.Sin(B * piConverter));
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////from excel
 

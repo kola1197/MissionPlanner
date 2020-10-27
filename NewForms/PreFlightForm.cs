@@ -84,7 +84,7 @@ namespace MissionPlanner.NewForms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString();
+            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString()+" м/с";
         }
 
         private void backButton1_Click(object sender, EventArgs e)
@@ -343,6 +343,9 @@ namespace MissionPlanner.NewForms
             iceRun1.focused(false);
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -304,6 +304,7 @@ namespace MissionPlanner.Controls
                 {Visible = false, StartPosition = FormStartPosition.Manual};
             if (!EngineControlForm.IsDisposed)
             {
+                //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
                 MainV2.FormConnector.ConnectForm(EngineControlForm);
                 EngineControlForm.Show();
             }
