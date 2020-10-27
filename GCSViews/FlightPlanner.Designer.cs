@@ -886,6 +886,7 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.zoomToVehicleToolStripMenuItem, "zoomToVehicleToolStripMenuItem");
             this.zoomToVehicleToolStripMenuItem.Click += new System.EventHandler(this.zoomToVehicleToolStripMenuItem_Click);
             this.zoomToMissionToolStripMenuItem.Name = "zoomToMissionToolStripMenuItem";
+            this.zoomToMissionToolStripMenuItem.Visible = false;
             resources.ApplyResources(this.zoomToMissionToolStripMenuItem, "zoomToMissionToolStripMenuItem");
             this.zoomToMissionToolStripMenuItem.Click += new System.EventHandler(this.zoomToMissionToolStripMenuItem_Click);
             this.zoomToHomeToolStripMenuItem.Name = "zoomToHomeToolStripMenuItem";

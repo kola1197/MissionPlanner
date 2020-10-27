@@ -3229,7 +3229,7 @@ namespace MissionPlanner.GCSViews
 
         public void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            //e.Cancel = true;
+            e.Cancel = true;
             if (CurentRectMarker == null && CurrentRallyPt == null && groupmarkers.Count == 0)
             {
                 deleteWPToolStripMenuItem.Enabled = false;
@@ -5365,12 +5365,12 @@ namespace MissionPlanner.GCSViews
             e.Graphics.ResetTransform();
 
             polyicon.Location = new Point(10, 100);
-            polyicon.Paint(e.Graphics);
+            //polyicon.Paint(e.Graphics);
 
             e.Graphics.ResetTransform();
 
             zoomicon.Location = new Point(10, polyicon.Location.Y + polyicon.Height + 5);
-            zoomicon.Paint(e.Graphics);
+            //zoomicon.Paint(e.Graphics);
 
             e.Graphics.ResetTransform();
         }

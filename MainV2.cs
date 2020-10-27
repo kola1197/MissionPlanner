@@ -1471,6 +1471,7 @@ namespace MissionPlanner
 
         void coordinatsControlInit()
         {
+            coordinatsControl1.timer1.Enabled = true;
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
@@ -1491,7 +1492,14 @@ namespace MissionPlanner
             try
             {
                 cheatParachuteLandingTrigger();
-                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
+            }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+            try 
+            { 
+            if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
                 }
@@ -1507,7 +1515,7 @@ namespace MissionPlanner
                 double currentMousePositionLng = FlightPlanner.currentMarker.Position.Lng;
                 double currentMousePositionAlt = 20;
                 double currentPositionLat = comPort.MAV.cs.lat;
-                double currentPositionLng = comPort.MAV.cs.lat;
+                double currentPositionLng = comPort.MAV.cs.lng;
                 double currentPositionAlt = comPort.MAV.cs.alt;
                 switch (coordinatsShowMode)
                 {
@@ -1545,6 +1553,12 @@ namespace MissionPlanner
                         currentMousePosition = CoordinatsConverter.toSK42_GMS(currentMousePositionLat,
                             currentMousePositionLng, currentMousePositionAlt);
                         currentPosition = CoordinatsConverter.toSK42_GMS(currentPositionLat, currentPositionLng,
+                            currentPositionAlt);
+                        break;
+                    case 6:
+                        currentMousePosition = CoordinatsConverter.toRectFromWGS(currentMousePositionLat,
+                            currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toRectFromWGS(currentPositionLat, currentPositionLng,
                             currentPositionAlt);
                         break;
                     default:
@@ -2094,9 +2108,9 @@ namespace MissionPlanner
                     warnings.Add("Двигатель заглох");
                 }
 
-                if (MainV2.comPort.MAV.cs.mode == "RTL")
+                if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
-                    notifications.Add("Режим возврата к точке «Дом»");
+                    notifications.Add("Режим изменен на "+ MainV2.comPort.MAV.cs.mode);
                 }
 
                 try
