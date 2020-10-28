@@ -61,6 +61,7 @@ namespace MissionPlanner.ArduPilot
                 if (command < (ushort)MAVLink.MAV_CMD.LAST &&
                     command != (ushort) MAVLink.MAV_CMD.TAKEOFF && // doesnt have a position
                     command != (ushort)MAVLink.MAV_CMD.VTOL_TAKEOFF && // doesnt have a position
+                    command != (ushort)MAVLink.MAV_CMD.LAND && // cheat for sitl landing
                     command != (ushort)MAVLink.MAV_CMD.RETURN_TO_LAUNCH &&
                     command != (ushort)MAVLink.MAV_CMD.CONTINUE_AND_CHANGE_ALT &&
                     command != (ushort)MAVLink.MAV_CMD.DELAY &&

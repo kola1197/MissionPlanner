@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -64,7 +65,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -100,6 +100,13 @@
             this.tabPage1.Text = "Основные:";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // wpAltSlidingScale1
+            // 
+            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
+            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
+            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
+            this.wpAltSlidingScale1.TabIndex = 14;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -132,10 +139,12 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
+            "Точка дом",
             "Точка взлета",
             "Маршрутная точка",
             "Изменение скорости",
-            "Точка посадки"});
+            "Точка посадки",
+            "Точка Rally"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
@@ -447,6 +456,7 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Удерживать БПЛА в точке";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // timer1
             // 
@@ -463,13 +473,6 @@
             this.myButton1.Text = "Готово";
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
-            // 
-            // wpAltSlidingScale1
-            // 
-            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
-            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
-            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
-            this.wpAltSlidingScale1.TabIndex = 14;
             // 
             // WPConfig
             // 
@@ -489,43 +492,43 @@
 
         }
 
-        #endregion
-
+        public System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.CheckBox checkBox2;
+        public System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private MissionPlanner.Controls.MyButton myButton1;
+        private MissionPlanner.Controls.MyButton myButton10;
+        private MissionPlanner.Controls.MyButton myButton11;
+        private MissionPlanner.Controls.MyButton myButton12;
+        private MissionPlanner.Controls.MyButton myButton13;
+        private MissionPlanner.Controls.MyButton myButton14;
+        private MissionPlanner.Controls.MyButton myButton15;
+        private MissionPlanner.Controls.MyButton myButton16;
+        private MissionPlanner.Controls.MyButton myButton2;
+        private MissionPlanner.Controls.MyButton myButton3;
+        private MissionPlanner.Controls.MyButton myButton4;
+        private MissionPlanner.Controls.MyButton myButton5;
+        private MissionPlanner.Controls.MyButton myButton6;
+        private MissionPlanner.Controls.MyButton myButton7;
+        private MissionPlanner.Controls.MyButton myButton8;
+        private MissionPlanner.Controls.MyButton myButton9;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.TextBox textBox2;
         public System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.ComboBox comboBox1;
-        private Controls.MyButton myButton1;
-        private Controls.MyButton myButton7;
-        private Controls.MyButton myButton6;
-        private Controls.MyButton myButton5;
-        private Controls.MyButton myButton4;
-        private Controls.MyButton myButton3;
-        private Controls.MyButton myButton2;
-        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox textBox2;
         public System.Windows.Forms.TextBox textBox3;
-        public System.Windows.Forms.CheckBox checkBox1;
-        public System.Windows.Forms.CheckBox checkBox2;
-        private Controls.MyButton myButton14;
-        private Controls.MyButton myButton15;
-        private Controls.MyButton myButton16;
-        private Controls.MyButton myButton11;
-        private Controls.MyButton myButton12;
-        private Controls.MyButton myButton13;
-        private Controls.MyButton myButton10;
-        private Controls.MyButton myButton9;
-        private Controls.MyButton myButton8;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label11;
-        public Controls.NewControls.WpAltSlidingScale wpAltSlidingScale1;
+        private System.Windows.Forms.Timer timer1;
+        public MissionPlanner.Controls.NewControls.WpAltSlidingScale wpAltSlidingScale1;
+
+        #endregion
     }
 }
