@@ -606,6 +606,7 @@ namespace MissionPlanner
             }
         }
 
+        public static string defaultFuelSavePath = Settings.GetUserDataDirectory() + "fuelConfig";
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
         public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
 
@@ -1977,6 +1978,31 @@ namespace MissionPlanner
             }
         }
 
+        private void tryToLoadFuelData(int id)
+        {
+            float[] values = new float[] { 0, 0, 0 };
+            if (File.Exists(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt"))
+            {
+                try
+                {
+                    StreamReader stream = new StreamReader(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt");
+                    for (int i = 0; i < 3; i++)
+                    {
+                        values[i] = float.Parse(stream.ReadLine());
+                    }
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity, MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
+                }
+                catch
+                {
+
+                }
+
+            }
+        }
+
         bool soundFlag = false;
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -2016,7 +2042,13 @@ namespace MissionPlanner
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
                         }
-
+                        MissionPlanner.AircraftConnectionInfo info;
+                        if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                        {
+                            MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
+                            int id = port_Sysid.sysid;
+                            tryToLoadFuelData(id);
+                        }
                         soundFlag = !soundFlag;
                         //FlightPlanner.getWPFromPlane();
                     }
