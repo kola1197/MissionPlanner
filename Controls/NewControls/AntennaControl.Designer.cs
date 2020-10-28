@@ -39,7 +39,6 @@
             this.mode_label = new System.Windows.Forms.Label();
             this.autoMode_BUT = new System.Windows.Forms.Button();
             this.stopMode_BUT = new System.Windows.Forms.Button();
-            this.manualMode_BUT = new System.Windows.Forms.Button();
             this._label2 = new System.Windows.Forms.Label();
             this.satNum_label = new System.Windows.Forms.Label();
             this.heading_label = new System.Windows.Forms.Label();
@@ -169,17 +168,6 @@
             this.stopMode_BUT.UseVisualStyleBackColor = true;
             this.stopMode_BUT.Click += new System.EventHandler(this.stopMode_BUT_Click);
             // 
-            // manualMode_BUT
-            // 
-            this.manualMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.manualMode_BUT.Location = new System.Drawing.Point(208, 191);
-            this.manualMode_BUT.Name = "manualMode_BUT";
-            this.manualMode_BUT.Size = new System.Drawing.Size(88, 23);
-            this.manualMode_BUT.TabIndex = 21;
-            this.manualMode_BUT.Text = "SERVO_TEST";
-            this.manualMode_BUT.UseVisualStyleBackColor = true;
-            this.manualMode_BUT.Click += new System.EventHandler(this.manualMode_BUT_Click);
-            // 
             // _label2
             // 
             this._label2.AutoSize = true;
@@ -240,7 +228,7 @@
             this.BUT_test_yaw.BGGradBot = System.Drawing.Color.Empty;
             this.BUT_test_yaw.BGGradTop = System.Drawing.Color.Empty;
             this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_test_yaw.Location = new System.Drawing.Point(208, 220);
+            this.BUT_test_yaw.Location = new System.Drawing.Point(208, 191);
             this.BUT_test_yaw.Name = "BUT_test_yaw";
             this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
             this.BUT_test_yaw.TabIndex = 27;
@@ -274,7 +262,6 @@
             this.Controls.Add(this._label3);
             this.Controls.Add(this.satNum_label);
             this.Controls.Add(this._label2);
-            this.Controls.Add(this.manualMode_BUT);
             this.Controls.Add(this.stopMode_BUT);
             this.Controls.Add(this.autoMode_BUT);
             this.Controls.Add(this.mode_label);
@@ -306,7 +293,6 @@
         private System.Windows.Forms.Label mode_label;
         private System.Windows.Forms.Button autoMode_BUT;
         private System.Windows.Forms.Button stopMode_BUT;
-        private System.Windows.Forms.Button manualMode_BUT;
         private System.Windows.Forms.Label _label2;
         private System.Windows.Forms.Label satNum_label;
         private System.Windows.Forms.Label heading_label;

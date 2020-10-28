@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.centerButton = new System.Windows.Forms.Button();
             this.aircraft_BUT4 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT3 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT2 = new MissionPlanner.Controls.MyButton();
             this.aircraft_BUT1 = new MissionPlanner.Controls.MyButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // centerButton
@@ -152,6 +154,12 @@
             this.aircraft_BUT1.Click += new System.EventHandler(this.aircraft_BUT1_Click);
             this.aircraft_BUT1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_BUT1_MouseClick);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = false;
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AircraftMenuControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,5 +186,6 @@
         private MyButton aircraft_BUT3;
         private MyButton aircraft_BUT4;
         private System.Windows.Forms.Button centerButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }

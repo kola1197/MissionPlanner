@@ -148,16 +148,16 @@ namespace MissionPlanner.NewForms
         private void updateMainV2Data() 
         {
             int i;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
-            if (MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity != 0)
+            if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity != 0)
             {
-                double d = 100 * MainV2.AircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity;
+                double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage / MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity;
                 percent = (int) d;
-                System.Diagnostics.Debug.WriteLine(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " + MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
+                System.Diagnostics.Debug.WriteLine(MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " + MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
             }
             valueInPercentsTBox.Text = percent.ToString();
         }
@@ -294,7 +294,7 @@ namespace MissionPlanner.NewForms
             MainV2.setCurrentWP((ushort)0);
             ((Control)sender).Enabled = true;
             MissionPlanner.AircraftConnectionInfo info;
-            if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+            if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
                 info.StartOfTheFlightTime = DateTime.Now;
             }
@@ -340,8 +340,8 @@ namespace MissionPlanner.NewForms
             
             
             //Todo: make bindings
-            StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity,
-                MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
+            StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
         }
 
         private void tryToLoad(int id)

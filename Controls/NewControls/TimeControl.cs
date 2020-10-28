@@ -26,7 +26,7 @@ namespace MissionPlanner.Controls.NewControls
             MissionPlanner.AircraftConnectionInfo info;
             if (MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraftNum!= null)
             {
-                if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
                 {
                     DateTime now = DateTime.Now;
                     DateTime diff = new DateTime(0);
