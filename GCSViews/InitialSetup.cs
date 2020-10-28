@@ -115,7 +115,6 @@ namespace MissionPlanner.GCSViews
 
         private void MyButton1_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("FlightPlanner FlightPlanner FlightPlanner");
             MainV2.instance.MyView.ShowScreen("FlightPlanner");
         }
 
