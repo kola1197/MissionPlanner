@@ -361,7 +361,7 @@ namespace MissionPlanner
             }
         }
 
-        MainSwitcher MyView;
+        public MainSwitcher MyView;
 
         private static DisplayView _displayConfiguration = File.Exists(DisplayViewExtensions.custompath)
             ? new DisplayView().Custom()
@@ -605,6 +605,7 @@ namespace MissionPlanner
             }
         }
 
+        public static string defaultFuelSavePath = Settings.GetUserDataDirectory() + "fuelConfig";
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
         public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
 
@@ -676,7 +677,7 @@ namespace MissionPlanner
         /// </summary>
         public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
-        private static string _currentAircraftNum = null;
+        public static string _currentAircraftNum = null;
 
         public static string CurrentAircraftNum
         {
@@ -1483,6 +1484,7 @@ namespace MissionPlanner
 
         void coordinatsControlInit()
         {
+            coordinatsControl1.timer1.Enabled = true;
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
@@ -1503,7 +1505,14 @@ namespace MissionPlanner
             try
             {
                 cheatParachuteLandingTrigger();
-                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
+            }
+            catch (System.Exception eee)
+            {
+                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            }
+            try 
+            { 
+            if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
                 }
@@ -1519,7 +1528,7 @@ namespace MissionPlanner
                 double currentMousePositionLng = FlightPlanner.currentMarker.Position.Lng;
                 double currentMousePositionAlt = 20;
                 double currentPositionLat = comPort.MAV.cs.lat;
-                double currentPositionLng = comPort.MAV.cs.lat;
+                double currentPositionLng = comPort.MAV.cs.lng;
                 double currentPositionAlt = comPort.MAV.cs.alt;
                 switch (coordinatsShowMode)
                 {
@@ -1557,6 +1566,12 @@ namespace MissionPlanner
                         currentMousePosition = CoordinatsConverter.toSK42_GMS(currentMousePositionLat,
                             currentMousePositionLng, currentMousePositionAlt);
                         currentPosition = CoordinatsConverter.toSK42_GMS(currentPositionLat, currentPositionLng,
+                            currentPositionAlt);
+                        break;
+                    case 6:
+                        currentMousePosition = CoordinatsConverter.toRectFromWGS(currentMousePositionLat,
+                            currentMousePositionLng, currentMousePositionAlt);
+                        currentPosition = CoordinatsConverter.toRectFromWGS(currentPositionLat, currentPositionLng,
                             currentPositionAlt);
                         break;
                     default:
@@ -1944,24 +1959,27 @@ namespace MissionPlanner
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
-            FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
-            //System.Diagnostics.Debug.WriteLine("HERE");
+
+            if (!testVisualisation)
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+            }
+            else
+            {
+                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat, FlightPlanner.landPoint.Lng);
+            }            
             if (e.Button == MouseButtons.Right)
             {
                 if (centering != 1)
                 {
                     centering = 1;
                     FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Red;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.LightBlue;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.Blue;
-                    //System.Diagnostics.Debug.WriteLine("Right");
+
                 }
                 else
                 {
                     centering = 0;
                     FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                    //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
                 }
             }
 
@@ -1969,12 +1987,32 @@ namespace MissionPlanner
             {
                 centering = 0;
                 FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Transparent;
-                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradBot = Color.GreenYellow;
-                //FlightPlanner.mainMenuWidget1.centeringButton.BGGradTop = Color.DarkOliveGreen;
-                //System.Diagnostics.Debug.WriteLine("Left");
             }
+        }
 
-            //FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(adsb.Lat, adsb.Lng) ;
+        private void tryToLoadFuelData(int id)
+        {
+            float[] values = new float[] { 0, 0, 0 };
+            if (File.Exists(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt"))
+            {
+                try
+                {
+                    StreamReader stream = new StreamReader(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt");
+                    for (int i = 0; i < 3; i++)
+                    {
+                        values[i] = float.Parse(stream.ReadLine());
+                    }
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity, MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
+                }
+                catch
+                {
+
+                }
+
+            }
         }
 
         bool soundFlag = false;
@@ -2016,9 +2054,15 @@ namespace MissionPlanner
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
                         }
-
+                        MissionPlanner.AircraftConnectionInfo info;
+                        if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                        {
+                            MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
+                            int id = port_Sysid.sysid;
+                            tryToLoadFuelData(id);
+                        }
                         soundFlag = !soundFlag;
-                        FlightPlanner.getWPFromPlane();
+                        //FlightPlanner.getWPFromPlane();
                     }
                 }
                 else
@@ -2108,9 +2152,9 @@ namespace MissionPlanner
                     warnings.Add("Двигатель заглох");
                 }
 
-                if (MainV2.comPort.MAV.cs.mode == "RTL")
+                if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
-                    notifications.Add("Режим возврата к точке «Дом»");
+                    notifications.Add("Режим изменен на "+ MainV2.comPort.MAV.cs.mode);
                 }
 
                 try
@@ -5901,6 +5945,10 @@ namespace MissionPlanner
 
         }
 
+        public static void homeScreen() 
+        {
+            MainV2.instance.MyView.ShowScreen("FlightData");
+        }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {

@@ -127,7 +127,7 @@ namespace MissionPlanner.Controls
 
             if (name == "")
                 return;
-
+            
             // find next screen
             Screen nextscreen = screens.Single(s => s.Name == name);
 
@@ -183,6 +183,7 @@ namespace MissionPlanner.Controls
             current = nextscreen;
 
             current.Control.Focus();
+            
         }
 
         public class Screen

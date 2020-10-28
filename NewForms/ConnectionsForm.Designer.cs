@@ -83,6 +83,7 @@ namespace MissionPlanner
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Name = "label2";
             // 
             // aircraftNumber_TB
@@ -94,9 +95,11 @@ namespace MissionPlanner
             // 
             // addAircraft_BT
             // 
+            this.addAircraft_BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.addAircraft_BT, "addAircraft_BT");
+            this.addAircraft_BT.ForeColor = System.Drawing.Color.Black;
             this.addAircraft_BT.Name = "addAircraft_BT";
-            this.addAircraft_BT.UseVisualStyleBackColor = true;
+            this.addAircraft_BT.UseVisualStyleBackColor = false;
             this.addAircraft_BT.Click += new System.EventHandler(this.addAircraft_BT_Click);
             // 
             // connectionParams_panel
@@ -119,6 +122,7 @@ namespace MissionPlanner
             // useAntenna_CheckBox
             // 
             resources.ApplyResources(this.useAntenna_CheckBox, "useAntenna_CheckBox");
+            this.useAntenna_CheckBox.ForeColor = System.Drawing.Color.White;
             this.useAntenna_CheckBox.Name = "useAntenna_CheckBox";
             this.useAntenna_CheckBox.UseVisualStyleBackColor = true;
             this.useAntenna_CheckBox.CheckedChanged += new System.EventHandler(this.useAntenna_CheckBox_CheckedChanged);
@@ -132,9 +136,11 @@ namespace MissionPlanner
             // 
             // updateSysId_BUT
             // 
+            this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
+            this.updateSysId_BUT.ForeColor = System.Drawing.Color.Black;
             this.updateSysId_BUT.Name = "updateSysId_BUT";
-            this.updateSysId_BUT.UseVisualStyleBackColor = true;
+            this.updateSysId_BUT.UseVisualStyleBackColor = false;
             this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);
             // 
             // sysid_cmb
@@ -151,15 +157,18 @@ namespace MissionPlanner
             // useSITL_CheckBox
             // 
             resources.ApplyResources(this.useSITL_CheckBox, "useSITL_CheckBox");
+            this.useSITL_CheckBox.ForeColor = System.Drawing.Color.White;
             this.useSITL_CheckBox.Name = "useSITL_CheckBox";
             this.useSITL_CheckBox.UseVisualStyleBackColor = true;
             this.useSITL_CheckBox.CheckedChanged += new System.EventHandler(this.useSITL_CheckBox_CheckedChanged);
             // 
             // reload_BUT
             // 
+            this.reload_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.reload_BUT, "reload_BUT");
+            this.reload_BUT.ForeColor = System.Drawing.Color.Black;
             this.reload_BUT.Name = "reload_BUT";
-            this.reload_BUT.UseVisualStyleBackColor = true;
+            this.reload_BUT.UseVisualStyleBackColor = false;
             this.reload_BUT.Click += new System.EventHandler(this.reload_BUT_Click);
             // 
             // CMB_baudrate
@@ -186,11 +195,13 @@ namespace MissionPlanner
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Name = "label6";
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Name = "label5";
             // 
             // CMB_serialport
@@ -216,18 +227,22 @@ namespace MissionPlanner
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Name = "label4";
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Name = "label3";
             // 
             // connect_BUT
             // 
+            this.connect_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.connect_BUT, "connect_BUT");
+            this.connect_BUT.ForeColor = System.Drawing.Color.Black;
             this.connect_BUT.Name = "connect_BUT";
-            this.connect_BUT.UseVisualStyleBackColor = true;
+            this.connect_BUT.UseVisualStyleBackColor = false;
             this.connect_BUT.Click += new System.EventHandler(this.connect_BUT_Click);
             // 
             // timer1

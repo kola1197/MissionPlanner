@@ -1086,6 +1086,9 @@
     <EmbeddedResource Include="Controls\NewControls\WPMenu.resx">
       <DependentUpon>WPMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PreFlight\CheckListControl.resx">
+      <DependentUpon>CheckListControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigServoGimbal.resx">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </EmbeddedResource>
@@ -4910,6 +4913,7 @@
     <None Include="Resources\gskV1.png" />
     <None Include="Resources\antV1.png" />
     <None Include="Resources\airspeedDirection.png" />
+    <None Include="Resources\icons8_show_button.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

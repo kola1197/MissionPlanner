@@ -22,9 +22,48 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             this.TopMost = true;
         }
+
+        /*public WPConfig(string s)
+        {
+            InitializeComponent();
+            this.TopMost = true;
+            Text = s;
+            if (s == "Home")
+            {
+                
+            }
+        }*/
+
         public int indexNow = -1;
         public int SerialNum = -1;
-        public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
+
+        public WPConfig(string _serNum)
+        {
+            InitializeComponent();
+            this.TopMost = true;
+            //SerialNum = _serNum;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
+            textBox1.Text = "";
+        }
+
+        public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
+        {
+
+            InitializeComponent();
+            this.TopMost = true;
+            //SerialNum = _serNum;
+            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
+            
+            if (currentRectMarker.Tag.ToString() != "H" && _serNum.ToLower() != "rally")
+            {
+                indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
+            }
+            
+
+            textBox1.Text = "";
+        }
+        
+        /*public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
         {
 
             InitializeComponent();
@@ -33,7 +72,7 @@ namespace MissionPlanner.NewForms
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + SerialNum.ToString();
             indexNow = int.Parse(currentRectMarker.Tag.ToString()) -1;
             textBox1.Text = "";
-        }
+        }*/
 
        
         private void myButton1_Click(object sender, EventArgs e)
@@ -49,7 +88,7 @@ namespace MissionPlanner.NewForms
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex == 2)
+            if (comboBox1.SelectedIndex == 3)
             {
                 label10.Visible = true;
                 label11.Visible = true;
@@ -62,7 +101,7 @@ namespace MissionPlanner.NewForms
                 label11.Visible = false;
                 textBox5.Visible = false;
             }
-            if (comboBox1.SelectedIndex == 2 || comboBox1.SelectedIndex == 0)
+            if (comboBox1.SelectedIndex == 5 || comboBox1.SelectedIndex == 0)
             {
                 checkBox1.Enabled = false;
                 checkBox2.Enabled = false;
@@ -168,6 +207,11 @@ namespace MissionPlanner.NewForms
         private void myButton14_MouseUp(object sender, MouseEventArgs e)
         {
             updateServoButton(8);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox1.Enabled = !checkBox1.Checked;
         }
     }
 }

@@ -106,12 +106,14 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
-                if (testMode)
+                if (!MainV2.engineController.setEngineValue(900f, key))
                 {
-                    startButton.Text = "Заглушить";
-                    ICERunning = true;
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
+                startButton.Text = "Заглушить";
+                ICERunning = true;
+                
                 engineoffCounter = 300;
                 System.Diagnostics.Debug.Write("ENABLE +++++++++++++++");
             }

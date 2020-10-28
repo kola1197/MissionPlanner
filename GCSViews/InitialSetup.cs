@@ -113,8 +113,15 @@ namespace MissionPlanner.GCSViews
         {
         }
 
+        private void MyButton1_Click(object sender, EventArgs e)
+        {
+            MainV2.instance.MyView.ShowScreen("FlightPlanner");
+        }
+
         private void HardwareConfig_Load(object sender, EventArgs e)
         {
+            //backstageView.backButton.Click += MyButton1_Click;
+
             ResourceManager rm = new ResourceManager(this.GetType());
 
             if (!gotAllParams)
