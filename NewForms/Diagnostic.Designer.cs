@@ -46,47 +46,66 @@
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 12);
             this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.Black;
             this.myButton1.Size = new System.Drawing.Size(40, 40);
             this.myButton1.TabIndex = 0;
             this.myButton1.Text = "1";
+            this.myButton1.TextColor = System.Drawing.Color.White;
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // myButton2
             // 
+            this.myButton2.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton2.DefaultTheme = false;
             this.myButton2.Location = new System.Drawing.Point(58, 12);
             this.myButton2.Name = "myButton2";
+            this.myButton2.Outline = System.Drawing.Color.Black;
             this.myButton2.Size = new System.Drawing.Size(40, 40);
             this.myButton2.TabIndex = 1;
             this.myButton2.Text = "2";
+            this.myButton2.TextColor = System.Drawing.Color.White;
             this.myButton2.UseVisualStyleBackColor = true;
             this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             // 
             // myButton3
             // 
+            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton3.Location = new System.Drawing.Point(104, 12);
             this.myButton3.Name = "myButton3";
+            this.myButton3.Outline = System.Drawing.Color.Black;
             this.myButton3.Size = new System.Drawing.Size(40, 40);
             this.myButton3.TabIndex = 2;
             this.myButton3.Text = "3";
+            this.myButton3.TextColor = System.Drawing.Color.White;
             this.myButton3.UseVisualStyleBackColor = true;
             this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
             // 
             // myButton4
             // 
+            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton4.Location = new System.Drawing.Point(150, 12);
             this.myButton4.Name = "myButton4";
+            this.myButton4.Outline = System.Drawing.Color.Black;
             this.myButton4.Size = new System.Drawing.Size(40, 40);
             this.myButton4.TabIndex = 3;
             this.myButton4.Text = "4";
+            this.myButton4.TextColor = System.Drawing.Color.White;
             this.myButton4.UseVisualStyleBackColor = true;
             this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(43, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
@@ -96,6 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(101, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
@@ -105,6 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(43, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
@@ -114,6 +135,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(101, 123);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 13);
@@ -123,6 +145,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(43, 153);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(30, 13);
@@ -132,6 +155,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(101, 153);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 13);
@@ -141,6 +165,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(43, 180);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 13);
@@ -150,6 +175,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(101, 180);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 13);
@@ -164,6 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(202, 246);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
