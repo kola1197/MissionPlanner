@@ -2002,10 +2002,10 @@ namespace MissionPlanner
                     {
                         values[i] = float.Parse(stream.ReadLine());
                     }
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-                    StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity, MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity, MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
                 }
                 catch
                 {
@@ -2055,7 +2055,7 @@ namespace MissionPlanner
                             player.Play();
                         }
                         MissionPlanner.AircraftConnectionInfo info;
-                        if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                        if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
                         {
                             MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
                             int id = port_Sysid.sysid;
