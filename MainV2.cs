@@ -5901,6 +5901,10 @@ namespace MissionPlanner
 
         }
 
+        public static void homeScreen() 
+        {
+            MainV2.instance.MyView.ShowScreen("FlightData");
+        }
 
         private void myButton6_MouseUp(object sender, MouseEventArgs e)
         {

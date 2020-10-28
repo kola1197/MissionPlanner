@@ -32,11 +32,19 @@ namespace MissionPlanner.GCSViews
         public SoftwareConfig()
         {
             InitializeComponent();
-            backstageView.myButton1.MouseUp += MyButton1_MouseUp;
+            backstageView.backButton.Click += MyButton1_Click; 
+        }
+
+        private void MyButton1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("FlightPlanner FlightPlanner FlightPlanner");
+            MainV2.instance.MyView.ShowScreen("FlightPlanner");
         }
 
         public void Activate()
         {
+            backstageView.backButton.Click += MyButton1_Click;
+
         }
 
         private BackstageViewPage AddBackstageViewPage(Type userControl, string headerText,
@@ -44,6 +52,7 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
+
                 return backstageView.AddPage(userControl, headerText, Parent, advanced);
             }
             catch (Exception ex)
@@ -55,6 +64,8 @@ namespace MissionPlanner.GCSViews
 
         private void SoftwareConfig_Load(object sender, EventArgs e)
         {
+            backstageView.backButton.Click += MyButton1_Click;
+
             try
             {
                 BackstageViewPage start = null;
@@ -194,7 +205,7 @@ namespace MissionPlanner.GCSViews
 
         private void MyButton1_MouseUp(object sender, MouseEventArgs e)
         {
-            MainV2.instance.MyView.ShowScreen("FlightPlanner");
+            MainV2.homeScreen();
         }
 
         private void SoftwareConfig_FormClosing(object sender, FormClosingEventArgs e)

@@ -30,7 +30,7 @@
         {
             this.pnlPages = new System.Windows.Forms.Panel();
             this.pnlMenu = new MissionPlanner.Controls.BackstageView.BackStageViewMenuPanel();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.backButton = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // pnlPages
@@ -54,20 +54,21 @@
             this.pnlMenu.Size = new System.Drawing.Size(200, 334);
             this.pnlMenu.TabIndex = 1;
             // 
-            // myButton1
+            // backButton
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton1.BGGradTop = System.Drawing.Color.Empty;
-            this.myButton1.Location = new System.Drawing.Point(0, 0);
-            this.myButton1.Name = "myButton1";
-            this.myButton1.Size = new System.Drawing.Size(170, 26);
-            this.myButton1.TabIndex = 0;
-            this.myButton1.Text = "Возврат к карте";
-            this.myButton1.UseVisualStyleBackColor = true;
+            this.backButton.BGGradBot = System.Drawing.Color.Empty;
+            this.backButton.BGGradTop = System.Drawing.Color.Empty;
+            this.backButton.Location = new System.Drawing.Point(0, 0);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(170, 26);
+            this.backButton.TabIndex = 0;
+            this.backButton.Text = "Возврат к карте";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // BackstageView
             // 
-            this.Controls.Add(this.myButton1);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.pnlPages);
             this.Controls.Add(this.pnlMenu);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -82,6 +83,6 @@
 
         private System.Windows.Forms.Panel pnlPages;
         private BackStageViewMenuPanel pnlMenu;
-        public MyButton myButton1;
+        public MyButton backButton;
     }
 }

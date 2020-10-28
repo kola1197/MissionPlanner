@@ -572,5 +572,10 @@ namespace MissionPlanner.Controls.BackstageView
             UpdateDisplay();
             DrawMenu(_activePage, false);
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
