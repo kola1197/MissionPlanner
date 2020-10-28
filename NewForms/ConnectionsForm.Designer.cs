@@ -38,11 +38,10 @@ namespace MissionPlanner
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionsForm));
             this.devices_LB = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.aircraftNumber_TB = new System.Windows.Forms.TextBox();
             this.addAircraft_BT = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.connectionParams_panel = new System.Windows.Forms.Panel();
             this.useAntenna_CheckBox = new System.Windows.Forms.CheckBox();
             this.antennaPanel = new System.Windows.Forms.Panel();
             this.updateSysId_BUT = new System.Windows.Forms.Button();
@@ -59,10 +58,16 @@ namespace MissionPlanner
             this.label3 = new System.Windows.Forms.Label();
             this.connect_BUT = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.aircraftsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.airInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dictValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.connection_GB = new System.Windows.Forms.GroupBox();
+            this.connectionParams_panel.SuspendLayout();
             this.antennaPanel.SuspendLayout();
-            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.aircraftsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.airInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dictValueBindingSource)).BeginInit();
+            this.connection_GB.SuspendLayout();
             this.SuspendLayout();
             // 
             // devices_LB
@@ -75,57 +80,55 @@ namespace MissionPlanner
             this.devices_LB.Name = "devices_LB";
             this.devices_LB.SelectedIndexChanged += new System.EventHandler(this.devices_LB_SelectedIndexChanged);
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Name = "label2";
             // 
             // aircraftNumber_TB
             // 
             resources.ApplyResources(this.aircraftNumber_TB, "aircraftNumber_TB");
             this.aircraftNumber_TB.Name = "aircraftNumber_TB";
+            this.aircraftNumber_TB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.aircraftNumber_TB_KeyDown);
             this.aircraftNumber_TB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.aircraftNumber_TB_KeyPress);
             // 
             // addAircraft_BT
             // 
+            this.addAircraft_BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.addAircraft_BT, "addAircraft_BT");
+            this.addAircraft_BT.ForeColor = System.Drawing.Color.Black;
             this.addAircraft_BT.Name = "addAircraft_BT";
-            this.addAircraft_BT.UseVisualStyleBackColor = true;
+            this.addAircraft_BT.UseVisualStyleBackColor = false;
             this.addAircraft_BT.Click += new System.EventHandler(this.addAircraft_BT_Click);
             // 
-            // panel1
+            // connectionParams_panel
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.useAntenna_CheckBox);
-            this.panel1.Controls.Add(this.antennaPanel);
-            this.panel1.Controls.Add(this.useSITL_CheckBox);
-            this.panel1.Controls.Add(this.reload_BUT);
-            this.panel1.Controls.Add(this.CMB_baudrate);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.CMB_serialport);
-            this.panel1.Controls.Add(this.connectedAircraftName_TB);
-            this.panel1.Controls.Add(this.connectedAircraftNum_TB);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
+            this.connectionParams_panel.Controls.Add(this.useAntenna_CheckBox);
+            this.connectionParams_panel.Controls.Add(this.antennaPanel);
+            this.connectionParams_panel.Controls.Add(this.useSITL_CheckBox);
+            this.connectionParams_panel.Controls.Add(this.reload_BUT);
+            this.connectionParams_panel.Controls.Add(this.CMB_baudrate);
+            this.connectionParams_panel.Controls.Add(this.label6);
+            this.connectionParams_panel.Controls.Add(this.label5);
+            this.connectionParams_panel.Controls.Add(this.CMB_serialport);
+            this.connectionParams_panel.Controls.Add(this.connectedAircraftName_TB);
+            this.connectionParams_panel.Controls.Add(this.connectedAircraftNum_TB);
+            this.connectionParams_panel.Controls.Add(this.label4);
+            this.connectionParams_panel.Controls.Add(this.label3);
+            resources.ApplyResources(this.connectionParams_panel, "connectionParams_panel");
+            this.connectionParams_panel.Name = "connectionParams_panel";
             // 
             // useAntenna_CheckBox
             // 
             resources.ApplyResources(this.useAntenna_CheckBox, "useAntenna_CheckBox");
+            this.useAntenna_CheckBox.ForeColor = System.Drawing.Color.White;
             this.useAntenna_CheckBox.Name = "useAntenna_CheckBox";
             this.useAntenna_CheckBox.UseVisualStyleBackColor = true;
             this.useAntenna_CheckBox.CheckedChanged += new System.EventHandler(this.useAntenna_CheckBox_CheckedChanged);
             // 
             // antennaPanel
             // 
-            this.antennaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.antennaPanel.Controls.Add(this.updateSysId_BUT);
             this.antennaPanel.Controls.Add(this.sysid_cmb);
             resources.ApplyResources(this.antennaPanel, "antennaPanel");
@@ -133,9 +136,11 @@ namespace MissionPlanner
             // 
             // updateSysId_BUT
             // 
+            this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
+            this.updateSysId_BUT.ForeColor = System.Drawing.Color.Black;
             this.updateSysId_BUT.Name = "updateSysId_BUT";
-            this.updateSysId_BUT.UseVisualStyleBackColor = true;
+            this.updateSysId_BUT.UseVisualStyleBackColor = false;
             this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);
             // 
             // sysid_cmb
@@ -152,15 +157,18 @@ namespace MissionPlanner
             // useSITL_CheckBox
             // 
             resources.ApplyResources(this.useSITL_CheckBox, "useSITL_CheckBox");
+            this.useSITL_CheckBox.ForeColor = System.Drawing.Color.White;
             this.useSITL_CheckBox.Name = "useSITL_CheckBox";
             this.useSITL_CheckBox.UseVisualStyleBackColor = true;
             this.useSITL_CheckBox.CheckedChanged += new System.EventHandler(this.useSITL_CheckBox_CheckedChanged);
             // 
             // reload_BUT
             // 
+            this.reload_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.reload_BUT, "reload_BUT");
+            this.reload_BUT.ForeColor = System.Drawing.Color.Black;
             this.reload_BUT.Name = "reload_BUT";
-            this.reload_BUT.UseVisualStyleBackColor = true;
+            this.reload_BUT.UseVisualStyleBackColor = false;
             this.reload_BUT.Click += new System.EventHandler(this.reload_BUT_Click);
             // 
             // CMB_baudrate
@@ -187,11 +195,13 @@ namespace MissionPlanner
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Name = "label6";
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Name = "label5";
             // 
             // CMB_serialport
@@ -205,6 +215,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.connectedAircraftName_TB, "connectedAircraftName_TB");
             this.connectedAircraftName_TB.Name = "connectedAircraftName_TB";
+            this.connectedAircraftName_TB.TextChanged += new System.EventHandler(this.connectedAircraftName_TB_TextChanged);
             // 
             // connectedAircraftNum_TB
             // 
@@ -216,18 +227,22 @@ namespace MissionPlanner
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Name = "label4";
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Name = "label3";
             // 
             // connect_BUT
             // 
+            this.connect_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             resources.ApplyResources(this.connect_BUT, "connect_BUT");
+            this.connect_BUT.ForeColor = System.Drawing.Color.Black;
             this.connect_BUT.Name = "connect_BUT";
-            this.connect_BUT.UseVisualStyleBackColor = true;
+            this.connect_BUT.UseVisualStyleBackColor = false;
             this.connect_BUT.Click += new System.EventHandler(this.connect_BUT_Click);
             // 
             // timer1
@@ -235,23 +250,22 @@ namespace MissionPlanner
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // panel2
+            // connection_GB
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.panel1);
-            this.panel2.Controls.Add(this.connect_BUT);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
+            this.connection_GB.Controls.Add(this.connect_BUT);
+            resources.ApplyResources(this.connection_GB, "connection_GB");
+            this.connection_GB.Name = "connection_GB";
+            this.connection_GB.TabStop = false;
             // 
             // ConnectionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.connectionParams_panel);
+            this.Controls.Add(this.connection_GB);
             this.Controls.Add(this.addAircraft_BT);
             this.Controls.Add(this.aircraftNumber_TB);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.devices_LB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConnectionsForm";
@@ -259,10 +273,13 @@ namespace MissionPlanner
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionsForm_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ConnectionsForm_Paint);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConnectionsForm_MouseMove);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.connectionParams_panel.ResumeLayout(false);
+            this.connectionParams_panel.PerformLayout();
             this.antennaPanel.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.aircraftsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.airInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dictValueBindingSource)).EndInit();
+            this.connection_GB.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,11 +290,10 @@ namespace MissionPlanner
         #endregion
 
         private ListBox devices_LB;
-        private Label label1;
         private Label label2;
         private TextBox aircraftNumber_TB;
         private Button addAircraft_BT;
-        private Panel panel1;
+        private Panel connectionParams_panel;
         private Button connect_BUT;
         private TextBox connectedAircraftName_TB;
         private TextBox connectedAircraftNum_TB;
@@ -288,11 +304,14 @@ namespace MissionPlanner
         private Label label5;
         private ComboBox CMB_baudrate;
         private Timer timer1;
-        private Panel panel2;
         private Button reload_BUT;
         private CheckBox useSITL_CheckBox;
         private CheckBox useAntenna_CheckBox;
         private Panel antennaPanel;
         public ComboBox sysid_cmb;
+        private BindingSource aircraftsBindingSource;
+        private BindingSource airInfoBindingSource;
+        private BindingSource dictValueBindingSource;
+        private GroupBox connection_GB;
     }
 }

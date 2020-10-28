@@ -68,15 +68,15 @@ namespace MissionPlanner.NewForms
 
         private void butClickAction(int butNum)
         {
-            if (MainV2.AircraftInfo.Count == 0)
+            if (MainV2.Aircrafts.Count == 0)
             {
                 MainV2.ConnectionsForm.Show();
                 return;
             }
 
-            if (MainV2.AircraftInfo.Count > butNum)
+            if (MainV2.Aircrafts.Count > butNum)
             {
-                MainV2.ConnectionsForm.switchConnectedAircraft(MainV2.AircraftInfo.ElementAt(butNum).Value);
+                MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.Aircrafts.ElementAt(butNum).Value);
             }
         }
 

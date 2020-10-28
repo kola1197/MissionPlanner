@@ -17,11 +17,11 @@ namespace MissionPlanner
 
         private int _menuNum;
 
-        public object Speed { get; set; }
+        public string Speed { get; set; }
 
         public bool Connected { get; set; }
 
-        public bool UsingSITL { get; set; }
+        public bool UsingSitl { get; set; }
 
         public bool UsingAntenna { get; set; }
 
@@ -109,16 +109,16 @@ namespace MissionPlanner
 
         public AircraftConnectionInfo()
         {
-            (Name, SerialPort, Speed, SysId, Connected, UsingSITL, UsingAntenna) =
-                ("", "", 115200, null, false, false, false);
+            (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
+                ("", "", "115200", null, false, false, false);
             _menuNum = _aircraftCounter;
             _aircraftCounter++;
         }
 
         public AircraftConnectionInfo(int menuNum)
         {
-            (Name, SerialPort, Speed, SysId, Connected, UsingSITL, UsingAntenna) =
-                ("", "", 115200, null, false, false, false);
+            (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
+                ("", "", "115200", null, false, false, false);
             _menuNum = menuNum;
         }
 

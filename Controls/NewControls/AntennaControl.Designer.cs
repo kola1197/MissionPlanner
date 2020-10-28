@@ -39,7 +39,6 @@
             this.mode_label = new System.Windows.Forms.Label();
             this.autoMode_BUT = new System.Windows.Forms.Button();
             this.stopMode_BUT = new System.Windows.Forms.Button();
-            this.manualMode_BUT = new System.Windows.Forms.Button();
             this._label2 = new System.Windows.Forms.Label();
             this.satNum_label = new System.Windows.Forms.Label();
             this.heading_label = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@
             this.lbl_yawpwm = new System.Windows.Forms.Label();
             this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
             this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -169,17 +169,6 @@
             this.stopMode_BUT.UseVisualStyleBackColor = true;
             this.stopMode_BUT.Click += new System.EventHandler(this.stopMode_BUT_Click);
             // 
-            // manualMode_BUT
-            // 
-            this.manualMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.manualMode_BUT.Location = new System.Drawing.Point(208, 191);
-            this.manualMode_BUT.Name = "manualMode_BUT";
-            this.manualMode_BUT.Size = new System.Drawing.Size(88, 23);
-            this.manualMode_BUT.TabIndex = 21;
-            this.manualMode_BUT.Text = "SERVO_TEST";
-            this.manualMode_BUT.UseVisualStyleBackColor = true;
-            this.manualMode_BUT.Click += new System.EventHandler(this.manualMode_BUT_Click);
-            // 
             // _label2
             // 
             this._label2.AutoSize = true;
@@ -237,15 +226,17 @@
             // 
             // BUT_test_yaw
             // 
-            this.BUT_test_yaw.BGGradBot = System.Drawing.Color.Empty;
-            this.BUT_test_yaw.BGGradTop = System.Drawing.Color.Empty;
+            this.BUT_test_yaw.BGGradBot = System.Drawing.SystemColors.Control;
+            this.BUT_test_yaw.BGGradTop = System.Drawing.SystemColors.Control;
+            this.BUT_test_yaw.DefaultTheme = false;
             this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_test_yaw.Location = new System.Drawing.Point(208, 220);
+            this.BUT_test_yaw.Location = new System.Drawing.Point(168, 271);
             this.BUT_test_yaw.Name = "BUT_test_yaw";
             this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
             this.BUT_test_yaw.TabIndex = 27;
             this.BUT_test_yaw.Text = "Test";
             this.BUT_test_yaw.UseVisualStyleBackColor = true;
+            this.BUT_test_yaw.Visible = false;
             this.BUT_test_yaw.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
             // myTrackBar1
@@ -262,11 +253,22 @@
             this.myTrackBar1.TickFrequency = 100F;
             this.myTrackBar1.Value = 1500F;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(207, 191);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(89, 23);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_yawpwm);
             this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);
@@ -274,7 +276,6 @@
             this.Controls.Add(this._label3);
             this.Controls.Add(this.satNum_label);
             this.Controls.Add(this._label2);
-            this.Controls.Add(this.manualMode_BUT);
             this.Controls.Add(this.stopMode_BUT);
             this.Controls.Add(this.autoMode_BUT);
             this.Controls.Add(this.mode_label);
@@ -306,7 +307,6 @@
         private System.Windows.Forms.Label mode_label;
         private System.Windows.Forms.Button autoMode_BUT;
         private System.Windows.Forms.Button stopMode_BUT;
-        private System.Windows.Forms.Button manualMode_BUT;
         private System.Windows.Forms.Label _label2;
         private System.Windows.Forms.Label satNum_label;
         private System.Windows.Forms.Label heading_label;
@@ -315,5 +315,6 @@
         private System.Windows.Forms.Label lbl_yawpwm;
         private MyButton BUT_test_yaw;
         private MyTrackBar myTrackBar1;
+        private System.Windows.Forms.Button button1;
     }
 }

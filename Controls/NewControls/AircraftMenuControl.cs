@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AltitudeAngelWings.ApiClient.Models;
 using MissionPlanner;
 using MissionPlanner.NewForms;
+using OpenTK.Graphics;
 using OpenTK.Input;
 
 namespace MissionPlanner.Controls
@@ -16,7 +18,6 @@ namespace MissionPlanner.Controls
     public partial class AircraftMenuControl : UserControl
     {
         PreFlightForm preFlightForm;
-        MyButton[] buttons = new MyButton[4];
         public static AircraftMenuControl Instance;
         public class aircraftButtonInfo
         {
@@ -45,10 +46,10 @@ namespace MissionPlanner.Controls
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT3, aircraft_BUT3.Text));
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT4, aircraft_BUT4.Text));
 
-            buttons[0] = aircraft_BUT1;
-            buttons[1] = aircraft_BUT2;
-            buttons[2] = aircraft_BUT3;
-            buttons[3] = aircraft_BUT4;
+            // buttons[0] = aircraft_BUT1;
+            // buttons[1] = aircraft_BUT2;
+            // buttons[2] = aircraft_BUT3;
+            // buttons[3] = aircraft_BUT4;
 
             Instance = this;
             //aircraft_BUT1.MouseEnter += Aircraft_BUT1_MouseEnter;
@@ -66,20 +67,20 @@ namespace MissionPlanner.Controls
 
         private void butClickAction(int butNum)
         {
-            if (!MainV2.connectedAircraftExists() && MainV2.AircraftInfo.Count > 0)
+            if (!MainV2.ConnectedAircraftExists() && MainV2.Aircrafts.Count > 0)
             {
                 return;
             }
             
-            if (MainV2.AircraftInfo.Count == 0)
+            if (MainV2.Aircrafts.Count == 0)
             {
                 MainV2.ConnectionsForm.Show();
                 return;
             }
 
-            if (MainV2.AircraftInfo.Count > butNum && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].MenuNum != butNum)
+            if (MainV2.Aircrafts.Count > butNum && MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum != butNum)
             {
-                MainV2.ConnectionsForm.switchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
+                MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
             updateCentralButton();
         }
@@ -89,8 +90,8 @@ namespace MissionPlanner.Controls
             int butNum = -1;
             if (MainV2.CurrentAircraftNum != null)
             {
-                butNum = MainV2.AircraftInfo[MainV2.CurrentAircraftNum].MenuNum;
-                aircraftInAir = MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir;
+                butNum = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
+                aircraftInAir = MainV2.Aircrafts[MainV2.CurrentAircraftNum].inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
                 centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_cb2;
                 this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
@@ -132,8 +133,8 @@ namespace MissionPlanner.Controls
             for (int i =0;i<4;i++) 
             {
                 
-                buttons[i].BGGradBot = activeButton == i ? ColorTranslator.FromHtml("#cde296") : ColorTranslator.FromHtml("#cde296");
-                buttons[i].BGGradTop = activeButton == i ? ColorTranslator.FromHtml("#174708") : ColorTranslator.FromHtml("#94c11f");
+                aircraftButtons[i].Button.BGGradBot = activeButton == i ? ColorTranslator.FromHtml("#cde296") : ColorTranslator.FromHtml("#cde296");
+                aircraftButtons[i].Button.BGGradTop = activeButton == i ? ColorTranslator.FromHtml("#174708") : ColorTranslator.FromHtml("#94c11f");
                 
             }
         }
@@ -200,6 +201,19 @@ namespace MissionPlanner.Controls
             }
         }
 
+        public void UpdateConnectionQualityText()
+        {
+            AircraftConnectionInfo currentAircraft = MainV2.instance.GetCurrentAircraft();
+            if (currentAircraft == null)
+            {
+                return;
+            }
+
+            aircraftButtons[currentAircraft.MenuNum].Button.Text =
+                aircraftButtons[currentAircraft.MenuNum].DefaultText + " | " 
+                                                                     + MainV2.comPort.MAV.cs.linkqualitygcs + "%";
+        }
+        
         private void aircraft_BUT1_Click(object sender, EventArgs e)
         {
 
@@ -253,6 +267,17 @@ namespace MissionPlanner.Controls
         private void aircraft_BUT4_MouseLeave(object sender, EventArgs e)
         {
             //this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
+        }
+
+        public void SwitchOnTimer()
+        {
+            timer1.Enabled = true;
+        }
+        
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            UpdateConnectionQualityText();
+            this.Invalidate();
         }
     }
 }

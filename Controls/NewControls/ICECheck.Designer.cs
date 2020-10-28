@@ -47,7 +47,9 @@
             // 
             // testButton
             // 
-            this.testButton.Location = new System.Drawing.Point(321, 406);
+            this.testButton.BGGradBot = System.Drawing.Color.Empty;
+            this.testButton.BGGradTop = System.Drawing.Color.Empty;
+            this.testButton.Location = new System.Drawing.Point(0, 406);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(86, 23);
             this.testButton.TabIndex = 5;
@@ -57,26 +59,52 @@
             // 
             // myButton1
             // 
-            this.myButton1.Location = new System.Drawing.Point(136, 406);
+            this.myButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.Transparent;
+            this.myButton1.BGGradTop = System.Drawing.Color.Transparent;
+            this.myButton1.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.myButton1.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
+            this.myButton1.DefaultTheme = false;
+            this.myButton1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.myButton1.FlatAppearance.BorderSize = 2;
+            this.myButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.myButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.myButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.myButton1.ForeColor = System.Drawing.Color.White;
+            this.myButton1.Location = new System.Drawing.Point(311, 396);
             this.myButton1.Name = "myButton1";
-            this.myButton1.Size = new System.Drawing.Size(156, 23);
+            this.myButton1.Outline = System.Drawing.Color.White;
+            this.myButton1.Size = new System.Drawing.Size(94, 33);
             this.myButton1.TabIndex = 4;
             this.myButton1.Text = "Пропустить";
-            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.TextColor = System.Drawing.Color.White;
+            this.myButton1.UseVisualStyleBackColor = false;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(136, 380);
+            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorMouseOver = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.DefaultTheme = false;
+            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.startButton.Location = new System.Drawing.Point(411, 396);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(156, 23);
+            this.startButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.Size = new System.Drawing.Size(94, 33);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Начать";
-            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.TextColor = System.Drawing.Color.Black;
+            this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(505, 327);
@@ -132,6 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);

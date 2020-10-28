@@ -570,7 +570,6 @@ namespace MissionPlanner
         public ushort secondTrim = 1500;
         public ushort thirdTrim = 1500;
 
-        private static double currentConnectionRate = -1;
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;
@@ -670,7 +669,7 @@ namespace MissionPlanner
         /// <summary>
         /// All orlan connections data
         /// </summary>
-        public static Dictionary<string, AircraftConnectionInfo> AircraftInfo =
+        public static Dictionary<string, AircraftConnectionInfo> Aircrafts =
             new Dictionary<string, AircraftConnectionInfo>();
 
         /// <summary>
@@ -685,14 +684,10 @@ namespace MissionPlanner
             get { return _currentAircraftNum; }
             set
             {
-                if (_currentAircraftNum != null)
-                {
-                    StopUpdates();
-                    AircraftMenuControl.updateAllAircraftButtonTexts();
-                }
-
+                AircraftMenuControl.updateAllAircraftButtonTexts();
+             
                 _currentAircraftNum = value;
-                if (connectedAircraftExists())
+                if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
                     ShowConnectionQuality();
                 }
@@ -712,30 +707,43 @@ namespace MissionPlanner
             _subscriptionsDisposable = new CompositeDisposable();
 
             int currentNum = Int32.Parse(_currentAircraftNum);
-            AircraftConnectionInfo currentAircraftInfo = AircraftInfo[_currentAircraftNum];
+            AircraftConnectionInfo currentAircraftInfo = Aircrafts[_currentAircraftNum];
             AircraftMenuControl.aircraftButtonInfo currentMenuButton =
                 AircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
             _mavlink = comPort;
-            var subscriptions = new List<IDisposable>
-            {
-                // Link quality is a percentage of the number of good packets received
-                // to the number of packets missed (detected by mavlink seq no.)
-                // Calculated as an average over the last 3 seconds (non weighted)
-                // Calculated every second
-                CombineWithDefault(_mavlink.WhenPacketReceived, _mavlink.WhenPacketLost, Tuple.Create)
-                    .Buffer(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1))
-                    .Select(CalculateAverage)
-                    .ObserveOn(SynchronizationContext.Current)
-                    .Subscribe(x =>
-                    {
-                        currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%");
-                        currentConnectionRate = x;
-                    }),
-            };
-
-            subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
+            
+            // var subscriptions = new List<IDisposable>
+            // {
+            //     // Link quality is a percentage of the number of good packets received
+            //     // to the number of packets missed (detected by mavlink seq no.)
+            //     // Calculated as an average over the last 3 seconds (non weighted)
+            //     // Calculated every second
+            //     CombineWithDefault(_mavlink.WhenPacketReceived, _mavlink.WhenPacketLost, Tuple.Create)
+            //         .Buffer(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1))
+            //         .Select(CalculateAverage)
+            //         .ObserveOn(SynchronizationContext.Current)
+            //         .Subscribe(x =>
+            //         {
+            //             currentMenuButton.Button.Text = currentMenuButton.DefaultText + " | " + x.ToString("00%");
+            //             currentConnectionRate = x;
+            //         }),
+            // };
+            //
+            // subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
+            
+            // currentMenuButton.Button.Text =
+            //     currentMenuButton.DefaultText + " | " + comPort.MAV.cs.linkqualitygcs.ToString() + "%";
         }
 
+        public AircraftConnectionInfo GetCurrentAircraft()
+        {
+            if (CurrentAircraftNum == null)
+            {
+                return null;
+            }
+            return Aircrafts[CurrentAircraftNum];
+        }
+        
         private static IObservable<TResult> CombineWithDefault<TSource, TResult>(IObservable<TSource> first,
             Subject<TSource> second, Func<TSource, TSource, TResult> resultSelector)
         {
@@ -1346,6 +1354,10 @@ namespace MissionPlanner
             coordinatsControlInit();
             deserealaseDict();
             FormConnector = new FormConnector(this);
+            
+            AircraftMenuControl.SwitchOnTimer();
+            
+            ConnectionsForm.Init();
         }
 
         private void MakeRightSideMenuTransparent()
@@ -1649,9 +1661,9 @@ namespace MissionPlanner
                     FlightPlanner.wpMenu1.timer1.Start();
                 }
 
-                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !AircraftInfo[CurrentAircraftNum].inAir)
+                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    AircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                    Aircrafts[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
 
                 /*if (ctrlModeActive && ctrlReliasedCounter == -1)
@@ -1721,7 +1733,7 @@ namespace MissionPlanner
             ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                 FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
             nextPointIsDoParachute = cmd ==(ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 testVisualisation = true;
             }
@@ -1990,10 +2002,10 @@ namespace MissionPlanner
                     {
                         values[i] = float.Parse(stream.ReadLine());
                     }
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.AircraftInfo[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-                    StatusControlPanel.instance.SetFuelPBMinMax(MainV2.AircraftInfo[MainV2.CurrentAircraftNum].minCapacity, MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity);
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity, MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
                 }
                 catch
                 {
@@ -2043,7 +2055,7 @@ namespace MissionPlanner
                             player.Play();
                         }
                         MissionPlanner.AircraftConnectionInfo info;
-                        if (MainV2.AircraftInfo.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                        if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
                         {
                             MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
                             int id = port_Sysid.sysid;
@@ -2075,9 +2087,9 @@ namespace MissionPlanner
 
         void alarmLabelTextCheck()
         {
-            bool isPlane = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null;
-            bool isSitl = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null &&
-                                   !AircraftInfo[_currentAircraftNum].UsingSITL;
+            bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
+            bool isSitl = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null &&
+                                   !Aircrafts[_currentAircraftNum].UsingSitl;
             warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected && isPlane)
@@ -2147,7 +2159,7 @@ namespace MissionPlanner
 
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -2161,7 +2173,7 @@ namespace MissionPlanner
                     notifications.Add("Парашют выпущен");
                 }
 
-                if (currentConnectionRate < 45)
+                if (comPort.MAV.cs.linkqualitygcs < 45)
                 {
                     warnings.Add("Низкий уровень радиосигнала");
                 }
@@ -5425,16 +5437,16 @@ namespace MissionPlanner
             //Message temp = new Message();
             //ProcessCmdKey(ref temp, e.KeyData);
             Console.WriteLine("MainV2_KeyDown " + e.ToString());
-            if (e.KeyCode == Keys.Q)
-            {
-                MainMenu.Visible = !MainMenu.Visible;
-                menuStrip1.Visible = !menuStrip1.Visible;
-            }
-
-            if (e.KeyCode == Keys.S)
-            {
-                FlightPlanner.instance.MainMap_KeyDown(sender, e);
-            }
+            // if (e.KeyCode == Keys.Q)
+            // {
+            //     MainMenu.Visible = !MainMenu.Visible;
+            //     menuStrip1.Visible = !menuStrip1.Visible;
+            // }
+            //
+            // if (e.KeyCode == Keys.S)
+            // {
+            //     FlightPlanner.instance.MainMap_KeyDown(sender, e);
+            // }
 
             Keys keyData = e.KeyData;
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
@@ -5843,7 +5855,7 @@ namespace MissionPlanner
 
         public AircraftConnectionInfo getAircraftByButtonNumber(int butNum)
         {
-            foreach (var aircraft in MainV2.AircraftInfo)
+            foreach (var aircraft in MainV2.Aircrafts)
             {
                 if (aircraft.Value.MenuNum == butNum)
                 {
@@ -5854,9 +5866,9 @@ namespace MissionPlanner
             return null;
         }
 
-        public static bool connectedAircraftExists()
+        public static bool ConnectedAircraftExists()
         {
-            foreach (var aircraft in MainV2.AircraftInfo)
+            foreach (var aircraft in MainV2.Aircrafts)
             {
                 if (aircraft.Value.Connected)
                 {

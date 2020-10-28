@@ -35,7 +35,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             try
             {
-                ConnectionsForm.instance.switchToAntenna();
+                ConnectionsForm.instance.SwitchToAntenna();
                 System.Threading.Thread.Sleep(200);
 
                 // var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo?.SysId;
@@ -44,7 +44,7 @@ namespace MissionPlanner.Controls.NewControls
                 System.Threading.Thread.Sleep(200);
                 if (MainV2.CurrentAircraftNum != null)
                 {
-                    ConnectionsForm.instance.switchConnectedAircraft(MainV2.AircraftInfo[MainV2.CurrentAircraftNum]);
+                    ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.Aircrafts[MainV2.CurrentAircraftNum]);
                 }
             }
             catch
@@ -75,7 +75,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void connectAntenna(object sender)
         {
-            if (!MainV2.AircraftInfo.Keys.Contains(antennaNumber))
+            if (!MainV2.Aircrafts.Keys.Contains(antennaNumber))
             {
                 // addAntenna();
             }
@@ -102,7 +102,7 @@ namespace MissionPlanner.Controls.NewControls
 
                 if (CMB_baudrate.SelectedItem != null)
                 {
-                    antenna.Speed = CMB_baudrate.SelectedItem;
+                    antenna.Speed = CMB_baudrate.GetItemText(CMB_baudrate.SelectedItem);
                 }
 
                 antenna.SysId = GetPortSysId();
@@ -156,7 +156,7 @@ namespace MissionPlanner.Controls.NewControls
 
                 antenna.Connected = false;
                 antenna.SysId = null;
-                antenna.UsingSITL = false;
+                antenna.UsingSitl = false;
                 MainV2.StopUpdates();
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
                 connect_BUT.Text = connectText;
@@ -185,16 +185,21 @@ namespace MissionPlanner.Controls.NewControls
             UpdateComPorts();
         }
 
+        public void ShowCurrentBaudInCmb()
+        {
+            CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (MainV2.AntennaConnectionInfo.SysId == null)
             {
-                CustomMessageBox.Show("sysid == null");
+                // CustomMessageBox.Show("sysid == null");
                 return;
             }
+            
+            CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
 
-            
-            
             var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {

@@ -22,9 +22,9 @@ namespace MissionPlanner.NewForms
             }
             else
             {
-                InitializeComponent();
                 maxDefault = MainV2.comPort.GetParam("THR_MAX");
                 minDefault = MainV2.comPort.GetParam("THR_MIN");
+                InitializeComponent();
             }
         }
 

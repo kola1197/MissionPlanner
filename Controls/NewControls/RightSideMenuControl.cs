@@ -91,6 +91,7 @@ namespace MissionPlanner.Controls.NewControls
         private void antennaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             switchControl(antennaControl);
+            antennaControl.ShowCurrentBaudInCmb();
         }
 
 
