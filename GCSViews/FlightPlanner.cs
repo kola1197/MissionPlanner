@@ -7403,7 +7403,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                             row.Cells[Command.Index + 1].Value = "1";
                             Commands.Rows.Insert(index + 1, row);
-                            if (MainV2.CurrentAircraftNum != null && MainV2.AircraftInfo[MainV2.CurrentAircraftNum]!=null && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+                            if (MainV2.CurrentAircraftNum != null && MainV2.Aircrafts[MainV2.CurrentAircraftNum]!=null && MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
                             {
                                 
                                 DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
@@ -8859,11 +8859,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void MainMap_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.S)
-            {
-                // contextMenuStripPoly.Show(Cursor.Position);
-                contextMenuStrip1.Show(MainMap, Cursor.Position);
-            }
+            // if (e.KeyCode == Keys.S)
+            // {
+            //     // contextMenuStripPoly.Show(Cursor.Position);
+            //     contextMenuStrip1.Show(MainMap, Cursor.Position);
+            // }
 
             // MessageBox.Show("HUI I SUKA");
         }

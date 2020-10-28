@@ -668,7 +668,7 @@ namespace MissionPlanner
         /// <summary>
         /// All orlan connections data
         /// </summary>
-        public static Dictionary<string, AircraftConnectionInfo> AircraftInfo =
+        public static Dictionary<string, AircraftConnectionInfo> Aircrafts =
             new Dictionary<string, AircraftConnectionInfo>();
 
         /// <summary>
@@ -683,14 +683,10 @@ namespace MissionPlanner
             get { return _currentAircraftNum; }
             set
             {
-                if (_currentAircraftNum != null)
-                {
-                    // StopUpdates();
-                    AircraftMenuControl.updateAllAircraftButtonTexts();
-                }
-
+                AircraftMenuControl.updateAllAircraftButtonTexts();
+             
                 _currentAircraftNum = value;
-                if (ConnectedAircraftExists())
+                if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
                     ShowConnectionQuality();
                 }
@@ -710,7 +706,7 @@ namespace MissionPlanner
             _subscriptionsDisposable = new CompositeDisposable();
 
             int currentNum = Int32.Parse(_currentAircraftNum);
-            AircraftConnectionInfo currentAircraftInfo = AircraftInfo[_currentAircraftNum];
+            AircraftConnectionInfo currentAircraftInfo = Aircrafts[_currentAircraftNum];
             AircraftMenuControl.aircraftButtonInfo currentMenuButton =
                 AircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
             _mavlink = comPort;
@@ -744,7 +740,7 @@ namespace MissionPlanner
             {
                 return null;
             }
-            return AircraftInfo[CurrentAircraftNum];
+            return Aircrafts[CurrentAircraftNum];
         }
         
         private static IObservable<TResult> CombineWithDefault<TSource, TResult>(IObservable<TSource> first,
@@ -1357,6 +1353,10 @@ namespace MissionPlanner
             coordinatsControlInit();
             deserealaseDict();
             FormConnector = new FormConnector(this);
+            
+            AircraftMenuControl.SwitchOnTimer();
+            
+            ConnectionsForm.Init();
         }
 
         private void MakeRightSideMenuTransparent()
@@ -1646,9 +1646,9 @@ namespace MissionPlanner
                     FlightPlanner.wpMenu1.timer1.Start();
                 }
 
-                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !AircraftInfo[CurrentAircraftNum].inAir)
+                if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    AircraftInfo[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                    Aircrafts[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
                 }
 
                 /*if (ctrlModeActive && ctrlReliasedCounter == -1)
@@ -1718,7 +1718,7 @@ namespace MissionPlanner
             ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                 FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
             nextPointIsDoParachute = cmd ==(ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.AircraftInfo[MainV2.CurrentAircraftNum].UsingSITL)
+            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 testVisualisation = true;
             }
@@ -2043,9 +2043,9 @@ namespace MissionPlanner
 
         void alarmLabelTextCheck()
         {
-            bool isPlane = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null;
-            bool isSitl = _currentAircraftNum != null && AircraftInfo[_currentAircraftNum] != null &&
-                                   !AircraftInfo[_currentAircraftNum].UsingSITL;
+            bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
+            bool isSitl = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null &&
+                                   !Aircrafts[_currentAircraftNum].UsingSitl;
             warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected && isPlane)
@@ -2115,7 +2115,7 @@ namespace MissionPlanner
 
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.AircraftInfo[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -5393,16 +5393,16 @@ namespace MissionPlanner
             //Message temp = new Message();
             //ProcessCmdKey(ref temp, e.KeyData);
             Console.WriteLine("MainV2_KeyDown " + e.ToString());
-            if (e.KeyCode == Keys.Q)
-            {
-                MainMenu.Visible = !MainMenu.Visible;
-                menuStrip1.Visible = !menuStrip1.Visible;
-            }
-
-            if (e.KeyCode == Keys.S)
-            {
-                FlightPlanner.instance.MainMap_KeyDown(sender, e);
-            }
+            // if (e.KeyCode == Keys.Q)
+            // {
+            //     MainMenu.Visible = !MainMenu.Visible;
+            //     menuStrip1.Visible = !menuStrip1.Visible;
+            // }
+            //
+            // if (e.KeyCode == Keys.S)
+            // {
+            //     FlightPlanner.instance.MainMap_KeyDown(sender, e);
+            // }
 
             Keys keyData = e.KeyData;
             string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
@@ -5811,7 +5811,7 @@ namespace MissionPlanner
 
         public AircraftConnectionInfo getAircraftByButtonNumber(int butNum)
         {
-            foreach (var aircraft in MainV2.AircraftInfo)
+            foreach (var aircraft in MainV2.Aircrafts)
             {
                 if (aircraft.Value.MenuNum == butNum)
                 {
@@ -5824,7 +5824,7 @@ namespace MissionPlanner
 
         public static bool ConnectedAircraftExists()
         {
-            foreach (var aircraft in MainV2.AircraftInfo)
+            foreach (var aircraft in MainV2.Aircrafts)
             {
                 if (aircraft.Value.Connected)
                 {
