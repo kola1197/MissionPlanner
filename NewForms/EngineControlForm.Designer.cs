@@ -35,58 +35,70 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
-            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // myButton1
             // 
             this.myButton1.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton1.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 50);
             this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.Black;
             this.myButton1.Size = new System.Drawing.Size(75, 23);
             this.myButton1.TabIndex = 0;
             this.myButton1.Tag = "0";
             this.myButton1.Text = "Время";
+            this.myButton1.TextColor = System.Drawing.Color.White;
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton3
             // 
             this.myButton3.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton3.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.DefaultTheme = false;
             this.myButton3.Location = new System.Drawing.Point(12, 93);
             this.myButton3.Name = "myButton3";
+            this.myButton3.Outline = System.Drawing.Color.Black;
             this.myButton3.Size = new System.Drawing.Size(75, 23);
             this.myButton3.TabIndex = 2;
             this.myButton3.Tag = "1";
             this.myButton3.Text = "Малый";
+            this.myButton3.TextColor = System.Drawing.Color.White;
             this.myButton3.UseVisualStyleBackColor = true;
             this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton4
             // 
             this.myButton4.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton4.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(109, 93);
             this.myButton4.Name = "myButton4";
+            this.myButton4.Outline = System.Drawing.Color.Black;
             this.myButton4.Size = new System.Drawing.Size(75, 23);
             this.myButton4.TabIndex = 3;
             this.myButton4.Tag = "2";
             this.myButton4.Text = "Полный";
+            this.myButton4.TextColor = System.Drawing.Color.White;
             this.myButton4.UseVisualStyleBackColor = true;
             this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // myButton5
             // 
             this.myButton5.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton5.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton5.DefaultTheme = false;
             this.myButton5.Location = new System.Drawing.Point(109, 50);
             this.myButton5.Name = "myButton5";
+            this.myButton5.Outline = System.Drawing.Color.Black;
             this.myButton5.Size = new System.Drawing.Size(75, 23);
             this.myButton5.TabIndex = 4;
             this.myButton5.Tag = "3";
             this.myButton5.Text = "Авто";
+            this.myButton5.TextColor = System.Drawing.Color.White;
             this.myButton5.UseVisualStyleBackColor = true;
             this.myButton5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
@@ -111,13 +123,15 @@
             // myButton6
             // 
             this.myButton6.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton6.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton6.Location = new System.Drawing.Point(12, 137);
             this.myButton6.Name = "myButton6";
+            this.myButton6.Outline = System.Drawing.Color.Black;
             this.myButton6.Size = new System.Drawing.Size(172, 23);
             this.myButton6.TabIndex = 7;
             this.myButton6.Tag = "4";
             this.myButton6.Text = "Ручной";
+            this.myButton6.TextColor = System.Drawing.Color.White;
             this.myButton6.UseVisualStyleBackColor = true;
             this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
@@ -127,6 +141,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(197, 254);
             this.Controls.Add(this.myButton6);
             this.Controls.Add(this.label1);
@@ -142,9 +157,10 @@
             this.Text = "EngineControlForm";
             this.Load += new System.EventHandler(this.EngineControlForm_Load);
             this.Shown += new System.EventHandler(this.EngineControlForm_Shown);
-            ((System.ComponentModel.ISupportInitialize) (this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

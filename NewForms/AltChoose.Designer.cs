@@ -35,11 +35,16 @@
             // 
             // myButton1
             // 
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 65);
             this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.Size = new System.Drawing.Size(149, 23);
             this.myButton1.TabIndex = 0;
             this.myButton1.Text = "Установить высоту";
+            this.myButton1.TextColor = System.Drawing.Color.Black;
             this.myButton1.UseVisualStyleBackColor = true;
             // 
             // textBox1
@@ -52,6 +57,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(126, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
@@ -62,6 +68,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(173, 100);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);

@@ -50,6 +50,7 @@
             // chk_grid
             // 
             this.chk_grid.AutoSize = true;
+            this.chk_grid.ForeColor = System.Drawing.Color.White;
             this.chk_grid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chk_grid.Location = new System.Drawing.Point(3, 3);
             this.chk_grid.Name = "chk_grid";
@@ -61,6 +62,7 @@
             // lbl_status
             // 
             this.lbl_status.AutoSize = true;
+            this.lbl_status.ForeColor = System.Drawing.Color.White;
             this.lbl_status.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_status.Location = new System.Drawing.Point(4, 46);
             this.lbl_status.Name = "lbl_status";
@@ -81,17 +83,20 @@
             // 
             this.lnk_kml.AutoSize = true;
             this.lnk_kml.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lnk_kml.LinkColor = System.Drawing.Color.LightSeaGreen;
             this.lnk_kml.Location = new System.Drawing.Point(156, 7);
             this.lnk_kml.Name = "lnk_kml";
             this.lnk_kml.Size = new System.Drawing.Size(55, 13);
             this.lnk_kml.TabIndex = 45;
             this.lnk_kml.TabStop = true;
             this.lnk_kml.Text = "View KML";
+            this.lnk_kml.VisitedLinkColor = System.Drawing.Color.Magenta;
             // 
             // MapChangeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(238, 123);
             this.Controls.Add(this.panel3);
             this.Name = "MapChangeForm";
