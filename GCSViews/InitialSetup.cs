@@ -120,7 +120,7 @@ namespace MissionPlanner.GCSViews
 
         private void HardwareConfig_Load(object sender, EventArgs e)
         {
-            backstageView.backButton.Click += MyButton1_Click;
+            //backstageView.backButton.Click += MyButton1_Click;
 
             ResourceManager rm = new ResourceManager(this.GetType());
 

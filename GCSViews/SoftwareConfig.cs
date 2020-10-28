@@ -32,7 +32,7 @@ namespace MissionPlanner.GCSViews
         public SoftwareConfig()
         {
             InitializeComponent();
-            backstageView.backButton.Click += MyButton1_Click; 
+            //backstageView.backButton.Click += MyButton1_Click; 
         }
 
         private void MyButton1_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace MissionPlanner.GCSViews
 
         public void Activate()
         {
-            backstageView.backButton.Click += MyButton1_Click;
+            //backstageView.backButton.Click += MyButton1_Click;
 
         }
 
@@ -64,7 +64,7 @@ namespace MissionPlanner.GCSViews
 
         private void SoftwareConfig_Load(object sender, EventArgs e)
         {
-            backstageView.backButton.Click += MyButton1_Click;
+            //backstageView.backButton.Click += MyButton1_Click;
 
             try
             {

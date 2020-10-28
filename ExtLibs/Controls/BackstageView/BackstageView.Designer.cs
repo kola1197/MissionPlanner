@@ -30,13 +30,12 @@
         {
             this.pnlPages = new System.Windows.Forms.Panel();
             this.pnlMenu = new MissionPlanner.Controls.BackstageView.BackStageViewMenuPanel();
-            this.backButton = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // pnlPages
             // 
             this.pnlPages.AutoScroll = true;
-            this.pnlPages.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlPages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPages.Location = new System.Drawing.Point(200, 0);
             this.pnlPages.Margin = new System.Windows.Forms.Padding(4);
             this.pnlPages.Name = "pnlPages";
@@ -45,30 +44,16 @@
             // 
             // pnlMenu
             // 
-            this.pnlMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlMenu.AutoScroll = true;
-            this.pnlMenu.Location = new System.Drawing.Point(0, 26);
+            this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Margin = new System.Windows.Forms.Padding(4);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(200, 334);
+            this.pnlMenu.Size = new System.Drawing.Size(200, 360);
             this.pnlMenu.TabIndex = 1;
-            // 
-            // backButton
-            // 
-            this.backButton.BGGradBot = System.Drawing.Color.Empty;
-            this.backButton.BGGradTop = System.Drawing.Color.Empty;
-            this.backButton.Location = new System.Drawing.Point(0, 0);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(170, 26);
-            this.backButton.TabIndex = 0;
-            this.backButton.Text = "Возврат к карте";
-            this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // BackstageView
             // 
-            this.Controls.Add(this.backButton);
             this.Controls.Add(this.pnlPages);
             this.Controls.Add(this.pnlMenu);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -83,6 +68,5 @@
 
         private System.Windows.Forms.Panel pnlPages;
         private BackStageViewMenuPanel pnlMenu;
-        public MyButton backButton;
     }
 }
