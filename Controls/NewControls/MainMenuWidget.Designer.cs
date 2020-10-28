@@ -48,6 +48,8 @@
             this.MainButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.MainButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.MainButton.FlatAppearance.BorderSize = 0;
+            this.MainButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.MainButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.MainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MainButton.Location = new System.Drawing.Point(10, 10);
             this.MainButton.Name = "MainButton";
@@ -70,6 +72,8 @@
             this.MapChoiseButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.MapChoiseButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.MapChoiseButton.FlatAppearance.BorderSize = 0;
+            this.MapChoiseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.MapChoiseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.MapChoiseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapChoiseButton.Location = new System.Drawing.Point(71, 10);
             this.MapChoiseButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
@@ -93,6 +97,8 @@
             this.EKFButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.EKFButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.EKFButton.FlatAppearance.BorderSize = 0;
+            this.EKFButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.EKFButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.EKFButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.EKFButton.Location = new System.Drawing.Point(132, 10);
             this.EKFButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -115,6 +121,8 @@
             this.ParamsButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.ParamsButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.ParamsButton.FlatAppearance.BorderSize = 0;
+            this.ParamsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ParamsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ParamsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ParamsButton.Location = new System.Drawing.Point(187, 10);
             this.ParamsButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
@@ -137,6 +145,8 @@
             this.RulerButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.RulerButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.RulerButton.FlatAppearance.BorderSize = 0;
+            this.RulerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RulerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.RulerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RulerButton.Location = new System.Drawing.Point(245, 10);
             this.RulerButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
@@ -160,6 +170,8 @@
             this.centeringButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.centeringButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.centeringButton.FlatAppearance.BorderSize = 0;
+            this.centeringButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.centeringButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.centeringButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.centeringButton.Location = new System.Drawing.Point(303, 10);
             this.centeringButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
@@ -182,6 +194,8 @@
             this.homeButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.homeButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.homeButton.FlatAppearance.BorderSize = 0;
+            this.homeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.homeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.homeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.homeButton.Location = new System.Drawing.Point(361, 10);
             this.homeButton.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
@@ -211,16 +225,18 @@
             this.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainMenuWidget_MouseLeave);
             this.ResumeLayout(false);
+
         }
 
         public MissionPlanner.Controls.MyButton centeringButton;
         public MissionPlanner.Controls.MyButton EKFButton;
         public MissionPlanner.Controls.MyButton homeButton;
-        private MissionPlanner.Controls.MyButton MainButton;
         public MissionPlanner.Controls.MyButton MapChoiseButton;
         public MissionPlanner.Controls.MyButton ParamsButton;
         public MissionPlanner.Controls.MyButton RulerButton;
 
         #endregion
+
+        public MyButton MainButton;
     }
 }
