@@ -16,6 +16,7 @@ using MissionPlanner.Comms;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews;
 using MissionPlanner;
+using MissionPlanner.NewClasses;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner
@@ -64,6 +65,7 @@ namespace MissionPlanner
         {
             aircraftsBindingSource.DataSource = MainV2.Aircrafts.ToList();
             devices_LB.DisplayMember = "Key";
+            devices_LB.ValueMember = "Key";
             devices_LB.DataSource = aircraftsBindingSource;
             connectionParams_panel.BackColor = antennaPanel.BackColor = connection_GB.BackColor;
             // devices_LB.DisplayMember = "Value";
@@ -99,7 +101,7 @@ namespace MissionPlanner
                         textBox.Text = GetSelectedAircraftNum();
                     }
 
-                    textBox.ForeColor = Color.Black;
+                    textBox.ForeColor = connection_GB.ForeColor;
                 }
             };
 
@@ -232,15 +234,6 @@ namespace MissionPlanner
                 return;
             }
 
-            if (selectedAircraft.UsingSitl)
-            {
-                selectedAircraft.Connected = false;
-                selectedAircraft.UsingSitl = false;
-                selectedAircraft.UsingAntenna = false;
-                connect_BUT.Text = connectText;
-                return;
-            }
-            
             if (selectedAircraft.SysId == null)
             {
                 selectedAircraft.Connected = false;
@@ -264,10 +257,10 @@ namespace MissionPlanner
                 selectedAircraft.Connected = false;
                 selectedAircraft.SysId = null;
                 selectedAircraft.UsingSitl = false;
+                selectedAircraft.UsingAntenna = false;
                 MainV2.StopUpdates();
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
 
-                connectionParams_panel.Enabled = true;
                 connect_BUT.Text = connectText;
             }
             catch (Exception)
@@ -275,7 +268,7 @@ namespace MissionPlanner
             }
         }
 
-        private void connect_BUT_Click(object sender, EventArgs e)
+        private async void connect_BUT_Click(object sender, EventArgs e)
         {
             if (MainV2.Aircrafts[GetSelectedAircraftNum()].Connected)
             {
@@ -285,6 +278,8 @@ namespace MissionPlanner
             {
                 ConnectAircraft(sender);
             }
+
+            await UpdateControlsBindings();
         }
 
         private async void addAircraft_BT_Click(object sender, EventArgs e)
@@ -367,10 +362,10 @@ namespace MissionPlanner
         {
             //lock (uiLock)
             //{
-                ClearControlsBindings();
-                if (!HasResetSourcesBindings())
-                    return;
-                BindControls();
+            ClearControlsBindings();
+            if (!HasResetSourcesBindings())
+                return;
+            BindControls();
             //}
         }
 
@@ -385,26 +380,36 @@ namespace MissionPlanner
 
         private void BindControls()
         {
-            connection_GB.DataBindings.Add(CreateAircraftNumBinding("Text", aircraftsBindingSource.Current, "Key"));
-            connectionParams_panel.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
-                "Connected"));
+            try
+            {
+                connection_GB.DataBindings.Add(CreateAircraftNumBinding("Text", aircraftsBindingSource.Current, "Key"));
+                connectionParams_panel.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
+                    "Connected"));
 
-            connectedAircraftName_TB.DataBindings.Add(new Binding("Text", airInfoBindingSource, "Name"));
-            useSITL_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingSitl"));
-            useAntenna_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingAntenna"));
-            useSITL_CheckBox.DataBindings.Add(
-                CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
-            useAntenna_CheckBox.DataBindings.Add(
-                CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingSitl"));
+                connectedAircraftName_TB.DataBindings.Add(new Binding("Text", airInfoBindingSource, "Name"));
+                useSITL_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingSitl"));
+                useAntenna_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingAntenna"));
+                useSITL_CheckBox.DataBindings.Add(
+                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
+                useAntenna_CheckBox.DataBindings.Add(
+                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingSitl"));
 
-            CMB_serialport.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
-            CMB_baudrate.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
-            // CMB_serialport.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "SerialPort"));
-            // CMB_baudrate.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "Speed"));
+                CMB_serialport.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
+                    "UsingAntenna"));
+                CMB_baudrate.DataBindings.Add(
+                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
+                // CMB_serialport.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "SerialPort"));
+                // CMB_baudrate.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "Speed"));
 
-            antennaPanel.DataBindings.Add(new Binding("Enabled", airInfoBindingSource, "UsingAntenna"));
+                antennaPanel.DataBindings.Add(new Binding("Enabled", airInfoBindingSource, "UsingAntenna"));
 
-            SetControlsProperties();
+                SetControlsProperties();
+            }
+            catch (Exception e)
+            {
+                // Console.WriteLine(e.Message + "\n" + e.Source + "\n" + e.StackTrace);
+            }
+
             // useSITL_CheckBox.Checked = selectedAircraft.UsingSITL;
             // useAntenna_CheckBox.Checked = selectedAircraft.UsingAntenna;
         }
@@ -450,6 +455,7 @@ namespace MissionPlanner
                         }).Start();
                         MainV2.CurrentAircraftNum = null;
                     }
+
                     // MainV2.View.Reload();
                 }
             }
@@ -472,21 +478,23 @@ namespace MissionPlanner
 
                     if (true || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
                     {
-/*                        new System.Threading.Thread(delegate()
+                        /*
+                         new System.Threading.Thread(delegate()
+                                                {
+                                                    MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                                                        (byte) MainV2.comPort.compidcurrent);
+                                                }).Start();*/
+                        /*Task.Run(() =>
                         {
                             MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
                                 (byte) MainV2.comPort.compidcurrent);
-                        }).Start();*/
-                        Task.Run(() =>
-                        {
-                            MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
-                                (byte) MainV2.comPort.compidcurrent);
-                        });
+                        });*/
+                        MainV2.comPort.getParamList();
                     }
 
                     MainV2.CurrentAircraftNum =
                         MainV2.Aircrafts.FirstOrDefault(x => x.Value == selectedAircraft).Key;
-                    devices_LB.SelectedItem = MainV2.CurrentAircraftNum;
+                    devices_LB.SelectedIndex = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
                     MainV2.View.Reload();
                 }
             }
@@ -596,6 +604,10 @@ namespace MissionPlanner
             {
                 sysid_cmb.SelectedIndex = selectidx;
             }
+            else if (oldidx != -1 && selectidx == -1)
+            {
+                sysid_cmb.SelectedIndex = -1;
+            }
         }
 
         private void sysid_cmb_Format(object sender, ListControlConvertEventArgs e)
@@ -653,6 +665,14 @@ namespace MissionPlanner
 
         private void connectedAircraftName_TB_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void aircraftNumber_TB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                addAircraft_BT_Click(sender, EventArgs.Empty);
+            }
         }
     }
 }

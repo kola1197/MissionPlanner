@@ -42,7 +42,6 @@ namespace MissionPlanner
             this.aircraftNumber_TB = new System.Windows.Forms.TextBox();
             this.addAircraft_BT = new System.Windows.Forms.Button();
             this.connectionParams_panel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.useAntenna_CheckBox = new System.Windows.Forms.CheckBox();
             this.antennaPanel = new System.Windows.Forms.Panel();
             this.updateSysId_BUT = new System.Windows.Forms.Button();
@@ -90,6 +89,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.aircraftNumber_TB, "aircraftNumber_TB");
             this.aircraftNumber_TB.Name = "aircraftNumber_TB";
+            this.aircraftNumber_TB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.aircraftNumber_TB_KeyDown);
             this.aircraftNumber_TB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.aircraftNumber_TB_KeyPress);
             // 
             // addAircraft_BT
@@ -101,7 +101,6 @@ namespace MissionPlanner
             // 
             // connectionParams_panel
             // 
-            this.connectionParams_panel.Controls.Add(this.button1);
             this.connectionParams_panel.Controls.Add(this.useAntenna_CheckBox);
             this.connectionParams_panel.Controls.Add(this.antennaPanel);
             this.connectionParams_panel.Controls.Add(this.useSITL_CheckBox);
@@ -116,13 +115,6 @@ namespace MissionPlanner
             this.connectionParams_panel.Controls.Add(this.label3);
             resources.ApplyResources(this.connectionParams_panel, "connectionParams_panel");
             this.connectionParams_panel.Name = "connectionParams_panel";
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // useAntenna_CheckBox
             // 
@@ -304,7 +296,6 @@ namespace MissionPlanner
         public ComboBox sysid_cmb;
         private BindingSource aircraftsBindingSource;
         private BindingSource airInfoBindingSource;
-        private Button button1;
         private BindingSource dictValueBindingSource;
         private GroupBox connection_GB;
     }

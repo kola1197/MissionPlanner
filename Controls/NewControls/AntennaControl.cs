@@ -185,16 +185,21 @@ namespace MissionPlanner.Controls.NewControls
             UpdateComPorts();
         }
 
+        public void ShowCurrentBaudInCmb()
+        {
+            CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (MainV2.AntennaConnectionInfo.SysId == null)
             {
-                CustomMessageBox.Show("sysid == null");
+                // CustomMessageBox.Show("sysid == null");
                 return;
             }
+            
+            CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
 
-            
-            
             var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {
