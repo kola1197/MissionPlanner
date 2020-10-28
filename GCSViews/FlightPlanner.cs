@@ -150,7 +150,7 @@ namespace MissionPlanner.GCSViews
         private WPConfig wpConfig;
 
         public int CountOfLoadedWP = 0;
-        
+
         //public bool wpLoadingActive = false;
         public int wpLoadingActive = 0;      //0 - done, 1 - need to write wp, 2 - need to write rally
 
@@ -678,9 +678,9 @@ namespace MissionPlanner.GCSViews
                 List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
                     MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
 
-                if (cmds.Count() > 0)
+                if (cmds.Count() > 1)
                 {
-                    rallyWp = cmds[cmds.Count - 1];
+                    rallyWp = cmds[1];
                 }
                 writeKML();
             }
@@ -844,7 +844,7 @@ namespace MissionPlanner.GCSViews
                             return fp;
                         }).ToList();
                     }
-                    if (wpLoadingActive == 2) 
+                    if (wpLoadingActive == 2)
                     {
                         type = MAVLink.MAV_MISSION_TYPE.RALLY;
                     }
@@ -888,7 +888,7 @@ namespace MissionPlanner.GCSViews
                             }
                         }).GetAwaiter().GetResult();
                     }
-                    else 
+                    else
                     {
 
                         byte count = 0;
@@ -897,10 +897,16 @@ namespace MissionPlanner.GCSViews
                         MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 0);
                         if (rallyWp.lng != 0 || rallyWp.lat != 0)
                         {
-                            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 1);
+                            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 2);
                             // TODO: may be array of raly points?
                             try
                             {
+                                MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(rallyWp.lat, rallyWp.lng) { Alt = rallyWp.alt }, 0, 0, 0,
+                                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                                count++;
+                                MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(rallyWp.lat, rallyWp.lng) { Alt = rallyWp.alt }, 0, 0, 0,
+                                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                                count++;
                                 MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(rallyWp.lat, rallyWp.lng) { Alt = rallyWp.alt }, 0, 0, 0,
                                         (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
                             }
@@ -997,8 +1003,8 @@ namespace MissionPlanner.GCSViews
                 }
 
                 Debug.WriteLine("###################### WP Loaded ########################");
-                
-                
+
+
                 if (wpLoadingActive == 2)
                 {
                     wpLoadingActive = 0;
@@ -1318,9 +1324,9 @@ namespace MissionPlanner.GCSViews
                 List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
                     MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
 
-                if (cmds.Count() > 0) 
+                if (cmds.Count() > 0)
                 {
-                    rallyWp = cmds[cmds.Count-1];
+                    rallyWp = cmds[cmds.Count - 1];
                 }
                 writeKML();
                 return;
@@ -3660,7 +3666,7 @@ namespace MissionPlanner.GCSViews
 
         public void removeWP(int i)
         {
-            
+
         }
 
         public void deleteWPToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -4481,7 +4487,7 @@ namespace MissionPlanner.GCSViews
         {
             var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
             {
-              return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
+                return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
             });
             type = MAVLink.MAV_MISSION_TYPE.MISSION;
             List<Locationwp> cmds = Task.Run(async () => await mav_mission.download(MainV2.comPort,
@@ -6812,7 +6818,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     writeWPToPlane();
                 }
 
-                if (wpLoadingActive!=0)
+                if (wpLoadingActive != 0)
                 {
                     wpMenu1.progressBar1.Value = CountOfLoadedWP;
                     //wpMenu1.label1.Text = CountOfLoadedWP.ToString();
@@ -7182,8 +7188,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // number rows 
             BeginInvoke((MethodInvoker)delegate
            {
-                // thread for updateing row numbers
-                for (int a = 0; a < Commands.Rows.Count - 0; a++)
+               // thread for updateing row numbers
+               for (int a = 0; a < Commands.Rows.Count - 0; a++)
                {
                    if (IsDisposed || Disposing)
                        return;
@@ -7191,16 +7197,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                    {
                        if (Commands.Rows[a].HeaderCell.Value == null)
                        {
-                            //Commands.Rows[a].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                            Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
+                           //Commands.Rows[a].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                           Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
                        }
 
-                        // skip rows with the correct number
-                        string rowno = Commands.Rows[a].HeaderCell.Value.ToString();
+                       // skip rows with the correct number
+                       string rowno = Commands.Rows[a].HeaderCell.Value.ToString();
                        if (!rowno.Equals((a + 1).ToString()))
                        {
-                            // this code is where the delay is when deleting.
-                            Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
+                           // this code is where the delay is when deleting.
+                           Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
                        }
                    }
                    catch (Exception)
@@ -7506,7 +7512,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (CurrentRallyPt != null) 
+                if (CurrentRallyPt != null)
                 {
                     wpConfig = new WPConfig("Rally");
                     wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка: " + "Rally";
@@ -7548,7 +7554,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void deletePoint(int index) 
+        private void deletePoint(int index)
         {
             cleanToNextWP(index);
             if (cleanToPrevWP(index))
@@ -7573,13 +7579,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     //cellhome = Commands.Rows[0].Cells[Alt.Index] as DataGridViewTextBoxCell;
                     TXT_homealt.Text = (20).ToString();
                 }
-                else if(selectedValue == 5)
+                else if (selectedValue == 5)
                 {
                     rallyWp.lat = double.Parse(wpConfig.textBox1.Text);
                     rallyWp.lng = double.Parse(wpConfig.textBox2.Text);
                     rallyWp.alt = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
-                    System.Diagnostics.Debug.WriteLine("rallyWP ( FromClosing ): " + rallyWp.lat.ToString() + ", "+ rallyWp.lng);
-                    if (wpConfig.indexNow != -1) 
+                    System.Diagnostics.Debug.WriteLine("rallyWP ( FromClosing ): " + rallyWp.lat.ToString() + ", " + rallyWp.lng);
+                    if (wpConfig.indexNow != -1)
                     {
                         deletePoint(wpConfig.indexNow);
                     }
@@ -7604,10 +7610,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             ) //Домашняя точка, Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
                             {
                                 case 1:
-                                    row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                    row = (DataGridViewRow)Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
                                     row.Cells[Command.Index + 1].Value = (14).ToString();
-                                    int v = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+                                    int v = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                                     row.Cells[Lon.Index + 1].Value = v.ToString();
                                     Commands.Rows.Insert(index, row);
                                     index++;
@@ -7621,7 +7627,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 case 3:
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
-                                    row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                    row = (DataGridViewRow)Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
                                     row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
@@ -7633,7 +7639,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         double.Parse(wpConfig.textBox2.Text));
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
-                                    row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                    row = (DataGridViewRow)Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                                     row.Cells[Command.Index + 1].Value = "1";
                                     Commands.Rows.Insert(index + 1, row);
@@ -7642,7 +7648,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
                                     {
 
-                                        DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
+                                        DataGridViewRow row1 = (DataGridViewRow)Commands.Rows[index].Clone();
                                         row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
                                         row1.Cells[Lat.Index].Value = wpConfig.textBox1.Text;
                                         row1.Cells[Lon.Index].Value = wpConfig.textBox2.Text;
@@ -7665,7 +7671,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                         setLatLon(index);
                         Commands_CellUpdate(index, Command.Index);
-                        int val = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
+                        int val = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                         Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
                         Commands_CellUpdate(index, Lon.Index + 1);
 
@@ -7682,7 +7688,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             {
                                 if (wpConfig.servos[i])
                                 {
-                                    DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                    DataGridViewRow row = (DataGridViewRow)Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
                                     row.Cells[Command.Index + 1].Value = (i + 5).ToString();
                                     row.Cells[Command.Index + 2].Value = "2000";
@@ -7696,7 +7702,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 tryToWriteWP();
             }
         }
-        
+
         // OOPA YAP YAP
         private void WpConfigAddEvents() //yap, this name is awfull
         {
@@ -7711,8 +7717,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             ushort cmdPrev = 0;
 
             wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value = Convert.ToDouble(Commands.Rows[index].Cells[Alt.Index].Value);
-            
-            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+
+            ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                 Commands.Rows[wpConfig.indexNow].Cells[Command.Index].Value.ToString(), false);
 
 
@@ -7721,7 +7727,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 //case (ushort)MAVLink.MAV_CMD.TAKEOFF:
                 //    wpConfig.comboBox1.SelectedIndex = 0;
                 //    break;
-                case (ushort) MAVLink.MAV_CMD.WAYPOINT:
+                case (ushort)MAVLink.MAV_CMD.WAYPOINT:
                     wpConfig.comboBox1.SelectedIndex = 2;
                     break;
                 //case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
@@ -7732,7 +7738,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 //case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
                 //   wpConfig.comboBox1.SelectedIndex = 3;
                 //    break;
-                case (ushort) MAVLink.MAV_CMD.LOITER_TIME:
+                case (ushort)MAVLink.MAV_CMD.LOITER_TIME:
                     wpConfig.comboBox1.SelectedIndex = 2;
                     wpConfig.comboBox1.Enabled = false;
                     wpConfig.checkBox1.Checked = true;
@@ -7744,9 +7750,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             if (index > 0)
             {
-                cmdPrev = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                cmdPrev = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false);
-                if ((ushort) MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
+                if ((ushort)MAVLink.MAV_CMD.TAKEOFF == cmdPrev)
                 {
                     wpConfig.comboBox1.SelectedIndex = 1;
                 }
@@ -7759,11 +7765,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         public int getWPSerialNumber(int index)
         {
             int result = 0;
-            for (int i = 0; i < index+1; i++)
+            for (int i = 0; i < index + 1; i++)
             {
                 ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
-                if (cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort) MAVLink.MAV_CMD.LOITER_TIME)
+                if (cmd == (ushort)MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort)MAVLink.MAV_CMD.LOITER_TIME)
                 {
                     result++;
                 }
@@ -7927,20 +7933,20 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         if (int.TryParse(midline.next.Tag, out pnt2))
                         {
-                            if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue ==
+                            if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue ==
                                 MAVLink.MAV_MISSION_TYPE.FENCE)
                             {
-                                var prevtype = Commands.Rows[(int) Math.Max(pnt2 - 2, 0)].Cells[Command.Index].Value
+                                var prevtype = Commands.Rows[(int)Math.Max(pnt2 - 2, 0)].Cells[Command.Index].Value
                                     .ToString();
                                 // match type of prev row
-                                InsertCommand(pnt2 - 1, (MAVLink.MAV_CMD) Enum.Parse(typeof(MAVLink.MAV_CMD), prevtype),
+                                InsertCommand(pnt2 - 1, (MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), prevtype),
                                     0, 0, 0, 0,
                                     CurrentMidLine.Position.Lng,
                                     CurrentMidLine.Position.Lat, 0);
 
                                 ReCalcFence(pnt2 - 1, true, false);
                             }
-                            else if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue ==
+                            else if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue ==
                                      MAVLink.MAV_MISSION_TYPE.MISSION)
                             {
                                 InsertCommand(pnt2 - 1, MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0,
@@ -8153,7 +8159,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                 }
             }
-            
+
             isMouseDraging = false;
             if (needToWriteWP)
             {
@@ -8212,8 +8218,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 var type = currentlist[rowno].id;
 
-                if (type == (ushort) MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION ||
-                    type == (ushort) MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION)
+                if (type == (ushort)MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION ||
+                    type == (ushort)MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION)
                 {
                     var oldcount = int.Parse(Commands.Rows[rowno - 1].Cells[Param1.Index].Value.ToString());
                     var newcount = oldcount + 1;
@@ -8224,7 +8230,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     while (list.Count() > 0)
                     {
-                        var length = (int) list.First().p1;
+                        var length = (int)list.First().p1;
                         if (length == 0)
                             length = 1;
                         int cnt = 0;
@@ -8260,8 +8266,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 var type = currentlist[rowno].id;
 
-                if (type == (ushort) MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION ||
-                    type == (ushort) MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION)
+                if (type == (ushort)MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION ||
+                    type == (ushort)MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION)
                 {
                     var rowdelete = currentlist[rowno];
                     var oldcount = int.Parse(Commands.Rows[rowno].Cells[Param1.Index].Value.ToString());
@@ -8272,7 +8278,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     while (list.Count() > 0)
                     {
-                        var length = (int) list.First().p1;
+                        var length = (int)list.First().p1;
                         if (length == 0)
                             length = 1;
                         int cnt = 0;
@@ -8369,7 +8375,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 try
                 {
-                    trackBar1.Value = (int) (MainMap.Zoom);
+                    trackBar1.Value = (int)(MainMap.Zoom);
                 }
                 catch (Exception ex)
                 {
@@ -8418,7 +8424,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private static WaypointInfoControl _wpControl=new WaypointInfoControl() {Visible = false};
+        private static WaypointInfoControl _wpControl = new WaypointInfoControl() { Visible = false };
 
         private void MainMap_OnMarkerEnter(GMapMarker item)
         {
@@ -8465,7 +8471,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     return;
                 }
 
-                if (item is GMapMarkerPlus && ((GMapMarkerPlus) item).Tag is midline)
+                if (item is GMapMarkerPlus && ((GMapMarkerPlus)item).Tag is midline)
                 {
                     CurrentMidLine = item;
                     return;
@@ -8476,7 +8482,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurrentPOIMarker = item as GMapMarkerPOI;
                 }
 
-                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
+                if (item is GMapMarkerWP && ((GMapMarkerWP)item).Tag != null)
                 {
                     ShowPopupWpInfo(item);
                 }
@@ -8495,7 +8501,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (marker.Tag == "H")
             {
                 wpno = 0;
-                alt = (int) Math.Truncate(double.Parse(TXT_homealt.Text));
+                alt = (int)Math.Truncate(double.Parse(TXT_homealt.Text));
                 type = "HOME";
                 homeDist = "";
             }
@@ -8507,9 +8513,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
             }
 
-            Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
-                (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
-            _wpControl.SetInfo(wpno, alt, type, homeDist,getWPType(wpno));
+            Point location = new Point((int)MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
+                (int)MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
+            _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
             _wpControl.Parent = MainMap;
             _wpControl.Location = location;
             _wpControl.Show();
@@ -8543,7 +8549,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurrentPOIMarker = null;
                 }
 
-                if (item is GMapMarkerPlus && ((GMapMarkerPlus) item).Tag is midline)
+                if (item is GMapMarkerPlus && ((GMapMarkerPlus)item).Tag is midline)
                 {
                     CurrentMidLine = null;
                 }
@@ -8554,7 +8560,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurrentGMapMarker = null;
                 }
 
-                if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
+                if (item is GMapMarkerWP && ((GMapMarkerWP)item).Tag != null)
                 {
                     _wpControl.Hide();
                 }
@@ -8602,7 +8608,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
-                    ((HttpWebRequest) request).UserAgent = Settings.Instance.UserAgent;
+                    ((HttpWebRequest)request).UserAgent = Settings.Instance.UserAgent;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
 
@@ -8826,28 +8832,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             tagForContextMenu = null;
         }
 
-        
+
 
         private void writeOtherWPtoWPConfig(int index)
         {
             while (index + 1 < Commands.Rows.Count &&
-                   ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort) MAVLink.MAV_CMD.WAYPOINT &&
-                    (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort) MAVLink.MAV_CMD.LOITER_TIME))
+                   ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.WAYPOINT &&
+                    (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) != (ushort)MAVLink.MAV_CMD.LOITER_TIME))
             {
-                ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false);
                 switch (cmd)
                 {
-                    case (ushort) MAVLink.MAV_CMD.DO_PARACHUTE:
+                    case (ushort)MAVLink.MAV_CMD.DO_PARACHUTE:
                         wpConfig.comboBox1.SelectedIndex = 4;
                         break;
-                    case (ushort) MAVLink.MAV_CMD.DO_CHANGE_SPEED:
+                    case (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED:
                         wpConfig.comboBox1.SelectedIndex = 3;
                         double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value
                             .ToString());
                         wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
                         break;
-                    case (ushort) MAVLink.MAV_CMD.DO_SET_SERVO:
+                    case (ushort)MAVLink.MAV_CMD.DO_SET_SERVO:
                         wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
                         int servoIndex = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
                         wpConfig.servos[servoIndex - 5] = true;
@@ -8869,8 +8875,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             if (i + 1 < Commands.Rows.Count &&
-                (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i + 1].Cells[Command.Index].Value.ToString(),
-                    false) == (ushort) MAVLink.MAV_CMD.DO_SET_SERVO)
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i + 1].Cells[Command.Index].Value.ToString(),
+                    false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
             {
                 do
                 {
@@ -8879,9 +8885,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.servos[index - 5] = true;
                     i++;
                 } while (i < Commands.Rows.Count &&
-                         (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                         (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                              Commands.Rows[i + 1].Cells[Command.Index].Value.ToString(), false) ==
-                         (ushort) MAVLink.MAV_CMD.DO_SET_SERVO);
+                         (ushort)MAVLink.MAV_CMD.DO_SET_SERVO);
             }
 
             wpConfig.updateServoButtons();
@@ -8937,12 +8943,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (index != 0)
             {
                 while (index + 1 < Commands.Rows.Count &&
-                       (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                       (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                            Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) !=
-                       (ushort) MAVLink.MAV_CMD.WAYPOINT &&
-                       (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                       (ushort)MAVLink.MAV_CMD.WAYPOINT &&
+                       (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                            Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) !=
-                       (ushort) MAVLink.MAV_CMD.LOITER_TIME)
+                       (ushort)MAVLink.MAV_CMD.LOITER_TIME)
                 {
                     Commands.Rows.RemoveAt(index + 1);
                 }
@@ -8961,9 +8967,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             bool result = false;
             if (index > 0 &&
-                (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                     Commands.Rows[index - 1].Cells[Command.Index].Value.ToString(), false) ==
-                (ushort) MAVLink.MAV_CMD.TAKEOFF)
+                (ushort)MAVLink.MAV_CMD.TAKEOFF)
             {
                 Commands.Rows.RemoveAt(index - 1);
                 result = true;
@@ -8978,18 +8984,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //{
             //    writeWPToPlane();
             //}
-            if (MainV2._currentAircraftNum != null && MainV2.Aircrafts[MainV2._currentAircraftNum] != null && MainV2.Aircrafts[MainV2._currentAircraftNum].UsingSitl) 
+            if (MainV2._currentAircraftNum != null && MainV2.Aircrafts[MainV2._currentAircraftNum] != null && MainV2.Aircrafts[MainV2._currentAircraftNum].UsingSitl)
             {
-                for (int i = 0; i < Commands.Rows.Count;i++) 
+                for (int i = 0; i < Commands.Rows.Count; i++)
                 {
-                    if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.LAND) 
+                    if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[i].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.LAND)
                     {
                         int k = i;
                         bool b = false;
-                        while (k > 0 && !b) 
+                        while (k > 0 && !b)
                         {
                             k--;
-                            if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[k].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.WAYPOINT) 
+                            if ((ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[k].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.WAYPOINT)
                             {
                                 b = true;
                                 Commands.Rows[i].Cells[Lat.Index].Value = Commands.Rows[k].Cells[Lat.Index].Value;
@@ -9019,8 +9025,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 Locationwp home = new Locationwp();
                 try
                 {
-                    home.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
-                    home.id = (ushort) MAVLink.MAV_CMD.WAYPOINT;
+                    home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
+                    home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
                     home.lat = (double.Parse(TXT_homelat.Text));
                     home.lng = (double.Parse(TXT_homelng.Text));
                     home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
@@ -9034,10 +9040,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
                 log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
 
-                var type = (MAVLink.MAV_MISSION_TYPE) Invoke((Func<MAVLink.MAV_MISSION_TYPE>) delegate
-                {
-                    return (MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue;
-                });
+                var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+              {
+                  return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
+              });
 
                 // get the command list from the datagrid
                 var commandlist = GetCommandList();
@@ -9051,7 +9057,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     commandlist = commandlist.Select((fp) =>
                     {
-                        fp.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
+                        fp.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
                         return fp;
                     }).ToList();
                 }
@@ -9074,16 +9080,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     try
                     {
-                        await MainV2.comPort.getHomePositionAsync((byte) MainV2.comPort.sysidcurrent,
-                            (byte) MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                        await MainV2.comPort.getHomePositionAsync((byte)MainV2.comPort.sysidcurrent,
+                            (byte)MainV2.comPort.compidcurrent).ConfigureAwait(false);
                     }
                     catch (Exception ex2)
                     {
                         log.Error(ex2);
                         try
                         {
-                            MainV2.comPort.getWP((byte) MainV2.comPort.sysidcurrent,
-                                (byte) MainV2.comPort.compidcurrent, 0);
+                            MainV2.comPort.getWP((byte)MainV2.comPort.sysidcurrent,
+                                (byte)MainV2.comPort.compidcurrent, 0);
                         }
                         catch (Exception ex3)
                         {
@@ -9102,14 +9108,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 try
                 {
-                    port.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
+                    port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
                         float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
                 }
                 catch
                 {
                 }
 
-                ((ProgressReporterDialogue) sender).UpdateProgressAndStatus(100, "Done.");
+                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
             }
             catch (Exception ex)
             {

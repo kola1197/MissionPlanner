@@ -1569,9 +1569,9 @@ namespace MissionPlanner
                             currentPositionAlt);
                         break;
                     case 6:
-                        currentMousePosition = CoordinatsConverter.toRectFromWGS(currentMousePositionLat,
+                        currentMousePosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(currentMousePositionLat,
                             currentMousePositionLng, currentMousePositionAlt);
-                        currentPosition = CoordinatsConverter.toRectFromWGS(currentPositionLat, currentPositionLng,
+                        currentPosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(currentPositionLat, currentPositionLng,
                             currentPositionAlt);
                         break;
                     default:
@@ -5936,9 +5936,9 @@ namespace MissionPlanner
         public static bool testVisualisation = false;
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            testVisualisation = !testVisualisation;
+            //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            //CustomMessageBox.Show(CoordinatsConverter.toSK42_G(60.363636, 30.32656,20));
+            CustomMessageBox.Show(CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(60, 30,0));
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
