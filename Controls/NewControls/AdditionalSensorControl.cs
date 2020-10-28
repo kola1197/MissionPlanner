@@ -38,7 +38,7 @@ namespace MissionPlanner.Controls.NewControls
                             true);
                         textBinding.Format += temp_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
-                        sensorName_label.Text = "Температура";
+                        sensorName_label.Text = "Т. двигателя";
                         break;
                     case "Топливо":
                         textBinding = new Binding("Text", textBindingSource, "battery_voltage2",
@@ -68,6 +68,13 @@ namespace MissionPlanner.Controls.NewControls
                         sensorValue_label.DataBindings.Add(textBinding);
                         sensorName_label.Text = "Высота (СНС)";
                         break;
+                    case "Магнитный курс":
+                        textBinding = new Binding("Text", textBindingSource, "yaw",
+                            true);
+                        textBinding.Format += bearing_format;
+                        sensorValue_label.DataBindings.Add(textBinding);
+                        sensorName_label.Text = "Магн. курс";
+                        break;
                     case "Следующая точка":
                         textBinding = new Binding("Text", textBindingSource, "wpno",
                             true);
@@ -95,6 +102,12 @@ namespace MissionPlanner.Controls.NewControls
             set { sensorValue_label.Text = sensorValue; }
         }
 
+        private void bearing_format(object sender, ConvertEventArgs e)
+        {
+            int bearing =  (int) Math.Truncate(Convert.ToDouble(e.Value));
+            e.Value = bearing + "°";
+        }
+        
         private void voltage_Format(object sender, ConvertEventArgs e)
         {
             double voltage = (double) e.Value;
@@ -110,7 +123,7 @@ namespace MissionPlanner.Controls.NewControls
         private void fuel_Format(object sender, ConvertEventArgs e)
         {
             double fuel = (double) e.Value;
-            e.Value = fuel.ToString("F2");
+            e.Value = StatusControlPanel.instance.CalcFuelPercentage() + "%";
         }
 
         private void speed_Format(object sender, ConvertEventArgs e)
@@ -122,12 +135,12 @@ namespace MissionPlanner.Controls.NewControls
         private void alt_Format(object sender, ConvertEventArgs e)
         {
             double alt = (float) e.Value;
-            e.Value = alt.ToString("F2");
+            e.Value = alt.ToString("F2") + " м";
         }
 
         private void nextWP_Format(object sender, ConvertEventArgs e)
         {
-            e.Value = e.Value.ToString();
+            e.Value = "№ " + e.Value.ToString();
         }
 
         private void amperage_Format(object sender, ConvertEventArgs e)

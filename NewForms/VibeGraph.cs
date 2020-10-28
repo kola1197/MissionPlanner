@@ -20,14 +20,15 @@ namespace MissionPlanner.NewForms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            myBitmap = new Bitmap(600, 300);
+            double sizeMP = 1 / 2;
+            myBitmap = new Bitmap(300, 150);
             base.OnPaint(e);
             Graphics g;
             g = Graphics.FromImage(myBitmap);
             Pen myPen = new Pen(Color.White);
             myPen.Width = 1;
 
-            g.DrawLine(myPen, 1, 150, 600, 150);
+            g.DrawLine(myPen, 1, 150, 300, 150);
             
             /*Pen p = new Pen(Color.Green);
             p.Width = 3;
@@ -47,10 +48,10 @@ namespace MissionPlanner.NewForms
         private void drawVibe(int index, Color color, Graphics g)
         {
             Pen p = new Pen(color);
-            p.Width = 3;
+            p.Width = 2;
             for (int i = 0; i < 599; i++)
             {
-                g.DrawLine(p, (float)i, 150f - MainV2.vibeData.vibe[index, i]*10f, (float)i + 1f, 150f - MainV2.vibeData.vibe[index, i + 1]*10f);
+                g.DrawLine(p, (float)i/2, (150f - MainV2.vibeData.vibe[index, i]*10f)/2, ((float)i + 1f)/2, (150f - MainV2.vibeData.vibe[index, i + 1]*10f)/2);
             }
         }
 

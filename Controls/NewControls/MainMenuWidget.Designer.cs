@@ -213,14 +213,14 @@
             this.ResumeLayout(false);
         }
 
-        #endregion
+        public MissionPlanner.Controls.MyButton centeringButton;
+        public MissionPlanner.Controls.MyButton EKFButton;
+        public MissionPlanner.Controls.MyButton homeButton;
+        private MissionPlanner.Controls.MyButton MainButton;
+        public MissionPlanner.Controls.MyButton MapChoiseButton;
+        public MissionPlanner.Controls.MyButton ParamsButton;
+        public MissionPlanner.Controls.MyButton RulerButton;
 
-        private MyButton MainButton;
-        public MyButton MapChoiseButton;
-        public MyButton EKFButton;
-        public MyButton ParamsButton;
-        public MyButton RulerButton;
-        public MyButton centeringButton;
-        public MyButton homeButton;
+        #endregion
     }
 }

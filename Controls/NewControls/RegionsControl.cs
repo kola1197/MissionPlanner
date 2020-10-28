@@ -95,7 +95,7 @@ namespace MissionPlanner.Controls.NewControls
             colorPanel.DataBindings.Clear();
         }
 
-        private bool ResetPropertiesBindings()
+        private bool HasResetPropertiesBindings()
         {
             regionsBindingSource.ResetBindings(true);
             if (regionsBindingSource.Count == 0 || regionsBindingSource.Current == null)
@@ -110,7 +110,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             regionsProperties_GB.Enabled = FlightPlanner.RegionsOverlay.Polygons.Count != 0;
             ClearPropertiesBindings();
-            if (!ResetPropertiesBindings())
+            if (!HasResetPropertiesBindings())
                 return;
 
             name_TB.DataBindings.Add(new Binding("Text", regionsBindingSource.Current, "Name", true));

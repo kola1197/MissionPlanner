@@ -64,6 +64,8 @@
             this.mainButton.ColorMouseOver = System.Drawing.Color.Transparent;
             this.mainButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.mainButton.FlatAppearance.BorderSize = 0;
+            this.mainButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.mainButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.mainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.mainButton.Location = new System.Drawing.Point(0, 608);
