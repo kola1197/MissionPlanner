@@ -1093,7 +1093,7 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    if (ctl.BackColor == Button.DefaultBackColor)
+                    if (ctl.BackColor == Button.DefaultBackColor || ctl.BackColor == SystemColors.Control)
                     {
                         ctl.ForeColor = Color.Black;
                         ctl.BackColor = ButBG;
