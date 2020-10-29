@@ -628,11 +628,11 @@
   <data name="&gt;&gt;connectionParams_panel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="connect_BUT.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
   <data name="connect_BUT.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 233</value>
+  </data>
+  <data name="connect_BUT.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="connect_BUT.Size" type="System.Drawing.Size, System.Drawing">
     <value>279, 23</value>
