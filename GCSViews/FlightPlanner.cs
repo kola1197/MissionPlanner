@@ -3671,71 +3671,85 @@ namespace MissionPlanner.GCSViews
 
         public void deleteWPToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            int no = 0;
-            if (tagForContextMenu != null)
+            if (CurrentRallyPt != null)
             {
-                if (int.TryParse(tagForContextMenu.ToString(), out no))
-                {
-                    try
-                    {
-                        if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue ==
-                            MAVLink.MAV_MISSION_TYPE.FENCE)
-                            ReCalcFence(no - 1, false, true);
-
-                        Commands.Rows.RemoveAt(no - 1); // home is 0
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                        CustomMessageBox.Show("error selecting wp, please try again.");
-                    }
-                }
-                else if (int.TryParse(tagForContextMenu.ToString().Replace("grid", ""), out no))
-                {
-                    try
-                    {
-                        // DrawingPolygon.Points.RemoveAt(no - 1);
-
-                        // redrawPolygonSurvey(DrawingPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                        CustomMessageBox.Show("Remove point Failed. Please try again.");
-                    }
-                }
-            }
-            else if (CurrentRallyPt != null)
-            {
-                rallypointoverlay.Markers.Remove(CurrentRallyPt);
-                MainMap.Invalidate(true);
-
+                rallyWp.lat = 0;
+                rallyWp.lng = 0;
                 CurrentRallyPt = null;
+                if (currentMarker != null)
+                    CurentRectMarker = null;
+                tagForContextMenu = null;
+                writeKML();
+                tryToWriteWP();
             }
-            else if (groupmarkers.Count > 0)
+            else
             {
-                for (int a = Commands.Rows.Count; a > 0; a--)
+                int no = 0;
+                if (tagForContextMenu != null)
                 {
-                    try
+                    if (int.TryParse(tagForContextMenu.ToString(), out no))
                     {
-                        if (groupmarkers.Contains(a)) Commands.Rows.RemoveAt(a - 1); // home is 0
+                        try
+                        {
+                            if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue ==
+                                MAVLink.MAV_MISSION_TYPE.FENCE)
+                                ReCalcFence(no - 1, false, true);
+
+                            Commands.Rows.RemoveAt(no - 1); // home is 0
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error(ex);
+                            CustomMessageBox.Show("error selecting wp, please try again.");
+                        }
                     }
-                    catch (Exception ex)
+                    else if (int.TryParse(tagForContextMenu.ToString().Replace("grid", ""), out no))
                     {
-                        log.Error(ex);
-                        CustomMessageBox.Show("error selecting wp, please try again.");
+                        try
+                        {
+                            // DrawingPolygon.Points.RemoveAt(no - 1);
+
+                            // redrawPolygonSurvey(DrawingPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error(ex);
+                            CustomMessageBox.Show("Remove point Failed. Please try again.");
+                        }
                     }
                 }
+                else if (CurrentRallyPt != null)
+                {
+                    rallypointoverlay.Markers.Remove(CurrentRallyPt);
+                    MainMap.Invalidate(true);
 
-                groupmarkers.Clear();
+                    CurrentRallyPt = null;
+                }
+                else if (groupmarkers.Count > 0)
+                {
+                    for (int a = Commands.Rows.Count; a > 0; a--)
+                    {
+                        try
+                        {
+                            if (groupmarkers.Contains(a)) Commands.Rows.RemoveAt(a - 1); // home is 0
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error(ex);
+                            CustomMessageBox.Show("error selecting wp, please try again.");
+                        }
+                    }
+
+                    groupmarkers.Clear();
+                }
+
+
+                if (currentMarker != null)
+                    CurentRectMarker = null;
+                tagForContextMenu = null;
+                writeKML();
+                tryToWriteWP();
             }
-
-
-            if (currentMarker != null)
-                CurentRectMarker = null;
-            tagForContextMenu = null;
-            writeKML();
-            tryToWriteWP();
         }
 
         public void deleteWPToolStripMenuItem_Click(object sender, EventArgs e)
