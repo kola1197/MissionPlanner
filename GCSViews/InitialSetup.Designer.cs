@@ -61,6 +61,7 @@ namespace MissionPlanner.GCSViews
             this.backstageViewPagesonar = new System.Windows.Forms.Label();
             this.backstageViewPagetradheli = new System.Windows.Forms.Label();
             this.backstageViewPagewizard = new System.Windows.Forms.Label();
+            this.mainMenuWidget1 = new MissionPlanner.Controls.MainMenuWidget();
             this.SuspendLayout();
             // 
             // backstageView
@@ -216,8 +217,15 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.backstageViewPagewizard, "backstageViewPagewizard");
             this.backstageViewPagewizard.Name = "backstageViewPagewizard";
             // 
+            // mainMenuWidget1
+            // 
+            this.mainMenuWidget1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            resources.ApplyResources(this.mainMenuWidget1, "mainMenuWidget1");
+            this.mainMenuWidget1.Name = "mainMenuWidget1";
+            // 
             // InitialSetup
             // 
+            this.Controls.Add(this.mainMenuWidget1);
             this.Controls.Add(this.backstageViewPageaccel);
             this.Controls.Add(this.backstageViewPageairspeed);
             this.Controls.Add(this.backstageViewPageAntTrack);
@@ -252,7 +260,9 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this, "$this");
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HardwareConfig_FormClosing);
             this.Load += new System.EventHandler(this.HardwareConfig_Load);
+            this.SizeChanged += new System.EventHandler(this.InitialSetup_SizeChanged);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -291,6 +301,6 @@ namespace MissionPlanner.GCSViews
         private Label backstageViewPagewizard;
 
         internal Controls.BackstageView.BackstageView backstageView;
-
+        private Controls.MainMenuWidget mainMenuWidget1;
     }
 }

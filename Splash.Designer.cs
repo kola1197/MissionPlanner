@@ -100,10 +100,10 @@
             this.label3.ForeColor = System.Drawing.SystemColors.InfoText;
             this.label3.Location = new System.Drawing.Point(417, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 36);
+            this.label3.Size = new System.Drawing.Size(134, 36);
             this.label3.TabIndex = 4;
             this.label3.Tag = "custom";
-            this.label3.Text = "Porcupine";
+            this.label3.Text = "Platypus";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.label3.Visible = false;
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -111,7 +111,7 @@
             // Splash
             // 
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 336);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
@@ -127,7 +127,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 375);
             this.Name = "Splash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Mission Planner";
+            this.Text = "Mighty Platypus   v0.2";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

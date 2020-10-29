@@ -23,8 +23,15 @@ namespace MissionPlanner.NewForms
         {
             if (MainV2.comPort.MAV.cs.connected)
             {
+                if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl) 
+                {
+                    MainV2.instance.FlightPlanner.landPoint = new GMap.NET.PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+                    MainV2.testVisualisation = true;
+                    MainV2.instance.setLandWpInSitl();
+                }
                 MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
                     MAVLink.MAV_CMD.DO_SET_SERVO, 12, 1900, 0, 0, 0, 0, 0);
+                
             }
         }
 
