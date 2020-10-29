@@ -36,12 +36,12 @@ namespace MissionPlanner.Controls.NewControls
             try
             {
                 ConnectionsForm.instance.SwitchToAntenna();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(500);
 
                 // var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo?.SysId;
                 MainV2.comPort.setMode((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, mode);
 
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(500);
                 if (MainV2.CurrentAircraftNum != null)
                 {
                     ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.Aircrafts[MainV2.CurrentAircraftNum]);

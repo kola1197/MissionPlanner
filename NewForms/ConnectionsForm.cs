@@ -448,11 +448,16 @@ namespace MissionPlanner
 
                     if (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control)
                     {
-                        new System.Threading.Thread(delegate()
+                        // new System.Threading.Thread(delegate()
+                        // {
+                        //     MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                        //         (byte) MainV2.comPort.compidcurrent);
+                        // }).Start();
+                        ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
                         {
                             MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
                                 (byte) MainV2.comPort.compidcurrent);
-                        }).Start();
+                        });
                         MainV2.CurrentAircraftNum = null;
                     }
 
@@ -476,7 +481,7 @@ namespace MissionPlanner
                     MainV2.comPort.sysidcurrent = temp.sysid;
                     MainV2.comPort.compidcurrent = temp.compid;
 
-                    if (true || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
+                    if (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control)
                     {
                         /*
                          new System.Threading.Thread(delegate()
@@ -489,7 +494,11 @@ namespace MissionPlanner
                             MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
                                 (byte) MainV2.comPort.compidcurrent);
                         });*/
-                        MainV2.comPort.getParamList();
+                        ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+                        {
+                            MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                                (byte) MainV2.comPort.compidcurrent);
+                        });
                     }
 
                     MainV2.CurrentAircraftNum =
