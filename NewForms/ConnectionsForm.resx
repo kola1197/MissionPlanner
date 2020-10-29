@@ -215,174 +215,6 @@
   <data name="&gt;&gt;addAircraft_BT.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;useAntenna_CheckBox.Name" xml:space="preserve">
-    <value>useAntenna_CheckBox</value>
-  </data>
-  <data name="&gt;&gt;useAntenna_CheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;useAntenna_CheckBox.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;useAntenna_CheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Name" xml:space="preserve">
-    <value>antennaPanel</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;useSITL_CheckBox.Name" xml:space="preserve">
-    <value>useSITL_CheckBox</value>
-  </data>
-  <data name="&gt;&gt;useSITL_CheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;useSITL_CheckBox.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;useSITL_CheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;reload_BUT.Name" xml:space="preserve">
-    <value>reload_BUT</value>
-  </data>
-  <data name="&gt;&gt;reload_BUT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;reload_BUT.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;reload_BUT.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;CMB_baudrate.Name" xml:space="preserve">
-    <value>CMB_baudrate</value>
-  </data>
-  <data name="&gt;&gt;CMB_baudrate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CMB_baudrate.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;CMB_baudrate.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;CMB_serialport.Name" xml:space="preserve">
-    <value>CMB_serialport</value>
-  </data>
-  <data name="&gt;&gt;CMB_serialport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CMB_serialport.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;CMB_serialport.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftName_TB.Name" xml:space="preserve">
-    <value>connectedAircraftName_TB</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftName_TB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftName_TB.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftName_TB.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftNum_TB.Name" xml:space="preserve">
-    <value>connectedAircraftNum_TB</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftNum_TB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftNum_TB.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;connectedAircraftNum_TB.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="connectionParams_panel.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="connectionParams_panel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 31</value>
-  </data>
-  <data name="connectionParams_panel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 208</value>
-  </data>
-  <data name="connectionParams_panel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;connectionParams_panel.Name" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;connectionParams_panel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;connectionParams_panel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;connectionParams_panel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="useAntenna_CheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -409,54 +241,6 @@
   </data>
   <data name="&gt;&gt;useAntenna_CheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;updateSysId_BUT.Name" xml:space="preserve">
-    <value>updateSysId_BUT</value>
-  </data>
-  <data name="&gt;&gt;updateSysId_BUT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;updateSysId_BUT.Parent" xml:space="preserve">
-    <value>antennaPanel</value>
-  </data>
-  <data name="&gt;&gt;updateSysId_BUT.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;sysid_cmb.Name" xml:space="preserve">
-    <value>sysid_cmb</value>
-  </data>
-  <data name="&gt;&gt;sysid_cmb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sysid_cmb.Parent" xml:space="preserve">
-    <value>antennaPanel</value>
-  </data>
-  <data name="&gt;&gt;sysid_cmb.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="antennaPanel.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="antennaPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 156</value>
-  </data>
-  <data name="antennaPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 51</value>
-  </data>
-  <data name="antennaPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Name" xml:space="preserve">
-    <value>antennaPanel</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.Parent" xml:space="preserve">
-    <value>connectionParams_panel</value>
-  </data>
-  <data name="&gt;&gt;antennaPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="updateSysId_BUT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -505,6 +289,30 @@
     <value>antennaPanel</value>
   </data>
   <data name="&gt;&gt;sysid_cmb.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="antennaPanel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="antennaPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 156</value>
+  </data>
+  <data name="antennaPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 51</value>
+  </data>
+  <data name="antennaPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Name" xml:space="preserve">
+    <value>antennaPanel</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.Parent" xml:space="preserve">
+    <value>connectionParams_panel</value>
+  </data>
+  <data name="&gt;&gt;antennaPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="useSITL_CheckBox.AutoSize" type="System.Boolean, mscorlib">
@@ -788,6 +596,30 @@
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>11</value>
+  </data>
+  <data name="connectionParams_panel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="connectionParams_panel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 31</value>
+  </data>
+  <data name="connectionParams_panel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 208</value>
+  </data>
+  <data name="connectionParams_panel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;connectionParams_panel.Name" xml:space="preserve">
+    <value>connectionParams_panel</value>
+  </data>
+  <data name="&gt;&gt;connectionParams_panel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;connectionParams_panel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;connectionParams_panel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="connect_BUT.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 233</value>
