@@ -1358,6 +1358,7 @@ namespace MissionPlanner
             AircraftMenuControl.SwitchOnTimer();
             
             ConnectionsForm.Init();
+            this.Text = "Мighty Platypus   v0.2";
         }
 
         private void MakeRightSideMenuTransparent()
@@ -5985,6 +5986,11 @@ namespace MissionPlanner
                 FlightPlanner.notificationListControl1.fullList = true;
                 FlightPlanner.notificationListControl1.redraw();
             }
+        }
+
+        private void CTX_mainmenu_Opening(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }
