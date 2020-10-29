@@ -143,6 +143,24 @@ namespace MissionPlanner
             DisconnectAircraft();
         }
 
+        private bool IsSitlAllowed()
+        {
+            if (MainV2.AntennaConnectionInfo != null && MainV2.AntennaConnectionInfo.Connected)
+            {
+                return false;
+            }
+            
+            foreach (var aircraft in MainV2.Aircrafts.Values)
+            {
+                if (aircraft.Connected)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         private void ConnectAircraft(object sender)
         {
             MAVLinkInterface.paramsLoading = true;
@@ -164,6 +182,12 @@ namespace MissionPlanner
 
             if (useSITL_CheckBox.Checked)
             {
+                if (!IsSitlAllowed())
+                {
+                    MAVLinkInterface.paramsLoading = false;
+                    CustomMessageBox.Show("Отключите антенну и все подключенные борты.", "Невозможно создать симуляцию.");
+                    return;
+                }
                 MainV2.instance.MenuSimulation_Click(sender, EventArgs.Empty);
                 sitlForm.aircraftSITLInfo = MainV2.Aircrafts[GetSelectedAircraftNum()];
                 sitlForm.aircraftSITLInfo.UsingSitl = true;
