@@ -153,22 +153,25 @@ namespace MissionPlanner.Controls
         //     }
         // }
 
+        public bool onMainMap = true;
         private void RulerButton_MouseDown(object sender, MouseEventArgs e)
         {
-            RulerClicked = FlightPlanner.rulerActive = !RulerClicked;
-            RulerRoute = FlightPlanner.instance.GetRulerRoute();
-            if (!FlightPlanner.rulerActive)
+            if (onMainMap)
             {
-                RulerRoute.Points.Clear();
-                RedrawRulerSurvey(RulerRoute);
-                FlightPlanner.RulerOverlay.ForceUpdate();
+                RulerClicked = FlightPlanner.rulerActive = !RulerClicked;
+                RulerRoute = FlightPlanner.instance.GetRulerRoute();
+                if (!FlightPlanner.rulerActive)
+                {
+                    RulerRoute.Points.Clear();
+                    RedrawRulerSurvey(RulerRoute);
+                    FlightPlanner.RulerOverlay.ForceUpdate();
+                }
+                else
+                {
+                    RulerRoute.Stroke.Color = Color.FromArgb(144, Color.Red);
+                    RedrawRulerSurvey(RulerRoute);
+                }
             }
-            else
-            {
-                RulerRoute.Stroke.Color = Color.FromArgb(144, Color.Red);
-                RedrawRulerSurvey(RulerRoute);
-            }
-
             // FlightPlanner.instance.MeasureDistance();
         }
 
