@@ -42,11 +42,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateField()
         {
-            this.BackColor = Color.FromArgb(200, 32, 32, 32);
-            //MainV2.wpLoadMenuAcrive = 
-            this.Size = fieldActive ? new Size(95, 652) : new Size(95, 125);
-            System.Drawing.Point now = this.Location;
-            int diff = 420;
+           
             //this.Location = fieldActive ? new System.Drawing.Point(now.X,now.Y - diff) : new System.Drawing.Point(now.X, now.Y + diff);
 
             //panel1.Visible = fieldActive;
@@ -61,13 +57,20 @@ namespace MissionPlanner.Controls.NewControls
             writeButton.Visible = fieldActive;
             getButton.Visible = fieldActive;
             deleteButton.Visible = fieldActive;
+            myButton1.Visible = fieldActive;
+            label11.Visible = fieldActive;
             label10.Visible = fieldActive;
             label9.Visible = fieldActive;
             label8.Visible = fieldActive;
             label7.Visible = fieldActive;
             label6.Visible = fieldActive;
             label5.Visible = fieldActive;
+            this.Size = fieldActive ? new Size(95, 733) : new Size(95, 125);
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
+            //MainV2.wpLoadMenuAcrive = 
 
+            System.Drawing.Point now = this.Location;
+            int diff = 420;
         }
 
         private void myButton5_Click(object sender, EventArgs e)

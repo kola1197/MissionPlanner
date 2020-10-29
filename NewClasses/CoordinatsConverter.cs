@@ -67,6 +67,73 @@ namespace MissionPlanner.NewClasses
             return result;
         }
 
+        const double piConverter = 1;
+        public static string toRectFromWGS(double Lat, double Lon, double alt) 
+        {
+            double B = Lat;
+            double L = Lon;
+            double H = alt;
+            string result = "";
+            double n = Math.Truncate((6+L)/6);
+            double l = (L - (3 + 6*(n-1)))/57.29577951;
+            double x = 6367558.4968 * B - Math.Sin(2 * B) * (16002.8900 + 66.9607 * Math.Sin(B) * Math.Sin(B) + 0.3515 * Math.Pow(Math.Sin(B), 4) - 
+                l * l * (1594561.25 + 5336.535 * Math.Sin(B) * Math.Sin(B) + 26.790 * Math.Pow(Math.Sin(B), 4) + 0.149 * Math.Pow(Math.Sin(B), 6) + l * l * (672483.4 -
+                811219.9 * Math.Sin(B) * Math.Sin(B) + 5420.0 * Math.Pow(Math.Sin(B), 4) - 10.6 * Math.Pow(Math.Sin(B), 6) + l * l * (278194 - 830174 * Math.Sin(B) * Math.Sin(B)+
+                + 572434 * Math.Pow(Math.Sin(B), 4) - 16010 * Math.Pow(Math.Sin(B), 6) + l * l * (109500 - 574700 * Math.Sin(B) * Math.Sin(B) + 863700 * Math.Pow(Math.Sin(B), 4) -
+                398600 * Math.Pow(Math.Sin(B), 6) )))));
+            double y = (5 + 10 * n) * 100000 + l * Math.Cos(B) * (6378245 + 21346.1415 * Math.Sin(B) * Math.Sin(B) + 107.1590 * Math.Pow(Math.Sin(B), 4) +
+                0.5977 * Math.Pow(Math.Sin(B), 6) + l * l * (1070204.16 - 2136826.66 * Math.Sin(B) * Math.Sin(B) + 17.98 * Math.Pow(Math.Sin(B), 4) - 11.99 * Math.Pow(Math.Sin(B), 6) + 
+                l * l * (270806 - 1523417 * Math.Sin(B) * Math.Sin(B) + 1327645 * Math.Pow(Math.Sin(B), 4) - 21701 * Math.Pow(Math.Sin(B), 6) + l * l * ( 79690 -
+                866190 * Math.Sin(B) * Math.Sin(B) + 1730360 * Math.Pow(Math.Sin(B), 4) - 945460 * Math.Pow(Math.Sin(B), 6) ))));
+
+
+            /*double X = (N(Lat) + alt) * Math.Cos(Lat* piConverter) * Math.Cos(Lon* piConverter);
+            double Y = (N(Lat) + alt) * Math.Cos(Lat*piConverter) * Math.Sin(Lon* piConverter);
+            result = X.ToString("0.0") + ", " + Y.ToString("0.0");*/
+            result = x.ToString("0.0") + ", " + y.ToString("0.0");
+            return result;
+
+        }
+
+        public static string toRectFromWGSwithFuckingJavaScript(double lat, double lon, double alt)
+        {
+            string result = "";
+            var latrad = Math.PI * lat / 180;
+            var lonrad = Math.PI * lon / 180;
+
+            var nzone = Math.Round(lon / 6);
+            var lonaxis = 6 * nzone - 3;
+            var l = Math.PI * (lon - lonaxis) / 180;
+
+
+            var N = 6399698.902 - (21562.267 - (108.973 - 0.612 * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2);
+            var a0 = 32140.404 - (135.3302 - (0.7092 - 0.0040 * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2);
+            var a3 = (0.3333333 + 0.001123 * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2) - 0.1666667;
+            var a4 = (0.25 + 0.00252 * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2) - 0.04166;
+            var a5 = 0.0083 - (0.1667 - (0.1968 + 0.0040 * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2)) * Math.Pow(Math.Cos(latrad), 2);
+            var a6 = (0.166 * Math.Pow(Math.Cos(latrad), 2) - 0.084) * Math.Pow(Math.Cos(latrad), 2);
+
+            var tx = 6367558.4969 * latrad - (a0 - (0.5 + (a4 + a6 * l * l) * l * l) * l * l * N) * Math.Sin(latrad) * Math.Cos(latrad);
+            var ty = (1 + (a3 + a5 * l * l) * l * l) * l * N * Math.Cos(latrad);
+            ty = 500000 + ty;
+
+            //var pr = PCF.getCalcPrecision();
+            //ty = ty.toFixed(pr);
+            double y = double.Parse(nzone.ToString() + ty.ToString());
+            //x.SetValue(tx);
+            //y.SetValue(Number(nzone.toString() + ty));
+            result = tx.ToString("0.00") + ", " + y.ToString("0.00");
+            return result;
+        }
+
+        private static double N(double B ) 
+        {
+            double aa = 6378137;
+            double aaa = 1 / 298.257223563;
+            //double b = 6356863.019;
+            double sqre = 2 * aaa - aaa * aaa;//(aa*aa - b*b)/(aa*aa);
+            return aa / Math.Sqrt(1 - sqre*Math.Sin(B * piConverter) *Math.Sin(B * piConverter));
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////from excel
 

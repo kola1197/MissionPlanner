@@ -20,6 +20,26 @@ namespace MissionPlanner.GCSViews
         public InitialSetup()
         {
             InitializeComponent();
+            backstageView.Location = new System.Drawing.Point(0, mainMenuWidget1.Size.Height);
+            backstageView.Size = new System.Drawing.Size(this.Size.Width, this.Size.Width - mainMenuWidget1.Size.Height);
+            initMainMenu();
+        }
+
+        private void initMainMenu() 
+        {
+            mainMenuWidget1.onMainMap = false;
+            mainMenuWidget1.MainButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.centeringButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.EKFButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.homeButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.MapChoiseButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.ParamsButton.MouseUp += MainButton_MouseUp;
+            mainMenuWidget1.RulerButton.MouseUp += MainButton_MouseUp;
+        }
+
+        private void MainButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            MainV2.instance.MyView.ShowScreen("FlightPlanner");
         }
 
         public bool isConnected
@@ -113,8 +133,15 @@ namespace MissionPlanner.GCSViews
         {
         }
 
+        private void MyButton1_Click(object sender, EventArgs e)
+        {
+            MainV2.instance.MyView.ShowScreen("FlightPlanner");
+        }
+
         private void HardwareConfig_Load(object sender, EventArgs e)
         {
+            //backstageView.backButton.Click += MyButton1_Click;
+
             ResourceManager rm = new ResourceManager(this.GetType());
 
             if (!gotAllParams)
@@ -304,6 +331,12 @@ namespace MissionPlanner.GCSViews
                 lastpagename = backstageView.SelectedPage.LinkText;
 
             backstageView.Close();
+        }
+
+        private void InitialSetup_SizeChanged(object sender, EventArgs e)
+        {
+            backstageView.Location = new System.Drawing.Point(0, mainMenuWidget1.Size.Height);
+            backstageView.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - mainMenuWidget1.Size.Height);
         }
     }
 }

@@ -47,6 +47,7 @@
             this.lbl_yawpwm = new System.Windows.Forms.Label();
             this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
             this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -225,15 +226,17 @@
             // 
             // BUT_test_yaw
             // 
-            this.BUT_test_yaw.BGGradBot = System.Drawing.Color.Empty;
-            this.BUT_test_yaw.BGGradTop = System.Drawing.Color.Empty;
+            this.BUT_test_yaw.BGGradBot = System.Drawing.SystemColors.Control;
+            this.BUT_test_yaw.BGGradTop = System.Drawing.SystemColors.Control;
+            this.BUT_test_yaw.DefaultTheme = false;
             this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_test_yaw.Location = new System.Drawing.Point(208, 191);
+            this.BUT_test_yaw.Location = new System.Drawing.Point(168, 271);
             this.BUT_test_yaw.Name = "BUT_test_yaw";
             this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
             this.BUT_test_yaw.TabIndex = 27;
             this.BUT_test_yaw.Text = "Test";
             this.BUT_test_yaw.UseVisualStyleBackColor = true;
+            this.BUT_test_yaw.Visible = false;
             this.BUT_test_yaw.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
             // myTrackBar1
@@ -250,11 +253,22 @@
             this.myTrackBar1.TickFrequency = 100F;
             this.myTrackBar1.Value = 1500F;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(207, 191);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(89, 23);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_yawpwm);
             this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);
@@ -301,5 +315,6 @@
         private System.Windows.Forms.Label lbl_yawpwm;
         private MyButton BUT_test_yaw;
         private MyTrackBar myTrackBar1;
+        private System.Windows.Forms.Button button1;
     }
 }

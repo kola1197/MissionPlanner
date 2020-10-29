@@ -1093,19 +1093,25 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    ctl.ForeColor = Color.Black;
-                    ctl.BackColor = ButBG;
+                    if (ctl.BackColor == Button.DefaultBackColor || ctl.BackColor == SystemColors.Control)
+                    {
+                        ctl.ForeColor = Color.Black;
+                        ctl.BackColor = ButBG;
+                    }
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
                     Controls.MyButton but = (MyButton)ctl;
-                    but.BGGradTop = ButBG;
-                    but.BGGradBot = ButBGBot;
-                    but.TextColor = ButtonTextColor;
-                    but.Outline = ButBorder;
-                    but.ColorMouseDown = ColorMouseDown;        //sets the colour of buttons for different situations
-                    but.ColorMouseOver = ColorMouseOver;
-                    but.ColorNotEnabled = ColorNotEnabled;
+                    if (but.DefaultTheme)
+                    {
+                        but.BGGradTop = ButBG;
+                        but.BGGradBot = ButBGBot;
+                        but.TextColor = ButtonTextColor;
+                        but.Outline = ButBorder;
+                        but.ColorMouseDown = ColorMouseDown;        //sets the colour of buttons for different situations
+                        but.ColorMouseOver = ColorMouseOver;
+                        but.ColorNotEnabled = ColorNotEnabled;
+                    }
                 }
                 else if (ctl.GetType() == typeof(TextBox))
                 {

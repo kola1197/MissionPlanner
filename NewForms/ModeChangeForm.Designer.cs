@@ -47,15 +47,20 @@ namespace MissionPlanner.NewForms
             // 
             // BUT_setmode
             // 
+            this.BUT_setmode.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.BUT_setmode.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.BUT_setmode.ColorMouseDown = System.Drawing.Color.Empty;
             this.BUT_setmode.ColorMouseOver = System.Drawing.Color.Empty;
             this.BUT_setmode.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_setmode.DefaultTheme = false;
             this.BUT_setmode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BUT_setmode.Location = new System.Drawing.Point(151, 19);
             this.BUT_setmode.Name = "BUT_setmode";
+            this.BUT_setmode.Outline = System.Drawing.Color.Transparent;
             this.BUT_setmode.Size = new System.Drawing.Size(111, 23);
             this.BUT_setmode.TabIndex = 72;
             this.BUT_setmode.Text = "Установить";
+            this.BUT_setmode.TextColor = System.Drawing.Color.Black;
             this.BUT_setmode.UseVisualStyleBackColor = true;
             this.BUT_setmode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BUTsetmode_MouseUp);
             // 
@@ -63,6 +68,7 @@ namespace MissionPlanner.NewForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(274, 61);
             this.Controls.Add(this.BUT_setmode);
             this.Controls.Add(this.CMB_modes);
