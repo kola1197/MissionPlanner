@@ -79,25 +79,30 @@ namespace MissionPlanner.NewForms
 
         private void updateButtons(int i) 
         {
-            System.Drawing.Color Botok = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
-            System.Drawing.Color Topok = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            System.Drawing.Color Botok = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            System.Drawing.Color Topok = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             System.Drawing.Color BotActive = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             System.Drawing.Color TopActive = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
 
             myButton1.BGGradBot = 0 == i ? BotActive : Botok;
             myButton1.BGGradTop = 0 == i ? TopActive : Topok;
+            myButton1.TextColor = 0 == i ? Color.Black : Color.White;
 
             myButton3.BGGradBot = 1 == i ? BotActive : Botok;
             myButton3.BGGradTop = 1 == i ? TopActive : Topok;
+            myButton3.TextColor = 1 == i ? Color.Black : Color.White;
 
             myButton4.BGGradBot = 2 == i ? BotActive : Botok;
             myButton4.BGGradTop = 2 == i ? TopActive : Topok;
+            myButton4.TextColor = 2 == i ? Color.Black : Color.White;
 
             myButton5.BGGradBot = 3 == i ? BotActive : Botok;
             myButton5.BGGradTop = 3 == i ? TopActive : Topok;
+            myButton5.TextColor = 3 == i ? Color.Black : Color.White;
 
             myButton6.BGGradBot = 4 == i ? BotActive : Botok;
             myButton6.BGGradTop = 4 == i ? TopActive : Topok;
+            myButton6.TextColor = 4 == i ? Color.Black : Color.White;
             label1.Text = trackBar1.Value.ToString() + "%";
         }
 

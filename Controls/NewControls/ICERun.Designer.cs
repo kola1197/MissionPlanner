@@ -40,6 +40,7 @@
             // 
             // startButton
             // 
+            this.startButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
@@ -62,6 +63,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(130, 121);
@@ -72,6 +74,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(152, 154);
@@ -82,6 +85,7 @@
             // 
             // tempLabel
             // 
+            this.tempLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tempLabel.AutoSize = true;
             this.tempLabel.ForeColor = System.Drawing.Color.White;
             this.tempLabel.Location = new System.Drawing.Point(213, 121);
@@ -92,6 +96,7 @@
             // 
             // spedsLabel
             // 
+            this.spedsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.spedsLabel.AutoSize = true;
             this.spedsLabel.ForeColor = System.Drawing.Color.White;
             this.spedsLabel.Location = new System.Drawing.Point(213, 154);
@@ -102,6 +107,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(164, 276);
