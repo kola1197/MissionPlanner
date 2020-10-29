@@ -49,7 +49,7 @@
             // 
             this.testButton.BGGradBot = System.Drawing.Color.Empty;
             this.testButton.BGGradTop = System.Drawing.Color.Empty;
-            this.testButton.Location = new System.Drawing.Point(0, 406);
+            this.testButton.Location = new System.Drawing.Point(52, 383);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(86, 23);
             this.testButton.TabIndex = 5;
@@ -72,7 +72,7 @@
             this.myButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.myButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.myButton1.ForeColor = System.Drawing.Color.White;
-            this.myButton1.Location = new System.Drawing.Point(311, 396);
+            this.myButton1.Location = new System.Drawing.Point(153, 396);
             this.myButton1.Name = "myButton1";
             this.myButton1.Outline = System.Drawing.Color.White;
             this.myButton1.Size = new System.Drawing.Size(94, 33);
@@ -92,7 +92,7 @@
             this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.DefaultTheme = false;
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.startButton.Location = new System.Drawing.Point(411, 396);
+            this.startButton.Location = new System.Drawing.Point(253, 396);
             this.startButton.Name = "startButton";
             this.startButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.Size = new System.Drawing.Size(94, 33);
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);

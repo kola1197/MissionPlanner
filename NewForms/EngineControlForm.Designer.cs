@@ -40,7 +40,7 @@
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 50);
@@ -56,7 +56,7 @@
             // 
             // myButton3
             // 
-            this.myButton3.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton3.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton3.DefaultTheme = false;
             this.myButton3.Location = new System.Drawing.Point(12, 93);
@@ -72,7 +72,7 @@
             // 
             // myButton4
             // 
-            this.myButton4.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton4.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(109, 93);
@@ -88,7 +88,7 @@
             // 
             // myButton5
             // 
-            this.myButton5.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton5.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton5.DefaultTheme = false;
             this.myButton5.Location = new System.Drawing.Point(109, 50);
@@ -122,8 +122,9 @@
             // 
             // myButton6
             // 
-            this.myButton6.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton6.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton6.DefaultTheme = false;
             this.myButton6.Location = new System.Drawing.Point(12, 137);
             this.myButton6.Name = "myButton6";
             this.myButton6.Outline = System.Drawing.Color.Black;
