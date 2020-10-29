@@ -146,7 +146,7 @@ namespace MissionPlanner.GCSViews
         private bool menuActive = false;
         AltChoose altChoose;
 
-        private object tagForContextMenu;
+        public object tagForContextMenu;
         private WPConfig wpConfig;
 
         public int CountOfLoadedWP = 0;
@@ -897,7 +897,7 @@ namespace MissionPlanner.GCSViews
                         MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 0);
                         if (rallyWp.lng != 0 || rallyWp.lat != 0)
                         {
-                            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 2);
+                            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "RALLY_TOTAL", 3);
                             // TODO: may be array of raly points?
                             try
                             {
@@ -8829,16 +8829,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //writeKML();
         }
-
-        private void GoToThisPoint(object tag)
+        public int landWP = 0;
+        public void GoToThisPoint(object tag)
         {
             if (tag != null && MainV2.comPort.MAV.cs.connected)
             {
+                landWP = ushort.Parse(tag.ToString());
                 MainV2.setCurrentWP(ushort.Parse(tag.ToString()));
             }
         }
 
-        private void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
+        public void GoToThisWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GoToThisPoint(tagForContextMenu);
             writeKML();
@@ -9191,5 +9192,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             CustomMessageBox.Show(e.RowIndex + "; " + e.ColumnIndex);
         }
+
     }
 }

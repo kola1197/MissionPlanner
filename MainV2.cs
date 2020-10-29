@@ -1733,10 +1733,11 @@ namespace MissionPlanner
             bool nextPointIsDoParachute = false;
             ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
                 FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
-            nextPointIsDoParachute = cmd ==(ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
+            nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
             if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 testVisualisation = true;
+                snsControl2.openParachuteForm();
             }
         }
 
@@ -1958,6 +1959,22 @@ namespace MissionPlanner
             ((Control) sender).Enabled = true;
         }
 
+        public void setLandWpInSitl() 
+        {
+            DataGridViewRow row = (DataGridViewRow)FlightPlanner.Commands.Rows[FlightPlanner.Commands.Rows.Count - 1].Clone();
+            row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+            row.Cells[FlightPlanner.Command.Index + 1].Value = (14).ToString();
+            int v = 100;
+            row.Cells[FlightPlanner.Lat.Index].Value = FlightPlanner.landPoint.Lat.ToString();
+            row.Cells[FlightPlanner.Lon.Index].Value = FlightPlanner.landPoint.Lng.ToString();
+            row.Cells[FlightPlanner.Lon.Index + 1].Value = v.ToString();
+            FlightPlanner.Commands.Rows.Add(row);
+            FlightPlanner.GoToThisPoint(FlightPlanner.Commands.Rows.Count);
+            FlightPlanner.writeKML();
+            FlightPlanner.tryToWriteWP();
+            FlightPlanner.tagForContextMenu = null;
+        }
+
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
 
@@ -2030,6 +2047,10 @@ namespace MissionPlanner
                 else
                 {
                     FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat,FlightPlanner.landPoint.Lng);
+                    if (comPort.MAV.cs.wpno != FlightPlanner.landWP) 
+                    {
+                        MainV2.setCurrentWP((ushort)FlightPlanner.landWP);
+                    }
                 }
             }
 
@@ -2055,14 +2076,21 @@ namespace MissionPlanner
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
                         }
-                        MissionPlanner.AircraftConnectionInfo info;
-                        if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                        try
                         {
-                            MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
-                            int id = port_Sysid.sysid;
-                            tryToLoadFuelData(id);
+                            MissionPlanner.AircraftConnectionInfo info;
+                            if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                            {
+                                MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
+                                int id = port_Sysid.sysid;
+                                tryToLoadFuelData(id);
+                            }
+                            soundFlag = !soundFlag;
                         }
-                        soundFlag = !soundFlag;
+                        catch 
+                        {
+                        
+                        }
                         //FlightPlanner.getWPFromPlane();
                     }
                 }

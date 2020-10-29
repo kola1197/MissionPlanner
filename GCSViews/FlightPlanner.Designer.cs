@@ -1622,7 +1622,7 @@ namespace MissionPlanner.GCSViews
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.ToolStripMenuItem landToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
+        public System.Windows.Forms.DataGridViewTextBoxColumn Lat;
         public System.Windows.Forms.Label LBL_defalutalt;
         public System.Windows.Forms.Label lbl_distance;
         public System.Windows.Forms.Label lbl_homedist;
@@ -1643,7 +1643,7 @@ namespace MissionPlanner.GCSViews
         public System.Windows.Forms.ToolStripMenuItem loiterForeverToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem loitertimeToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem loiterToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lon;
+        public System.Windows.Forms.DataGridViewTextBoxColumn Lon;
         public MissionPlanner.Controls.myGMAP MainMap;
         public MissionPlanner.Controls.MainMenuWidget mainMenuWidget1;
         public System.Windows.Forms.ToolStripMenuItem mapToolToolStripMenuItem;
