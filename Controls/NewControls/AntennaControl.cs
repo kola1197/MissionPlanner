@@ -36,7 +36,17 @@ namespace MissionPlanner.Controls.NewControls
         {
             try
             {
-                await ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                if (!paramLoad)
+                {
+                    await ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(x =>
+                    {
+                        ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                    }));
+                }
 
                 Thread.Sleep(100);
             }
@@ -106,7 +116,10 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             var mav = new MAVLinkInterface();
-
+            AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
+                
+            antenna.Connected = true;
+            connect_BUT.Text = disconnectText;
             try
             {
                 MainV2.instance.doConnect(mav, CMB_serialport.Text, CMB_baudrate.Text);
@@ -116,7 +129,6 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2._connectionControl.UpdateSysIDS();
 
                 System.Threading.Thread.Sleep(100);
-                AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
                 antenna.SerialPort = CMB_serialport.SelectedItem.ToString();
 
                 if (CMB_baudrate.SelectedItem != null)
@@ -125,13 +137,12 @@ namespace MissionPlanner.Controls.NewControls
                 }
 
                 antenna.SysId = SysIdOfTrackerInCmb();
-                antenna.Connected = true;
-                connect_BUT.Text = disconnectText;
+
                 timer1.Enabled = true;
 
                 if (((ConnectionControl.port_sysid) antenna.SysId).port == null)
                 {
-                    DisconnectAntenna();
+                    // DisconnectAntenna();
                 }
                 else
                 {
@@ -198,21 +209,26 @@ namespace MissionPlanner.Controls.NewControls
                 if (aircraft.Connected && aircraft.UsingAntenna) 
                 {
                     ConnectionsForm.instance.SwitchConnectedAircraft(aircraft);
+                    System.Diagnostics.Debug.WriteLine("Switching done!");
+                    Thread.Sleep(2000);
+                    System.Diagnostics.Debug.WriteLine("Executing disconnect");
                     ConnectionsForm.instance.DisconnectAircraft(); 
+                    Thread.Sleep(2000);
                 }
             }
         }
-        
-        private void DisconnectAntenna()
+
+        private async Task DisconnectAntennaAsync()
         {
-            DisconnectAllAntennaAircrafts();
-            
             AircraftConnectionInfo antenna = MainV2.AntennaConnectionInfo;
 
             var temp = (ConnectionControl.port_sysid) antenna.SysId;
 
             try
             {
+                System.Diagnostics.Debug.WriteLine("Entering Disconnect All Antenna Aircrafts");
+                await DisconnectAllAntennaAircrafts();
+                System.Diagnostics.Debug.WriteLine("Continue after disconnected all aircrats");
                 MainV2.instance.doDisconnect(temp.port);
 
                 MainV2._connectionControl.UpdateSysIDS();
@@ -231,6 +247,15 @@ namespace MissionPlanner.Controls.NewControls
             catch (Exception)
             {
             }
+        }
+        
+        private void DisconnectAntenna()
+        {
+            
+            ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+            {
+                DisconnectAntennaAsync();
+            });
         }
 
         private void connect_BUT_Click(object sender, EventArgs e)

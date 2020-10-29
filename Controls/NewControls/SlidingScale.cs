@@ -672,7 +672,7 @@ namespace TB.Instruments
             StringFormat sfCenter = new StringFormat();
             sfCenter.Alignment = StringAlignment.Center;
             sfCenter.LineAlignment = StringAlignment.Center;
-            g.DrawString(Value.ToString() + " ì", CenterFont, valueBrush, new PointF((W + largeTicksLength) / 2, Height / 2),
+            g.DrawString(Value.ToString() + " Ð¼", CenterFont, valueBrush, new PointF((W + largeTicksLength) / 2, Height / 2),
                 sfCenter);
         }
 
