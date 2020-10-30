@@ -321,6 +321,8 @@ namespace MissionPlanner
             if (selectedAircraft.SysId == null)
                 return;
 
+            // this.Hide();
+            // MainV2.instance.Focus();
             var temp = (ConnectionControl.port_sysid) selectedAircraft.SysId;
 
             foreach (var port in MainV2.Comports)
@@ -333,11 +335,11 @@ namespace MissionPlanner
 
                     if (true || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
                     {
-                        new System.Threading.Thread(delegate ()
+                        Task.Run(() =>
                         {
-                            MainV2.comPort.getParamList((byte)MainV2.comPort.sysidcurrent,
-                              (byte)MainV2.comPort.compidcurrent);
-                        }).Start();
+                            MainV2.comPort.getParamList(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
+                        });
+
                     }
                     MainV2.CurrentAircraftNum =
                         MainV2.AircraftInfo.FirstOrDefault(x => x.Value == selectedAircraft).Key;

@@ -1745,11 +1745,18 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
-
+            //
+            // if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
+            // {
+            //     if (comPort.MAV.param.TotalReported > 0 && comPort.BaseStream.IsOpen)
+            //         instance.status1.Percent =
+            //             (comPort.MAV.param.TotalReceived / (double)comPort.MAV.param.TotalReported) * 100.0;
+            // }
+            
             if (MAVLinkInterface.paramsLoading)
             {
-                progressBar1.Maximum = MAVLinkInterface.paramsCount;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount;
+                progressBar1.Maximum = comPort.MAV.param.TotalReported;
+                progressBar1.Value = comPort.MAV.param.TotalReceived;
             }
 
             progressBar1.Visible = MAVLinkInterface.paramsLoading;
