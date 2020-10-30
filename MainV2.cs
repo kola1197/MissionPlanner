@@ -2054,13 +2054,18 @@ namespace MissionPlanner
                 }
             }
 
+            if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
+            {
+                if (comPort.MAV.param.TotalReported > 0 && comPort.BaseStream.IsOpen)
+                    instance.status1.Percent =
+                        (comPort.MAV.param.TotalReceived / (double) comPort.MAV.param.TotalReported) * 100.0;
+            }
+            
             if (MAVLinkInterface.paramsLoading)
             {
                 soundFlag = true;
-                progressBar1.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount + 1;
-                progressBar2.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar2.Value = MAVLinkInterface.paramsLoadedCount + 1;
+                progressBar1.Maximum = progressBar2.Maximum = comPort.MAV.param.TotalReported;
+                progressBar1.Value = progressBar2.Value = comPort.MAV.param.TotalReceived;
             }
             else
             {
@@ -2519,7 +2524,7 @@ namespace MissionPlanner
             this.MenuConnect.Image = Resources.light_connect_icon;
         }
 
-        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true)
+        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool antennaConnecting = false, bool getparams = true)
         {
             bool skipconnectcheck = false;
             log.Info("We are connecting to " + portname + " " + baud);
@@ -2707,7 +2712,7 @@ namespace MissionPlanner
                             });
                             while (!paramfileTask.IsCompleted)
                             {
-                                if (sender.doWorkArgs.CancelRequested)
+                                if (sender.doWorkArgs.CancelRequested || antennaConnecting && comPort.MAV.sysid != AntennaConnectionInfo.SysIdNum)
                                 {
                                     cancel.Cancel();
                                     sender.doWorkArgs.CancelAcknowledged = true;

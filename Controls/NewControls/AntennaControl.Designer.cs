@@ -45,10 +45,12 @@
             this._label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lbl_yawpwm = new System.Windows.Forms.Label();
-            this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
             this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
             this.testAntButton = new System.Windows.Forms.Button();
+            this.switchAntenna_CB = new System.Windows.Forms.CheckBox();
+            this.antennaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antennaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reload_BUT
@@ -218,26 +220,11 @@
             // 
             this.lbl_yawpwm.AutoSize = true;
             this.lbl_yawpwm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_yawpwm.Location = new System.Drawing.Point(168, 225);
+            this.lbl_yawpwm.Location = new System.Drawing.Point(265, 225);
             this.lbl_yawpwm.Name = "lbl_yawpwm";
             this.lbl_yawpwm.Size = new System.Drawing.Size(31, 13);
             this.lbl_yawpwm.TabIndex = 28;
             this.lbl_yawpwm.Text = "1500";
-            // 
-            // BUT_test_yaw
-            // 
-            this.BUT_test_yaw.BGGradBot = System.Drawing.SystemColors.Control;
-            this.BUT_test_yaw.BGGradTop = System.Drawing.SystemColors.Control;
-            this.BUT_test_yaw.DefaultTheme = false;
-            this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_test_yaw.Location = new System.Drawing.Point(168, 271);
-            this.BUT_test_yaw.Name = "BUT_test_yaw";
-            this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
-            this.BUT_test_yaw.TabIndex = 27;
-            this.BUT_test_yaw.Text = "Test";
-            this.BUT_test_yaw.UseVisualStyleBackColor = true;
-            this.BUT_test_yaw.Visible = false;
-            this.BUT_test_yaw.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
             // myTrackBar1
             // 
@@ -247,7 +234,7 @@
             this.myTrackBar1.Maximum = 2000F;
             this.myTrackBar1.Minimum = 1000F;
             this.myTrackBar1.Name = "myTrackBar1";
-            this.myTrackBar1.Size = new System.Drawing.Size(144, 45);
+            this.myTrackBar1.Size = new System.Drawing.Size(241, 45);
             this.myTrackBar1.SmallChange = 5F;
             this.myTrackBar1.TabIndex = 26;
             this.myTrackBar1.TickFrequency = 100F;
@@ -263,14 +250,25 @@
             this.testAntButton.UseVisualStyleBackColor = true;
             this.testAntButton.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
+            // switchAntenna_CB
+            // 
+            this.switchAntenna_CB.AutoSize = true;
+            this.switchAntenna_CB.Location = new System.Drawing.Point(18, 248);
+            this.switchAntenna_CB.Name = "switchAntenna_CB";
+            this.switchAntenna_CB.Size = new System.Drawing.Size(164, 17);
+            this.switchAntenna_CB.TabIndex = 30;
+            this.switchAntenna_CB.Text = "Переключиться на антенну";
+            this.switchAntenna_CB.UseVisualStyleBackColor = true;
+            this.switchAntenna_CB.CheckedChanged += new System.EventHandler(this.switchAntenna_CB_CheckedChanged);
+            // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.Controls.Add(this.switchAntenna_CB);
             this.Controls.Add(this.testAntButton);
             this.Controls.Add(this.lbl_yawpwm);
-            this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);
             this.Controls.Add(this.heading_label);
             this.Controls.Add(this._label3);
@@ -289,6 +287,7 @@
             this.Name = "AntennaControl";
             this.Size = new System.Drawing.Size(311, 400);
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antennaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,8 +312,9 @@
         private System.Windows.Forms.Label _label3;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lbl_yawpwm;
-        private MyButton BUT_test_yaw;
         private MyTrackBar myTrackBar1;
         private System.Windows.Forms.Button testAntButton;
+        private System.Windows.Forms.BindingSource antennaBindingSource;
+        public System.Windows.Forms.CheckBox switchAntenna_CB;
     }
 }

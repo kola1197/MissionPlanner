@@ -7,6 +7,8 @@ namespace MissionPlanner.Utilities
 
     public interface IProgressReporterDialogue
     {
+        bool Running { get; set; }
+
         event DoWorkEventHandler DoWork;
 
         ProgressWorkerEventArgs doWorkArgs { get; set; }
