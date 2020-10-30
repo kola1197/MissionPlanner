@@ -1047,7 +1047,7 @@ namespace MissionPlanner
 
             if (splash != null)
             {
-                this.Text = splash?.Text;
+                this.Text = "НПУ";//splash?.Text;
                 titlebar = splash?.Text;
             }
 
@@ -1306,7 +1306,7 @@ namespace MissionPlanner
 
             if (Program.IconFile != null)
             {
-                this.Icon = Icon.FromHandle(((Bitmap) Program.IconFile).GetHicon());
+                //this.Icon = Icon.FromHandle(((Bitmap) Program.IconFile).GetHicon());
             }
 
             MenuArduPilot.Image = new Bitmap(Resources._0d92fed790a3a70170e61a86db103f399a595c70, (int) (200), 31);
