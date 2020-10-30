@@ -2712,7 +2712,7 @@ namespace MissionPlanner
                             });
                             while (!paramfileTask.IsCompleted)
                             {
-                                if (sender.doWorkArgs.CancelRequested || antennaConnecting && comPort.MAV.sysid != AntennaConnectionInfo.SysIdNum)
+                                if (sender.doWorkArgs.CancelRequested)
                                 {
                                     cancel.Cancel();
                                     sender.doWorkArgs.CancelAcknowledged = true;
@@ -2751,10 +2751,13 @@ namespace MissionPlanner
 
                     if (!ftpfile)
                     {
-                        if (Settings.Instance.GetBoolean("Params_BG", false))
-                            Task.Run(() => { comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid); });
-                        else
-                            comPort.getParamList();
+                        // if (Settings.Instance.GetBoolean("Params_BG", false))
+                        Task.Run(() =>
+                        {
+                            comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid);
+                        });
+                        // else
+                        // comPort.getParamList();
                     }
                 }
 

@@ -178,26 +178,43 @@ namespace MissionPlanner.Controls.NewControls
         private ConnectionControl.port_sysid GetAntennaSysId()
         {
             var antennaSysIdNum = MainV2.AntennaConnectionInfo.SysIdNum;
-            foreach (var port in MainV2.Comports.ToArray())
+            foreach (var item in MainV2._connectionControl.cmb_sysid.Items)
             {
-                var list = port.MAVlist.GetRawIDS();
-
-                foreach (int item in list)
+                ConnectionControl.port_sysid portSysid =(ConnectionControl.port_sysid) item;
+                if (portSysid.sysid == antennaSysIdNum)
                 {
-                    var temp = new ConnectionControl.port_sysid()
-                        {compid = (item % 256), sysid = (item / 256), port = port};
-
-                    if (temp.port == MainV2.comPort && temp.sysid == antennaSysIdNum)
-                    {
-                        return temp;
-                    }
+                    return portSysid;
                 }
             }
-
             CustomMessageBox.Show("Проверьте SYSID_THISMAV антенны, он должен быть = " + antennaSysIdNum,
-                "Некорректное подключение к антенне!");
+            "Некорректное подключение к антенне!");
+              
             return new ConnectionControl.port_sysid();
         }
+        
+        // private ConnectionControl.port_sysid GetAntennaSysId()
+        // {
+        //     var antennaSysIdNum = MainV2.AntennaConnectionInfo.SysIdNum;
+        //     foreach (var port in MainV2.Comports.ToArray())
+        //     {
+        //         var list = port.MAVlist.GetRawIDS();
+        //
+        //         foreach (int item in list)
+        //         {
+        //             var temp = new ConnectionControl.port_sysid()
+        //                 {compid = (item % 256), sysid = (item / 256), port = port};
+        //
+        //             if (temp.port == MainV2.comPort && temp.sysid == antennaSysIdNum)
+        //             {
+        //                 return temp;
+        //             }
+        //         }
+        //     }
+        //
+        //     CustomMessageBox.Show("Проверьте SYSID_THISMAV антенны, он должен быть = " + antennaSysIdNum,
+        //         "Некорректное подключение к антенне!");
+        //     return new ConnectionControl.port_sysid();
+        // }
 
         private void DisconnectAllAntennaAircrafts()
         {
