@@ -1358,7 +1358,7 @@ namespace MissionPlanner
             AircraftMenuControl.SwitchOnTimer();
             
             ConnectionsForm.Init();
-            this.Text = "Мighty Platypus   v0.2";
+            //this.Text = "Мighty Platypus   v0.2";
         }
 
         private void MakeRightSideMenuTransparent()
