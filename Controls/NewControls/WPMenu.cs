@@ -28,6 +28,7 @@ namespace MissionPlanner.Controls.NewControls
            int nHeightEllipse // width of ellipse
         );
 
+        public bool drawText = false;
         public bool fieldActive = false;
         public WPMenu()
         {
@@ -140,6 +141,11 @@ namespace MissionPlanner.Controls.NewControls
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void myButton1_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.drawText = !drawText;
         }
     }
 }

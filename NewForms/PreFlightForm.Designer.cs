@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using GMap.NET.Drawing.Properties;
+
+namespace MissionPlanner.NewForms
 {
     partial class PreFlightForm
     {

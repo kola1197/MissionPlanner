@@ -5377,7 +5377,7 @@ namespace MissionPlanner.GCSViews
                 DrawDistanceOnRuler(e);
             }
 
-            if (Commands.Rows.Count > 0 && wpMenu1.fieldActive)
+            if (Commands.Rows.Count > 0 && wpMenu1.drawText)
             {
                 DrawDistanceBetweenWaypoints(e);
             }

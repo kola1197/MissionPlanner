@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPConfig));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lonNotification = new System.Windows.Forms.Label();
+            this.latNotification = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -64,8 +67,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.latNotification = new System.Windows.Forms.Label();
-            this.lonNotification = new System.Windows.Forms.Label();
             this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -103,6 +104,28 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lonNotification
+            // 
+            this.lonNotification.AutoSize = true;
+            this.lonNotification.ForeColor = System.Drawing.Color.DarkRed;
+            this.lonNotification.Location = new System.Drawing.Point(190, 48);
+            this.lonNotification.Name = "lonNotification";
+            this.lonNotification.Size = new System.Drawing.Size(121, 13);
+            this.lonNotification.TabIndex = 16;
+            this.lonNotification.Text = "Данные не корректны";
+            this.lonNotification.Visible = false;
+            // 
+            // latNotification
+            // 
+            this.latNotification.AutoSize = true;
+            this.latNotification.ForeColor = System.Drawing.Color.DarkRed;
+            this.latNotification.Location = new System.Drawing.Point(189, 22);
+            this.latNotification.Name = "latNotification";
+            this.latNotification.Size = new System.Drawing.Size(121, 13);
+            this.latNotification.TabIndex = 15;
+            this.latNotification.Text = "Данные не корректны";
+            this.latNotification.Visible = false;
             // 
             // label11
             // 
@@ -473,28 +496,6 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
-            // latNotification
-            // 
-            this.latNotification.AutoSize = true;
-            this.latNotification.ForeColor = System.Drawing.Color.DarkRed;
-            this.latNotification.Location = new System.Drawing.Point(189, 22);
-            this.latNotification.Name = "latNotification";
-            this.latNotification.Size = new System.Drawing.Size(121, 13);
-            this.latNotification.TabIndex = 15;
-            this.latNotification.Text = "Данные не корректны";
-            this.latNotification.Visible = false;
-            // 
-            // lonNotification
-            // 
-            this.lonNotification.AutoSize = true;
-            this.lonNotification.ForeColor = System.Drawing.Color.DarkRed;
-            this.lonNotification.Location = new System.Drawing.Point(190, 48);
-            this.lonNotification.Name = "lonNotification";
-            this.lonNotification.Size = new System.Drawing.Size(121, 13);
-            this.lonNotification.TabIndex = 16;
-            this.lonNotification.Text = "Данные не корректны";
-            this.lonNotification.Visible = false;
-            // 
             // wpAltSlidingScale1
             // 
             this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
@@ -509,6 +510,7 @@
             this.ClientSize = new System.Drawing.Size(479, 313);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WPConfig";
             this.Text = "WPConfig";
             this.tabControl1.ResumeLayout(false);

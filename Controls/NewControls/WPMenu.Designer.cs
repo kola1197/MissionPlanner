@@ -382,6 +382,7 @@
             this.myButton1.TabIndex = 19;
             this.myButton1.TextColor = System.Drawing.Color.Empty;
             this.myButton1.UseVisualStyleBackColor = false;
+            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // WPMenu
             // 

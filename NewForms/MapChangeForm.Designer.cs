@@ -78,6 +78,7 @@
             this.comboBoxMapType.Name = "comboBoxMapType";
             this.comboBoxMapType.Size = new System.Drawing.Size(208, 21);
             this.comboBoxMapType.TabIndex = 42;
+            this.comboBoxMapType.SelectedIndexChanged += new System.EventHandler(this.comboBoxMapType_SelectedIndexChanged);
             // 
             // lnk_kml
             // 

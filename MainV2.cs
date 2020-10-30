@@ -1800,7 +1800,7 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
-
+        public static int selectedItem = 2;
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
             FlightPlanner.mainMenuWidget1.setState(false);
@@ -1829,7 +1829,7 @@ namespace MissionPlanner
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
-            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
+            mapChangeForm.comboBoxMapType.SelectedItem = selectedItem;
             mapChangeForm.Show();
         }
 
@@ -5427,37 +5427,40 @@ namespace MissionPlanner
 
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
-
-            Keys keyData = e.KeyData;
-
-            if (keyData == (Keys.ControlKey))
+            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
-                logger.write("Ручное управление завершено");
-                System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
-                overrideModeActive = false;
-                if (comPort.MAV.cs.mode != "Auto")
+                System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
+
+                Keys keyData = e.KeyData;
+
+                if (keyData == (Keys.ControlKey))
                 {
-                    MainV2.comPort.setMode("AUTO");
+                    logger.write("Ручное управление завершено");
+                    System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
+                    overrideModeActive = false;
+                    if (comPort.MAV.cs.mode != "Auto")
+                    {
+                        MainV2.comPort.setMode("AUTO");
+                    }
                 }
-            }
 
-            if (keyData == (Keys.Control | Keys.Left))
-            {
-                System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
-                overrides[3] = 1500;
-            }
+                if (keyData == (Keys.Control | Keys.Left))
+                {
+                    System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
+                    overrides[3] = 1500;
+                }
 
-            if (keyData == (Keys.Control | Keys.Right))
-            {
-                System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
-                overrides[3] = 1500;
-            }
+                if (keyData == (Keys.Control | Keys.Right))
+                {
+                    System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
+                    overrides[3] = 1500;
+                }
 
-            if (keyData == (Keys.Control | Keys.Up))
-            {
-                System.Diagnostics.Debug.WriteLine("UP is RELEASED");
-                overrides[1] = 1500;
+                if (keyData == (Keys.Control | Keys.Up))
+                {
+                    System.Diagnostics.Debug.WriteLine("UP is RELEASED");
+                    overrides[1] = 1500;
+                }
             }
         }
 
@@ -5476,52 +5479,53 @@ namespace MissionPlanner
             // {
             //     FlightPlanner.instance.MainMap_KeyDown(sender, e);
             // }
-
-            Keys keyData = e.KeyData;
-            string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
-            if (keyData == (Keys.Control | Keys.ControlKey))
+            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
-                secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
-                thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
-                logger.write("Ручное управление активировано");
-                System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
-                overrideModeActive = true;
-                if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                Keys keyData = e.KeyData;
+                string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
+                if (keyData == (Keys.Control | Keys.ControlKey))
                 {
-                    MainV2.comPort.setMode("FBWB");
+                    secondTrim = (ushort)MainV2.comPort.GetParam("SERVO4_TRIM");
+                    thirdTrim = (ushort)MainV2.comPort.GetParam("SERVO2_TRIM");
+                    logger.write("Ручное управление активировано");
+                    System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
+                    overrideModeActive = true;
+                    if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                    {
+                        MainV2.comPort.setMode("FBWB");
+                    }
+                }
+
+                if (keyData == (Keys.Control | Keys.Left))
+                {
+                    System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
+                    overrides[3] = (ushort)(secondTrim - 0.15 * (secondTrim - 900) - 100);
+                    debugOverrideInfo += " ← ";
+                }
+
+                if (keyData == (Keys.Control | Keys.Right))
+                {
+                    System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
+                    overrides[3] = (ushort)(secondTrim + 0.15 * (secondTrim - 900));
+                    debugOverrideInfo += " → ";
+                }
+
+                if (keyData == (Keys.Control | Keys.Up))
+                {
+                    System.Diagnostics.Debug.WriteLine("UP is PRESSED");
+                    overrides[1] = (ushort)(thirdTrim + 0.15 * (thirdTrim - 900));
+                    debugOverrideInfo += " ↑ ";
+                }
+
+                if (overrideModeActive)
+                {
+                    ctrlModeDebuglabel.Text = debugOverrideInfo;
+                }
+                else
+                {
+                    ctrlModeDebuglabel.Text = "";
                 }
             }
-
-            if (keyData == (Keys.Control | Keys.Left))
-            {
-                System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                overrides[3] = (ushort) (secondTrim - 0.15 * (secondTrim - 900) - 100);
-                debugOverrideInfo += " ← ";
-            }
-
-            if (keyData == (Keys.Control | Keys.Right))
-            {
-                System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                overrides[3] = (ushort) (secondTrim + 0.15 * (secondTrim - 900));
-                debugOverrideInfo += " → ";
-            }
-
-            if (keyData == (Keys.Control | Keys.Up))
-            {
-                System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));
-                debugOverrideInfo += " ↑ ";
-            }
-
-            if (overrideModeActive)
-            {
-                ctrlModeDebuglabel.Text = debugOverrideInfo;
-            }
-            else
-            {
-                ctrlModeDebuglabel.Text = "";
-            }
-
             //debugOverrideInfo += " ↓ ";       
             //if (e.KeyCode == Keys.G)
             //{
@@ -6012,14 +6016,24 @@ namespace MissionPlanner
         {
             if (warnings.Count > 0)
             {
-                FlightPlanner.notificationListControl1.fullList = true;
+                FlightPlanner.notificationListControl1.fullList = true; 
                 FlightPlanner.notificationListControl1.redraw();
             }
         }
 
         public static void setCoordinatsMode() 
         {
-            instance.FlightPlanner.wpConfig.setCoordsMode(); 
+            try
+            {
+                if (instance.FlightPlanner.wpConfig != null)
+                {
+                    instance.FlightPlanner.wpConfig.setCoordsMode();
+                }
+            }
+            catch 
+            {
+            
+            }
         }
 
         private void CTX_mainmenu_Opening(object sender, CancelEventArgs e)
