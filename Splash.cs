@@ -10,7 +10,7 @@ namespace MissionPlanner
 
             string strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            TXT_version.Text = "Version: " + Application.ProductVersion; // +" Build " + strVersion;
+            //TXT_version.Text = "Version: " + Application.ProductVersion; // +" Build " + strVersion;
 
             if (Program.Logo != null)
             {
@@ -18,6 +18,7 @@ namespace MissionPlanner
                 pictureBox1.Image = Program.Logo;
                 pictureBox1.Visible = true;
             }
+            Text = "Загрузка НПУ";
         }
 
         private void label3_Click(object sender, System.EventArgs e)

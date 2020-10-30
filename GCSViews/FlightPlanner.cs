@@ -147,7 +147,7 @@ namespace MissionPlanner.GCSViews
         AltChoose altChoose;
 
         public object tagForContextMenu;
-        private WPConfig wpConfig;
+        public WPConfig wpConfig;
 
         public int CountOfLoadedWP = 0;
 
@@ -5377,7 +5377,7 @@ namespace MissionPlanner.GCSViews
                 DrawDistanceOnRuler(e);
             }
 
-            if (Commands.Rows.Count > 0 && wpMenu1.fieldActive)
+            if (Commands.Rows.Count > 0 && wpMenu1.drawText)
             {
                 DrawDistanceBetweenWaypoints(e);
             }
@@ -7530,8 +7530,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     wpConfig = new WPConfig("Rally");
                     wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка: " + "Rally";
-                    wpConfig.textBox1.Text = rallyWp.lat.ToString();
-                    wpConfig.textBox2.Text = rallyWp.lng.ToString();
+                    wpConfig.controller = new NewClasses.UniversalCoordinatsController(new NewClasses.WGSCoordinats(pointlist[0].Lat.ToString(), pointlist[0].Lng.ToString()));
+                    //wpConfig.latTB1.Text = rallyWp.lat.ToString();
+                    //wpConfig.lonTB1.Text = rallyWp.lng.ToString();
                     wpConfig.comboBox1.SelectedIndex = 5;
                     WpConfigAddEvents();
                     wpConfig.Show();
@@ -7550,8 +7551,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         WpConfigAddEvents();
                         wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка: " + "Home";
                         //WpConfigSetValues();
-                        wpConfig.textBox1.Text = pointlist[0].Lat.ToString();
-                        wpConfig.textBox2.Text = pointlist[0].Lng.ToString();
+                        wpConfig.controller = new NewClasses.UniversalCoordinatsController(new NewClasses.WGSCoordinats(pointlist[0].Lat.ToString(), pointlist[0].Lng.ToString()));
+                        //wpConfig.latTB1.Text = pointlist[0].Lat.ToString();
+                        //wpConfig.lonTB1.Text = pointlist[0].Lng.ToString();
                         wpConfig.comboBox1.SelectedIndex = 0;
                         wpConfig.Show();
                     }
@@ -7582,21 +7584,26 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (wpConfig.closedByButton)
             {
-                wpConfig.textBox1.Text = wpConfig.textBox1.Text.Replace(".", ",");
-                wpConfig.textBox2.Text = wpConfig.textBox2.Text.Replace(".", ",");
+                System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.lat.ToString() + ", " + wpConfig.controller.wgs.lon.ToString());
+
+                //wpConfig.latTB1.Text = wpConfig.latTB1.Text.Replace(".", ",");
+                //wpConfig.lonTB1.Text = wpConfig.lonTB1.Text.Replace(".", ",");
+                //wpConfig.latTB1.Text = wpConfig.controller.wgs.lat.ToString();
+                //wpConfig.lonTB1.Text = wpConfig.controller.wgs.lon.ToString();
+
                 int selectedValue = wpConfig.comboBox1.SelectedIndex;
                 if (selectedValue == 0)
                 {
-                    TXT_homelat.Text = (wpConfig.textBox1.Text).ToString();
+                    TXT_homelat.Text = wpConfig.controller.wgs.lat.ToString();
                     //cellhome = Commands.Rows[0].Cells[Lon.Index] as DataGridViewTextBoxCell;
-                    TXT_homelng.Text = (wpConfig.textBox2.Text).ToString();
+                    TXT_homelng.Text = wpConfig.controller.wgs.lon.ToString();
                     //cellhome = Commands.Rows[0].Cells[Alt.Index] as DataGridViewTextBoxCell;
                     TXT_homealt.Text = (20).ToString();
                 }
                 else if (selectedValue == 5)
                 {
-                    rallyWp.lat = double.Parse(wpConfig.textBox1.Text);
-                    rallyWp.lng = double.Parse(wpConfig.textBox2.Text);
+                    rallyWp.lat = wpConfig.controller.wgs.lat;
+                    rallyWp.lng = wpConfig.controller.wgs.lon;
                     rallyWp.alt = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                     System.Diagnostics.Debug.WriteLine("rallyWP ( FromClosing ): " + rallyWp.lat.ToString() + ", " + rallyWp.lng);
                     if (wpConfig.indexNow != -1)
@@ -7649,8 +7656,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     Commands_CellUpdate(index, Command.Index + 1);
                                     break;
                                 case 4:
-                                    landPoint = new PointLatLng(double.Parse(wpConfig.textBox1.Text),
-                                        double.Parse(wpConfig.textBox2.Text));
+                                    landPoint = new PointLatLng(wpConfig.controller.wgs.lat, wpConfig.controller.wgs.lon);
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow)Commands.Rows[index].Clone();
@@ -7664,8 +7670,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                                         DataGridViewRow row1 = (DataGridViewRow)Commands.Rows[index].Clone();
                                         row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-                                        row1.Cells[Lat.Index].Value = wpConfig.textBox1.Text;
-                                        row1.Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+                                        row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.lat.ToString();
+                                        row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.lon.ToString();
                                         Commands.Rows.Insert(index + 2, row1);
                                     }
 
@@ -7725,8 +7731,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void WpConfigSetValues()
         {
-            wpConfig.textBox1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
-            wpConfig.textBox2.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
+            wpConfig.controller = new NewClasses.UniversalCoordinatsController(new NewClasses.WGSCoordinats(Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString(), 
+                Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString()));
+            //wpConfig.latTB1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lat.Index].Value.ToString();
+            //wpConfig.lonTB1.Text = Commands.Rows[wpConfig.indexNow].Cells[Lon.Index].Value.ToString();
             int index = wpConfig.indexNow;
             ushort cmdPrev = 0;
 
@@ -7774,6 +7782,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //writeServosToWPConfig();
             writeOtherWPtoWPConfig(index);
+            wpConfig.setCoordsMode();
         }
 
         public int getWPSerialNumber(int index)
@@ -8972,9 +8981,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void setLatLon(int index)
         {
-            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.textBox1.Text;
+            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.controller.wgs.lat.ToString();
             Commands_CellUpdate(index, Lat.Index);
-            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.textBox2.Text;
+            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.controller.wgs.lon.ToString();
             Commands_CellUpdate(index, Lon.Index);
         }
 

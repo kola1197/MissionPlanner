@@ -47,7 +47,7 @@
             this.lbl_yawpwm = new System.Windows.Forms.Label();
             this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
             this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
-            this.button1 = new System.Windows.Forms.Button();
+            this.testAntButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -253,22 +253,22 @@
             this.myTrackBar1.TickFrequency = 100F;
             this.myTrackBar1.Value = 1500F;
             // 
-            // button1
+            // testAntButton
             // 
-            this.button1.Location = new System.Drawing.Point(207, 191);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 23);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "TEST";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            this.testAntButton.Location = new System.Drawing.Point(207, 191);
+            this.testAntButton.Name = "testAntButton";
+            this.testAntButton.Size = new System.Drawing.Size(89, 23);
+            this.testAntButton.TabIndex = 29;
+            this.testAntButton.Text = "TEST";
+            this.testAntButton.UseVisualStyleBackColor = true;
+            this.testAntButton.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.testAntButton);
             this.Controls.Add(this.lbl_yawpwm);
             this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);
@@ -315,6 +315,6 @@
         private System.Windows.Forms.Label lbl_yawpwm;
         private MyButton BUT_test_yaw;
         private MyTrackBar myTrackBar1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button testAntButton;
     }
 }

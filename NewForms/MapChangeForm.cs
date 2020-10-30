@@ -16,5 +16,10 @@ namespace MissionPlanner.NewForms
         {
             InitializeComponent();
         }
+
+        private void comboBoxMapType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MainV2.selectedItem = comboBoxMapType.SelectedIndex;
+        }
     }
 }

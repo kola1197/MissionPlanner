@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -75,6 +76,11 @@ namespace MissionPlanner
         {
             CMB_serialport.Items.Clear();
             CMB_serialport.Items.AddRange(SerialPort.GetPortNames());
+            if (MainV2.AntennaConnectionInfo != null && MainV2.AntennaConnectionInfo.Connected)
+            {
+                CMB_serialport.Items.RemoveAt(CMB_serialport.FindString(MainV2.AntennaConnectionInfo.SerialPort));
+            }
+
             CMB_serialport.Items.Add("TCP");
             CMB_serialport.Items.Add("UDP");
             CMB_serialport.Items.Add("UDPCl");
@@ -85,6 +91,11 @@ namespace MissionPlanner
         {
         }
 
+        public void SelectAircraftInListBox(AircraftConnectionInfo aircraft)
+        {
+            devices_LB.SelectedIndex = aircraft.MenuNum;
+        }
+        
         private void paint_TB_waterMark(TextBox textBox, bool isMarked)
         {
             textBox.GotFocus += (source, eventArgs) =>
@@ -136,11 +147,22 @@ namespace MissionPlanner
             }
         }
 
-        public void SetToDefault()
+        private bool IsSitlAllowed()
         {
-            connectionParams_panel.Enabled = true;
-            connect_BUT.Enabled = true;
-            DisconnectAircraft();
+            if (MainV2.AntennaConnectionInfo != null && MainV2.AntennaConnectionInfo.Connected)
+            {
+                return false;
+            }
+
+            foreach (var aircraft in MainV2.Aircrafts.Values)
+            {
+                if (aircraft.Connected)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void ConnectAircraft(object sender)
@@ -150,20 +172,32 @@ namespace MissionPlanner
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
+                {
+                    MAVLinkInterface.paramsLoading = false;
                     return;
+                }
                 connectedAircraft.SerialPort = MainV2.AntennaConnectionInfo.SerialPort;
                 connectedAircraft.Speed = MainV2.AntennaConnectionInfo.Speed;
-                connectedAircraft.Connected = true;
                 connectedAircraft.SysId = sysid_cmb.SelectedItem;
                 connectedAircraft.UsingAntenna = true;
                 SwitchConnectedAircraft(connectedAircraft);
+                connectedAircraft.Connected = true;
                 connect_BUT.Text = disconnectText;
+                MainV2.comPort.MavChanged += OnMavChanged;
                 // connect_BUT.Enabled = false;
                 return;
             }
 
             if (useSITL_CheckBox.Checked)
             {
+                if (!IsSitlAllowed())
+                {
+                    MAVLinkInterface.paramsLoading = false;
+                    CustomMessageBox.Show("Отключите антенну и все подключенные борты.",
+                        "Невозможно создать симуляцию.");
+                    return;
+                }
+
                 MainV2.instance.MenuSimulation_Click(sender, EventArgs.Empty);
                 sitlForm.aircraftSITLInfo = MainV2.Aircrafts[GetSelectedAircraftNum()];
                 sitlForm.aircraftSITLInfo.UsingSitl = true;
@@ -216,23 +250,28 @@ namespace MissionPlanner
             this.TopMost = true;
         }
 
-        private void DisconnectAircraft()
+        public void DisconnectAircraft()
         {
             AircraftConnectionInfo selectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
 
-            if (selectedAircraft.UsingAntenna)
+            System.Diagnostics.Debug.WriteLine("Disconnecting... " + GetSelectedAircraftNum());
+
+            if (MAVLinkInterface.paramsLoading)
             {
-                SwitchToAntenna();
-                selectedAircraft.Connected = false;
-                selectedAircraft.SysId = null;
-                selectedAircraft.UsingSitl = false;
-                selectedAircraft.UsingAntenna = false;
-                connect_BUT.Text = connectText;
-                sysid_cmb.Items.Clear();
-                sysid_cmb.SelectedIndex = -1;
-                sysid_cmb.Text = "";
-                return;
+                System.Diagnostics.Debug.WriteLine("Stop param loading... " + GetSelectedAircraftNum());
+                MainV2.comPort.frmProgressReporter.doWorkArgs.CancelRequested = true;
+                int ticksPassed = 0;
+                while (!MainV2.comPort.frmProgressReporter.doWorkArgs.CancelAcknowledged)
+                {
+                    System.Diagnostics.Debug.WriteLine("Waiting for cancel acknowledge..." + ticksPassed);
+                    Task.Delay(25);
+                    ticksPassed += 25;
+                }
             }
+
+            MAVLinkInterface.paramsLoading = false;
+            MainV2.comPort.frmProgressReporter.doWorkArgs.CancelRequested = false;
+            MainV2.comPort.frmProgressReporter.doWorkArgs.CancelAcknowledged = false;
 
             if (selectedAircraft.SysId == null)
             {
@@ -240,6 +279,25 @@ namespace MissionPlanner
                 selectedAircraft.UsingSitl = false;
                 selectedAircraft.UsingAntenna = false;
                 connect_BUT.Text = connectText;
+                MainV2.CurrentAircraftNum = null;
+                return;
+            }
+
+            if (selectedAircraft.UsingAntenna)
+            {
+                System.Diagnostics.Debug.WriteLine("Begin disconnecting... " + GetSelectedAircraftNum());
+
+                MainV2.comPort.MAV.param.Clear();
+                Thread.Sleep(100);
+                SwitchToAntenna(false);
+                selectedAircraft.Connected = false;
+                selectedAircraft.SysId = null;
+                connect_BUT.Text = connectText;
+                sysid_cmb.Items.Clear();
+                sysid_cmb.SelectedIndex = -1;
+                sysid_cmb.Text = "";
+                MainV2.CurrentAircraftNum = null;
+                System.Diagnostics.Debug.WriteLine("End disconnecting... " + GetSelectedAircraftNum());
                 return;
             }
 
@@ -256,8 +314,7 @@ namespace MissionPlanner
 
                 selectedAircraft.Connected = false;
                 selectedAircraft.SysId = null;
-                selectedAircraft.UsingSitl = false;
-                selectedAircraft.UsingAntenna = false;
+                MainV2.CurrentAircraftNum = null;
                 MainV2.StopUpdates();
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
 
@@ -431,11 +488,13 @@ namespace MissionPlanner
             return true;
         }
 
-        public void SwitchToAntenna()
+        public async Task SwitchToAntenna(bool loadParams)
         {
             if (MainV2.AntennaConnectionInfo.SysId == null)
                 return;
-
+            
+            MainV2.comPort.MavChanged -= OnMavChanged;
+            
             var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
 
             foreach (var port in MainV2.Comports)
@@ -446,18 +505,59 @@ namespace MissionPlanner
                     MainV2.comPort.sysidcurrent = temp.sysid;
                     MainV2.comPort.compidcurrent = temp.compid;
 
-                    if (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control)
+                    if (loadParams || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
                     {
-                        new System.Threading.Thread(delegate()
+                        // new System.Threading.Thread(delegate()
+                        // {
+                        //     MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                        //         (byte) MainV2.comPort.compidcurrent);
+                        // }).Start();
+
+                        int toProcess = 1;
+                        using (ManualResetEvent resetEvent = new ManualResetEvent(false))
                         {
-                            MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
-                                (byte) MainV2.comPort.compidcurrent);
-                        }).Start();
-                        MainV2.CurrentAircraftNum = null;
+                            var list = new List<int>();
+
+                            ThreadPool.QueueUserWorkItem(
+                                new WaitCallback(x =>
+                                {
+                                    MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                                        (byte) MainV2.comPort.compidcurrent);
+                                    // Safely decrement the counter
+                                    if (Interlocked.Decrement(ref toProcess) == 0)
+                                        resetEvent.Set();
+                                }));
+                            resetEvent.WaitOne(new TimeSpan(24, 0, 0));
+                        }
+
+                        //
+                        // ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+                        // {
+                        //     MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                        //         (byte) MainV2.comPort.compidcurrent);
+                        // });
+                        // MainV2.CurrentAircraftNum = null;
                     }
 
                     // MainV2.View.Reload();
                 }
+            }
+            MainV2.comPort.MavChanged += OnMavChanged;
+        }
+
+        public void OnMavChanged(object sender, EventArgs e)
+        {
+            if (MainV2._currentAircraftNum == null || MainV2.Aircrafts[MainV2._currentAircraftNum].SysId == null ||
+                !MainV2.Aircrafts[MainV2._currentAircraftNum].Connected)
+            {
+                return;
+            }
+
+            var currentSysId = (ConnectionControl.port_sysid) MainV2.Aircrafts[MainV2._currentAircraftNum].SysId;
+
+            if (currentSysId.sysid != MainV2.comPort.sysidcurrent)
+            {
+                // CustomMessageBox.Show("Проведите правильное подключение.", "ОБНАРУЖЕН НЕ ВНЕСЕННЫЙ В СПИСОК БОРТ!");
             }
         }
 
@@ -465,18 +565,36 @@ namespace MissionPlanner
         {
             if (selectedAircraft.SysId == null)
                 return;
+            
+            System.Diagnostics.Debug.WriteLine("Switching to aircraft sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+            
+            // MainV2.comPort.MavChanged -= OnMavChanged;
+            System.Diagnostics.Debug.WriteLine("Selected aircraft num: " + GetSelectedAircraftNum() + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+            System.Diagnostics.Debug.WriteLine("Selected aircraft: " + MainV2.Aircrafts[GetSelectedAircraftNum()] + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+            System.Diagnostics.Debug.WriteLine("Selected aircraft connected: " + MainV2.Aircrafts[GetSelectedAircraftNum()].Connected + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
 
+            bool loadParams = !MainV2.Aircrafts[GetSelectedAircraftNum()].Connected;
+            System.Diagnostics.Debug.WriteLine("load params: " + loadParams + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
             var temp = (ConnectionControl.port_sysid) selectedAircraft.SysId;
-
-            foreach (var port in MainV2.Comports)
+            System.Diagnostics.Debug.WriteLine("temp: " + temp.ToString() + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+            System.Diagnostics.Debug.WriteLine("Entering comports cycle; sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+            
+            foreach (var port in MainV2.Comports) 
             {
+                System.Diagnostics.Debug.WriteLine("Entered comports cycle; sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+                System.Diagnostics.Debug.WriteLine("port sysid: " + port.sysidcurrent + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+                System.Diagnostics.Debug.WriteLine("temp.port sysid: " + temp.port.sysidcurrent + " sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+
                 if (port == temp.port)
                 {
+                    System.Diagnostics.Debug.WriteLine("port and temp.port matched; sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
                     MainV2.comPort = port;
                     MainV2.comPort.sysidcurrent = temp.sysid;
                     MainV2.comPort.compidcurrent = temp.compid;
 
-                    if (true || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
+                    System.Diagnostics.Debug.WriteLine("Begin switch to aircraft sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
+                    
+                    if (loadParams || (MainV2.comPort.MAV.param.Count == 0 && Control.ModifierKeys != Keys.Control))
                     {
                         /*
                          new System.Threading.Thread(delegate()
@@ -489,8 +607,13 @@ namespace MissionPlanner
                             MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
                                 (byte) MainV2.comPort.compidcurrent);
                         });*/
-                        MainV2.comPort.getParamList();
+                        ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+                        {
+                            MainV2.comPort.getParamList((byte) MainV2.comPort.sysidcurrent,
+                                (byte) MainV2.comPort.compidcurrent);
+                        });
                     }
+                    System.Diagnostics.Debug.WriteLine("End switch to aircraft sysID: " + ((ConnectionControl.port_sysid)selectedAircraft.SysId).sysid);
 
                     MainV2.CurrentAircraftNum =
                         MainV2.Aircrafts.FirstOrDefault(x => x.Value == selectedAircraft).Key;
@@ -498,6 +621,7 @@ namespace MissionPlanner
                     MainV2.View.Reload();
                 }
             }
+            // MainV2.comPort.MavChanged += OnMavChanged;
         }
 
         private void devices_LB_SelectedIndexChanged(object sender, EventArgs e)
@@ -580,6 +704,17 @@ namespace MissionPlanner
             sysid_cmb.Items.Clear();
             var oldidx = sysid_cmb.SelectedIndex;
             int selectidx = -1;
+            var sysId = MainV2.Aircrafts[GetSelectedAircraftNum()].SysId;
+            ConnectionControl.port_sysid selectedAircraftSysId;
+
+            if (sysId != null)
+            {
+                selectedAircraftSysId = (ConnectionControl.port_sysid) sysId;
+            }
+            else
+            {
+                selectedAircraftSysId = new ConnectionControl.port_sysid();
+            }
 
             foreach (var port in MainV2.Comports.ToArray())
             {
@@ -592,22 +727,20 @@ namespace MissionPlanner
 
                     var idx = sysid_cmb.Items.Add(temp);
 
-                    if (temp.port == MainV2.comPort && temp.sysid == MainV2.comPort.sysidcurrent &&
-                        temp.compid == MainV2.comPort.compidcurrent)
+                    if (temp.port == selectedAircraftSysId.port && temp.sysid == selectedAircraftSysId.sysid &&
+                        temp.compid == selectedAircraftSysId.compid)
                     {
                         selectidx = idx;
                     }
                 }
             }
 
-            if (oldidx == -1 && selectidx != -1)
+            if (selectidx == -1)
             {
-                sysid_cmb.SelectedIndex = selectidx;
+                sysid_cmb.ResetText();
             }
-            else if (oldidx != -1 && selectidx == -1)
-            {
-                sysid_cmb.SelectedIndex = -1;
-            }
+
+            sysid_cmb.SelectedIndex = selectidx;
         }
 
         private void sysid_cmb_Format(object sender, ListControlConvertEventArgs e)
@@ -673,6 +806,12 @@ namespace MissionPlanner
             {
                 addAircraft_BT_Click(sender, EventArgs.Empty);
             }
+        }
+
+        private void ConnectionsForm_Shown(object sender, EventArgs e)
+        {
+            UpdateComPorts();
+            UpdateControlsBindings();
         }
     }
 }

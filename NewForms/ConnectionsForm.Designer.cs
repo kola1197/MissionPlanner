@@ -137,8 +137,8 @@ namespace MissionPlanner
             // updateSysId_BUT
             // 
             this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
             this.updateSysId_BUT.ForeColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
             this.updateSysId_BUT.Name = "updateSysId_BUT";
             this.updateSysId_BUT.UseVisualStyleBackColor = false;
             this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);
@@ -146,6 +146,7 @@ namespace MissionPlanner
             // sysid_cmb
             // 
             this.sysid_cmb.BackColor = System.Drawing.Color.Black;
+            this.sysid_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sysid_cmb.DropDownWidth = 160;
             this.sysid_cmb.ForeColor = System.Drawing.Color.White;
             this.sysid_cmb.FormattingEnabled = true;
@@ -270,7 +271,9 @@ namespace MissionPlanner
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConnectionsForm";
             this.TopMost = true;
+            this.Activated += new System.EventHandler(this.ConnectionsForm_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionsForm_FormClosing);
+            this.Shown += new System.EventHandler(this.ConnectionsForm_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ConnectionsForm_Paint);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConnectionsForm_MouseMove);
             this.connectionParams_panel.ResumeLayout(false);

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.ArduPilot;
@@ -31,26 +32,59 @@ namespace MissionPlanner.Controls.NewControls
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
-        private void ChangeMode(string mode)
+        private async Task BackgroundSwitchToAntenna(bool paramLoad)
         {
             try
             {
-                ConnectionsForm.instance.SwitchToAntenna();
-                System.Threading.Thread.Sleep(200);
+                if (!paramLoad)
+                {
+                    await ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(x =>
+                    {
+                        ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                    }));
+                }
+
+                Thread.Sleep(100);
+            }
+            catch
+            {
+            }
+        }
+        
+        private async Task BackgroundSwitcherTask(string mode)
+        {
+            try
+            {
+                await BackgroundSwitchToAntenna(false);
 
                 // var temp = (ConnectionControl.port_sysid) MainV2._AntennaConnectionInfo?.SysId;
                 MainV2.comPort.setMode((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, mode);
 
-                System.Threading.Thread.Sleep(200);
+                Thread.Sleep(100);
+
+                UpdateControls();
                 if (MainV2.CurrentAircraftNum != null)
                 {
-                    ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.Aircrafts[MainV2.CurrentAircraftNum]);
+                   ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.Aircrafts[MainV2.CurrentAircraftNum]);
                 }
             }
             catch
             {
-                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+               // CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
             }
+        } 
+        
+        private void ChangeMode(string mode)
+        {
+            var queueUserWorkItem = ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+            {
+                BackgroundSwitcherTask(mode);
+            });
+            // Task.Run(() => { BackgroundSwitcherTask(mode); });
         }
 
         private void UpdateComPorts()
@@ -73,13 +107,8 @@ namespace MissionPlanner.Controls.NewControls
         //     MainV2._aircraftInfo.Add(antennaNumber, new AircraftConnectionInfo());
         // }
 
-        private void connectAntenna(object sender)
+        private void ConnectAntenna(object sender)
         {
-            if (!MainV2.Aircrafts.Keys.Contains(antennaNumber))
-            {
-                // addAntenna();
-            }
-
             if (CMB_serialport.SelectedItem == null)
             {
                 CustomMessageBox.Show("Задайте порт подключения", "Не выбран порт подключения");
@@ -87,7 +116,10 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             var mav = new MAVLinkInterface();
-
+            AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
+                
+            antenna.Connected = true;
+            connect_BUT.Text = disconnectText;
             try
             {
                 MainV2.instance.doConnect(mav, CMB_serialport.Text, CMB_baudrate.Text);
@@ -97,7 +129,6 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2._connectionControl.UpdateSysIDS();
 
                 System.Threading.Thread.Sleep(100);
-                AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
                 antenna.SerialPort = CMB_serialport.SelectedItem.ToString();
 
                 if (CMB_baudrate.SelectedItem != null)
@@ -105,10 +136,18 @@ namespace MissionPlanner.Controls.NewControls
                     antenna.Speed = CMB_baudrate.GetItemText(CMB_baudrate.SelectedItem);
                 }
 
-                antenna.SysId = GetPortSysId();
-                antenna.Connected = true;
-                connect_BUT.Text = disconnectText;
+                antenna.SysId = SysIdOfTrackerInCmb();
+
                 timer1.Enabled = true;
+
+                if (((ConnectionControl.port_sysid) antenna.SysId).port == null)
+                {
+                    // DisconnectAntenna();
+                }
+                else
+                {
+                    BackgroundSwitchToAntenna(true);
+                }
             }
             catch (Exception)
             {
@@ -118,6 +157,17 @@ namespace MissionPlanner.Controls.NewControls
 
         private ConnectionControl.port_sysid GetPortSysId()
         {
+            var sysId =  MainV2.AntennaConnectionInfo.SysId;
+            ConnectionControl.port_sysid antennaSysId;
+
+            if (sysId != null)
+            {
+                antennaSysId = (ConnectionControl.port_sysid)sysId;
+            }
+            else
+            {
+                antennaSysId = new ConnectionControl.port_sysid();
+            }
             foreach (var port in MainV2.Comports.ToArray())
             {
                 var list = port.MAVlist.GetRawIDS();
@@ -127,8 +177,8 @@ namespace MissionPlanner.Controls.NewControls
                     var temp = new ConnectionControl.port_sysid()
                         {compid = (item % 256), sysid = (item / 256), port = port};
 
-                    if (temp.port == MainV2.comPort && temp.sysid == MainV2.comPort.sysidcurrent &&
-                        temp.compid == MainV2.comPort.compidcurrent)
+                    if (temp.port == antennaSysId.port && temp.sysid == antennaSysId.sysid &&
+                        temp.compid == antennaSysId.compid)
                     {
                         return temp;
                     }
@@ -136,10 +186,39 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             // CustomMessageBox.Show(Strings.InvalidPortName, Strings.ERROR);
-            return (ConnectionControl.port_sysid) MainV2._connectionControl.cmb_sysid.SelectedItem;
+            return SysIdOfTrackerInCmb();
         }
 
-        private void disconnectAntenna()
+        private ConnectionControl.port_sysid SysIdOfTrackerInCmb()
+        {
+            foreach (var item in MainV2._connectionControl.cmb_sysid.Items)
+            {
+                ConnectionControl.port_sysid portSysid =(ConnectionControl.port_sysid) item;
+                if (portSysid.port.MAV.aptype == MAVLink.MAV_TYPE.ANTENNA_TRACKER)
+                {
+                    return portSysid;
+                }
+            }
+            return new ConnectionControl.port_sysid();
+        }
+
+        private async Task DisconnectAllAntennaAircrafts()
+        {
+            foreach (var aircraft in MainV2.Aircrafts.Values)
+            {
+                if (aircraft.Connected && aircraft.UsingAntenna) 
+                {
+                    ConnectionsForm.instance.SwitchConnectedAircraft(aircraft);
+                    System.Diagnostics.Debug.WriteLine("Switching done!");
+                    Thread.Sleep(2000);
+                    System.Diagnostics.Debug.WriteLine("Executing disconnect");
+                    ConnectionsForm.instance.DisconnectAircraft(); 
+                    Thread.Sleep(2000);
+                }
+            }
+        }
+
+        private async Task DisconnectAntennaAsync()
         {
             AircraftConnectionInfo antenna = MainV2.AntennaConnectionInfo;
 
@@ -147,6 +226,9 @@ namespace MissionPlanner.Controls.NewControls
 
             try
             {
+                System.Diagnostics.Debug.WriteLine("Entering Disconnect All Antenna Aircrafts");
+                await DisconnectAllAntennaAircrafts();
+                System.Diagnostics.Debug.WriteLine("Continue after disconnected all aircrats");
                 MainV2.instance.doDisconnect(temp.port);
 
                 MainV2._connectionControl.UpdateSysIDS();
@@ -161,22 +243,30 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
                 connect_BUT.Text = connectText;
                 timer1.Enabled = false;
-                ConnectionsForm.instance.SetToDefault();
             }
             catch (Exception)
             {
             }
+        }
+        
+        private void DisconnectAntenna()
+        {
+            
+            ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+            {
+                DisconnectAntennaAsync();
+            });
         }
 
         private void connect_BUT_Click(object sender, EventArgs e)
         {
             if (MainV2.AntennaConnectionInfo.Connected)
             {
-                disconnectAntenna();
+                DisconnectAntenna();
             }
             else
             {
-                connectAntenna(sender);
+                ConnectAntenna(sender);
             }
         }
 
@@ -200,6 +290,11 @@ namespace MissionPlanner.Controls.NewControls
             
             CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
 
+            UpdateControls();
+        }
+
+        private void UpdateControls()
+        {
             var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {

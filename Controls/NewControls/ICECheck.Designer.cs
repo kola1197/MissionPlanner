@@ -55,6 +55,7 @@
             this.testButton.TabIndex = 5;
             this.testButton.Text = "test";
             this.testButton.UseVisualStyleBackColor = true;
+            this.testButton.Visible = false;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
             // myButton1
