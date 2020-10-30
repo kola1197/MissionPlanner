@@ -31,14 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lonTB1 = new System.Windows.Forms.TextBox();
+            this.latTB1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -65,6 +64,9 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.latNotification = new System.Windows.Forms.Label();
+            this.lonNotification = new System.Windows.Forms.Label();
+            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -82,14 +84,16 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lonNotification);
+            this.tabPage1.Controls.Add(this.latNotification);
             this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.Controls.Add(this.comboBox1);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.lonTB1);
+            this.tabPage1.Controls.Add(this.latTB1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -99,13 +103,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // wpAltSlidingScale1
-            // 
-            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
-            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
-            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
-            this.wpAltSlidingScale1.TabIndex = 14;
             // 
             // label11
             // 
@@ -160,19 +157,21 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Тип:";
             // 
-            // textBox2
+            // lonTB1
             // 
-            this.textBox2.Location = new System.Drawing.Point(84, 45);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.lonTB1.Location = new System.Drawing.Point(84, 45);
+            this.lonTB1.Name = "lonTB1";
+            this.lonTB1.Size = new System.Drawing.Size(100, 20);
+            this.lonTB1.TabIndex = 3;
+            this.lonTB1.TextChanged += new System.EventHandler(this.lonTB1_TextChanged);
             // 
-            // textBox1
+            // latTB1
             // 
-            this.textBox1.Location = new System.Drawing.Point(84, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.latTB1.Location = new System.Drawing.Point(84, 19);
+            this.latTB1.Name = "latTB1";
+            this.latTB1.Size = new System.Drawing.Size(100, 20);
+            this.latTB1.TabIndex = 2;
+            this.latTB1.TextChanged += new System.EventHandler(this.latTB1_TextChanged);
             // 
             // label2
             // 
@@ -474,6 +473,35 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
+            // latNotification
+            // 
+            this.latNotification.AutoSize = true;
+            this.latNotification.ForeColor = System.Drawing.Color.DarkRed;
+            this.latNotification.Location = new System.Drawing.Point(189, 22);
+            this.latNotification.Name = "latNotification";
+            this.latNotification.Size = new System.Drawing.Size(121, 13);
+            this.latNotification.TabIndex = 15;
+            this.latNotification.Text = "Данные не корректны";
+            this.latNotification.Visible = false;
+            // 
+            // lonNotification
+            // 
+            this.lonNotification.AutoSize = true;
+            this.lonNotification.ForeColor = System.Drawing.Color.DarkRed;
+            this.lonNotification.Location = new System.Drawing.Point(190, 48);
+            this.lonNotification.Name = "lonNotification";
+            this.lonNotification.Size = new System.Drawing.Size(121, 13);
+            this.lonNotification.TabIndex = 16;
+            this.lonNotification.Text = "Данные не корректны";
+            this.lonNotification.Visible = false;
+            // 
+            // wpAltSlidingScale1
+            // 
+            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
+            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
+            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
+            this.wpAltSlidingScale1.TabIndex = 14;
+            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,8 +549,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox latTB1;
+        public System.Windows.Forms.TextBox lonTB1;
         public System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.TextBox textBox5;
@@ -530,5 +558,8 @@
         public MissionPlanner.Controls.NewControls.WpAltSlidingScale wpAltSlidingScale1;
 
         #endregion
+
+        private System.Windows.Forms.Label lonNotification;
+        private System.Windows.Forms.Label latNotification;
     }
 }

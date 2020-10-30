@@ -5967,7 +5967,8 @@ namespace MissionPlanner
         {
             //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            CustomMessageBox.Show(CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(60, 30,0));
+            UniversalCoordinatsController u = new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
+            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.lat.ToString()+", "+ u.wgs.lon.ToString());
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
@@ -6014,6 +6015,11 @@ namespace MissionPlanner
                 FlightPlanner.notificationListControl1.fullList = true;
                 FlightPlanner.notificationListControl1.redraw();
             }
+        }
+
+        public static void setCoordinatsMode() 
+        {
+            instance.FlightPlanner.wpConfig.setCoordsMode(); 
         }
 
         private void CTX_mainmenu_Opening(object sender, CancelEventArgs e)

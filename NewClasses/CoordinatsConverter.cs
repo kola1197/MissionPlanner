@@ -6,9 +6,309 @@ using System.Threading.Tasks;
 
 namespace MissionPlanner.NewClasses
 {
+    public class UniversalCoordinatsController
+    {
+        public WGSCoordinats wgs;
+        public UniversalCoordinatsController(WGSCoordinats _wgs) 
+        {
+            wgs = _wgs;
+        }
+
+        public UniversalCoordinatsController(SK42Coordinats _sk42)
+        {
+            wgs = _sk42.toWGS();
+        }
+
+        public UniversalCoordinatsController(RectCoordinats _rect)
+        {
+            wgs = _rect.toWGS();
+        }
+    }
+
+    public class CoordinatsPoint
+    {
+        public double lat { get; set; }
+        public double lon { get; set; }
+        public double alt { get; set; }
+        public CoordinatsPoint()
+        {
+            lat = 0;
+            lon = 0;
+            alt = 0;
+        }
+
+        public CoordinatsPoint(double _lat, double _lon, double _alt = 0)
+        {
+            lat = _lat;
+            lon = _lon;
+            alt = _alt;
+        }
+
+        public CoordinatsPoint(string _lat, string _lon, string _alt = "0")
+        {
+            if (_lat.Contains('\"'))   //GMS
+            {
+                double[] values = splitFromString(_lat);
+                lat = values[0] + (values[1] + values[2] / 60) / 60;
+                values = splitFromString(_lon);
+                lon = values[0] + (values[1] + values[2] / 60) / 60;
+                values = splitFromString(_alt);
+                alt = values[0] + (values[1] + values[2] / 60) / 60;
+            }
+            else if (_lat.Contains('\'')) //GM
+            {
+                double[] values = splitFromString(_lat);
+                lat = values[0] + (values[1]) / 60;
+                values = splitFromString(_lon);
+                lon = values[0] + (values[1]) / 60;
+                values = splitFromString(_alt);
+                alt = values[0] + (values[1]) / 60;
+            }
+            else //G
+            {
+                lat = double.Parse(_lat);
+                lon = double.Parse(_lon);
+                alt = double.Parse(_alt);
+            }
+        }
+
+        private double[] splitFromString(string input)
+        {
+            double[] result = new double[] {0,0,0};
+            input = input.Replace("\""," ");
+            input = input.Replace("\'", " ");
+            input = input.Replace("°", " ");
+            string[] values = input.Split(' ');
+            result = new double[values.Length];
+            for (int i = 0; i < values.Length; i++) 
+            {
+                result[i] = double.Parse(values[i]);
+            }
+            return result; 
+        }
+
+        public string to_G_View() 
+        {
+            return lat.ToString("0.00") + "°, " + lon.ToString("0.00°");
+        }
+
+        public string to_GM_View_lat()
+        {
+            return CoordinatsConverter.to_GM(lat);
+        }
+
+        public string to_GM_View_lon()
+        {
+            return CoordinatsConverter.to_GM(lon);
+        }
+
+        public string to_GM_View() 
+        {
+            return CoordinatsConverter.to_GM(lat) + ", " + CoordinatsConverter.to_GM(lon);
+        }
+        public string to_GMS_View_lat()
+        {
+            return CoordinatsConverter.to_GMS(lat);
+        }
+
+        public string to_GMS_View_lon()
+        {
+            return CoordinatsConverter.to_GMS(lon);
+        }
+
+        public string to_GMS_View()
+        {
+            return CoordinatsConverter.to_GMS(lat) + ", " + CoordinatsConverter.to_GMS(lon);
+        }
+
+    }
+
+
+
+    public class WGSCoordinats : CoordinatsPoint 
+    {
+        public WGSCoordinats(double _lat, double _lon, double _alt) : base(_lat, _lon, _alt)
+        {  }
+
+        public WGSCoordinats(double _lat, double _lon) : base(_lat, _lon)
+        { }
+
+        public WGSCoordinats() : base()
+        { }
+
+        public WGSCoordinats(string _lat, string _lon, string _alt) : base(_lat, _lon, _alt)
+        { }
+
+        public WGSCoordinats(string _lat, string _lon) : base(_lat, _lon)
+        { }
+
+        public SK42Coordinats toSK42() 
+        {
+            SK42Coordinats result = new SK42Coordinats(CoordinatsConverter.WGS84_SK42_Lat(lat, lon, alt), CoordinatsConverter.WGS84_SK42_Long(lat, lon, alt));
+
+            return result;
+        }
+
+        public RectCoordinats toRect() 
+        {
+            SK42Coordinats s = toSK42();
+            double _lat = s.lat;
+            double _lon = s.lon;
+
+            var _latrad = Math.PI * _lat / 180;
+            var _lonrad = Math.PI * _lon / 180;
+
+            var nzone = Math.Ceiling(_lon / 6);
+            var _lonaxis = 6 * nzone - 3;
+            var l = Math.PI * (_lon - _lonaxis) / 180;
+
+            var N = 6399698.902 - (21562.267 - (108.973 - 0.612 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a0 = 32140.404 - (135.3302 - (0.7092 - 0.0040 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a3 = (0.3333333 + 0.001123 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2) - 0.1666667;
+            var a4 = (0.25 + 0.00252 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2) - 0.04166;
+            var a5 = 0.0083 - (0.1667 - (0.1968 + 0.0040 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a6 = (0.166 * Math.Pow(Math.Cos(_latrad), 2) - 0.084) * Math.Pow(Math.Cos(_latrad), 2);
+
+            var tx = 6367558.4969 * _latrad - (a0 - (0.5 + (a4 + a6 * l * l) * l * l) * l * l * N) * Math.Sin(_latrad) * Math.Cos(_latrad);
+            var ty = (1 + (a3 + a5 * l * l) * l * l) * l * N * Math.Cos(_latrad);
+            ty = 500000 + ty;
+
+            double y = double.Parse(nzone.ToString() + ty.ToString());
+            RectCoordinats result = new RectCoordinats(tx,y);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return lat.ToString("0.0") + ", " + lon.ToString("0.0");
+        }
+    }
+
+    public class SK42Coordinats : CoordinatsPoint
+    {
+        public SK42Coordinats(double _lat, double _lon, double _alt) : base(_lat, _lon, _alt)
+        { }
+
+        public SK42Coordinats(double _lat, double _lon) : base(_lat, _lon)
+        { }
+
+        public SK42Coordinats() : base()
+        { }
+
+        public SK42Coordinats(string _lat, string _lon, string _alt) : base(_lat, _lon, _alt)
+        { }
+
+        public SK42Coordinats(string _lat, string _lon) : base(_lat, _lon)
+        { }
+
+        public WGSCoordinats toWGS() 
+        {
+            WGSCoordinats result = new WGSCoordinats(CoordinatsConverter.SK42_WGS84_Lat(lat, lon, alt), CoordinatsConverter.SK42_WGS84_Long(lat, lon, alt));
+            return result;
+        }
+
+        public RectCoordinats toRect()
+        {
+            double _lat = lat;
+            double _lon = lon;
+
+            var _latrad = Math.PI * _lat / 180;
+            var _lonrad = Math.PI * _lon / 180;
+
+            var nzone = Math.Ceiling(_lon / 6);
+            var _lonaxis = 6 * nzone - 3;
+            var l = Math.PI * (_lon - _lonaxis) / 180;
+
+            var N = 6399698.902 - (21562.267 - (108.973 - 0.612 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a0 = 32140.404 - (135.3302 - (0.7092 - 0.0040 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a3 = (0.3333333 + 0.001123 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2) - 0.1666667;
+            var a4 = (0.25 + 0.00252 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2) - 0.04166;
+            var a5 = 0.0083 - (0.1667 - (0.1968 + 0.0040 * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2)) * Math.Pow(Math.Cos(_latrad), 2);
+            var a6 = (0.166 * Math.Pow(Math.Cos(_latrad), 2) - 0.084) * Math.Pow(Math.Cos(_latrad), 2);
+
+            var tx = 6367558.4969 * _latrad - (a0 - (0.5 + (a4 + a6 * l * l) * l * l) * l * l * N) * Math.Sin(_latrad) * Math.Cos(_latrad);
+            var ty = (1 + (a3 + a5 * l * l) * l * l) * l * N * Math.Cos(_latrad);
+            ty = 500000 + ty;
+
+            double y = double.Parse(nzone.ToString() + ty.ToString());
+            RectCoordinats result = new RectCoordinats(tx, y);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return lat.ToString("0.0") + ", " + lon.ToString("0.0");
+        }
+    }
+
+    public class RectCoordinats
+    {
+        public double x { get; set; }
+        public double y { get; set; }
+
+        public RectCoordinats()
+        {
+            x = 0;
+            y = 0;
+        }
+
+        public RectCoordinats(double _x, double _y)
+        {
+            x = _x;
+            y = _y;
+        }
+
+        public RectCoordinats(string _x, string _y)
+        {
+            x = double.Parse(_x);
+            y = double.Parse(_y);
+        }
+
+        public SK42Coordinats toSK42() 
+        {
+            var rho = 206264.8062;
+            var beta = (x / 6367558.4969) * rho;
+            var nzone = y < 1000000 ? Math.Floor(y / 100000) : Math.Floor(y / 1000000);
+            var zoneaxis = nzone * 6 - 3;
+            var y1 = y - nzone * 1000000;
+            var yl = y1 - 500000;
+            var betarad = Math.PI * (beta / 3600) / 180;
+
+            var phixsec = beta + (50221746 + (293622 + (2350 + 22 * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(10, -10) * Math.Sin(betarad) * Math.Cos(betarad) * rho;
+            var phixrad = Math.PI * (phixsec / 3600) / 180;
+
+            var Nx = 6399698.902 - (21562.267 - (108.973 - 0.612 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+
+            var z = yl / (Nx * Math.Cos(phixrad));
+
+            var b2 = (0.5 + 0.003369 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Sin(phixrad) * Math.Cos(phixrad);
+            var b3 = 0.333333 - (0.166667 - 0.001123 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+            var b4 = 0.25 + (0.16161 + 0.00562 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+            var b5 = 0.2 - (0.1667 - 0.0088 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+
+            var l = (1 - (b3 - b5 * z * z) * z * z) * z * rho;
+            var phi = phixsec - (1 - (b4 - 0.12 * z * z) * z * z) * z * z * b2 * rho;
+            var lambda = zoneaxis + (l / 3600);
+            SK42Coordinats result = new SK42Coordinats(phi / 3600, lambda);
+            return result;
+        }
+
+        public WGSCoordinats toWGS()
+        {
+            WGSCoordinats result = toSK42().toWGS();
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return x.ToString("0.0")+", "+y.ToString("0.0");
+        }
+
+    }
+
     public class CoordinatsConverter
     {
-        private static string to_GM(double coord) 
+        public static string to_GM(double coord) 
         {
             string result = "";
             int grad = (int)Math.Truncate(coord);
@@ -18,8 +318,7 @@ namespace MissionPlanner.NewClasses
             return result;
         }
 
-
-        private static string to_GMS(double coord)
+        public static string to_GMS(double coord)
         {
             string result = "";
             int grad = (int)Math.Truncate(coord);
@@ -68,7 +367,7 @@ namespace MissionPlanner.NewClasses
         }
 
         const double piConverter = 1;
-        public static string toRectFromWGS(double Lat, double Lon, double alt) 
+        /*public static string toRectFromWGS(double Lat, double Lon, double alt) 
         {
             double B = Lat;
             double L = Lon;
@@ -87,21 +386,21 @@ namespace MissionPlanner.NewClasses
                 866190 * Math.Sin(B) * Math.Sin(B) + 1730360 * Math.Pow(Math.Sin(B), 4) - 945460 * Math.Pow(Math.Sin(B), 6) ))));
 
 
-            /*double X = (N(Lat) + alt) * Math.Cos(Lat* piConverter) * Math.Cos(Lon* piConverter);
-            double Y = (N(Lat) + alt) * Math.Cos(Lat*piConverter) * Math.Sin(Lon* piConverter);
-            result = X.ToString("0.0") + ", " + Y.ToString("0.0");*/
+
             result = x.ToString("0.0") + ", " + y.ToString("0.0");
             return result;
+        }*/
 
-        }
-
-        public static string toRectFromWGSwithFuckingJavaScript(double lat, double lon, double alt)
+        public static string toRectFromWGSwithFuckingJavaScript(double LatWGS, double LonWGS, double alt)
         {
+
+            double lat = WGS84_SK42_Lat(LatWGS, LonWGS, alt);
+            double lon = WGS84_SK42_Long(LatWGS, LonWGS, alt);
             string result = "";
             var latrad = Math.PI * lat / 180;
             var lonrad = Math.PI * lon / 180;
 
-            var nzone = Math.Round(lon / 6);
+            var nzone = Math.Ceiling(lon / 6);
             var lonaxis = 6 * nzone - 3;
             var l = Math.PI * (lon - lonaxis) / 180;
 
@@ -123,6 +422,36 @@ namespace MissionPlanner.NewClasses
             //x.SetValue(tx);
             //y.SetValue(Number(nzone.toString() + ty));
             result = tx.ToString("0.00") + ", " + y.ToString("0.00");
+            return result;
+        }
+
+        public static string toWGS_From_Rect(double x, double y) 
+        {
+            string result = "";
+            var rho = 206264.8062;
+            var beta = (x / 6367558.4969) * rho;
+            var nzone = y < 1000000 ? Math.Floor(y / 100000) : Math.Floor(y / 1000000);
+            var zoneaxis = nzone * 6 - 3;
+            var y1 = y - nzone * 1000000;
+            var yl = y1 - 500000;
+            var betarad = Math.PI * (beta / 3600) / 180;
+
+            var phixsec = beta + (50221746 + (293622 + (2350 + 22 * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(Math.Cos(betarad), 2)) * Math.Pow(10, -10) * Math.Sin(betarad) * Math.Cos(betarad) * rho;
+            var phixrad = Math.PI * (phixsec / 3600) / 180;
+
+            var Nx = 6399698.902 - (21562.267 - (108.973 - 0.612 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+
+            var z = yl / (Nx * Math.Cos(phixrad));
+
+            var b2 = (0.5 + 0.003369 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Sin(phixrad) * Math.Cos(phixrad);
+            var b3 = 0.333333 - (0.166667 - 0.001123 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+            var b4 = 0.25 + (0.16161 + 0.00562 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+            var b5 = 0.2 - (0.1667 - 0.0088 * Math.Pow(Math.Cos(phixrad), 2)) * Math.Pow(Math.Cos(phixrad), 2);
+
+            var l = (1 - (b3 - b5 * z * z) * z * z) * z * rho;
+            var phi = phixsec - (1 - (b4 - 0.12 * z * z) * z * z) * z * z * b2 * rho;
+            var lambda = zoneaxis + (l / 3600);
+            result = (phi / 3600).ToString() + ", " + lambda.ToString();
             return result;
         }
 
@@ -190,14 +519,24 @@ namespace MissionPlanner.NewClasses
                 * Math.Cos(L) * (1 + e2 * Math.Cos(2 * B)) - ro * ms * e2 * Math.Sin(B) * Math.Cos(B);
         }
 
-        private static double WGS84_SK42_Lat(double Bd, double Ld, double H) 
+        public static double WGS84_SK42_Lat(double Bd, double Ld, double H) 
         {
             return Bd - dB(Bd, Ld, H) / 3600;
         }
 
-        private static double WGS84_SK42_Long(double Bd, double Ld, double H)
+        public static double WGS84_SK42_Long(double Bd, double Ld, double H)
         {
             return Ld - dL(Bd, Ld, H) / 3600;
+        }
+
+        public static double SK42_WGS84_Lat(double Bd, double Ld, double H)
+        {
+            return Bd + dB(Bd, Ld, H) / 3600;
+        }
+
+        public static double SK42_WGS84_Long(double Bd, double Ld, double H)
+        {
+            return Ld + dL(Bd, Ld, H) / 3600;
         }
 
     }
