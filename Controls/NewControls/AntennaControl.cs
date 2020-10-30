@@ -36,18 +36,20 @@ namespace MissionPlanner.Controls.NewControls
         {
             try
             {
-                if (!paramLoad)
-                {
-                    await ConnectionsForm.instance.SwitchToAntenna(paramLoad);
-                }
-                else
-                {
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(x =>
-                    {
-                        ConnectionsForm.instance.SwitchToAntenna(paramLoad);
-                    }));
-                }
+                // if (!paramLoad)
+                // {
+                //     await ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                // }
+                // else
+                // {
+                //     ThreadPool.QueueUserWorkItem(new WaitCallback(x =>
+                //     {
+                //         ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                //     }));
+                // }
 
+                ConnectionsForm.instance.SwitchToAntenna(paramLoad);
+                
                 Thread.Sleep(100);
             }
             catch
@@ -80,10 +82,13 @@ namespace MissionPlanner.Controls.NewControls
         
         private void ChangeMode(string mode)
         {
-            var queueUserWorkItem = ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
-            {
-                BackgroundSwitcherTask(mode);
-            });
+            // var queueUserWorkItem = ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+            // {
+            //     BackgroundSwitcherTask(mode);
+            // });
+
+            BackgroundSwitcherTask(mode);
+
             // Task.Run(() => { BackgroundSwitcherTask(mode); });
         }
 
@@ -209,9 +214,7 @@ namespace MissionPlanner.Controls.NewControls
                 if (aircraft.Connected && aircraft.UsingAntenna) 
                 {
                     ConnectionsForm.instance.SwitchConnectedAircraft(aircraft);
-                    System.Diagnostics.Debug.WriteLine("Switching done!");
                     Thread.Sleep(2000);
-                    System.Diagnostics.Debug.WriteLine("Executing disconnect");
                     ConnectionsForm.instance.DisconnectAircraft(); 
                     Thread.Sleep(2000);
                 }
@@ -226,9 +229,7 @@ namespace MissionPlanner.Controls.NewControls
 
             try
             {
-                System.Diagnostics.Debug.WriteLine("Entering Disconnect All Antenna Aircrafts");
                 await DisconnectAllAntennaAircrafts();
-                System.Diagnostics.Debug.WriteLine("Continue after disconnected all aircrats");
                 MainV2.instance.doDisconnect(temp.port);
 
                 MainV2._connectionControl.UpdateSysIDS();
@@ -251,11 +252,11 @@ namespace MissionPlanner.Controls.NewControls
         
         private void DisconnectAntenna()
         {
-            
-            ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
-            {
-                DisconnectAntennaAsync();
-            });
+            // ThreadPool.QueueUserWorkItem((WaitCallback) delegate(object state)
+            // {
+            //     DisconnectAntennaAsync();
+            // });
+            DisconnectAntennaAsync();
         }
 
         private void connect_BUT_Click(object sender, EventArgs e)

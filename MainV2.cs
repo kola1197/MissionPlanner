@@ -2057,10 +2057,8 @@ namespace MissionPlanner
             if (MAVLinkInterface.paramsLoading)
             {
                 soundFlag = true;
-                progressBar1.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount + 1;
-                progressBar2.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar2.Value = MAVLinkInterface.paramsLoadedCount + 1;
+                progressBar1.Maximum = progressBar2.Maximum = comPort.MAV.param.TotalReported;
+                progressBar1.Value = progressBar2.Value = comPort.MAV.param.TotalReceived;
             }
             else
             {
