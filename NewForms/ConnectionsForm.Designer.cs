@@ -137,8 +137,8 @@ namespace MissionPlanner
             // updateSysId_BUT
             // 
             this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
             this.updateSysId_BUT.ForeColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
             this.updateSysId_BUT.Name = "updateSysId_BUT";
             this.updateSysId_BUT.UseVisualStyleBackColor = false;
             this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);

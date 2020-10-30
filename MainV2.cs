@@ -1047,7 +1047,7 @@ namespace MissionPlanner
 
             if (splash != null)
             {
-                this.Text = splash?.Text;
+                this.Text = "НПУ";//splash?.Text;
                 titlebar = splash?.Text;
             }
 
@@ -1306,7 +1306,7 @@ namespace MissionPlanner
 
             if (Program.IconFile != null)
             {
-                this.Icon = Icon.FromHandle(((Bitmap) Program.IconFile).GetHicon());
+                //this.Icon = Icon.FromHandle(((Bitmap) Program.IconFile).GetHicon());
             }
 
             MenuArduPilot.Image = new Bitmap(Resources._0d92fed790a3a70170e61a86db103f399a595c70, (int) (200), 31);
@@ -1358,7 +1358,7 @@ namespace MissionPlanner
             AircraftMenuControl.SwitchOnTimer();
             
             ConnectionsForm.Init();
-            this.Text = "Мighty Platypus   v0.2";
+            //this.Text = "Мighty Platypus   v0.2";
         }
 
         private void MakeRightSideMenuTransparent()
@@ -1800,7 +1800,7 @@ namespace MissionPlanner
             //FlightPlanner.MainMap.OnPositionChanged += new EventHandler(mapChanged);
         }
 
-
+        public static int selectedItem = 2;
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
             FlightPlanner.mainMenuWidget1.setState(false);
@@ -1829,7 +1829,7 @@ namespace MissionPlanner
             mapChangeForm.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
             mapChangeForm.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
             mapChangeForm.lbl_status.Text = mapTitleStatus;
-            mapChangeForm.comboBoxMapType.SelectedItem = mapChangeForm.comboBoxMapType.Items[2];
+            mapChangeForm.comboBoxMapType.SelectedItem = selectedItem;
             mapChangeForm.Show();
         }
 
@@ -2054,6 +2054,13 @@ namespace MissionPlanner
                 }
             }
 
+            if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
+            {
+                if (comPort.MAV.param.TotalReported > 0 && comPort.BaseStream.IsOpen)
+                    instance.status1.Percent =
+                        (comPort.MAV.param.TotalReceived / (double) comPort.MAV.param.TotalReported) * 100.0;
+            }
+            
             if (MAVLinkInterface.paramsLoading)
             {
                 soundFlag = true;
@@ -2517,7 +2524,7 @@ namespace MissionPlanner
             this.MenuConnect.Image = Resources.light_connect_icon;
         }
 
-        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true)
+        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool antennaConnecting = false, bool getparams = true)
         {
             bool skipconnectcheck = false;
             log.Info("We are connecting to " + portname + " " + baud);
@@ -2744,10 +2751,13 @@ namespace MissionPlanner
 
                     if (!ftpfile)
                     {
-                        if (Settings.Instance.GetBoolean("Params_BG", false))
-                            Task.Run(() => { comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid); });
-                        else
-                            comPort.getParamList();
+                        // if (Settings.Instance.GetBoolean("Params_BG", false))
+                        Task.Run(() =>
+                        {
+                            comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid);
+                        });
+                        // else
+                        // comPort.getParamList();
                     }
                 }
 
@@ -5425,37 +5435,40 @@ namespace MissionPlanner
 
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
-
-            Keys keyData = e.KeyData;
-
-            if (keyData == (Keys.ControlKey))
+            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
-                logger.write("Ручное управление завершено");
-                System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
-                overrideModeActive = false;
-                if (comPort.MAV.cs.mode != "Auto")
+                System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
+
+                Keys keyData = e.KeyData;
+
+                if (keyData == (Keys.ControlKey))
                 {
-                    MainV2.comPort.setMode("AUTO");
+                    logger.write("Ручное управление завершено");
+                    System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
+                    overrideModeActive = false;
+                    if (comPort.MAV.cs.mode != "Auto")
+                    {
+                        MainV2.comPort.setMode("AUTO");
+                    }
                 }
-            }
 
-            if (keyData == (Keys.Control | Keys.Left))
-            {
-                System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
-                overrides[3] = 1500;
-            }
+                if (keyData == (Keys.Control | Keys.Left))
+                {
+                    System.Diagnostics.Debug.WriteLine("LEFT is RELEASED");
+                    overrides[3] = 1500;
+                }
 
-            if (keyData == (Keys.Control | Keys.Right))
-            {
-                System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
-                overrides[3] = 1500;
-            }
+                if (keyData == (Keys.Control | Keys.Right))
+                {
+                    System.Diagnostics.Debug.WriteLine("RIGHT is RELEASED");
+                    overrides[3] = 1500;
+                }
 
-            if (keyData == (Keys.Control | Keys.Up))
-            {
-                System.Diagnostics.Debug.WriteLine("UP is RELEASED");
-                overrides[1] = 1500;
+                if (keyData == (Keys.Control | Keys.Up))
+                {
+                    System.Diagnostics.Debug.WriteLine("UP is RELEASED");
+                    overrides[1] = 1500;
+                }
             }
         }
 
@@ -5474,52 +5487,53 @@ namespace MissionPlanner
             // {
             //     FlightPlanner.instance.MainMap_KeyDown(sender, e);
             // }
-
-            Keys keyData = e.KeyData;
-            string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
-            if (keyData == (Keys.Control | Keys.ControlKey))
+            if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
-                secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
-                thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
-                logger.write("Ручное управление активировано");
-                System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
-                overrideModeActive = true;
-                if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                Keys keyData = e.KeyData;
+                string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
+                if (keyData == (Keys.Control | Keys.ControlKey))
                 {
-                    MainV2.comPort.setMode("FBWB");
+                    secondTrim = (ushort)MainV2.comPort.GetParam("SERVO4_TRIM");
+                    thirdTrim = (ushort)MainV2.comPort.GetParam("SERVO2_TRIM");
+                    logger.write("Ручное управление активировано");
+                    System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
+                    overrideModeActive = true;
+                    if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                    {
+                        MainV2.comPort.setMode("FBWB");
+                    }
+                }
+
+                if (keyData == (Keys.Control | Keys.Left))
+                {
+                    System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
+                    overrides[3] = (ushort)(secondTrim - 0.15 * (secondTrim - 900) - 100);
+                    debugOverrideInfo += " ← ";
+                }
+
+                if (keyData == (Keys.Control | Keys.Right))
+                {
+                    System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
+                    overrides[3] = (ushort)(secondTrim + 0.15 * (secondTrim - 900));
+                    debugOverrideInfo += " → ";
+                }
+
+                if (keyData == (Keys.Control | Keys.Up))
+                {
+                    System.Diagnostics.Debug.WriteLine("UP is PRESSED");
+                    overrides[1] = (ushort)(thirdTrim + 0.15 * (thirdTrim - 900));
+                    debugOverrideInfo += " ↑ ";
+                }
+
+                if (overrideModeActive)
+                {
+                    ctrlModeDebuglabel.Text = debugOverrideInfo;
+                }
+                else
+                {
+                    ctrlModeDebuglabel.Text = "";
                 }
             }
-
-            if (keyData == (Keys.Control | Keys.Left))
-            {
-                System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                overrides[3] = (ushort) (secondTrim - 0.15 * (secondTrim - 900) - 100);
-                debugOverrideInfo += " ← ";
-            }
-
-            if (keyData == (Keys.Control | Keys.Right))
-            {
-                System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                overrides[3] = (ushort) (secondTrim + 0.15 * (secondTrim - 900));
-                debugOverrideInfo += " → ";
-            }
-
-            if (keyData == (Keys.Control | Keys.Up))
-            {
-                System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));
-                debugOverrideInfo += " ↑ ";
-            }
-
-            if (overrideModeActive)
-            {
-                ctrlModeDebuglabel.Text = debugOverrideInfo;
-            }
-            else
-            {
-                ctrlModeDebuglabel.Text = "";
-            }
-
             //debugOverrideInfo += " ↓ ";       
             //if (e.KeyCode == Keys.G)
             //{
@@ -5965,7 +5979,8 @@ namespace MissionPlanner
         {
             //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            CustomMessageBox.Show(CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(60, 30,0));
+            UniversalCoordinatsController u = new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
+            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.lat.ToString()+", "+ u.wgs.lon.ToString());
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
@@ -6009,8 +6024,23 @@ namespace MissionPlanner
         {
             if (warnings.Count > 0)
             {
-                FlightPlanner.notificationListControl1.fullList = true;
+                FlightPlanner.notificationListControl1.fullList = true; 
                 FlightPlanner.notificationListControl1.redraw();
+            }
+        }
+
+        public static void setCoordinatsMode() 
+        {
+            try
+            {
+                if (instance.FlightPlanner.wpConfig != null)
+                {
+                    instance.FlightPlanner.wpConfig.setCoordsMode();
+                }
+            }
+            catch 
+            {
+            
             }
         }
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordinatsModeForm));
             this.wgs_gButton = new System.Windows.Forms.Button();
             this.wgs_gmButton = new System.Windows.Forms.Button();
             this.wgs_gmsButton = new System.Windows.Forms.Button();
@@ -148,6 +149,7 @@
             this.Controls.Add(this.wgs_gmsButton);
             this.Controls.Add(this.wgs_gmButton);
             this.Controls.Add(this.wgs_gButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CoordinatsModeForm";
             this.Text = "CoordinatsModeForm";
             this.ResumeLayout(false);

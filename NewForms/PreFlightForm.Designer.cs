@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using GMap.NET.Drawing.Properties;
+
+namespace MissionPlanner.NewForms
 {
     partial class PreFlightForm
     {
@@ -56,6 +58,7 @@
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.armButton = new MissionPlanner.Controls.MyButton();
+
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();

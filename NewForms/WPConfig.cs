@@ -1,4 +1,5 @@
 ﻿using GMap.NET.WindowsForms;
+using MissionPlanner.NewClasses;
 using MissionPlanner.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace MissionPlanner.NewForms
     {
         public bool closedByButton = false;
         public bool[] servos = new bool[9];
+        public UniversalCoordinatsController controller;
 
         public WPConfig()
         {
@@ -43,7 +45,7 @@ namespace MissionPlanner.NewForms
             this.TopMost = true;
             //SerialNum = _serNum;
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
-            textBox1.Text = "";
+            latTB1.Text = "";
         }
 
         public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
@@ -60,7 +62,7 @@ namespace MissionPlanner.NewForms
             }
             
 
-            textBox1.Text = "";
+            latTB1.Text = "";
         }
         
         /*public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
@@ -212,6 +214,136 @@ namespace MissionPlanner.NewForms
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             comboBox1.Enabled = !checkBox1.Checked;
+        }
+
+        private bool locked = false;
+        public void setCoordsMode() 
+        {
+            locked = true;
+            switch (MainV2.coordinatsShowMode) 
+            {
+                case 0:
+                    WGSCoordinats rr = controller.wgs;
+                    System.Diagnostics.Debug.WriteLine("WGS----- " + rr.lat.ToString() + ", "+ rr.lon.ToString());
+                    latTB1.Text = controller.wgs.lat.ToString("0.000000");
+                    locked = false;
+                    lonTB1.Text = controller.wgs.lon.ToString("0.000000");
+                    break;
+                case 1:
+                    latTB1.Text = controller.wgs.to_GM_View_lat();
+                    locked = false;
+                    lonTB1.Text = controller.wgs.to_GM_View_lon();
+                    break;
+                case 2:
+                    latTB1.Text = controller.wgs.to_GMS_View_lat();
+                    locked = false;
+                    lonTB1.Text = controller.wgs.to_GMS_View_lon();
+                    break;
+                case 3:
+                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    locked = false;
+                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    break;
+                case 4:
+                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    locked = false;
+                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    break;
+                case 5:
+                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    locked = false;
+                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    break;
+                case 6:
+                    RectCoordinats r = controller.wgs.toRect();
+                    System.Diagnostics.Debug.WriteLine("Rect----- "+r.x.ToString()+", "+r.y.ToString());
+                    latTB1.Text = controller.wgs.toRect().x.ToString("0.00");
+                    locked = false;
+                    lonTB1.Text = controller.wgs.toRect().y.ToString("0.00");
+                    break;
+            }
+        }
+
+        private void latTB1_TextChanged(object sender, EventArgs e)
+        {
+            if (!locked)
+            {
+                latTB1.Text = latTB1.Text.Replace(".", ",");
+                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                try
+                {
+                    latNotification.Visible = false;
+                    switch (MainV2.coordinatsShowMode)
+                    {
+                        case 0:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 1:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 2:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 3:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 4:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 5:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 6:
+                            controller = new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                    }
+                }
+                catch
+                {
+                    latNotification.Visible = true;
+                }
+            }
+        }
+
+        private void lonTB1_TextChanged(object sender, EventArgs e)
+        {
+            if (!locked)
+            {
+                latTB1.Text = latTB1.Text.Replace(".", ",");
+                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                try
+                {
+                    latNotification.Visible = false;
+                    switch (MainV2.coordinatsShowMode)
+                    {
+                        case 0:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 1:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 2:
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 3:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 4:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 5:
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                        case 6:
+                            controller = new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            break;
+                    }
+                }
+                catch
+                {
+                    lonNotification.Visible = true;
+                }
+            }
         }
     }
 }

@@ -27,18 +27,18 @@ namespace MissionPlanner.Controls
         internal int _progress = -1;
         internal string _status = "";
 
-        public bool Running = false;
         private Thread BGThread;
 
 
         // This is the event that will be raised on the BG thread
+        public bool Running { get; set; }
         public event Utilities.DoWorkEventHandler DoWork;
 
         public ProgressReporterDialogue()
         {
             InitializeComponent();
             doWorkArgs = new ProgressWorkerEventArgs();
-            
+            Running = false;
             this.btnClose.Visible = false;
 
         }
