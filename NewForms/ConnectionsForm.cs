@@ -377,7 +377,7 @@ namespace MissionPlanner
         }
 
 
-        private Binding CreateInversedBoolBinding(string propertyName, object dataSource, string dataMember)
+        public Binding CreateInversedBoolBinding(string propertyName, object dataSource, string dataMember)
         {
             Binding binding = new Binding(propertyName, dataSource, dataMember);
 

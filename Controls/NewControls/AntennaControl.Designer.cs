@@ -59,7 +59,7 @@
             this.reload_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.reload_BUT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.reload_BUT.Location = new System.Drawing.Point(297, 133);
-            this.reload_BUT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reload_BUT.Margin = new System.Windows.Forms.Padding(4);
             this.reload_BUT.Name = "reload_BUT";
             this.reload_BUT.Size = new System.Drawing.Size(97, 26);
             this.reload_BUT.TabIndex = 15;
@@ -86,7 +86,7 @@
             "921600",
             "1500000"});
             this.CMB_baudrate.Location = new System.Drawing.Point(105, 166);
-            this.CMB_baudrate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CMB_baudrate.Margin = new System.Windows.Forms.Padding(4);
             this.CMB_baudrate.Name = "CMB_baudrate";
             this.CMB_baudrate.Size = new System.Drawing.Size(288, 24);
             this.CMB_baudrate.TabIndex = 14;
@@ -118,7 +118,7 @@
             this.CMB_serialport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_serialport.FormattingEnabled = true;
             this.CMB_serialport.Location = new System.Drawing.Point(105, 133);
-            this.CMB_serialport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CMB_serialport.Margin = new System.Windows.Forms.Padding(4);
             this.CMB_serialport.Name = "CMB_serialport";
             this.CMB_serialport.Size = new System.Drawing.Size(183, 24);
             this.CMB_serialport.TabIndex = 11;
@@ -128,7 +128,7 @@
             // 
             this.connect_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.connect_BUT.Location = new System.Drawing.Point(24, 199);
-            this.connect_BUT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.connect_BUT.Margin = new System.Windows.Forms.Padding(4);
             this.connect_BUT.Name = "connect_BUT";
             this.connect_BUT.Size = new System.Drawing.Size(371, 28);
             this.connect_BUT.TabIndex = 16;
@@ -162,7 +162,7 @@
             // 
             this.autoMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.autoMode_BUT.Location = new System.Drawing.Point(24, 235);
-            this.autoMode_BUT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.autoMode_BUT.Margin = new System.Windows.Forms.Padding(4);
             this.autoMode_BUT.Name = "autoMode_BUT";
             this.autoMode_BUT.Size = new System.Drawing.Size(119, 28);
             this.autoMode_BUT.TabIndex = 19;
@@ -174,7 +174,7 @@
             // 
             this.stopMode_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
             this.stopMode_BUT.Location = new System.Drawing.Point(151, 235);
-            this.stopMode_BUT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stopMode_BUT.Margin = new System.Windows.Forms.Padding(4);
             this.stopMode_BUT.Name = "stopMode_BUT";
             this.stopMode_BUT.Size = new System.Drawing.Size(119, 28);
             this.stopMode_BUT.TabIndex = 20;
@@ -247,7 +247,7 @@
             this.myTrackBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.myTrackBar1.LargeChange = 0.005F;
             this.myTrackBar1.Location = new System.Drawing.Point(24, 271);
-            this.myTrackBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTrackBar1.Margin = new System.Windows.Forms.Padding(4);
             this.myTrackBar1.Maximum = 2000F;
             this.myTrackBar1.Minimum = 1000F;
             this.myTrackBar1.Name = "myTrackBar1";
@@ -261,7 +261,7 @@
             // 
             this.testAntButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.testAntButton.Location = new System.Drawing.Point(276, 235);
-            this.testAntButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.testAntButton.Margin = new System.Windows.Forms.Padding(4);
             this.testAntButton.Name = "testAntButton";
             this.testAntButton.Size = new System.Drawing.Size(119, 28);
             this.testAntButton.TabIndex = 29;
@@ -273,7 +273,7 @@
             // 
             this.switchAntenna_CB.AutoSize = true;
             this.switchAntenna_CB.Location = new System.Drawing.Point(24, 305);
-            this.switchAntenna_CB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.switchAntenna_CB.Margin = new System.Windows.Forms.Padding(4);
             this.switchAntenna_CB.Name = "switchAntenna_CB";
             this.switchAntenna_CB.Size = new System.Drawing.Size(212, 21);
             this.switchAntenna_CB.TabIndex = 30;
@@ -293,6 +293,7 @@
             this.toggleSwitch1.OnText = "Переключиться на борт";
             this.toggleSwitch1.Size = new System.Drawing.Size(370, 29);
             this.toggleSwitch1.TabIndex = 31;
+            this.toggleSwitch1.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.switchAntenna_CB_CheckedChanged);
             // 
             // AntennaControl
             // 
@@ -318,7 +319,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CMB_serialport);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AntennaControl";
             this.Size = new System.Drawing.Size(415, 492);
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).EndInit();

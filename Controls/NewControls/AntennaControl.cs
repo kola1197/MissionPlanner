@@ -36,7 +36,10 @@ namespace MissionPlanner.Controls.NewControls
             stopMode_BUT.DataBindings.Add("Enabled", antennaBindingSource, "Active");
             testAntButton.DataBindings.Add("Enabled", antennaBindingSource, "Active");
             myTrackBar1.DataBindings.Add("Enabled", antennaBindingSource, "Active");
-                Instance = this;
+            toggleSwitch1.DataBindings.Add("Enabled", antennaBindingSource, "Active");
+            CMB_serialport.DataBindings.Add(ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
+            CMB_baudrate.DataBindings.Add(ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
+            Instance = this;
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
@@ -385,9 +388,11 @@ namespace MissionPlanner.Controls.NewControls
         public void SetAntennaState(bool active)
         {
             switchAntenna_CB.CheckedChanged -= switchAntenna_CB_CheckedChanged;
+            toggleSwitch1.CheckedChanged -= switchAntenna_CB_CheckedChanged;
             MainV2.AntennaConnectionInfo.Active = active;
             UpdateControls();
             switchAntenna_CB.CheckedChanged += switchAntenna_CB_CheckedChanged;
+            toggleSwitch1.CheckedChanged += switchAntenna_CB_CheckedChanged;
         }
     }
 }
