@@ -38,12 +38,13 @@
     <OutputPath>bin\Debug\net461\</OutputPath>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>portable</DebugType>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\net461\</OutputPath>
@@ -421,6 +422,9 @@
     </Compile>
     <Compile Include="Controls\NewControls\AntennaControl.Designer.cs">
       <DependentUpon>AntennaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\ColorProgressBar.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\NewControls\CoordinatsControl.cs">
       <SubType>UserControl</SubType>
@@ -5302,6 +5306,8 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Orlan\Renderers" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

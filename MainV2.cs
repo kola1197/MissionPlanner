@@ -2061,11 +2061,12 @@ namespace MissionPlanner
                         (comPort.MAV.param.TotalReceived / (double) comPort.MAV.param.TotalReported) * 100.0;
             }
             
-            if (MAVLinkInterface.paramsLoading)
+            if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
             {
                 soundFlag = true;
                 progressBar1.Maximum = progressBar2.Maximum = comPort.MAV.param.TotalReported;
                 progressBar1.Value = progressBar2.Value = comPort.MAV.param.TotalReceived;
+                
             }
             else
             {

@@ -49,6 +49,7 @@
             this.testAntButton = new System.Windows.Forms.Button();
             this.switchAntenna_CB = new System.Windows.Forms.CheckBox();
             this.antennaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            // this.MetroStyleToggleSwitch = new ToggleSwitch();
             ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.antennaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -242,6 +243,7 @@
             // 
             // testAntButton
             // 
+            this.testAntButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.testAntButton.Location = new System.Drawing.Point(207, 191);
             this.testAntButton.Name = "testAntButton";
             this.testAntButton.Size = new System.Drawing.Size(89, 23);
@@ -260,6 +262,16 @@
             this.switchAntenna_CB.Text = "Переключиться на антенну";
             this.switchAntenna_CB.UseVisualStyleBackColor = true;
             this.switchAntenna_CB.CheckedChanged += new System.EventHandler(this.switchAntenna_CB_CheckedChanged);
+            // 
+            // MetroStyleToggleSwitch
+            // 
+            // this.MetroStyleToggleSwitch.Location = new System.Drawing.Point(145, 64);
+            // this.MetroStyleToggleSwitch.Name = "MetroStyleToggleSwitch";
+            // this.MetroStyleToggleSwitch.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            // this.MetroStyleToggleSwitch.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            // this.MetroStyleToggleSwitch.Size = new System.Drawing.Size(50, 19);
+            // this.MetroStyleToggleSwitch.TabIndex = 9;
+            // this.MetroStyleToggleSwitch.Style = ToggleSwitch.ToggleSwitchStyle.Metro;
             // 
             // AntennaControl
             // 
@@ -315,6 +327,7 @@
         private MyTrackBar myTrackBar1;
         private System.Windows.Forms.Button testAntButton;
         private System.Windows.Forms.BindingSource antennaBindingSource;
+        // private ToggleSwitch MetroStyleToggleSwitch;
         public System.Windows.Forms.CheckBox switchAntenna_CB;
     }
 }
