@@ -135,6 +135,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ToggleSwitch\ToggleSwitch\ToggleSwitch\ToggleSwitch.csproj">
+      <Project>{49B88FFA-F02C-4709-BA65-9F8996444ECD}</Project>
+      <Name>ToggleSwitch</Name>
+    </ProjectReference>
     <ProjectReference Include="ExtLibs\7zip\7zip.csproj">
       <Project>{1117efd6-3a46-47f7-9beb-02792d213b8d}</Project>
       <Name>7zip</Name>
@@ -5307,7 +5311,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Orlan\Renderers" />
+    <Folder Include="Orlan\Renderers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
