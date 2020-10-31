@@ -135,7 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ToggleSwitch\ToggleSwitch\ToggleSwitch\ToggleSwitch.csproj">
+    <ProjectReference Include="ToggleSwitch\ToggleSwitch.csproj">
       <Project>{49B88FFA-F02C-4709-BA65-9F8996444ECD}</Project>
       <Name>ToggleSwitch</Name>
     </ProjectReference>
