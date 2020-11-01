@@ -70,6 +70,43 @@ namespace MissionPlanner.Controls.NewControls
             // timer1.Enabled = true;
         }
 
+        //global brushes with ordinary/selected colors
+        private SolidBrush reportsForegroundBrushSelected = new SolidBrush(Color.White);
+        private SolidBrush reportsForegroundBrush = new SolidBrush(Color.Black);
+        private SolidBrush reportsBackgroundBrushSelected = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
+        private SolidBrush reportsBackgroundBrush1 = new SolidBrush(Color.White);
+        private SolidBrush reportsBackgroundBrush2 = new SolidBrush(Color.Gray);
+
+//custom method to draw the items, don't forget to set DrawMode of the ListBox to OwnerDrawFixed
+        // private void lbReports_DrawItem(object sender, DrawItemEventArgs e)
+        // {
+        //     e.DrawBackground();
+        //     bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+        //
+        //     int index = e.Index;
+        //     if (index >= 0 && index < lbReports.Items.Count)
+        //     {
+        //         string text = lbReports.Items[index].ToString();
+        //         Graphics g = e.Graphics;
+        //
+        //         //background:
+        //         SolidBrush backgroundBrush;
+        //         if (selected)
+        //             backgroundBrush = reportsBackgroundBrushSelected;
+        //         else if ((index % 2) == 0)
+        //             backgroundBrush = reportsBackgroundBrush1;
+        //         else
+        //             backgroundBrush = reportsBackgroundBrush2;
+        //         g.FillRectangle(backgroundBrush, e.Bounds);
+        //
+        //         //text:
+        //         SolidBrush foregroundBrush = (selected) ? reportsForegroundBrushSelected : reportsForegroundBrush;
+        //         g.DrawString(text, e.Font, foregroundBrush, lbReports.GetItemRectangle(index).Location);
+        //     }
+        //
+        //     e.DrawFocusRectangle();
+        // }
+        
         private string RemoveDigitsFromString(string input)
         {
             return new String(input.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
