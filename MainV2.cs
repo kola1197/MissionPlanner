@@ -2054,13 +2054,19 @@ namespace MissionPlanner
                 }
             }
 
-            if (MAVLinkInterface.paramsLoading)
+            if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
+            {
+                if (comPort.MAV.param.TotalReported > 0 && comPort.BaseStream.IsOpen)
+                    instance.status1.Percent =
+                        (comPort.MAV.param.TotalReceived / (double) comPort.MAV.param.TotalReported) * 100.0;
+            }
+            
+            if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
             {
                 soundFlag = true;
-                progressBar1.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar1.Value = MAVLinkInterface.paramsLoadedCount + 1;
-                progressBar2.Maximum = MAVLinkInterface.paramsCount + 1;
-                progressBar2.Value = MAVLinkInterface.paramsLoadedCount + 1;
+                progressBar1.Maximum = progressBar2.Maximum = comPort.MAV.param.TotalReported;
+                progressBar1.Value = progressBar2.Value = comPort.MAV.param.TotalReceived;
+                
             }
             else
             {
@@ -2519,7 +2525,7 @@ namespace MissionPlanner
             this.MenuConnect.Image = Resources.light_connect_icon;
         }
 
-        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true)
+        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool antennaConnecting = false, bool getparams = true)
         {
             bool skipconnectcheck = false;
             log.Info("We are connecting to " + portname + " " + baud);
@@ -2746,10 +2752,13 @@ namespace MissionPlanner
 
                     if (!ftpfile)
                     {
-                        if (Settings.Instance.GetBoolean("Params_BG", false))
-                            Task.Run(() => { comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid); });
-                        else
-                            comPort.getParamList();
+                        // if (Settings.Instance.GetBoolean("Params_BG", false))
+                        Task.Run(() =>
+                        {
+                            comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid);
+                        });
+                        // else
+                        // comPort.getParamList();
                     }
                 }
 
@@ -4908,7 +4917,10 @@ namespace MissionPlanner
                 log.Info("myview width " + MyView.Width + " height " + MyView.Height);
 
             log.Info("this   width " + this.Width + " height " + this.Height);
-            MakeRightSideMenuTransparent();
+            if (FlightPlanner != null)
+            {
+                MakeRightSideMenuTransparent();
+            }
             //rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideMenuControl1.Size.Width,200);
             //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
@@ -5972,7 +5984,7 @@ namespace MissionPlanner
             //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
             UniversalCoordinatsController u = new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
-            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.lat.ToString()+", "+ u.wgs.lon.ToString());
+            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.Lat.ToString()+", "+ u.wgs.Lng.ToString());
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/

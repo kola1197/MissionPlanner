@@ -1752,6 +1752,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             return MAVlist[sysid, compid].param;
         }
 
+        
         public static bool paramsLoading = false;
         public static int paramsCount = 0;
         public static int paramsLoadedCount = 0;

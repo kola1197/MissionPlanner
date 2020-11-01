@@ -225,10 +225,10 @@ namespace MissionPlanner.NewForms
             {
                 case 0:
                     WGSCoordinats rr = controller.wgs;
-                    System.Diagnostics.Debug.WriteLine("WGS----- " + rr.lat.ToString() + ", "+ rr.lon.ToString());
-                    latTB1.Text = controller.wgs.lat.ToString("0.000000");
+                    System.Diagnostics.Debug.WriteLine("WGS----- " + rr.Lat.ToString() + ", "+ rr.Lng.ToString());
+                    latTB1.Text = controller.wgs.Lat.ToString("0.000000");
                     locked = false;
-                    lonTB1.Text = controller.wgs.lon.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.Lng.ToString("0.000000");
                     break;
                 case 1:
                     latTB1.Text = controller.wgs.to_GM_View_lat();
@@ -241,19 +241,19 @@ namespace MissionPlanner.NewForms
                     lonTB1.Text = controller.wgs.to_GMS_View_lon();
                     break;
                 case 3:
-                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
                     break;
                 case 4:
-                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
                     break;
                 case 5:
-                    latTB1.Text = controller.wgs.toSK42().lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().lon.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
                     break;
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();

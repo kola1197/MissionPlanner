@@ -38,12 +38,13 @@
     <OutputPath>bin\Debug\net461\</OutputPath>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>portable</DebugType>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\net461\</OutputPath>
@@ -53,6 +54,9 @@
     </CodeAnalysisRuleSet>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>MissionPlanner</RootNamespace>
@@ -134,6 +138,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ToggleSwitch\ToggleSwitch.csproj">
+      <Project>{49B88FFA-F02C-4709-BA65-9F8996444ECD}</Project>
+      <Name>ToggleSwitch</Name>
+    </ProjectReference>
     <ProjectReference Include="ExtLibs\7zip\7zip.csproj">
       <Project>{1117efd6-3a46-47f7-9beb-02792d213b8d}</Project>
       <Name>7zip</Name>
@@ -421,6 +429,9 @@
     </Compile>
     <Compile Include="Controls\NewControls\AntennaControl.Designer.cs">
       <DependentUpon>AntennaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewControls\ColorProgressBar.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\NewControls\CoordinatsControl.cs">
       <SubType>UserControl</SubType>
@@ -5302,6 +5313,8 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Orlan\Renderers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7584,7 +7584,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (wpConfig.closedByButton)
             {
-                System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.lat.ToString() + ", " + wpConfig.controller.wgs.lon.ToString());
+                System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.Lat.ToString() + ", " + wpConfig.controller.wgs.Lng.ToString());
 
                 //wpConfig.latTB1.Text = wpConfig.latTB1.Text.Replace(".", ",");
                 //wpConfig.lonTB1.Text = wpConfig.lonTB1.Text.Replace(".", ",");
@@ -7594,16 +7594,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 int selectedValue = wpConfig.comboBox1.SelectedIndex;
                 if (selectedValue == 0)
                 {
-                    TXT_homelat.Text = wpConfig.controller.wgs.lat.ToString();
+                    TXT_homelat.Text = wpConfig.controller.wgs.Lat.ToString();
                     //cellhome = Commands.Rows[0].Cells[Lon.Index] as DataGridViewTextBoxCell;
-                    TXT_homelng.Text = wpConfig.controller.wgs.lon.ToString();
+                    TXT_homelng.Text = wpConfig.controller.wgs.Lng.ToString();
                     //cellhome = Commands.Rows[0].Cells[Alt.Index] as DataGridViewTextBoxCell;
                     TXT_homealt.Text = (20).ToString();
                 }
                 else if (selectedValue == 5)
                 {
-                    rallyWp.lat = wpConfig.controller.wgs.lat;
-                    rallyWp.lng = wpConfig.controller.wgs.lon;
+                    rallyWp.lat = wpConfig.controller.wgs.Lat;
+                    rallyWp.lng = wpConfig.controller.wgs.Lng;
                     rallyWp.alt = (int)wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                     System.Diagnostics.Debug.WriteLine("rallyWP ( FromClosing ): " + rallyWp.lat.ToString() + ", " + rallyWp.lng);
                     if (wpConfig.indexNow != -1)
@@ -7656,7 +7656,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     Commands_CellUpdate(index, Command.Index + 1);
                                     break;
                                 case 4:
-                                    landPoint = new PointLatLng(wpConfig.controller.wgs.lat, wpConfig.controller.wgs.lon);
+                                    landPoint = new PointLatLng(wpConfig.controller.wgs.Lat, wpConfig.controller.wgs.Lng);
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow)Commands.Rows[index].Clone();
@@ -7670,8 +7670,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                                         DataGridViewRow row1 = (DataGridViewRow)Commands.Rows[index].Clone();
                                         row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-                                        row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.lat.ToString();
-                                        row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.lon.ToString();
+                                        row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.Lat.ToString();
+                                        row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
                                         Commands.Rows.Insert(index + 2, row1);
                                     }
 
@@ -8981,9 +8981,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void setLatLon(int index)
         {
-            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.controller.wgs.lat.ToString();
+            Commands.Rows[index].Cells[Lat.Index].Value = wpConfig.controller.wgs.Lat.ToString();
             Commands_CellUpdate(index, Lat.Index);
-            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.controller.wgs.lon.ToString();
+            Commands.Rows[index].Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
             Commands_CellUpdate(index, Lon.Index);
         }
 
