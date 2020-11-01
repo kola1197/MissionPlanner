@@ -26,19 +26,23 @@ namespace MissionPlanner.Controls.NewControls
         public AntennaControl()
         {
             InitializeComponent();
-
+            toggleSwitch1.UseAnimation = false;
             ThemeManager.ApplyThemeTo(this);
             this.BackColor = Color.FromArgb(32, 32, 32);
 
             antennaBindingSource.DataSource = MainV2.AntennaConnectionInfo;
-            switchAntenna_CB.DataBindings.Add("Checked", antennaBindingSource, "Active");
+            // switchAntenna_CB.DataBindings.Add("Checked", antennaBindingSource, "Active");
             autoMode_BUT.DataBindings.Add("Enabled", antennaBindingSource, "Active");
             stopMode_BUT.DataBindings.Add("Enabled", antennaBindingSource, "Active");
             testAntButton.DataBindings.Add("Enabled", antennaBindingSource, "Active");
             myTrackBar1.DataBindings.Add("Enabled", antennaBindingSource, "Active");
-            toggleSwitch1.DataBindings.Add("Enabled", antennaBindingSource, "Active");
-            CMB_serialport.DataBindings.Add(ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
-            CMB_baudrate.DataBindings.Add(ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
+            toggleSwitch1.DataBindings.Add("Checked", antennaBindingSource, "Active");
+            CMB_serialport.DataBindings.Add(
+                ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
+            CMB_baudrate.DataBindings.Add(
+                ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
+            toggleSwitch1.DataBindings.Add("Enabled", antennaBindingSource, "Connected");
+
             Instance = this;
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
@@ -209,9 +213,10 @@ namespace MissionPlanner.Controls.NewControls
                     return true;
                 }
             }
+
             return false;
         }
-        
+
         private void DisconnectAntennaAsync()
         {
             if (HasAntennaConnectedAircraft())
@@ -220,7 +225,7 @@ namespace MissionPlanner.Controls.NewControls
                     "Внимание!");
                 return;
             }
-            
+
             AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
 
             var temp = (ConnectionControl.port_sysid) antenna.SysId;
@@ -242,6 +247,7 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.StopUpdates();
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
                 connect_BUT.Text = connectText;
+                UpdateControls();
                 timer1.Enabled = false;
             }
             catch (Exception)
@@ -297,7 +303,7 @@ namespace MissionPlanner.Controls.NewControls
             {
                 return;
             }
-            
+
             var temp = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
             foreach (var port in MainV2.Comports)
             {
@@ -356,7 +362,7 @@ namespace MissionPlanner.Controls.NewControls
                 UpdateControls();
             }
             catch
-            { 
+            {
                 // CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
             }
         }
@@ -385,14 +391,33 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
+        private void toggleSwitch1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MainV2.AntennaConnectionInfo.Connected)
+            {
+                if (MainV2.AntennaConnectionInfo.Active)
+                {
+                    ReconnectToAircraft();
+                }
+                else
+                {
+                    ConnectionsForm.instance.SwitchToAntenna(false);
+                }
+            }
+            else
+            {
+                SetAntennaState(MainV2.AntennaConnectionInfo.Active);
+            }
+        }
+
         public void SetAntennaState(bool active)
         {
-            switchAntenna_CB.CheckedChanged -= switchAntenna_CB_CheckedChanged;
-            toggleSwitch1.CheckedChanged -= switchAntenna_CB_CheckedChanged;
+            toggleSwitch1.CheckedChanged -= toggleSwitch1_CheckedChanged;
+            toggleSwitch1._allowCheckedChangedEvent = false;
             MainV2.AntennaConnectionInfo.Active = active;
             UpdateControls();
-            switchAntenna_CB.CheckedChanged += switchAntenna_CB_CheckedChanged;
-            toggleSwitch1.CheckedChanged += switchAntenna_CB_CheckedChanged;
+            // WaitForToggleSwitchToChangeChecked();
+            toggleSwitch1.CheckedChanged += toggleSwitch1_CheckedChanged;
         }
     }
 }

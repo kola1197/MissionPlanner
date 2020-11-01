@@ -18,9 +18,21 @@ namespace JCS
     {
         #region Delegate and Event declarations
 
+        
         public delegate void CheckedChangedDelegate(object sender, EventArgs e);
+
+        private event CheckedChangedDelegate _checkedChanged;
         [Description("Raised when the ToggleSwitch has changed state")]
-        public event CheckedChangedDelegate CheckedChanged;
+        public event CheckedChangedDelegate CheckedChanged
+        {
+            add => _checkedChanged += value;
+
+            remove
+            {
+                _allowCheckedChangedEvent = false;
+                _checkedChanged -= value;
+            }
+        }
 
         public delegate void BeforeRenderingDelegate(object sender, BeforeRenderingEventArgs e);
         [Description("Raised when the ToggleSwitch renderer is changed")]
@@ -118,6 +130,8 @@ namespace JCS
         private bool _onButtonScaleImage;
         private ToggleSwitchButtonAlignment _onButtonAlignment = ToggleSwitchButtonAlignment.Center;
 
+        public bool _allowCheckedChangedEvent = true;
+            
         #endregion Private Members
 
         #region Constructor Etc.
@@ -1175,9 +1189,11 @@ namespace JCS
 
             Refresh();
 
-            if (CheckedChanged != null)
-                CheckedChanged(this, new EventArgs());
+            if (_checkedChanged != null && _allowCheckedChangedEvent)
+                _checkedChanged(this, new EventArgs());
 
+            _allowCheckedChangedEvent = true;
+            
             if (_lastMouseEventArgs != null)
                 OnMouseMove(_lastMouseEventArgs);
 

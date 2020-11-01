@@ -457,15 +457,15 @@ namespace MissionPlanner
                 connectedAircraftName_TB.DataBindings.Add(new Binding("Text", airInfoBindingSource, "Name"));
                 useSITL_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingSitl"));
                 useAntenna_CheckBox.DataBindings.Add(new Binding("Checked", airInfoBindingSource, "UsingAntenna"));
-                useSITL_CheckBox.DataBindings.Add(
-                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
-                useAntenna_CheckBox.DataBindings.Add(
-                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingSitl"));
+                // useSITL_CheckBox.DataBindings.Add(
+                //     CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
+                // useAntenna_CheckBox.DataBindings.Add(
+                //     CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingSitl"));
 
                 CMB_serialport.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
-                    "UsingAntenna"));
+                    "NotSerialConnection"));
                 CMB_baudrate.DataBindings.Add(
-                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "UsingAntenna"));
+                    CreateInversedBoolBinding("Enabled", airInfoBindingSource, "NotSerialConnection"));
                 // CMB_serialport.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "SerialPort"));
                 // CMB_baudrate.DataBindings.Add(new Binding("SelectedValue", airInfoBindingSource, "Speed"));
 

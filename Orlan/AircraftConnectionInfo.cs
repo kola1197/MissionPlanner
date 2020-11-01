@@ -17,13 +17,44 @@ namespace MissionPlanner
 
         private int _menuNum;
 
+        private bool _notSerialConnection = true;
+
+        private bool _usingAntenna = true;
+
+        private bool _usingSitl = false;
+        
+        public bool NotSerialConnection => _notSerialConnection;
         public string Speed { get; set; }
 
         public bool Connected { get; set; }
 
-        public bool UsingSitl { get; set; }
+        public bool UsingSitl
+        {
+            get => _usingSitl;
+            set
+            {
+                _usingSitl =  value;
+                if (value)
+                {
+                    _usingAntenna = false;
+                }
+                _notSerialConnection = _usingAntenna || _usingSitl;
+            }
+        }
 
-        public bool UsingAntenna { get; set; }
+        public bool UsingAntenna
+        {
+            get => _usingAntenna;
+            set
+            {
+                _usingAntenna = value;
+                if (value)
+                {
+                    _usingSitl = false;
+                }
+                _notSerialConnection = _usingAntenna || _usingSitl;
+            }
+        }
 
         public int MenuNum
         {
@@ -110,7 +141,7 @@ namespace MissionPlanner
         public AircraftConnectionInfo()
         {
             (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
-                ("", "", "115200", null, false, false, false);
+                ("", "", "115200", null, false, false, true);
             _menuNum = _aircraftCounter;
             _aircraftCounter++;
         }
@@ -118,7 +149,7 @@ namespace MissionPlanner
         public AircraftConnectionInfo(int menuNum)
         {
             (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
-                ("", "", "115200", null, false, false, false);
+                ("", "", "115200", null, false, false, true);
             _menuNum = menuNum;
         }
 
