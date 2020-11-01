@@ -43,9 +43,6 @@ namespace MissionPlanner.Controls.NewControls
             this.loadRegions_BUT = new System.Windows.Forms.Button();
             this.regionsProperties_GB = new System.Windows.Forms.GroupBox();
             this.latLong_DGV = new System.Windows.Forms.DataGridView();
-            this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Latitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coordiants_Label = new System.Windows.Forms.Label();
             this.colorPanel = new System.Windows.Forms.Panel();
             this.color_Label = new System.Windows.Forms.Label();
@@ -55,6 +52,9 @@ namespace MissionPlanner.Controls.NewControls
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.regionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pointsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Latitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.regionsProperties_GB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).BeginInit();
@@ -177,40 +177,6 @@ namespace MissionPlanner.Controls.NewControls
             this.latLong_DGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellValueChanged);
             this.latLong_DGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.latLong_DGV_EditingControlShowing);
             // 
-            // Num
-            // 
-            this.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.FormatProvider = new System.Globalization.CultureInfo("en-US");
-            dataGridViewCellStyle2.NullValue = "-1";
-            this.Num.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Num.HeaderText = "№";
-            this.Num.Name = "Num";
-            this.Num.ReadOnly = true;
-            this.Num.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Num.Width = 43;
-            // 
-            // Latitude
-            // 
-            this.Latitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Format = "N6";
-            dataGridViewCellStyle3.FormatProvider = new System.Globalization.CultureInfo("en-US");
-            dataGridViewCellStyle3.NullValue = "-1";
-            this.Latitude.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Latitude.HeaderText = "Широта";
-            this.Latitude.Name = "Latitude";
-            // 
-            // Longitude
-            // 
-            this.Longitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Format = "N6";
-            dataGridViewCellStyle4.FormatProvider = new System.Globalization.CultureInfo("en-US");
-            dataGridViewCellStyle4.NullValue = "-1";
-            this.Longitude.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Longitude.HeaderText = "Долгота";
-            this.Longitude.Name = "Longitude";
-            // 
             // coordiants_Label
             // 
             this.coordiants_Label.AutoSize = true;
@@ -267,6 +233,38 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.pointsBindingSource.DataSource = typeof(MissionPlanner.GCSViews.FlightPlanner);
             // 
+            // Num
+            // 
+            this.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.FormatProvider = new System.Globalization.CultureInfo("en-US");
+            dataGridViewCellStyle2.NullValue = "-1";
+            this.Num.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Num.HeaderText = "№";
+            this.Num.Name = "Num";
+            this.Num.ReadOnly = true;
+            this.Num.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Num.Width = 43;
+            // 
+            // Latitude
+            // 
+            this.Latitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.FormatProvider = new System.Globalization.CultureInfo("en-US");
+            dataGridViewCellStyle3.NullValue = "-1";
+            this.Latitude.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Latitude.HeaderText = "Широта";
+            this.Latitude.Name = "Latitude";
+            // 
+            // Longitude
+            // 
+            this.Longitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle4.FormatProvider = new System.Globalization.CultureInfo("en-US");
+            dataGridViewCellStyle4.NullValue = "-1";
+            this.Longitude.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Longitude.HeaderText = "Долгота";
+            this.Longitude.Name = "Longitude";
+            // 
             // RegionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -305,9 +303,9 @@ namespace MissionPlanner.Controls.NewControls
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.BindingSource pointsBindingSource;
+        public System.Windows.Forms.ListBox regions_LB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Num;
         private System.Windows.Forms.DataGridViewTextBoxColumn Latitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Longitude;
-        public System.Windows.Forms.ListBox regions_LB;
     }
 }

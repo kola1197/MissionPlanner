@@ -27,21 +27,21 @@ namespace MissionPlanner.NewClasses
 
     public class CoordinatsPoint
     {
-        public double lat { get; set; }
-        public double lon { get; set; }
-        public double alt { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+        public double Alt { get; set; }
         public CoordinatsPoint()
         {
-            lat = 0;
-            lon = 0;
-            alt = 0;
+            Lat = 0;
+            Lng = 0;
+            Alt = 0;
         }
 
-        public CoordinatsPoint(double _lat, double _lon, double _alt = 0)
+        public CoordinatsPoint(double _lat, double lng, double _alt = 0)
         {
-            lat = _lat;
-            lon = _lon;
-            alt = _alt;
+            Lat = _lat;
+            Lng = lng;
+            Alt = _alt;
         }
 
         public CoordinatsPoint(string _lat, string _lon, string _alt = "0")
@@ -49,26 +49,26 @@ namespace MissionPlanner.NewClasses
             if (_lat.Contains('\"'))   //GMS
             {
                 double[] values = splitFromString(_lat);
-                lat = values[0] + (values[1] + values[2] / 60) / 60;
+                Lat = values[0] + (values[1] + values[2] / 60) / 60;
                 values = splitFromString(_lon);
-                lon = values[0] + (values[1] + values[2] / 60) / 60;
+                Lng = values[0] + (values[1] + values[2] / 60) / 60;
                 values = splitFromString(_alt);
-                alt = values[0] + (values[1] + values[2] / 60) / 60;
+                Alt = values[0] + (values[1] + values[2] / 60) / 60;
             }
             else if (_lat.Contains('\'')) //GM
             {
                 double[] values = splitFromString(_lat);
-                lat = values[0] + (values[1]) / 60;
+                Lat = values[0] + (values[1]) / 60;
                 values = splitFromString(_lon);
-                lon = values[0] + (values[1]) / 60;
+                Lng = values[0] + (values[1]) / 60;
                 values = splitFromString(_alt);
-                alt = values[0] + (values[1]) / 60;
+                Alt = values[0] + (values[1]) / 60;
             }
             else //G
             {
-                lat = double.Parse(_lat);
-                lon = double.Parse(_lon);
-                alt = double.Parse(_alt);
+                Lat = double.Parse(_lat);
+                Lng = double.Parse(_lon);
+                Alt = double.Parse(_alt);
             }
         }
 
@@ -89,36 +89,36 @@ namespace MissionPlanner.NewClasses
 
         public string to_G_View() 
         {
-            return lat.ToString("0.00") + "°, " + lon.ToString("0.00°");
+            return Lat.ToString("0.00") + "°, " + Lng.ToString("0.00°");
         }
 
         public string to_GM_View_lat()
         {
-            return CoordinatsConverter.to_GM(lat);
+            return CoordinatsConverter.to_GM(Lat);
         }
 
         public string to_GM_View_lon()
         {
-            return CoordinatsConverter.to_GM(lon);
+            return CoordinatsConverter.to_GM(Lng);
         }
 
         public string to_GM_View() 
         {
-            return CoordinatsConverter.to_GM(lat) + ", " + CoordinatsConverter.to_GM(lon);
+            return CoordinatsConverter.to_GM(Lat) + ", " + CoordinatsConverter.to_GM(Lng);
         }
         public string to_GMS_View_lat()
         {
-            return CoordinatsConverter.to_GMS(lat);
+            return CoordinatsConverter.to_GMS(Lat);
         }
 
         public string to_GMS_View_lon()
         {
-            return CoordinatsConverter.to_GMS(lon);
+            return CoordinatsConverter.to_GMS(Lng);
         }
 
         public string to_GMS_View()
         {
-            return CoordinatsConverter.to_GMS(lat) + ", " + CoordinatsConverter.to_GMS(lon);
+            return CoordinatsConverter.to_GMS(Lat) + ", " + CoordinatsConverter.to_GMS(Lng);
         }
 
     }
@@ -127,10 +127,10 @@ namespace MissionPlanner.NewClasses
 
     public class WGSCoordinats : CoordinatsPoint 
     {
-        public WGSCoordinats(double _lat, double _lon, double _alt) : base(_lat, _lon, _alt)
+        public WGSCoordinats(double _lat, double lng, double _alt) : base(_lat, lng, _alt)
         {  }
 
-        public WGSCoordinats(double _lat, double _lon) : base(_lat, _lon)
+        public WGSCoordinats(double _lat, double lng) : base(_lat, lng)
         { }
 
         public WGSCoordinats() : base()
@@ -144,7 +144,7 @@ namespace MissionPlanner.NewClasses
 
         public SK42Coordinats toSK42() 
         {
-            SK42Coordinats result = new SK42Coordinats(CoordinatsConverter.WGS84_SK42_Lat(lat, lon, alt), CoordinatsConverter.WGS84_SK42_Long(lat, lon, alt));
+            SK42Coordinats result = new SK42Coordinats(CoordinatsConverter.WGS84_SK42_Lat(Lat, Lng, Alt), CoordinatsConverter.WGS84_SK42_Long(Lat, Lng, Alt));
 
             return result;
         }
@@ -152,8 +152,8 @@ namespace MissionPlanner.NewClasses
         public RectCoordinats toRect() 
         {
             SK42Coordinats s = toSK42();
-            double _lat = s.lat;
-            double _lon = s.lon;
+            double _lat = s.Lat;
+            double _lon = s.Lng;
 
             var _latrad = Math.PI * _lat / 180;
             var _lonrad = Math.PI * _lon / 180;
@@ -180,16 +180,16 @@ namespace MissionPlanner.NewClasses
 
         public override string ToString()
         {
-            return lat.ToString("0.0") + ", " + lon.ToString("0.0");
+            return Lat.ToString("0.0") + ", " + Lng.ToString("0.0");
         }
     }
 
     public class SK42Coordinats : CoordinatsPoint
     {
-        public SK42Coordinats(double _lat, double _lon, double _alt) : base(_lat, _lon, _alt)
+        public SK42Coordinats(double _lat, double lng, double _alt) : base(_lat, lng, _alt)
         { }
 
-        public SK42Coordinats(double _lat, double _lon) : base(_lat, _lon)
+        public SK42Coordinats(double _lat, double lng) : base(_lat, lng)
         { }
 
         public SK42Coordinats() : base()
@@ -203,14 +203,14 @@ namespace MissionPlanner.NewClasses
 
         public WGSCoordinats toWGS() 
         {
-            WGSCoordinats result = new WGSCoordinats(CoordinatsConverter.SK42_WGS84_Lat(lat, lon, alt), CoordinatsConverter.SK42_WGS84_Long(lat, lon, alt));
+            WGSCoordinats result = new WGSCoordinats(CoordinatsConverter.SK42_WGS84_Lat(Lat, Lng, Alt), CoordinatsConverter.SK42_WGS84_Long(Lat, Lng, Alt));
             return result;
         }
 
         public RectCoordinats toRect()
         {
-            double _lat = lat;
-            double _lon = lon;
+            double _lat = Lat;
+            double _lon = Lng;
 
             var _latrad = Math.PI * _lat / 180;
             var _lonrad = Math.PI * _lon / 180;
@@ -237,7 +237,7 @@ namespace MissionPlanner.NewClasses
 
         public override string ToString()
         {
-            return lat.ToString("0.0") + ", " + lon.ToString("0.0");
+            return Lat.ToString("0.0") + ", " + Lng.ToString("0.0");
         }
     }
 

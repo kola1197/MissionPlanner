@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.Controls.NewControls;
 
 namespace MissionPlanner.NewForms
 {
@@ -36,6 +37,7 @@ namespace MissionPlanner.NewForms
             MainV2.coordinatsShowMode = tag;
             MainV2.setCoordinatsMode();
             updateButtons();
+            RegionsControl.instance.UpdateBindings();
         }
 
         private void wgs_gButton_BackColorChanged(object sender, EventArgs e)

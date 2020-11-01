@@ -5984,7 +5984,7 @@ namespace MissionPlanner
             //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
             UniversalCoordinatsController u = new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
-            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.lat.ToString()+", "+ u.wgs.lon.ToString());
+            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.Lat.ToString()+", "+ u.wgs.Lng.ToString());
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
