@@ -105,7 +105,7 @@
             this.sk_gmButton.Size = new System.Drawing.Size(123, 23);
             this.sk_gmButton.TabIndex = 4;
             this.sk_gmButton.Tag = "4";
-            this.sk_gmButton.Text = "ГМ (WGS84)";
+            this.sk_gmButton.Text = "ГМ (СК42)";
             this.sk_gmButton.UseVisualStyleBackColor = false;
             this.sk_gmButton.Click += new System.EventHandler(this.Button_Click);
             // 
@@ -119,7 +119,7 @@
             this.sk_gmsButton.Size = new System.Drawing.Size(123, 23);
             this.sk_gmsButton.TabIndex = 5;
             this.sk_gmsButton.Tag = "5";
-            this.sk_gmsButton.Text = "ГМС (WGS84)";
+            this.sk_gmsButton.Text = "ГМС (СК42)";
             this.sk_gmsButton.UseVisualStyleBackColor = false;
             this.sk_gmsButton.Click += new System.EventHandler(this.Button_Click);
             // 

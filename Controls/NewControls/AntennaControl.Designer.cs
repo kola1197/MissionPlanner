@@ -229,7 +229,7 @@
             // 
             // testAntButton
             // 
-            this.testAntButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.testAntButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.testAntButton.Location = new System.Drawing.Point(207, 191);
             this.testAntButton.Name = "testAntButton";
             this.testAntButton.Size = new System.Drawing.Size(89, 23);

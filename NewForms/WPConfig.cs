@@ -37,13 +37,14 @@ namespace MissionPlanner.NewForms
         }*/
 
         public int indexNow = -1;
-        public int SerialNum = -1;
+        public string SerialNum = "-2";
 
         public WPConfig(string _serNum)
         {
             InitializeComponent();
             this.TopMost = true;
             //SerialNum = _serNum;
+            SerialNum = _serNum;
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
             latTB1.Text = "";
         }
@@ -53,7 +54,7 @@ namespace MissionPlanner.NewForms
 
             InitializeComponent();
             this.TopMost = true;
-            //SerialNum = _serNum;
+            SerialNum = _serNum;
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
             
             if (currentRectMarker.Tag.ToString() != "H" && _serNum.ToLower() != "rally")

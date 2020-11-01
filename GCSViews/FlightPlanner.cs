@@ -7561,7 +7561,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         wpConfig = new WPConfig(CurentRectMarker, getWPSerialNumber(int.Parse(CurentRectMarker.Tag.ToString()) - 1).ToString());
                         WpConfigAddEvents();
-                        wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка: " + wpConfig.SerialNum.ToString();
+                        wpConfig.Text = "Борт " + MainV2.CurrentAircraftNum + " Точка: " + wpConfig.SerialNum;
                         WpConfigSetValues();
                         wpConfig.Show();
                         wpConfig.updateServoButtons();
