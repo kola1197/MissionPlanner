@@ -2451,22 +2451,24 @@ namespace GMap.NET.WindowsForms
             {
                if(!InvertedMouseWheelZooming)
                {
-                  Zoom = ((int)Zoom) + 1;
-               }
+                        //Zoom = ((int)Zoom) + 0.5;
+                        Zoom += 0.5;
+                    }
                else
                {
-                  Zoom = ((int)(Zoom + 0.99)) - 1;
+                  Zoom = ((int)(Zoom + 0.99)) - 0.5;
                }
             }
             else if(e.Delta < 0)
             {
                if(!InvertedMouseWheelZooming)
                {
-                  Zoom = ((int)(Zoom + 0.99)) - 1;
-               }
+                        //Zoom = ((int)(Zoom + 0.99)) - 0.5;
+                        Zoom -= 0.5;
+                    }
                else
                {
-                  Zoom = ((int)Zoom) + 1;
+                  Zoom = ((int)Zoom) + 0.5;
                }
             }
 

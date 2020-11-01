@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiagnosticForm));
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
@@ -78,6 +79,7 @@
             // 
             this.myButton3.BGGradBot = System.Drawing.Color.Empty;
             this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.DefaultTheme = false;
             this.myButton3.Location = new System.Drawing.Point(104, 12);
             this.myButton3.Name = "myButton3";
             this.myButton3.Outline = System.Drawing.Color.Black;
@@ -92,6 +94,7 @@
             // 
             this.myButton4.BGGradBot = System.Drawing.Color.Empty;
             this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(150, 12);
             this.myButton4.Name = "myButton4";
             this.myButton4.Outline = System.Drawing.Color.Black;
@@ -204,6 +207,7 @@
             this.Controls.Add(this.myButton3);
             this.Controls.Add(this.myButton2);
             this.Controls.Add(this.myButton1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DiagnosticForm";
             this.Text = "Diagnostic";
             this.ResumeLayout(false);

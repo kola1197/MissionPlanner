@@ -45,10 +45,12 @@
             this._label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lbl_yawpwm = new System.Windows.Forms.Label();
-            this.BUT_test_yaw = new MissionPlanner.Controls.MyButton();
             this.myTrackBar1 = new MissionPlanner.Controls.MyTrackBar();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).BeginInit();
+            this.testAntButton = new System.Windows.Forms.Button();
+            this.antennaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toggleSwitch1 = new JCS.ToggleSwitch();
+            ((System.ComponentModel.ISupportInitialize) (this.myTrackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.antennaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reload_BUT
@@ -67,20 +69,7 @@
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "111100",
-            "115200",
-            "500000",
-            "625000",
-            "921600",
-            "1500000"});
+            this.CMB_baudrate.Items.AddRange(new object[] {"1200", "2400", "4800", "9600", "19200", "38400", "57600", "111100", "115200", "500000", "625000", "921600", "1500000"});
             this.CMB_baudrate.Location = new System.Drawing.Point(79, 135);
             this.CMB_baudrate.Name = "CMB_baudrate";
             this.CMB_baudrate.Size = new System.Drawing.Size(217, 21);
@@ -218,26 +207,11 @@
             // 
             this.lbl_yawpwm.AutoSize = true;
             this.lbl_yawpwm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_yawpwm.Location = new System.Drawing.Point(168, 225);
+            this.lbl_yawpwm.Location = new System.Drawing.Point(265, 225);
             this.lbl_yawpwm.Name = "lbl_yawpwm";
             this.lbl_yawpwm.Size = new System.Drawing.Size(31, 13);
             this.lbl_yawpwm.TabIndex = 28;
             this.lbl_yawpwm.Text = "1500";
-            // 
-            // BUT_test_yaw
-            // 
-            this.BUT_test_yaw.BGGradBot = System.Drawing.SystemColors.Control;
-            this.BUT_test_yaw.BGGradTop = System.Drawing.SystemColors.Control;
-            this.BUT_test_yaw.DefaultTheme = false;
-            this.BUT_test_yaw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_test_yaw.Location = new System.Drawing.Point(168, 271);
-            this.BUT_test_yaw.Name = "BUT_test_yaw";
-            this.BUT_test_yaw.Size = new System.Drawing.Size(88, 23);
-            this.BUT_test_yaw.TabIndex = 27;
-            this.BUT_test_yaw.Text = "Test";
-            this.BUT_test_yaw.UseVisualStyleBackColor = true;
-            this.BUT_test_yaw.Visible = false;
-            this.BUT_test_yaw.Click += new System.EventHandler(this.BUT_test_yaw_Click);
             // 
             // myTrackBar1
             // 
@@ -247,30 +221,45 @@
             this.myTrackBar1.Maximum = 2000F;
             this.myTrackBar1.Minimum = 1000F;
             this.myTrackBar1.Name = "myTrackBar1";
-            this.myTrackBar1.Size = new System.Drawing.Size(144, 45);
+            this.myTrackBar1.Size = new System.Drawing.Size(241, 45);
             this.myTrackBar1.SmallChange = 5F;
             this.myTrackBar1.TabIndex = 26;
             this.myTrackBar1.TickFrequency = 100F;
             this.myTrackBar1.Value = 1500F;
             // 
-            // button1
+            // testAntButton
             // 
-            this.button1.Location = new System.Drawing.Point(207, 191);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 23);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "TEST";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            this.testAntButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.testAntButton.Location = new System.Drawing.Point(207, 191);
+            this.testAntButton.Name = "testAntButton";
+            this.testAntButton.Size = new System.Drawing.Size(89, 23);
+            this.testAntButton.TabIndex = 29;
+            this.testAntButton.Text = "TEST";
+            this.testAntButton.UseVisualStyleBackColor = true;
+            this.testAntButton.Click += new System.EventHandler(this.BUT_test_yaw_Click);
+            // 
+            // toggleSwitch1
+            // 
+            this.toggleSwitch1.AnimationStep = 30;
+            this.toggleSwitch1.Location = new System.Drawing.Point(18, 251);
+            this.toggleSwitch1.Margin = new System.Windows.Forms.Padding(2);
+            this.toggleSwitch1.Name = "toggleSwitch1";
+            this.toggleSwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.toggleSwitch1.OffText = "Переключиться на антенну";
+            this.toggleSwitch1.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.toggleSwitch1.OnText = "Переключен на антенну";
+            this.toggleSwitch1.Size = new System.Drawing.Size(278, 24);
+            this.toggleSwitch1.TabIndex = 31;
+            this.toggleSwitch1.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.toggleSwitch1_CheckedChanged);
             // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.Controls.Add(this.button1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.Controls.Add(this.toggleSwitch1);
+            this.Controls.Add(this.testAntButton);
             this.Controls.Add(this.lbl_yawpwm);
-            this.Controls.Add(this.BUT_test_yaw);
             this.Controls.Add(this.myTrackBar1);
             this.Controls.Add(this.heading_label);
             this.Controls.Add(this._label3);
@@ -288,10 +277,10 @@
             this.Controls.Add(this.CMB_serialport);
             this.Name = "AntennaControl";
             this.Size = new System.Drawing.Size(311, 400);
-            ((System.ComponentModel.ISupportInitialize)(this.myTrackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.myTrackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.antennaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Button connect_BUT;
@@ -313,8 +302,10 @@
         private System.Windows.Forms.Label _label3;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lbl_yawpwm;
-        private MyButton BUT_test_yaw;
         private MyTrackBar myTrackBar1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button testAntButton;
+        private System.Windows.Forms.BindingSource antennaBindingSource;
+        // private ToggleSwitch MetroStyleToggleSwitch;
+        private JCS.ToggleSwitch toggleSwitch1;
     }
 }

@@ -190,13 +190,13 @@ namespace MissionPlanner
                 Splash.pictureBox1.Visible = false;
             }
 
-            if (IconFile != null)
-                Splash.Icon = Icon.FromHandle(((Bitmap)IconFile).GetHicon());
+            //if (IconFile != null)
+            //    Splash.Icon = Icon.FromHandle(((Bitmap)IconFile).GetHicon());
 
             string strVersion = File.Exists("version.txt")
                 ? File.ReadAllText("version.txt")
                 : System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Splash.Text = name + " " + Application.ProductVersion + " build " + strVersion;
+            Splash.Text = "Загрузка НПУ"; //name + " " + Application.ProductVersion + " build " + strVersion;
             Splash.Show();
 
             if (Debugger.IsAttached)

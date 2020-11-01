@@ -42,11 +42,11 @@ namespace MissionPlanner
             this.aircraftNumber_TB = new System.Windows.Forms.TextBox();
             this.addAircraft_BT = new System.Windows.Forms.Button();
             this.connectionParams_panel = new System.Windows.Forms.Panel();
-            this.useAntenna_CheckBox = new System.Windows.Forms.CheckBox();
+            this.useSITL_CheckBox = new JCS.ToggleSwitch();
+            this.useAntenna_CheckBox = new JCS.ToggleSwitch();
             this.antennaPanel = new System.Windows.Forms.Panel();
             this.updateSysId_BUT = new System.Windows.Forms.Button();
             this.sysid_cmb = new System.Windows.Forms.ComboBox();
-            this.useSITL_CheckBox = new System.Windows.Forms.CheckBox();
             this.reload_BUT = new System.Windows.Forms.Button();
             this.CMB_baudrate = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,9 +64,9 @@ namespace MissionPlanner
             this.connection_GB = new System.Windows.Forms.GroupBox();
             this.connectionParams_panel.SuspendLayout();
             this.antennaPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aircraftsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.airInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dictValueBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.aircraftsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.airInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dictValueBindingSource)).BeginInit();
             this.connection_GB.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,7 +95,7 @@ namespace MissionPlanner
             // 
             // addAircraft_BT
             // 
-            this.addAircraft_BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.addAircraft_BT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             resources.ApplyResources(this.addAircraft_BT, "addAircraft_BT");
             this.addAircraft_BT.ForeColor = System.Drawing.Color.Black;
             this.addAircraft_BT.Name = "addAircraft_BT";
@@ -104,9 +104,9 @@ namespace MissionPlanner
             // 
             // connectionParams_panel
             // 
+            this.connectionParams_panel.Controls.Add(this.useSITL_CheckBox);
             this.connectionParams_panel.Controls.Add(this.useAntenna_CheckBox);
             this.connectionParams_panel.Controls.Add(this.antennaPanel);
-            this.connectionParams_panel.Controls.Add(this.useSITL_CheckBox);
             this.connectionParams_panel.Controls.Add(this.reload_BUT);
             this.connectionParams_panel.Controls.Add(this.CMB_baudrate);
             this.connectionParams_panel.Controls.Add(this.label6);
@@ -119,13 +119,29 @@ namespace MissionPlanner
             resources.ApplyResources(this.connectionParams_panel, "connectionParams_panel");
             this.connectionParams_panel.Name = "connectionParams_panel";
             // 
+            // useSITL_CheckBox
+            // 
+            this.useSITL_CheckBox.AnimationStep = 40;
+            resources.ApplyResources(this.useSITL_CheckBox, "useSITL_CheckBox");
+            this.useSITL_CheckBox.Name = "useSITL_CheckBox";
+            this.useSITL_CheckBox.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.useSITL_CheckBox.OffText = "Использовать симуляцию";
+            this.useSITL_CheckBox.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.useSITL_CheckBox.OnText = "Использовать симуляцию";
+            this.useSITL_CheckBox.UseAnimation = false;
+            this.useSITL_CheckBox.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.useSITL_CheckBox_CheckedChanged);
+            // 
             // useAntenna_CheckBox
             // 
+            this.useAntenna_CheckBox.AnimationStep = 40;
             resources.ApplyResources(this.useAntenna_CheckBox, "useAntenna_CheckBox");
-            this.useAntenna_CheckBox.ForeColor = System.Drawing.Color.White;
             this.useAntenna_CheckBox.Name = "useAntenna_CheckBox";
-            this.useAntenna_CheckBox.UseVisualStyleBackColor = true;
-            this.useAntenna_CheckBox.CheckedChanged += new System.EventHandler(this.useAntenna_CheckBox_CheckedChanged);
+            this.useAntenna_CheckBox.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.useAntenna_CheckBox.OffText = "Использовать антенну";
+            this.useAntenna_CheckBox.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.useAntenna_CheckBox.OnText = "Использовать антенну";
+            this.useAntenna_CheckBox.UseAnimation = false;
+            this.useAntenna_CheckBox.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.useAntenna_CheckBox_CheckedChanged);
             // 
             // antennaPanel
             // 
@@ -136,9 +152,9 @@ namespace MissionPlanner
             // 
             // updateSysId_BUT
             // 
-            this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
+            this.updateSysId_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.updateSysId_BUT.ForeColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.updateSysId_BUT, "updateSysId_BUT");
             this.updateSysId_BUT.Name = "updateSysId_BUT";
             this.updateSysId_BUT.UseVisualStyleBackColor = false;
             this.updateSysId_BUT.Click += new System.EventHandler(this.updateSysId_BUT_Click);
@@ -146,6 +162,7 @@ namespace MissionPlanner
             // sysid_cmb
             // 
             this.sysid_cmb.BackColor = System.Drawing.Color.Black;
+            this.sysid_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sysid_cmb.DropDownWidth = 160;
             this.sysid_cmb.ForeColor = System.Drawing.Color.White;
             this.sysid_cmb.FormattingEnabled = true;
@@ -154,17 +171,9 @@ namespace MissionPlanner
             this.sysid_cmb.DropDown += new System.EventHandler(this.sysid_cmb_DropDown);
             this.sysid_cmb.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.sysid_cmb_Format);
             // 
-            // useSITL_CheckBox
-            // 
-            resources.ApplyResources(this.useSITL_CheckBox, "useSITL_CheckBox");
-            this.useSITL_CheckBox.ForeColor = System.Drawing.Color.White;
-            this.useSITL_CheckBox.Name = "useSITL_CheckBox";
-            this.useSITL_CheckBox.UseVisualStyleBackColor = true;
-            this.useSITL_CheckBox.CheckedChanged += new System.EventHandler(this.useSITL_CheckBox_CheckedChanged);
-            // 
             // reload_BUT
             // 
-            this.reload_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.reload_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             resources.ApplyResources(this.reload_BUT, "reload_BUT");
             this.reload_BUT.ForeColor = System.Drawing.Color.Black;
             this.reload_BUT.Name = "reload_BUT";
@@ -175,20 +184,7 @@ namespace MissionPlanner
             // 
             this.CMB_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_baudrate.FormattingEnabled = true;
-            this.CMB_baudrate.Items.AddRange(new object[] {
-            resources.GetString("CMB_baudrate.Items"),
-            resources.GetString("CMB_baudrate.Items1"),
-            resources.GetString("CMB_baudrate.Items2"),
-            resources.GetString("CMB_baudrate.Items3"),
-            resources.GetString("CMB_baudrate.Items4"),
-            resources.GetString("CMB_baudrate.Items5"),
-            resources.GetString("CMB_baudrate.Items6"),
-            resources.GetString("CMB_baudrate.Items7"),
-            resources.GetString("CMB_baudrate.Items8"),
-            resources.GetString("CMB_baudrate.Items9"),
-            resources.GetString("CMB_baudrate.Items10"),
-            resources.GetString("CMB_baudrate.Items11"),
-            resources.GetString("CMB_baudrate.Items12")});
+            this.CMB_baudrate.Items.AddRange(new object[] {resources.GetString("CMB_baudrate.Items"), resources.GetString("CMB_baudrate.Items1"), resources.GetString("CMB_baudrate.Items2"), resources.GetString("CMB_baudrate.Items3"), resources.GetString("CMB_baudrate.Items4"), resources.GetString("CMB_baudrate.Items5"), resources.GetString("CMB_baudrate.Items6"), resources.GetString("CMB_baudrate.Items7"), resources.GetString("CMB_baudrate.Items8"), resources.GetString("CMB_baudrate.Items9"), resources.GetString("CMB_baudrate.Items10"), resources.GetString("CMB_baudrate.Items11"), resources.GetString("CMB_baudrate.Items12")});
             resources.ApplyResources(this.CMB_baudrate, "CMB_baudrate");
             this.CMB_baudrate.Name = "CMB_baudrate";
             // 
@@ -238,7 +234,7 @@ namespace MissionPlanner
             // 
             // connect_BUT
             // 
-            this.connect_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.connect_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             resources.ApplyResources(this.connect_BUT, "connect_BUT");
             this.connect_BUT.ForeColor = System.Drawing.Color.Black;
             this.connect_BUT.Name = "connect_BUT";
@@ -270,19 +266,20 @@ namespace MissionPlanner
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConnectionsForm";
             this.TopMost = true;
+            this.Activated += new System.EventHandler(this.ConnectionsForm_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionsForm_FormClosing);
+            this.Shown += new System.EventHandler(this.ConnectionsForm_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ConnectionsForm_Paint);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConnectionsForm_MouseMove);
             this.connectionParams_panel.ResumeLayout(false);
             this.connectionParams_panel.PerformLayout();
             this.antennaPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.aircraftsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.airInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dictValueBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.aircraftsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.airInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dictValueBindingSource)).EndInit();
             this.connection_GB.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Button updateSysId_BUT;
@@ -305,13 +302,13 @@ namespace MissionPlanner
         private ComboBox CMB_baudrate;
         private Timer timer1;
         private Button reload_BUT;
-        private CheckBox useSITL_CheckBox;
-        private CheckBox useAntenna_CheckBox;
         private Panel antennaPanel;
         public ComboBox sysid_cmb;
         private BindingSource aircraftsBindingSource;
         private BindingSource airInfoBindingSource;
         private BindingSource dictValueBindingSource;
         private GroupBox connection_GB;
+        private JCS.ToggleSwitch useSITL_CheckBox;
+        private JCS.ToggleSwitch useAntenna_CheckBox;
     }
 }

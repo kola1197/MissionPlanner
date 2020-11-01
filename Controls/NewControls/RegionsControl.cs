@@ -17,6 +17,7 @@ using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.GCSViews;
 using MissionPlanner.Maps;
 using MissionPlanner;
+using MissionPlanner.NewClasses;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls
@@ -69,6 +70,86 @@ namespace MissionPlanner.Controls.NewControls
             // timer1.Enabled = true;
         }
 
+        //global brushes with ordinary/selected colors
+        private SolidBrush reportsForegroundBrushSelected = new SolidBrush(Color.White);
+        private SolidBrush reportsForegroundBrush = new SolidBrush(Color.Black);
+        private SolidBrush reportsBackgroundBrushSelected = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
+        private SolidBrush reportsBackgroundBrush1 = new SolidBrush(Color.White);
+        private SolidBrush reportsBackgroundBrush2 = new SolidBrush(Color.Gray);
+
+//custom method to draw the items, don't forget to set DrawMode of the ListBox to OwnerDrawFixed
+        // private void lbReports_DrawItem(object sender, DrawItemEventArgs e)
+        // {
+        //     e.DrawBackground();
+        //     bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+        //
+        //     int index = e.Index;
+        //     if (index >= 0 && index < lbReports.Items.Count)
+        //     {
+        //         string text = lbReports.Items[index].ToString();
+        //         Graphics g = e.Graphics;
+        //
+        //         //background:
+        //         SolidBrush backgroundBrush;
+        //         if (selected)
+        //             backgroundBrush = reportsBackgroundBrushSelected;
+        //         else if ((index % 2) == 0)
+        //             backgroundBrush = reportsBackgroundBrush1;
+        //         else
+        //             backgroundBrush = reportsBackgroundBrush2;
+        //         g.FillRectangle(backgroundBrush, e.Bounds);
+        //
+        //         //text:
+        //         SolidBrush foregroundBrush = (selected) ? reportsForegroundBrushSelected : reportsForegroundBrush;
+        //         g.DrawString(text, e.Font, foregroundBrush, lbReports.GetItemRectangle(index).Location);
+        //     }
+        //
+        //     e.DrawFocusRectangle();
+        // }
+        
+        private string RemoveDigitsFromString(string input)
+        {
+            return new String(input.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
+        }
+        
+        private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back)
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-')
+                {
+                    _editTextBox.SelectionStart--;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            if (e.KeyCode == Keys.Delete || Control.IsKeyLocked(Keys.Insert))
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+
+                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) && text[selectionStart] != '-')
+                {
+                    _editTextBox.SelectionStart++;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+            
+            
+            if (_editTextBox.SelectionLength > 0)
+            {
+                _editTextBox.SelectionStart = _editTextBox.Text.Length;
+                e.Handled = true;
+            }
+        }
+        
+        
         private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
@@ -77,6 +158,36 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
+        private void RemoveSelection(Object obj)
+        {
+            TextBox textbox = obj as TextBox;
+            if (textbox != null)
+            {
+                textbox.SelectionLength = 0;
+            }
+        }
+
+        private void editTextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            RemoveSelection(sender);
+        }
+        
+        private void editTextBox_GotFocus(object sender, EventArgs e)
+        {
+            RemoveSelection(sender);
+            _editTextBox.SelectionStart = _editTextBox.Text.Length;
+        }
+        
+        private void editTextBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            RemoveSelection(sender);
+        }
+
+        private void editTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            RemoveSelection(sender);
+        }
+        
         private void EditTextBoxOnTextChanged(object sender, EventArgs e)
         {
         }
@@ -246,7 +357,12 @@ namespace MissionPlanner.Controls.NewControls
                 }
                 else
                 {
-                    e.Value = Convert.ToDouble(e.Value).ToString("F6", new CultureInfo("en-US"));
+                    // e.Value = Convert.ToDouble(e.Value).ToString("F6", new CultureInfo("en-US"));
+                    UniversalCoordinatsController controller =
+                        new UniversalCoordinatsController(new WGSCoordinats(GetPointByRow(e.RowIndex).Lat,
+                            GetPointByRow(e.RowIndex).Lng));
+                    bool isLatitude = e.ColumnIndex == 1;
+                    e.Value = FormatCoordinateFromWgs(controller, isLatitude);
                 }
 
                 e.FormattingApplied = true;
@@ -315,7 +431,20 @@ namespace MissionPlanner.Controls.NewControls
                 currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
             }
 
+            ClearEditTbEvents();
+            
             RedrawPolygonSurvey(GetCurrentPolygon());
+        }
+
+        private void ClearEditTbEvents()
+        {
+            _editTextBox.TextChanged -= EditTextBoxOnTextChanged;
+            _editTextBox.KeyPress -= EditTextBoxOnKeyPress;
+            _editTextBox.MouseUp -= editTextBox_MouseUp;
+            _editTextBox.KeyUp -= editTextBox_KeyUp;
+            _editTextBox.KeyDown -= editTextBox_OnKeyDown;
+            _editTextBox.GotFocus -= editTextBox_GotFocus;
+            _editTextBox.MouseMove -= editTextBox_MouseMove;
         }
 
         private void latLong_DGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -383,8 +512,14 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             _editTextBox = e.Control as TextBox;
+            
             _editTextBox.TextChanged += EditTextBoxOnTextChanged;
             _editTextBox.KeyPress += EditTextBoxOnKeyPress;
+            _editTextBox.MouseUp += editTextBox_MouseUp;
+            _editTextBox.KeyUp += editTextBox_KeyUp;
+            _editTextBox.KeyDown += editTextBox_OnKeyDown;
+            _editTextBox.GotFocus += editTextBox_GotFocus;
+            _editTextBox.MouseMove += editTextBox_MouseMove;
         }
 
         private void latLong_DGV_CancelRowEdit(object sender, System.Windows.Forms.QuestionEventArgs e)
@@ -582,6 +717,139 @@ namespace MissionPlanner.Controls.NewControls
             {
                 dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lng.ToString("N6");
             }
+        }
+
+        // If I didnt rewrite converter then I must die
+        private PointLatLng ConvertToLatLng(PointLatLng point)
+        {
+            UniversalCoordinatsController controller = CreateController(point);
+            return new PointLatLng(controller.wgs.Lat, controller.wgs.Lng);
+        }
+
+        private PointLatLng GetPointByRow(int rowIndex)
+        {
+            return GetCurrentPolygon().Points[rowIndex];
+        }
+        
+        private string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
+        {
+            switch (MainV2.coordinatsShowMode) 
+            {
+                case 0:
+                    if (isLat)
+                    {
+                        return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));;
+                    }
+                    else
+                    {
+                        return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));;                        
+                    }
+                    break;
+                case 1:
+                    if (isLat)
+                    {
+                        return controller.wgs.to_GM_View_lat();                        
+                    }
+                    else
+                    {
+                        return controller.wgs.to_GM_View_lon();
+                    }
+                    break;
+                case 2:
+                    if (isLat)
+                    {
+                        return controller.wgs.to_GMS_View_lat();                        
+                    }
+                    else
+                    {
+                        return controller.wgs.to_GMS_View_lon();                        
+                    }
+                    break;
+                case 3:
+                    if (isLat)
+                    {
+                    return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;                        
+                    }
+                    else
+                    {
+                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
+                        
+                    }
+                    break;
+                case 4:
+                    if (isLat)
+                    {
+                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
+                        
+                    }
+                    else
+                    {
+                    return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
+                        
+                    }
+                    break;
+                case 5:
+                    if (isLat)
+                    {
+                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
+                        
+                    }
+                    else
+                    {
+                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
+                        
+                    }
+                    break;
+                case 6:
+                    if (isLat)
+                    {
+                        return controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));;
+                    }
+                    else
+                    {
+                        return controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));;
+                    }
+                    break;
+                default:
+                    return "-1.0";
+            }
+            
+        }
+        
+        // private PointLatLng ConvertFromLatLng(PointLatLng point)
+        // {
+        //     
+        // }
+
+        private UniversalCoordinatsController CreateController(PointLatLng point)
+        {
+            UniversalCoordinatsController controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
+            switch (MainV2.coordinatsShowMode)
+            {
+                case 0:
+                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
+                    break;
+                case 1:
+                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
+                    break;
+                case 2:
+                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
+                    break;
+                case 3:
+                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
+                    break;
+                case 4:
+                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
+                    break;
+                case 5:
+                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
+                    break;
+                case 6:
+                    controller = new UniversalCoordinatsController(new RectCoordinats(point.Lat, point.Lng));
+                    break;
+            }
+
+            return controller;
         }
     }
 }

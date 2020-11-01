@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPMenu));
             this.mainButton = new MissionPlanner.Controls.MyButton();
             this.label3 = new System.Windows.Forms.Label();
             this.loadButton = new MissionPlanner.Controls.MyButton();
@@ -366,7 +367,7 @@
             // myButton1
             // 
             this.myButton1.BackColor = System.Drawing.Color.Transparent;
-            this.myButton1.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_show_button;
+            this.myButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("myButton1.BackgroundImage")));
             this.myButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.myButton1.BGGradBot = System.Drawing.Color.Empty;
             this.myButton1.BGGradTop = System.Drawing.Color.Empty;
@@ -382,6 +383,7 @@
             this.myButton1.TabIndex = 19;
             this.myButton1.TextColor = System.Drawing.Color.Empty;
             this.myButton1.UseVisualStyleBackColor = false;
+            this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
             // 
             // WPMenu
             // 
