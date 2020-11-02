@@ -126,6 +126,7 @@
             // orthogonalСoordinatesButton
             // 
             this.orthogonalСoordinatesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.orthogonalСoordinatesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.orthogonalСoordinatesButton.ForeColor = System.Drawing.Color.Black;
             this.orthogonalСoordinatesButton.Location = new System.Drawing.Point(11, 186);
             this.orthogonalСoordinatesButton.Name = "orthogonalСoordinatesButton";
@@ -150,8 +151,10 @@
             this.Controls.Add(this.wgs_gmButton);
             this.Controls.Add(this.wgs_gButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CoordinatsModeForm";
-            this.Text = "CoordinatsModeForm";
+            this.Text = "Тип координат";
             this.ResumeLayout(false);
 
         }

@@ -16,6 +16,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MissionPlanner.GCSViews;
+using MissionPlanner.NewClasses;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls
@@ -46,16 +47,16 @@ namespace MissionPlanner.Controls
             }
         }
 
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect, // x-coordinate of upper-left corner
-            int nTopRect, // y-coordinate of upper-left corner
-            int nRightRect, // x-coordinate of lower-right corner
-            int nBottomRect, // y-coordinate of lower-right corner
-            int nWidthEllipse, // height of ellipse
-            int nHeightEllipse // width of ellipse
-        );
+        // [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        // private static extern IntPtr CreateRoundRectRgn
+        // (
+        //     int nLeftRect, // x-coordinate of upper-left corner
+        //     int nTopRect, // y-coordinate of upper-left corner
+        //     int nRightRect, // x-coordinate of lower-right corner
+        //     int nBottomRect, // y-coordinate of lower-right corner
+        //     int nWidthEllipse, // height of ellipse
+        //     int nHeightEllipse // width of ellipse
+        // );
 
         Delegate test;
         private bool active = false;
@@ -64,7 +65,7 @@ namespace MissionPlanner.Controls
         public MainMenuWidget()
         {
             InitializeComponent();
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
+            Region = ControlDrawingTools.CreateRoundRectRgn(-20, -20, Width, Height, 20);
             this.BackColor = Color.FromArgb(200, 32, 32, 32);
             updateSize();
             Instance = this;
@@ -103,12 +104,12 @@ namespace MissionPlanner.Controls
             if (!active)
             {
                 this.Size = new Size(70, 70);
-                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
+                Region = ControlDrawingTools.CreateRoundRectRgn(-20, -20, Width, Height, 20);
             }
             else
             {
                 this.Size = new Size(420, 70);
-                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, -20, Width, Height, 20, 20));
+                Region = ControlDrawingTools.CreateRoundRectRgn(-20, -20, Width, Height, 20);
             }
         }
 

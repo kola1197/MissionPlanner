@@ -20,8 +20,11 @@ namespace MissionPlanner.Controls.NewControls
         public ICERun()
         {
             InitializeComponent();
-            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
+        }
 
+        public void Init()
+        {
+            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
         }
 
         private void timer1_Tick(object sender, EventArgs e)

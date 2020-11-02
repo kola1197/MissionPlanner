@@ -60,6 +60,7 @@ using Help = MissionPlanner.GCSViews.Help;
 using System.Xml.Serialization;
 using System.Windows.Input;
 using GMap.NET.WindowsForms.Markers;
+using IronPython.Modules;
 using MissionPlanner.Controls.NewControls;
 using MissionPlanner.NewClasses;
 using Microsoft.Win32;
@@ -677,7 +678,9 @@ namespace MissionPlanner
         /// </summary>
         public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
-        public static string _currentAircraftNum = null;
+        private DateTime sitlFlightTime = DateTime.Now;
+        
+        private static string _currentAircraftNum = null;
 
         public static string CurrentAircraftNum
         {
@@ -685,7 +688,7 @@ namespace MissionPlanner
             set
             {
                 AircraftMenuControl.updateAllAircraftButtonTexts();
-             
+
                 _currentAircraftNum = value;
                 if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
@@ -711,7 +714,7 @@ namespace MissionPlanner
             AircraftMenuControl.aircraftButtonInfo currentMenuButton =
                 AircraftMenuControl.aircraftButtons[currentAircraftInfo.MenuNum];
             _mavlink = comPort;
-            
+
             // var subscriptions = new List<IDisposable>
             // {
             //     // Link quality is a percentage of the number of good packets received
@@ -730,7 +733,7 @@ namespace MissionPlanner
             // };
             //
             // subscriptions.ForEach(d => _subscriptionsDisposable.Add(d));
-            
+
             // currentMenuButton.Button.Text =
             //     currentMenuButton.DefaultText + " | " + comPort.MAV.cs.linkqualitygcs.ToString() + "%";
         }
@@ -741,9 +744,10 @@ namespace MissionPlanner
             {
                 return null;
             }
+
             return Aircrafts[CurrentAircraftNum];
         }
-        
+
         private static IObservable<TResult> CombineWithDefault<TSource, TResult>(IObservable<TSource> first,
             Subject<TSource> second, Func<TSource, TSource, TResult> resultSelector)
         {
@@ -1047,7 +1051,7 @@ namespace MissionPlanner
 
             if (splash != null)
             {
-                this.Text = "НПУ";//splash?.Text;
+                this.Text = "НПУ"; //splash?.Text;
                 titlebar = splash?.Text;
             }
 
@@ -1354,25 +1358,25 @@ namespace MissionPlanner
             coordinatsControlInit();
             deserealaseDict();
             FormConnector = new FormConnector(this);
-            
+
             AircraftMenuControl.SwitchOnTimer();
-            
+
             ConnectionsForm.Init();
             //this.Text = "Мighty Platypus   v0.2";
         }
 
         private void MakeRightSideMenuTransparent()
         {
-            rightSideMenuControl1.Parent = FlightPlanner.MainMap;
-            rightSideMenuControl1.Location =
-                new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width + 10, 100);
+            rightSideButtonsMenu.Parent = FlightPlanner.MainMap;
+            rightSideButtonsMenu.Location =
+                new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width + 10, 100);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
         {
             MainV2._connectionControl.UpdateSysIDS();
         }
-        
+
         void comPort_MavChanged(object sender, EventArgs e)
         {
             log.Info("Mav Changed " + MainV2.comPort.MAV.sysid);
@@ -1511,11 +1515,20 @@ namespace MissionPlanner
             {
                 System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
             }
-            try 
-            { 
-            if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
+
+            try
+            {
+                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
                 {
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
+                }
+
+                if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
+                    Aircrafts[_currentAircraftNum].Connected && Aircrafts[_currentAircraftNum].inAir &&
+                    (DateTime.Now - sitlFlightTime).TotalHours > 1)
+                {
+                    StatusMenuPanel.DoSitlFuelSpend();
+                    sitlFlightTime = DateTime.Now;
                 }
 
                 vibeData.update();
@@ -1570,9 +1583,11 @@ namespace MissionPlanner
                             currentPositionAlt);
                         break;
                     case 6:
-                        currentMousePosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(currentMousePositionLat,
+                        currentMousePosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(
+                            currentMousePositionLat,
                             currentMousePositionLng, currentMousePositionAlt);
-                        currentPosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(currentPositionLat, currentPositionLng,
+                        currentPosition = CoordinatsConverter.toRectFromWGSwithFuckingJavaScript(currentPositionLat,
+                            currentPositionLng,
                             currentPositionAlt);
                         break;
                     default:
@@ -1600,15 +1615,20 @@ namespace MissionPlanner
                 {
                     double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
-                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane, true);
+                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane);
                     FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
+
+                    int azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
+                        new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                    FlightPlanner.notificationControl1.azimuthUav_label.Text = azimuth + "°";
                 }
                 else
                 {
                     FlightPlanner.notificationControl1.label3.Text = "0 м";
                 }
 
-                FlightPlanner.notificationControl1.label5.Text = comPort.MAV.cs.wp_dist.ToString();
+                FlightPlanner.notificationControl1.label5.Text =
+                    FlightPlanner.FormatDistance(comPort.MAV.cs.wp_dist / 1000.0);
                 double lengthCountr = 0;
                 for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++)
                 {
@@ -1617,7 +1637,7 @@ namespace MissionPlanner
                         .ToString());
                 }
 
-                FlightPlanner.notificationControl1.label7.Text = lengthCountr.ToString("0.00") + " м";
+                FlightPlanner.notificationControl1.label7.Text = FlightPlanner.FormatDistance(lengthCountr / 1000.0);
             }
             catch (System.Exception eee)
             {
@@ -1664,7 +1684,11 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    Aircrafts[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                    if (comPort.MAV.cs.alt > 30)
+                    {
+                        Aircrafts[CurrentAircraftNum].inAir = true;
+                        sitlFlightTime = DateTime.Now;
+                    }
                 }
 
                 /*if (ctrlModeActive && ctrlReliasedCounter == -1)
@@ -1731,10 +1755,12 @@ namespace MissionPlanner
         private void cheatParachuteLandingTrigger()
         {
             bool nextPointIsDoParachute = false;
-            ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
-                FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value.ToString(), false);
+            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
+                    .ToString(), false);
             nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-            if (comPort.MAV.cs.wp_dist<50 && nextPointIsDoParachute && MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+            if (comPort.MAV.cs.wp_dist < 50 && nextPointIsDoParachute &&
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 testVisualisation = true;
                 snsControl2.openParachuteForm();
@@ -1801,6 +1827,7 @@ namespace MissionPlanner
         }
 
         public static int selectedItem = 2;
+
         void mapChoiceButtonClick(object sender, EventArgs e)
         {
             FlightPlanner.mainMenuWidget1.setState(false);
@@ -1959,9 +1986,10 @@ namespace MissionPlanner
             ((Control) sender).Enabled = true;
         }
 
-        public void setLandWpInSitl() 
+        public void setLandWpInSitl()
         {
-            DataGridViewRow row = (DataGridViewRow)FlightPlanner.Commands.Rows[FlightPlanner.Commands.Rows.Count - 1].Clone();
+            DataGridViewRow row =
+                (DataGridViewRow) FlightPlanner.Commands.Rows[FlightPlanner.Commands.Rows.Count - 1].Clone();
             row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
             row.Cells[FlightPlanner.Command.Index + 1].Value = (14).ToString();
             int v = 100;
@@ -1977,22 +2005,22 @@ namespace MissionPlanner
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
-
             if (!testVisualisation)
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
             else
             {
-                FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat, FlightPlanner.landPoint.Lng);
-            }            
+                FlightPlanner.MainMap.Position =
+                    new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat, FlightPlanner.landPoint.Lng);
+            }
+
             if (e.Button == MouseButtons.Right)
             {
                 if (centering != 1)
                 {
                     centering = 1;
                     FlightPlanner.mainMenuWidget1.centeringButton.BackColor = Color.Red;
-
                 }
                 else
                 {
@@ -2010,7 +2038,7 @@ namespace MissionPlanner
 
         private void tryToLoadFuelData(int id)
         {
-            float[] values = new float[] { 0, 0, 0 };
+            float[] values = new float[] {0, 0, 0};
             if (File.Exists(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt"))
             {
                 try
@@ -2020,16 +2048,19 @@ namespace MissionPlanner
                     {
                         values[i] = float.Parse(stream.ReadLine());
                     }
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity = float.Parse(values[0].ToString());//double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(values[1].ToString());//double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(values[1].ToString());//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity, MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
+
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                        float.Parse(values[0].ToString()); //double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                        float.Parse(values[1].ToString()); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                        float.Parse(values[1].ToString()); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
+                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
                 }
                 catch
                 {
-
                 }
-
             }
         }
 
@@ -2046,10 +2077,11 @@ namespace MissionPlanner
                 }
                 else
                 {
-                    FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat,FlightPlanner.landPoint.Lng);
-                    if (comPort.MAV.cs.wpno != FlightPlanner.landWP) 
+                    FlightPlanner.MainMap.Position =
+                        new GMap.NET.PointLatLng(FlightPlanner.landPoint.Lat, FlightPlanner.landPoint.Lng);
+                    if (comPort.MAV.cs.wpno != FlightPlanner.landWP)
                     {
-                        MainV2.setCurrentWP((ushort)FlightPlanner.landWP);
+                        MainV2.setCurrentWP((ushort) FlightPlanner.landWP);
                     }
                 }
             }
@@ -2060,13 +2092,12 @@ namespace MissionPlanner
                     instance.status1.Percent =
                         (comPort.MAV.param.TotalReceived / (double) comPort.MAV.param.TotalReported) * 100.0;
             }
-            
+
             if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
             {
                 soundFlag = true;
                 progressBar1.Maximum = progressBar2.Maximum = comPort.MAV.param.TotalReported;
                 progressBar1.Value = progressBar2.Value = comPort.MAV.param.TotalReceived;
-                
             }
             else
             {
@@ -2082,21 +2113,24 @@ namespace MissionPlanner
                             player.SoundLocation = "E:\\test.wav";
                             player.Play();
                         }
+
                         try
                         {
                             MissionPlanner.AircraftConnectionInfo info;
                             if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
                             {
-                                MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
+                                MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid =
+                                    (MissionPlanner.Controls.ConnectionControl.port_sysid) info.SysId;
                                 int id = port_Sysid.sysid;
                                 tryToLoadFuelData(id);
                             }
+
                             soundFlag = !soundFlag;
                         }
-                        catch 
+                        catch
                         {
-                        
                         }
+
                         //FlightPlanner.getWPFromPlane();
                     }
                 }
@@ -2124,7 +2158,7 @@ namespace MissionPlanner
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
             bool isSitl = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null &&
-                                   !Aircrafts[_currentAircraftNum].UsingSitl;
+                          !Aircrafts[_currentAircraftNum].UsingSitl;
             warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected && isPlane)
@@ -2174,14 +2208,17 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
+
                 if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl)
                 {
                     warnings.Add("Перегрев двигателя");
                 }
+
                 if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl)
                 {
                     warnings.Add("Превышение оборотов двигателя");
                 }
+
                 if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
                 {
                     warnings.Add("Двигатель заглох");
@@ -2189,12 +2226,13 @@ namespace MissionPlanner
 
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
-                    notifications.Add("Режим изменен на "+ MainV2.comPort.MAV.cs.mode);
+                    notifications.Add("Режим изменен на " + MainV2.comPort.MAV.cs.mode);
                 }
 
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 / MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl)  //check in persents
+                    if (MainV2.comPort.MAV.cs.battery_voltage2 /
+                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl) //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -2525,7 +2563,8 @@ namespace MissionPlanner
             this.MenuConnect.Image = Resources.light_connect_icon;
         }
 
-        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool antennaConnecting = false, bool getparams = true)
+        public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool antennaConnecting = false,
+            bool getparams = true)
         {
             bool skipconnectcheck = false;
             log.Info("We are connecting to " + portname + " " + baud);
@@ -2753,10 +2792,7 @@ namespace MissionPlanner
                     if (!ftpfile)
                     {
                         // if (Settings.Instance.GetBoolean("Params_BG", false))
-                        Task.Run(() =>
-                        {
-                            comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid);
-                        });
+                        Task.Run(() => { comPort.getParamList(comPort.MAV.sysid, comPort.MAV.compid); });
                         // else
                         // comPort.getParamList();
                     }
@@ -4921,7 +4957,8 @@ namespace MissionPlanner
             {
                 MakeRightSideMenuTransparent();
             }
-            //rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideMenuControl1.Size.Width,200);
+
+            //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);
             //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }
@@ -4948,131 +4985,131 @@ namespace MissionPlanner
                 return false;
             }
 
-            if (keyData == Keys.F12)
-            {
-                MenuConnect_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F2)
-            {
-                MenuFlightData_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F3)
-            {
-                MenuFlightPlanner_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F4)
-            {
-                MenuTuning_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F5)
-            {
-                comPort.getParamList();
-                MyView.ShowScreen(MyView.current.Name);
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.F)) // temp
-            {
-                Form frm = new temp();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
+            // if (keyData == Keys.F12)
+            // {
+            //     MenuConnect_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F2)
+            // {
+            //     MenuFlightData_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F3)
+            // {
+            //     MenuFlightPlanner_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F4)
+            // {
+            //     MenuTuning_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F5)
+            // {
+            //     comPort.getParamList();
+            //     MyView.ShowScreen(MyView.current.Name);
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.F)) // temp
+            // {
+            //     Form frm = new temp();
+            //     ThemeManager.ApplyThemeTo(frm);
+            //     frm.Show();
+            //     return true;
+            // }
 
             /*if (keyData == (Keys.Control | Keys.S)) // screenshot
             {
                 ScreenShot();
                 return true;
             }*/
-            if (keyData == (Keys.Control | Keys.P))
-            {
-                new PluginUI().Show();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.G)) // nmea out
-            {
-                Form frm = new SerialOutputNMEA();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.X))
-            {
-                new GMAPCache().ShowUserControl();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.L)) // limits
-            {
-                new DigitalSkyUI().ShowUserControl();
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.W)) // test ac config
-            {
-                new PropagationSettings().Show();
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Z))
-            {
-                //ScanHW.Scan(comPort);
-                new Camera().test(MainV2.comPort);
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.T)) // for override connect
-            {
-                try
-                {
-                    MainV2.comPort.Open(false);
-                }
-                catch (Exception ex)
-                {
-                    CustomMessageBox.Show(ex.ToString());
-                }
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Y)) // for ryan beall and ollyw42
-            {
-                // write
-                try
-                {
-                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                        MAVLink.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                }
-                catch
-                {
-                    CustomMessageBox.Show("Invalid command");
-                    return true;
-                }
-
-                //read
-                ///////MainV2.comPort.doCommand(MAVLink09.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                CustomMessageBox.Show("Done MAV_ACTION_STORAGE_WRITE");
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.J))
-            {
-                new DevopsUI().ShowUserControl();
-
-                return true;
-            }
+            // if (keyData == (Keys.Control | Keys.P))
+            // {
+            //     new PluginUI().Show();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.G)) // nmea out
+            // {
+            //     Form frm = new SerialOutputNMEA();
+            //     ThemeManager.ApplyThemeTo(frm);
+            //     frm.Show();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.X))
+            // {
+            //     new GMAPCache().ShowUserControl();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.L)) // limits
+            // {
+            //     new DigitalSkyUI().ShowUserControl();
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.W)) // test ac config
+            // {
+            //     new PropagationSettings().Show();
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.Z))
+            // {
+            //     //ScanHW.Scan(comPort);
+            //     new Camera().test(MainV2.comPort);
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.T)) // for override connect
+            // {
+            //     try
+            //     {
+            //         MainV2.comPort.Open(false);
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         CustomMessageBox.Show(ex.ToString());
+            //     }
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.Y)) // for ryan beall and ollyw42
+            // {
+            //     // write
+            //     try
+            //     {
+            //         MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+            //             MAVLink.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+            //     }
+            //     catch
+            //     {
+            //         CustomMessageBox.Show("Invalid command");
+            //         return true;
+            //     }
+            //
+            //     //read
+            //     ///////MainV2.comPort.doCommand(MAVLink09.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+            //     CustomMessageBox.Show("Done MAV_ACTION_STORAGE_WRITE");
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.J))
+            // {
+            //     new DevopsUI().ShowUserControl();
+            //
+            //     return true;
+            // }
 
             /* bool manualFlightMode = false;
              int[] overrides = {1500, 1500, 1500, 1500};
@@ -5497,8 +5534,8 @@ namespace MissionPlanner
                 string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
                 if (keyData == (Keys.Control | Keys.ControlKey))
                 {
-                    secondTrim = (ushort)MainV2.comPort.GetParam("SERVO4_TRIM");
-                    thirdTrim = (ushort)MainV2.comPort.GetParam("SERVO2_TRIM");
+                    secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
+                    thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
                     logger.write("Ручное управление активировано");
                     System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
                     overrideModeActive = true;
@@ -5511,21 +5548,21 @@ namespace MissionPlanner
                 if (keyData == (Keys.Control | Keys.Left))
                 {
                     System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                    overrides[3] = (ushort)(secondTrim - 0.15 * (secondTrim - 900) - 100);
+                    overrides[3] = (ushort) (secondTrim - 0.15 * (secondTrim - 900) - 100);
                     debugOverrideInfo += " ← ";
                 }
 
                 if (keyData == (Keys.Control | Keys.Right))
                 {
                     System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                    overrides[3] = (ushort)(secondTrim + 0.15 * (secondTrim - 900));
+                    overrides[3] = (ushort) (secondTrim + 0.15 * (secondTrim - 900));
                     debugOverrideInfo += " → ";
                 }
 
                 if (keyData == (Keys.Control | Keys.Up))
                 {
                     System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                    overrides[1] = (ushort)(thirdTrim + 0.15 * (thirdTrim - 900));
+                    overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));
                     debugOverrideInfo += " ↑ ";
                 }
 
@@ -5538,6 +5575,7 @@ namespace MissionPlanner
                     ctrlModeDebuglabel.Text = "";
                 }
             }
+
             //debugOverrideInfo += " ↓ ";       
             //if (e.KeyCode == Keys.G)
             //{
@@ -5979,19 +6017,21 @@ namespace MissionPlanner
 
         // GMapOverlay polyOverlay = new GMapOverlay("polygons");
         public static bool testVisualisation = false;
+
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
             //testVisualisation = !testVisualisation;
             //MyView.ShowScreen("SWConfig");
-            UniversalCoordinatsController u = new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
-            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  "+ u.wgs.Lat.ToString()+", "+ u.wgs.Lng.ToString());
+            UniversalCoordinatsController u =
+                new UniversalCoordinatsController(new RectCoordinats(5213504.619, 11654079.966));
+            CustomMessageBox.Show(CoordinatsConverter.toWGS_From_Rect(5213504.619, 11654079.966) + "  ________  " +
+                                  u.wgs.Lat.ToString() + ", " + u.wgs.Lng.ToString());
             /*System.Media.SoundPlayer player = new System.Media.SoundPlayer();
             player.SoundLocation = "E:\\test.wav";
             player.Play();*/
-
         }
 
-        public static void homeScreen() 
+        public static void homeScreen()
         {
             MainV2.instance.MyView.ShowScreen("FlightData");
         }
@@ -6028,12 +6068,12 @@ namespace MissionPlanner
         {
             if (warnings.Count > 0)
             {
-                FlightPlanner.notificationListControl1.fullList = true; 
+                FlightPlanner.notificationListControl1.fullList = true;
                 FlightPlanner.notificationListControl1.redraw();
             }
         }
 
-        public static void setCoordinatsMode() 
+        public static void setCoordinatsMode()
         {
             try
             {
@@ -6042,9 +6082,8 @@ namespace MissionPlanner
                     instance.FlightPlanner.wpConfig.setCoordsMode();
                 }
             }
-            catch 
+            catch
             {
-            
             }
         }
 

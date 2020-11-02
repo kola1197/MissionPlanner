@@ -78,10 +78,12 @@ namespace MissionPlanner.Controls
                 return;
             }
 
-            if (MainV2.Aircrafts.Count > butNum && MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum != butNum)
+            if (MainV2.Aircrafts.Count > butNum && (MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum != butNum ||
+                                                    MainV2.CurrentAircraftNum != null && MainV2.AntennaConnectionInfo.Active))
             {
                 MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
+
             updateCentralButton();
         }
 
@@ -197,6 +199,7 @@ namespace MissionPlanner.Controls
                     preFlightForm.Close();
                 }
                 preFlightForm = new PreFlightForm();
+                preFlightForm.Init();
                 preFlightForm.Show();
             }
         }

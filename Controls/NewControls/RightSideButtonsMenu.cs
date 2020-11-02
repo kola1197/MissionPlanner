@@ -4,18 +4,15 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GDAL;
 using MissionPlanner.GCSViews;
-using Color = System.Drawing.Color;
-using Region = KMLib.Region;
-using System.Runtime.InteropServices;
 
 namespace MissionPlanner.Controls.NewControls
 {
-    public partial class RightSideMenuControl : UserControl
+    public partial class RightSideButtonsMenu : UserControl
     {
         // [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         // private static extern IntPtr CreateRoundRectRgn
@@ -37,7 +34,7 @@ namespace MissionPlanner.Controls.NewControls
         // public RightSideMenuControl Instance;
         private Control some_control;
         private Point some_point;
-        public RightSideMenuControl()
+        public RightSideButtonsMenu()
         {
             InitializeComponent();
             antennaControl = new AntennaControl { Visible = false, Location = new Point(35, 4)}; //локацию по Y не трош!!!!!!!!!!!!!
@@ -45,8 +42,8 @@ namespace MissionPlanner.Controls.NewControls
             regionsControl = new RegionsControl { Visible = false, Location = new Point(35, 4) };
             gskControl = new GskControl(){Visible = false, Location = new Point(35, 4) };
 
-            some_control = menuStrip1.Parent;
-            some_point = menuStrip1.Location;
+            // some_control = menuStrip1.Parent;
+            // some_point = menuStrip1.Location;
             
             this.Controls.Add(antennaControl);
             this.Controls.Add(flightByCompassControl);
@@ -54,6 +51,7 @@ namespace MissionPlanner.Controls.NewControls
             this.Controls.Add(gskControl);
             this.BackColor = Color.FromArgb(200, Color.Black);
             // Instance = this;
+
         }
 
         public void Init()

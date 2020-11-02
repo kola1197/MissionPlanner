@@ -22,6 +22,7 @@ namespace MissionPlanner.NewForms
         public WPConfig()
         {
             InitializeComponent();
+            
             this.TopMost = true;
         }
 
@@ -150,15 +151,24 @@ namespace MissionPlanner.NewForms
 
         public void updateServoButtons() 
         {
-            myButton8.BGGradTop = servos[0] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton9.BGGradTop = servos[1] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton10.BGGradTop = servos[2] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton13.BGGradTop = servos[3] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton12.BGGradTop = servos[4] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton11.BGGradTop = servos[5] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton16.BGGradTop = servos[6] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton15.BGGradTop = servos[7] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
-            myButton14.BGGradTop = servos[8] ? ColorTranslator.FromHtml("#80FF80") : ColorTranslator.FromHtml("#FFFFCC");
+            myButton8.BGGradTop = servos[0] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton9.BGGradTop = servos[1] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton10.BGGradTop = servos[2] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton13.BGGradTop = servos[3] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton12.BGGradTop = servos[4] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton11.BGGradTop = servos[5] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+           
+            myButton16.BGGradTop = servos[6] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton15.BGGradTop = servos[7] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
+            myButton14.BGGradTop = servos[8] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            
             Invalidate();
         }
 
@@ -246,14 +256,14 @@ namespace MissionPlanner.NewForms
                     lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
                     break;
                 case 4:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GM().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GM().Item2;
                     break;
                 case 5:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GMS().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GMS().Item2;
                     break;
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();

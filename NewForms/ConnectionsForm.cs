@@ -543,6 +543,7 @@ namespace MissionPlanner
                         });
                     }
                     AntennaControl.Instance.SetAntennaState(true);
+                    MainV2.StatusMenuPanel.EnableControlBindings();
                     // MainV2.View.Reload();
                 }
             }
@@ -551,13 +552,13 @@ namespace MissionPlanner
 
         public void OnMavChanged(object sender, EventArgs e)
         {
-            if (MainV2._currentAircraftNum == null || MainV2.Aircrafts[MainV2._currentAircraftNum].SysId == null ||
-                !MainV2.Aircrafts[MainV2._currentAircraftNum].Connected)
+            if (MainV2.CurrentAircraftNum == null || MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId == null ||
+                !MainV2.Aircrafts[MainV2.CurrentAircraftNum].Connected)
             {
                 return;
             }
 
-            var currentSysId = (ConnectionControl.port_sysid) MainV2.Aircrafts[MainV2._currentAircraftNum].SysId;
+            var currentSysId = (ConnectionControl.port_sysid) MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId;
 
             if (currentSysId.sysid != MainV2.comPort.sysidcurrent)
             {
@@ -614,8 +615,22 @@ namespace MissionPlanner
 
                     MainV2.CurrentAircraftNum =
                         MainV2.Aircrafts.FirstOrDefault(x => x.Value == selectedAircraft).Key;
+                    
                     devices_LB.SelectedIndex = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
+                    
                     AntennaControl.Instance.SetAntennaState(false);
+                    
+                    if (!selectedAircraft.UsingSitl)
+                    {
+                        MainV2.StatusMenuPanel.EnableControlBindings();
+                    }
+                    else
+                    {
+                        MainV2.StatusMenuPanel.DisableControlBindings();
+                    }
+                    
+                    MainV2.StatusMenuPanel.SetFuelPbMinMax(selectedAircraft.minCapacity, selectedAircraft.maxCapacity);
+                    
                     // MainV2.View.Reload();
                 }
             }

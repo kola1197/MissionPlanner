@@ -16,18 +16,34 @@ namespace MissionPlanner.NewForms
 {
     public partial class PreFlightForm : Form
     {
-        int selectedIndex = 0;
-        int progressIndex = 0;
+        Tabs selectedIndex = Tabs.Refuel;
+        Tabs progressIndex = Tabs.Refuel;
+
+        private enum Tabs
+        {
+            Refuel = 0,
+            Calibration = 1,
+            Checklist = 2,
+            IceStart = 3,
+            IceCheck = 4,
+            Launch = 5
+        }
+
         public PreFlightForm()
         {
             InitializeComponent();
             this.TopMost = true;
+        }
+
+        public void Init()
+        {
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
             LoadFuelText();
+            iceRun1.Init();
             //updateARMButton();
         }
 
-        private void LoadFuelText() 
+        private void LoadFuelText()
         {
             minCapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity.ToString();
             maxСapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString();
@@ -42,77 +58,91 @@ namespace MissionPlanner.NewForms
                 {
                     MainV2.logger.write("Все чекбоксы успешно пройдены");
                 }
-                else 
+                else
                 {
                     MainV2.logger.write("Следующие проблемы возникли при прохождении проверки:");
-                    string[] text = new string[] 
-                        {"Количество видимых спутников < 6",
-                         "Задание не загружено на борт",
-                         "Самолет не в Arm",
-                         "Машинки не под напряжением или нейтрали не в норме",
-                         "Нет реакции на СВЕТ/ЗВУК",
-                         "Напряжение в бортовой цепи менее 11.5 вольт"};
-                    List<bool> b = checkListControl1.getCheckboxesState();
-                    for (int i = 0; i < text.Length; i++) 
+                    string[] text = new string[]
                     {
-                        if (!b[i]) 
+                        "Количество видимых спутников < 6",
+                        "Задание не загружено на борт",
+                        "Самолет не в Arm",
+                        "Машинки не под напряжением или нейтрали не в норме",
+                        "Нет реакции на СВЕТ/ЗВУК",
+                        "Напряжение в бортовой цепи менее 11.5 вольт"
+                    };
+                    List<bool> b = checkListControl1.getCheckboxesState();
+                    for (int i = 0; i < text.Length; i++)
+                    {
+                        if (!b[i])
                         {
                             MainV2.logger.write("Ошибка: " + text[i]);
                         }
-                    } 
+                    }
                 }
             }
-            if (tabControl1.SelectedIndex > progressIndex && false)      //this check was canceled
+
+            if (tabControl1.SelectedIndex > (int) progressIndex && false) //this check was canceled
             {
-                tabControl1.SelectedIndex = selectedIndex;
+                tabControl1.SelectedIndex = (int) selectedIndex;
             }
-            else 
+            else
             {
-                selectedIndex = tabControl1.SelectedIndex;
+                selectedIndex = (Tabs) tabControl1.SelectedIndex;
             }
+
             iceRun1.focused(false);
-            if (selectedIndex == 3) 
+            if (selectedIndex == Tabs.IceStart)
             {
                 iceRun1.focused(true);
             }
-            if (selectedIndex == 4)
+
+            if (selectedIndex == Tabs.IceCheck)
             {
                 iceCheck1.focused(true);
             }
         }
 
-        private void nextButton1_Click(object sender, EventArgs e)
+        private void checkListNextBUT_Click(object sender, EventArgs e)
         {
-            if (checkListControl1.allRight()) 
+            if (checkListControl1.allRight())
             {
-                progressIndex = progressIndex > 1 ? progressIndex : 1;
-                selectedIndex = 1;
-                tabControl1.SelectedIndex = selectedIndex;
+                if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                {
+                    progressIndex = progressIndex > Tabs.IceStart ? progressIndex : Tabs.IceStart;
+                    selectedIndex = Tabs.IceStart;
+                    tabControl1.SelectedIndex = (int) selectedIndex;
+                }
+                else
+                {
+                    progressIndex = progressIndex > Tabs.IceCheck ? progressIndex : Tabs.IceCheck;
+                    selectedIndex = Tabs.IceCheck;
+                    tabControl1.SelectedIndex = (int) selectedIndex;
+                }
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString()+" м/с";
+            AirSpeedLabel.Text = MainV2.comPort.MAV.cs.airspeed.ToString() + " м/с";
         }
 
         private void backButton1_Click(object sender, EventArgs e)
         {
             selectedIndex--;
-            tabControl1.SelectedIndex = selectedIndex;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void gotReaction_Click(object sender, EventArgs e)
         {
-            progressIndex = progressIndex > 2 ? progressIndex : 2;
-            selectedIndex = 2;
-            tabControl1.SelectedIndex = selectedIndex;
+            progressIndex = progressIndex > Tabs.Checklist ? progressIndex : Tabs.Checklist;
+            selectedIndex = Tabs.Checklist;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void backButton2_Click(object sender, EventArgs e)
         {
             selectedIndex--;
-            tabControl1.SelectedIndex = selectedIndex;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -129,7 +159,7 @@ namespace MissionPlanner.NewForms
 
         }
 
-        
+
 
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -138,6 +168,7 @@ namespace MissionPlanner.NewForms
             {
                 e.Handled = true;
             }
+
             checkBox1.Checked = false;
             //updateMainV2Data();
         }
@@ -145,20 +176,26 @@ namespace MissionPlanner.NewForms
         //      public int flyTime = 0;
         //      public int butt2RealVoltage = 0;
 
-        private void updateMainV2Data() 
+        private void updateMainV2Data()
         {
             int i;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage = int.TryParse(batt2_voltage.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage =
+                int.TryParse(batt2_voltage.Text, out i) ? i : 0;
             MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
             MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
             if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity != 0)
             {
-                double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage / MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity;
+                double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage /
+                           MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity;
                 percent = (int) d;
-                System.Diagnostics.Debug.WriteLine(MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " + MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " + percent.ToString());
+                System.Diagnostics.Debug.WriteLine(
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " +
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " +
+                    percent.ToString());
             }
+
             valueInPercentsTBox.Text = percent.ToString();
         }
 
@@ -172,48 +209,39 @@ namespace MissionPlanner.NewForms
             updateMainV2Data();
         }
 
-        private void nextButton2_Click(object sender, EventArgs e)
+        private void refuelNextButton_Click(object sender, EventArgs e)
         {
-            if (MainV2.comPort.MAV.cs.rpm1 < 3000)
-            {
-                progressIndex = progressIndex > 3 ? progressIndex : 3;
-                selectedIndex = 3;
-                tabControl1.SelectedIndex = selectedIndex;
-            }
-            else 
-            {
-                progressIndex = progressIndex > 4 ? progressIndex : 4;
-                selectedIndex = 4;
-                tabControl1.SelectedIndex = selectedIndex;
-            }
+            progressIndex = progressIndex > Tabs.Calibration ? progressIndex : Tabs.Calibration;
+            selectedIndex = Tabs.Calibration;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             selectedIndex--;
-            tabControl1.SelectedIndex = selectedIndex;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void iceStartNextBUT_Click(object sender, EventArgs e)
         {
-            progressIndex = progressIndex >4 ? progressIndex : 4;
-            selectedIndex = 4;
-            tabControl1.SelectedIndex = selectedIndex;
+            progressIndex = progressIndex > Tabs.IceCheck ? progressIndex : Tabs.IceCheck;
+            selectedIndex = Tabs.IceCheck;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void myButton4_Click(object sender, EventArgs e)
         {
             selectedIndex--;
-            tabControl1.SelectedIndex = selectedIndex;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
-        private void myButton2_Click(object sender, EventArgs e)
+        private void iceCheckNextBUT_Click(object sender, EventArgs e)
         {
             if (iceCheck1.iceChecked)
             {
-                progressIndex = progressIndex > 5 ? progressIndex : 5;
-                selectedIndex = 5;
-                tabControl1.SelectedIndex = selectedIndex;
+                progressIndex = progressIndex > Tabs.Launch ? progressIndex : Tabs.Launch;
+                selectedIndex = Tabs.Launch;
+                tabControl1.SelectedIndex = (int) selectedIndex;
             }
         }
 
@@ -242,7 +270,7 @@ namespace MissionPlanner.NewForms
                 StringBuilder sb = new StringBuilder();
                 var sub = MainV2.comPort.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.STATUSTEXT, message =>
                 {
-                    sb.AppendLine(Encoding.ASCII.GetString(((MAVLink.mavlink_statustext_t)message.data).text)
+                    sb.AppendLine(Encoding.ASCII.GetString(((MAVLink.mavlink_statustext_t) message.data).text)
                         .TrimEnd('\0'));
                     return true;
                 });
@@ -271,17 +299,18 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void updateARMButton() 
+        private void updateARMButton()
         {
             if (MainV2.comPort.MAV.cs.armed)
             {
                 armButton.Text = "Disarm";
             }
-            else 
+            else
             {
                 armButton.Text = "Arm";
             }
         }
+
         private void armButton_Click(object sender, EventArgs e)
         {
             arm();
@@ -290,22 +319,23 @@ namespace MissionPlanner.NewForms
 
         private void myButton3_MouseUp(object sender, MouseEventArgs e)
         {
-            ((Control)sender).Enabled = false;            //set 0 wp as current
-            MainV2.setCurrentWP((ushort)0);
-            ((Control)sender).Enabled = true;
+            ((Control) sender).Enabled = false; //set 0 wp as current
+            MainV2.setCurrentWP((ushort) 0);
+            ((Control) sender).Enabled = true;
             MissionPlanner.AircraftConnectionInfo info;
             if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
                 info.StartOfTheFlightTime = DateTime.Now;
             }
+
             MainV2.comPort.setMode("Auto");
         }
 
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (
-                   CustomMessageBox.Show("Вы уверены, что хотите начать калибровку?", "Калибровка",
-                       MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
+                CustomMessageBox.Show("Вы уверены, что хотите начать калибровку?", "Калибровка",
+                    MessageBoxButtons.YesNo) == (int) DialogResult.Yes)
             {
                 int param1 = 0;
                 int param3 = 1;
@@ -315,8 +345,11 @@ namespace MissionPlanner.NewForms
                 {
                     param1 = 1; // gyro 
                 }
+
                 param3 = 1; // baro / airspeed
-                if (!MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "PREFLIGHT_CALIBRATION"), param1, 0, param3, 0, 0, 0, 0))
+                if (!MainV2.comPort.doCommand(
+                    (MAVLink.MAV_CMD) Enum.Parse(typeof(MAVLink.MAV_CMD), "PREFLIGHT_CALIBRATION"), param1, 0, param3,
+                    0, 0, 0, 0))
                 {
                     CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
                 }
@@ -327,18 +360,22 @@ namespace MissionPlanner.NewForms
         {
             float i = 0;
             //double.pa
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity = float.Parse(minCapacity.Text);//double.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(maxСapacity.Text);//double.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
             MissionPlanner.AircraftConnectionInfo info;
             if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
-                MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid = (MissionPlanner.Controls.ConnectionControl.port_sysid)info.SysId;
+                MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid =
+                    (MissionPlanner.Controls.ConnectionControl.port_sysid) info.SysId;
                 int id = port_Sysid.sysid;
                 tryToSave(id);
-            }           
-            
-            
+            }
+
+
             //Todo: make bindings
             StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
                 MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
@@ -346,41 +383,51 @@ namespace MissionPlanner.NewForms
 
         private void tryToLoad(int id)
         {
-            float[] values = new float[] { 0, 0, 0 };
+            float[] values = new float[] {0, 0, 0};
             if (File.Exists(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt"))
             {
                 try
                 {
                     StreamReader stream = new StreamReader(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt");
-                    for (int i = 0; i < 3; i++) 
+                    for (int i = 0; i < 3; i++)
                     {
                         values[i] = float.Parse(stream.ReadLine());
                     }
+
                     minCapacity.Text = values[0].ToString();
                     maxСapacity.Text = values[1].ToString();
                     flightTimeTBox.Text = values[2].ToString();
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity = float.Parse(minCapacity.Text);//double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = float.Parse(maxСapacity.Text);//double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);//double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                        float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                        float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                        float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
 
                 }
-                catch 
+                catch
                 {
-                
+
                 }
-        
-            } 
+
+            }
         }
 
 
-        private void tryToSave(int id) 
+        private void tryToSave(int id)
         {
-            float[] values = new float[] { MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity, MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity, MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime };
-            StreamWriter stream = new StreamWriter(MainV2.defaultFuelSavePath+"_"+id.ToString()+".txt", false);
-            for (int i = 0; i < values.Length; i++) 
-            { 
+            float[] values = new float[]
+            {
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity,
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime
+            };
+            StreamWriter stream = new StreamWriter(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt", false);
+            for (int i = 0; i < values.Length; i++)
+            {
                 stream.WriteLine(values[i]);
             }
+
             stream.Close();
         }
 
@@ -394,7 +441,7 @@ namespace MissionPlanner.NewForms
             maxСapacity.Text = batt2_voltage.Text;
         }
 
-        private void PreFlightForm_FormClosing(object sender, FormClosingEventArgs e)       //release the engine
+        private void PreFlightForm_FormClosing(object sender, FormClosingEventArgs e) //release the engine
         {
             iceCheck1.focused(false);
             iceRun1.focused(false);

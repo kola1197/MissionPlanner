@@ -134,6 +134,32 @@ namespace MissionPlanner.Controls.NewControls
         {
         }
 
+        private ConnectionControl.port_sysid GetAntennaSysIdAlternative()
+        {
+            foreach (var port in MainV2.Comports.ToArray())
+            {
+                var list = port.MAVlist.GetRawIDS();
+
+                foreach (int item in list)
+                {
+                    var temp = new ConnectionControl.port_sysid()
+                        {compid = (item % 256), sysid = (item / 256), port = port};
+
+                    if (temp.port == MainV2.comPort && temp.sysid == MainV2.comPort.sysidcurrent &&
+                        temp.compid == MainV2.comPort.compidcurrent)
+                    {
+                        return temp;
+                    }
+                }
+            }
+
+            //In case everything not working, just choose current connected port
+            ConnectionControl.port_sysid currentConnection = new ConnectionControl.port_sysid();
+            currentConnection.compid = MainV2.comPort.compidcurrent;
+            currentConnection.port = MainV2.comPort;
+            currentConnection.sysid = MainV2.comPort.sysidcurrent;
+            return currentConnection;
+        }
 
         private ConnectionControl.port_sysid GetAntennaSysId()
         {
@@ -148,10 +174,20 @@ namespace MissionPlanner.Controls.NewControls
                 }
             }
 
-            CustomMessageBox.Show("Проверьте SYSID_THISMAV антенны, он должен быть = " + antennaSysIdNum,
-                "Некорректное подключение к антенне!");
+            // Could not find needed antenna, we save current connected sysid of wrong antenna and then disconnect
+            return GetAntennaSysIdAlternative();
+        }
 
-            return new ConnectionControl.port_sysid();
+        private bool IsAntennaConnectionCorrect()
+        {
+            ConnectionControl.port_sysid antennaSysId =
+                (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
+            if (antennaSysId.sysid == MainV2.AntennaConnectionInfo.SysIdNum)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void ConnectAntenna(object sender)
@@ -187,16 +223,21 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2._connectionControl.UpdateSysIDS();
                 antenna.SysId = GetAntennaSysId();
 
+                if (!IsAntennaConnectionCorrect())
+                {
+                    Thread.Sleep(100);
+                    DisconnectAntenna();
+                    CustomMessageBox.Show(
+                        "Проверьте SYSID_THISMAV антенны, он должен быть = " + MainV2.AntennaConnectionInfo.SysIdNum,
+                        "Некорректное подключение к антенне!");
+    
+                    return;
+                }
+
                 timer1.Enabled = true;
 
-                if (((ConnectionControl.port_sysid) antenna.SysId).port == null)
-                {
-                    // DisconnectAntenna();
-                }
-                else
-                {
-                    BackgroundSwitchToAntenna(true);
-                }
+
+                BackgroundSwitchToAntenna(true);
             }
             catch (Exception)
             {
@@ -206,6 +247,13 @@ namespace MissionPlanner.Controls.NewControls
 
         private bool HasAntennaConnectedAircraft()
         {
+            ConnectionControl.port_sysid antennaSysId =
+                (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
+            if (antennaSysId.sysid != MainV2.AntennaConnectionInfo.SysIdNum)
+            {
+                return false;
+            }
+
             foreach (var aircraft in MainV2.Aircrafts.Values)
             {
                 if (aircraft.Connected && aircraft.UsingAntenna)

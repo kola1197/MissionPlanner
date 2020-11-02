@@ -79,7 +79,7 @@
             this.myButton3.Outline = System.Drawing.Color.Transparent;
             this.myButton3.Size = new System.Drawing.Size(62, 23);
             this.myButton3.TabIndex = 2;
-            this.myButton3.Text = "Vibe";
+            this.myButton3.Text = "Вибрация";
             this.myButton3.TextColor = System.Drawing.Color.Black;
             this.myButton3.UseVisualStyleBackColor = false;
             this.myButton3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton3_MouseUp);

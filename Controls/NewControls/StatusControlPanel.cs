@@ -16,7 +16,9 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
+        private readonly double _fuelSpendInHour = 0.4;
         private readonly Point slidingScaleIndent;
+        private readonly Point engineIndent;
 
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
@@ -46,6 +48,7 @@ namespace MissionPlanner.Controls
             AddClickToEnginePanelControls();
 
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
+            engineIndent = new Point(0, 30);
         }
 
         public void SetFuelPbMinMax(double min, double max)
@@ -63,8 +66,8 @@ namespace MissionPlanner.Controls
 
         public Point GetLocalEngineFormLocation()
         {
-            return new Point(enginePanel.Location.X + slidingScaleIndent.X,
-                enginePanel.Location.Y + this.Height + slidingScaleIndent.Y);
+            return new Point(enginePanel.Location.X + engineIndent.X,
+                enginePanel.Location.Y + this.Height + engineIndent.Y);
         }
 
         private void AddClickToSpeedPanelControls()
@@ -188,11 +191,49 @@ namespace MissionPlanner.Controls
             return percent;
         }
 
+        public void SetSitlFuel(double fuel)
+        {
+            splittedBar_fuel.Value = fuel;
+        }
+        
+        // There are some missing params in SITL, so we need to update them by hand
+        public void DisableControlBindings()
+        {
+            splittedBar_fuel.DataBindings.Clear();
+        }
+        
+        // Enable when switching from SITL
+        public void EnableControlBindings()
+        {
+            splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2", true));
+        }
+
+        private bool IsSitlConnected()
+        {
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return false;
+            }
+            var aircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+            if (aircraft.Connected && aircraft.UsingSitl)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void timer1_Tick(object sender, System.EventArgs e)
         {
             // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-            fuel_label.Text = CalcFuelPercentage().ToString() + "%";
-
+            if (!IsSitlConnected())
+            {
+                fuel_label.Text = CalcFuelPercentage().ToString() + "%";
+            }
+            else
+            {
+                fuel_label.Text = (int) Math.Round(splittedBar_fuel.Value / splittedBar_fuel.Maximum * 100) + "%";     
+            }
 
             voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
 
@@ -307,8 +348,14 @@ namespace MissionPlanner.Controls
             {
                 //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
                 MainV2.FormConnector.ConnectForm(EngineControlForm);
+                EngineControlForm.SetFormLocation();
                 EngineControlForm.Show();
             }
+        }
+
+        public void DoSitlFuelSpend()
+        {
+            splittedBar_fuel.Value -= _fuelSpendInHour;
         }
 
         private void speedPanel_Click(object sender, EventArgs e)

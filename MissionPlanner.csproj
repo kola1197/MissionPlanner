@@ -475,12 +475,6 @@
     <Compile Include="Controls\NewControls\MainMenuWidget.Designer.cs">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NewControls\newRightSideMenuControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\NewControls\newRightSideMenuControl.Designer.cs">
-      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\NewControls\NotificationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -499,11 +493,11 @@
     <Compile Include="Controls\NewControls\RegionsControl.Designer.cs">
       <DependentUpon>RegionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NewControls\RighSideButtonsMenu.cs">
+    <Compile Include="Controls\NewControls\RightSideButtonsMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NewControls\RighSideButtonsMenu.Designer.cs">
-      <DependentUpon>RighSideButtonsMenu.cs</DependentUpon>
+    <Compile Include="Controls\NewControls\RightSideButtonsMenu.Designer.cs">
+      <DependentUpon>RightSideButtonsMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewControls\RightSideMenuControl.cs">
       <SubType>UserControl</SubType>
@@ -589,12 +583,14 @@
     <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
       <DependentUpon>WPMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RightButton.cs" />
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewClasses\ControlDrawingTools.cs" />
     <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewClasses\FormConnector.cs" />
@@ -1057,9 +1053,6 @@
     <EmbeddedResource Include="Controls\NewControls\MainMenuWidget.resx">
       <DependentUpon>MainMenuWidget.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NewControls\newRightSideMenuControl.resx">
-      <DependentUpon>newRightSideMenuControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\NotificationControl.resx">
       <DependentUpon>NotificationControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1069,8 +1062,8 @@
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NewControls\RighSideButtonsMenu.resx">
-      <DependentUpon>RighSideButtonsMenu.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\NewControls\RightSideButtonsMenu.resx">
+      <DependentUpon>RightSideButtonsMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RightSideMenuControl.resx">
       <DependentUpon>RightSideMenuControl.cs</DependentUpon>
@@ -4939,6 +4932,7 @@
     <None Include="Resources\antV1.png" />
     <None Include="Resources\airspeedDirection.png" />
     <None Include="Resources\icons8_show_button.png" />
+    <None Include="Resources\show_button_1m.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
