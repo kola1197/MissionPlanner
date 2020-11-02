@@ -87,14 +87,25 @@ namespace MissionPlanner.Controls.NewControls
             {
                 parachuteForm.Close();
             }
-            parachuteForm = new ParachuteForm();
-            parachuteForm.TopMost = true;
-            parachuteForm.Show();
+            else
+            {
+                parachuteForm = new ParachuteForm();
+                parachuteForm.TopMost = true;
+                parachuteForm.Show();
+            }
         }
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {
-            openParachuteForm();
+            //openParachuteForm();
+            if (parachuteForm != null)
+            {
+                parachuteForm.Close();
+            }
+            parachuteForm = new ParachuteForm();
+            parachuteForm.TopMost = true;
+            parachuteForm.Show();
+
         }
     }
 }
