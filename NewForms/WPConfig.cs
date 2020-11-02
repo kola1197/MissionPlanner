@@ -246,14 +246,14 @@ namespace MissionPlanner.NewForms
                     lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
                     break;
                 case 4:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GM().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GM().Item2;
                     break;
                 case 5:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GMS().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GMS().Item2;
                     break;
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();

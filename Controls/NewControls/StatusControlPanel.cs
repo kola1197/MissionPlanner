@@ -17,7 +17,7 @@ namespace MissionPlanner.Controls
     public partial class StatusControlPanel : UserControl
     {
         private readonly Point slidingScaleIndent;
-
+        private readonly Point engineIndent;
         private Dictionary<ToolStripItem, SensorUserControl> sensors =
             new Dictionary<ToolStripItem, SensorUserControl>();
 
@@ -46,6 +46,8 @@ namespace MissionPlanner.Controls
             AddClickToEnginePanelControls();
 
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
+            engineIndent = new Point(0, 30);
+            
         }
 
         public void SetFuelPbMinMax(double min, double max)
@@ -63,8 +65,8 @@ namespace MissionPlanner.Controls
 
         public Point GetLocalEngineFormLocation()
         {
-            return new Point(enginePanel.Location.X + slidingScaleIndent.X,
-                enginePanel.Location.Y + this.Height + slidingScaleIndent.Y);
+            return new Point(enginePanel.Location.X + engineIndent.X,
+                enginePanel.Location.Y + this.Height + engineIndent.Y);
         }
 
         private void AddClickToSpeedPanelControls()
@@ -307,6 +309,7 @@ namespace MissionPlanner.Controls
             {
                 //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
                 MainV2.FormConnector.ConnectForm(EngineControlForm);
+                EngineControlForm.SetFormLocation();
                 EngineControlForm.Show();
             }
         }

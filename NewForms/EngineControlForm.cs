@@ -113,7 +113,7 @@ namespace MissionPlanner.NewForms
 
         private void EngineControlForm_Shown(object sender, EventArgs e)
         {
-            SetFormLocation();
+            // SetFormLocation();
             SetToTop();
         }
 

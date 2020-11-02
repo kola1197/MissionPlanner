@@ -106,12 +106,12 @@ namespace MissionPlanner.Controls.NewControls
         //
         //     e.DrawFocusRectangle();
         // }
-        
+
         private string RemoveDigitsFromString(string input)
         {
             return new String(input.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
         }
-        
+
         private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Back)
@@ -140,16 +140,16 @@ namespace MissionPlanner.Controls.NewControls
                     e.SuppressKeyPress = true;
                 }
             }
-            
-            
+
+
             if (_editTextBox.SelectionLength > 0)
             {
                 _editTextBox.SelectionStart = _editTextBox.Text.Length;
                 e.Handled = true;
             }
         }
-        
-        
+
+
         private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
@@ -171,13 +171,13 @@ namespace MissionPlanner.Controls.NewControls
         {
             RemoveSelection(sender);
         }
-        
+
         private void editTextBox_GotFocus(object sender, EventArgs e)
         {
             RemoveSelection(sender);
             _editTextBox.SelectionStart = _editTextBox.Text.Length;
         }
-        
+
         private void editTextBox_MouseUp(object sender, MouseEventArgs e)
         {
             RemoveSelection(sender);
@@ -187,7 +187,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             RemoveSelection(sender);
         }
-        
+
         private void EditTextBoxOnTextChanged(object sender, EventArgs e)
         {
         }
@@ -256,7 +256,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (polygon == null)
                 return;
-            
+
             UpdateBindings();
             if (polygon.Points.Count == 0)
             {
@@ -282,7 +282,7 @@ namespace MissionPlanner.Controls.NewControls
             });
 
             FlightPlanner.instance.MainMap.UpdatePolygonLocalPosition(polygon);
-            
+
             FlightPlanner.instance.MainMap.Invalidate();
         }
 
@@ -377,6 +377,7 @@ namespace MissionPlanner.Controls.NewControls
         private void ReadEditedValueFromTextBox()
         {
             double editedCoordinate;
+            
             if (!double.TryParse(_editTextBox.Text.Replace('.', ','), out editedCoordinate))
             {
                 editedCoordinate = Convert.ToDouble(latLong_DGV.CurrentCell.Value);
@@ -432,7 +433,7 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             ClearEditTbEvents();
-            
+
             RedrawPolygonSurvey(GetCurrentPolygon());
         }
 
@@ -512,7 +513,7 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             _editTextBox = e.Control as TextBox;
-            
+
             _editTextBox.TextChanged += EditTextBoxOnTextChanged;
             _editTextBox.KeyPress += EditTextBoxOnKeyPress;
             _editTextBox.MouseUp += editTextBox_MouseUp;
@@ -718,8 +719,7 @@ namespace MissionPlanner.Controls.NewControls
                 dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lng.ToString("N6");
             }
         }
-
-        // If I didnt rewrite converter then I must die
+        
         private PointLatLng ConvertToLatLng(PointLatLng point)
         {
             UniversalCoordinatsController controller = CreateController(point);
@@ -730,92 +730,94 @@ namespace MissionPlanner.Controls.NewControls
         {
             return GetCurrentPolygon().Points[rowIndex];
         }
-        
+
         private string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
         {
-            switch (MainV2.coordinatsShowMode) 
+            switch (MainV2.coordinatsShowMode)
             {
                 case 0:
                     if (isLat)
                     {
-                        return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));;
+                        return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
+                        ;
                     }
                     else
                     {
-                        return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));;                        
+                        return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
+                        ;
                     }
+
                     break;
                 case 1:
                     if (isLat)
                     {
-                        return controller.wgs.to_GM_View_lat();                        
+                        return controller.wgs.to_GM_View_lat();
                     }
                     else
                     {
                         return controller.wgs.to_GM_View_lon();
                     }
+
                     break;
                 case 2:
                     if (isLat)
                     {
-                        return controller.wgs.to_GMS_View_lat();                        
+                        return controller.wgs.to_GMS_View_lat();
                     }
                     else
                     {
-                        return controller.wgs.to_GMS_View_lon();                        
+                        return controller.wgs.to_GMS_View_lon();
                     }
+
                     break;
                 case 3:
                     if (isLat)
                     {
-                    return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;                        
+                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));
                     }
                     else
                     {
-                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));
                     }
+
                     break;
                 case 4:
                     if (isLat)
                     {
-                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GM().Item1;
                     }
                     else
                     {
-                    return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GM().Item2;
                     }
                     break;
                 case 5:
                     if (isLat)
                     {
-                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GMS().Item1;
                     }
                     else
                     {
-                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GMS().Item2;
                     }
+
                     break;
                 case 6:
                     if (isLat)
                     {
-                        return controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));;
+                        return controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));
                     }
                     else
                     {
-                        return controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));;
+                        return controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));
                     }
+
                     break;
                 default:
                     return "-1.0";
             }
-            
         }
-        
+
         // private PointLatLng ConvertFromLatLng(PointLatLng point)
         // {
         //     
@@ -823,7 +825,8 @@ namespace MissionPlanner.Controls.NewControls
 
         private UniversalCoordinatsController CreateController(PointLatLng point)
         {
-            UniversalCoordinatsController controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
+            UniversalCoordinatsController controller =
+                new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
             switch (MainV2.coordinatsShowMode)
             {
                 case 0:
