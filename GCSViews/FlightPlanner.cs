@@ -9181,8 +9181,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //{
             //    writeWPToPlane();
             //}
-            if (MainV2._currentAircraftNum != null && MainV2.Aircrafts[MainV2._currentAircraftNum] != null &&
-                MainV2.Aircrafts[MainV2._currentAircraftNum].UsingSitl)
+            if (MainV2.CurrentAircraftNum != null && MainV2.Aircrafts[MainV2.CurrentAircraftNum] != null &&
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 for (int i = 0; i < Commands.Rows.Count; i++)
                 {

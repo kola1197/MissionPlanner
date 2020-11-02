@@ -48,6 +48,7 @@ namespace MissionPlanner.NewForms
             this.valueInPercentsTBox = new System.Windows.Forms.TextBox();
             this.flightTimeTBox = new System.Windows.Forms.TextBox();
             this.batt2_voltage = new System.Windows.Forms.TextBox();
+            this.backButton2 = new MissionPlanner.Controls.MyButton();
             this.refuelNextButton = new MissionPlanner.Controls.MyButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,16 +63,16 @@ namespace MissionPlanner.NewForms
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.nextButton = new MissionPlanner.Controls.MyButton();
             this.backButton = new MissionPlanner.Controls.MyButton();
+            this.iceRun1 = new MissionPlanner.Controls.NewControls.ICERun();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.myButton2 = new MissionPlanner.Controls.MyButton();
+            this.iceCheckNextBut = new MissionPlanner.Controls.MyButton();
             this.iceCheck1 = new MissionPlanner.Controls.NewControls.ICECheck();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.backButton2 = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -99,7 +100,7 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage3
             // 
-            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage3.Controls.Add(this.myButton6);
             this.tabPage3.Controls.Add(this.myButton7);
             this.tabPage3.Controls.Add(this.myButton5);
@@ -125,12 +126,12 @@ namespace MissionPlanner.NewForms
             // 
             // myButton6
             // 
-            this.myButton6.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton6.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton6.DefaultTheme = false;
             this.myButton6.Location = new System.Drawing.Point(364, 239);
             this.myButton6.Name = "myButton6";
-            this.myButton6.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton6.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton6.Size = new System.Drawing.Size(101, 20);
             this.myButton6.TabIndex = 25;
             this.myButton6.Text = "Выставить";
@@ -140,12 +141,12 @@ namespace MissionPlanner.NewForms
             // 
             // myButton7
             // 
-            this.myButton7.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton7.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton7.DefaultTheme = false;
             this.myButton7.Location = new System.Drawing.Point(364, 273);
             this.myButton7.Name = "myButton7";
-            this.myButton7.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton7.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton7.Size = new System.Drawing.Size(101, 20);
             this.myButton7.TabIndex = 24;
             this.myButton7.Text = "Выставить";
@@ -155,12 +156,12 @@ namespace MissionPlanner.NewForms
             // 
             // myButton5
             // 
-            this.myButton5.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton5.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton5.DefaultTheme = false;
             this.myButton5.Location = new System.Drawing.Point(159, 326);
             this.myButton5.Name = "myButton5";
-            this.myButton5.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton5.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton5.Size = new System.Drawing.Size(187, 23);
             this.myButton5.TabIndex = 22;
             this.myButton5.Text = "Сохранить";
@@ -290,15 +291,32 @@ namespace MissionPlanner.NewForms
             this.batt2_voltage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.batt2_voltage_KeyPress);
             this.batt2_voltage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.valueInPercentsTBox_KeyUp);
             // 
+            // backButton2
+            // 
+            this.backButton2.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton2.DefaultTheme = false;
+            this.backButton2.Location = new System.Drawing.Point(20, 421);
+            this.backButton2.Margin = new System.Windows.Forms.Padding(20);
+            this.backButton2.Name = "backButton2";
+            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton2.Size = new System.Drawing.Size(75, 23);
+            this.backButton2.TabIndex = 5;
+            this.backButton2.Text = "Назад";
+            this.backButton2.TextColor = System.Drawing.Color.Black;
+            this.backButton2.UseVisualStyleBackColor = true;
+            this.backButton2.Visible = false;
+            this.backButton2.Click += new System.EventHandler(this.backButton2_Click);
+            // 
             // refuelNextButton
             // 
-            this.refuelNextButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.refuelNextButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.refuelNextButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.refuelNextButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.refuelNextButton.DefaultTheme = false;
             this.refuelNextButton.Location = new System.Drawing.Point(420, 421);
             this.refuelNextButton.Margin = new System.Windows.Forms.Padding(20);
             this.refuelNextButton.Name = "refuelNextButton";
-            this.refuelNextButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.refuelNextButton.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.refuelNextButton.Size = new System.Drawing.Size(75, 23);
             this.refuelNextButton.TabIndex = 4;
             this.refuelNextButton.Text = "Далее";
@@ -308,7 +326,7 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.startCalibrationButton);
             this.tabPage2.Controls.Add(this.AirSpeedLabel);
@@ -324,7 +342,7 @@ namespace MissionPlanner.NewForms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(123, 159);
             this.label6.MinimumSize = new System.Drawing.Size(130, 13);
@@ -338,9 +356,9 @@ namespace MissionPlanner.NewForms
             // startCalibrationButton
             // 
             this.startCalibrationButton.BGGradBot = System.Drawing.Color.RoyalBlue;
-            this.startCalibrationButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startCalibrationButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.startCalibrationButton.DefaultTheme = false;
-            this.startCalibrationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.startCalibrationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.startCalibrationButton.Location = new System.Drawing.Point(127, 255);
             this.startCalibrationButton.Name = "startCalibrationButton";
             this.startCalibrationButton.Outline = System.Drawing.Color.Black;
@@ -355,7 +373,7 @@ namespace MissionPlanner.NewForms
             // AirSpeedLabel
             // 
             this.AirSpeedLabel.AutoSize = true;
-            this.AirSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AirSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.AirSpeedLabel.ForeColor = System.Drawing.Color.White;
             this.AirSpeedLabel.Location = new System.Drawing.Point(307, 159);
             this.AirSpeedLabel.MinimumSize = new System.Drawing.Size(80, 20);
@@ -367,12 +385,12 @@ namespace MissionPlanner.NewForms
             // 
             // backButton1
             // 
-            this.backButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.backButton1.DefaultTheme = false;
             this.backButton1.Location = new System.Drawing.Point(20, 421);
             this.backButton1.Name = "backButton1";
-            this.backButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton1.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.backButton1.Size = new System.Drawing.Size(75, 23);
             this.backButton1.TabIndex = 4;
             this.backButton1.Text = "Назад";
@@ -382,12 +400,12 @@ namespace MissionPlanner.NewForms
             // 
             // gotReaction
             // 
-            this.gotReaction.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.gotReaction.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.gotReaction.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.gotReaction.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.gotReaction.DefaultTheme = false;
             this.gotReaction.Location = new System.Drawing.Point(420, 421);
             this.gotReaction.Name = "gotReaction";
-            this.gotReaction.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.gotReaction.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.gotReaction.Size = new System.Drawing.Size(75, 23);
             this.gotReaction.TabIndex = 3;
             this.gotReaction.Text = "Есть реакция";
@@ -397,7 +415,7 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage1.Controls.Add(this.armButton);
             this.tabPage1.Controls.Add(this.nextButton1);
             this.tabPage1.Controls.Add(this.checkListControl1);
@@ -425,18 +443,18 @@ namespace MissionPlanner.NewForms
             // 
             // nextButton1
             // 
-            this.nextButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.nextButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.nextButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.nextButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.nextButton1.DefaultTheme = false;
             this.nextButton1.Location = new System.Drawing.Point(420, 421);
             this.nextButton1.Name = "nextButton1";
-            this.nextButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.nextButton1.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.nextButton1.Size = new System.Drawing.Size(75, 23);
             this.nextButton1.TabIndex = 2;
             this.nextButton1.Text = "Далее";
             this.nextButton1.TextColor = System.Drawing.Color.Black;
             this.nextButton1.UseVisualStyleBackColor = true;
-            this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
+            this.nextButton1.Click += new System.EventHandler(this.checkListNextBUT_Click);
             // 
             // checkListControl1
             // 
@@ -448,9 +466,10 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage4
             // 
-            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage4.Controls.Add(this.nextButton);
             this.tabPage4.Controls.Add(this.backButton);
+            this.tabPage4.Controls.Add(this.iceRun1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(515, 483);
@@ -459,27 +478,27 @@ namespace MissionPlanner.NewForms
             // 
             // nextButton
             // 
-            this.nextButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.nextButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.nextButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.nextButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.nextButton.DefaultTheme = false;
             this.nextButton.Location = new System.Drawing.Point(420, 421);
             this.nextButton.Name = "nextButton";
-            this.nextButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.nextButton.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.nextButton.Size = new System.Drawing.Size(75, 23);
             this.nextButton.TabIndex = 2;
             this.nextButton.Text = "Далее";
             this.nextButton.TextColor = System.Drawing.Color.Black;
             this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.Click += new System.EventHandler(this.iceStartNextBUT_Click);
             // 
             // backButton
             // 
-            this.backButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.backButton.DefaultTheme = false;
             this.backButton.Location = new System.Drawing.Point(20, 421);
             this.backButton.Name = "backButton";
-            this.backButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.backButton.Size = new System.Drawing.Size(75, 23);
             this.backButton.TabIndex = 1;
             this.backButton.Text = "Назад";
@@ -487,11 +506,19 @@ namespace MissionPlanner.NewForms
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // iceRun1
+            // 
+            this.iceRun1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.iceRun1.Location = new System.Drawing.Point(3, 3);
+            this.iceRun1.Name = "iceRun1";
+            this.iceRun1.Size = new System.Drawing.Size(512, 432);
+            this.iceRun1.TabIndex = 0;
+            // 
             // tabPage5
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage5.Controls.Add(this.myButton1);
-            this.tabPage5.Controls.Add(this.myButton2);
+            this.tabPage5.Controls.Add(this.iceCheckNextBut);
             this.tabPage5.Controls.Add(this.iceCheck1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -501,36 +528,37 @@ namespace MissionPlanner.NewForms
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(20, 421);
             this.myButton1.Name = "myButton1";
-            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.Size = new System.Drawing.Size(75, 23);
             this.myButton1.TabIndex = 2;
             this.myButton1.Text = "Назад";
             this.myButton1.TextColor = System.Drawing.Color.Black;
             this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.backButton1_Click);
             // 
-            // myButton2
+            // iceCheckNextBut
             // 
-            this.myButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton2.DefaultTheme = false;
-            this.myButton2.Location = new System.Drawing.Point(420, 421);
-            this.myButton2.Name = "myButton2";
-            this.myButton2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton2.Size = new System.Drawing.Size(75, 23);
-            this.myButton2.TabIndex = 3;
-            this.myButton2.Text = "Далее";
-            this.myButton2.TextColor = System.Drawing.Color.Black;
-            this.myButton2.UseVisualStyleBackColor = true;
-            this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
+            this.iceCheckNextBut.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.iceCheckNextBut.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.iceCheckNextBut.DefaultTheme = false;
+            this.iceCheckNextBut.Location = new System.Drawing.Point(420, 421);
+            this.iceCheckNextBut.Name = "iceCheckNextBut";
+            this.iceCheckNextBut.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.iceCheckNextBut.Size = new System.Drawing.Size(75, 23);
+            this.iceCheckNextBut.TabIndex = 3;
+            this.iceCheckNextBut.Text = "Далее";
+            this.iceCheckNextBut.TextColor = System.Drawing.Color.Black;
+            this.iceCheckNextBut.UseVisualStyleBackColor = true;
+            this.iceCheckNextBut.Click += new System.EventHandler(this.iceCheckNextBUT_Click);
             // 
             // iceCheck1
             // 
-            this.iceCheck1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.iceCheck1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.iceCheck1.Location = new System.Drawing.Point(7, 0);
             this.iceCheck1.Name = "iceCheck1";
             this.iceCheck1.Size = new System.Drawing.Size(519, 483);
@@ -538,7 +566,7 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage6
             // 
-            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage6.Controls.Add(this.myButton4);
             this.tabPage6.Controls.Add(this.myButton3);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
@@ -549,12 +577,12 @@ namespace MissionPlanner.NewForms
             // 
             // myButton4
             // 
-            this.myButton4.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(20, 421);
             this.myButton4.Name = "myButton4";
-            this.myButton4.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton4.Size = new System.Drawing.Size(75, 23);
             this.myButton4.TabIndex = 3;
             this.myButton4.Text = "Назад";
@@ -567,7 +595,7 @@ namespace MissionPlanner.NewForms
             this.myButton3.BGGradBot = System.Drawing.Color.LawnGreen;
             this.myButton3.BGGradTop = System.Drawing.Color.CornflowerBlue;
             this.myButton3.DefaultTheme = false;
-            this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.myButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.myButton3.Location = new System.Drawing.Point(0, 104);
             this.myButton3.Name = "myButton3";
             this.myButton3.Size = new System.Drawing.Size(519, 230);
@@ -587,28 +615,11 @@ namespace MissionPlanner.NewForms
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // backButton2
-            // 
-            this.backButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.DefaultTheme = false;
-            this.backButton2.Location = new System.Drawing.Point(20, 421);
-            this.backButton2.Margin = new System.Windows.Forms.Padding(20);
-            this.backButton2.Name = "backButton2";
-            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.Size = new System.Drawing.Size(75, 23);
-            this.backButton2.TabIndex = 5;
-            this.backButton2.Text = "Назад";
-            this.backButton2.TextColor = System.Drawing.Color.Black;
-            this.backButton2.UseVisualStyleBackColor = true;
-            this.backButton2.Visible = false;
-            this.backButton2.Click += new System.EventHandler(this.backButton2_Click);
-            // 
             // PreFlightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.ClientSize = new System.Drawing.Size(528, 516);
             this.Controls.Add(this.tabControl1);
             this.Name = "PreFlightForm";
@@ -624,8 +635,9 @@ namespace MissionPlanner.NewForms
             this.tabPage5.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
+
+        private MissionPlanner.Controls.MyButton iceCheckNextBut;
 
         #endregion
 
@@ -656,7 +668,6 @@ namespace MissionPlanner.NewForms
         private Controls.NewControls.ICERun iceRun1;
         private Controls.MyButton backButton;
         private Controls.MyButton nextButton;
-        private Controls.MyButton myButton2;
         private Controls.MyButton myButton1;
         private Controls.NewControls.ICECheck iceCheck1;
         private System.Windows.Forms.TabPage tabPage6;

@@ -484,6 +484,11 @@ namespace MissionPlanner.GCSViews
                     aircraftSITLInfo.SysId =
                         MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
                     MainV2.CurrentAircraftNum = MainV2.Aircrafts.FirstOrDefault(x => x.Value == aircraftSITLInfo).Key;
+                    MainV2.StatusMenuPanel.DisableControlBindings();
+                    aircraftSITLInfo.maxCapacity = 5.0f;
+                    aircraftSITLInfo.minCapacity = 0.0f;
+                    MainV2.StatusMenuPanel.SetFuelPbMinMax(0.0, 5.0);
+                    MainV2.StatusMenuPanel.SetSitlFuel(4.85);
                 }
             }
             catch

@@ -39,6 +39,7 @@ namespace MissionPlanner.NewForms
         {
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
             LoadFuelText();
+            iceRun1.Init();
             //updateARMButton();
         }
 
@@ -101,13 +102,22 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void nextButton1_Click(object sender, EventArgs e)
+        private void checkListNextBUT_Click(object sender, EventArgs e)
         {
             if (checkListControl1.allRight())
             {
-                progressIndex = progressIndex > Tabs.Calibration ? progressIndex : Tabs.Calibration;
-                selectedIndex = Tabs.Calibration;
-                tabControl1.SelectedIndex = (int) selectedIndex;
+                if (MainV2.comPort.MAV.cs.rpm1 < 3000)
+                {
+                    progressIndex = progressIndex > Tabs.IceStart ? progressIndex : Tabs.IceStart;
+                    selectedIndex = Tabs.IceStart;
+                    tabControl1.SelectedIndex = (int) selectedIndex;
+                }
+                else
+                {
+                    progressIndex = progressIndex > Tabs.IceCheck ? progressIndex : Tabs.IceCheck;
+                    selectedIndex = Tabs.IceCheck;
+                    tabControl1.SelectedIndex = (int) selectedIndex;
+                }
             }
         }
 
@@ -201,18 +211,9 @@ namespace MissionPlanner.NewForms
 
         private void refuelNextButton_Click(object sender, EventArgs e)
         {
-            if (MainV2.comPort.MAV.cs.rpm1 < 3000)
-            {
-                progressIndex = progressIndex > Tabs.IceStart ? progressIndex : Tabs.IceStart;
-                selectedIndex = Tabs.IceStart;
-                tabControl1.SelectedIndex = (int) selectedIndex;
-            }
-            else
-            {
-                progressIndex = progressIndex > Tabs.IceCheck ? progressIndex : Tabs.IceCheck;
-                selectedIndex = Tabs.IceCheck;
-                tabControl1.SelectedIndex = (int) selectedIndex;
-            }
+            progressIndex = progressIndex > Tabs.Calibration ? progressIndex : Tabs.Calibration;
+            selectedIndex = Tabs.Calibration;
+            tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -221,7 +222,7 @@ namespace MissionPlanner.NewForms
             tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void iceStartNextBUT_Click(object sender, EventArgs e)
         {
             progressIndex = progressIndex > Tabs.IceCheck ? progressIndex : Tabs.IceCheck;
             selectedIndex = Tabs.IceCheck;
@@ -234,7 +235,7 @@ namespace MissionPlanner.NewForms
             tabControl1.SelectedIndex = (int) selectedIndex;
         }
 
-        private void myButton2_Click(object sender, EventArgs e)
+        private void iceCheckNextBUT_Click(object sender, EventArgs e)
         {
             if (iceCheck1.iceChecked)
             {
