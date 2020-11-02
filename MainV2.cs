@@ -1600,24 +1600,27 @@ namespace MissionPlanner
                 {
                     double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
-                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane, true);
+                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane);
                     FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
+
+                    int azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
+                        new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                    FlightPlanner.notificationControl1.azimuthUav_label.Text = azimuth + "°";
                 }
                 else
                 {
                     FlightPlanner.notificationControl1.label3.Text = "0 м";
                 }
 
-                FlightPlanner.notificationControl1.label5.Text = comPort.MAV.cs.wp_dist.ToString();
+                FlightPlanner.notificationControl1.label5.Text = FlightPlanner.FormatDistance(comPort.MAV.cs.wp_dist / 1000.0);
                 double lengthCountr = 0;
                 for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++)
                 {
                     string s = FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString();
-                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value
-                        .ToString());
+                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString());
                 }
 
-                FlightPlanner.notificationControl1.label7.Text = lengthCountr.ToString("0.00") + " м";
+                FlightPlanner.notificationControl1.label7.Text = FlightPlanner.FormatDistance(lengthCountr / 1000.0);
             }
             catch (System.Exception eee)
             {

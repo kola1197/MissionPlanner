@@ -3226,10 +3226,7 @@ namespace MissionPlanner.GCSViews
         {
             GPoint drawingPoint = GetDistanceDrawingPoint(p1, p2);
             float drawingAngle = GetDistanceDrawingAngle(p1, p2);
-            float azimuthAngle = GetAzimuthAngle(p1, p2) + 90;
-
-            if (azimuthAngle < 0)
-                azimuthAngle += 360;
+            float azimuthAngle = GetAzimuthAngle(p1, p2);
 
             string formatAzimuthAngle = azimuthAngle.ToString("F1") + "°";
             string distance = formatAzimuthAngle + " " + FormatDistance(GetDistanceBetweenTwoPoints(p1, p2));
@@ -3262,9 +3259,12 @@ namespace MissionPlanner.GCSViews
             return Math.Atan2(localPoint2.Y - localPoint1.Y, localPoint2.X - localPoint1.X);
         }
 
-        private float GetAzimuthAngle(PointLatLng p1, PointLatLng p2)
+        public float GetAzimuthAngle(PointLatLng p1, PointLatLng p2)
         {
-            return (float) (GetAngleBetweenPoints(p1, p2) * 180 / Math.PI);
+            float azimuthAngle = (float) (GetAngleBetweenPoints(p1, p2) * 180 / Math.PI) + 90;
+            if (azimuthAngle < 0)
+                azimuthAngle += 360;
+            return azimuthAngle;
         }
 
         private float GetDistanceDrawingAngle(PointLatLng p1, PointLatLng p2)
@@ -3293,7 +3293,7 @@ namespace MissionPlanner.GCSViews
             return MainMap.MapProvider.Projection.GetDistance(p1, p2);
         }
 
-        private string FormatDistance(double distance)
+        public string FormatDistance(double distance)
         {
             if (Math.Truncate(distance) == 0)
             {
