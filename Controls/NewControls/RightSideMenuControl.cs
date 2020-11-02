@@ -111,5 +111,10 @@ namespace MissionPlanner.Controls.NewControls
         {
             switchControl(gskControl);
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

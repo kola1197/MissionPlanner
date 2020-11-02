@@ -1637,7 +1637,7 @@ namespace MissionPlanner
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+                    FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 32, 32, 32);
                 }
 
                 if (!FlightPlanner.notificationListControl1.timer1.Enabled)
