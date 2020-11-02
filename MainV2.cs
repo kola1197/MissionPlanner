@@ -1664,7 +1664,7 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    Aircrafts[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 10;
+                    Aircrafts[CurrentAircraftNum].inAir = comPort.MAV.cs.alt > 30;
                 }
 
                 /*if (ctrlModeActive && ctrlReliasedCounter == -1)

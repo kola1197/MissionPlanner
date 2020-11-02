@@ -3105,7 +3105,8 @@ namespace MissionPlanner.GCSViews
             foreach (var aircraft in MainV2.Aircrafts.Values)
             {
                 ConnectionControl.port_sysid aircraftSysId = (ConnectionControl.port_sysid) aircraft.SysId;
-                if (aircraftSysId.port.MAV == mavState)
+                // ConnectionControl.port_sysid antennaSysId = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
+                if (aircraftSysId.port.MAV == mavState && !MainV2.AntennaConnectionInfo.Active)
                 {
                     return aircraft;
                 }
