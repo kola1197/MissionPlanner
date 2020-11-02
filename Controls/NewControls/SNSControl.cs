@@ -63,6 +63,10 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton2_MouseUp(object sender, EventArgs e)
         {
+            if (modeChangeForm != null) 
+            {
+                modeChangeForm.Close();
+            }
             modeChangeForm = new ModeChangeForm();
             modeChangeForm.Show();
         }

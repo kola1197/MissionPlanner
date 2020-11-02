@@ -431,12 +431,12 @@ namespace MissionPlanner.NewForms
             this.armButton.BGGradBot = System.Drawing.Color.Aqua;
             this.armButton.BGGradTop = System.Drawing.Color.LawnGreen;
             this.armButton.DefaultTheme = false;
-            this.armButton.Location = new System.Drawing.Point(220, 421);
+            this.armButton.Location = new System.Drawing.Point(190, 421);
             this.armButton.Name = "armButton";
             this.armButton.Outline = System.Drawing.Color.Black;
-            this.armButton.Size = new System.Drawing.Size(75, 23);
+            this.armButton.Size = new System.Drawing.Size(135, 50);
             this.armButton.TabIndex = 3;
-            this.armButton.Text = "Arm/Disarm";
+            this.armButton.Text = "Разблок/Блок машинку газа";
             this.armButton.TextColor = System.Drawing.Color.Black;
             this.armButton.UseVisualStyleBackColor = true;
             this.armButton.Click += new System.EventHandler(this.armButton_Click);
