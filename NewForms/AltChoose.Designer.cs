@@ -75,8 +75,10 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.myButton1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AltChoose";
-            this.Text = "AltChoose";
+            this.Text = "Выбор высоты";
             this.ResumeLayout(false);
             this.PerformLayout();
 

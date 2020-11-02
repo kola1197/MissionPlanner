@@ -31,6 +31,8 @@ namespace MissionPlanner.NewForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModeChangeForm));
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
@@ -75,7 +77,7 @@ namespace MissionPlanner.NewForms
             this.Controls.Add(this.CMB_modes);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModeChangeForm";
-            this.Text = "ModeChangeForm";
+            this.Text = "Изменить режим";
             this.Load += new System.EventHandler(this.ModeChangeForm_Load_1);
             this.ResumeLayout(false);
 

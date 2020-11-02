@@ -35,6 +35,8 @@ namespace MissionPlanner
         /// </summary>
         private void InitializeComponent()
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionsForm));
             this.devices_LB = new System.Windows.Forms.ListBox();
