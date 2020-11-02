@@ -499,6 +499,12 @@
     <Compile Include="Controls\NewControls\RegionsControl.Designer.cs">
       <DependentUpon>RegionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewControls\RighSideButtonsMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewControls\RighSideButtonsMenu.Designer.cs">
+      <DependentUpon>RighSideButtonsMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NewControls\RightSideMenuControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1062,6 +1068,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RegionsControl.resx">
       <DependentUpon>RegionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewControls\RighSideButtonsMenu.resx">
+      <DependentUpon>RighSideButtonsMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewControls\RightSideMenuControl.resx">
       <DependentUpon>RightSideMenuControl.cs</DependentUpon>
