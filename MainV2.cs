@@ -1363,9 +1363,9 @@ namespace MissionPlanner
 
         private void MakeRightSideMenuTransparent()
         {
-            rightSideMenuControl1.Parent = FlightPlanner.MainMap;
-            rightSideMenuControl1.Location =
-                new Point(FlightPlanner.MainMap.Size.Width - rightSideMenuControl1.Size.Width + 10, 100);
+            rightSideButtonsMenu.Parent = FlightPlanner.MainMap;
+            rightSideButtonsMenu.Location =
+                new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width + 10, 100);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -4921,7 +4921,7 @@ namespace MissionPlanner
             {
                 MakeRightSideMenuTransparent();
             }
-            //rightSideMenuControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideMenuControl1.Size.Width,200);
+            //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);
             //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
         }

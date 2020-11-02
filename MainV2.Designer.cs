@@ -82,7 +82,7 @@ namespace MissionPlanner
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
             this.menu = new MissionPlanner.Controls.MyButton();
-            this.rightSideMenuControl1 = new MissionPlanner.Controls.NewControls.RightSideMenuControl();
+            this.rightSideButtonsMenu = new MissionPlanner.Controls.NewControls.RightSideButtonsMenu();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
@@ -435,11 +435,11 @@ namespace MissionPlanner
             this.menu.UseVisualStyleBackColor = true;
             this.menu.MouseEnter += new System.EventHandler(this.menu_MouseEnter);
             // 
-            // rightSideMenuControl1
+            // rightSideButtonsMenu
             // 
-            resources.ApplyResources(this.rightSideMenuControl1, "rightSideMenuControl1");
-            this.rightSideMenuControl1.BackColor = System.Drawing.Color.Transparent;
-            this.rightSideMenuControl1.Name = "rightSideMenuControl1";
+            resources.ApplyResources(this.rightSideButtonsMenu, "rightSideButtonsMenu");
+            this.rightSideButtonsMenu.BackColor = System.Drawing.Color.Transparent;
+            this.rightSideButtonsMenu.Name = "rightSideButtonsMenu";
             // 
             // toolStripConnectionControl1
             // 
@@ -450,7 +450,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.rightSideMenuControl1);
+            this.Controls.Add(this.rightSideButtonsMenu);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);
@@ -501,7 +501,7 @@ namespace MissionPlanner
         private BSE.Windows.Forms.ProgressBar progressBar1;
         private BSE.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
-        public MissionPlanner.Controls.NewControls.RightSideMenuControl rightSideMenuControl1;
+        public MissionPlanner.Controls.NewControls.RightSideButtonsMenu rightSideButtonsMenu;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
         private MissionPlanner.Controls.NewControls.SNSControl snsControl2;
         public MissionPlanner.Controls.Status status1;

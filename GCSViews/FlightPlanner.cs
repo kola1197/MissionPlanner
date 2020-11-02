@@ -326,7 +326,7 @@ namespace MissionPlanner.GCSViews
             */
 
             //Init RightSideMenu
-            MainV2.instance.rightSideMenuControl1.Init();
+            MainV2.instance.rightSideButtonsMenu.Init();
 
             wpMenuLoad();
             contextMenuStrip2.Closed += contextMenuStrip2_Closed;

@@ -2235,40 +2235,40 @@
   <data name="&gt;&gt;menu.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="rightSideMenuControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="rightSideButtonsMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="rightSideMenuControl1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="rightSideButtonsMenu.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="rightSideMenuControl1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="rightSideButtonsMenu.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="rightSideMenuControl1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="rightSideButtonsMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>1596, 204</value>
   </data>
-  <data name="rightSideMenuControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="rightSideButtonsMenu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 0, 3</value>
   </data>
-  <data name="rightSideMenuControl1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="rightSideButtonsMenu.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>40, 300</value>
   </data>
-  <data name="rightSideMenuControl1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="rightSideButtonsMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 300</value>
   </data>
-  <data name="rightSideMenuControl1.TabIndex" type="System.Int32, mscorlib">
+  <data name="rightSideButtonsMenu.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
   </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Name" xml:space="preserve">
-    <value>rightSideMenuControl1</value>
+  <data name="&gt;&gt;rightSideButtonsMenu.Name" xml:space="preserve">
+    <value>rightSideButtonsMenu</value>
   </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.NewControls.RightSideMenuControl, MissionPlanner, Version=1.3.7601.28153, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;rightSideButtonsMenu.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.NewControls.RightSideButtonsMenu, MissionPlanner, Version=1.3.7601.28153, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;rightSideMenuControl1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;rightSideButtonsMenu.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;rightSideMenuControl1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;rightSideButtonsMenu.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="toolStripConnectionControl1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
