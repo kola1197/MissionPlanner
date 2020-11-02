@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPMenu));
             this.mainButton = new MissionPlanner.Controls.MyButton();
             this.label3 = new System.Windows.Forms.Label();
             this.loadButton = new MissionPlanner.Controls.MyButton();
@@ -367,7 +366,7 @@
             // myButton1
             // 
             this.myButton1.BackColor = System.Drawing.Color.Transparent;
-            this.myButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("myButton1.BackgroundImage")));
+            this.myButton1.BackgroundImage = global::MissionPlanner.Properties.Resources.show_button_1m;
             this.myButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.myButton1.BGGradBot = System.Drawing.Color.Empty;
             this.myButton1.BGGradTop = System.Drawing.Color.Empty;
