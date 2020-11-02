@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DotSpatial.Topology;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using MissionPlanner.NewClasses;
 using HRGN = System.IntPtr;
 using HWND = System.IntPtr;
 
@@ -17,23 +18,23 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class WPMenu : UserControl
     {
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-           int nLeftRect, // x-coordinate of upper-left corner
-           int nTopRect, // y-coordinate of upper-left corner
-           int nRightRect, // x-coordinate of lower-right corner
-           int nBottomRect, // y-coordinate of lower-right corner
-           int nWidthEllipse, // height of ellipse
-           int nHeightEllipse // width of ellipse
-        );
+        // [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        // private static extern IntPtr CreateRoundRectRgn
+        // (
+        //    int nLeftRect, // x-coordinate of upper-left corner
+        //    int nTopRect, // y-coordinate of upper-left corner
+        //    int nRightRect, // x-coordinate of lower-right corner
+        //    int nBottomRect, // y-coordinate of lower-right corner
+        //    int nWidthEllipse, // height of ellipse
+        //    int nHeightEllipse // width of ellipse
+        // );
 
         public bool IsWpDistanceDrawing = false;
         public bool fieldActive = false;
         public WPMenu()
         {
             InitializeComponent();
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(-20, 0, Width, Height, 25, 25));
+            Region = ControlDrawingTools.CreateRoundRectRgn(-20, 0, Width, Height, 25);
             this.BackColor = Color.FromArgb(200,64,64,64);
             //this.label3.Parent = this.mainButton;
             //updateField();

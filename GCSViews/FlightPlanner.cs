@@ -668,6 +668,11 @@ namespace MissionPlanner.GCSViews
                     }
                 }
             }*/
+            if (MainV2.AntennaConnectionInfo.Active)
+            {
+                return;
+            }
+            
             if ((MainV2.comPort.MAV.cs.capabilities & (uint) MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
             {
                 if (!MainV2.comPort.BaseStream.IsOpen)
@@ -708,6 +713,11 @@ namespace MissionPlanner.GCSViews
 
         public void writeWPToPlane()
         {
+            if (MainV2.AntennaConnectionInfo.Active)
+            {
+                return;
+            }
+            
             wpLoadMutexBusy = true;
             needToLoadWP = false;
             setWpLoadingStatus(false);

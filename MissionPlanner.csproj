@@ -590,6 +590,7 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewClasses\ControlDrawingTools.cs" />
     <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewClasses\FormConnector.cs" />
