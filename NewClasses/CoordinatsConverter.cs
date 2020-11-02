@@ -77,10 +77,10 @@ namespace MissionPlanner.NewClasses
         private double[] splitFromString(string input)
         {
             double[] result = new double[] {0,0,0};
-            input = input.Replace("\""," ");
-            input = input.Replace("\'", " ");
-            input = input.Replace("°", " ");
-            string[] values = input.Split(' ');
+            input = input.Replace("\"","$");
+            input = input.Replace("\'", "$");
+            input = input.Replace("°", "$");
+            string[] values = input.Split('$');
             //result = new double[values.Length];
             for (int i = 0; i < values.Length; i++) 
             {
@@ -330,7 +330,7 @@ namespace MissionPlanner.NewClasses
             int grad = (int)Math.Truncate(coord);
             double min = coord - grad;
             min *= 60;
-            result = grad.ToString() + "°." + min.ToString("F4", new CultureInfo("en-US")) + "'";
+            result = grad.ToString() + "°" + min.ToString("F4", new CultureInfo("en-US")) + "'";
             return result;
         }
 
@@ -344,7 +344,7 @@ namespace MissionPlanner.NewClasses
             min = Math.Truncate(min);
             sec -= min;
             sec *= 60;
-            result = grad.ToString() + "°." + min.ToString() + "'"+sec.ToString("F2", new CultureInfo("en-US"))+"\"";
+            result = grad.ToString() + "°" + min.ToString() + "'"+sec.ToString("F2", new CultureInfo("en-US"))+"\"";
             return result;
         }
 
