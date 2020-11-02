@@ -299,8 +299,9 @@ namespace MissionPlanner.NewForms
                             break;
                     }
                 }
-                catch
+                catch (Exception ee)
                 {
+                    System.Diagnostics.Debug.WriteLine(ee.ToString() );
                     latNotification.Visible = true;
                 }
             }

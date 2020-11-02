@@ -79,10 +79,13 @@ namespace MissionPlanner.NewClasses
             input = input.Replace("\'", " ");
             input = input.Replace("°", " ");
             string[] values = input.Split(' ');
-            result = new double[values.Length];
+            //result = new double[values.Length];
             for (int i = 0; i < values.Length; i++) 
             {
-                result[i] = double.Parse(values[i]);
+                if (values[i] != "" && i<3)
+                {
+                    result[i] = double.Parse(values[i]);
+                }
             }
             return result; 
         }
