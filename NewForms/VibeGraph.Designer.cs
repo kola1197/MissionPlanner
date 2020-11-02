@@ -58,9 +58,9 @@
             this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(8, 124);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.Size = new System.Drawing.Size(51, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "VibeX";
+            this.label1.Text = "Ось X";
             this.label1.ForeColorChanged += new System.EventHandler(this.label1_ForeColorChanged);
             // 
             // label2
@@ -71,9 +71,9 @@
             this.label2.ForeColor = System.Drawing.Color.Lime;
             this.label2.Location = new System.Drawing.Point(64, 124);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 17);
+            this.label2.Size = new System.Drawing.Size(51, 17);
             this.label2.TabIndex = 2;
-            this.label2.Text = "VibeY";
+            this.label2.Text = "Ось Y";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
@@ -84,9 +84,9 @@
             this.label3.ForeColor = System.Drawing.Color.Blue;
             this.label3.Location = new System.Drawing.Point(122, 124);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 17);
+            this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 3;
-            this.label3.Text = "VibeZ";
+            this.label3.Text = "Ось Z";
             // 
             // VibeGraph
             // 
@@ -98,6 +98,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "VibeGraph";
             this.Text = "График вибраций";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

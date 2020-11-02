@@ -25,13 +25,13 @@ namespace MissionPlanner.Controls.NewControls
         );
         public NotificationControl()
         {
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             InitializeComponent();
             defaultSize = new Size(this.Size.Width, this.Size.Height);       // 265; 41
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, -20, Width, Height, 20, 20));
             
             //label1.Text = "Время полета: 00:00:00";
             redraw();
-            this.BackColor = Color.FromArgb(200, 32, 32, 32);
 
         }
         private bool fullSize = false;

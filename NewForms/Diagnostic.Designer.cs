@@ -109,11 +109,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(43, 93);
+            this.label2.Location = new System.Drawing.Point(37, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "EKF:";
+            this.label2.Text = "ЕКФ:";
             // 
             // label3
             // 
@@ -129,11 +129,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(43, 123);
+            this.label4.Location = new System.Drawing.Point(14, 123);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Vibe:";
+            this.label4.Text = "Вибрация:";
             // 
             // label5
             // 
@@ -208,8 +208,10 @@
             this.Controls.Add(this.myButton2);
             this.Controls.Add(this.myButton1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DiagnosticForm";
-            this.Text = "Diagnostic";
+            this.Text = "Диагностика";
             this.ResumeLayout(false);
             this.PerformLayout();
 

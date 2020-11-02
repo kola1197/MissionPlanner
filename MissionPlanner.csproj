@@ -4939,6 +4939,7 @@
     <None Include="Resources\antV1.png" />
     <None Include="Resources\airspeedDirection.png" />
     <None Include="Resources\icons8_show_button.png" />
+    <None Include="Resources\show_button_1m.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -54,9 +54,9 @@
             this.chk_grid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chk_grid.Location = new System.Drawing.Point(3, 3);
             this.chk_grid.Name = "chk_grid";
-            this.chk_grid.Size = new System.Drawing.Size(45, 17);
+            this.chk_grid.Size = new System.Drawing.Size(56, 17);
             this.chk_grid.TabIndex = 44;
-            this.chk_grid.Text = "Grid";
+            this.chk_grid.Text = "Сетка";
             this.chk_grid.UseVisualStyleBackColor = true;
             // 
             // lbl_status
@@ -66,9 +66,9 @@
             this.lbl_status.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_status.Location = new System.Drawing.Point(4, 46);
             this.lbl_status.Name = "lbl_status";
-            this.lbl_status.Size = new System.Drawing.Size(37, 13);
+            this.lbl_status.Size = new System.Drawing.Size(41, 13);
             this.lbl_status.TabIndex = 43;
-            this.lbl_status.Text = "Status";
+            this.lbl_status.Text = "Статус";
             // 
             // comboBoxMapType
             // 
@@ -85,12 +85,12 @@
             this.lnk_kml.AutoSize = true;
             this.lnk_kml.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lnk_kml.LinkColor = System.Drawing.Color.LightSeaGreen;
-            this.lnk_kml.Location = new System.Drawing.Point(156, 7);
+            this.lnk_kml.Location = new System.Drawing.Point(133, 6);
             this.lnk_kml.Name = "lnk_kml";
-            this.lnk_kml.Size = new System.Drawing.Size(55, 13);
+            this.lnk_kml.Size = new System.Drawing.Size(81, 13);
             this.lnk_kml.TabIndex = 45;
             this.lnk_kml.TabStop = true;
-            this.lnk_kml.Text = "View KML";
+            this.lnk_kml.Text = "Показать KML";
             this.lnk_kml.VisitedLinkColor = System.Drawing.Color.Magenta;
             // 
             // MapChangeForm
@@ -100,8 +100,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(238, 123);
             this.Controls.Add(this.panel3);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MapChangeForm";
-            this.Text = "MapChangeForm";
+            this.Text = "Выбрать карту";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
