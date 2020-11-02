@@ -4948,131 +4948,131 @@ namespace MissionPlanner
                 return false;
             }
 
-            if (keyData == Keys.F12)
-            {
-                MenuConnect_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F2)
-            {
-                MenuFlightData_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F3)
-            {
-                MenuFlightPlanner_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F4)
-            {
-                MenuTuning_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F5)
-            {
-                comPort.getParamList();
-                MyView.ShowScreen(MyView.current.Name);
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.F)) // temp
-            {
-                Form frm = new temp();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
+            // if (keyData == Keys.F12)
+            // {
+            //     MenuConnect_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F2)
+            // {
+            //     MenuFlightData_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F3)
+            // {
+            //     MenuFlightPlanner_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F4)
+            // {
+            //     MenuTuning_Click(null, null);
+            //     return true;
+            // }
+            //
+            // if (keyData == Keys.F5)
+            // {
+            //     comPort.getParamList();
+            //     MyView.ShowScreen(MyView.current.Name);
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.F)) // temp
+            // {
+            //     Form frm = new temp();
+            //     ThemeManager.ApplyThemeTo(frm);
+            //     frm.Show();
+            //     return true;
+            // }
 
             /*if (keyData == (Keys.Control | Keys.S)) // screenshot
             {
                 ScreenShot();
                 return true;
             }*/
-            if (keyData == (Keys.Control | Keys.P))
-            {
-                new PluginUI().Show();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.G)) // nmea out
-            {
-                Form frm = new SerialOutputNMEA();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.X))
-            {
-                new GMAPCache().ShowUserControl();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.L)) // limits
-            {
-                new DigitalSkyUI().ShowUserControl();
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.W)) // test ac config
-            {
-                new PropagationSettings().Show();
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Z))
-            {
-                //ScanHW.Scan(comPort);
-                new Camera().test(MainV2.comPort);
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.T)) // for override connect
-            {
-                try
-                {
-                    MainV2.comPort.Open(false);
-                }
-                catch (Exception ex)
-                {
-                    CustomMessageBox.Show(ex.ToString());
-                }
-
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Y)) // for ryan beall and ollyw42
-            {
-                // write
-                try
-                {
-                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                        MAVLink.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                }
-                catch
-                {
-                    CustomMessageBox.Show("Invalid command");
-                    return true;
-                }
-
-                //read
-                ///////MainV2.comPort.doCommand(MAVLink09.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                CustomMessageBox.Show("Done MAV_ACTION_STORAGE_WRITE");
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.J))
-            {
-                new DevopsUI().ShowUserControl();
-
-                return true;
-            }
+            // if (keyData == (Keys.Control | Keys.P))
+            // {
+            //     new PluginUI().Show();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.G)) // nmea out
+            // {
+            //     Form frm = new SerialOutputNMEA();
+            //     ThemeManager.ApplyThemeTo(frm);
+            //     frm.Show();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.X))
+            // {
+            //     new GMAPCache().ShowUserControl();
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.L)) // limits
+            // {
+            //     new DigitalSkyUI().ShowUserControl();
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.W)) // test ac config
+            // {
+            //     new PropagationSettings().Show();
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.Z))
+            // {
+            //     //ScanHW.Scan(comPort);
+            //     new Camera().test(MainV2.comPort);
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.T)) // for override connect
+            // {
+            //     try
+            //     {
+            //         MainV2.comPort.Open(false);
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         CustomMessageBox.Show(ex.ToString());
+            //     }
+            //
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.Y)) // for ryan beall and ollyw42
+            // {
+            //     // write
+            //     try
+            //     {
+            //         MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+            //             MAVLink.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+            //     }
+            //     catch
+            //     {
+            //         CustomMessageBox.Show("Invalid command");
+            //         return true;
+            //     }
+            //
+            //     //read
+            //     ///////MainV2.comPort.doCommand(MAVLink09.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+            //     CustomMessageBox.Show("Done MAV_ACTION_STORAGE_WRITE");
+            //     return true;
+            // }
+            //
+            // if (keyData == (Keys.Control | Keys.J))
+            // {
+            //     new DevopsUI().ShowUserControl();
+            //
+            //     return true;
+            // }
 
             /* bool manualFlightMode = false;
              int[] overrides = {1500, 1500, 1500, 1500};

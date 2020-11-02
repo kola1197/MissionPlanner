@@ -28,7 +28,7 @@ namespace MissionPlanner.Controls.NewControls
            int nHeightEllipse // width of ellipse
         );
 
-        public bool drawText = false;
+        public bool IsWpDistanceDrawing = false;
         public bool fieldActive = false;
         public WPMenu()
         {
@@ -145,7 +145,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
-            this.drawText = !drawText;
+            this.IsWpDistanceDrawing = !IsWpDistanceDrawing;
         }
     }
 }
