@@ -1362,7 +1362,13 @@ namespace MissionPlanner
             AircraftMenuControl.SwitchOnTimer();
 
             ConnectionsForm.Init();
+            //this.OnClosing += new Ev
             //this.Text = "Мighty Platypus   v0.2";
+        }
+
+        private void onClose(CancelEventArgs e)
+        {
+            
         }
 
         private void MakeRightSideMenuTransparent()
@@ -3098,6 +3104,16 @@ namespace MissionPlanner
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите закрыть программу", "Предупреждению", MessageBoxButtons.YesNo);
+            if(dialogResult == DialogResult.No)
+            {
+                //do something
+                e.Cancel = true;
+            }
+            else if (dialogResult == DialogResult.Yes)
+            {
+                
+
             base.OnClosing(e);
 
             log.Info("MainV2_FormClosing");
@@ -3276,6 +3292,8 @@ namespace MissionPlanner
 
             if (MONO)
                 this.Dispose();
+            }
+            
         }
 
 

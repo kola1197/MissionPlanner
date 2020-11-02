@@ -849,7 +849,6 @@ namespace MissionPlanner.Controls.NewControls
                         return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
                         ;
                     }
-
                     break;
                 case 1:
                     if (isLat)
