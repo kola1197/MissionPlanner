@@ -20,7 +20,7 @@ namespace MissionPlanner.Controls.NewControls
             set
             {
                 _iceRunning = value;
-                MainV2.StatusMenuPanel.EngineRunning = value;
+                MainV2.StatusMenuPanel.SitlEmulation.EngineRunning = value;
             }
         }
         private int engineoffCounter = 0;

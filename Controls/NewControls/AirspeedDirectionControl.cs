@@ -21,7 +21,7 @@ namespace MissionPlanner.Controls.NewControls
         int counter = 0;
         public void updateData() 
         {
-            label1.Text = MainV2.comPort.MAV.cs.airspeed.ToString("0.0");
+            label1.Text = MainV2.comPort.MAV.cs.wind_vel.ToString("0.0");
             bitmap = new Bitmap(global::MissionPlanner.Properties.Resources.airspeedDirection);
             if (MainV2.comPort.MAV.cs.connected)
             {

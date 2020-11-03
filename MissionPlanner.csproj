@@ -899,6 +899,7 @@
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
+    <Compile Include="Orlan\EmulateSitlSensors.cs" />
     <Compile Include="Orlan\ICustomClick.cs" />
     <Compile Include="Orlan\NestedBindingProxy.cs" />
     <Compile Include="Orlan\RegionData.cs" />

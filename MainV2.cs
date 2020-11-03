@@ -1531,9 +1531,9 @@ namespace MissionPlanner
 
                 if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
                     Aircrafts[_currentAircraftNum].Connected && Aircrafts[_currentAircraftNum].inAir &&
-                    (DateTime.Now - sitlFlightTime).TotalSeconds > 1)
+                    !AntennaConnectionInfo.Active && (DateTime.Now - sitlFlightTime).TotalSeconds > 1)
                 {
-                    StatusMenuPanel.DoSitlFuelStep();
+                    StatusMenuPanel.SitlEmulation.DoSitlFuelStep();
                     sitlFlightTime = DateTime.Now;
                 }
 
@@ -1770,7 +1770,7 @@ namespace MissionPlanner
             {
                 testVisualisation = true;
                 Aircrafts[CurrentAircraftNum].SitlInfo.SitlLanding = true;
-                StatusMenuPanel.SetSitlBeforeLandState();
+                StatusMenuPanel.SitlEmulation.SetSitlToPrepareLand();
                 snsControl2.openParachuteForm();
             }
         }
