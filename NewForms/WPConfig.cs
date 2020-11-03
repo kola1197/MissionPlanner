@@ -226,6 +226,67 @@ namespace MissionPlanner.NewForms
         {
             comboBox1.Enabled = !checkBox1.Checked;
         }
+        
+        private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            var _editTextBox = sender as TextBox;
+            if (e.KeyCode == Keys.Back)
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-' &&
+                    text[selectionStart - 1] != '.')
+                {
+                    _editTextBox.SelectionStart--;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            if (e.KeyCode == Keys.Delete || Control.IsKeyLocked(Keys.Insert))
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+
+                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) &&
+                    text[selectionStart] != '-' && text[selectionStart] != '.')
+                {
+                    _editTextBox.SelectionStart++;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            // if (e.KeyCode == Keys.Enter)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            //     e.SuppressKeyPress = true;
+            // }
+
+            if (_editTextBox.SelectionLength > 0)
+            {
+                _editTextBox.SelectionStart = _editTextBox.Text.Length;
+                e.Handled = true;
+            }
+        }
+
+
+        private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
+        {
+            // if (e.KeyChar == (char) 13)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            // }
+
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
 
         private bool locked = false;
         public void setCoordsMode() 

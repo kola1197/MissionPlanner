@@ -170,8 +170,10 @@ namespace MissionPlanner.Controls.NewControls
             this.latLong_DGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellClick);
             this.latLong_DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellEndEdit);
             this.latLong_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.latLong_DGV_CellFormatting);
+            this.latLong_DGV.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.latLong_DGV_CellParsing);
             this.latLong_DGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.latLong_DGV_CellValidating);
             this.latLong_DGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellValueChanged);
+            this.latLong_DGV.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.latLong_DGV_DataError);
             this.latLong_DGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.latLong_DGV_EditingControlShowing);
             // 
             // Num

@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using System.Windows.Forms;
+
+namespace MissionPlanner.NewForms
 {
     partial class WPConfig
     {
@@ -192,6 +194,8 @@
             this.lonTB1.Size = new System.Drawing.Size(100, 20);
             this.lonTB1.TabIndex = 3;
             this.lonTB1.TextChanged += new System.EventHandler(this.lonTB1_TextChanged);
+            this.lonTB1.KeyDown += new KeyEventHandler(this.editTextBox_OnKeyDown);
+            this.lonTB1.KeyPress += new KeyPressEventHandler(this.EditTextBoxOnKeyPress);
             // 
             // latTB1
             // 
@@ -200,6 +204,8 @@
             this.latTB1.Size = new System.Drawing.Size(100, 20);
             this.latTB1.TabIndex = 2;
             this.latTB1.TextChanged += new System.EventHandler(this.latTB1_TextChanged);
+            this.latTB1.KeyDown += new KeyEventHandler(this.editTextBox_OnKeyDown);
+            this.latTB1.KeyPress += new KeyPressEventHandler(this.EditTextBoxOnKeyPress);
             // 
             // label2
             // 

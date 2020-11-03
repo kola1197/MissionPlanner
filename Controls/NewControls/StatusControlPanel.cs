@@ -205,7 +205,10 @@ namespace MissionPlanner.Controls
         // Enable when switching from SITL
         public void EnableControlBindings()
         {
-            splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2", true));
+            if (splittedBar_fuel.DataBindings.Count == 0)
+            {
+                splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2", true));
+            }
         }
 
         private bool IsSitlConnected()
