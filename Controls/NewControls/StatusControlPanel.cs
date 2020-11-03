@@ -35,7 +35,7 @@ namespace MissionPlanner.Controls
 
         public EngineControlForm EngineControlForm;
 
-        public EmulateSitlSensors SitlEmulation;
+        public EmulateSitlSensors SitlEmulation = new EmulateSitlSensors();
 
         public StatusControlPanel()
         {
@@ -219,16 +219,6 @@ namespace MissionPlanner.Controls
             {
                 return true;
             }
-            else
-            {
-                using (System.IO.StreamWriter file =
-                    new System.IO.StreamWriter(@"C:\Code\Debug.txt", true))
-                {
-                    file.WriteLine("aircraft connected: " + aircraft.Connected.ToString() +
-                                   "aircraft using sitl: " + aircraft.UsingSitl.ToString() +
-                                   "antenna not active:" + !MainV2.AntennaConnectionInfo.Active);
-                }
-            }
 
             return false;
         }
@@ -239,13 +229,22 @@ namespace MissionPlanner.Controls
             UpdateStatusLabels();
 
             this.Invalidate();
+            if (IsSitlConnected())
+            {
+                UpdateFuelProgressBar();
+            }
+        }
+
+        private void UpdateFuelProgressBar()
+        {
+            splittedBar_fuel.Value = Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel);
         }
 
         private void UpdateStatusLabels()
         {
-                fuel_label.Text = CalcFuelPercentage().ToString() + "%";
+            fuel_label.Text = CalcFuelPercentage().ToString() + "%";
 
-                voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
+            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
 
             rpmICE_label.Text = MainV2.comPort.MAV.cs.rpm1.ToString("F2") + " об/м";
 
@@ -367,7 +366,7 @@ namespace MissionPlanner.Controls
             if (IsSitlConnected())
             {
                 percent = (int) Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel /
-                    splittedBar_fuel.Maximum * 100);
+                    (splittedBar_fuel.Maximum -splittedBar_fuel.Minimum) * 100);
             }
             else
             {

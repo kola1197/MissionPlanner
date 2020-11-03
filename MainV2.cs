@@ -2061,7 +2061,7 @@ namespace MissionPlanner
                         float.Parse(values[0].ToString()); //double.TryParse(minCapacity.Text, out i) ? i : 0;
                     MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
                         float.Parse(values[1].ToString()); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelPerTime =
                         float.Parse(values[1].ToString()); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
                     StatusControlPanel.instance.SetFuelPbMinMax();
                 }

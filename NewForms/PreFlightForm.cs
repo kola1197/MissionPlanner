@@ -47,7 +47,7 @@ namespace MissionPlanner.NewForms
         {
             minCapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity.ToString();
             maxСapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity.ToString();
-            flightTimeTBox.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime.ToString();
+            flightTimeTBox.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelPerTime.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace MissionPlanner.NewForms
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number) && !Char.IsControl(number))
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
             {
                 e.Handled = true;
             }
@@ -178,23 +178,29 @@ namespace MissionPlanner.NewForms
 
         private void updateMainV2Data()
         {
-            int i;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage = float.Parse(batt2_voltage.Text);
-            if (!MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelSaved)
+            if (MainV2.CurrentAircraftNum == null)
             {
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity = float.Parse(maxСapacity.Text);
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);
+                return;
+            }
+
+            AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+            
+            float.TryParse(batt2_voltage.Text, out currentAircraft.Butt2RealVoltage);
+            if (!currentAircraft.FuelSaved)
+            {
+                float.TryParse(maxСapacity.Text, out currentAircraft.MaxCapacity);
+                float.TryParse(flightTimeTBox.Text, out currentAircraft.FuelPerTime);
+                float.TryParse(minCapacity.Text, out currentAircraft.MinCapacity);
             }
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
-            if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity != 0)
+            if (currentAircraft.MaxCapacity != 0)
             {
-                double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage /
-                           MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity;
+                double d = 100 * currentAircraft.Butt2RealVoltage / currentAircraft.MaxCapacity;
                 percent = (int) d;
                 System.Diagnostics.Debug.WriteLine(
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " +
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity.ToString() + "   " + d.ToString() + "   " +
+                    currentAircraft.Butt2RealVoltage.ToString() + "   " +
+                    currentAircraft.MaxCapacity.ToString() + "   " + d.ToString() + "   " +
                     percent.ToString());
             }
 
@@ -360,15 +366,16 @@ namespace MissionPlanner.NewForms
 
         private void myButton5_MouseUp(object sender, MouseEventArgs e)
         {
-            float i = 0;
-            //double.pa
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity =
-                float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
-                float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
-                float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-            MissionPlanner.AircraftConnectionInfo info;
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return;
+            }
+            AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+            
+            float.TryParse(minCapacity.Text, out currentAircraft.MinCapacity);
+            float.TryParse(maxСapacity.Text, out currentAircraft.MaxCapacity); 
+            float.TryParse(flightTimeTBox.Text, out currentAircraft.FuelPerTime);
+            AircraftConnectionInfo info;
             if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
                 MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid =
@@ -377,7 +384,7 @@ namespace MissionPlanner.NewForms
                 tryToSave(id);
             }
 
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelSaved = true;
+            currentAircraft.FuelSaved = true;
             
             //Todo: make bindings
             StatusControlPanel.instance.SetFuelPbMinMax();
@@ -403,7 +410,7 @@ namespace MissionPlanner.NewForms
                         float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
                     MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
                         float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelPerTime =
                         float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
 
                 }
@@ -422,7 +429,7 @@ namespace MissionPlanner.NewForms
             {
                 MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity,
                 MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelPerTime
             };
             StreamWriter stream = new StreamWriter(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt", false);
             for (int i = 0; i < values.Length; i++)

@@ -607,4 +607,7 @@
   <data name="CantDetectBoardVersion" xml:space="preserve">
     <value>Невозможно определить версию контроллера. Проверьте соединение!</value>
   </data>
+  <data name="Bad_Battery" xml:space="preserve">
+    <value>Неполадка в аккумуляторе</value>
+  </data>
 </root>
