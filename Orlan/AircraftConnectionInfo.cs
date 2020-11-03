@@ -112,13 +112,13 @@ namespace MissionPlanner
             set => _butt2RealVoltage = value;
         }
 
-        public float maxCapacity
+        public float MaxCapacity
         {
             get => _maxCapacity;
             set => _maxCapacity = value;
         }
 
-        public float minCapacity
+        public float MinCapacity
         {
             get => _minCapacity;
             set => _minCapacity = value;
@@ -129,7 +129,11 @@ namespace MissionPlanner
             get => _fuelPerTime;
             set => _fuelPerTime = value;
         }
-
+        
+        public bool FuelSaved { get; set; }
+        
+        //Only for SITL (Worst code...)
+        public SITLInfo SitlInfo = new SITLInfo();
 
         // public AircraftConnectionInfo(string number, string name, string port)
         // {

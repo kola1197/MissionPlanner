@@ -818,12 +818,10 @@ namespace MissionPlanner.Controls.NewControls
                     if (isLat)
                     {
                         return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
-                        ;
                     }
                     else
                     {
                         return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
-                        ;
                     }
                     break;
                 case 1:

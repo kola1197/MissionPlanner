@@ -45,8 +45,8 @@ namespace MissionPlanner.NewForms
 
         private void LoadFuelText()
         {
-            minCapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity.ToString();
-            maxСapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString();
+            minCapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity.ToString();
+            maxСapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity.ToString();
             flightTimeTBox.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime.ToString();
         }
 
@@ -179,20 +179,22 @@ namespace MissionPlanner.NewForms
         private void updateMainV2Data()
         {
             int i;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage =
-                int.TryParse(batt2_voltage.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage = float.Parse(batt2_voltage.Text);
+            if (!MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelSaved)
+            {
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity = float.Parse(maxСapacity.Text);
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = float.Parse(flightTimeTBox.Text);
+            }
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
-            if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity != 0)
+            if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity != 0)
             {
                 double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage /
-                           MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity;
+                           MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity;
                 percent = (int) d;
                 System.Diagnostics.Debug.WriteLine(
                     MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " +
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " +
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity.ToString() + "   " + d.ToString() + "   " +
                     percent.ToString());
             }
 
@@ -360,9 +362,9 @@ namespace MissionPlanner.NewForms
         {
             float i = 0;
             //double.pa
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity =
                 float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
                 float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
             MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
                 float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
@@ -375,10 +377,10 @@ namespace MissionPlanner.NewForms
                 tryToSave(id);
             }
 
-
+            MainV2.Aircrafts[MainV2.CurrentAircraftNum].FuelSaved = true;
+            
             //Todo: make bindings
-            StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
+            StatusControlPanel.instance.SetFuelPbMinMax();
         }
 
         private void tryToLoad(int id)
@@ -397,9 +399,9 @@ namespace MissionPlanner.NewForms
                     minCapacity.Text = values[0].ToString();
                     maxСapacity.Text = values[1].ToString();
                     flightTimeTBox.Text = values[2].ToString();
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity =
                         float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
                         float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
                     MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
                         float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
@@ -418,8 +420,8 @@ namespace MissionPlanner.NewForms
         {
             float[] values = new float[]
             {
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity,
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity,
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity,
                 MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime
             };
             StreamWriter stream = new StreamWriter(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt", false);

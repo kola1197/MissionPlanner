@@ -1531,9 +1531,9 @@ namespace MissionPlanner
 
                 if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
                     Aircrafts[_currentAircraftNum].Connected && Aircrafts[_currentAircraftNum].inAir &&
-                    (DateTime.Now - sitlFlightTime).TotalMinutes > 1)
+                    (DateTime.Now - sitlFlightTime).TotalSeconds > 1)
                 {
-                    StatusMenuPanel.DoSitlFuelSpend();
+                    StatusMenuPanel.DoSitlFuelStep();
                     sitlFlightTime = DateTime.Now;
                 }
 
@@ -1690,7 +1690,7 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    if (comPort.MAV.cs.alt > 30)
+                    if (comPort.MAV.cs.timeInAir > 0)
                     {
                         Aircrafts[CurrentAircraftNum].inAir = true;
                         sitlFlightTime = DateTime.Now;
@@ -1769,6 +1769,8 @@ namespace MissionPlanner
                 MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
             {
                 testVisualisation = true;
+                Aircrafts[CurrentAircraftNum].SitlInfo.SitlLanding = true;
+                StatusMenuPanel.SetSitlBeforeLandState();
                 snsControl2.openParachuteForm();
             }
         }
@@ -2055,14 +2057,13 @@ namespace MissionPlanner
                         values[i] = float.Parse(stream.ReadLine());
                     }
 
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity =
                         float.Parse(values[0].ToString()); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity =
                         float.Parse(values[1].ToString()); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
                     MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
                         float.Parse(values[1].ToString()); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
+                    StatusControlPanel.instance.SetFuelPbMinMax();
                 }
                 catch
                 {
@@ -2238,7 +2239,7 @@ namespace MissionPlanner
                 try
                 {
                     if (MainV2.comPort.MAV.cs.battery_voltage2 /
-                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl) //check in persents
+                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity < 0.15 && isSitl) //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -3104,13 +3105,14 @@ namespace MissionPlanner
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите закрыть программу", "Предупреждению", MessageBoxButtons.YesNo);
-            if(dialogResult == DialogResult.No)
+            CustomMessageBox.DialogResult dialogResult = CustomMessageBox.Show("Выйти из программы?", "НПУ", CustomMessageBox.MessageBoxButtons.YesNo,
+                CustomMessageBox.MessageBoxIcon.None, "Да", "Нет");
+            if(dialogResult == CustomMessageBox.DialogResult.No)
             {
                 //do something
                 e.Cancel = true;
             }
-            else if (dialogResult == DialogResult.Yes)
+            else if (dialogResult == CustomMessageBox.DialogResult.Yes)
             {
                 
 

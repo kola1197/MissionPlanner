@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,13 @@ namespace MissionPlanner.NewForms
        
         private void myButton1_Click(object sender, EventArgs e)
         {
+            if (latNotification.Visible || lonNotification.Visible)
+            {
+                CustomMessageBox.Show(
+                    "Введите корректные значения координат, или отмените введенные изменения закрытием окна.",
+                    "Введены некорректные данные координат точки!");
+                return;
+            }
             closedByButton = true;
             this.Close();
         }
@@ -289,17 +297,19 @@ namespace MissionPlanner.NewForms
         }
 
         private bool locked = false;
-        public void setCoordsMode() 
+        public void setCoordsMode()
         {
+            latTB1.TextChanged -= latTB1_TextChanged;
+            lonTB1.TextChanged -= lonTB1_TextChanged;
             locked = true;
             switch (MainV2.coordinatsShowMode) 
             {
                 case 0:
                     WGSCoordinats rr = controller.wgs;
                     System.Diagnostics.Debug.WriteLine("WGS----- " + rr.Lat.ToString() + ", "+ rr.Lng.ToString());
-                    latTB1.Text = controller.wgs.Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
                     break;
                 case 1:
                     latTB1.Text = controller.wgs.to_GM_View_lat();
@@ -312,9 +322,9 @@ namespace MissionPlanner.NewForms
                     lonTB1.Text = controller.wgs.to_GMS_View_lon();
                     break;
                 case 3:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));
                     break;
                 case 4:
                     latTB1.Text = controller.wgs.ToSk42_GM().Item1;
@@ -329,44 +339,49 @@ namespace MissionPlanner.NewForms
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();
                     System.Diagnostics.Debug.WriteLine("Rect----- "+r.x.ToString()+", "+r.y.ToString());
-                    latTB1.Text = controller.wgs.toRect().x.ToString("0.00");
+                    latTB1.Text = controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.toRect().y.ToString("0.00");
+                    lonTB1.Text = controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));
                     break;
             }
+
+            latTB1.Text = latTB1.Text.Replace(',', '.');
+            lonTB1.Text = lonTB1.Text.Replace(',', '.');
+            latTB1.TextChanged += latTB1_TextChanged;
+            lonTB1.TextChanged += lonTB1_TextChanged;
         }
 
         private void latTB1_TextChanged(object sender, EventArgs e)
         {
             if (!locked)
             {
-                latTB1.Text = latTB1.Text.Replace(".", ",");
-                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                var lat = latTB1.Text.Replace(".", ",");
+                var lng = lonTB1.Text.Replace(".", ",");
                 try
                 {
                     latNotification.Visible = false;
                     switch (MainV2.coordinatsShowMode)
                     {
                         case 0:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 1:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 2:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 3:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 4:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 5:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 6:
-                            controller = new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new RectCoordinats(lat, lng));
                             break;
                     }
                 }

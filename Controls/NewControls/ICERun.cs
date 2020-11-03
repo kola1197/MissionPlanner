@@ -13,7 +13,16 @@ namespace MissionPlanner.Controls.NewControls
     public partial class ICERun : UserControl
     {
         private bool testMode = false;
-        bool ICERunning = false;
+        private bool _iceRunning = false;
+        private bool ICERunning
+        {
+            get => _iceRunning;
+            set
+            {
+                _iceRunning = value;
+                MainV2.StatusMenuPanel.EngineRunning = value;
+            }
+        }
         private int engineoffCounter = 0;
         private int key = -1;
         float trim3 = 900;
@@ -126,6 +135,11 @@ namespace MissionPlanner.Controls.NewControls
                 
                 System.Diagnostics.Debug.Write("ENABLE +++++++++++++++");
             }
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

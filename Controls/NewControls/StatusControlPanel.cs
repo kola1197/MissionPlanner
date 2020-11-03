@@ -16,7 +16,7 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private readonly double _fuelSpendInMinute = 0.134;
+        private readonly double _fuelSpendInSecond = 0.0001;
         private readonly Point slidingScaleIndent;
         private readonly Point engineIndent;
 
@@ -35,6 +35,12 @@ namespace MissionPlanner.Controls
 
         public EngineControlForm EngineControlForm;
 
+        private SITLInfo TargetSitlState = new SITLInfo();
+
+        private SITLInfo SitlSensorsStep = new SITLInfo();
+
+        public bool EngineRunning = false;
+        
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -51,11 +57,14 @@ namespace MissionPlanner.Controls
             engineIndent = new Point(0, 30);
         }
 
-        public void SetFuelPbMinMax(double min, double max)
+        public void SetFuelPbMinMax()
         {
-            splittedBar_fuel.Minimum = min;
-            splittedBar_fuel.Maximum = max;
-            splittedBar_fuel.Step = (max - min) / 10;
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                splittedBar_fuel.Minimum = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MinCapacity;
+                splittedBar_fuel.Maximum = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MaxCapacity;
+                splittedBar_fuel.Step = (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) / 10;
+            }
         }
 
         public Point GetLocalRouteFormLocation()
@@ -191,23 +200,59 @@ namespace MissionPlanner.Controls
             return percent;
         }
 
-        public void SetSitlFuel(double fuel)
+        public void SetSitlSensors(double fuel, double vertSpeed, double groundSpeed, double airSpeed, double rpmLaunch,
+            double rpmInAir)
         {
-            splittedBar_fuel.Value = fuel;
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+                currentAircraft.SitlInfo.Fuel = fuel;
+                currentAircraft.SitlInfo.RpmLaunch = rpmLaunch;
+                currentAircraft.SitlInfo.RpmInAir = rpmInAir;
+
+                TargetSitlState.SetParameters(
+                    fuel,
+                    vertSpeed,
+                    groundSpeed,
+                    airSpeed,
+                    rpmLaunch,
+                    rpmInAir);
+            }
         }
-        
+
+
+        public void SetSitlBeforeLandState()
+        {
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+                currentAircraft.SitlInfo.VerticalSpeed = MainV2.comPort.MAV.cs.verticalspeed;
+                currentAircraft.SitlInfo.GroundSpeed = MainV2.comPort.MAV.cs.groundspeed;
+                currentAircraft.SitlInfo.AirSpeed = MainV2.comPort.MAV.cs.airspeed;
+            }
+
+            SitlSensorsStep.SetParameters(
+                TargetSitlState.Fuel,
+                0.5,
+                10,
+                7,
+                300,
+                1000);
+        }
+
         // There are some missing params in SITL, so we need to update them by hand
         public void DisableControlBindings()
         {
             splittedBar_fuel.DataBindings.Clear();
         }
-        
+
         // Enable when switching from SITL
         public void EnableControlBindings()
         {
             if (splittedBar_fuel.DataBindings.Count == 0)
             {
-                splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2", true));
+                splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2",
+                    true));
             }
         }
 
@@ -217,6 +262,7 @@ namespace MissionPlanner.Controls
             {
                 return false;
             }
+
             var aircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
             if (aircraft.Connected && aircraft.UsingSitl)
             {
@@ -235,7 +281,7 @@ namespace MissionPlanner.Controls
             }
             else
             {
-                fuel_label.Text = (int) Math.Round(splittedBar_fuel.Value / splittedBar_fuel.Maximum * 100) + "%";     
+                fuel_label.Text = (int) Math.Round(splittedBar_fuel.Value / splittedBar_fuel.Maximum * 100) + "%";
             }
 
             voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
@@ -356,9 +402,56 @@ namespace MissionPlanner.Controls
             }
         }
 
-        public void DoSitlFuelSpend()
+        public void DoSitlFuelStep()
         {
-            splittedBar_fuel.Value -= _fuelSpendInMinute;
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel -= _fuelSpendInSecond;
+                splittedBar_fuel.Value = MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel;
+            }
+        }
+
+        public void DoSitlRpmStep()
+        {
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return;
+            }
+
+            AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+            SITLInfo currentSitlState = currentAircraft.SitlInfo;
+            if (currentSitlState.GroundSpeed < 1 && EngineRunning)
+            {
+                // DoCalculationStep(currentSitlState.Rpm, currentSitlState.RpmLaunch, SitlSensorsStep.Rpm);
+            }
+            else
+            {
+                // DoCalculationStep(out currentSitlState.Rpm, currentSitlState.RpmLaunch, SitlSensorsStep.Rpm);
+            }
+        }
+        
+        public void DoSitlLandStep()
+        {
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return;
+            }
+
+            AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
+            SITLInfo currentSitlState = currentAircraft.SitlInfo;
+            // DoCalculationStep(ref currentSitlState.Rpm,);
+        }
+
+        private void DoCalculationStep(ref double currentValue, double targetValue, double stepValue)
+        {
+            if (Math.Abs(targetValue - currentValue) < stepValue)
+            {
+                currentValue = targetValue;
+            }
+            else
+            {
+                currentValue += Math.Sign(targetValue - currentValue) * stepValue;
+            }
         }
 
         private void speedPanel_Click(object sender, EventArgs e)

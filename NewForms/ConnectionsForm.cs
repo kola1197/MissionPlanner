@@ -195,6 +195,7 @@ namespace MissionPlanner
                 if (!IsSitlAllowed())
                 {
                     MAVLinkInterface.paramsLoading = false;
+                    MainV2.StatusMenuPanel.DisableControlBindings();
                     CustomMessageBox.Show("Отключите антенну и все подключенные борты.",
                         "Невозможно создать симуляцию.");
                     return;
@@ -296,6 +297,9 @@ namespace MissionPlanner
                 return;
             }
 
+            selectedAircraft.FuelSaved = false;
+            selectedAircraft.SitlInfo.SitlLanding = false;
+            
             if (selectedAircraft.UsingAntenna)
             {
                 MainV2.comPort.MAV.param.Clear();
@@ -630,7 +634,7 @@ namespace MissionPlanner
                         MainV2.StatusMenuPanel.DisableControlBindings();
                     }
                     
-                    MainV2.StatusMenuPanel.SetFuelPbMinMax(selectedAircraft.minCapacity, selectedAircraft.maxCapacity);
+                    MainV2.StatusMenuPanel.SetFuelPbMinMax();
                     
                     // MainV2.View.Reload();
                 }
