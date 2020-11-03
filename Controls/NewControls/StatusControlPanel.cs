@@ -16,7 +16,7 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private readonly double _fuelSpendInHour = 0.4;
+        private readonly double _fuelSpendInMinute = 0.134;
         private readonly Point slidingScaleIndent;
         private readonly Point engineIndent;
 
@@ -358,7 +358,7 @@ namespace MissionPlanner.Controls
 
         public void DoSitlFuelSpend()
         {
-            splittedBar_fuel.Value -= _fuelSpendInHour;
+            splittedBar_fuel.Value -= _fuelSpendInMinute;
         }
 
         private void speedPanel_Click(object sender, EventArgs e)

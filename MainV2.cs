@@ -1531,7 +1531,7 @@ namespace MissionPlanner
 
                 if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
                     Aircrafts[_currentAircraftNum].Connected && Aircrafts[_currentAircraftNum].inAir &&
-                    (DateTime.Now - sitlFlightTime).TotalHours > 1)
+                    (DateTime.Now - sitlFlightTime).TotalMinutes > 1)
                 {
                     StatusMenuPanel.DoSitlFuelSpend();
                     sitlFlightTime = DateTime.Now;
