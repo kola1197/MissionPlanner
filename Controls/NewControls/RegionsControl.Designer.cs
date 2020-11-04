@@ -56,9 +56,9 @@ namespace MissionPlanner.Controls.NewControls
             this.regionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pointsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.regionsProperties_GB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.latLong_DGV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.regionsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.pointsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // regions_LB
@@ -74,7 +74,7 @@ namespace MissionPlanner.Controls.NewControls
             // addRegion_BUT
             // 
             this.addRegion_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.addRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.addRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.addRegion_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addRegion_BUT.ForeColor = System.Drawing.Color.Black;
             this.addRegion_BUT.Location = new System.Drawing.Point(16, 275);
@@ -88,7 +88,7 @@ namespace MissionPlanner.Controls.NewControls
             // deleteRegion_BUT
             // 
             this.deleteRegion_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.deleteRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.deleteRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.deleteRegion_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteRegion_BUT.ForeColor = System.Drawing.Color.Black;
             this.deleteRegion_BUT.Location = new System.Drawing.Point(16, 304);
@@ -102,7 +102,7 @@ namespace MissionPlanner.Controls.NewControls
             // saveRegions_BUT
             // 
             this.saveRegions_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saveRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.saveRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.saveRegions_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveRegions_BUT.ForeColor = System.Drawing.Color.Black;
             this.saveRegions_BUT.Location = new System.Drawing.Point(16, 362);
@@ -116,7 +116,7 @@ namespace MissionPlanner.Controls.NewControls
             // loadRegions_BUT
             // 
             this.loadRegions_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.loadRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.loadRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.loadRegions_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadRegions_BUT.ForeColor = System.Drawing.Color.Black;
             this.loadRegions_BUT.Location = new System.Drawing.Point(16, 333);
@@ -136,6 +136,7 @@ namespace MissionPlanner.Controls.NewControls
             this.regionsProperties_GB.Controls.Add(this.color_Label);
             this.regionsProperties_GB.Controls.Add(this.name_TB);
             this.regionsProperties_GB.Controls.Add(this.name_Label);
+            this.regionsProperties_GB.ForeColor = System.Drawing.Color.White;
             this.regionsProperties_GB.Location = new System.Drawing.Point(142, 12);
             this.regionsProperties_GB.Name = "regionsProperties_GB";
             this.regionsProperties_GB.Size = new System.Drawing.Size(358, 373);
@@ -151,11 +152,14 @@ namespace MissionPlanner.Controls.NewControls
             dataGridViewCellStyle1.NullValue = "-1";
             this.latLong_DGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.latLong_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.latLong_DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Num, this.Latitude, this.Longitude});
+            this.latLong_DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Num,
+            this.Latitude,
+            this.Longitude});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.NullValue = null;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -266,7 +270,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.regionsProperties_GB);
             this.Controls.Add(this.loadRegions_BUT);
             this.Controls.Add(this.saveRegions_BUT);
@@ -277,10 +281,11 @@ namespace MissionPlanner.Controls.NewControls
             this.Size = new System.Drawing.Size(516, 400);
             this.regionsProperties_GB.ResumeLayout(false);
             this.regionsProperties_GB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.latLong_DGV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.regionsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.pointsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
