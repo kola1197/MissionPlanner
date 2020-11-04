@@ -10,34 +10,19 @@ namespace MissionPlanner
         private SITLInfo SitlSensorsStep = new SITLInfo();
 
         public bool EngineRunning = false;
-        
-        private readonly double _fuelConsumptionInSecond = 0.0001;
-        
-        public void SetCurrentSitlParams(double fuel, double vertSpeed, double groundSpeed, double airSpeed, double rpmLaunch,
-            double rpmInAir)
-        {
-            if (MainV2.CurrentAircraftNum != null)
-            {
-                AircraftConnectionInfo currentAircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
-                currentAircraft.SitlInfo.Fuel = fuel;
-                currentAircraft.SitlInfo.RpmLaunch = rpmLaunch;
-                currentAircraft.SitlInfo.RpmInAir = rpmInAir;
-            }
-        }
 
-        public void SetTargetSitlParams(double fuel, double vertSpeed, double groundSpeed, double airSpeed, double rpmLaunch,
-            double rpmInAir)
+        private readonly double _fuelConsumptionInSecond = 0.0001;
+
+        public void SetTargetSitlParams(SITLInfo sitlInfo)
         {
             TargetSitlState.SetParameters(
-                fuel,
-                vertSpeed,
-                groundSpeed,
-                airSpeed,
-                rpmLaunch,
-                rpmInAir);
+                sitlInfo.VerticalSpeed,
+                sitlInfo.GroundSpeed,
+                sitlInfo.AirSpeed
+            );
         }
-        
-        public void SetSitlToPrepareLand()
+
+        public void SetCurrentSitlToPrepareLandState()
         {
             if (MainV2.CurrentAircraftNum != null)
             {
@@ -48,14 +33,14 @@ namespace MissionPlanner
             }
 
             SitlSensorsStep.SetParameters(
-                TargetSitlState.Fuel,
                 0.5,
                 10,
-                7,
-                300,
-                1000);
+                7
+                // 300,
+                // 1000
+                );
         }
-        
+
         public void DoSitlRpmStep()
         {
             if (MainV2.CurrentAircraftNum == null)
@@ -67,14 +52,14 @@ namespace MissionPlanner
             SITLInfo currentSitlState = currentAircraft.SitlInfo;
             if (currentSitlState.GroundSpeed < 1 && EngineRunning)
             {
-                DoCalculationStep(ref currentSitlState.Rpm, currentSitlState.RpmLaunch, SitlSensorsStep.Rpm);
+                // DoCalculationStep(ref currentSitlState.Rpm, currentSitlState.RpmLaunch, SitlSensorsStep.Rpm);
             }
             else
             {
-                DoCalculationStep(ref currentSitlState.Rpm, currentSitlState.RpmInAir, SitlSensorsStep.Rpm);
+                // DoCalculationStep(ref currentSitlState.Rpm, currentSitlState.RpmInAir, SitlSensorsStep.Rpm);
             }
         }
-        
+
         public void DoSitlLandStep()
         {
             if (MainV2.CurrentAircraftNum == null)
@@ -98,14 +83,13 @@ namespace MissionPlanner
                 currentValue += Math.Sign(targetValue - currentValue) * stepValue;
             }
         }
-        
+
         public void DoSitlFuelStep()
         {
             if (MainV2.CurrentAircraftNum != null)
             {
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel -= _fuelConsumptionInSecond;
+                MainV2.Aircrafts[MainV2.CurrentAircraftNum].Fuel -= _fuelConsumptionInSecond;
             }
         }
-
     }
 }

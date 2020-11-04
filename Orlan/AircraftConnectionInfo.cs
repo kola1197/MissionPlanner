@@ -108,6 +108,9 @@ namespace MissionPlanner
 
         public float FuelPerTime = 0;
 
+        public double Fuel = 0;
+
+
         public bool FuelSaved { get; set; }
         
         //Only for SITL (Worst code...)

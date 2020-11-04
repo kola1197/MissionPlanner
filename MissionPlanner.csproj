@@ -905,6 +905,8 @@
     <Compile Include="Orlan\RegionData.cs" />
     <Compile Include="Orlan\RouteAltitude.cs" />
     <Compile Include="Orlan\SITLInfo.cs" />
+    <Compile Include="Orlan\SitlParam.cs" />
+    <Compile Include="Orlan\SitlState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">

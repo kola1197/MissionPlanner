@@ -1770,7 +1770,7 @@ namespace MissionPlanner
             {
                 testVisualisation = true;
                 Aircrafts[CurrentAircraftNum].SitlInfo.SitlLanding = true;
-                StatusMenuPanel.SitlEmulation.SetSitlToPrepareLand();
+                StatusMenuPanel.SitlEmulation.SetCurrentSitlToPrepareLandState();
                 snsControl2.openParachuteForm();
             }
         }

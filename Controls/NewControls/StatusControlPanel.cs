@@ -237,7 +237,7 @@ namespace MissionPlanner.Controls
 
         private void UpdateFuelProgressBar()
         {
-            splittedBar_fuel.Value = Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel);
+            splittedBar_fuel.Value = Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].Fuel);
         }
 
         private void UpdateStatusLabels()
@@ -365,7 +365,7 @@ namespace MissionPlanner.Controls
             int percent;
             if (IsSitlConnected())
             {
-                percent = (int) Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].SitlInfo.Fuel /
+                percent = (int) Math.Round(MainV2.Aircrafts[MainV2.CurrentAircraftNum].Fuel /
                     (splittedBar_fuel.Maximum -splittedBar_fuel.Minimum) * 100);
             }
             else
