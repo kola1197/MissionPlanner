@@ -1760,16 +1760,19 @@ namespace MissionPlanner
 
         private void cheatParachuteLandingTrigger()
         {
-            bool nextPointIsDoParachute = false;
-            ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
-                    .ToString(), false);
-            nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-            if (comPort.MAV.cs.wp_dist < 50 && nextPointIsDoParachute &&
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+            if (comPort.MAV.cs.connected)
             {
-                testVisualisation = true;
-                snsControl2.openParachuteForm();
+                bool nextPointIsDoParachute = false;
+                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    FlightPlanner.Commands.Rows[(int)comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
+                        .ToString(), false);
+                nextPointIsDoParachute = cmd == (ushort)MAVLink.MAV_CMD.DO_PARACHUTE;
+                if (comPort.MAV.cs.wp_dist < 50 && nextPointIsDoParachute &&
+                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+                {
+                    testVisualisation = true;
+                    snsControl2.openParachuteForm();
+                }
             }
         }
 
