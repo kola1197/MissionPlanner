@@ -517,7 +517,17 @@ namespace MissionPlanner.NewClasses
         const double de2 = e2W - e2P;
 
         // Линейные элементы трансформирования, в метрах
-        const double dx = 23.92;
+
+        const double dx = 23.57;
+        const double dy = -140.95;
+        const double dz = -79.8;
+
+        // Угловые элементы трансформирования, в секундах
+        const double wx = 0;
+        const double wy = -0.35;
+        const double wz = -0.79;
+
+        /*const double dx = 23.92;
         const double dy = -141.27;
         const double dz = -80.9;
 
@@ -525,7 +535,7 @@ namespace MissionPlanner.NewClasses
         const double wx = 0;
         const double wy = 0;
         const double wz = 0;
-
+        */
         // Дифференциальное различие масштабов
         const double ms = 0;
 
