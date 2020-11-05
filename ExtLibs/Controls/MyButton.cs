@@ -78,7 +78,6 @@ namespace MissionPlanner.Controls
             if (BackgroundImage != null)
             {
                 base.OnPaint(pevent);
-                
             }
             else
             {
@@ -182,11 +181,10 @@ namespace MissionPlanner.Controls
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            if (BackgroundImage == null)
-            {
+            
                 _mouseover = true;
                 base.OnMouseEnter(e);
-            }
+            
         }
 
         protected override void OnMouseMove(MouseEventArgs mevent)

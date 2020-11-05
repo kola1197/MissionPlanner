@@ -69,6 +69,52 @@ namespace MissionPlanner.Controls
             this.BackColor = Color.FromArgb(200, 32, 32, 32);
             updateSize();
             Instance = this;
+            MapChoiseButton.MouseEnter += Button_MouseEnter;
+            MapChoiseButton.MouseLeave += Button_MouseLeave;
+
+            EKFButton.MouseEnter += Button_MouseEnter;
+            EKFButton.MouseLeave += Button_MouseLeave;
+
+            ParamsButton.MouseEnter += Button_MouseEnter;
+            ParamsButton.MouseLeave += Button_MouseLeave;
+
+
+            RulerButton.MouseEnter += Button_MouseEnter;
+            RulerButton.MouseLeave += Button_MouseLeave;
+
+            centeringButton.MouseEnter += Button_MouseEnter;
+            centeringButton.MouseLeave += Button_MouseLeave;
+
+            homeButton.MouseEnter += Button_MouseEnter;
+            homeButton.MouseLeave += Button_MouseLeave;
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            try
+            {
+                MyButton b = (MyButton)sender;
+                toolTip1.InitialDelay = 2000;
+                toolTip1.Show(b.Tag.ToString(), b);
+            }
+            catch { }
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            try
+            {
+                MyButton b = (MyButton)sender;
+                toolTip1.Hide(b);
+            }
+            catch { }
+        }
+
+        private void MapChoiseButton_MouseEnter(object sender, EventArgs e)
+        {
+                //MyButton b = (MyButton)sender;
+                toolTip1.InitialDelay = 10;
+                toolTip1.Show(MapChoiseButton.Tag.ToString(), MapChoiseButton);   
         }
 
         public void InitRuler()
@@ -90,6 +136,8 @@ namespace MissionPlanner.Controls
         {
             InitializeComponent();
             test = t;
+            MapChoiseButton.MouseEnter += MapChoiseButton_MouseEnter;
+
         }
 
         private void MainButton_Click(object sender, EventArgs e)
@@ -128,6 +176,12 @@ namespace MissionPlanner.Controls
 
         private void MainMenuWidget_MouseLeave(object sender, EventArgs e)
         {
+            try
+            {
+                MyButton b = (MyButton)sender;
+                toolTip1.Hide(b);
+            }
+            catch { }
             if (this.GetChildAtPoint(this.PointToClient(MousePosition)) == null)
             {
                 active = false;

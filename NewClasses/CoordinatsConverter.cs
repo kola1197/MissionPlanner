@@ -416,8 +416,6 @@ namespace MissionPlanner.NewClasses
                 l * l * (270806 - 1523417 * Math.Sin(B) * Math.Sin(B) + 1327645 * Math.Pow(Math.Sin(B), 4) - 21701 * Math.Pow(Math.Sin(B), 6) + l * l * ( 79690 -
                 866190 * Math.Sin(B) * Math.Sin(B) + 1730360 * Math.Pow(Math.Sin(B), 4) - 945460 * Math.Pow(Math.Sin(B), 6) ))));
 
-
-
             result = x.ToString("F1", new CultureInfo("en-US")) + ", " + y.ToString("F1", new CultureInfo("en-US"));
             return result;
         }*/

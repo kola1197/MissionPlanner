@@ -743,7 +743,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                CustomMessageBox.Show("Точка дом установлена неверно", Strings.ERROR);
                 return;
             }
 
@@ -1073,7 +1073,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                CustomMessageBox.Show("Точка дом установлена неверно", Strings.ERROR);
                 return;
             }
 
@@ -1717,7 +1717,8 @@ namespace MissionPlanner.GCSViews
             textToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayTextAutoWp;
             createCircleSurveyToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayCircleSurveyAutoWp;
             pOIToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayPoiMenu;
-            trackerHomeToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayTrackerHomeMenu;
+            trackerHomeToolStripMenuItem.Visible = false;
+            trackerHomeToolStripMenuItem.Text = "Дом трэкера";
             CHK_verifyheight.Visible = MainV2.DisplayConfiguration.displayCheckHeightBox;
 
             //hide dynamically generated toolstrip items in the auto WP dropdown (these do not have name objects populated)
@@ -2270,7 +2271,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                CustomMessageBox.Show("Точка дом установлена неверно", Strings.ERROR);
                 return;
             }
 
@@ -9240,6 +9241,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 catch
                 {
                     throw new Exception("Your home location is invalid");
+                    //throw new Exception("точка дом установлена неверно");
                 }
 
                 // log

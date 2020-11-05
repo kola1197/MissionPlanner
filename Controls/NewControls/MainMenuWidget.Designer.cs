@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MainButton = new MissionPlanner.Controls.MyButton();
             this.MapChoiseButton = new MissionPlanner.Controls.MyButton();
             this.EKFButton = new MissionPlanner.Controls.MyButton();
@@ -35,6 +36,7 @@
             this.RulerButton = new MissionPlanner.Controls.MyButton();
             this.centeringButton = new MissionPlanner.Controls.MyButton();
             this.homeButton = new MissionPlanner.Controls.MyButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // MainButton
@@ -81,6 +83,7 @@
             this.MapChoiseButton.Outline = System.Drawing.Color.Empty;
             this.MapChoiseButton.Size = new System.Drawing.Size(48, 48);
             this.MapChoiseButton.TabIndex = 1;
+            this.MapChoiseButton.Tag = "Сменить карту";
             this.MapChoiseButton.TextColor = System.Drawing.Color.Empty;
             this.MapChoiseButton.UseVisualStyleBackColor = false;
             this.MapChoiseButton.Click += new System.EventHandler(this.MapChoiseButton_Click);
@@ -106,6 +109,7 @@
             this.EKFButton.Outline = System.Drawing.Color.Empty;
             this.EKFButton.Size = new System.Drawing.Size(45, 45);
             this.EKFButton.TabIndex = 2;
+            this.EKFButton.Tag = "Статус ЕКФ";
             this.EKFButton.TextColor = System.Drawing.Color.Empty;
             this.EKFButton.UseVisualStyleBackColor = false;
             this.EKFButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
@@ -130,6 +134,7 @@
             this.ParamsButton.Outline = System.Drawing.Color.Empty;
             this.ParamsButton.Size = new System.Drawing.Size(48, 48);
             this.ParamsButton.TabIndex = 3;
+            this.ParamsButton.Tag = "Параметры";
             this.ParamsButton.TextColor = System.Drawing.Color.Empty;
             this.ParamsButton.UseVisualStyleBackColor = false;
             this.ParamsButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
@@ -154,6 +159,7 @@
             this.RulerButton.Outline = System.Drawing.Color.Empty;
             this.RulerButton.Size = new System.Drawing.Size(48, 48);
             this.RulerButton.TabIndex = 4;
+            this.RulerButton.Tag = "Линейка";
             this.RulerButton.TextColor = System.Drawing.Color.Empty;
             this.RulerButton.UseVisualStyleBackColor = false;
             this.RulerButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RulerButton_MouseDown);
@@ -179,6 +185,7 @@
             this.centeringButton.Outline = System.Drawing.Color.Empty;
             this.centeringButton.Size = new System.Drawing.Size(48, 48);
             this.centeringButton.TabIndex = 5;
+            this.centeringButton.Tag = "Следить за бортом";
             this.centeringButton.TextColor = System.Drawing.Color.Empty;
             this.centeringButton.UseVisualStyleBackColor = false;
             this.centeringButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
@@ -203,6 +210,7 @@
             this.homeButton.Outline = System.Drawing.Color.Empty;
             this.homeButton.Size = new System.Drawing.Size(48, 48);
             this.homeButton.TabIndex = 7;
+            this.homeButton.Tag = "Лететь домой";
             this.homeButton.TextColor = System.Drawing.Color.Empty;
             this.homeButton.UseVisualStyleBackColor = false;
             this.homeButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);
@@ -238,5 +246,6 @@
         #endregion
 
         public MyButton MainButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
