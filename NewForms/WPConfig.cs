@@ -49,6 +49,11 @@ namespace MissionPlanner.NewForms
             SerialNum = _serNum;
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
             latTB1.Text = "";
+            if (MainV2.loiterRad == -1)
+            {
+                MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");
+            }
+            loiterRadTextBox.Text = MainV2.loiterRad.ToString();
         }
 
         public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
@@ -63,8 +68,11 @@ namespace MissionPlanner.NewForms
             {
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
-            
-
+            if (MainV2.loiterRad == -1) 
+            {
+                MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");   
+            }
+            loiterRadTextBox.Text = MainV2.loiterRad.ToString();
             latTB1.Text = "";
         }
         
@@ -431,6 +439,19 @@ namespace MissionPlanner.NewForms
                 {
                     lonNotification.Visible = true;
                 }
+            }
+        }
+
+        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int newrad = int.Parse(loiterRadTextBox.Text);
+                MainV2.comPort.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" }, newrad / CurrentState.multiplierdist);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");
             }
         }
     }

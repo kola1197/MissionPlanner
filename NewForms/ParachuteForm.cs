@@ -19,6 +19,20 @@ namespace MissionPlanner.NewForms
 
         private bool closeParachuteRelease = false;
 
+        public void setPosition() 
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(275, MainV2.instance.Height - 250);
+        }
+
+        public void setPosition(Point p)
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = p;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (MainV2.comPort.MAV.cs.connected)

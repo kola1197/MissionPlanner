@@ -571,6 +571,8 @@ namespace MissionPlanner
         public ushort secondTrim = 1500;
         public ushort thirdTrim = 1500;
 
+        public static int loiterRad = -1;
+
         // public static int maxCapacity = 0;
         // public static int flyTime = 0;
         // public static int butt2RealVoltage = 0;

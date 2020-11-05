@@ -1718,7 +1718,7 @@ namespace MissionPlanner.GCSViews
             createCircleSurveyToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayCircleSurveyAutoWp;
             pOIToolStripMenuItem.Visible = MainV2.DisplayConfiguration.displayPoiMenu;
             trackerHomeToolStripMenuItem.Visible = false;
-            trackerHomeToolStripMenuItem.Text = "Дом трэкера";
+            trackerHomeToolStripMenuItem.Text = "Дом антенны";
             CHK_verifyheight.Visible = MainV2.DisplayConfiguration.displayCheckHeightBox;
 
             //hide dynamically generated toolstrip items in the auto WP dropdown (these do not have name objects populated)

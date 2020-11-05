@@ -58,6 +58,8 @@ namespace MissionPlanner.Controls.NewControls
                 snsInfo.Close();
             }
             snsInfo = new SNSInfo();
+            snsInfo.StartPosition = FormStartPosition.Manual;
+            snsInfo.Location = new Point(50, MainV2.instance.Height - 150);
             snsInfo.Show();
         }
 
@@ -68,6 +70,8 @@ namespace MissionPlanner.Controls.NewControls
                 modeChangeForm.Close();
             }
             modeChangeForm = new ModeChangeForm();
+            modeChangeForm.StartPosition = FormStartPosition.Manual;
+            modeChangeForm.Location = new Point(125, MainV2.instance.Height - 150);
             modeChangeForm.Show();
         }
 
@@ -82,6 +86,8 @@ namespace MissionPlanner.Controls.NewControls
             frm = new VibeGraph();
             frm.TopMost = true;
             frm.timer1.Enabled = true;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.Location = new Point(200, MainV2.instance.Height - 150);
             frm.Show();
         }
 
@@ -95,6 +101,8 @@ namespace MissionPlanner.Controls.NewControls
             {
                 parachuteForm = new ParachuteForm();
                 parachuteForm.TopMost = true;
+                parachuteForm.StartPosition = FormStartPosition.Manual;
+                parachuteForm.Location = new Point(275, MainV2.instance.Height - 150);
                 parachuteForm.Show();
             }
         }

@@ -18,6 +18,20 @@ namespace MissionPlanner.NewForms
         }
         Bitmap myBitmap;
 
+        public void setPosition() 
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(200, MainV2.instance.Height - 150);
+        }
+
+        public void setPosition(Point p)
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = p;
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             double sizeMP = 1 / 2;
