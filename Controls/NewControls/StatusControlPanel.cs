@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
@@ -16,7 +18,6 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
-        private readonly double _fuelSpendInHour = 0.4;
         private readonly Point slidingScaleIndent;
         private readonly Point engineIndent;
 
@@ -35,6 +36,8 @@ namespace MissionPlanner.Controls
 
         public EngineControlForm EngineControlForm;
 
+        public EmulateSitlParameters SitlEmulation = new EmulateSitlParameters();
+
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -51,11 +54,14 @@ namespace MissionPlanner.Controls
             engineIndent = new Point(0, 30);
         }
 
-        public void SetFuelPbMinMax(double min, double max)
+        public void SetFuelPbMinMax()
         {
-            splittedBar_fuel.Minimum = min;
-            splittedBar_fuel.Maximum = max;
-            splittedBar_fuel.Step = (max - min) / 10;
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                splittedBar_fuel.Minimum = MainV2.CurrentAircraft.MinCapacity;
+                splittedBar_fuel.Maximum = MainV2.CurrentAircraft.MaxCapacity;
+                splittedBar_fuel.Step = (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) / 10;
+            }
         }
 
         public Point GetLocalRouteFormLocation()
@@ -150,6 +156,22 @@ namespace MissionPlanner.Controls
             UpdateBindingSourceWork();
         }
 
+        public void SubscribeWpNoValueChangedEvent()
+        {
+            if (IsSitlConnected())
+            {
+                MainV2.comPort.MAV.cs.WpNoValueChanged += SitlOnWpNoValueChanged;
+            }
+        }
+
+        private void SitlOnWpNoValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            if (IsSitlConnected() && (int) MainV2.comPort.MAV.cs.wpno == 2)
+            {
+                SitlEmulation.SetTargetState(SitlState.SitlStateName.Flight);
+            }
+        }
+
         private double CalculateAverageRpm()
         {
             return rpmQueue.Sum() / rpmQueue.Count;
@@ -157,7 +179,17 @@ namespace MissionPlanner.Controls
 
         private void UpdateBindingSourceWork()
         {
-            rpmQueue.Enqueue(MainV2.comPort.MAV.cs.rpm1);
+            float rpm1;
+            if (IsSitlConnected() && MainV2.CurrentAircraft != null)
+            {
+                rpm1 = (float) MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm);
+            }
+            else
+            {
+                rpm1 = MainV2.comPort.MAV.cs.rpm1;
+            }
+
+            rpmQueue.Enqueue(rpm1);
             if (stopwatch.ElapsedMilliseconds > 2000)
             {
                 rpmQueue.Dequeue();
@@ -185,37 +217,32 @@ namespace MissionPlanner.Controls
             }
         }
 
-        public int CalcFuelPercentage()
-        {
-            int percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
-            return percent;
-        }
 
-        public void SetSitlFuel(double fuel)
-        {
-            splittedBar_fuel.Value = fuel;
-        }
-        
         // There are some missing params in SITL, so we need to update them by hand
         public void DisableControlBindings()
         {
             splittedBar_fuel.DataBindings.Clear();
         }
-        
+
         // Enable when switching from SITL
         public void EnableControlBindings()
         {
-            splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2", true));
+            if (splittedBar_fuel.DataBindings.Count == 0)
+            {
+                splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2",
+                    true));
+            }
         }
 
-        private bool IsSitlConnected()
+        public bool IsSitlConnected()
         {
             if (MainV2.CurrentAircraftNum == null)
             {
                 return false;
             }
-            var aircraft = MainV2.Aircrafts[MainV2.CurrentAircraftNum];
-            if (aircraft.Connected && aircraft.UsingSitl)
+
+            var aircraft = MainV2.CurrentAircraft;
+            if (aircraft.Connected && aircraft.UsingSitl && !MainV2.AntennaConnectionInfo.Active)
             {
                 return true;
             }
@@ -226,39 +253,71 @@ namespace MissionPlanner.Controls
         private void timer1_Tick(object sender, System.EventArgs e)
         {
             // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-            if (!IsSitlConnected())
+            UpdateStatusLabels();
+
+            this.Invalidate();
+            if (IsSitlConnected())
             {
-                fuel_label.Text = CalcFuelPercentage().ToString() + "%";
+                UpdateFuelProgressBar();
+            }
+        }
+
+        private void UpdateFuelProgressBar()
+        {
+            splittedBar_fuel.Value = Math.Round(MainV2.CurrentAircraft.Fuel);
+        }
+
+        private void UpdateStatusLabels()
+        {
+            double rpm1, engineTemp, airspeed, groundSpeed, verticalSpeed, alt, targetAlt;
+            if (IsSitlConnected() && MainV2.CurrentAircraft != null)
+            {
+                var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
+
+                rpm1 = sitlParamList.GetParamValue(SitlParam.ParameterName.Rpm);
+                engineTemp = sitlParamList.GetParamValue(SitlParam.ParameterName.Temperature);
+                airspeed = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
+                groundSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.GroundSpeed);
+                verticalSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.VerticalSpeed);
+                alt = sitlParamList.GetParamValue(SitlParam.ParameterName.Alt);
+                targetAlt = sitlParamList.GetParamValue(SitlParam.ParameterName.TargetAlt);
             }
             else
             {
-                fuel_label.Text = (int) Math.Round(splittedBar_fuel.Value / splittedBar_fuel.Maximum * 100) + "%";     
+                rpm1 = MainV2.comPort.MAV.cs.rpm1;
+                engineTemp = MainV2.comPort.MAV.cs.rpm2;
+                airspeed = MainV2.comPort.MAV.cs.airspeed;
+                groundSpeed = MainV2.comPort.MAV.cs.groundspeed;
+                verticalSpeed = MainV2.comPort.MAV.cs.verticalspeed;
+                alt = MainV2.comPort.MAV.cs.alt;
+                targetAlt = MainV2.comPort.MAV.cs.targetalt;
             }
 
-            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2");
+            rpmICE_label.Text = rpm1.ToString("F2", new CultureInfo("en-US")) + " об/м";
 
-            rpmICE_label.Text = MainV2.comPort.MAV.cs.rpm1.ToString("F2") + " об/м";
+            engineTemp_label.Text = engineTemp.ToString("F1", new CultureInfo("en-US")) + "°";
 
-            airspeed_label.Text = (MainV2.comPort.MAV.cs.airspeed * 3.6).ToString("F1") + " км/ч";
+            airspeed_label.Text = (airspeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
 
-            groundSpeed_label.Text = (MainV2.comPort.MAV.cs.groundspeed * 3.6).ToString("F1") + " км/ч";
+            groundSpeed_label.Text = (groundSpeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
 
-            verticalSpeed_label.Text = MainV2.comPort.MAV.cs.verticalspeed.ToString("F1") + " м/с";
+            verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
 
-            altitude_label.Text = MainV2.comPort.MAV.cs.alt.ToString("F2");
+            altitude_label.Text = alt.ToString("F2", new CultureInfo("en-US"));
 
-            targetAlt_label.Text = MainV2.comPort.MAV.cs.targetalt.ToString("F2");
+            targetAlt_label.Text = targetAlt.ToString("F2", new CultureInfo("en-US"));
 
-            environmentTemp_label.Text = MainV2.comPort.MAV.cs.press_temp2.ToString("F1") + "°";
+            fuel_label.Text = CalcFuelPercentage().ToString(new CultureInfo("en-US")) + "%";
 
-            engineTemp_label.Text = MainV2.comPort.MAV.cs.rpm2.ToString("F1") + "°";
+            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2", new CultureInfo("en-US"));
+
+            environmentTemp_label.Text =
+                MainV2.comPort.MAV.cs.press_temp2.ToString("F1", new CultureInfo("en-US")) + "°";
 
             string flightMode = MainV2.comPort.MAV.cs.mode;
             flightMode_label.Text = flightMode == "Unknown" ? "Не подключен" : MainV2.comPort.MAV.cs.mode;
 
-            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F2");
-
-            this.Invalidate();
+            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F2", new CultureInfo("en-US"));
         }
 
         private void AdditionalSensorToolStripMenuItemClick(object sender, EventArgs e)
@@ -353,10 +412,22 @@ namespace MissionPlanner.Controls
             }
         }
 
-        public void DoSitlFuelSpend()
+        public int CalcFuelPercentage()
         {
-            splittedBar_fuel.Value -= _fuelSpendInHour;
+            int percent;
+            if (IsSitlConnected())
+            {
+                percent = (int) Math.Round(MainV2.CurrentAircraft.Fuel /
+                    (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) * 100);
+            }
+            else
+            {
+                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
+            }
+
+            return percent;
         }
+
 
         private void speedPanel_Click(object sender, EventArgs e)
         {

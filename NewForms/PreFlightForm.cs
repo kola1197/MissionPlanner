@@ -45,9 +45,9 @@ namespace MissionPlanner.NewForms
 
         private void LoadFuelText()
         {
-            minCapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity.ToString();
-            maxСapacity.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString();
-            flightTimeTBox.Text = MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime.ToString();
+            minCapacity.Text = MainV2.CurrentAircraft.MinCapacity.ToString();
+            maxСapacity.Text = MainV2.CurrentAircraft.MaxCapacity.ToString();
+            flightTimeTBox.Text = MainV2.CurrentAircraft.FuelPerTime.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,15 +156,18 @@ namespace MissionPlanner.NewForms
 
         private void maxСapacity_KeyPress(object sender, KeyPressEventArgs e)
         {
-
         }
 
+        public void SkipIceCheck()
+        {
+            iceCheckNextBUT_Click(this, new EventArgs());
+        }
 
 
         private void batt2_voltage_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number) && !Char.IsControl(number))
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
             {
                 e.Handled = true;
             }
@@ -178,21 +181,30 @@ namespace MissionPlanner.NewForms
 
         private void updateMainV2Data()
         {
-            int i;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage =
-                int.TryParse(batt2_voltage.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity = int.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime = int.TryParse(flightTimeTBox.Text, out i) ? i : 0;
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return;
+            }
+
+            AircraftConnectionInfo currentAircraft = MainV2.CurrentAircraft;
+
+            float.TryParse(batt2_voltage.Text, out currentAircraft.Butt2RealVoltage);
+            if (!currentAircraft.FuelSaved)
+            {
+                float.TryParse(maxСapacity.Text, out currentAircraft.MaxCapacity);
+                float.TryParse(flightTimeTBox.Text, out currentAircraft.FuelPerTime);
+                float.TryParse(minCapacity.Text, out currentAircraft.MinCapacity);
+            }
+
             int percent = 0;
             //System.Diagnostics.Debug.WriteLine("update void");
-            if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity != 0)
+            if (currentAircraft.MaxCapacity != 0)
             {
-                double d = 100 * MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage /
-                           MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity;
+                double d = 100 * currentAircraft.Butt2RealVoltage / currentAircraft.MaxCapacity;
                 percent = (int) d;
                 System.Diagnostics.Debug.WriteLine(
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].butt2RealVoltage.ToString() + "   " +
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity.ToString() + "   " + d.ToString() + "   " +
+                    currentAircraft.Butt2RealVoltage.ToString() + "   " +
+                    currentAircraft.MaxCapacity.ToString() + "   " + d.ToString() + "   " +
                     percent.ToString());
             }
 
@@ -245,9 +257,13 @@ namespace MissionPlanner.NewForms
             }
         }
 
+        public void EnableIceCheckNextButton()
+        {
+            iceCheckNextBut.Enabled = true;
+        }
+
         private void startCalibrationButton_Click(object sender, EventArgs e)
         {
-
         }
 
 
@@ -329,6 +345,7 @@ namespace MissionPlanner.NewForms
             }
 
             MainV2.comPort.setMode("Auto");
+            MainV2.StatusMenuPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
         }
 
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)
@@ -358,15 +375,17 @@ namespace MissionPlanner.NewForms
 
         private void myButton5_MouseUp(object sender, MouseEventArgs e)
         {
-            float i = 0;
-            //double.pa
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
-                float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
-                float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-            MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
-                float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-            MissionPlanner.AircraftConnectionInfo info;
+            if (MainV2.CurrentAircraftNum == null)
+            {
+                return;
+            }
+
+            AircraftConnectionInfo currentAircraft = MainV2.CurrentAircraft;
+
+            float.TryParse(minCapacity.Text, out currentAircraft.MinCapacity);
+            float.TryParse(maxСapacity.Text, out currentAircraft.MaxCapacity);
+            float.TryParse(flightTimeTBox.Text, out currentAircraft.FuelPerTime);
+            AircraftConnectionInfo info;
             if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
             {
                 MissionPlanner.Controls.ConnectionControl.port_sysid port_Sysid =
@@ -375,10 +394,10 @@ namespace MissionPlanner.NewForms
                 tryToSave(id);
             }
 
+            currentAircraft.FuelSaved = true;
 
             //Todo: make bindings
-            StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
+            StatusControlPanel.instance.SetFuelPbMinMax();
         }
 
         private void tryToLoad(int id)
@@ -397,19 +416,16 @@ namespace MissionPlanner.NewForms
                     minCapacity.Text = values[0].ToString();
                     maxСapacity.Text = values[1].ToString();
                     flightTimeTBox.Text = values[2].ToString();
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                    MainV2.CurrentAircraft.MinCapacity =
                         float.Parse(minCapacity.Text); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                    MainV2.CurrentAircraft.MaxCapacity =
                         float.Parse(maxСapacity.Text); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                    MainV2.CurrentAircraft.FuelPerTime =
                         float.Parse(flightTimeTBox.Text); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-
                 }
                 catch
                 {
-
                 }
-
             }
         }
 
@@ -418,9 +434,9 @@ namespace MissionPlanner.NewForms
         {
             float[] values = new float[]
             {
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity,
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime
+                MainV2.CurrentAircraft.MinCapacity,
+                MainV2.CurrentAircraft.MaxCapacity,
+                MainV2.CurrentAircraft.FuelPerTime
             };
             StreamWriter stream = new StreamWriter(MainV2.defaultFuelSavePath + "_" + id.ToString() + ".txt", false);
             for (int i = 0; i < values.Length; i++)
@@ -449,17 +465,14 @@ namespace MissionPlanner.NewForms
 
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

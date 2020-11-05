@@ -170,6 +170,7 @@ namespace MissionPlanner
         {
             MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
+            MainV2.StatusMenuPanel.EnableControlBindings();
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
@@ -194,6 +195,7 @@ namespace MissionPlanner
                 if (!IsSitlAllowed())
                 {
                     MAVLinkInterface.paramsLoading = false;
+                    MainV2.StatusMenuPanel.DisableControlBindings();
                     CustomMessageBox.Show("Отключите антенну и все подключенные борты.",
                         "Невозможно создать симуляцию.");
                     return;
@@ -295,6 +297,10 @@ namespace MissionPlanner
                 return;
             }
 
+            selectedAircraft.FuelSaved = false;
+            MainV2.StatusMenuPanel.SitlEmulation.EngineRunning = false;
+            MainV2.StatusMenuPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
+            
             if (selectedAircraft.UsingAntenna)
             {
                 MainV2.comPort.MAV.param.Clear();
@@ -552,13 +558,13 @@ namespace MissionPlanner
 
         public void OnMavChanged(object sender, EventArgs e)
         {
-            if (MainV2.CurrentAircraftNum == null || MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId == null ||
-                !MainV2.Aircrafts[MainV2.CurrentAircraftNum].Connected)
+            if (MainV2.CurrentAircraftNum == null || MainV2.CurrentAircraft.SysId == null ||
+                !MainV2.CurrentAircraft.Connected)
             {
                 return;
             }
 
-            var currentSysId = (ConnectionControl.port_sysid) MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId;
+            var currentSysId = (ConnectionControl.port_sysid) MainV2.CurrentAircraft.SysId;
 
             if (currentSysId.sysid != MainV2.comPort.sysidcurrent)
             {
@@ -616,7 +622,7 @@ namespace MissionPlanner
                     MainV2.CurrentAircraftNum =
                         MainV2.Aircrafts.FirstOrDefault(x => x.Value == selectedAircraft).Key;
                     
-                    devices_LB.SelectedIndex = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
+                    devices_LB.SelectedIndex = MainV2.CurrentAircraft.MenuNum;
                     
                     AntennaControl.Instance.SetAntennaState(false);
                     
@@ -629,7 +635,7 @@ namespace MissionPlanner
                         MainV2.StatusMenuPanel.DisableControlBindings();
                     }
                     
-                    MainV2.StatusMenuPanel.SetFuelPbMinMax(selectedAircraft.minCapacity, selectedAircraft.maxCapacity);
+                    MainV2.StatusMenuPanel.SetFuelPbMinMax();
                     
                     // MainV2.View.Reload();
                 }

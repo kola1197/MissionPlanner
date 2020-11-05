@@ -678,7 +678,17 @@ namespace MissionPlanner
         /// </summary>
         public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
-        private DateTime sitlFlightTime = DateTime.Now;
+        private DateTime _sitlFuelUpdateTime = DateTime.Now;
+        
+        private DateTime _sitlEmulationTime = DateTime.Now;
+        
+        private static AircraftConnectionInfo _currentAircraft = null;
+
+        public static AircraftConnectionInfo CurrentAircraft
+        {
+            get => _currentAircraft;
+            set => _currentAircraft = value;
+        }
         
         private static string _currentAircraftNum = null;
 
@@ -690,13 +700,16 @@ namespace MissionPlanner
                 AircraftMenuControl.updateAllAircraftButtonTexts();
 
                 _currentAircraftNum = value;
+
+                CurrentAircraft = Aircrafts[_currentAircraftNum];
+                
                 if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
                     ShowConnectionQuality();
                 }
             }
         }
-
+        
         private static MAVLinkInterface _mavlink;
         private static CompositeDisposable _subscriptionsDisposable;
 
@@ -1368,7 +1381,6 @@ namespace MissionPlanner
 
         private void onClose(CancelEventArgs e)
         {
-            
         }
 
         private void MakeRightSideMenuTransparent()
@@ -1529,12 +1541,22 @@ namespace MissionPlanner
                     StatusMenuPanel.airspeedDirectionControl2.updateData();
                 }
 
+                // Do sitl emulation
                 if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
-                    Aircrafts[_currentAircraftNum].Connected && Aircrafts[_currentAircraftNum].inAir &&
-                    (DateTime.Now - sitlFlightTime).TotalHours > 1)
+                    Aircrafts[_currentAircraftNum].Connected)
                 {
-                    StatusMenuPanel.DoSitlFuelSpend();
-                    sitlFlightTime = DateTime.Now;
+                    if (StatusMenuPanel.SitlEmulation.EngineRunning && (DateTime.Now - _sitlFuelUpdateTime).TotalSeconds > 1)
+                    {
+                        StatusMenuPanel.SitlEmulation.DoFuelStep();
+                        _sitlFuelUpdateTime = DateTime.Now;
+                    }
+
+                    int timeSpan = (DateTime.Now - _sitlEmulationTime).Milliseconds;
+                    if (timeSpan > 500)
+                    {
+                        StatusMenuPanel.SitlEmulation.DoEmulationStep(timeSpan);
+                        _sitlEmulationTime = DateTime.Now;
+                    }
                 }
 
                 vibeData.update();
@@ -1690,10 +1712,10 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    if (comPort.MAV.cs.alt > 30)
+                    if (comPort.MAV.cs.timeInAir > 0)
                     {
                         Aircrafts[CurrentAircraftNum].inAir = true;
-                        sitlFlightTime = DateTime.Now;
+                        _sitlFuelUpdateTime = DateTime.Now;
                     }
                 }
 
@@ -2058,14 +2080,13 @@ namespace MissionPlanner
                         values[i] = float.Parse(stream.ReadLine());
                     }
 
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity =
+                    MainV2.CurrentAircraft.MinCapacity =
                         float.Parse(values[0].ToString()); //double.TryParse(minCapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity =
+                    MainV2.CurrentAircraft.MaxCapacity =
                         float.Parse(values[1].ToString()); //double.TryParse(maxСapacity.Text, out i) ? i : 0;
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].fuelPerTime =
+                    MainV2.CurrentAircraft.FuelPerTime =
                         float.Parse(values[1].ToString()); //double.TryParse(flightTimeTBox.Text, out i) ? i : 0;
-                    StatusControlPanel.instance.SetFuelPbMinMax(MainV2.Aircrafts[MainV2.CurrentAircraftNum].minCapacity,
-                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity);
+                    StatusControlPanel.instance.SetFuelPbMinMax();
                 }
                 catch
                 {
@@ -2241,7 +2262,7 @@ namespace MissionPlanner
                 try
                 {
                     if (MainV2.comPort.MAV.cs.battery_voltage2 /
-                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].maxCapacity < 0.15 && isSitl) //check in persents
+                        MainV2.CurrentAircraft.MaxCapacity < 0.15 && isSitl) //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -3107,196 +3128,195 @@ namespace MissionPlanner
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите закрыть программу", "Предупреждению", MessageBoxButtons.YesNo);
-            if(dialogResult == DialogResult.No)
+            CustomMessageBox.DialogResult dialogResult = CustomMessageBox.Show("Выйти из программы?", "НПУ",
+                CustomMessageBox.MessageBoxButtons.YesNo,
+                CustomMessageBox.MessageBoxIcon.None, "Да", "Нет");
+            if (dialogResult == CustomMessageBox.DialogResult.No)
             {
                 //do something
                 e.Cancel = true;
             }
-            else if (dialogResult == DialogResult.Yes)
+            else if (dialogResult == CustomMessageBox.DialogResult.Yes)
             {
-                
+                base.OnClosing(e);
 
-            base.OnClosing(e);
+                log.Info("MainV2_FormClosing");
 
-            log.Info("MainV2_FormClosing");
+                log.Info("GMaps write cache");
+                // speed up tile saving on exit
+                GMaps.Instance.CacheOnIdleRead = false;
+                GMaps.Instance.BoostCacheEngine = true;
 
-            log.Info("GMaps write cache");
-            // speed up tile saving on exit
-            GMaps.Instance.CacheOnIdleRead = false;
-            GMaps.Instance.BoostCacheEngine = true;
+                Settings.Instance["MainHeight"] = this.Height.ToString();
+                Settings.Instance["MainWidth"] = this.Width.ToString();
+                Settings.Instance["MainMaximised"] = this.WindowState.ToString();
 
-            Settings.Instance["MainHeight"] = this.Height.ToString();
-            Settings.Instance["MainWidth"] = this.Width.ToString();
-            Settings.Instance["MainMaximised"] = this.WindowState.ToString();
+                Settings.Instance["MainLocX"] = this.Location.X.ToString();
+                Settings.Instance["MainLocY"] = this.Location.Y.ToString();
 
-            Settings.Instance["MainLocX"] = this.Location.X.ToString();
-            Settings.Instance["MainLocY"] = this.Location.Y.ToString();
-
-            log.Info("close logs");
+                log.Info("close logs");
 
 
 #if !LIB
-            AltitudeAngel.Dispose();
+                AltitudeAngel.Dispose();
 #endif
 
-            // close bases connection
-            try
-            {
-                comPort.logreadmode = false;
-                if (comPort.logfile != null)
-                    comPort.logfile.Close();
-
-                if (comPort.rawlogfile != null)
-                    comPort.rawlogfile.Close();
-
-                comPort.logfile = null;
-                comPort.rawlogfile = null;
-            }
-            catch
-            {
-            }
-
-            log.Info("close ports");
-            // close all connections
-            foreach (var port in Comports)
-            {
+                // close bases connection
                 try
                 {
-                    port.logreadmode = false;
-                    if (port.logfile != null)
-                        port.logfile.Close();
+                    comPort.logreadmode = false;
+                    if (comPort.logfile != null)
+                        comPort.logfile.Close();
 
-                    if (port.rawlogfile != null)
-                        port.rawlogfile.Close();
+                    if (comPort.rawlogfile != null)
+                        comPort.rawlogfile.Close();
 
-                    port.logfile = null;
-                    port.rawlogfile = null;
+                    comPort.logfile = null;
+                    comPort.rawlogfile = null;
                 }
                 catch
                 {
                 }
-            }
 
-            log.Info("stop adsb");
-            adsb.Stop();
-
-            log.Info("stop WarningEngine");
-            WarningEngine.Stop();
-
-            log.Info("stop GStreamer");
-            GStreamer.StopAll();
-
-            log.Info("closing vlcrender");
-            try
-            {
-                while (vlcrender.store.Count > 0)
-                    vlcrender.store[0].Stop();
-            }
-            catch
-            {
-            }
-
-            log.Info("closing pluginthread");
-
-            pluginthreadrun = false;
-
-            if (pluginthread != null)
-                pluginthread.Join();
-
-            log.Info("closing serialthread");
-
-            serialThread = false;
-
-            if (serialreaderthread != null)
-                serialreaderthread.Join();
-
-            log.Info("closing joystickthread");
-
-            joystickthreadrun = false;
-
-            if (joystickthread != null)
-                joystickthread.Join();
-
-            log.Info("closing httpthread");
-
-            // if we are waiting on a socket we need to force an abort
-            httpserver.Stop();
-
-            log.Info("sorting tlogs");
-            try
-            {
-                ThreadPool.QueueUserWorkItem((WaitCallback) delegate
+                log.Info("close ports");
+                // close all connections
+                foreach (var port in Comports)
+                {
+                    try
                     {
-                        try
-                        {
-                            LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
-                        }
-                        catch
-                        {
-                        }
+                        port.logreadmode = false;
+                        if (port.logfile != null)
+                            port.logfile.Close();
+
+                        if (port.rawlogfile != null)
+                            port.rawlogfile.Close();
+
+                        port.logfile = null;
+                        port.rawlogfile = null;
                     }
-                );
-            }
-            catch
-            {
-            }
+                    catch
+                    {
+                    }
+                }
 
-            log.Info("closing MyView");
+                log.Info("stop adsb");
+                adsb.Stop();
 
-            // close all tabs
-            MyView.Dispose();
+                log.Info("stop WarningEngine");
+                WarningEngine.Stop();
 
-            log.Info("closing fd");
-            try
-            {
-                FlightData.Dispose();
+                log.Info("stop GStreamer");
+                GStreamer.StopAll();
+
+                log.Info("closing vlcrender");
+                try
+                {
+                    while (vlcrender.store.Count > 0)
+                        vlcrender.store[0].Stop();
+                }
+                catch
+                {
+                }
+
+                log.Info("closing pluginthread");
+
+                pluginthreadrun = false;
+
+                if (pluginthread != null)
+                    pluginthread.Join();
+
+                log.Info("closing serialthread");
+
+                serialThread = false;
+
+                if (serialreaderthread != null)
+                    serialreaderthread.Join();
+
+                log.Info("closing joystickthread");
+
+                joystickthreadrun = false;
+
+                if (joystickthread != null)
+                    joystickthread.Join();
+
+                log.Info("closing httpthread");
+
+                // if we are waiting on a socket we need to force an abort
+                httpserver.Stop();
+
+                log.Info("sorting tlogs");
+                try
+                {
+                    ThreadPool.QueueUserWorkItem((WaitCallback) delegate
+                        {
+                            try
+                            {
+                                LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    );
+                }
+                catch
+                {
+                }
+
+                log.Info("closing MyView");
+
+                // close all tabs
+                MyView.Dispose();
+
+                log.Info("closing fd");
+                try
+                {
+                    FlightData.Dispose();
+                }
+                catch
+                {
+                }
+
+                log.Info("closing fp");
+                try
+                {
+                    FlightPlanner.Dispose();
+                }
+                catch
+                {
+                }
+
+                log.Info("closing sim");
+                try
+                {
+                    Simulation.Dispose();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    if (comPort.BaseStream.IsOpen)
+                        comPort.Close();
+                }
+                catch
+                {
+                } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
+
+                // save config
+                SaveConfig();
+
+                Console.WriteLine(httpthread?.IsAlive);
+                Console.WriteLine(joystickthread?.IsAlive);
+                Console.WriteLine(serialreaderthread?.IsAlive);
+                Console.WriteLine(pluginthread?.IsAlive);
+
+                log.Info("MainV2_FormClosing done");
+
+                if (MONO)
+                    this.Dispose();
             }
-            catch
-            {
-            }
-
-            log.Info("closing fp");
-            try
-            {
-                FlightPlanner.Dispose();
-            }
-            catch
-            {
-            }
-
-            log.Info("closing sim");
-            try
-            {
-                Simulation.Dispose();
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                if (comPort.BaseStream.IsOpen)
-                    comPort.Close();
-            }
-            catch
-            {
-            } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
-
-            // save config
-            SaveConfig();
-
-            Console.WriteLine(httpthread?.IsAlive);
-            Console.WriteLine(joystickthread?.IsAlive);
-            Console.WriteLine(serialreaderthread?.IsAlive);
-            Console.WriteLine(pluginthread?.IsAlive);
-
-            log.Info("MainV2_FormClosing done");
-
-            if (MONO)
-                this.Dispose();
-            }
-            
         }
 
 

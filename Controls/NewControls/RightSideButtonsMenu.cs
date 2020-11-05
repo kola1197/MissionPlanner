@@ -83,6 +83,7 @@ namespace MissionPlanner.Controls.NewControls
                 control.Parent = this;
             }*/
             activeControl = control.Visible ? control : null;
+            FlightPlanner.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
             Invalidate();
         }
 
@@ -101,7 +102,6 @@ namespace MissionPlanner.Controls.NewControls
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             switchControl(regionsControl);
-            FlightPlanner.regionActive = FlightPlanner.instance.polygongridmode = regionsControl.Visible;
             regionsControl.RedrawPolygonSurvey(regionsControl.GetCurrentPolygon());
         }
 

@@ -63,16 +63,6 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _01_01 {
-            get {
-                object obj = ResourceManager.GetObject("_01_01", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap _01_03 {
             get {
                 object obj = ResourceManager.GetObject("_01_03", resourceCulture);
@@ -2185,6 +2175,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap Shutter {
             get {
                 object obj = ResourceManager.GetObject("Shutter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SitlFly {
+            get {
+                object obj = ResourceManager.GetObject("SitlFly", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

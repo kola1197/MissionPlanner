@@ -3139,14 +3139,14 @@ namespace MissionPlanner.GCSViews
             }
 
             string aircraftNum = GetAircraftNum(aircraft);
-            string groundSpeed = (mavState.cs.groundspeed * 3.6).ToString("F1") + " км/ч";
-            string alt = mavState.cs.alt.ToString("F2") + " м";
+            string groundSpeed = (int) Math.Round(mavState.cs.groundspeed * 3.6) + " км/ч";
+            string alt = (int) Math.Round(mavState.cs.alt) + " м";
             GPoint mavLocalLocation = MainMap.FromLatLngToLocal(new PointLatLng(mavState.cs.lat, mavState.cs.lng));
             mavLocalLocation.Y += 30;
             
             int GetFittedRectangleWidth(string text)
             {
-                return (int) Math.Truncate(font.SizeInPoints + 3) * text.Length;
+                return (int) Math.Truncate(font.SizeInPoints + 6) * text.Length;
             }
 
             Rectangle rectAirNum = new Rectangle((int) mavLocalLocation.X - GetFittedRectangleWidth(aircraftNum) / 2,
@@ -3154,12 +3154,12 @@ namespace MissionPlanner.GCSViews
                 GetFittedRectangleWidth(aircraftNum), font.Height + 5);
 
             Rectangle rectGroundSpeed = new Rectangle(
-                (int) mavLocalLocation.X - GetFittedRectangleWidth(groundSpeed) / 2,
+                (int) mavLocalLocation.X - GetFittedRectangleWidth(groundSpeed) / 4 * 3,
                 (int) mavLocalLocation.Y + rectAirNum.Height,
                 GetFittedRectangleWidth(groundSpeed), font.Height + 5);
 
-            Rectangle rectAlt = new Rectangle((int) mavLocalLocation.X - GetFittedRectangleWidth(alt) / 2,
-                (int) mavLocalLocation.Y + rectAirNum.Height + rectGroundSpeed.Height,
+            Rectangle rectAlt = new Rectangle((int) mavLocalLocation.X ,
+                (int) mavLocalLocation.Y + rectAirNum.Height,
                 GetFittedRectangleWidth(alt), font.Height + 5);
 
 
@@ -3175,10 +3175,10 @@ namespace MissionPlanner.GCSViews
             e.Graphics.DrawRectangle(new Pen(Color.Transparent), rectAirNum);
             e.Graphics.FillRectangle(new SolidBrush(Color.Transparent), rectAirNum);
             using (GraphicsPath gp = new GraphicsPath())
-            using (Pen outline = new Pen(Color.FromArgb(150, Color.Black), OutlineWidth)
+            using (Pen outline = new Pen(Color.FromArgb(255, Color.Black), OutlineWidth)
                 {LineJoin = LineJoin.Round})
             using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
-            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Chocolate)))
+            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Gold)))
             {
                 gp.AddString(aircraftNum, font.FontFamily, (int) font.Style, 15, rectAirNum, sf);
                 // e.Graphics.ScaleTransform(1.3f, 1.35f);
@@ -6989,6 +6989,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             foreach (var aircraft in MainV2.Aircrafts.Values)
             {
+                if (aircraft.SysId == null)
+                {
+                    continue;
+                }
                 ConnectionControl.port_sysid sysid = (ConnectionControl.port_sysid) aircraft.SysId;
                 if (mav == sysid.port)
                 {
@@ -7825,8 +7829,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     row.Cells[Command.Index + 1].Value = "1";
                                     Commands.Rows.Insert(index + 1, row);
                                     if (MainV2.CurrentAircraftNum != null &&
-                                        MainV2.Aircrafts[MainV2.CurrentAircraftNum] != null &&
-                                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+                                        MainV2.CurrentAircraft != null &&
+                                        MainV2.CurrentAircraft.UsingSitl)
                                     {
                                         DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
                                         row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
@@ -9182,8 +9186,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //{
             //    writeWPToPlane();
             //}
-            if (MainV2.CurrentAircraftNum != null && MainV2.Aircrafts[MainV2.CurrentAircraftNum] != null &&
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+            if (MainV2.CurrentAircraftNum != null && MainV2.CurrentAircraft != null &&
+                MainV2.CurrentAircraft.UsingSitl)
             {
                 for (int i = 0; i < Commands.Rows.Count; i++)
                 {

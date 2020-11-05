@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GDAL;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -31,6 +32,7 @@ namespace MissionPlanner.Controls.NewControls
         private ArrayList _regionPoints = new ArrayList();
         private int _latIndex, _lngIndex;
         private TextBox _editTextBox;
+        private bool cellEditEnded = false;
 
         private int RegionNum
         {
@@ -118,7 +120,8 @@ namespace MissionPlanner.Controls.NewControls
             {
                 string text = _editTextBox.Text;
                 int selectionStart = _editTextBox.SelectionStart;
-                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-')
+                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-' &&
+                    text[selectionStart - 1] != '.')
                 {
                     _editTextBox.SelectionStart--;
                     _editTextBox.SelectionLength = 0;
@@ -132,7 +135,8 @@ namespace MissionPlanner.Controls.NewControls
                 string text = _editTextBox.Text;
                 int selectionStart = _editTextBox.SelectionStart;
 
-                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) && text[selectionStart] != '-')
+                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) &&
+                    text[selectionStart] != '-' && text[selectionStart] != '.')
                 {
                     _editTextBox.SelectionStart++;
                     _editTextBox.SelectionLength = 0;
@@ -141,12 +145,12 @@ namespace MissionPlanner.Controls.NewControls
                 }
             }
 
-            if (e.KeyCode == Keys.Enter)
-            {
-                latLong_DGV.EndEdit();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
+            // if (e.KeyCode == Keys.Enter)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            //     e.SuppressKeyPress = true;
+            // }
 
             if (_editTextBox.SelectionLength > 0)
             {
@@ -158,11 +162,11 @@ namespace MissionPlanner.Controls.NewControls
 
         private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char) 13)
-            {
-                latLong_DGV.EndEdit();
-                e.Handled = true;
-            }
+            // if (e.KeyChar == (char) 13)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            // }
 
             if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
             {
@@ -212,6 +216,7 @@ namespace MissionPlanner.Controls.NewControls
             name_TB.Text = "";
         }
 
+
         private void ClearPropertiesBindings()
         {
             name_TB.DataBindings.Clear();
@@ -229,7 +234,7 @@ namespace MissionPlanner.Controls.NewControls
             return true;
         }
 
-        public void UpdateBindings()
+        private async Task UpdateControlBindingsAsync()
         {
             regionsProperties_GB.Enabled = FlightPlanner.RegionsOverlay.Polygons.Count != 0;
             ClearPropertiesBindings();
@@ -247,6 +252,11 @@ namespace MissionPlanner.Controls.NewControls
                 latLong_DGV.Columns.Remove("IsEmpty");
 
             // Invalidate();
+        }
+
+        public async Task UpdateBindings()
+        {
+            await UpdateControlBindingsAsync();
         }
 
         private void addRegion_BUT_Click(object sender, EventArgs e)
@@ -397,11 +407,12 @@ namespace MissionPlanner.Controls.NewControls
             {
                 string lat = _editTextBox.Text.Replace('.', ',');
                 // string lat = _editTextBox.Text;
-                string lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
+                string lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
                 readingPoint = new Tuple<string, string>(lat, lng);
                 if (!TryConvertToLatLng(readingPoint, out convertedPoint))
                 {
-                    readingPoint = new Tuple<string, string>(latLong_DGV.CurrentCell.Value.ToString(), lng);
+                    readingPoint = new Tuple<string, string>(latLong_DGV.CurrentCell.Value.ToString(),
+                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString());
                     TryConvertToLatLng(readingPoint, out convertedPoint);
                 }
 
@@ -409,13 +420,15 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                string lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
+                string lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
                 // string lng = _editTextBox.Text;
                 string lng = _editTextBox.Text.Replace('.', ',');
                 readingPoint = new Tuple<string, string>(lat, lng);
                 if (!TryConvertToLatLng(readingPoint, out convertedPoint))
                 {
-                    readingPoint = new Tuple<string, string>(lat, latLong_DGV.CurrentCell.Value.ToString());
+                    readingPoint = new Tuple<string, string>(
+                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(),
+                        latLong_DGV.CurrentCell.Value.ToString());
                     TryConvertToLatLng(readingPoint, out convertedPoint);
                 }
 
@@ -442,45 +455,6 @@ namespace MissionPlanner.Controls.NewControls
 
         private void latLong_DGV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            // Total shitcode but no clue how to do properly
-            if (regionsBindingSource.Count == 0)
-            {
-                return;
-            }
-
-            ReadEditedValueFromTextBox();
-
-            GMapPolygon currentPolygon = GetCurrentPolygon();
-            ArrayList updatedPoints = new ArrayList();
-
-
-            foreach (DataGridViewRow row in latLong_DGV.Rows)
-            {
-                double lat, lng;
-                if (row.Index == _rowInEdit)
-                {
-                    lat = _pointInEdit.Lat;
-                    lng = _pointInEdit.Lng;
-                }
-                else
-                {
-                    lat = Convert.ToDouble(row.Cells[_latIndex].Value);
-                    lng = Convert.ToDouble(row.Cells[_lngIndex].Value);
-                }
-
-                updatedPoints.Add(new PointLatLng(lat, lng));
-            }
-
-            currentPolygon.Points.Clear();
-
-            foreach (PointLatLng point in updatedPoints)
-            {
-                currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
-            }
-
-            ClearEditTbEvents();
-
-            RedrawPolygonSurvey(GetCurrentPolygon());
         }
 
 
@@ -580,6 +554,7 @@ namespace MissionPlanner.Controls.NewControls
             {
                 // get current cell
                 var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+
                 // check new value.
                 var c0 = 0.0;
 
@@ -611,7 +586,7 @@ namespace MissionPlanner.Controls.NewControls
 
                 lat = lat.Replace('.', ',');
                 lng = lng.Replace('.', ',');
-                
+
                 readingPoint = new Tuple<string, string>(lat, lng);
 
                 if (e.FormattedValue == null || !TryConvertToLatLng(readingPoint, out convertedPoint))
@@ -795,15 +770,16 @@ namespace MissionPlanner.Controls.NewControls
 
         private void latLong_DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            UniversalCoordinatsController controller =
-                new UniversalCoordinatsController(new WGSCoordinats(GetPointByRow(e.RowIndex).Lat,
-                    GetPointByRow(e.RowIndex).Lng));
-            bool isLatitude = e.ColumnIndex == 1;
-            string oldValue = FormatCoordinateFromWgs(controller, isLatitude);
-
-            dgv[e.ColumnIndex, e.RowIndex].Value = oldValue;
-            
+            // DataGridView dgv = sender as DataGridView;
+            // UniversalCoordinatsController controller =
+            //     new UniversalCoordinatsController(new WGSCoordinats(GetPointByRow(e.RowIndex).Lat,
+            //         GetPointByRow(e.RowIndex).Lng));
+            // bool isLatitude = e.ColumnIndex == 1;
+            // string oldValue = FormatCoordinateFromWgs(controller, isLatitude);
+            //
+            // dgv[e.ColumnIndex, e.RowIndex].Value = oldValue;
+            e.Cancel = false;
+            e.ThrowException = false;
             // if (e.RowIndex == _latIndex)
             // {
             //     dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lat.ToString("N6");
@@ -842,12 +818,10 @@ namespace MissionPlanner.Controls.NewControls
                     if (isLat)
                     {
                         return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
-                        ;
                     }
                     else
                     {
                         return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
-                        ;
                     }
                     break;
                 case 1:
@@ -929,9 +903,10 @@ namespace MissionPlanner.Controls.NewControls
         private bool TryCreateController(Tuple<string, string> point, out UniversalCoordinatsController controller)
         {
             bool successfullyCreated = false;
-            controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
+            controller = null;
             try
             {
+                controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
                 switch (MainV2.coordinatsShowMode)
                 {
                     case 0:
@@ -968,8 +943,56 @@ namespace MissionPlanner.Controls.NewControls
             {
                 successfullyCreated = false;
             }
-
             return successfullyCreated;
+        }
+
+        private async Task CallCellEndEditAsync()
+        {
+        }
+
+        private void latLong_DGV_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+            // Total shitcode but no clue how to do properly
+            if (regionsBindingSource.Count == 0)
+            {
+                return;
+            }
+
+            ReadEditedValueFromTextBox();
+
+            GMapPolygon currentPolygon = GetCurrentPolygon();
+            ArrayList updatedPoints = new ArrayList();
+
+
+            foreach (DataGridViewRow row in latLong_DGV.Rows)
+            {
+                double lat, lng;
+                if (row.Index == _rowInEdit)
+                {
+                    lat = _pointInEdit.Lat;
+                    lng = _pointInEdit.Lng;
+                }
+                else
+                {
+                    lat = Convert.ToDouble(row.Cells[_latIndex].Value);
+                    lng = Convert.ToDouble(row.Cells[_lngIndex].Value);
+                }
+
+                updatedPoints.Add(new PointLatLng(lat, lng));
+            }
+
+            currentPolygon.Points.Clear();
+
+            foreach (PointLatLng point in updatedPoints)
+            {
+                currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
+            }
+
+            ClearEditTbEvents();
+
+            RedrawPolygonSurvey(GetCurrentPolygon());
+
+            cellEditEnded = true;
         }
     }
 }

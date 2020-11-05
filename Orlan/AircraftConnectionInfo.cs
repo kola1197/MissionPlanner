@@ -98,38 +98,23 @@ namespace MissionPlanner
             set => _inAir = value;
         }
 
-        private float _butt2RealVoltage = 0;
-
-        private float _maxCapacity = 0;
-        
-        private float _minCapacity = 0;
-        
         private float _fuelPerTime = 0;
 
-        public float butt2RealVoltage
-        {
-            get => _butt2RealVoltage;
-            set => _butt2RealVoltage = value;
-        }
+        public float Butt2RealVoltage = 0;
 
-        public float maxCapacity
-        {
-            get => _maxCapacity;
-            set => _maxCapacity = value;
-        }
+        public float MaxCapacity = 0;
 
-        public float minCapacity
-        {
-            get => _minCapacity;
-            set => _minCapacity = value;
-        }
+        public float MinCapacity = 0;
 
-        public float fuelPerTime
-        {
-            get => _fuelPerTime;
-            set => _fuelPerTime = value;
-        }
+        public float FuelPerTime = 0;
 
+        public double Fuel = 0;
+
+
+        public bool FuelSaved { get; set; }
+        
+        //Only for SITL (Worst code...)
+        public SITLInfo SitlInfo = new SITLInfo();
 
         // public AircraftConnectionInfo(string number, string name, string port)
         // {
