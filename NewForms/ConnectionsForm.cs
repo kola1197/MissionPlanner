@@ -298,7 +298,8 @@ namespace MissionPlanner
             }
 
             selectedAircraft.FuelSaved = false;
-            selectedAircraft.SitlInfo.SitlLanding = false;
+            MainV2.StatusMenuPanel.SitlEmulation.EngineRunning = false;
+            MainV2.StatusMenuPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
             
             if (selectedAircraft.UsingAntenna)
             {
@@ -557,13 +558,13 @@ namespace MissionPlanner
 
         public void OnMavChanged(object sender, EventArgs e)
         {
-            if (MainV2.CurrentAircraftNum == null || MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId == null ||
-                !MainV2.Aircrafts[MainV2.CurrentAircraftNum].Connected)
+            if (MainV2.CurrentAircraftNum == null || MainV2.CurrentAircraft.SysId == null ||
+                !MainV2.CurrentAircraft.Connected)
             {
                 return;
             }
 
-            var currentSysId = (ConnectionControl.port_sysid) MainV2.Aircrafts[MainV2.CurrentAircraftNum].SysId;
+            var currentSysId = (ConnectionControl.port_sysid) MainV2.CurrentAircraft.SysId;
 
             if (currentSysId.sysid != MainV2.comPort.sysidcurrent)
             {
@@ -621,7 +622,7 @@ namespace MissionPlanner
                     MainV2.CurrentAircraftNum =
                         MainV2.Aircrafts.FirstOrDefault(x => x.Value == selectedAircraft).Key;
                     
-                    devices_LB.SelectedIndex = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
+                    devices_LB.SelectedIndex = MainV2.CurrentAircraft.MenuNum;
                     
                     AntennaControl.Instance.SetAntennaState(false);
                     

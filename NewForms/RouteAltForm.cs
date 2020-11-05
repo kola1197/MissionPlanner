@@ -122,7 +122,7 @@ namespace MissionPlanner.NewForms
             }
             catch (Exception exception)
             {
-                CustomMessageBox.Show("Не удалось найти текущую точку или высоту текущей точки.");
+                CustomMessageBox.Show("Выставите маршрутные точки на карте или считайте их с подключенного борта.","Не удалось найти текущую точку или высоту текущей точки!");
                 return;
             }
 

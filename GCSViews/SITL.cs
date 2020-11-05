@@ -512,9 +512,11 @@ namespace MissionPlanner.GCSViews
                     MainV2.StatusMenuPanel.DisableControlBindings();
                     aircraftSITLInfo.MaxCapacity = 5.0f;
                     aircraftSITLInfo.MinCapacity = 0.0f;
-                    MainV2.StatusMenuPanel.SetFuelPbMinMax();
-                    aircraftSITLInfo.SitlInfo.SetParameters(5, 0, 1.5);
                     aircraftSITLInfo.Fuel = 4.88;
+                    MainV2.StatusMenuPanel.SetFuelPbMinMax();
+
+                    // SitlParamList paramList = new SitlParamList(verticalSpeed: 5, groundSpeed: 0, airspeed: 1.5);
+                    // aircraftSITLInfo.SitlInfo.SetParameters(paramList);
                     // MainV2.StatusMenuPanel.SitlEmulation.SetTargetSitlParams(4.88, 5, 0, 1.5, 4200, 7200);
                 }
             }

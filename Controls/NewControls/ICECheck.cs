@@ -18,6 +18,9 @@ namespace MissionPlanner.Controls.NewControls
             this.DoubleBuffered = true;
             //SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             //typeof(Panel).InvokeMember("DoubleBuffered",   BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,  null, DrawingPanel, new object[] { true });
+            _progressBarsMaxValues.Add(progressBar1.Maximum);
+            _progressBarsMaxValues.Add(progressBar2.Maximum);
+            _progressBarsMaxValues.Add(progressBar3.Maximum);
         }
         int xStart = 8;
         int yStart = 300;
@@ -36,6 +39,7 @@ namespace MissionPlanner.Controls.NewControls
         private bool secondTestStarted = false;           // between 4200 and 3600
         private int[] sinusoidTestCounter = new int[] { 0, 0 }; //0 - 7700, 1- 4200
 
+        private List<int> _progressBarsMaxValues = new List<int>();
 
         private bool[] tests = new bool[] { true, true, true };
         int multy = 2;
@@ -211,12 +215,28 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton1_Click(object sender, EventArgs e)
         {
+            if (myButton1.BackColor == Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32))))))
+            {
+                myButton1.BackColor = Color.Firebrick;
+            }
+            else
+            {
+                myButton1.BackColor = Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))),
+                    ((int) (((byte) (32)))));
+            }
             iceChecked = true;
             stop();
+            MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
+            // MainV2.AircraftMenuControl.preFlightForm.SkipIceCheck();
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            if (MainV2.StatusMenuPanel.IsSitlConnected())
+            {
+                CustomMessageBox.Show("Проверка ДВС недоступна в режиме симуляции.");
+                return;
+            }
             if (!started)
             {
                 fMin = MainV2.comPort.GetParam("SERVO3_TRIM");
@@ -228,6 +248,7 @@ namespace MissionPlanner.Controls.NewControls
                 counter = 0;
                 refreshProgressBars();
                 timer1.Start();
+                MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
             }
             else 
             {
@@ -235,6 +256,7 @@ namespace MissionPlanner.Controls.NewControls
                 started = false;
                 iceChecked = true;
                 startButton.Text = "Начать";
+                MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
             }
             int multy = 2;
             //multy = 100 / timer1.Interval;
@@ -248,6 +270,9 @@ namespace MissionPlanner.Controls.NewControls
             progressBar1.Value = 0;
             progressBar2.Value = 0;
             progressBar3.Value = 0;
+            progressBar1.Maximum = _progressBarsMaxValues[0];
+            progressBar2.Maximum = _progressBarsMaxValues[1];
+            progressBar3.Maximum = _progressBarsMaxValues[2];
             progressBar1.ValueColor = Color.Cyan;
             progressBar2.ValueColor = Color.Cyan;
             progressBar3.ValueColor = Color.Cyan;

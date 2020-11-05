@@ -7828,8 +7828,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     row.Cells[Command.Index + 1].Value = "1";
                                     Commands.Rows.Insert(index + 1, row);
                                     if (MainV2.CurrentAircraftNum != null &&
-                                        MainV2.Aircrafts[MainV2.CurrentAircraftNum] != null &&
-                                        MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+                                        MainV2.CurrentAircraft != null &&
+                                        MainV2.CurrentAircraft.UsingSitl)
                                     {
                                         DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
                                         row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
@@ -9185,8 +9185,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //{
             //    writeWPToPlane();
             //}
-            if (MainV2.CurrentAircraftNum != null && MainV2.Aircrafts[MainV2.CurrentAircraftNum] != null &&
-                MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+            if (MainV2.CurrentAircraftNum != null && MainV2.CurrentAircraft != null &&
+                MainV2.CurrentAircraft.UsingSitl)
             {
                 for (int i = 0; i < Commands.Rows.Count; i++)
                 {

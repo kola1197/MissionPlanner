@@ -899,14 +899,16 @@
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
-    <Compile Include="Orlan\EmulateSitlSensors.cs" />
+    <Compile Include="Orlan\EmulateSitlParameters.cs" />
     <Compile Include="Orlan\ICustomClick.cs" />
     <Compile Include="Orlan\NestedBindingProxy.cs" />
     <Compile Include="Orlan\RegionData.cs" />
     <Compile Include="Orlan\RouteAltitude.cs" />
     <Compile Include="Orlan\SITLInfo.cs" />
     <Compile Include="Orlan\SitlParam.cs" />
+    <Compile Include="Orlan\SitlParamList.cs" />
     <Compile Include="Orlan\SitlState.cs" />
+    <Compile Include="Orlan\SitlStateGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio\Models.cs" />
     <Compile Include="ResEdit.Designer.cs">

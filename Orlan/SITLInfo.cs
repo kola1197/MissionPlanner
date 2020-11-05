@@ -4,22 +4,18 @@ namespace MissionPlanner
 {
     public class SITLInfo
     {
-        public double VerticalSpeed = 0;
+        public SitlParamList ParamList;
 
-        public double GroundSpeed = 0;
+        public SITLInfo() => ParamList = new SitlParamList();
 
-        public double AirSpeed = 0;
+        public SITLInfo(SitlParamList paramList) => ParamList = paramList;
 
-        public bool SitlLanding = false;
-
-        public double Rpm = 0;
-        
-        public Dictionary<string, double> Parameters = new Dictionary<string, double>()
-        {
-            {"Fuel", 0}
-        };
-        
-        public void SetParameters(double vertSpeed, double groundSpeed, double airSpeed) => (VerticalSpeed, GroundSpeed, AirSpeed) =
-            (vertSpeed, groundSpeed, airSpeed);
+        // public void SetParameters(SitlParamList paramList)
+        // {
+        //     foreach (var param in paramList.Params)
+        //     {
+        //         ParamList.SetParam(param);
+        //     }
+        // }
     }
 }

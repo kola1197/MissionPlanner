@@ -23,7 +23,7 @@ namespace MissionPlanner.NewForms
         {
             if (MainV2.comPort.MAV.cs.connected)
             {
-                if (MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl) 
+                if (MainV2.CurrentAircraft.UsingSitl) 
                 {
                     MainV2.instance.FlightPlanner.landPoint = new GMap.NET.PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
                     MainV2.testVisualisation = true;

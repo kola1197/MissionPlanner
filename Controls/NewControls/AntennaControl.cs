@@ -75,7 +75,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (MainV2.CurrentAircraftNum != null)
             {
-                ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.Aircrafts[MainV2.CurrentAircraftNum]);
+                ConnectionsForm.instance.SwitchConnectedAircraft(MainV2.CurrentAircraft);
             }
         }
 
