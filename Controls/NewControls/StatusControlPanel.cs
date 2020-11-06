@@ -60,7 +60,7 @@ namespace MissionPlanner.Controls
             {
                 splittedBar_fuel.Minimum = MainV2.CurrentAircraft.MinCapacity;
                 splittedBar_fuel.Maximum = MainV2.CurrentAircraft.MaxCapacity;
-                splittedBar_fuel.Step = (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) / 10;
+                splittedBar_fuel.Step = (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) / 10D;
             }
         }
 
@@ -222,6 +222,10 @@ namespace MissionPlanner.Controls
         public void DisableControlBindings()
         {
             splittedBar_fuel.DataBindings.Clear();
+            airspeed_SVPB.DataBindings.Clear();
+            groundSpeed_SVPB.DataBindings.Clear();
+            engineTemp_SVPB.DataBindings.Clear();
+            environmentTemp_SVPB.DataBindings.Clear();
         }
 
         // Enable when switching from SITL
@@ -231,6 +235,62 @@ namespace MissionPlanner.Controls
             {
                 splittedBar_fuel.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "battery_voltage2",
                     true));
+                airspeed_SVPB.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "airspeed",
+                    true));
+                groundSpeed_SVPB.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "groundspeed",
+                    true));
+                engineTemp_SVPB.DataBindings.Add(new Binding("Value", bindingSourceCurrentState, "rpm2",
+                    true));
+                this.environmentTemp_SVPB.DataBindings.Add(
+                    new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "press_temp2", true));
+            }
+        }
+
+        private void UpdateProgressBarColor(VerticalSplittedProgressBar progressBar)
+        {
+            double range = progressBar.Maximum - progressBar.Minimum;
+            double value = progressBar.Value;
+            double valueRange = value - progressBar.Minimum;
+            double yellowRange = range * 0.35;
+            double redRange = range * 0.15;
+            if (valueRange <= yellowRange)
+            {
+                if (valueRange <= redRange)
+                {
+                    progressBar.Color = Color.Crimson;
+                }
+                else
+                {
+                    progressBar.Color = Color.Gold;
+                }
+            }
+            else
+            {
+                progressBar.Color = Color.LimeGreen;
+            }
+        }
+        
+        private void UpdateEngineTempProgressBarColor()
+        {
+            var progressBar = engineTemp_SVPB;
+            double range = progressBar.Maximum - progressBar.Minimum;
+            double value = progressBar.Value;
+            double yellowRange = 100;
+            double redRange = 120;
+            if (value >= yellowRange)
+            {
+                if (value >= redRange)
+                {
+                    progressBar.Color = Color.Crimson;
+                }
+                else
+                {
+                    progressBar.Color = Color.Gold;
+                }
+            }
+            else
+            {
+                progressBar.Color = Color.LimeGreen;
             }
         }
 
@@ -258,18 +318,31 @@ namespace MissionPlanner.Controls
             this.Invalidate();
             if (IsSitlConnected())
             {
-                UpdateFuelProgressBar();
+                UpdateSitlProgressBars();
             }
+            
+            UpdateProgressBarColor(splittedBar_fuel);
+            UpdateProgressBarColor(splittedBar_voltage);
+            UpdateEngineTempProgressBarColor();
         }
 
-        private void UpdateFuelProgressBar()
+        private void UpdateSitlProgressBars()
         {
-            splittedBar_fuel.Value = Math.Round(MainV2.CurrentAircraft.Fuel);
+            if (MainV2.CurrentAircraft == null)
+            {
+                return;
+            }
+            var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
+            splittedBar_fuel.Value = MainV2.CurrentAircraft.Fuel;
+            airspeed_SVPB.Value = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
+            groundSpeed_SVPB.Value = sitlParamList.GetParamValue(SitlParam.ParameterName.GroundSpeed);
+            engineTemp_SVPB.Value = sitlParamList.GetParamValue(SitlParam.ParameterName.Temperature);
+            environmentTemp_SVPB.Value = MainV2.comPort.MAV.cs.press_temp / 100D;
         }
 
         private void UpdateStatusLabels()
         {
-            double rpm1, engineTemp, airspeed, groundSpeed, verticalSpeed, alt, targetAlt;
+            double rpm1, engineTemp, airspeed, groundSpeed, verticalSpeed, alt, targetAlt, envTemp;
             if (IsSitlConnected() && MainV2.CurrentAircraft != null)
             {
                 var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
@@ -281,6 +354,7 @@ namespace MissionPlanner.Controls
                 verticalSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.VerticalSpeed);
                 alt = sitlParamList.GetParamValue(SitlParam.ParameterName.Alt);
                 targetAlt = sitlParamList.GetParamValue(SitlParam.ParameterName.TargetAlt);
+                envTemp = MainV2.comPort.MAV.cs.press_temp / 100D;
             }
             else
             {
@@ -291,9 +365,10 @@ namespace MissionPlanner.Controls
                 verticalSpeed = MainV2.comPort.MAV.cs.verticalspeed;
                 alt = MainV2.comPort.MAV.cs.alt;
                 targetAlt = MainV2.comPort.MAV.cs.targetalt;
+                envTemp = MainV2.comPort.MAV.cs.press_temp2;
             }
 
-            rpmICE_label.Text = rpm1.ToString("F2", new CultureInfo("en-US")) + " об/м";
+            rpmICE_label.Text = rpm1.ToString("F0", new CultureInfo("en-US")) + " об/м";
 
             engineTemp_label.Text = engineTemp.ToString("F1", new CultureInfo("en-US")) + "°";
 
@@ -312,12 +387,12 @@ namespace MissionPlanner.Controls
             voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2", new CultureInfo("en-US"));
 
             environmentTemp_label.Text =
-                MainV2.comPort.MAV.cs.press_temp2.ToString("F1", new CultureInfo("en-US")) + "°";
+                envTemp.ToString("F1", new CultureInfo("en-US")) + "°";
 
             string flightMode = MainV2.comPort.MAV.cs.mode;
             flightMode_label.Text = flightMode == "Unknown" ? "Не подключен" : MainV2.comPort.MAV.cs.mode;
 
-            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F2", new CultureInfo("en-US"));
+            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F0", new CultureInfo("en-US"));
         }
 
         private void AdditionalSensorToolStripMenuItemClick(object sender, EventArgs e)
@@ -425,7 +500,7 @@ namespace MissionPlanner.Controls
                 percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
             }
 
-            return percent;
+            return Math.Min(Math.Max(percent, 0), 100);
         }
 
 

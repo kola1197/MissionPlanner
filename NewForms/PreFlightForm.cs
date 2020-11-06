@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Controls;
 using System.IO;
+using AltitudeAngelWings.Models;
+using MissionPlanner.GCSViews;
 
 namespace MissionPlanner.NewForms
 {
@@ -333,8 +335,28 @@ namespace MissionPlanner.NewForms
             //updateARMButton();
         }
 
+        private bool IsTakeoffPointExists()
+        {
+            return  FlightPlanner.instance.Commands.Rows[0].Cells[FlightPlanner.instance.Command.Index].Value.ToString().Equals(
+                    MAVLink.MAV_CMD.TAKEOFF.ToString());
+        }
+        
         private void myButton3_MouseUp(object sender, MouseEventArgs e)
         {
+            if (FlightPlanner.instance.Commands.RowCount == 0)
+            {
+                CustomMessageBox.Show("Выставите маршрутные точки на карте или считайте их с подключенного борта.",
+                    "Не удалось найти текущую точку или высоту текущей точки!");
+                return;
+            }
+
+            // if (!IsTakeoffPointExists())
+            // {
+            //     CustomMessageBox.Show("Поставьте точку взлета на карте.",
+            //         "Не выставлена точка взлета!");
+            //     return;
+            // }
+
             ((Control) sender).Enabled = false; //set 0 wp as current
             MainV2.setCurrentWP((ushort) 0);
             ((Control) sender).Enabled = true;
@@ -345,7 +367,8 @@ namespace MissionPlanner.NewForms
             }
 
             MainV2.comPort.setMode("Auto");
-            MainV2.StatusMenuPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
+            MainV2.StatusControlPanel.SubscribeWpNoValueChangedEvent();
+            MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
         }
 
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)

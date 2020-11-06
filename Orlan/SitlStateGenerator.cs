@@ -41,15 +41,15 @@ namespace MissionPlanner
         private static SitlState GenerateLandStartState()
         {
             return new SitlState(SitlState.SitlStateName.LandingStart,
-                new SITLInfo(new SitlParamList(updatedParametersUntilLandEnd, 0, 0, 5, 0, 0.5)),
-                new SITLInfo(new SitlParamList(rpm: 400, temperature: 2, verticalSpeed: 1.5, groundSpeed: 30,
+                new SITLInfo(new SitlParamList(null, 0, 0, -5, 0, 0.5)),
+                new SITLInfo(new SitlParamList(rpm: 1000, temperature: 2, verticalSpeed: 1.5, groundSpeed: 30,
                     airspeed: 5, alt: 5, targetAlt: 10)));
         }
 
         private static SitlState GenerateFlightState()
         {
             return new SitlState(SitlState.SitlStateName.Flight,
-                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 6200, 70)),
+                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 6200, 120)),
                 new SITLInfo(new SitlParamList(rpm: 400, temperature: 1)));
         }
 
@@ -82,7 +82,7 @@ namespace MissionPlanner
             updatedParametersUntilEngineStart.Add(SitlParam.ParameterName.Temperature);
             return new SitlState(SitlState.SitlStateName.PrepareFlight,
                 new SITLInfo(new SitlParamList(updatedParametersUntilEngineStart)),
-                new SITLInfo(new SitlParamList(rpm: 0, temperature: 1000)));
+                new SITLInfo(new SitlParamList(rpm: 700, temperature: 1000)));
         }
     }
 }

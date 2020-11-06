@@ -665,7 +665,7 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static StatusControlPanel StatusMenuPanel = new StatusControlPanel();
+        public static StatusControlPanel StatusControlPanel = new StatusControlPanel();
 
         public static FormConnector FormConnector;
 
@@ -681,9 +681,9 @@ namespace MissionPlanner
         public static AntennaConnectionInfo AntennaConnectionInfo = new AntennaConnectionInfo();
 
         private DateTime _sitlFuelUpdateTime = DateTime.Now;
-        
+
         private DateTime _sitlEmulationTime = DateTime.Now;
-        
+
         private static AircraftConnectionInfo _currentAircraft = null;
 
         public static AircraftConnectionInfo CurrentAircraft
@@ -691,7 +691,7 @@ namespace MissionPlanner
             get => _currentAircraft;
             set => _currentAircraft = value;
         }
-        
+
         private static string _currentAircraftNum = null;
 
         public static string CurrentAircraftNum
@@ -704,14 +704,14 @@ namespace MissionPlanner
                 _currentAircraftNum = value;
 
                 CurrentAircraft = Aircrafts[_currentAircraftNum];
-                
+
                 if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
                     ShowConnectionQuality();
                 }
             }
         }
-        
+
         private static MAVLinkInterface _mavlink;
         private static CompositeDisposable _subscriptionsDisposable;
 
@@ -1364,7 +1364,7 @@ namespace MissionPlanner
             menuStrip1.Items.Add(aircraftControlHost);
             ConnectionsForm.sitlForm = Simulation;
 
-            ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusMenuPanel);
+            ToolStripControlHost statusControlHost = new ToolStripControlHost(StatusControlPanel);
             menuStrip1.Items.Add(statusControlHost);
 
             // ToolStripControlHost headingControlHost = new ToolStripControlHost(GaugeMenuHeading);
@@ -1513,23 +1513,23 @@ namespace MissionPlanner
             coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
-        public static bool parachuteReleased = false;
-        public static int coordinatsShowMode = 0;
+        public static bool ParachuteReleased = false;
+        public static int CoordinatsShowMode = 0;
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (comPort.MAV.cs.connected && !parachuteReleased)
+            if (comPort.MAV.cs.connected && !ParachuteReleased)
             {
                 if (comPort.MAV.cs.ch12in > 1800 || comPort.MAV.cs.ch6in > 1800)
                 {
-                    parachuteReleased = true;
-                    snsControl2.openParachuteForm();
+                    ParachuteReleased = true;
+                    snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
                 }
             }
 
             try
             {
-                cheatParachuteLandingTrigger();
+                // cheatParachuteLandingTrigger();
             }
             catch (System.Exception eee)
             {
@@ -1538,26 +1538,35 @@ namespace MissionPlanner
 
             try
             {
-                if (StatusMenuPanel != null && StatusMenuPanel.airspeedDirectionControl2 != null)
+                if (StatusControlPanel != null && StatusControlPanel.airspeedDirectionControl2 != null)
                 {
-                    StatusMenuPanel.airspeedDirectionControl2.updateData();
+                    StatusControlPanel.airspeedDirectionControl2.updateData();
                 }
 
                 // Do sitl emulation
                 if (_currentAircraftNum != null && Aircrafts[_currentAircraftNum].UsingSitl &&
                     Aircrafts[_currentAircraftNum].Connected)
                 {
-                    if (StatusMenuPanel.SitlEmulation.EngineRunning && (DateTime.Now - _sitlFuelUpdateTime).TotalSeconds > 1)
+                    if (StatusControlPanel.SitlEmulation.EngineRunning &&
+                        (DateTime.Now - _sitlFuelUpdateTime).TotalSeconds > 1)
                     {
-                        StatusMenuPanel.SitlEmulation.DoFuelStep();
+                        StatusControlPanel.SitlEmulation.DoFuelStep();
                         _sitlFuelUpdateTime = DateTime.Now;
                     }
 
                     int timeSpan = (DateTime.Now - _sitlEmulationTime).Milliseconds;
                     if (timeSpan > 500)
                     {
-                        StatusMenuPanel.SitlEmulation.DoEmulationStep(timeSpan);
+                        StatusControlPanel.SitlEmulation.DoEmulationStep(timeSpan);
                         _sitlEmulationTime = DateTime.Now;
+                    }
+
+                    if (IsSitlLanding &&
+                        CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Alt) < 1 &&
+                        !IsSitlLandComplete)
+                    {
+                        IsSitlLandComplete = true;
+                        StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingEnd);
                     }
                 }
 
@@ -1574,7 +1583,7 @@ namespace MissionPlanner
                 double currentPositionLat = comPort.MAV.cs.lat;
                 double currentPositionLng = comPort.MAV.cs.lng;
                 double currentPositionAlt = comPort.MAV.cs.alt;
-                switch (coordinatsShowMode)
+                switch (CoordinatsShowMode)
                 {
                     case 0:
                         currentMousePosition = CoordinatsConverter.toWGS_G(currentMousePositionLat,
@@ -1782,20 +1791,68 @@ namespace MissionPlanner
             }
         }
 
+        public void SubscribeOnWpChange()
+        {
+            comPort.MAV.cs.WpNoValueChanged += CheckWpChangedToDoParachute;
+        }
+
+        public void UnsubscribeOnWpChange()
+        {
+            comPort.MAV.cs.WpNoValueChanged -= CheckWpChangedToDoParachute;
+        }
+
+        private void CheckWpChangedToDoParachute(object sender, ValueChangedEventArgs e)
+        {
+            cheatParachuteLandingTrigger();
+        }
+
+        private bool IsDoParachutePointPassed()
+        {
+            int doParachuteIndex = 0;
+            foreach (DataGridViewRow row in FlightPlanner.Commands.Rows)
+            {
+                var cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    row.Cells[FlightPlanner.Command.Index].Value.ToString(), false);
+                if (cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE)
+                {
+                    doParachuteIndex = row.Index;
+                }
+            }
+
+            if (doParachuteIndex == 0)
+            {
+                return false;
+            }
+
+            return (int) comPort.MAV.cs.wpno >= doParachuteIndex;
+        }
+
+        public bool SitlReachedParachutePoint = false;
+
         private void cheatParachuteLandingTrigger()
         {
             if (comPort.MAV.cs.connected)
             {
-                bool nextPointIsDoParachute = false;
-                ushort cmd = (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD),
-                    FlightPlanner.Commands.Rows[(int)comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
-                        .ToString(), false);
-                nextPointIsDoParachute = cmd == (ushort)MAVLink.MAV_CMD.DO_PARACHUTE;
-                if (comPort.MAV.cs.wp_dist < 50 && nextPointIsDoParachute &&
-                    MainV2.Aircrafts[MainV2.CurrentAircraftNum].UsingSitl)
+                // if ((int) comPort.MAV.cs.wpno + 1 >= FlightPlanner.Commands.Rows.Count)
+                // {
+                //     return;
+                // }
+
+                // bool nextPointIsDoParachute = false;
+                // ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                // FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
+                // .ToString(), false);
+                // nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
+         
+                // if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && !_parachutePointReached)
+                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && CurrentAircraft.UsingSitl &&
+                    !SitlReachedParachutePoint)
                 {
-                    testVisualisation = true;
-                    snsControl2.openParachuteForm();
+                    // comPort.setMode("LAND");
+                    SitlReachedParachutePoint = true;
+                    IsSitlLanding = true;
+                    FlightPlanner.landPoint = new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                    snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
                 }
             }
         }
@@ -2023,22 +2080,25 @@ namespace MissionPlanner
         {
             DataGridViewRow row =
                 (DataGridViewRow) FlightPlanner.Commands.Rows[FlightPlanner.Commands.Rows.Count - 1].Clone();
-            row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+            row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND;
             row.Cells[FlightPlanner.Command.Index + 1].Value = (14).ToString();
             int v = 100;
             row.Cells[FlightPlanner.Lat.Index].Value = FlightPlanner.landPoint.Lat.ToString();
             row.Cells[FlightPlanner.Lon.Index].Value = FlightPlanner.landPoint.Lng.ToString();
             row.Cells[FlightPlanner.Lon.Index + 1].Value = v.ToString();
             FlightPlanner.Commands.Rows.Add(row);
-            FlightPlanner.GoToThisPoint(FlightPlanner.Commands.Rows.Count);
             FlightPlanner.writeKML();
+            Thread.Sleep(50);
             FlightPlanner.tryToWriteWP();
+            Thread.Sleep(50);
+            FlightPlanner.GoToThisPoint(FlightPlanner.Commands.Rows.Count - 1);
+            Thread.Sleep(50);
             FlightPlanner.tagForContextMenu = null;
         }
 
         void centeringButtonClick(object sender, MouseEventArgs e)
         {
-            if (!testVisualisation)
+            if (!IsSitlLanding)
             {
                 FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
             }
@@ -2103,7 +2163,7 @@ namespace MissionPlanner
             alarmLabelTextCheck();
             if (centering > 0)
             {
-                if (!testVisualisation)
+                if (!IsSitlLanding)
                 {
                     FlightPlanner.MainMap.Position = new GMap.NET.PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
                 }
@@ -2273,7 +2333,7 @@ namespace MissionPlanner
                 {
                 }
 
-                if (parachuteReleased)
+                if (ParachuteReleased)
                 {
                     notifications.Add("Парашют выпущен");
                 }
@@ -6059,7 +6119,32 @@ namespace MissionPlanner
 
 
         // GMapOverlay polyOverlay = new GMapOverlay("polygons");
-        public static bool testVisualisation = false;
+        private static bool _isSitlLanding = false;
+
+        public static bool IsSitlLanding
+        {
+            get => _isSitlLanding;
+            set
+            {
+                if (value == _isSitlLanding)
+                {
+                    return;
+                }
+                _isSitlLanding = value;
+                if (value)
+                {
+                    StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
+                }
+            }
+        }
+
+        private static bool _isSitlLandComplete = false;
+
+        public static bool IsSitlLandComplete
+        {
+            get => _isSitlLandComplete;
+            set => _isSitlLandComplete = value;
+        }
 
         private void myButton4_MouseUp(object sender, MouseEventArgs e)
         {

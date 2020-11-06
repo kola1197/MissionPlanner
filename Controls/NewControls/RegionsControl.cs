@@ -812,7 +812,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
         {
-            switch (MainV2.coordinatsShowMode)
+            switch (MainV2.CoordinatsShowMode)
             {
                 case 0:
                     if (isLat)
@@ -907,7 +907,7 @@ namespace MissionPlanner.Controls.NewControls
             try
             {
                 controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
-                switch (MainV2.coordinatsShowMode)
+                switch (MainV2.CoordinatsShowMode)
                 {
                     case 0:
                         controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
