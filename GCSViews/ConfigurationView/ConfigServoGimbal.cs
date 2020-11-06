@@ -15,7 +15,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 {
     public partial class ConfigServoGimbal : UserControl
     {
-        int[] blackList = new int[] { 1, 2, 3, 4, 6, 7, 8, 9, 10, 12 };
+        int[] blackList = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12 };
         Dictionary<string, int> servoDict;
         ComboBox [] comboBox = new ComboBox[11];
         TextBox[] textBoxes = new TextBox[11];
@@ -62,15 +62,60 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             initServoDict();
         }
 
+        private int getCountNumberByValue(int servoNum) 
+        {
+            if (servoNum == 0) 
+            {
+                return 0;
+            }
+            int result = 0;
+            if (!blackList.Contains(servoNum)) 
+            {
+                result = 0;
+                for (int i = 1; i < servoNum + 1; i++) 
+                {
+                    if (!blackList.Contains(i)) 
+                    {
+                        result++;
+                    }
+                }
+            }
+            return result - 1;
+        }
+
+        private int getValueByCountNumber(int CountNum)
+        {
+            if (CountNum == 0) 
+            {
+                return 0;
+            }
+            int result = 1;
+            int ll = 0;
+            int j = 1;
+            while (ll <= CountNum)
+            {
+                j++;
+                if (blackList.Contains(j))
+                {
+                    result++;
+                }
+                else 
+                {
+                    result++;
+                    ll++;
+                }
+            }
+            return result;
+        }
 
         private void initServoDict() 
         {
             servoDict = new Dictionary<string, int>();
-            for (int i = 1; i < 16; i++)
+            for (int i = 1; i < 17; i++)
             {
                 if (!blackList.Contains(i))
                 {
-                    servoDict.Add("Servo " + (i + 1).ToString(),i);
+                    servoDict.Add("Servo " + (i).ToString(),i);
                 }
             }
         }
@@ -119,7 +164,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             for (int i = 0; i < 11; i++) 
             {
-                comboBox[i].SelectedIndex = MainV2.configServo[i].servo;
+                comboBox[i].SelectedIndex = getCountNumberByValue(MainV2.configServo[i].servo);
                 textBoxes[i].Text = MainV2.configServo[i].value.ToString();
                 textBoxesForDefault[i].Text = MainV2.configServo[i].defaultValue.ToString();
             }
@@ -173,7 +218,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             for (int i = 0; i < 11; i++) 
             {
                 int v = 1500;
-                MainV2.configServo[i].servo = getInt(comboBox[i].SelectedText);
+                int s = getValueByCountNumber(comboBox[i].SelectedIndex);//getInt(comboBox[i].SelectedText);
+                MainV2.configServo[i].servo = s;
                 MainV2.configServo[i].value = int.TryParse(textBoxes[i].Text, out v) ? v : 1500;
                 MainV2.configServo[i].defaultValue = int.TryParse(textBoxesForDefault[i].Text, out v) ? v : 1500;                
             }
@@ -188,7 +234,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            checkForDisabledServos();
+            //checkForDisabledServos();
         }
     }
 }

@@ -60,8 +60,8 @@ namespace MissionPlanner.Controls
 
         private void Aircraft_BUT1_MouseEnter(object sender, EventArgs e)
         {
-            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
-            this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+            //this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            //this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
             //aircraft_BUT1.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_cloud;
         }
 

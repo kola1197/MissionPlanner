@@ -63,6 +63,8 @@
             this.aircraft_BUT4.ColorMouseOver = System.Drawing.Color.Transparent;
             this.aircraft_BUT4.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.aircraft_BUT4.FlatAppearance.BorderSize = 0;
+            this.aircraft_BUT4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.aircraft_BUT4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.aircraft_BUT4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.aircraft_BUT4.ForeColor = System.Drawing.Color.Transparent;
@@ -87,6 +89,8 @@
             this.aircraft_BUT3.ColorMouseOver = System.Drawing.Color.Transparent;
             this.aircraft_BUT3.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.aircraft_BUT3.FlatAppearance.BorderSize = 0;
+            this.aircraft_BUT3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.aircraft_BUT3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.aircraft_BUT3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.aircraft_BUT3.ForeColor = System.Drawing.Color.Transparent;
@@ -111,6 +115,8 @@
             this.aircraft_BUT2.ColorMouseOver = System.Drawing.Color.Transparent;
             this.aircraft_BUT2.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.aircraft_BUT2.FlatAppearance.BorderSize = 0;
+            this.aircraft_BUT2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.aircraft_BUT2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.aircraft_BUT2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aircraft_BUT2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.aircraft_BUT2.ForeColor = System.Drawing.Color.Transparent;
