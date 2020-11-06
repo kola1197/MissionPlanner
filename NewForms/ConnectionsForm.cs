@@ -170,7 +170,7 @@ namespace MissionPlanner
         {
             MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
-            MainV2.StatusMenuPanel.EnableControlBindings();
+            MainV2.StatusControlPanel.EnableControlBindings();
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
@@ -186,6 +186,7 @@ namespace MissionPlanner
                 connectedAircraft.Connected = true;
                 connect_BUT.Text = disconnectText;
                 MainV2.comPort.MavChanged += OnMavChanged;
+                MainV2.instance.SubscribeOnWpChange();
                 // connect_BUT.Enabled = false;
                 return;
             }
@@ -195,7 +196,7 @@ namespace MissionPlanner
                 if (!IsSitlAllowed())
                 {
                     MAVLinkInterface.paramsLoading = false;
-                    MainV2.StatusMenuPanel.DisableControlBindings();
+                    MainV2.StatusControlPanel.DisableControlBindings();
                     CustomMessageBox.Show("Отключите антенну и все подключенные борты.",
                         "Невозможно создать симуляцию.");
                     return;
@@ -207,7 +208,6 @@ namespace MissionPlanner
                 sitlForm.aircraftSITLInfo.Connected = true;
 
                 connect_BUT.Text = disconnectText;
-
                 this.Hide();
                 return;
             }
@@ -245,6 +245,7 @@ namespace MissionPlanner
                 connect_BUT.Text = disconnectText;
 
                 SwitchConnectedAircraft(connectedAircraft);
+                MainV2.instance.SubscribeOnWpChange();
             }
             catch (Exception)
             {
@@ -286,6 +287,7 @@ namespace MissionPlanner
             MAVLinkInterface.paramsLoading = false;
             MainV2.comPort.frmProgressReporter.doWorkArgs.CancelRequested = false;
             MainV2.comPort.frmProgressReporter.doWorkArgs.CancelAcknowledged = false;
+            MainV2.instance.UnsubscribeOnWpChange();
 
             if (selectedAircraft.SysId == null)
             {
@@ -298,8 +300,8 @@ namespace MissionPlanner
             }
 
             selectedAircraft.FuelSaved = false;
-            MainV2.StatusMenuPanel.SitlEmulation.EngineRunning = false;
-            MainV2.StatusMenuPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
+            MainV2.StatusControlPanel.SitlEmulation.EngineRunning = false;
+            MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
             
             if (selectedAircraft.UsingAntenna)
             {
@@ -549,7 +551,7 @@ namespace MissionPlanner
                         });
                     }
                     AntennaControl.Instance.SetAntennaState(true);
-                    MainV2.StatusMenuPanel.EnableControlBindings();
+                    MainV2.StatusControlPanel.EnableControlBindings();
                     // MainV2.View.Reload();
                 }
             }
@@ -628,14 +630,14 @@ namespace MissionPlanner
                     
                     if (!selectedAircraft.UsingSitl)
                     {
-                        MainV2.StatusMenuPanel.EnableControlBindings();
+                        MainV2.StatusControlPanel.EnableControlBindings();
                     }
                     else
                     {
-                        MainV2.StatusMenuPanel.DisableControlBindings();
+                        MainV2.StatusControlPanel.DisableControlBindings();
                     }
                     
-                    MainV2.StatusMenuPanel.SetFuelPbMinMax();
+                    MainV2.StatusControlPanel.SetFuelPbMinMax();
                     
                     // MainV2.View.Reload();
                 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Flurl.Util;
 using MissionPlanner.Controls;
 
@@ -29,6 +30,7 @@ namespace MissionPlanner
         }
 
         private readonly double _fuelConsumptionInSecond = 0.0001;
+        // private readonly double _fuelConsumptionInSecond = 0.1;
 
         private static SitlState _currentTarget;
 
@@ -59,7 +61,12 @@ namespace MissionPlanner
                 if (state.Name.Equals(name))
                 {
                     TransferRealParams(_currentTarget, state);
+                    Thread.Sleep(100);
                     _currentTarget = state;
+                    if (name == SitlState.SitlStateName.Takeoff)
+                    {
+                        _engineRunning = true;
+                    }
                     return;
                 }
             }

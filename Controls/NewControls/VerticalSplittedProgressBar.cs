@@ -260,7 +260,7 @@ namespace MissionPlanner.Controls.NewControls
 
 			// int blockheight = width * 3 / 4;        // The height of the block
             // int blockheight = (int)Math.Round((double)(this.Height - m_Step * 2 / 3) / (double)m_Step); // The height of the block
-            int blockheight = (int)Math.Round((double)(this.Height - 7) / (double)(m_Maximum / m_Step)); // The height of the block
+            int blockheight = (int)Math.Round((double)(this.Height - 7) / (double)((m_Maximum - m_Minimum) / m_Step)); // The height of the block
 
 			if (blockheight <= -1) return; // make sure blockheight is larger than -1 in order not to have the infinite loop.
 

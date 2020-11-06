@@ -160,6 +160,9 @@ namespace MissionPlanner.GCSViews
         public static bool rulerActive = false;
         public PointLatLng landPoint = new PointLatLng(0, 0);
 
+        Thread thisthread;
+        public static bool threadrun;
+
         public void Init()
         {
             instance = this;
@@ -672,7 +675,7 @@ namespace MissionPlanner.GCSViews
             {
                 return;
             }
-            
+
             if ((MainV2.comPort.MAV.cs.capabilities & (uint) MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
             {
                 if (!MainV2.comPort.BaseStream.IsOpen)
@@ -717,7 +720,7 @@ namespace MissionPlanner.GCSViews
             {
                 return;
             }
-            
+
             wpLoadMutexBusy = true;
             needToLoadWP = false;
             setWpLoadingStatus(false);
@@ -3138,12 +3141,29 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            string aircraftNum = GetAircraftNum(aircraft);
-            string groundSpeed = (int) Math.Round(mavState.cs.groundspeed * 3.6) + " км/ч";
-            string alt = (int) Math.Round(mavState.cs.alt) + " м";
-            GPoint mavLocalLocation = MainMap.FromLatLngToLocal(new PointLatLng(mavState.cs.lat, mavState.cs.lng));
+            string aircraftNum, groundSpeed, alt;
+            GPoint mavLocalLocation;
+            if (StatusControlPanel.instance.IsSitlConnected() && MainV2.IsSitlLanding)
+            {
+                aircraftNum = GetAircraftNum(aircraft);
+                groundSpeed =
+                    (int) Math.Round(
+                        MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.GroundSpeed) *
+                        3.6) + " км/ч";
+                alt = (int) Math.Round(
+                    MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Alt)) + " м";
+                mavLocalLocation = MainMap.FromLatLngToLocal(new PointLatLng(landPoint.Lat, landPoint.Lng));
+            }
+            else
+            {
+                aircraftNum = GetAircraftNum(aircraft);
+                groundSpeed = (int) Math.Round(mavState.cs.groundspeed * 3.6) + " км/ч";
+                alt = (int) Math.Round(mavState.cs.alt) + " м";
+                mavLocalLocation = MainMap.FromLatLngToLocal(new PointLatLng(mavState.cs.lat, mavState.cs.lng));
+            }
+
             mavLocalLocation.Y += 30;
-            
+
             int GetFittedRectangleWidth(string text)
             {
                 return (int) Math.Truncate(font.SizeInPoints + 6) * text.Length;
@@ -3158,7 +3178,7 @@ namespace MissionPlanner.GCSViews
                 (int) mavLocalLocation.Y + rectAirNum.Height,
                 GetFittedRectangleWidth(groundSpeed), font.Height + 5);
 
-            Rectangle rectAlt = new Rectangle((int) mavLocalLocation.X ,
+            Rectangle rectAlt = new Rectangle((int) mavLocalLocation.X,
                 (int) mavLocalLocation.Y + rectAirNum.Height,
                 GetFittedRectangleWidth(alt), font.Height + 5);
 
@@ -4171,6 +4191,15 @@ namespace MissionPlanner.GCSViews
         public void FlightPlanner_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
+
+            DateTime end = DateTime.Now.AddSeconds(5);
+            if (thisthread != null)
+            {
+                while (thisthread.IsAlive && DateTime.Now < end)
+                {
+                    Application.DoEvents();
+                }
+            }
         }
 
         public void FlightPlanner_Load(object sender, EventArgs e)
@@ -4231,6 +4260,11 @@ namespace MissionPlanner.GCSViews
             Visible = true;
 
             timer1.Start();
+
+            // thisthread = new Thread(mainloop);
+            // thisthread.Name = "FD Mainloop";
+            // thisthread.IsBackground = true;
+            // thisthread.Start();
         }
 
         /// <summary>
@@ -5409,6 +5443,64 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
+        // private async void mainloop()
+        // {
+        //     threadrun = true;
+        //     EndPoint Remote = new IPEndPoint(IPAddress.Any, 0);
+        //
+        //     DateTime tracklast = DateTime.Now.AddSeconds(0);
+        //
+        //     DateTime tunning = DateTime.Now.AddSeconds(0);
+        //
+        //     DateTime mapupdate = DateTime.Now.AddSeconds(0);
+        //
+        //     DateTime vidrec = DateTime.Now.AddSeconds(0);
+        //
+        //     DateTime waypoints = DateTime.Now.AddSeconds(0);
+        //
+        //     DateTime updatescreen = DateTime.Now;
+        //
+        //     DateTime tsreal = DateTime.Now;
+        //     double taketime = 0;
+        //     double timeerror = 0;
+        //
+        //     while (!IsHandleCreated)
+        //         await Task.Delay(1000);
+        //
+        //     while (threadrun)
+        //     {
+        //         if (this.IsDisposed)
+        //         {
+        //             threadrun = false;
+        //             break;
+        //         }
+        //
+        //         try
+        //         {
+        //             // update map - 0.3sec if connected , 2 sec if not connected
+        //             if (((MainV2.comPort.BaseStream.IsOpen || MainV2.comPort.logreadmode) &&
+        //                  tracklast.AddSeconds(Settings.Instance.GetDouble("FD_MapUpdateDelay", 0.3)) < DateTime.Now) ||
+        //                 tracklast.AddSeconds(2) < DateTime.Now)
+        //             {
+        //                 if (MainMap.Visible)
+        //                 {
+        //                     MainMap.Invalidate();
+        //                 }
+        //
+        //                 tracklast = DateTime.Now;
+        //             }
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             log.Error(ex);
+        //             Tracking.AddException(ex);
+        //             Console.WriteLine("FP Main loop exception " + ex);
+        //         }
+        //     }
+        //
+        //     // Console.WriteLine("FP Main loop exit");
+        // }
+
         public void MainMap_Paint(object sender, PaintEventArgs e)
         {
             // draw utm grid
@@ -5509,6 +5601,7 @@ namespace MissionPlanner.GCSViews
                         DrawMAVInfo(e, MAV);
                     }
 
+
                     // var marker = Common.getMAVMarker(MAV);
                     // if (MainV2.testVisualisation && landPoint.Lat != 0)
                     // {
@@ -5522,6 +5615,7 @@ namespace MissionPlanner.GCSViews
                     //
                 }
             }
+
 
             e.Graphics.ResetTransform();
 
@@ -6902,6 +6996,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+
         /// <summary>
         /// Draw an mav icon, and update tracker location icon and guided mode wp on FP screen
         /// </summary>
@@ -6923,7 +7018,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 routesoverlay.Markers.Clear();
 
                 if (MainV2.comPort.MAV.cs.TrackerLocation != MainV2.comPort.MAV.cs.PlannedHomeLocation &&
-                    MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0)
+                    MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !MainV2.StatusControlPanel.IsSitlConnected())
                 {
                     addpolygonmarker("Tracker Home", MainV2.comPort.MAV.cs.TrackerLocation.Lng,
                         MainV2.comPort.MAV.cs.TrackerLocation.Lat, (int) MainV2.comPort.MAV.cs.TrackerLocation.Alt,
@@ -6943,7 +7038,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         if (MAV.cs.connected || true)
                         {
                             var marker = Common.getMAVMarker(MAV);
-                            if (MainV2.testVisualisation && landPoint.Lat != 0)
+                            if (MainV2.IsSitlLanding && landPoint.Lat != 0)
                             {
                                 marker.Position = landPoint;
                             }
@@ -6983,6 +7078,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 log.Warn(ex);
             }
+
+            MainMap.Invalidate();
         }
 
         private bool IsMAVInAircraftsList(MAVLinkInterface mav)
@@ -6993,6 +7090,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     continue;
                 }
+
                 ConnectionControl.port_sysid sysid = (ConnectionControl.port_sysid) aircraft.SysId;
                 if (mav == sysid.port)
                 {
@@ -7797,24 +7895,24 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             {
                                 case 1:
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF;
                                     row.Cells[Command.Index + 1].Value = (14).ToString();
                                     int v = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                                     row.Cells[Lon.Index + 1].Value = v.ToString();
                                     Commands.Rows.Insert(index, row);
                                     index++;
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        MAVLink.MAV_CMD.WAYPOINT;
                                     break;
                                 case 2:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        MAVLink.MAV_CMD.WAYPOINT;
                                     break;
                                 case 3:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        MAVLink.MAV_CMD.WAYPOINT;
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED;
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
                                     row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
                                     Commands.Rows.Insert(index + 1, row);
@@ -7824,9 +7922,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     landPoint = new PointLatLng(wpConfig.controller.wgs.Lat,
                                         wpConfig.controller.wgs.Lng);
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        MAVLink.MAV_CMD.WAYPOINT;
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE;
                                     row.Cells[Command.Index + 1].Value = "1";
                                     Commands.Rows.Insert(index + 1, row);
                                     if (MainV2.CurrentAircraftNum != null &&
@@ -7834,22 +7932,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         MainV2.CurrentAircraft.UsingSitl)
                                     {
                                         DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
-                                        row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                                        row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND;
                                         row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.Lat.ToString();
                                         row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
                                         Commands.Rows.Insert(index + 2, row1);
                                     }
-
                                     break;
                                 default:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        MAVLink.MAV_CMD.WAYPOINT;
                                     break;
                             }
                         }
                         else
                         {
-                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
+                            Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME;
                             Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
                             Commands_CellUpdate(index, Command.Index + 1);
                         }
@@ -7874,7 +7971,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 if (wpConfig.servos[i])
                                 {
                                     DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO;
                                     row.Cells[Command.Index + 1].Value = (i + 5).ToString();
                                     row.Cells[Command.Index + 2].Value = "2000";
                                     Commands.Rows.Insert(index + 1, row);
@@ -8630,7 +8727,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.Pen.Color = Color.Red;
-                    MainMap.Invalidate(false);
 
                     int answer;
                     if (item.Tag != null && rc.InnerMarker != null &&
@@ -8651,13 +8747,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = rc;
 
                     ShowPopupWpInfo(rc);
+                    MainMap.Invalidate(true);
                 }
 
                 if (item is GMapMarkerRallyPt)
                 {
                     CurrentRallyPt = item as GMapMarkerRallyPt;
                     //GMapMarkerRect rc = item as GMapMarkerRect;
-                    MainMap.Invalidate(false);
+                    // MainMap.Invalidate(false);
                     //CurentRectMarker = CurrentRallyPt;
                 }
 
@@ -8681,6 +8778,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
                     ShowPopupWpInfo(item);
+                    MainMap.Invalidate(true);
+
                 }
 
                 if (item is GMapMarker)
@@ -8727,7 +8826,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = null;
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.ResetColor();
-                    MainMap.Invalidate(false);
+                    // MainMap.Invalidate(false);
 
                     if (rc.Tag == "H")
                     {
@@ -8761,6 +8860,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     _wpControl.Hide();
                 }
             }
+            MainMap.Invalidate(true);
+
         }
 
         private void MainMap_OnTileLoadComplete(long ElapsedMilliseconds)

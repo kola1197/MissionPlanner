@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.GCSViews;
+using Xamarin.Forms.Internals;
 
 namespace MissionPlanner.NewForms
 {
@@ -65,6 +67,11 @@ namespace MissionPlanner.NewForms
             {
                 label14.Text = "До дома:";
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            FlightPlanner.instance.timer1_Tick(sender, new EventArgs());
         }
     }
 }

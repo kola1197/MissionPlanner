@@ -540,7 +540,7 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage.Minimum = 9.9D;
             this.splittedBar_voltage.Name = "splittedBar_voltage";
             this.splittedBar_voltage.Size = new System.Drawing.Size(25, 99);
-            this.splittedBar_voltage.Step = 1.4D;
+            this.splittedBar_voltage.Step = 0.27D;
             this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_voltage.TabIndex = 2;
             this.splittedBar_voltage.Value = 12D;
@@ -614,7 +614,7 @@ namespace MissionPlanner.Controls
             this.airspeed_SVPB.Minimum = 0D;
             this.airspeed_SVPB.Name = "airspeed_SVPB";
             this.airspeed_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.airspeed_SVPB.Step = 2D;
+            this.airspeed_SVPB.Step = 4.61D;
             this.airspeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.airspeed_SVPB.TabIndex = 8;
             this.airspeed_SVPB.Value = 12D;
@@ -629,7 +629,7 @@ namespace MissionPlanner.Controls
             this.groundSpeed_SVPB.Minimum = 0D;
             this.groundSpeed_SVPB.Name = "groundSpeed_SVPB";
             this.groundSpeed_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.groundSpeed_SVPB.Step = 2D;
+            this.groundSpeed_SVPB.Step = 4.61D;
             this.groundSpeed_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.groundSpeed_SVPB.TabIndex = 14;
             this.groundSpeed_SVPB.Value = 10D;
@@ -681,10 +681,10 @@ namespace MissionPlanner.Controls
             this.environmentTemp_SVPB.Minimum = -50D;
             this.environmentTemp_SVPB.Name = "environmentTemp_SVPB";
             this.environmentTemp_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.environmentTemp_SVPB.Step = 5D;
+            this.environmentTemp_SVPB.Step = 11D;
             this.environmentTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.environmentTemp_SVPB.TabIndex = 5;
-            this.environmentTemp_SVPB.Value = 10D;
+            this.environmentTemp_SVPB.Value = 0D;
             // 
             // engineTemp_SVPB
             // 
@@ -692,11 +692,11 @@ namespace MissionPlanner.Controls
             this.engineTemp_SVPB.Color = System.Drawing.Color.LimeGreen;
             this.engineTemp_SVPB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "rpm2", true));
             this.engineTemp_SVPB.Location = new System.Drawing.Point(174, 16);
-            this.engineTemp_SVPB.Maximum = 130D;
+            this.engineTemp_SVPB.Maximum = 140D;
             this.engineTemp_SVPB.Minimum = -50D;
             this.engineTemp_SVPB.Name = "engineTemp_SVPB";
             this.engineTemp_SVPB.Size = new System.Drawing.Size(25, 99);
-            this.engineTemp_SVPB.Step = 10D;
+            this.engineTemp_SVPB.Step = 16D;
             this.engineTemp_SVPB.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.engineTemp_SVPB.TabIndex = 9;
             this.engineTemp_SVPB.Value = 10D;
