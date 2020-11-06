@@ -2296,24 +2296,36 @@ namespace MissionPlanner
                     warnings.Add("Рассогласование скорости");
                 }
 
-                if (MainV2.comPort.MAV.cs.battery_voltage < 11)
+                if (MainV2.comPort.MAV.cs.battery_voltage < 11 )
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl)
+                if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl || StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) > 118)
                 {
                     warnings.Add("Перегрев двигателя");
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl)
+                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl || StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600)
                 {
                     warnings.Add("Превышение оборотов двигателя");
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
+                if (StatusControlPanel.IsSitlConnected())
                 {
-                    warnings.Add("Двигатель заглох");
+                    if (_currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) < 3000)
+                    {
+                        warnings.Add("Двигатель заглох");
+                    }
+                }
+                else
+                {
+                    if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
+                    {
+                        warnings.Add("Двигатель заглох");
+                    }
                 }
 
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
@@ -2323,8 +2335,10 @@ namespace MissionPlanner
 
                 try
                 {
-                    if (MainV2.comPort.MAV.cs.battery_voltage2 /
-                        MainV2.CurrentAircraft.MaxCapacity < 0.15 && isSitl) //check in persents
+                    if (comPort.MAV.cs.battery_voltage2 /
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15 && isSitl || StatusControlPanel.IsSitlConnected() &&
+                        _currentAircraft.Fuel /
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15) //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -2333,7 +2347,7 @@ namespace MissionPlanner
                 {
                 }
 
-                if (ParachuteReleased)
+                if (ParachuteReleased || StatusControlPanel.IsSitlConnected() && _isSitlLanding)
                 {
                     notifications.Add("Парашют выпущен");
                 }

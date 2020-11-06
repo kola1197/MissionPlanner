@@ -57,6 +57,7 @@ namespace MissionPlanner.NewForms
             this.backButton1 = new MissionPlanner.Controls.MyButton();
             this.gotReaction = new MissionPlanner.Controls.MyButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.backButton2 = new MissionPlanner.Controls.MyButton();
             this.armButton = new MissionPlanner.Controls.MyButton();
             this.nextButton1 = new MissionPlanner.Controls.MyButton();
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
@@ -73,7 +74,6 @@ namespace MissionPlanner.NewForms
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.backButton2 = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -410,17 +410,34 @@ namespace MissionPlanner.NewForms
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Предполетная подготовка";
             // 
+            // backButton2
+            // 
+            this.backButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton2.DefaultTheme = false;
+            this.backButton2.Location = new System.Drawing.Point(20, 421);
+            this.backButton2.Margin = new System.Windows.Forms.Padding(20);
+            this.backButton2.Name = "backButton2";
+            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.backButton2.Size = new System.Drawing.Size(75, 23);
+            this.backButton2.TabIndex = 6;
+            this.backButton2.Text = "Назад";
+            this.backButton2.TextColor = System.Drawing.Color.Black;
+            this.backButton2.UseVisualStyleBackColor = true;
+            this.backButton2.Visible = false;
+            this.backButton2.Click += new System.EventHandler(this.backButton2_Click);
+            // 
             // armButton
             // 
             this.armButton.BGGradBot = System.Drawing.Color.Aqua;
             this.armButton.BGGradTop = System.Drawing.Color.LawnGreen;
             this.armButton.DefaultTheme = false;
-            this.armButton.Location = new System.Drawing.Point(190, 421);
+            this.armButton.Location = new System.Drawing.Point(167, 421);
             this.armButton.Name = "armButton";
             this.armButton.Outline = System.Drawing.Color.Black;
-            this.armButton.Size = new System.Drawing.Size(135, 50);
+            this.armButton.Size = new System.Drawing.Size(178, 50);
             this.armButton.TabIndex = 3;
-            this.armButton.Text = "Разблок/Блок машинку газа";
+            this.armButton.Text = "Разблок./Блок. машинку газа";
             this.armButton.TextColor = System.Drawing.Color.Black;
             this.armButton.UseVisualStyleBackColor = true;
             this.armButton.Click += new System.EventHandler(this.armButton_Click);
@@ -599,23 +616,6 @@ namespace MissionPlanner.NewForms
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // backButton2
-            // 
-            this.backButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.DefaultTheme = false;
-            this.backButton2.Location = new System.Drawing.Point(20, 421);
-            this.backButton2.Margin = new System.Windows.Forms.Padding(20);
-            this.backButton2.Name = "backButton2";
-            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.backButton2.Size = new System.Drawing.Size(75, 23);
-            this.backButton2.TabIndex = 6;
-            this.backButton2.Text = "Назад";
-            this.backButton2.TextColor = System.Drawing.Color.Black;
-            this.backButton2.UseVisualStyleBackColor = true;
-            this.backButton2.Visible = false;
-            this.backButton2.Click += new System.EventHandler(this.backButton2_Click);
             // 
             // PreFlightForm
             // 

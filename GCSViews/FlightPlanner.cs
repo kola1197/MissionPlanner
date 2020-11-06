@@ -8727,7 +8727,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.Pen.Color = Color.Red;
-                    MainMap.Invalidate(false);
 
                     int answer;
                     if (item.Tag != null && rc.InnerMarker != null &&
@@ -8748,13 +8747,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = rc;
 
                     ShowPopupWpInfo(rc);
+                    MainMap.Invalidate(true);
                 }
 
                 if (item is GMapMarkerRallyPt)
                 {
                     CurrentRallyPt = item as GMapMarkerRallyPt;
                     //GMapMarkerRect rc = item as GMapMarkerRect;
-                    MainMap.Invalidate(false);
+                    // MainMap.Invalidate(false);
                     //CurentRectMarker = CurrentRallyPt;
                 }
 
@@ -8778,6 +8778,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
                     ShowPopupWpInfo(item);
+                    MainMap.Invalidate(true);
+
                 }
 
                 if (item is GMapMarker)
@@ -8824,7 +8826,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = null;
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.ResetColor();
-                    MainMap.Invalidate(false);
+                    // MainMap.Invalidate(false);
 
                     if (rc.Tag == "H")
                     {
@@ -8858,6 +8860,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     _wpControl.Hide();
                 }
             }
+            MainMap.Invalidate(true);
+
         }
 
         private void MainMap_OnTileLoadComplete(long ElapsedMilliseconds)
