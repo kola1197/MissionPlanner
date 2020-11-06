@@ -101,7 +101,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(184, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 26);
@@ -308,13 +308,16 @@
             // 
             // saveButton
             // 
-            this.saveButton.BGGradBot = System.Drawing.Color.Empty;
-            this.saveButton.BGGradTop = System.Drawing.Color.Empty;
+            this.saveButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.saveButton.BGGradTop = System.Drawing.Color.Transparent;
+            this.saveButton.DefaultTheme = false;
             this.saveButton.Location = new System.Drawing.Point(140, 415);
             this.saveButton.Name = "saveButton";
+            this.saveButton.Outline = System.Drawing.Color.Black;
             this.saveButton.Size = new System.Drawing.Size(388, 23);
             this.saveButton.TabIndex = 23;
             this.saveButton.Text = "Сохранить";
+            this.saveButton.TextColor = System.Drawing.Color.White;
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.saveButton_MouseUp);
             // 
@@ -746,6 +749,7 @@
             this.Size = new System.Drawing.Size(718, 451);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.ComboBox comboBox1;

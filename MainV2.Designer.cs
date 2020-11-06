@@ -366,7 +366,7 @@ namespace MissionPlanner
             this.myButton6.Outline = System.Drawing.Color.Empty;
             this.myButton6.TextColor = System.Drawing.Color.Empty;
             this.myButton6.UseVisualStyleBackColor = true;
-            this.myButton6.Visible = false;
+            this.myButton6.Visible = true;
             this.myButton6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton6_MouseUp);
             // 
             // myButton5
@@ -378,7 +378,7 @@ namespace MissionPlanner
             this.myButton5.Outline = System.Drawing.Color.Empty;
             this.myButton5.TextColor = System.Drawing.Color.Empty;
             this.myButton5.UseVisualStyleBackColor = true;
-            this.myButton5.Visible = false;
+            this.myButton5.Visible = true;
             this.myButton5.Click += new System.EventHandler(this.myButton5_Click);
             // 
             // snsControl2

@@ -7816,7 +7816,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
-                                    row.Cells[Command.Index + 1].Value = String.Format("{0:0.00}", (speed / 3.6));
+                                    row.Cells[Command.Index + 2].Value = "0";
+                                    row.Cells[Command.Index + 2].Value = String.Format("{0:0.00}", (speed / 3.6));
                                     Commands.Rows.Insert(index + 1, row);
                                     Commands_CellUpdate(index, Command.Index + 1);
                                     break;
@@ -7827,7 +7828,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
-                                    row.Cells[Command.Index + 1].Value = "1";
+                                    row.Cells[Command.Index + 1].Value = "2";
                                     Commands.Rows.Insert(index + 1, row);
                                     if (MainV2.CurrentAircraftNum != null &&
                                         MainV2.CurrentAircraft != null &&
@@ -7850,7 +7851,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         else
                         {
                             Commands.Rows[index].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TIME.ToString();
-                            Commands.Rows[index].Cells[Command.Index + 1].Value = wpConfig.textBox3.Text;
+                            double t =0; 
+                            double.TryParse(wpConfig.textBox3.Text, out t);
+                            t *= 60;
+                            Commands.Rows[index].Cells[Command.Index + 1].Value = t.ToString();
                             Commands_CellUpdate(index, Command.Index + 1);
                         }
 
@@ -7932,6 +7936,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.comboBox1.SelectedIndex = 2;
                     wpConfig.comboBox1.Enabled = false;
                     wpConfig.checkBox1.Checked = true;
+                    double t = 0;
+                    double.TryParse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString(), out t);
+                    t /= 60;
+                    wpConfig.textBox3.Text = Math.Round(t).ToString();
                     break;
                 default:
                     wpConfig.comboBox1.SelectedIndex = 2;
@@ -9051,9 +9059,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         break;
                     case (ushort) MAVLink.MAV_CMD.DO_CHANGE_SPEED:
                         wpConfig.comboBox1.SelectedIndex = 3;
-                        double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value
-                            .ToString());
-                        wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
+                        string s = Commands.Rows[index + 1].Cells[Command.Index + 2].Value.ToString();
+                        double speed = double.Parse(s);
+                        speed *= 3.6;
+                        wpConfig.textBox5.Text = Math.Round(speed).ToString();
                         break;
                     case (ushort) MAVLink.MAV_CMD.DO_SET_SERVO:
                         wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
@@ -9142,7 +9151,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void cleanToNextWP(int index)
         {
-            if (index != 0)
+            if (index != 0 || true)
             {
                 while (index + 1 < Commands.Rows.Count &&
                        (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
