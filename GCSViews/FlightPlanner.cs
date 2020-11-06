@@ -7715,6 +7715,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         //wpConfig.latTB1.Text = pointlist[0].Lat.ToString();
                         //wpConfig.lonTB1.Text = pointlist[0].Lng.ToString();
                         wpConfig.comboBox1.SelectedIndex = 0;
+                        wpConfig.setCoordsMode();
                         wpConfig.Show();
                     }
                     else
@@ -7964,7 +7965,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     result++;
                 }
             }
-
             return result;
         }
 
