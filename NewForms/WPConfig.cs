@@ -49,7 +49,7 @@ namespace MissionPlanner.NewForms
             SerialNum = _serNum;
             Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
             latTB1.Text = "";
-            if (MainV2.loiterRad == -1)
+            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected)
             {
                 MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");
             }
@@ -68,7 +68,7 @@ namespace MissionPlanner.NewForms
             {
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
-            if (MainV2.loiterRad == -1) 
+            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected)
             {
                 MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");   
             }
