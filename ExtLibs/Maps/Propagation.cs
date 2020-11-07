@@ -120,6 +120,7 @@ namespace MissionPlanner.Maps
             this.HomeLocation = HomeLocation;
             DroneLocation = Location;
             distance.Markers.Clear();
+            // BeginInvoke((Action) delegate { distance.Markers.Clear(); });
 
             if (connected && home_kmleft)
             {

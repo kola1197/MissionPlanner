@@ -15,9 +15,22 @@ namespace MissionPlanner.NewForms
         public SNSInfo()
         {
             InitializeComponent();
-            this.TopMost = true;
             updateLabels();
             timer1.Start();
+        }
+
+        public void setPosition() 
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(50, MainV2.instance.Height - 150);
+        }
+
+        public void setPosition(Point p)
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = p;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

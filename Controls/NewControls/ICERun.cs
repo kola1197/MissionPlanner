@@ -13,31 +13,64 @@ namespace MissionPlanner.Controls.NewControls
     public partial class ICERun : UserControl
     {
         private bool testMode = false;
-        bool ICERunning = false;
+        private bool _iceRunning = false;
+
+        private bool ICERunning
+        {
+            get => _iceRunning;
+            set
+            {
+                _iceRunning = value;
+                MainV2.StatusControlPanel.SitlEmulation.EngineRunning = value;
+            }
+        }
+
         private int engineoffCounter = 0;
         private int key = -1;
         float trim3 = 900;
+
         public ICERun()
         {
             InitializeComponent();
-            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
+        }
 
+        public void Init()
+        {
+            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             updateLabels();
+            float rpm1, rpm2;
+            if (StatusControlPanel.instance.IsSitlConnected())
+            {
+                rpm1 = (float) MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm);
+                rpm2 = (float) MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName
+                    .Temperature);
+            }
+            else
+            {
+                rpm1 = MainV2.comPort.MAV.cs.rpm1;
+                rpm2 = MainV2.comPort.MAV.cs.rpm2;
+            }
+
             if (!testMode)
             {
-                if (MainV2.comPort.MAV.cs.rpm1 > 3000)
+                if (rpm1 > 3000)
                 {
-                     //ICERunning = true;
-                     //startButton.Text = "Заглушить";
-                     //startButton.Enabled = false;
-                     label3.Text = "Двигатель достиг 3000 оборотов";
+                    //ICERunning = true;
+                    //startButton.Text = "Заглушить";
+                    //startButton.Enabled = false;
+                    label3.Text = "Двигатель достиг 3000 оборотов";
+                    if (MainV2.StatusControlPanel.SitlEmulation.GetCurrentStateName() ==
+                        SitlState.SitlStateName.EngineStart)
+                    {
+                        MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.EngineWarmUp);
+                    }
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm1 < 2500)
+                if (rpm1 < 2500)
                 {
                     label3.Text = "Обороты двигателя < 2500";
 
@@ -48,7 +81,7 @@ namespace MissionPlanner.Controls.NewControls
                 }
             }
 
-            if (!startButton.Enabled && MainV2.comPort.MAV.cs.rpm2 > 40)   // temp > 40
+            if (!startButton.Enabled && rpm2 > 40) // temp > 40
             {
                 startButton.Enabled = true;
                 label3.Text += "\n Температура двигателя ОК»;";
@@ -58,7 +91,7 @@ namespace MissionPlanner.Controls.NewControls
             if (engineoffCounter > 1)
             {
                 engineoffCounter--;
-                System.Diagnostics.Debug.Write("=====================EngineCounter = "+engineoffCounter.ToString());
+                System.Diagnostics.Debug.Write("=====================EngineCounter = " + engineoffCounter.ToString());
             }
 
             if (engineoffCounter == 1)
@@ -72,23 +105,33 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        public void focused(bool b)  //need to get engine key 
+        public void focused(bool b) //need to get engine key 
         {
             if (b)
             {
                 key = MainV2.engineController.getAccessKeyToEngine();
             }
-            else 
+            else
             {
                 MainV2.engineController.resetKey();
                 key = -1;
             }
         }
 
-        private void updateLabels() 
+        private void updateLabels()
         {
-            spedsLabel.Text = MainV2.comPort.MAV.cs.rpm1.ToString();
-            tempLabel.Text = MainV2.comPort.MAV.cs.rpm2.ToString();
+            if (MainV2.StatusControlPanel.IsSitlConnected())
+            {
+                spedsLabel.Text =
+                    MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamToString(SitlParam.ParameterName.Rpm);
+                tempLabel.Text =
+                    MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamToString(SitlParam.ParameterName.Temperature);
+            }
+            else
+            {
+                spedsLabel.Text = MainV2.comPort.MAV.cs.rpm1.ToString();
+                tempLabel.Text = MainV2.comPort.MAV.cs.rpm2.ToString();
+            }
         }
 
         private void startButton_MouseUp(object sender, MouseEventArgs e)
@@ -100,12 +143,15 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+
+                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
                 if (testMode)
                 {
                     startButton.Text = "Запустить";
                     ICERunning = false;
                 }
+
                 startButton.Text = "Запустить";
                 ICERunning = false;
                 System.Diagnostics.Debug.Write("DISABLE +++++++++++++++");
@@ -117,10 +163,12 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
+
+                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
                 startButton.Text = "Заглушить";
                 ICERunning = true;
-                
+
                 System.Diagnostics.Debug.Write("ENABLE +++++++++++++++");
             }
         }

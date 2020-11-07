@@ -17,7 +17,7 @@ namespace MissionPlanner.Controls
 {
     public partial class AircraftMenuControl : UserControl
     {
-        PreFlightForm preFlightForm;
+        public PreFlightForm preFlightForm;
         public static AircraftMenuControl Instance;
         public class aircraftButtonInfo
         {
@@ -60,8 +60,8 @@ namespace MissionPlanner.Controls
 
         private void Aircraft_BUT1_MouseEnter(object sender, EventArgs e)
         {
-            this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
-            this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+            //this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_MMove;
+            //this.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
             //aircraft_BUT1.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_cloud;
         }
 
@@ -78,10 +78,12 @@ namespace MissionPlanner.Controls
                 return;
             }
 
-            if (MainV2.Aircrafts.Count > butNum && MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum != butNum)
+            if (MainV2.Aircrafts.Count > butNum && (MainV2.CurrentAircraft.MenuNum != butNum ||
+                                                    MainV2.CurrentAircraftNum != null && MainV2.AntennaConnectionInfo.Active))
             {
                 MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
+
             updateCentralButton();
         }
 
@@ -90,8 +92,8 @@ namespace MissionPlanner.Controls
             int butNum = -1;
             if (MainV2.CurrentAircraftNum != null)
             {
-                butNum = MainV2.Aircrafts[MainV2.CurrentAircraftNum].MenuNum;
-                aircraftInAir = MainV2.Aircrafts[MainV2.CurrentAircraftNum].inAir;
+                butNum = MainV2.CurrentAircraft.MenuNum;
+                aircraftInAir = MainV2.CurrentAircraft.inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
                 centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_cb2;
                 this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
@@ -197,6 +199,7 @@ namespace MissionPlanner.Controls
                     preFlightForm.Close();
                 }
                 preFlightForm = new PreFlightForm();
+                preFlightForm.Init();
                 preFlightForm.Show();
             }
         }

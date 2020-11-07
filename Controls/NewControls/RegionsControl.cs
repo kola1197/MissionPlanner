@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GDAL;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -31,6 +32,7 @@ namespace MissionPlanner.Controls.NewControls
         private ArrayList _regionPoints = new ArrayList();
         private int _latIndex, _lngIndex;
         private TextBox _editTextBox;
+        private bool cellEditEnded = false;
 
         private int RegionNum
         {
@@ -106,19 +108,20 @@ namespace MissionPlanner.Controls.NewControls
         //
         //     e.DrawFocusRectangle();
         // }
-        
+
         private string RemoveDigitsFromString(string input)
         {
             return new String(input.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
         }
-        
+
         private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Back)
             {
                 string text = _editTextBox.Text;
                 int selectionStart = _editTextBox.SelectionStart;
-                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-')
+                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-' &&
+                    text[selectionStart - 1] != '.')
                 {
                     _editTextBox.SelectionStart--;
                     _editTextBox.SelectionLength = 0;
@@ -132,7 +135,8 @@ namespace MissionPlanner.Controls.NewControls
                 string text = _editTextBox.Text;
                 int selectionStart = _editTextBox.SelectionStart;
 
-                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) && text[selectionStart] != '-')
+                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) &&
+                    text[selectionStart] != '-' && text[selectionStart] != '.')
                 {
                     _editTextBox.SelectionStart++;
                     _editTextBox.SelectionLength = 0;
@@ -140,18 +144,30 @@ namespace MissionPlanner.Controls.NewControls
                     e.SuppressKeyPress = true;
                 }
             }
-            
-            
+
+            // if (e.KeyCode == Keys.Enter)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            //     e.SuppressKeyPress = true;
+            // }
+
             if (_editTextBox.SelectionLength > 0)
             {
                 _editTextBox.SelectionStart = _editTextBox.Text.Length;
                 e.Handled = true;
             }
         }
-        
-        
+
+
         private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
         {
+            // if (e.KeyChar == (char) 13)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            // }
+
             if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
             {
                 e.Handled = true;
@@ -171,13 +187,13 @@ namespace MissionPlanner.Controls.NewControls
         {
             RemoveSelection(sender);
         }
-        
+
         private void editTextBox_GotFocus(object sender, EventArgs e)
         {
             RemoveSelection(sender);
             _editTextBox.SelectionStart = _editTextBox.Text.Length;
         }
-        
+
         private void editTextBox_MouseUp(object sender, MouseEventArgs e)
         {
             RemoveSelection(sender);
@@ -187,7 +203,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             RemoveSelection(sender);
         }
-        
+
         private void EditTextBoxOnTextChanged(object sender, EventArgs e)
         {
         }
@@ -199,6 +215,7 @@ namespace MissionPlanner.Controls.NewControls
             latLong_DGV.Refresh();
             name_TB.Text = "";
         }
+
 
         private void ClearPropertiesBindings()
         {
@@ -217,7 +234,7 @@ namespace MissionPlanner.Controls.NewControls
             return true;
         }
 
-        public void UpdateBindings()
+        private async Task UpdateControlBindingsAsync()
         {
             regionsProperties_GB.Enabled = FlightPlanner.RegionsOverlay.Polygons.Count != 0;
             ClearPropertiesBindings();
@@ -235,6 +252,11 @@ namespace MissionPlanner.Controls.NewControls
                 latLong_DGV.Columns.Remove("IsEmpty");
 
             // Invalidate();
+        }
+
+        public async Task UpdateBindings()
+        {
+            await UpdateControlBindingsAsync();
         }
 
         private void addRegion_BUT_Click(object sender, EventArgs e)
@@ -256,7 +278,7 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (polygon == null)
                 return;
-            
+
             UpdateBindings();
             if (polygon.Points.Count == 0)
             {
@@ -282,7 +304,7 @@ namespace MissionPlanner.Controls.NewControls
             });
 
             FlightPlanner.instance.MainMap.UpdatePolygonLocalPosition(polygon);
-            
+
             FlightPlanner.instance.MainMap.Invalidate();
         }
 
@@ -377,75 +399,64 @@ namespace MissionPlanner.Controls.NewControls
         private void ReadEditedValueFromTextBox()
         {
             double editedCoordinate;
-            if (!double.TryParse(_editTextBox.Text.Replace('.', ','), out editedCoordinate))
-            {
-                editedCoordinate = Convert.ToDouble(latLong_DGV.CurrentCell.Value);
-                // CustomMessageBox.Show("Введите корректные координаты", "Неправильный формат введенных данных");
-            }
 
+            Tuple<string, string> readingPoint;
+            PointLatLng convertedPoint;
+            double coordToParse;
             if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
             {
-                _pointInEdit.Lat = editedCoordinate;
+                string lat = _editTextBox.Text.Replace('.', ',');
+                // string lat = _editTextBox.Text;
+                string lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
+                readingPoint = new Tuple<string, string>(lat, lng);
+                if (!TryConvertToLatLng(readingPoint, out convertedPoint))
+                {
+                    readingPoint = new Tuple<string, string>(latLong_DGV.CurrentCell.Value.ToString(),
+                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString());
+                    TryConvertToLatLng(readingPoint, out convertedPoint);
+                }
+
+                coordToParse = convertedPoint.Lat;
             }
             else
             {
-                _pointInEdit.Lng = editedCoordinate;
+                string lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
+                // string lng = _editTextBox.Text;
+                string lng = _editTextBox.Text.Replace('.', ',');
+                readingPoint = new Tuple<string, string>(lat, lng);
+                if (!TryConvertToLatLng(readingPoint, out convertedPoint))
+                {
+                    readingPoint = new Tuple<string, string>(
+                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(),
+                        latLong_DGV.CurrentCell.Value.ToString());
+                    TryConvertToLatLng(readingPoint, out convertedPoint);
+                }
+
+                coordToParse = convertedPoint.Lng;
+            }
+
+
+            // if (!double.TryParse(coordToParse.Replace('.', ','), out editedCoordinate))
+            // {
+            //     editedCoordinate = Convert.ToDouble(latLong_DGV.CurrentCell.Value);
+            //     // CustomMessageBox.Show("Введите корректные координаты", "Неправильный формат введенных данных");
+            // }
+
+
+            if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
+            {
+                _pointInEdit.Lat = coordToParse;
+            }
+            else
+            {
+                _pointInEdit.Lng = coordToParse;
             }
         }
 
         private void latLong_DGV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            // Total shitcode but no clue how to do properly
-            if (regionsBindingSource.Count == 0)
-            {
-                return;
-            }
-
-            ReadEditedValueFromTextBox();
-
-            GMapPolygon currentPolygon = GetCurrentPolygon();
-            ArrayList updatedPoints = new ArrayList();
-
-
-            foreach (DataGridViewRow row in latLong_DGV.Rows)
-            {
-                double lat, lng;
-                if (row.Index == _rowInEdit)
-                {
-                    lat = _pointInEdit.Lat;
-                    lng = _pointInEdit.Lng;
-                }
-                else
-                {
-                    lat = Convert.ToDouble(row.Cells[_latIndex].Value);
-                    lng = Convert.ToDouble(row.Cells[_lngIndex].Value);
-                }
-
-                updatedPoints.Add(new PointLatLng(lat, lng));
-            }
-
-            currentPolygon.Points.Clear();
-
-            foreach (PointLatLng point in updatedPoints)
-            {
-                currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
-            }
-
-            ClearEditTbEvents();
-            
-            RedrawPolygonSurvey(GetCurrentPolygon());
         }
 
-        private void ClearEditTbEvents()
-        {
-            _editTextBox.TextChanged -= EditTextBoxOnTextChanged;
-            _editTextBox.KeyPress -= EditTextBoxOnKeyPress;
-            _editTextBox.MouseUp -= editTextBox_MouseUp;
-            _editTextBox.KeyUp -= editTextBox_KeyUp;
-            _editTextBox.KeyDown -= editTextBox_OnKeyDown;
-            _editTextBox.GotFocus -= editTextBox_GotFocus;
-            _editTextBox.MouseMove -= editTextBox_MouseMove;
-        }
 
         private void latLong_DGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -512,14 +523,25 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             _editTextBox = e.Control as TextBox;
-            
-            _editTextBox.TextChanged += EditTextBoxOnTextChanged;
+
+            // _editTextBox.TextChanged += EditTextBoxOnTextChanged;
             _editTextBox.KeyPress += EditTextBoxOnKeyPress;
-            _editTextBox.MouseUp += editTextBox_MouseUp;
-            _editTextBox.KeyUp += editTextBox_KeyUp;
+            // _editTextBox.MouseUp += editTextBox_MouseUp;
+            // _editTextBox.KeyUp += editTextBox_KeyUp;
             _editTextBox.KeyDown += editTextBox_OnKeyDown;
-            _editTextBox.GotFocus += editTextBox_GotFocus;
-            _editTextBox.MouseMove += editTextBox_MouseMove;
+            // _editTextBox.GotFocus += editTextBox_GotFocus;
+            // _editTextBox.MouseMove += editTextBox_MouseMove;
+        }
+
+        private void ClearEditTbEvents()
+        {
+            // _editTextBox.TextChanged -= EditTextBoxOnTextChanged;
+            _editTextBox.KeyPress -= EditTextBoxOnKeyPress;
+            // _editTextBox.MouseUp -= editTextBox_MouseUp;
+            // _editTextBox.KeyUp -= editTextBox_KeyUp;
+            _editTextBox.KeyDown -= editTextBox_OnKeyDown;
+            // _editTextBox.GotFocus -= editTextBox_GotFocus;
+            // _editTextBox.MouseMove -= editTextBox_MouseMove;
         }
 
         private void latLong_DGV_CancelRowEdit(object sender, System.Windows.Forms.QuestionEventArgs e)
@@ -532,20 +554,60 @@ namespace MissionPlanner.Controls.NewControls
             {
                 // get current cell
                 var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+
                 // check new value.
                 var c0 = 0.0;
-                if (e.FormattedValue == null || !Double.TryParse(e.FormattedValue.ToString(), NumberStyles.Number,
-                    new CultureInfo("en-US"), out c0))
+
+                Tuple<string, string> readingPoint;
+                PointLatLng convertedPoint;
+                double coordToParse;
+                string lat, lng;
+                bool isLatitude = e.ColumnIndex == 1;
+                if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
                 {
-                    // bad value inserted
+                    lat = e.FormattedValue.ToString();
+                    lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
 
-                    // e.FormattedValue - is new value
-                    // cell.Value - contains 'old' value
+                    UniversalCoordinatsController controller =
+                        new UniversalCoordinatsController(
+                            new WGSCoordinats(latLong_DGV.Rows[_rowInEdit].Cells[_latIndex].Value.ToString(), lng));
+                    lng = FormatCoordinateFromWgs(controller, isLatitude);
+                }
+                else
+                {
+                    lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
+                    lng = e.FormattedValue.ToString();
 
-                    // choose any:
+                    UniversalCoordinatsController controller =
+                        new UniversalCoordinatsController(
+                            new WGSCoordinats(latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(), lng));
+                    lat = FormatCoordinateFromWgs(controller, isLatitude);
+                }
+
+                lat = lat.Replace('.', ',');
+                lng = lng.Replace('.', ',');
+
+                readingPoint = new Tuple<string, string>(lat, lng);
+
+                if (e.FormattedValue == null || !TryConvertToLatLng(readingPoint, out convertedPoint))
+                {
                     cell.Value = cell.Value; // this way we return 'old' value
                     e.Cancel = true; // this way we make user not leave the cell until he pastes the value we expect
                 }
+
+                //
+                // if (e.FormattedValue == null || !Double.TryParse(e.FormattedValue.ToString(), NumberStyles.Number,
+                //     new CultureInfo("en-US"), out c0))
+                // {
+                //     // bad value inserted
+                //
+                //     // e.FormattedValue - is new value
+                //     // cell.Value - contains 'old' value
+                //
+                //     // choose any:
+                //     cell.Value = cell.Value; // this way we return 'old' value
+                //     e.Cancel = true; // this way we make user not leave the cell until he pastes the value we expect
+                // }
             }
             catch (Exception ex)
             {
@@ -708,148 +770,229 @@ namespace MissionPlanner.Controls.NewControls
 
         private void latLong_DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            if (e.RowIndex == _latIndex)
+            // DataGridView dgv = sender as DataGridView;
+            // UniversalCoordinatsController controller =
+            //     new UniversalCoordinatsController(new WGSCoordinats(GetPointByRow(e.RowIndex).Lat,
+            //         GetPointByRow(e.RowIndex).Lng));
+            // bool isLatitude = e.ColumnIndex == 1;
+            // string oldValue = FormatCoordinateFromWgs(controller, isLatitude);
+            //
+            // dgv[e.ColumnIndex, e.RowIndex].Value = oldValue;
+            e.Cancel = false;
+            e.ThrowException = false;
+            // if (e.RowIndex == _latIndex)
+            // {
+            //     dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lat.ToString("N6");
+            // }
+            // else
+            // {
+            //     dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lng.ToString("N6");
+            // }
+        }
+
+        private bool TryConvertToLatLng(Tuple<string, string> pointFrom, out PointLatLng pointTo)
+        {
+            UniversalCoordinatsController controller;
+            if (TryCreateController(pointFrom, out controller))
             {
-                dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lat.ToString("N6");
+                pointTo = new PointLatLng(controller.wgs.Lat, controller.wgs.Lng);
+                return true;
             }
             else
             {
-                dgv[e.ColumnIndex, e.RowIndex].Value = _pointInEdit.Lng.ToString("N6");
+                pointTo = _pointInEdit;
+                return false;
             }
-        }
-
-        // If I didnt rewrite converter then I must die
-        private PointLatLng ConvertToLatLng(PointLatLng point)
-        {
-            UniversalCoordinatsController controller = CreateController(point);
-            return new PointLatLng(controller.wgs.Lat, controller.wgs.Lng);
         }
 
         private PointLatLng GetPointByRow(int rowIndex)
         {
             return GetCurrentPolygon().Points[rowIndex];
         }
-        
+
         private string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
         {
-            switch (MainV2.coordinatsShowMode) 
+            switch (MainV2.CoordinatsShowMode)
             {
                 case 0:
                     if (isLat)
                     {
-                        return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));;
+                        return controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
                     }
                     else
                     {
-                        return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));;                        
+                        return controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
                     }
                     break;
                 case 1:
                     if (isLat)
                     {
-                        return controller.wgs.to_GM_View_lat();                        
+                        return controller.wgs.to_GM_View_lat();
                     }
                     else
                     {
                         return controller.wgs.to_GM_View_lon();
                     }
+
                     break;
                 case 2:
                     if (isLat)
                     {
-                        return controller.wgs.to_GMS_View_lat();                        
+                        return controller.wgs.to_GMS_View_lat();
                     }
                     else
                     {
-                        return controller.wgs.to_GMS_View_lon();                        
+                        return controller.wgs.to_GMS_View_lon();
                     }
+
                     break;
                 case 3:
                     if (isLat)
                     {
-                    return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;                        
+                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));
                     }
                     else
                     {
-                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));
                     }
+
                     break;
                 case 4:
                     if (isLat)
                     {
-                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GM().Item1;
                     }
                     else
                     {
-                    return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GM().Item2;
                     }
+
                     break;
                 case 5:
                     if (isLat)
                     {
-                        return controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GMS().Item1;
                     }
                     else
                     {
-                        return controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));;
-                        
+                        return controller.wgs.ToSk42_GMS().Item2;
                     }
+
                     break;
                 case 6:
                     if (isLat)
                     {
-                        return controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));;
+                        return controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));
                     }
                     else
                     {
-                        return controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));;
+                        return controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));
                     }
+
                     break;
                 default:
                     return "-1.0";
             }
-            
         }
-        
+
         // private PointLatLng ConvertFromLatLng(PointLatLng point)
         // {
         //     
         // }
 
-        private UniversalCoordinatsController CreateController(PointLatLng point)
+        private bool TryCreateController(Tuple<string, string> point, out UniversalCoordinatsController controller)
         {
-            UniversalCoordinatsController controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
-            switch (MainV2.coordinatsShowMode)
+            bool successfullyCreated = false;
+            controller = null;
+            try
             {
-                case 0:
-                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
-                    break;
-                case 1:
-                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
-                    break;
-                case 2:
-                    controller = new UniversalCoordinatsController(new WGSCoordinats(point.Lat, point.Lng));
-                    break;
-                case 3:
-                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
-                    break;
-                case 4:
-                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
-                    break;
-                case 5:
-                    controller = new UniversalCoordinatsController(new SK42Coordinats(point.Lat, point.Lng));
-                    break;
-                case 6:
-                    controller = new UniversalCoordinatsController(new RectCoordinats(point.Lat, point.Lng));
-                    break;
+                controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
+                switch (MainV2.CoordinatsShowMode)
+                {
+                    case 0:
+                        controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 1:
+                        controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 2:
+                        controller = new UniversalCoordinatsController(new WGSCoordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 3:
+                        controller = new UniversalCoordinatsController(new SK42Coordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 4:
+                        controller = new UniversalCoordinatsController(new SK42Coordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 5:
+                        controller = new UniversalCoordinatsController(new SK42Coordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                    case 6:
+                        controller = new UniversalCoordinatsController(new RectCoordinats(point.Item1, point.Item2));
+                        successfullyCreated = true;
+                        break;
+                }
+            }
+            catch
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
+
+        private async Task CallCellEndEditAsync()
+        {
+        }
+
+        private void latLong_DGV_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+            // Total shitcode but no clue how to do properly
+            if (regionsBindingSource.Count == 0)
+            {
+                return;
             }
 
-            return controller;
+            ReadEditedValueFromTextBox();
+
+            GMapPolygon currentPolygon = GetCurrentPolygon();
+            ArrayList updatedPoints = new ArrayList();
+
+
+            foreach (DataGridViewRow row in latLong_DGV.Rows)
+            {
+                double lat, lng;
+                if (row.Index == _rowInEdit)
+                {
+                    lat = _pointInEdit.Lat;
+                    lng = _pointInEdit.Lng;
+                }
+                else
+                {
+                    lat = Convert.ToDouble(row.Cells[_latIndex].Value);
+                    lng = Convert.ToDouble(row.Cells[_lngIndex].Value);
+                }
+
+                updatedPoints.Add(new PointLatLng(lat, lng));
+            }
+
+            currentPolygon.Points.Clear();
+
+            foreach (PointLatLng point in updatedPoints)
+            {
+                currentPolygon.Points.Add(new PointLatLng(point.Lat, point.Lng));
+            }
+
+            ClearEditTbEvents();
+
+            RedrawPolygonSurvey(GetCurrentPolygon());
+
+            cellEditEnded = true;
         }
     }
 }

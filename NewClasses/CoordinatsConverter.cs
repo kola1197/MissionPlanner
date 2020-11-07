@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GMap.NET;
 
 namespace MissionPlanner.NewClasses
 {
@@ -75,21 +77,24 @@ namespace MissionPlanner.NewClasses
         private double[] splitFromString(string input)
         {
             double[] result = new double[] {0,0,0};
-            input = input.Replace("\""," ");
-            input = input.Replace("\'", " ");
-            input = input.Replace("°", " ");
-            string[] values = input.Split(' ');
-            result = new double[values.Length];
+            input = input.Replace("\"","$");
+            input = input.Replace("\'", "$");
+            input = input.Replace("°", "$");
+            string[] values = input.Split('$');
+            //result = new double[values.Length];
             for (int i = 0; i < values.Length; i++) 
             {
-                result[i] = double.Parse(values[i]);
+                if (values[i] != "" && i<3)
+                {
+                    result[i] = double.Parse(values[i]);
+                }
             }
             return result; 
         }
 
         public string to_G_View() 
         {
-            return Lat.ToString("0.00") + "°, " + Lng.ToString("0.00°");
+            return Lat.ToString("F2", new CultureInfo("en-US")) + "°, " + Lng.ToString("0.00°");
         }
 
         public string to_GM_View_lat()
@@ -149,6 +154,17 @@ namespace MissionPlanner.NewClasses
             return result;
         }
 
+        public Tuple<string, string> ToSk42_GM()
+        {
+            return CoordinatsConverter.toSK42_GM_Point(Lat, Lng, Alt);
+        }
+        
+        public Tuple<string, string> ToSk42_GMS()
+        {
+            return CoordinatsConverter.toSK42_GMS_Point(Lat, Lng, Alt);
+        }
+
+
         public RectCoordinats toRect() 
         {
             SK42Coordinats s = toSK42();
@@ -180,7 +196,7 @@ namespace MissionPlanner.NewClasses
 
         public override string ToString()
         {
-            return Lat.ToString("0.0") + ", " + Lng.ToString("0.0");
+            return Lat.ToString("F1", new CultureInfo("en-US")) + ", " + Lng.ToString("F1", new CultureInfo("en-US"));
         }
     }
 
@@ -237,7 +253,7 @@ namespace MissionPlanner.NewClasses
 
         public override string ToString()
         {
-            return Lat.ToString("0.0") + ", " + Lng.ToString("0.0");
+            return Lat.ToString("F1", new CultureInfo("en-US")) + ", " + Lng.ToString("F1", new CultureInfo("en-US"));
         }
     }
 
@@ -301,7 +317,7 @@ namespace MissionPlanner.NewClasses
 
         public override string ToString()
         {
-            return x.ToString("0.0")+", "+y.ToString("0.0");
+            return x.ToString("F1", new CultureInfo("en-US"))+", "+y.ToString("F1", new CultureInfo("en-US"));
         }
 
     }
@@ -314,7 +330,7 @@ namespace MissionPlanner.NewClasses
             int grad = (int)Math.Truncate(coord);
             double min = coord - grad;
             min *= 60;
-            result = grad.ToString() + "°." + min.ToString("0.0000") + "'";
+            result = grad.ToString() + "°" + min.ToString("F4", new CultureInfo("en-US")) + "'";
             return result;
         }
 
@@ -328,13 +344,13 @@ namespace MissionPlanner.NewClasses
             min = Math.Truncate(min);
             sec -= min;
             sec *= 60;
-            result = grad.ToString() + "°." + min.ToString() + "'"+sec.ToString("0.00")+"\"";
+            result = grad.ToString() + "°" + min.ToString() + "'"+sec.ToString("F2", new CultureInfo("en-US"))+"\"";
             return result;
         }
 
         public static string toWGS_G(double Lat, double Lon, double alt)
         {
-            string result = Lat.ToString("0.000000") + "°, " + Lon.ToString("0.000000")+ "°";
+            string result = Lat.ToString("F6", new CultureInfo("en-US")) + "°, " + Lon.ToString("F6", new CultureInfo("en-US"))+ "°";
             return result;
         }
 
@@ -352,7 +368,7 @@ namespace MissionPlanner.NewClasses
 
         public static string toSK42_G(double Lat,double Lon,double alt) 
         {
-            string result = WGS84_SK42_Lat(Lat,Lon,alt).ToString("0.000000")+ "°, " + WGS84_SK42_Long(Lat, Lon, alt).ToString("0.000000")+ "°";
+            string result = WGS84_SK42_Lat(Lat,Lon,alt).ToString("F6", new CultureInfo("en-US"))+ "°, " + WGS84_SK42_Long(Lat, Lon, alt).ToString("F6", new CultureInfo("en-US"))+ "°";
             return result;
         }
         public static string toSK42_GM(double Lat, double Lon, double alt)
@@ -360,10 +376,25 @@ namespace MissionPlanner.NewClasses
             string result = to_GM(WGS84_SK42_Lat(Lat, Lon, alt)) + ", " + to_GM(WGS84_SK42_Long(Lat, Lon, alt));
             return result;
         }
+
+        public static Tuple<string, string> toSK42_GM_Point(double lat, double lon, double alt)
+        {
+            string convertedLat = to_GM(WGS84_SK42_Lat(lat, lon, alt));
+            string convertedLng = to_GM(WGS84_SK42_Long(lat, lon, alt));
+            return new Tuple<string, string>(convertedLat, convertedLng);
+        }
+        
         public static string toSK42_GMS(double Lat, double Lon, double alt)
         {
             string result = to_GMS(WGS84_SK42_Lat(Lat, Lon, alt)) + ", " + to_GMS(WGS84_SK42_Long(Lat, Lon, alt));
             return result;
+        }
+        
+        public static Tuple<string, string> toSK42_GMS_Point(double lat, double lng, double alt)
+        {
+            string convertedLat = to_GMS(WGS84_SK42_Lat(lat, lng, alt));
+            string convertedLng = to_GMS(WGS84_SK42_Long(lat, lng, alt));
+            return new Tuple<string, string>(convertedLat, convertedLng);
         }
 
         const double piConverter = 1;
@@ -385,9 +416,7 @@ namespace MissionPlanner.NewClasses
                 l * l * (270806 - 1523417 * Math.Sin(B) * Math.Sin(B) + 1327645 * Math.Pow(Math.Sin(B), 4) - 21701 * Math.Pow(Math.Sin(B), 6) + l * l * ( 79690 -
                 866190 * Math.Sin(B) * Math.Sin(B) + 1730360 * Math.Pow(Math.Sin(B), 4) - 945460 * Math.Pow(Math.Sin(B), 6) ))));
 
-
-
-            result = x.ToString("0.0") + ", " + y.ToString("0.0");
+            result = x.ToString("F1", new CultureInfo("en-US")) + ", " + y.ToString("F1", new CultureInfo("en-US"));
             return result;
         }*/
 
@@ -421,7 +450,7 @@ namespace MissionPlanner.NewClasses
             double y = double.Parse(nzone.ToString() + ty.ToString());
             //x.SetValue(tx);
             //y.SetValue(Number(nzone.toString() + ty));
-            result = tx.ToString("0.00") + ", " + y.ToString("0.00");
+            result = tx.ToString("F2", new CultureInfo("en-US")) + ", " + y.ToString("F2", new CultureInfo("en-US"));
             return result;
         }
 
@@ -486,7 +515,17 @@ namespace MissionPlanner.NewClasses
         const double de2 = e2W - e2P;
 
         // Линейные элементы трансформирования, в метрах
-        const double dx = 23.92;
+
+        const double dx = 23.57;
+        const double dy = -140.95;
+        const double dz = -79.8;
+
+        // Угловые элементы трансформирования, в секундах
+        const double wx = 0;
+        const double wy = -0.35;
+        const double wz = -0.79;
+
+        /*const double dx = 23.92;
         const double dy = -141.27;
         const double dz = -80.9;
 
@@ -494,7 +533,7 @@ namespace MissionPlanner.NewClasses
         const double wx = 0;
         const double wy = 0;
         const double wz = 0;
-
+        */
         // Дифференциальное различие масштабов
         const double ms = 0;
 

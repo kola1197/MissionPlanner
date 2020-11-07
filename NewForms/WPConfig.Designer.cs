@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using System.Windows.Forms;
+
+namespace MissionPlanner.NewForms
 {
     partial class WPConfig
     {
@@ -28,14 +30,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPConfig));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lonNotification = new System.Windows.Forms.Label();
             this.latNotification = new System.Windows.Forms.Label();
+            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -46,6 +47,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.myButton17 = new MissionPlanner.Controls.MyButton();
+            this.loiterRadTextBox = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.myButton14 = new MissionPlanner.Controls.MyButton();
@@ -69,7 +72,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -87,7 +89,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.tabPage1.Controls.Add(this.lonNotification);
             this.tabPage1.Controls.Add(this.latNotification);
             this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
@@ -129,11 +131,18 @@
             this.latNotification.Text = "Данные не корректны";
             this.latNotification.Visible = false;
             // 
+            // wpAltSlidingScale1
+            // 
+            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
+            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
+            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
+            this.wpAltSlidingScale1.TabIndex = 14;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(192, 115);
+            this.label11.Location = new System.Drawing.Point(230, 115);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(32, 13);
             this.label11.TabIndex = 13;
@@ -155,23 +164,17 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(84, 112);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.Size = new System.Drawing.Size(140, 20);
             this.textBox5.TabIndex = 11;
             this.textBox5.Visible = false;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Точка дом",
-            "Точка взлета",
-            "Маршрутная точка",
-            "Изменение скорости",
-            "Точка посадки",
-            "Точка Rally"});
+            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки", "Точка Rally"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 21);
+            this.comboBox1.Size = new System.Drawing.Size(140, 21);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -192,6 +195,8 @@
             this.lonTB1.Size = new System.Drawing.Size(100, 20);
             this.lonTB1.TabIndex = 3;
             this.lonTB1.TextChanged += new System.EventHandler(this.lonTB1_TextChanged);
+            this.lonTB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editTextBox_OnKeyDown);
+            this.lonTB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditTextBoxOnKeyPress);
             // 
             // latTB1
             // 
@@ -200,6 +205,8 @@
             this.latTB1.Size = new System.Drawing.Size(100, 20);
             this.latTB1.TabIndex = 2;
             this.latTB1.TextChanged += new System.EventHandler(this.latTB1_TextChanged);
+            this.latTB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editTextBox_OnKeyDown);
+            this.latTB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditTextBoxOnKeyPress);
             // 
             // label2
             // 
@@ -223,7 +230,9 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage2.Controls.Add(this.myButton17);
+            this.tabPage2.Controls.Add(this.loiterRadTextBox);
             this.tabPage2.Controls.Add(this.textBox4);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.myButton14);
@@ -252,9 +261,32 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Дополнительно";
             // 
+            // myButton17
+            // 
+            this.myButton17.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton17.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton17.DefaultTheme = false;
+            this.myButton17.Location = new System.Drawing.Point(300, 27);
+            this.myButton17.Name = "myButton17";
+            this.myButton17.Outline = System.Drawing.Color.Black;
+            this.myButton17.Size = new System.Drawing.Size(126, 25);
+            this.myButton17.TabIndex = 31;
+            this.myButton17.Text = "Установить радиус Loiter";
+            this.myButton17.TextColor = System.Drawing.Color.White;
+            this.myButton17.UseVisualStyleBackColor = true;
+            this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp);
+            // 
+            // loiterRadTextBox
+            // 
+            this.loiterRadTextBox.Location = new System.Drawing.Point(234, 30);
+            this.loiterRadTextBox.Name = "loiterRadTextBox";
+            this.loiterRadTextBox.Size = new System.Drawing.Size(60, 20);
+            this.loiterRadTextBox.TabIndex = 30;
+            this.loiterRadTextBox.Text = "0";
+            // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(226, 206);
+            this.textBox4.Location = new System.Drawing.Point(240, 207);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(184, 20);
             this.textBox4.TabIndex = 29;
@@ -264,7 +296,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(18, 209);
+            this.label9.Location = new System.Drawing.Point(32, 210);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(202, 13);
             this.label9.TabIndex = 28;
@@ -275,7 +307,7 @@
             this.myButton14.BGGradBot = System.Drawing.Color.Empty;
             this.myButton14.BGGradTop = System.Drawing.Color.Empty;
             this.myButton14.DefaultTheme = false;
-            this.myButton14.Location = new System.Drawing.Point(286, 169);
+            this.myButton14.Location = new System.Drawing.Point(300, 170);
             this.myButton14.Name = "myButton14";
             this.myButton14.Outline = System.Drawing.Color.Black;
             this.myButton14.Size = new System.Drawing.Size(126, 25);
@@ -290,7 +322,7 @@
             this.myButton15.BGGradBot = System.Drawing.Color.Empty;
             this.myButton15.BGGradTop = System.Drawing.Color.Empty;
             this.myButton15.DefaultTheme = false;
-            this.myButton15.Location = new System.Drawing.Point(154, 169);
+            this.myButton15.Location = new System.Drawing.Point(168, 170);
             this.myButton15.Name = "myButton15";
             this.myButton15.Outline = System.Drawing.Color.Black;
             this.myButton15.Size = new System.Drawing.Size(126, 25);
@@ -305,7 +337,7 @@
             this.myButton16.BGGradBot = System.Drawing.Color.Empty;
             this.myButton16.BGGradTop = System.Drawing.Color.Empty;
             this.myButton16.DefaultTheme = false;
-            this.myButton16.Location = new System.Drawing.Point(21, 169);
+            this.myButton16.Location = new System.Drawing.Point(35, 170);
             this.myButton16.Name = "myButton16";
             this.myButton16.Outline = System.Drawing.Color.Black;
             this.myButton16.Size = new System.Drawing.Size(127, 25);
@@ -320,7 +352,7 @@
             this.myButton11.BGGradBot = System.Drawing.Color.Empty;
             this.myButton11.BGGradTop = System.Drawing.Color.Empty;
             this.myButton11.DefaultTheme = false;
-            this.myButton11.Location = new System.Drawing.Point(286, 138);
+            this.myButton11.Location = new System.Drawing.Point(300, 139);
             this.myButton11.Name = "myButton11";
             this.myButton11.Outline = System.Drawing.Color.Black;
             this.myButton11.Size = new System.Drawing.Size(126, 25);
@@ -335,7 +367,7 @@
             this.myButton12.BGGradBot = System.Drawing.Color.Empty;
             this.myButton12.BGGradTop = System.Drawing.Color.Empty;
             this.myButton12.DefaultTheme = false;
-            this.myButton12.Location = new System.Drawing.Point(154, 138);
+            this.myButton12.Location = new System.Drawing.Point(168, 139);
             this.myButton12.Name = "myButton12";
             this.myButton12.Outline = System.Drawing.Color.Black;
             this.myButton12.Size = new System.Drawing.Size(126, 25);
@@ -350,7 +382,7 @@
             this.myButton13.BGGradBot = System.Drawing.Color.Empty;
             this.myButton13.BGGradTop = System.Drawing.Color.Empty;
             this.myButton13.DefaultTheme = false;
-            this.myButton13.Location = new System.Drawing.Point(21, 138);
+            this.myButton13.Location = new System.Drawing.Point(35, 139);
             this.myButton13.Name = "myButton13";
             this.myButton13.Outline = System.Drawing.Color.Black;
             this.myButton13.Size = new System.Drawing.Size(127, 25);
@@ -365,7 +397,7 @@
             this.myButton10.BGGradBot = System.Drawing.Color.Empty;
             this.myButton10.BGGradTop = System.Drawing.Color.Empty;
             this.myButton10.DefaultTheme = false;
-            this.myButton10.Location = new System.Drawing.Point(286, 107);
+            this.myButton10.Location = new System.Drawing.Point(300, 108);
             this.myButton10.Name = "myButton10";
             this.myButton10.Outline = System.Drawing.Color.Black;
             this.myButton10.Size = new System.Drawing.Size(126, 25);
@@ -378,9 +410,9 @@
             // myButton9
             // 
             this.myButton9.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton9.DefaultTheme = false;
-            this.myButton9.Location = new System.Drawing.Point(154, 107);
+            this.myButton9.Location = new System.Drawing.Point(168, 108);
             this.myButton9.Name = "myButton9";
             this.myButton9.Outline = System.Drawing.Color.Black;
             this.myButton9.Size = new System.Drawing.Size(126, 25);
@@ -393,9 +425,9 @@
             // myButton8
             // 
             this.myButton8.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton8.DefaultTheme = false;
-            this.myButton8.Location = new System.Drawing.Point(21, 107);
+            this.myButton8.Location = new System.Drawing.Point(35, 108);
             this.myButton8.Name = "myButton8";
             this.myButton8.Outline = System.Drawing.Color.Black;
             this.myButton8.Size = new System.Drawing.Size(127, 25);
@@ -409,7 +441,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.ForeColor = System.Drawing.Color.White;
-            this.checkBox2.Location = new System.Drawing.Point(21, 84);
+            this.checkBox2.Location = new System.Drawing.Point(35, 85);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(164, 17);
             this.checkBox2.TabIndex = 18;
@@ -419,9 +451,9 @@
             // myButton7
             // 
             this.myButton7.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton7.DefaultTheme = false;
-            this.myButton7.Location = new System.Drawing.Point(352, 55);
+            this.myButton7.Location = new System.Drawing.Point(366, 56);
             this.myButton7.Name = "myButton7";
             this.myButton7.Outline = System.Drawing.Color.Black;
             this.myButton7.Size = new System.Drawing.Size(60, 25);
@@ -434,9 +466,9 @@
             // myButton6
             // 
             this.myButton6.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton6.DefaultTheme = false;
-            this.myButton6.Location = new System.Drawing.Point(286, 55);
+            this.myButton6.Location = new System.Drawing.Point(300, 56);
             this.myButton6.Name = "myButton6";
             this.myButton6.Outline = System.Drawing.Color.Black;
             this.myButton6.Size = new System.Drawing.Size(60, 25);
@@ -449,9 +481,9 @@
             // myButton5
             // 
             this.myButton5.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton5.DefaultTheme = false;
-            this.myButton5.Location = new System.Drawing.Point(220, 55);
+            this.myButton5.Location = new System.Drawing.Point(234, 56);
             this.myButton5.Name = "myButton5";
             this.myButton5.Outline = System.Drawing.Color.Black;
             this.myButton5.Size = new System.Drawing.Size(60, 25);
@@ -464,9 +496,9 @@
             // myButton4
             // 
             this.myButton4.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton4.DefaultTheme = false;
-            this.myButton4.Location = new System.Drawing.Point(154, 55);
+            this.myButton4.Location = new System.Drawing.Point(168, 56);
             this.myButton4.Name = "myButton4";
             this.myButton4.Outline = System.Drawing.Color.Black;
             this.myButton4.Size = new System.Drawing.Size(60, 25);
@@ -479,9 +511,9 @@
             // myButton3
             // 
             this.myButton3.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton3.DefaultTheme = false;
-            this.myButton3.Location = new System.Drawing.Point(88, 55);
+            this.myButton3.Location = new System.Drawing.Point(102, 56);
             this.myButton3.Name = "myButton3";
             this.myButton3.Outline = System.Drawing.Color.Black;
             this.myButton3.Size = new System.Drawing.Size(60, 25);
@@ -494,9 +526,9 @@
             // myButton2
             // 
             this.myButton2.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton2.DefaultTheme = false;
-            this.myButton2.Location = new System.Drawing.Point(21, 55);
+            this.myButton2.Location = new System.Drawing.Point(35, 56);
             this.myButton2.Name = "myButton2";
             this.myButton2.Outline = System.Drawing.Color.Black;
             this.myButton2.Size = new System.Drawing.Size(60, 25);
@@ -510,7 +542,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(372, 32);
+            this.label8.Location = new System.Drawing.Point(191, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(37, 13);
             this.label8.TabIndex = 11;
@@ -518,9 +550,9 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(21, 29);
+            this.textBox3.Location = new System.Drawing.Point(35, 30);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(345, 20);
+            this.textBox3.Size = new System.Drawing.Size(150, 20);
             this.textBox3.TabIndex = 1;
             this.textBox3.Text = "0";
             // 
@@ -528,7 +560,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(21, 6);
+            this.checkBox1.Location = new System.Drawing.Point(35, 7);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(162, 17);
             this.checkBox1.TabIndex = 0;
@@ -542,8 +574,8 @@
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 278);
             this.myButton1.Name = "myButton1";
@@ -555,22 +587,17 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
-            // wpAltSlidingScale1
-            // 
-            this.wpAltSlidingScale1.Location = new System.Drawing.Point(316, 3);
-            this.wpAltSlidingScale1.Name = "wpAltSlidingScale1";
-            this.wpAltSlidingScale1.Size = new System.Drawing.Size(133, 228);
-            this.wpAltSlidingScale1.TabIndex = 14;
-            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.ClientSize = new System.Drawing.Size(479, 313);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.tabControl1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "WPConfig";
             this.Text = "WPConfig";
             this.tabControl1.ResumeLayout(false);
@@ -579,7 +606,6 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         public System.Windows.Forms.CheckBox checkBox1;
@@ -623,5 +649,7 @@
 
         private System.Windows.Forms.Label lonNotification;
         private System.Windows.Forms.Label latNotification;
+        private Controls.MyButton myButton17;
+        public TextBox loiterRadTextBox;
     }
 }

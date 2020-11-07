@@ -24,6 +24,7 @@ namespace MissionPlanner.Utilities.AltitudeAngel
         {
             var settings = ServiceLocator.GetService<ISettings>();
             var service = ServiceLocator.GetService<IAltitudeAngelService>();
+            settings.CheckEnableAltitudeAngel = true;
             if (settings.CheckEnableAltitudeAngel)
             {
                 await service.SignInIfAuthenticated();

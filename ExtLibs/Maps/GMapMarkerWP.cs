@@ -55,6 +55,8 @@ namespace MissionPlanner.Maps
             if (txtsize.Width > 15)
                 midw -= 4;
 
+            // drawNumber = false;
+            
             if ((Overlay.Control.Zoom> 16 || IsMouseOver) && drawNumber)
                 g.DrawImageUnscaled(fontBitmaps[wpno], midw,midh);
         }

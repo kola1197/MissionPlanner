@@ -280,9 +280,6 @@
   <data name="APM_airframes_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\APM_airframes-07.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_01_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\01_01.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="maggps" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\maggps.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -853,5 +850,8 @@ Control-S - save grid file\par
   </data>
   <data name="show_button_1m" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\show_button_1m.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SitlFly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SitlFly.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

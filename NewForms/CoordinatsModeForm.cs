@@ -21,20 +21,20 @@ namespace MissionPlanner.NewForms
 
         public void updateButtons() 
         {
-            wgs_gButton.BackColor = MainV2.coordinatsShowMode == 0? Color.Green : Color.Gray;
-            wgs_gmButton.BackColor = MainV2.coordinatsShowMode == 1 ? Color.Green : Color.Gray;
-            wgs_gmsButton.BackColor = MainV2.coordinatsShowMode == 2 ? Color.Green : Color.Gray;
-            sk_gButton.BackColor = MainV2.coordinatsShowMode == 3 ? Color.Green : Color.Gray;
-            sk_gmButton.BackColor = MainV2.coordinatsShowMode == 4 ? Color.Green : Color.Gray;
-            sk_gmsButton.BackColor = MainV2.coordinatsShowMode == 5 ? Color.Green : Color.Gray;
-            orthogonalСoordinatesButton.BackColor = MainV2.coordinatsShowMode == 6 ? Color.Green : Color.Gray;
+            wgs_gButton.BackColor = MainV2.CoordinatsShowMode == 0? Color.Green : Color.Gray;
+            wgs_gmButton.BackColor = MainV2.CoordinatsShowMode == 1 ? Color.Green : Color.Gray;
+            wgs_gmsButton.BackColor = MainV2.CoordinatsShowMode == 2 ? Color.Green : Color.Gray;
+            sk_gButton.BackColor = MainV2.CoordinatsShowMode == 3 ? Color.Green : Color.Gray;
+            sk_gmButton.BackColor = MainV2.CoordinatsShowMode == 4 ? Color.Green : Color.Gray;
+            sk_gmsButton.BackColor = MainV2.CoordinatsShowMode == 5 ? Color.Green : Color.Gray;
+            orthogonalСoordinatesButton.BackColor = MainV2.CoordinatsShowMode == 6 ? Color.Green : Color.Gray;
         }
         private void Button_Click(object sender, EventArgs e)
         {
             Button send = (Button)sender;
             string sTag = (string)send.Tag;
             int tag = int.Parse(sTag);
-            MainV2.coordinatsShowMode = tag;
+            MainV2.CoordinatsShowMode = tag;
             MainV2.setCoordinatsMode();
             updateButtons();
             RegionsControl.instance.UpdateBindings();

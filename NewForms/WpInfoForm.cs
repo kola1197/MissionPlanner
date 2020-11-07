@@ -14,19 +14,10 @@ namespace MissionPlanner.NewForms
 {
     public partial class WpInfoForm : Form
     {
-        public WpInfoForm(int wpno, int altitude, string type, string homeDist)
+        public WpInfoForm()
         {
             InitializeComponent();
-            wpInfoControl.wpInfo_GB.Text = "Точка " + wpno;
-            wpInfoControl.alt_label.Text = altitude + " м";
-            wpInfoControl.type_label.Text = type;
-            wpInfoControl.homeDist_label.Text = homeDist;
-            // AllowTransparency = true;
-            // Opacity = 0.85;
-            if (type == "HOME")
-            {
-                wpInfoControl.label14.Text = "";
-            }
+            DoubleBuffered = true;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace MissionPlanner
                 if ((MAV.sysid >= 11) && (MAV.sysid <= 16)) { which = MAV.sysid - 11; }  //1=black, 2=blue, 3=green,4=yellow,5=orange,6=red
                 if ((MAV.sysid >= 101) && (MAV.sysid <= 106)) { which = MAV.sysid - 101; }  //1=black, 2=blue, 3=green,4=yellow,5=orange,6=red
 
+                which = 6;
                 return (new GMapMarkerPlane(which, portlocation, MAV.cs.yaw,
                     MAV.cs.groundcourse, MAV.cs.nav_bearing, MAV.cs.target_bearing,
                     MAV.cs.radius * CurrentState.multiplierdist)

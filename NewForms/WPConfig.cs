@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,33 +41,60 @@ namespace MissionPlanner.NewForms
         public int indexNow = -1;
         public string SerialNum = "-2";
 
-        public WPConfig(string _serNum)
+        public WPConfig(string serNum)
         {
             InitializeComponent();
-            this.TopMost = true;
-            //SerialNum = _serNum;
-            SerialNum = _serNum;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
-            latTB1.Text = "";
+            Init(serNum);
+            // this.TopMost = true;
+            // //SerialNum = _serNum;
+            // SerialNum = serNum;
+            // Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + serNum.ToString();
+            // latTB1.Text = "";
+            // if (MainV2.loiterRad == -1)
+            // {
+            //     MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");
+            // }
+            // loiterRadTextBox.Text = MainV2.loiterRad.ToString();
         }
 
-        public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
+        public WPConfig(GMapMarkerRect currentRectMarker, string serNum)
         {
-
             InitializeComponent();
-            this.TopMost = true;
-            SerialNum = _serNum;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
+            Init(serNum, currentRectMarker);
+        }
+
+        private void Init(string serNum, GMapMarkerRect currentRectMarker = null)
+        {
+            TopMost = true;
             
-            if (currentRectMarker.Tag.ToString() != "H" && _serNum.ToLower() != "rally")
+            SerialNum = serNum;
+            string aircraftNum = "0";
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                aircraftNum = MainV2.CurrentAircraftNum;
+            }
+            
+            Text = "Борт " + aircraftNum + " Точка " + serNum.ToString();
+            
+            if (currentRectMarker!=null && currentRectMarker.Tag.ToString() != "H" && serNum.ToLower() != "rally")
             {
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
             
-
+            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected) 
+            {
+                MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");   
+            }
+            
+            loiterRadTextBox.Text = MainV2.loiterRad.ToString();
             latTB1.Text = "";
         }
-        
+
+        private void SelectCurrentWpTypeInCombobox()
+        {
+            
+        }
+
         /*public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
         {
 
@@ -81,6 +109,13 @@ namespace MissionPlanner.NewForms
        
         private void myButton1_Click(object sender, EventArgs e)
         {
+            if (latNotification.Visible || lonNotification.Visible)
+            {
+                CustomMessageBox.Show(
+                    "Введите корректные значения координат, или отмените введенные изменения закрытием окна.",
+                    "Введены некорректные данные координат точки!");
+                return;
+            }
             closedByButton = true;
             this.Close();
         }
@@ -226,19 +261,82 @@ namespace MissionPlanner.NewForms
         {
             comboBox1.Enabled = !checkBox1.Checked;
         }
+        
+        private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            var _editTextBox = sender as TextBox;
+            if (e.KeyCode == Keys.Back)
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+                if (selectionStart > 0 && !Char.IsDigit(text[selectionStart - 1]) && text[selectionStart - 1] != '-' &&
+                    text[selectionStart - 1] != '.')
+                {
+                    _editTextBox.SelectionStart--;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            if (e.KeyCode == Keys.Delete || Control.IsKeyLocked(Keys.Insert))
+            {
+                string text = _editTextBox.Text;
+                int selectionStart = _editTextBox.SelectionStart;
+
+                if (selectionStart != text.Length && !Char.IsDigit(text[selectionStart]) &&
+                    text[selectionStart] != '-' && text[selectionStart] != '.')
+                {
+                    _editTextBox.SelectionStart++;
+                    _editTextBox.SelectionLength = 0;
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            // if (e.KeyCode == Keys.Enter)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            //     e.SuppressKeyPress = true;
+            // }
+
+            if (_editTextBox.SelectionLength > 0)
+            {
+                _editTextBox.SelectionStart = _editTextBox.Text.Length;
+                e.Handled = true;
+            }
+        }
+
+
+        private void EditTextBoxOnKeyPress(object sender, KeyPressEventArgs e)
+        {
+            // if (e.KeyChar == (char) 13)
+            // {
+            //     latLong_DGV.EndEdit();
+            //     e.Handled = true;
+            // }
+
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
 
         private bool locked = false;
-        public void setCoordsMode() 
+        public void setCoordsMode()
         {
+            latTB1.TextChanged -= latTB1_TextChanged;
+            lonTB1.TextChanged -= lonTB1_TextChanged;
             locked = true;
-            switch (MainV2.coordinatsShowMode) 
+            switch (MainV2.CoordinatsShowMode) 
             {
                 case 0:
                     WGSCoordinats rr = controller.wgs;
                     System.Diagnostics.Debug.WriteLine("WGS----- " + rr.Lat.ToString() + ", "+ rr.Lng.ToString());
-                    latTB1.Text = controller.wgs.Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
                     break;
                 case 1:
                     latTB1.Text = controller.wgs.to_GM_View_lat();
@@ -251,66 +349,72 @@ namespace MissionPlanner.NewForms
                     lonTB1.Text = controller.wgs.to_GMS_View_lon();
                     break;
                 case 3:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("F6", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("F6", new CultureInfo("en-US"));
                     break;
                 case 4:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GM().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GM().Item2;
                     break;
                 case 5:
-                    latTB1.Text = controller.wgs.toSK42().Lat.ToString("0.000000");
+                    latTB1.Text = controller.wgs.ToSk42_GMS().Item1;
                     locked = false;
-                    lonTB1.Text = controller.wgs.toSK42().Lng.ToString("0.000000");
+                    lonTB1.Text = controller.wgs.ToSk42_GMS().Item2;
                     break;
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();
                     System.Diagnostics.Debug.WriteLine("Rect----- "+r.x.ToString()+", "+r.y.ToString());
-                    latTB1.Text = controller.wgs.toRect().x.ToString("0.00");
+                    latTB1.Text = controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));
                     locked = false;
-                    lonTB1.Text = controller.wgs.toRect().y.ToString("0.00");
+                    lonTB1.Text = controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));
                     break;
             }
+
+            latTB1.Text = latTB1.Text.Replace(',', '.');
+            lonTB1.Text = lonTB1.Text.Replace(',', '.');
+            latTB1.TextChanged += latTB1_TextChanged;
+            lonTB1.TextChanged += lonTB1_TextChanged;
         }
 
         private void latTB1_TextChanged(object sender, EventArgs e)
         {
             if (!locked)
             {
-                latTB1.Text = latTB1.Text.Replace(".", ",");
-                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                var lat = latTB1.Text.Replace(".", ",");
+                var lng = lonTB1.Text.Replace(".", ",");
                 try
                 {
                     latNotification.Visible = false;
-                    switch (MainV2.coordinatsShowMode)
+                    switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 1:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 2:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 3:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 4:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 5:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 6:
-                            controller = new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new RectCoordinats(lat, lng));
                             break;
                     }
                 }
-                catch
+                catch (Exception ee)
                 {
+                    System.Diagnostics.Debug.WriteLine(ee.ToString() );
                     latNotification.Visible = true;
                 }
             }
@@ -325,7 +429,7 @@ namespace MissionPlanner.NewForms
                 try
                 {
                     latNotification.Visible = false;
-                    switch (MainV2.coordinatsShowMode)
+                    switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
                             controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
@@ -354,6 +458,19 @@ namespace MissionPlanner.NewForms
                 {
                     lonNotification.Visible = true;
                 }
+            }
+        }
+
+        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int newrad = int.Parse(loiterRadTextBox.Text);
+                MainV2.comPort.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" }, newrad / CurrentState.multiplierdist);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");
             }
         }
     }

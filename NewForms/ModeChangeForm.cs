@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MissionPlanner.NewForms
@@ -8,12 +10,39 @@ namespace MissionPlanner.NewForms
         public ModeChangeForm()
         {
             InitializeComponent();
-            CMB_modes.DataSource = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+            string[] whiteList = new string[] {"Auto", "Manual", "Land", "STABILIZE" };
+            List<KeyValuePair<int, string>> modelList = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+            List<KeyValuePair<int, string>> fixedModelList = new List<KeyValuePair<int, string>>();
+            for (int i = 0; i < modelList.Count; i++) 
+            {
+                for (int j = 0; j < whiteList.Length; j++)
+                {
+                    if (whiteList[j].ToLower() == modelList[i].Value.ToLower())
+                    {
+                        fixedModelList.Add(modelList[i]);
+                    }
+                }
+            }
+            CMB_modes.DataSource = fixedModelList;
             CMB_modes.ValueMember = "Key";
             CMB_modes.DisplayMember = "Value";
 
             //default to auto
             CMB_modes.Text = "Auto";
+        }
+
+        public void setPosition() 
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(125, MainV2.instance.Height - 150);
+        }
+
+        public void setPosition(Point p)
+        {
+            TopMost = true;
+            StartPosition = FormStartPosition.Manual;
+            Location = p;
         }
 
         private void BUTsetmode_MouseUp(object sender, MouseEventArgs e)
@@ -32,6 +61,7 @@ namespace MissionPlanner.NewForms
                 {
                     MainV2.logger.write("Смена режима с AUTO на " + CMB_modes.Text);
                 }
+
                 MainV2.comPort.setMode(CMB_modes.Text);
             }
         }

@@ -56,6 +56,7 @@ namespace MissionPlanner.GCSViews
             this.cmb_model = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.num_simspeed = new System.Windows.Forms.NumericUpDown();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxheli)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxquad)).BeginInit();
@@ -67,6 +68,7 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.NUM_heading)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_simspeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // myGMAP1
@@ -224,6 +226,8 @@ namespace MissionPlanner.GCSViews
             // 
             // but_swarmseq
             // 
+            this.but_swarmseq.BGGradBot = System.Drawing.Color.Empty;
+            this.but_swarmseq.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.but_swarmseq, "but_swarmseq");
             this.but_swarmseq.Name = "but_swarmseq";
             this.but_swarmseq.UseVisualStyleBackColor = true;
@@ -231,6 +235,8 @@ namespace MissionPlanner.GCSViews
             // 
             // but_swarmlink
             // 
+            this.but_swarmlink.BGGradBot = System.Drawing.Color.Empty;
+            this.but_swarmlink.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.but_swarmlink, "but_swarmlink");
             this.but_swarmlink.Name = "but_swarmlink";
             this.but_swarmlink.UseVisualStyleBackColor = true;
@@ -316,8 +322,17 @@ namespace MissionPlanner.GCSViews
             0,
             0});
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(255, 253, 249, 229);
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.SitlFly;
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
             // SITL
             // 
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -338,6 +353,7 @@ namespace MissionPlanner.GCSViews
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_simspeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -369,5 +385,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.CheckBox chk_wipe;
         private MyButton but_swarmseq;
         private MyButton but_swarmlink;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

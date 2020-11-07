@@ -33,7 +33,7 @@ namespace System
             return (int)Show(text, caption, (MessageBoxButtons)(int)MessageBoxButtons, (MessageBoxIcon)(int)MessageBoxIcon);
         }
 
-        public static DialogResult Show(string text, string caption = "", MessageBoxButtons MessageBoxButtons = MessageBoxButtons.OK, MessageBoxIcon MessageBoxIcon = MessageBoxIcon.None, string YesText = "Yes", string NoText = "No")
+        public static DialogResult Show(string text, string caption = "", MessageBoxButtons MessageBoxButtons = MessageBoxButtons.OK, MessageBoxIcon MessageBoxIcon = MessageBoxIcon.None, string YesText = "Да", string NoText = "Нет")
         {
             Console.WriteLine("CustomMessageBox.Show");
 
