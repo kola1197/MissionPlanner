@@ -162,6 +162,8 @@ namespace MissionPlanner.GCSViews
 
         Thread thisthread;
         public static bool threadrun;
+        private static WaypointInfoControl _wpControl = new WaypointInfoControl() {Visible = false};
+        // private static WpInfoForm _wpControl = new WpInfoForm() {Visible = false};
 
         public void Init()
         {
@@ -3183,22 +3185,26 @@ namespace MissionPlanner.GCSViews
                 GetFittedRectangleWidth(alt), font.Height + 5);
 
 
-            DrawMavInfoString(e, rectAirNum, aircraftNum);
-            DrawMavInfoString(e, rectGroundSpeed, groundSpeed);
-            DrawMavInfoString(e, rectAlt, alt);
+            Color outlineColor = Color.FromArgb(255, Color.Black);
+            Color inlineNumColor = Color.FromArgb(255, Color.Gold);
+            Color inlineStatsColor = Color.FromArgb(255, Color.Orange);
+
+            DrawMavInfoString(e, rectAirNum, aircraftNum, inlineNumColor, outlineColor);
+            DrawMavInfoString(e, rectGroundSpeed, groundSpeed, inlineStatsColor, outlineColor);
+            DrawMavInfoString(e, rectAlt, alt, inlineStatsColor, outlineColor);
         }
 
-        private void DrawMavInfoString(PaintEventArgs e, Rectangle rectAirNum, string aircraftNum)
+        private void DrawMavInfoString(PaintEventArgs e, Rectangle rectAirNum, string aircraftNum, Color inlineColor, Color outlineColor)
         {
             e.Graphics.ResetTransform();
 
             e.Graphics.DrawRectangle(new Pen(Color.Transparent), rectAirNum);
             e.Graphics.FillRectangle(new SolidBrush(Color.Transparent), rectAirNum);
             using (GraphicsPath gp = new GraphicsPath())
-            using (Pen outline = new Pen(Color.FromArgb(255, Color.Black), OutlineWidth)
+            using (Pen outline = new Pen(outlineColor, OutlineWidth)
                 {LineJoin = LineJoin.Round})
             using (StringFormat sf = new StringFormat() {Alignment = StringAlignment.Center})
-            using (Brush foreBrush = new SolidBrush(Color.FromArgb(255, Color.Gold)))
+            using (Brush foreBrush = new SolidBrush(inlineColor))
             {
                 gp.AddString(aircraftNum, font.FontFamily, (int) font.Style, 15, rectAirNum, sf);
                 // e.Graphics.ScaleTransform(1.3f, 1.35f);
@@ -5448,26 +5454,26 @@ namespace MissionPlanner.GCSViews
         {
             threadrun = true;
             EndPoint Remote = new IPEndPoint(IPAddress.Any, 0);
-        
+
             DateTime tracklast = DateTime.Now.AddSeconds(0);
-        
+
             DateTime tunning = DateTime.Now.AddSeconds(0);
-        
+
             DateTime mapupdate = DateTime.Now.AddSeconds(0);
-        
+
             DateTime vidrec = DateTime.Now.AddSeconds(0);
-        
+
             DateTime waypoints = DateTime.Now.AddSeconds(0);
-        
+
             DateTime updatescreen = DateTime.Now;
-        
+
             DateTime tsreal = DateTime.Now;
             double taketime = 0;
             double timeerror = 0;
-        
+
             while (!IsHandleCreated)
                 await Task.Delay(1000);
-        
+
             while (threadrun)
             {
                 if (this.IsDisposed)
@@ -5475,7 +5481,7 @@ namespace MissionPlanner.GCSViews
                     threadrun = false;
                     break;
                 }
-        
+
                 try
                 {
                     // update map - 0.3sec if connected , 2 sec if not connected
@@ -5487,7 +5493,7 @@ namespace MissionPlanner.GCSViews
                         {
                             MainMap.Invalidate();
                         }
-        
+
                         tracklast = DateTime.Now;
                     }
                 }
@@ -5498,7 +5504,7 @@ namespace MissionPlanner.GCSViews
                     Console.WriteLine("FP Main loop exception " + ex);
                 }
             }
-        
+
             // Console.WriteLine("FP Main loop exit");
         }
 
@@ -5591,7 +5597,9 @@ namespace MissionPlanner.GCSViews
             {
                 DrawDistanceBetweenWaypoints(e);
             }
-
+            
+            UpdateMapResources();
+            
             foreach (var port in MainV2.Comports.ToArray())
             {
                 // draw the mavs seen on this port
@@ -6997,18 +7005,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-
         /// <summary>
         /// Draw an mav icon, and update tracker location icon and guided mode wp on FP screen
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void timer1_Tick(object sender, EventArgs e)
+        public void UpdateMapResources()
         {
             try
             {
-                if (isMouseDown || CurentRectMarker != null)
-                    return;
+                // if (isMouseDown)
+                //     return;
 
                 prop.alt = MainV2.comPort.MAV.cs.alt;
                 prop.altasl = MainV2.comPort.MAV.cs.altasl;
@@ -7016,7 +7021,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 prop.Update(MainV2.comPort.MAV.cs.PlannedHomeLocation, MainV2.comPort.MAV.cs.Location,
                     MainV2.comPort.MAV.cs.battery_kmleft);
 
-                routesoverlay.Markers.Clear();
+                BeginInvoke((Action) delegate { routesoverlay.Markers.Clear(); });
+
+                // routesoverlay.Markers.Clear();
 
                 // if (MainV2.comPort.MAV.cs.TrackerLocation != MainV2.comPort.MAV.cs.PlannedHomeLocation &&
                 //     MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !MainV2.StatusControlPanel.IsSitlConnected())
@@ -7079,7 +7086,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 log.Warn(ex);
             }
+        }
 
+        /// <summary>
+        /// Update map resources and invalidate
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer1_Tick(object sender, EventArgs e)
+        {
             MainMap.Invalidate();
         }
 
@@ -7938,6 +7953,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
                                         Commands.Rows.Insert(index + 2, row1);
                                     }
+
                                     break;
                                 default:
                                     Commands.Rows[index].Cells[Command.Index].Value =
@@ -8063,6 +8079,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     result++;
                 }
             }
+
             return result;
         }
 
@@ -8729,9 +8746,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 log.Error(ex);
             }
         }
-
-        private static WaypointInfoControl _wpControl = new WaypointInfoControl() {Visible = false};
-
+        
         private void MainMap_OnMarkerEnter(GMapMarker item)
         {
             if (!isMouseDown)
@@ -8740,6 +8755,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.Pen.Color = Color.Red;
+                    MainMap.Invalidate(false);
 
                     int answer;
                     if (item.Tag != null && rc.InnerMarker != null &&
@@ -8760,14 +8776,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = rc;
 
                     ShowPopupWpInfo(rc);
-                    MainMap.Invalidate(false);
                 }
 
                 if (item is GMapMarkerRallyPt)
                 {
                     CurrentRallyPt = item as GMapMarkerRallyPt;
                     //GMapMarkerRect rc = item as GMapMarkerRect;
-                    // MainMap.Invalidate(false);
+                    MainMap.Invalidate(false);
                     //CurentRectMarker = CurrentRallyPt;
                 }
 
@@ -8791,8 +8806,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
                     ShowPopupWpInfo(item);
-                    MainMap.Invalidate(false);
-
                 }
 
                 if (item is GMapMarker)
@@ -8824,14 +8837,25 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
+            // _wpControl.wpInfoControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
             _wpControl.Parent = MainMap;
             _wpControl.Location = location;
+            _wpControl.Parent = MainMap;
+            // timer1.Enabled = false;
             _wpControl.Show();
+            // _wpControl.NeedMainMapRefresh = true;
+        }
+
+        private void HidePopUpInfo()
+        {
+            // _wpControl.NeedMainMapRefresh = false;
+            _wpControl.Hide();
+            // timer1.Enabled = true;
         }
 
         private void MainMap_OnMarkerLeave(GMapMarker item)
         {
-            _wpControl.Hide();
+            HidePopUpInfo();
             if (!isMouseDown)
             {
                 if (item is GMapMarkerRect)
@@ -8839,11 +8863,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = null;
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.ResetColor();
-                    // MainMap.Invalidate(false);
+                    MainMap.Invalidate(false);
 
                     if (rc.Tag == "H")
                     {
-                        _wpControl.Hide();
+                        HidePopUpInfo();
                     }
                 }
 
@@ -8870,11 +8894,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
-                    _wpControl.Hide();
+                    HidePopUpInfo();
+                    MainMap.Invalidate(false);
                 }
             }
-            MainMap.Invalidate(false);
-
         }
 
         private void MainMap_OnTileLoadComplete(long ElapsedMilliseconds)

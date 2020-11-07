@@ -2203,11 +2203,11 @@ namespace GMap.NET.WindowsForms
 
                                             if (OnMarkerEnter != null)
                                             {
-                                                Task.Factory.FromAsync(
-                                                    (asyncCallback, @object) =>
-                                                        this.OnMarkerEnter.BeginInvoke(m, asyncCallback,
-                                                            @object), this.OnMarkerEnter.EndInvoke, null);
-                                                // OnMarkerEnter?.Invoke(m);
+                                                // Task.Factory.FromAsync(
+                                                //     (asyncCallback, @object) =>
+                                                //         this.OnMarkerEnter.BeginInvoke(m, asyncCallback,
+                                                //             @object), this.OnMarkerEnter.EndInvoke, null);
+                                                OnMarkerEnter?.Invoke(m);
                                             }
 
                                             Invalidate();
@@ -2222,10 +2222,11 @@ namespace GMap.NET.WindowsForms
 #endif
                                         if (OnMarkerLeave != null)
                                         {
-                                            Task.Factory.FromAsync(
-                                                (asyncCallback, @object) =>
-                                                    OnMarkerLeave.BeginInvoke(m, asyncCallback,
-                                                        @object), OnMarkerLeave.EndInvoke, null);
+                                            // Task.Factory.FromAsync(
+                                            //     (asyncCallback, @object) =>
+                                            //         OnMarkerLeave.BeginInvoke(m, asyncCallback,
+                                            //             @object), OnMarkerLeave.EndInvoke, null);
+                                            OnMarkerLeave?.Invoke(m);
 
                                         }
 

@@ -17,6 +17,7 @@ namespace MissionPlanner.NewForms
         public WpInfoForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace MissionPlanner.NewForms
         public WaypointInfoControl()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         public void SetInfo(int wpno, int altitude, string type, string homeDist, int typeCode)
@@ -71,7 +73,17 @@ namespace MissionPlanner.NewForms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            FlightPlanner.instance.timer1_Tick(sender, new EventArgs());
+            // FlightPlanner.instance.timer1_Tick(sender, new EventArgs());
+            FlightPlanner.instance.UpdateMapResources();
+            FlightPlanner.instance.Refresh();
+        }
+
+        private bool _needMainMapRefresh = false;
+
+        public bool NeedMainMapRefresh
+        {
+            get => _needMainMapRefresh;
+            set => _needMainMapRefresh = timer1.Enabled = value;
         }
     }
 }

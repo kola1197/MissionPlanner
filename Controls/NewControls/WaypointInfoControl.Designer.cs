@@ -28,17 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.wpInfo_GB = new System.Windows.Forms.GroupBox();
+            this.lng_label = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lat_label = new System.Windows.Forms.Label();
+            this.label123 = new System.Windows.Forms.Label();
             this.homeDist_label = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.alt_label = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.type_label = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lat_label = new System.Windows.Forms.Label();
-            this.label123 = new System.Windows.Forms.Label();
-            this.lng_label = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.wpInfo_GB.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,14 +56,49 @@
             this.wpInfo_GB.Controls.Add(this.label13);
             this.wpInfo_GB.Controls.Add(this.type_label);
             this.wpInfo_GB.Controls.Add(this.label12);
-            this.wpInfo_GB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wpInfo_GB.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.wpInfo_GB.Location = new System.Drawing.Point(0, 0);
+            this.wpInfo_GB.Location = new System.Drawing.Point(3, 3);
             this.wpInfo_GB.Name = "wpInfo_GB";
-            this.wpInfo_GB.Size = new System.Drawing.Size(159, 149);
+            this.wpInfo_GB.Size = new System.Drawing.Size(153, 143);
             this.wpInfo_GB.TabIndex = 1;
             this.wpInfo_GB.TabStop = false;
             this.wpInfo_GB.Text = "wpno";
+            // 
+            // lng_label
+            // 
+            this.lng_label.AutoSize = true;
+            this.lng_label.Location = new System.Drawing.Point(73, 48);
+            this.lng_label.Name = "lng_label";
+            this.lng_label.Size = new System.Drawing.Size(21, 13);
+            this.lng_label.TabIndex = 9;
+            this.lng_label.Text = "lng";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Долгота:";
+            // 
+            // lat_label
+            // 
+            this.lat_label.AutoSize = true;
+            this.lat_label.Location = new System.Drawing.Point(73, 25);
+            this.lat_label.Name = "lat_label";
+            this.lat_label.Size = new System.Drawing.Size(18, 13);
+            this.lat_label.TabIndex = 7;
+            this.lat_label.Text = "lat";
+            // 
+            // label123
+            // 
+            this.label123.AutoSize = true;
+            this.label123.Location = new System.Drawing.Point(6, 25);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(48, 13);
+            this.label123.TabIndex = 6;
+            this.label123.Text = "Широта:";
             // 
             // homeDist_label
             // 
@@ -117,41 +154,10 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Тип: ";
             // 
-            // lat_label
+            // timer1
             // 
-            this.lat_label.AutoSize = true;
-            this.lat_label.Location = new System.Drawing.Point(73, 25);
-            this.lat_label.Name = "lat_label";
-            this.lat_label.Size = new System.Drawing.Size(18, 13);
-            this.lat_label.TabIndex = 7;
-            this.lat_label.Text = "lat";
-            // 
-            // label123
-            // 
-            this.label123.AutoSize = true;
-            this.label123.Location = new System.Drawing.Point(6, 25);
-            this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(48, 13);
-            this.label123.TabIndex = 6;
-            this.label123.Text = "Широта:";
-            // 
-            // lng_label
-            // 
-            this.lng_label.AutoSize = true;
-            this.lng_label.Location = new System.Drawing.Point(73, 48);
-            this.lng_label.Name = "lng_label";
-            this.lng_label.Size = new System.Drawing.Size(21, 13);
-            this.lng_label.TabIndex = 9;
-            this.lng_label.Text = "lng";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Долгота:";
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // WaypointInfoControl
             // 
@@ -164,7 +170,6 @@
             this.wpInfo_GB.ResumeLayout(false);
             this.wpInfo_GB.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -180,5 +185,6 @@
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label lat_label;
         private System.Windows.Forms.Label label123;
+        private System.Windows.Forms.Timer timer1;
     }
 }
