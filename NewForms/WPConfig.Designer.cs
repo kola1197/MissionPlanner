@@ -272,7 +272,7 @@ namespace MissionPlanner.NewForms
             this.myButton17.Outline = System.Drawing.Color.Black;
             this.myButton17.Size = new System.Drawing.Size(126, 25);
             this.myButton17.TabIndex = 31;
-            this.myButton17.Text = "Установить радиус Loiter";
+            this.myButton17.Text = "Радиус кружения";
             this.myButton17.TextColor = System.Drawing.Color.White;
             this.myButton17.UseVisualStyleBackColor = true;
             this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp);

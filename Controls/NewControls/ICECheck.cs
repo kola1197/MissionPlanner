@@ -21,6 +21,8 @@ namespace MissionPlanner.Controls.NewControls
             _progressBarsMaxValues.Add(progressBar1.Maximum);
             _progressBarsMaxValues.Add(progressBar2.Maximum);
             _progressBarsMaxValues.Add(progressBar3.Maximum);
+            label1.Parent = pictureBox1;
+            label2.Parent = pictureBox1;
         }
         int xStart = 8;
         int yStart = 300;
@@ -55,11 +57,15 @@ namespace MissionPlanner.Controls.NewControls
             myPen.Width = 1;
             //g.DrawLine(myPen, 30, 30, 45, 45);
             //g.DrawLine(myPen, 1, 50, 431, 50);
-            g.DrawLine(myPen, 1, 300, 500, 300);
+            
+            /*g.DrawLine(myPen, 1, 300, 500, 300);
             g.DrawLine(myPen, 1, 300, 500, 300);
             g.DrawLine(myPen, 1, 220, 500, 220);
             g.DrawLine(myPen, 1, 160, 500, 160);
-
+            */
+            
+            g.DrawLine(myPen, 1,yStart - 3400/50 , 500, yStart - 3400/50);
+            g.DrawLine(myPen, 1,yStart - 7000/50 , 500, yStart - 7000/50);
 
 
             Pen p = new Pen(Color.Green);

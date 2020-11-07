@@ -3801,6 +3801,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
+
                 int no = 0;
                 if (tagForContextMenu != null)
                 {
@@ -3808,10 +3809,15 @@ namespace MissionPlanner.GCSViews
                     {
                         try
                         {
+                            cleanToNextWP(no-1);
+                            if (cleanToPrevWP(no-1))
+                            {
+                                no--;
+                            }
                             if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue ==
                                 MAVLink.MAV_MISSION_TYPE.FENCE)
                                 ReCalcFence(no - 1, false, true);
-
+                            //deletePoint(no-1);
                             Commands.Rows.RemoveAt(no - 1); // home is 0
                         }
                         catch (Exception ex)
@@ -3861,11 +3867,7 @@ namespace MissionPlanner.GCSViews
                 }
 
 
-                if (currentMarker != null)
-                    CurentRectMarker = null;
-                tagForContextMenu = null;
-                writeKML();
-                tryToWriteWP();
+                
             }
         }
 
@@ -7739,7 +7741,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 index--;
             }
-
             Commands.Rows.RemoveAt(index);
         }
 
@@ -7879,8 +7880,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 {
                                     DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
-                                    row.Cells[Command.Index + 1].Value = (i + 5).ToString();
-                                    row.Cells[Command.Index + 2].Value = "2000";
+                                    row.Cells[Command.Index + 1].Value = MainV2.configServo[i+1].servo;//(i + 5).ToString();
+                                    row.Cells[Command.Index + 2].Value = MainV2.configServo[i+1].value;//"2000";
                                     Commands.Rows.Insert(index + 1, row);
                                     Commands_CellUpdate(index + 1, Command.Index);
                                 }
@@ -9066,8 +9067,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         break;
                     case (ushort) MAVLink.MAV_CMD.DO_SET_SERVO:
                         wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;
-                        int servoIndex = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
-                        wpConfig.servos[servoIndex - 5] = true;
+                        int servo = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
+                        int value = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 2].Value.ToString());
+                        int servoIndex = getServoButtonNumByServoValue(servo,value);
+                        wpConfig.servos[servoIndex -1] = true;
                         break;
                     default:
                         break;
@@ -9075,6 +9078,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 index++;
             }
+        }
+
+        private int getServoButtonNumByServoValue(int servo, int value)
+        {
+            int result = 0;
+            for (int i = 1; i < 10; i++)
+            {
+                if (MainV2.configServo[i].servo == servo && MainV2.configServo[i].value == value)
+                {
+                    result = i;
+                }
+            }
+            return result;
         }
 
         private void writeServosToWPConfig()
