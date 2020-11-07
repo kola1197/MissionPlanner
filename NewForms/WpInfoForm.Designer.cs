@@ -54,10 +54,11 @@
             this.Name = "WpInfoForm";
             this.Text = "WpInfoForm";
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private WaypointInfoControl wpInfoControl;
+        public WaypointInfoControl wpInfoControl;
     }
 }

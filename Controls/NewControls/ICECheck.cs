@@ -238,7 +238,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (MainV2.StatusMenuPanel.IsSitlConnected())
+            if (MainV2.StatusControlPanel.IsSitlConnected())
             {
                 CustomMessageBox.Show("Проверка ДВС недоступна в режиме симуляции.");
                 return;

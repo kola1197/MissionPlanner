@@ -122,7 +122,8 @@ namespace MissionPlanner.NewForms
             }
             catch (Exception exception)
             {
-                CustomMessageBox.Show("Выставите маршрутные точки на карте или считайте их с подключенного борта.","Не удалось найти текущую точку или высоту текущей точки!");
+                CustomMessageBox.Show("Выставите маршрутные точки на карте или считайте их с подключенного борта.",
+                    "Не удалось найти текущую точку или высоту текущей точки!");
                 return;
             }
 
@@ -159,7 +160,7 @@ namespace MissionPlanner.NewForms
 
         public void SetFormLocation()
         {
-            Point locationLocal = MainV2.StatusMenuPanel.GetLocalRouteFormLocation();
+            Point locationLocal = MainV2.StatusControlPanel.GetLocalRouteFormLocation();
             MainV2.RouteAltForm.Location = new Point(
                 AircraftMenuControl.Instance.Width + this.Location.X + locationLocal.X,
                 this.Location.Y + locationLocal.Y);

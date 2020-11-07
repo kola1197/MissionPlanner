@@ -41,42 +41,61 @@ namespace MissionPlanner.NewForms
         public int indexNow = -1;
         public string SerialNum = "-2";
 
-        public WPConfig(string _serNum)
+        public WPConfig(string serNum)
         {
             InitializeComponent();
-            this.TopMost = true;
-            //SerialNum = _serNum;
-            SerialNum = _serNum;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
-            latTB1.Text = "";
-            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected)
-            {
-                MainV2.loiterRad = (int) MainV2.comPort.GetParam("WP_LOITER_RAD");
-            }
 
-            loiterRadTextBox.Text = MainV2.loiterRad.ToString();
+            Init(serNum);
+            // this.TopMost = true;
+            // //SerialNum = _serNum;
+            // SerialNum = serNum;
+            // Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + serNum.ToString();
+            // latTB1.Text = "";
+            // if (MainV2.loiterRad == -1)
+            // {
+            //     MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");
+            // }
+            // loiterRadTextBox.Text = MainV2.loiterRad.ToString();
         }
 
-        public WPConfig(GMapMarkerRect currentRectMarker, string _serNum)
+        public WPConfig(GMapMarkerRect currentRectMarker, string serNum)
         {
-
             InitializeComponent();
-            this.TopMost = true;
-            SerialNum = _serNum;
-            Text = "Борт " + MainV2.CurrentAircraftNum + " Точка " + _serNum.ToString();
 
-            if (currentRectMarker.Tag.ToString() != "H" && _serNum.ToLower() != "rally")
+            Init(serNum, currentRectMarker);
+        }
+
+        private void Init(string serNum, GMapMarkerRect currentRectMarker = null)
+        {
+            TopMost = true;
+            
+            SerialNum = serNum;
+            string aircraftNum = "0";
+            if (MainV2.CurrentAircraftNum != null)
+            {
+                aircraftNum = MainV2.CurrentAircraftNum;
+            }
+            
+            Text = "Борт " + aircraftNum + " Точка " + serNum.ToString();
+            
+            if (currentRectMarker!=null && currentRectMarker.Tag.ToString() != "H" && serNum.ToLower() != "rally")
             {
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
-
-            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected)
+            
+            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected) 
             {
                 MainV2.loiterRad = (int) MainV2.comPort.GetParam("WP_LOITER_RAD");
             }
 
             loiterRadTextBox.Text = MainV2.loiterRad.ToString();
             latTB1.Text = "";
+        }
+
+
+        private void SelectCurrentWpTypeInCombobox()
+        {
+            
         }
 
         /*public WPConfig(GMapMarkerRect currentRectMarker, int _serNum)
@@ -324,7 +343,7 @@ namespace MissionPlanner.NewForms
             latTB1.TextChanged -= latTB1_TextChanged;
             lonTB1.TextChanged -= lonTB1_TextChanged;
             locked = true;
-            switch (MainV2.coordinatsShowMode)
+            switch (MainV2.CoordinatsShowMode) 
             {
                 case 0:
                     WGSCoordinats rr = controller.wgs;
@@ -382,7 +401,7 @@ namespace MissionPlanner.NewForms
                 try
                 {
                     latNotification.Visible = false;
-                    switch (MainV2.coordinatsShowMode)
+                    switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
                             controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
@@ -424,7 +443,7 @@ namespace MissionPlanner.NewForms
                 try
                 {
                     latNotification.Visible = false;
-                    switch (MainV2.coordinatsShowMode)
+                    switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
                             controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));

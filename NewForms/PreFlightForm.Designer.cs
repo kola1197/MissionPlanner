@@ -418,7 +418,7 @@ namespace MissionPlanner.NewForms
             this.backButton2.Location = new System.Drawing.Point(20, 421);
             this.backButton2.Margin = new System.Windows.Forms.Padding(20);
             this.backButton2.Name = "backButton2";
-            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.backButton2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.backButton2.Size = new System.Drawing.Size(75, 23);
             this.backButton2.TabIndex = 6;
             this.backButton2.Text = "Назад";
@@ -432,12 +432,12 @@ namespace MissionPlanner.NewForms
             this.armButton.BGGradBot = System.Drawing.Color.Aqua;
             this.armButton.BGGradTop = System.Drawing.Color.LawnGreen;
             this.armButton.DefaultTheme = false;
-            this.armButton.Location = new System.Drawing.Point(190, 421);
+            this.armButton.Location = new System.Drawing.Point(167, 421);
             this.armButton.Name = "armButton";
             this.armButton.Outline = System.Drawing.Color.Black;
-            this.armButton.Size = new System.Drawing.Size(135, 50);
+            this.armButton.Size = new System.Drawing.Size(178, 50);
             this.armButton.TabIndex = 3;
-            this.armButton.Text = "Разблок/Блок машинку газа";
+            this.armButton.Text = "Разблок./Блок. машинку газа";
             this.armButton.TextColor = System.Drawing.Color.Black;
             this.armButton.UseVisualStyleBackColor = true;
             this.armButton.Click += new System.EventHandler(this.armButton_Click);
