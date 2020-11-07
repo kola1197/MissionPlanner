@@ -3833,6 +3833,7 @@ namespace MissionPlanner.GCSViews
                                 ReCalcFence(no - 1, false, true);
 
                             Commands.Rows.RemoveAt(no - 1); // home is 0
+                            CurentRectMarker = null;
                         }
                         catch (Exception ex)
                         {
@@ -5443,63 +5444,63 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        // private async void mainloop()
-        // {
-        //     threadrun = true;
-        //     EndPoint Remote = new IPEndPoint(IPAddress.Any, 0);
-        //
-        //     DateTime tracklast = DateTime.Now.AddSeconds(0);
-        //
-        //     DateTime tunning = DateTime.Now.AddSeconds(0);
-        //
-        //     DateTime mapupdate = DateTime.Now.AddSeconds(0);
-        //
-        //     DateTime vidrec = DateTime.Now.AddSeconds(0);
-        //
-        //     DateTime waypoints = DateTime.Now.AddSeconds(0);
-        //
-        //     DateTime updatescreen = DateTime.Now;
-        //
-        //     DateTime tsreal = DateTime.Now;
-        //     double taketime = 0;
-        //     double timeerror = 0;
-        //
-        //     while (!IsHandleCreated)
-        //         await Task.Delay(1000);
-        //
-        //     while (threadrun)
-        //     {
-        //         if (this.IsDisposed)
-        //         {
-        //             threadrun = false;
-        //             break;
-        //         }
-        //
-        //         try
-        //         {
-        //             // update map - 0.3sec if connected , 2 sec if not connected
-        //             if (((MainV2.comPort.BaseStream.IsOpen || MainV2.comPort.logreadmode) &&
-        //                  tracklast.AddSeconds(Settings.Instance.GetDouble("FD_MapUpdateDelay", 0.3)) < DateTime.Now) ||
-        //                 tracklast.AddSeconds(2) < DateTime.Now)
-        //             {
-        //                 if (MainMap.Visible)
-        //                 {
-        //                     MainMap.Invalidate();
-        //                 }
-        //
-        //                 tracklast = DateTime.Now;
-        //             }
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             log.Error(ex);
-        //             Tracking.AddException(ex);
-        //             Console.WriteLine("FP Main loop exception " + ex);
-        //         }
-        //     }
-        //
-        //     // Console.WriteLine("FP Main loop exit");
-        // }
+        private async void mainloop()
+        {
+            threadrun = true;
+            EndPoint Remote = new IPEndPoint(IPAddress.Any, 0);
+        
+            DateTime tracklast = DateTime.Now.AddSeconds(0);
+        
+            DateTime tunning = DateTime.Now.AddSeconds(0);
+        
+            DateTime mapupdate = DateTime.Now.AddSeconds(0);
+        
+            DateTime vidrec = DateTime.Now.AddSeconds(0);
+        
+            DateTime waypoints = DateTime.Now.AddSeconds(0);
+        
+            DateTime updatescreen = DateTime.Now;
+        
+            DateTime tsreal = DateTime.Now;
+            double taketime = 0;
+            double timeerror = 0;
+        
+            while (!IsHandleCreated)
+                await Task.Delay(1000);
+        
+            while (threadrun)
+            {
+                if (this.IsDisposed)
+                {
+                    threadrun = false;
+                    break;
+                }
+        
+                try
+                {
+                    // update map - 0.3sec if connected , 2 sec if not connected
+                    if (((MainV2.comPort.BaseStream.IsOpen || MainV2.comPort.logreadmode) &&
+                         tracklast.AddSeconds(Settings.Instance.GetDouble("FD_MapUpdateDelay", 0.3)) < DateTime.Now) ||
+                        tracklast.AddSeconds(2) < DateTime.Now)
+                    {
+                        if (MainMap.Visible)
+                        {
+                            MainMap.Invalidate();
+                        }
+        
+                        tracklast = DateTime.Now;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    Tracking.AddException(ex);
+                    Console.WriteLine("FP Main loop exception " + ex);
+                }
+            }
+        
+            // Console.WriteLine("FP Main loop exit");
+        }
 
         public void MainMap_Paint(object sender, PaintEventArgs e)
         {
@@ -7017,13 +7018,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 routesoverlay.Markers.Clear();
 
-                if (MainV2.comPort.MAV.cs.TrackerLocation != MainV2.comPort.MAV.cs.PlannedHomeLocation &&
-                    MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !MainV2.StatusControlPanel.IsSitlConnected())
-                {
-                    addpolygonmarker("Tracker Home", MainV2.comPort.MAV.cs.TrackerLocation.Lng,
-                        MainV2.comPort.MAV.cs.TrackerLocation.Lat, (int) MainV2.comPort.MAV.cs.TrackerLocation.Alt,
-                        Color.Blue, routesoverlay);
-                }
+                // if (MainV2.comPort.MAV.cs.TrackerLocation != MainV2.comPort.MAV.cs.PlannedHomeLocation &&
+                //     MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !MainV2.StatusControlPanel.IsSitlConnected())
+                // {
+                //     addpolygonmarker("Tracker Home", MainV2.comPort.MAV.cs.TrackerLocation.Lng,
+                //         MainV2.comPort.MAV.cs.TrackerLocation.Lat, (int) MainV2.comPort.MAV.cs.TrackerLocation.Alt,
+                //         Color.Blue, routesoverlay);
+                // }
 
                 // if (MainV2.comPort.MAV.cs.lat == 0 || MainV2.comPort.MAV.cs.lng == 0)
                 // return;
@@ -8297,7 +8298,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     if (e.Button != MouseButtons.Left)
                     {
-                        if (CurentRectMarker != null)
+                        if (CurentRectMarker != null && CurentRectMarker.Overlay == overlay.overlay)
                         {
                             // cant add WP in existing rect
                             //CurentRectMarker.Color = Color.Red;               //here on mouse click to wp
@@ -8341,11 +8342,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                             return;
                                         }
 
-                                        GetCurrentPolygon().Points
-                                            .Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
-                                        RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
-                                        MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
-                                        MainMap.Invalidate();
+                                        if (CurentRectMarker != null && CurentRectMarker.Overlay == RegionsOverlay)
+                                        {
+                                            GetCurrentPolygon().Points.Remove(CurentRectMarker.Position);
+                                            MainMap_OnMarkerLeave(CurentRectMarker);
+                                            CurentRectMarker = null;
+                                            RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                                            MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
+                                            MainMap.Invalidate();
+                                        }
+                                        else
+                                        {
+                                            GetCurrentPolygon().Points
+                                                .Add(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
+                                            RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
+                                            MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
+                                            MainMap.Invalidate();
+                                        }
                                     }
                                 }
                             }
@@ -8747,7 +8760,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CurentRectMarker = rc;
 
                     ShowPopupWpInfo(rc);
-                    MainMap.Invalidate(true);
+                    MainMap.Invalidate(false);
                 }
 
                 if (item is GMapMarkerRallyPt)
@@ -8778,7 +8791,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (item is GMapMarkerWP && ((GMapMarkerWP) item).Tag != null)
                 {
                     ShowPopupWpInfo(item);
-                    MainMap.Invalidate(true);
+                    MainMap.Invalidate(false);
 
                 }
 
@@ -8860,7 +8873,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     _wpControl.Hide();
                 }
             }
-            MainMap.Invalidate(true);
+            MainMap.Invalidate(false);
 
         }
 
