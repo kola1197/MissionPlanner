@@ -810,7 +810,7 @@ namespace MissionPlanner.Controls.NewControls
             return GetCurrentPolygon().Points[rowIndex];
         }
 
-        private string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
+        public string FormatCoordinateFromWgs(UniversalCoordinatsController controller, bool isLat)
         {
             switch (MainV2.CoordinatsShowMode)
             {

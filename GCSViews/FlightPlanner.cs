@@ -8840,19 +8840,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             int wpno, alt;
             string type, homeDist;
-            if (marker.Tag == "H")
+            if (CurrentRallyPt != null)
             {
                 wpno = 0;
                 alt = (int) Math.Truncate(double.Parse(TXT_homealt.Text));
-                type = "HOME";
+                type = "Rally";
                 homeDist = "";
             }
             else
             {
-                wpno = Convert.ToInt32(marker.Tag);
-                alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
-                type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
-                homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
+                if (marker.Tag == "H")
+                {
+                    wpno = 0;
+                    alt = (int) Math.Truncate(double.Parse(TXT_homealt.Text));
+                    type = "HOME";
+                    homeDist = "";
+                }
+                else
+                {
+                    wpno = Convert.ToInt32(marker.Tag);
+                    alt = Convert.ToInt32(Commands.Rows[wpno - 1].Cells[Alt.Index].Value);
+                    type = Commands.Rows[wpno - 1].Cells[0].Value.ToString();
+                    homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
+                }
             }
 
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
