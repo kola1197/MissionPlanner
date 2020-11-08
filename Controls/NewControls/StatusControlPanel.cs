@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MissionPlanner.Controls.NewControls;
 using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
@@ -38,6 +39,12 @@ namespace MissionPlanner.Controls
 
         public EmulateSitlParameters SitlEmulation = new EmulateSitlParameters();
 
+        public double _fuelWarningPercentage,
+            _fuelCriticalPercentage,
+            _voltageCriticalPercentage,
+            _voltageWarningPercentage;
+
+
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -52,6 +59,11 @@ namespace MissionPlanner.Controls
 
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
             engineIndent = new Point(0, 30);
+
+            _fuelWarningPercentage = 40;
+            _fuelCriticalPercentage = 15;
+            _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
+            _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
         }
 
         public void SetFuelPbMinMax()
@@ -246,13 +258,14 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private void UpdateProgressBarColor(VerticalSplittedProgressBar progressBar)
+        private void UpdateProgressBarColor(VerticalSplittedProgressBar progressBar, double warningPercentage,
+            double criticalPercentage)
         {
             double range = progressBar.Maximum - progressBar.Minimum;
             double value = progressBar.Value;
             double valueRange = value - progressBar.Minimum;
-            double yellowRange = range * 0.35;
-            double redRange = range * 0.15;
+            double yellowRange = range * warningPercentage / 100;
+            double redRange = range * criticalPercentage / 100;
             if (valueRange <= yellowRange)
             {
                 if (valueRange <= redRange)
@@ -269,7 +282,7 @@ namespace MissionPlanner.Controls
                 progressBar.Color = Color.LimeGreen;
             }
         }
-        
+
         private void UpdateEngineTempProgressBarColor()
         {
             var progressBar = engineTemp_SVPB;
@@ -320,9 +333,9 @@ namespace MissionPlanner.Controls
             {
                 UpdateSitlProgressBars();
             }
-            
-            UpdateProgressBarColor(splittedBar_fuel);
-            UpdateProgressBarColor(splittedBar_voltage);
+
+            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
             UpdateEngineTempProgressBarColor();
         }
 
@@ -332,6 +345,7 @@ namespace MissionPlanner.Controls
             {
                 return;
             }
+
             var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
             splittedBar_fuel.Value = MainV2.CurrentAircraft.Fuel;
             airspeed_SVPB.Value = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
@@ -497,12 +511,17 @@ namespace MissionPlanner.Controls
             }
             else
             {
-                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
+                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 /
+                    (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) * 100);
             }
 
             return Math.Min(Math.Max(percent, 0), 100);
         }
 
+        public double CalcProgressBarPercentage(VerticalSplittedProgressBar progressBar, double value)
+        {
+            return value / (progressBar.Maximum - progressBar.Minimum) * 100;
+        }
 
         private void speedPanel_Click(object sender, EventArgs e)
         {

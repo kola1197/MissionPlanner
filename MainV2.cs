@@ -703,7 +703,14 @@ namespace MissionPlanner
 
                 _currentAircraftNum = value;
 
-                CurrentAircraft = Aircrafts[_currentAircraftNum];
+                if (value != null)
+                {
+                    CurrentAircraft = Aircrafts[_currentAircraftNum];
+                }
+                else
+                {
+                    CurrentAircraft = null;
+                }
 
                 if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
@@ -1843,9 +1850,10 @@ namespace MissionPlanner
                 // FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
                 // .ToString(), false);
                 // nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-         
+
                 // if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && !_parachutePointReached)
-                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && CurrentAircraft.UsingSitl &&
+                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl &&
+                    CurrentAircraft.UsingSitl &&
                     !SitlReachedParachutePoint)
                 {
                     // comPort.setMode("LAND");
@@ -2246,7 +2254,7 @@ namespace MissionPlanner
         public static List<string> notifications = new List<string>();
         public static List<string> warnings = new List<string>();
         private string prevMode = "";
-        
+
         void alarmLabelTextCheck()
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
@@ -2297,7 +2305,7 @@ namespace MissionPlanner
                     warnings.Add("Рассогласование скорости");
                 }
 
-                if (MainV2.comPort.MAV.cs.battery_voltage < 11 )
+                if (MainV2.comPort.MAV.cs.battery_voltage < 11)
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
@@ -2345,9 +2353,12 @@ namespace MissionPlanner
                 try
                 {
                     if (comPort.MAV.cs.battery_voltage2 /
-                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15 && isSitl || StatusControlPanel.IsSitlConnected() &&
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
+                        StatusControlPanel._fuelCriticalPercentage / 100 && !StatusControlPanel.IsSitlConnected() ||
+                        StatusControlPanel.IsSitlConnected() &&
                         _currentAircraft.Fuel /
-                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15) //check in persents
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
+                        StatusControlPanel._fuelCriticalPercentage / 100) //check in persents
                     {
                         warnings.Add("Низкий уровень топлива");
                     }
@@ -2938,9 +2949,9 @@ namespace MissionPlanner
 
                                 if (ver2 > ver1)
                                 {
-                                    Common.MessageShowAgain(Strings.NewFirmware + "-" + item.name,
-                                        Strings.NewFirmwareA + item.name + Strings.Pleaseup +
-                                        "[link;https://discuss.ardupilot.org/tags/stable-release;Release Notes]");
+                                    // Common.MessageShowAgain(Strings.NewFirmware + "-" + item.name,
+                                    //     Strings.NewFirmwareA + item.name + Strings.Pleaseup +
+                                    //     "[link;https://discuss.ardupilot.org/tags/stable-release;Release Notes]");
                                     break;
                                 }
 
@@ -6155,6 +6166,7 @@ namespace MissionPlanner
                 {
                     return;
                 }
+
                 _isSitlLanding = value;
                 if (value)
                 {
