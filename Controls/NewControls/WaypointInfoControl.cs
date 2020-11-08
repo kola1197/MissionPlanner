@@ -23,8 +23,9 @@ namespace MissionPlanner.NewForms
         public WaypointInfoControl()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
             DoubleBuffered = true;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            ///SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         private void CreateController(int wpno, string type)
@@ -83,14 +84,14 @@ namespace MissionPlanner.NewForms
             homeDist_label.Text = homeDist.ToString(new CultureInfo("en-US"));
 
             // BackColor = Color.FromArgb(100, Color.Black);
-            BackColor = Color.Transparent;
-            wpInfo_GB.BackColor = Color.FromArgb(155, Color.Black);
-            foreach (Control control in wpInfo_GB.Controls)
-            {
-                control.BackColor = Color.Transparent;
-            }
-
+            //BackColor = Color.Transparent;
+            //wpInfo_GB.BackColor = Color.FromArgb(155, Color.Black);
+            //foreach (Control control in wpInfo_GB.Controls)
+            //{
+            //    control.BackColor = Color.Transparent;
+            //}
             if (type == "HOME" || type.ToLower() == "rally")
+
             {
                 label14.Text = "";
             }
@@ -116,6 +117,11 @@ namespace MissionPlanner.NewForms
         {
             get => _needMainMapRefresh;
             set => _needMainMapRefresh = timer1.Enabled = value;
+        }
+
+        private void wpInfo_GB_TextChanged(object sender, EventArgs e)
+        {
+            wpnoLabel.Text = wpInfo_GB.Text;
         }
     }
 }

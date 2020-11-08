@@ -8864,7 +8864,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     homeDist = FormatDistance(GetDistanceBetweenTwoPoints(pointlist[0], marker.Position));
                 }
             }
-
+            if (_wpControl != null)
+            {
+                _wpControl.Dispose();
+            }
+            _wpControl = new WaypointInfoControl();
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
