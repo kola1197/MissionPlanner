@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using MissionPlanner.Controls;
 
 namespace MissionPlanner.NewForms
 {
@@ -23,12 +24,12 @@ namespace MissionPlanner.NewForms
                     }
                 }
             }
-            CMB_modes.DataSource = fixedModelList;
-            CMB_modes.ValueMember = "Key";
-            CMB_modes.DisplayMember = "Value";
+            // CMB_modes.DataSource = fixedModelList;
+            // CMB_modes.ValueMember = "Key";
+            // CMB_modes.DisplayMember = "Value";
 
             //default to auto
-            CMB_modes.Text = "Auto";
+            // CMB_modes.Text = "Auto";
         }
 
         public void setPosition() 
@@ -45,8 +46,9 @@ namespace MissionPlanner.NewForms
             Location = p;
         }
 
-        private void BUTsetmode_MouseUp(object sender, MouseEventArgs e)
+        private void SetMode_MouseUp(object sender, MouseEventArgs e)
         {
+            var button = sender as MyButton;
             if (MainV2.comPort.MAV.cs.connected)
             {
                 if (MainV2.comPort.MAV.cs.failsafe)
@@ -59,26 +61,47 @@ namespace MissionPlanner.NewForms
                 }
                 if (MainV2.comPort.MAV.cs.mode == "Auto")
                 {
-                    MainV2.logger.write("Смена режима с AUTO на " + CMB_modes.Text);
+                    MainV2.logger.write("Смена режима с AUTO на " + button.Text);
                 }
-
-                MainV2.comPort.setMode(CMB_modes.Text);
+            
+                MainV2.comPort.setMode(button.Text);
             }
         }
-
-        private void BUT_setmode_Click(object sender, EventArgs e)
-        {
-            if (MainV2.comPort.MAV.cs.failsafe)
-            {
-                if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) !=
-                    (int) DialogResult.Yes)
-                {
-                    return;
-                }
-            }
-
-            MainV2.comPort.setMode(CMB_modes.Text);
-        }
+        
+        // private void BUTsetmode_MouseUp(object sender, MouseEventArgs e)
+        // {
+        //     if (MainV2.comPort.MAV.cs.connected)
+        //     {
+        //         if (MainV2.comPort.MAV.cs.failsafe)
+        //         {
+        //             if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) !=
+        //                 (int)DialogResult.Yes)
+        //             {
+        //                 return;
+        //             }
+        //         }
+        //         if (MainV2.comPort.MAV.cs.mode == "Auto")
+        //         {
+        //             MainV2.logger.write("Смена режима с AUTO на " + CMB_modes.Text);
+        //         }
+        //
+        //         MainV2.comPort.setMode(CMB_modes.Text);
+        //     }
+        // }
+        //
+        // private void BUT_setmode_Click(object sender, EventArgs e)
+        // {
+        //     if (MainV2.comPort.MAV.cs.failsafe)
+        //     {
+        //         if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) !=
+        //             (int) DialogResult.Yes)
+        //         {
+        //             return;
+        //         }
+        //     }
+        //
+        //     MainV2.comPort.setMode(CMB_modes.Text);
+        // }
 
         private void ModeChangeForm_Load_1(object sender, EventArgs e)
         {

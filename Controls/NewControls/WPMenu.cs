@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DotSpatial.Topology;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using MissionPlanner.GCSViews;
 using MissionPlanner.NewClasses;
 using HRGN = System.IntPtr;
 using HWND = System.IntPtr;
@@ -107,16 +108,23 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateValues() 
         {
-            
-            if (progressBar1.Visible != progressBarVisible)
+            try
             {
-                progressBar1.Value = 0;
-                progressBar1.Visible = progressBarVisible; 
+                if (progressBar1.Visible != progressBarVisible)
+                {
+                    progressBar1.Value = 0;
+                    progressBar1.Visible = progressBarVisible;
+                }
+
+                //label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
+                mainButton.Text = FlightPlanner.WpSerialNum.SerialNum.ToString();
+                label2.Text = MainV2.instance.FlightPlanner.Commands.Rows.Count.ToString();
+                label3.Text = MainV2.comPort.MAV.cs.wp_dist.ToString();
             }
-            //label1.Text = MainV2.comPort.MAV.cs.wpno.ToString();
-            mainButton.Text = MainV2.comPort.MAV.cs.wpno.ToString();
-            label2.Text = MainV2.instance.FlightPlanner.Commands.Rows.Count.ToString();
-            label3.Text = MainV2.comPort.MAV.cs.wp_dist.ToString();
+            catch
+            {
+                
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)

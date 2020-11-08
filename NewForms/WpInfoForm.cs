@@ -17,6 +17,9 @@ namespace MissionPlanner.NewForms
         public WpInfoForm()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(200, 32, 32, 32);
+            this.wpInfoControl.BackColor = Color.FromArgb(200, 32, 32, 32);
+            DoubleBuffered = true;
         }
     }
 }

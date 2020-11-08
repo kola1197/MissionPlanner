@@ -42,7 +42,7 @@ namespace MissionPlanner.NewForms
             Pen myPen = new Pen(Color.White);
             myPen.Width = 1;
 
-            g.DrawLine(myPen, 1, 150, 600, 150);
+            g.DrawLine(myPen, 1, 250, 600, 250);
             
             /*Pen p = new Pen(Color.Green);
             p.Width = 3;
@@ -65,7 +65,7 @@ namespace MissionPlanner.NewForms
             p.Width = 2;
             for (int i = 0; i < 599; i++)
             {
-                g.DrawLine(p, (float)i, (150f - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f), (150f - MainV2.vibeData.vibe[index, i + 1]*10f));
+                g.DrawLine(p, (float)i, (250f - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f), (250f - MainV2.vibeData.vibe[index, i + 1]*10f));
             }
         }
 

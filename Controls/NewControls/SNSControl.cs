@@ -96,14 +96,15 @@ namespace MissionPlanner.Controls.NewControls
 
         public void openParachuteForm()
         {
-            if (parachuteForm.Visible)
+            if (parachuteForm.IsDisposed || !parachuteForm.Visible)
             {
-                parachuteForm.Hide();
+                parachuteForm = new ParachuteForm() {Visible = false};
+                parachuteForm.TopMost = true;
+                parachuteForm.Show();
             }
             else
             {
-                parachuteForm.TopMost = true;
-                parachuteForm.Show();
+                parachuteForm.Close();
             }
         }
 
@@ -117,7 +118,7 @@ namespace MissionPlanner.Controls.NewControls
             // parachuteForm = new ParachuteForm();
             // parachuteForm.TopMost = true;
             // parachuteForm.Show();
-            openParachuteForm();
+            Invoke((MethodInvoker) delegate() { openParachuteForm(); });
         }
     }
 }

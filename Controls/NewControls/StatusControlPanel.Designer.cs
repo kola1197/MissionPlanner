@@ -82,6 +82,7 @@ namespace MissionPlanner.Controls
             this.environmentTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.engineTemp_SVPB = new MissionPlanner.Controls.NewControls.VerticalSplittedProgressBar();
             this.airspeedDirectionControl2 = new MissionPlanner.Controls.NewControls.AirspeedDirectionControl();
+            this.bindingSourceWpSerialNum = new System.Windows.Forms.BindingSource(this.components);
             this.hudPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.bindingSourceHud)).BeginInit();
             this.sensorsContextMenuStrip.SuspendLayout();
@@ -97,6 +98,7 @@ namespace MissionPlanner.Controls
             this.temperaturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.engineTemp_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.environmentTemp_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceWpSerialNum)).BeginInit();
             this.SuspendLayout();
             // 
             // rpmICE_label
@@ -537,10 +539,10 @@ namespace MissionPlanner.Controls
             this.splittedBar_voltage.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceCurrentState, "battery_voltage", true));
             this.splittedBar_voltage.Location = new System.Drawing.Point(174, 16);
             this.splittedBar_voltage.Maximum = 12.6D;
-            this.splittedBar_voltage.Minimum = 9.9D;
+            this.splittedBar_voltage.Minimum = 0D;
             this.splittedBar_voltage.Name = "splittedBar_voltage";
             this.splittedBar_voltage.Size = new System.Drawing.Size(25, 99);
-            this.splittedBar_voltage.Step = 0.27D;
+            this.splittedBar_voltage.Step = 1.4D;
             this.splittedBar_voltage.Style = MissionPlanner.Controls.NewControls.Styles.Classic;
             this.splittedBar_voltage.TabIndex = 2;
             this.splittedBar_voltage.Value = 12D;
@@ -712,6 +714,10 @@ namespace MissionPlanner.Controls
             this.airspeedDirectionControl2.Size = new System.Drawing.Size(134, 134);
             this.airspeedDirectionControl2.TabIndex = 85;
             // 
+            // bindingSourceWpSerialNum
+            // 
+            this.bindingSourceWpSerialNum.DataSource = typeof(MissionPlanner.GCSViews.FlightPlanner);
+            // 
             // StatusControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -744,8 +750,11 @@ namespace MissionPlanner.Controls
             this.temperaturePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.engineTemp_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.environmentTemp_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSourceWpSerialNum)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.BindingSource bindingSourceWpSerialNum;
 
         private System.Windows.Forms.Panel addOrRemovePanel;
         private System.Windows.Forms.Label airspeed_label;

@@ -62,7 +62,7 @@ namespace MissionPlanner.Controls.NewControls
                         sensorName_label.Text = "Пут. скорость";
                         break;
                     case "Высота (СНС)":
-                        textBinding = new Binding("Text", textBindingSource, "alt",
+                        textBinding = new Binding("Text", textBindingSource, "altasl",
                             true);
                         textBinding.Format += alt_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
@@ -76,7 +76,7 @@ namespace MissionPlanner.Controls.NewControls
                         sensorName_label.Text = "Магн. курс";
                         break;
                     case "Следующая точка":
-                        textBinding = new Binding("Text", textBindingSource, "wpno",
+                        textBinding = new Binding("Text", textBindingSource, "SerialNum",
                             true);
                         textBinding.Format += nextWP_Format;
                         sensorValue_label.DataBindings.Add(textBinding);
@@ -111,7 +111,7 @@ namespace MissionPlanner.Controls.NewControls
         private void voltage_Format(object sender, ConvertEventArgs e)
         {
             double voltage = (double) e.Value;
-            e.Value = voltage.ToString("F2") + " V";
+            e.Value = voltage.ToString("F1") + " V";
         }
 
         private void temp_Format(object sender, ConvertEventArgs e)
@@ -129,13 +129,13 @@ namespace MissionPlanner.Controls.NewControls
         private void speed_Format(object sender, ConvertEventArgs e)
         {
             double speed = (float) e.Value * 3.6;
-            e.Value = speed.ToString("F1") + " км/ч";
+            e.Value = speed.ToString("F0") + " км/ч";
         }
 
         private void alt_Format(object sender, ConvertEventArgs e)
         {
             double alt = (float) e.Value;
-            e.Value = alt.ToString("F2") + " м";
+            e.Value = alt.ToString("F0") + " м";
         }
 
         private void nextWP_Format(object sender, ConvertEventArgs e)
@@ -146,7 +146,7 @@ namespace MissionPlanner.Controls.NewControls
         private void amperage_Format(object sender, ConvertEventArgs e)
         {
             double amp = (double) e.Value;
-            e.Value = amp.ToString("F2") + " A";
+            e.Value = amp.ToString("F1") + " A";
         }
 
         public AdditionalSensorControl(BindingSource bindingSource)

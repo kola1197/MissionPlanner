@@ -37,7 +37,7 @@ namespace MissionPlanner.NewForms
         {
             if (MainV2.comPort.MAV.cs.connected)
             {
-                if (MainV2.CurrentAircraft.UsingSitl) 
+                if (MainV2.CurrentAircraft.UsingSitl && !MainV2.IsSitlLanding) 
                 {
                     if (!MainV2.instance.SitlReachedParachutePoint)
                     {
