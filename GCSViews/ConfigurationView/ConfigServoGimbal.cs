@@ -80,7 +80,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     }
                 }
             }
-            return result - 1;
+            return result;
         }
 
         private int getValueByCountNumber(int CountNum)
@@ -92,7 +92,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             int result = 1;
             int ll = 0;
             int j = 1;
-            while (ll <= CountNum)
+            while (ll < CountNum)
             {
                 j++;
                 if (blackList.Contains(j))
@@ -183,11 +183,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             for (int k = 0; k < 11; k++) 
             {
                 comboBox[k].Items.Add("-");
-                for (int i = 1; i < 16; i++) 
+                for (int i = 1; i < 17; i++) 
                 {
                     if (!blackList.Contains(i))
                     {
-                        comboBox[k].Items.Add("Servo " + (i + 1).ToString());
+                        comboBox[k].Items.Add("Servo " + (i).ToString());
                     }
                 }
             }
@@ -205,6 +205,19 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MainV2.configServo[10] = new servoValue(0, 1500, 1500);
             deserealaseDict();
             updateComboboxes();
+            setFixedValues();
+        }
+
+        private void setFixedValues() 
+        {
+            MainV2.configServo[0] = new servoValue(9, 1100, 1900);
+            MainV2.configServo[10] = new servoValue(8, 1100, 1900);
+            comboBox[0].Enabled = false;
+            textBoxes[0].Enabled = false;
+            textBoxesForDefault[0].Enabled = false;
+            comboBox[10].Enabled = false;
+            textBoxes[10].Enabled = false;
+            textBoxesForDefault[10].Enabled = false;
         }
 
         public void loadConfig() 

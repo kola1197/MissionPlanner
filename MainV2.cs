@@ -2245,7 +2245,8 @@ namespace MissionPlanner
 
         public static List<string> notifications = new List<string>();
         public static List<string> warnings = new List<string>();
-
+        private string prevMode = "";
+        
         void alarmLabelTextCheck()
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
@@ -2331,6 +2332,14 @@ namespace MissionPlanner
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
                     notifications.Add("Режим изменен на " + MainV2.comPort.MAV.cs.mode);
+                    if (prevMode != MainV2.comPort.MAV.cs.mode)
+                    {
+                        prevMode = MainV2.comPort.MAV.cs.mode;
+                        EngineControlForm engineControlForm = new EngineControlForm();
+                        currentEngineMode = 3;
+                        engineControlForm.setEngineMode();
+                        engineControlForm.Close();
+                    }
                 }
 
                 try
@@ -2373,11 +2382,13 @@ namespace MissionPlanner
                     progressBar1.ValueColor = Color.Red;
                     progressBar2.ValueColor = Color.Red;
                     label1.Text = "ОШИБКИ (" + warnings.Count.ToString() + ")";
+                    label1.ForeColor = Color.White;
                 }
                 else
                 {
                     if (progressBar1.ValueColor != Color.Lime)
                     {
+                        label1.ForeColor = Color.Black;
                         progressBar1.ValueColor = Color.Lime;
                         progressBar2.ValueColor = Color.Lime;
                     }

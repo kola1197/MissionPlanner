@@ -23,7 +23,7 @@ namespace MissionPlanner.NewForms
         public WPConfig()
         {
             InitializeComponent();
-            
+
             this.TopMost = true;
         }
 
@@ -44,6 +44,7 @@ namespace MissionPlanner.NewForms
         public WPConfig(string serNum)
         {
             InitializeComponent();
+
             Init(serNum);
             // this.TopMost = true;
             // //SerialNum = _serNum;
@@ -60,6 +61,7 @@ namespace MissionPlanner.NewForms
         public WPConfig(GMapMarkerRect currentRectMarker, string serNum)
         {
             InitializeComponent();
+
             Init(serNum, currentRectMarker);
         }
 
@@ -83,12 +85,13 @@ namespace MissionPlanner.NewForms
             
             if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected) 
             {
-                MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");   
+                MainV2.loiterRad = (int) MainV2.comPort.GetParam("WP_LOITER_RAD");
             }
-            
+
             loiterRadTextBox.Text = MainV2.loiterRad.ToString();
             latTB1.Text = "";
         }
+
 
         private void SelectCurrentWpTypeInCombobox()
         {
@@ -106,7 +109,7 @@ namespace MissionPlanner.NewForms
             textBox1.Text = "";
         }*/
 
-       
+
         private void myButton1_Click(object sender, EventArgs e)
         {
             if (latNotification.Visible || lonNotification.Visible)
@@ -116,13 +119,14 @@ namespace MissionPlanner.NewForms
                     "Введены некорректные данные координат точки!");
                 return;
             }
+
             closedByButton = true;
             this.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-        
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,12 +138,13 @@ namespace MissionPlanner.NewForms
                 textBox5.Visible = true;
                 textBox5.Text = "20";
             }
-            else 
+            else
             {
                 label10.Visible = false;
                 label11.Visible = false;
                 textBox5.Visible = false;
             }
+
             if (comboBox1.SelectedIndex == 5 || comboBox1.SelectedIndex == 0)
             {
                 checkBox1.Enabled = false;
@@ -147,13 +152,13 @@ namespace MissionPlanner.NewForms
                 checkBox1.Checked = false;
                 checkBox2.Checked = false;
             }
-            else 
+            else
             {
                 checkBox1.Enabled = true;
                 checkBox2.Enabled = true;
             }
         }
-        
+
         private void myButton2_Click(object sender, EventArgs e)
         {
             textBox3.Text = "1";
@@ -184,30 +189,37 @@ namespace MissionPlanner.NewForms
             textBox3.Text = "60";
         }
 
-        public void updateServoButtons() 
+        public void updateServoButtons()
         {
             myButton8.BGGradTop = servos[0] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
+
             myButton9.BGGradTop = servos[1] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton10.BGGradTop = servos[2] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton13.BGGradTop = servos[3] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton12.BGGradTop = servos[4] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton11.BGGradTop = servos[5] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-           
-            myButton16.BGGradTop = servos[6] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton15.BGGradTop = servos[7] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
-            myButton14.BGGradTop = servos[8] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-            
+
+            myButton10.BGGradTop =
+                servos[2] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton13.BGGradTop =
+                servos[3] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton12.BGGradTop =
+                servos[4] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton11.BGGradTop =
+                servos[5] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton16.BGGradTop =
+                servos[6] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton15.BGGradTop =
+                servos[7] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton14.BGGradTop =
+                servos[8] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
             Invalidate();
         }
 
-        private void updateServoButton(int i) 
+        private void updateServoButton(int i)
         {
             servos[i] = !servos[i];
             updateServoButtons();
@@ -237,6 +249,7 @@ namespace MissionPlanner.NewForms
         {
             updateServoButton(4);
         }
+
         private void myButton11_MouseUp(object sender, MouseEventArgs e)
         {
             updateServoButton(5);
@@ -261,7 +274,7 @@ namespace MissionPlanner.NewForms
         {
             comboBox1.Enabled = !checkBox1.Checked;
         }
-        
+
         private void editTextBox_OnKeyDown(object sender, KeyEventArgs e)
         {
             var _editTextBox = sender as TextBox;
@@ -324,6 +337,7 @@ namespace MissionPlanner.NewForms
         }
 
         private bool locked = false;
+
         public void setCoordsMode()
         {
             latTB1.TextChanged -= latTB1_TextChanged;
@@ -333,7 +347,7 @@ namespace MissionPlanner.NewForms
             {
                 case 0:
                     WGSCoordinats rr = controller.wgs;
-                    System.Diagnostics.Debug.WriteLine("WGS----- " + rr.Lat.ToString() + ", "+ rr.Lng.ToString());
+                    System.Diagnostics.Debug.WriteLine("WGS----- " + rr.Lat.ToString() + ", " + rr.Lng.ToString());
                     latTB1.Text = controller.wgs.Lat.ToString("F6", new CultureInfo("en-US"));
                     locked = false;
                     lonTB1.Text = controller.wgs.Lng.ToString("F6", new CultureInfo("en-US"));
@@ -365,7 +379,7 @@ namespace MissionPlanner.NewForms
                     break;
                 case 6:
                     RectCoordinats r = controller.wgs.toRect();
-                    System.Diagnostics.Debug.WriteLine("Rect----- "+r.x.ToString()+", "+r.y.ToString());
+                    System.Diagnostics.Debug.WriteLine("Rect----- " + r.x.ToString() + ", " + r.y.ToString());
                     latTB1.Text = controller.wgs.toRect().x.ToString("F2", new CultureInfo("en-US"));
                     locked = false;
                     lonTB1.Text = controller.wgs.toRect().y.ToString("F2", new CultureInfo("en-US"));
@@ -414,7 +428,7 @@ namespace MissionPlanner.NewForms
                 }
                 catch (Exception ee)
                 {
-                    System.Diagnostics.Debug.WriteLine(ee.ToString() );
+                    System.Diagnostics.Debug.WriteLine(ee.ToString());
                     latNotification.Visible = true;
                 }
             }
@@ -441,16 +455,20 @@ namespace MissionPlanner.NewForms
                             controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
                             break;
                         case 3:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller =
+                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
                             break;
                         case 4:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller =
+                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
                             break;
                         case 5:
-                            controller = new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller =
+                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
                             break;
                         case 6:
-                            controller = new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            controller =
+                                new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
                             break;
                     }
                 }
@@ -466,12 +484,31 @@ namespace MissionPlanner.NewForms
             try
             {
                 int newrad = int.Parse(loiterRadTextBox.Text);
-                MainV2.comPort.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" }, newrad / CurrentState.multiplierdist);
+                MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"}, newrad / CurrentState.multiplierdist);
             }
             catch
             {
                 CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+   
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            } 
         }
     }
 }

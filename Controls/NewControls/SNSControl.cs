@@ -90,6 +90,7 @@ namespace MissionPlanner.Controls.NewControls
 
             //frm = new Vibration();
             frm = new VibeGraph();
+            frm.timer1.Enabled = true;
             frm.Show();
         }
 
