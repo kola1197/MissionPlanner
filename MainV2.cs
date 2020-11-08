@@ -2336,18 +2336,19 @@ namespace MissionPlanner
                         warnings.Add("Двигатель заглох");
                     }
                 }
-
+                if (prevMode != MainV2.comPort.MAV.cs.mode)
+                {
+                    prevMode = MainV2.comPort.MAV.cs.mode;
+                    currentEngineMode = 3;
+                    if (StatusControlPanel != null && StatusControlPanel.EngineControlForm != null)
+                    {
+                        StatusControlPanel.EngineControlForm.setEngineMode();
+                        StatusControlPanel.EngineControlForm.updateButtons(currentEngineMode);
+                     }
+                }
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
                     notifications.Add("Режим изменен на " + MainV2.comPort.MAV.cs.mode);
-                    if (prevMode != MainV2.comPort.MAV.cs.mode)
-                    {
-                        prevMode = MainV2.comPort.MAV.cs.mode;
-                        EngineControlForm engineControlForm = new EngineControlForm();
-                        currentEngineMode = 3;
-                        engineControlForm.setEngineMode();
-                        engineControlForm.Close();
-                    }
                 }
 
                 try
