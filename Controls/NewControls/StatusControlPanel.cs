@@ -8,7 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MissionPlanner.Controls.NewControls;
+using MissionPlanner.GCSViews;
 using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
@@ -38,6 +40,12 @@ namespace MissionPlanner.Controls
 
         public EmulateSitlParameters SitlEmulation = new EmulateSitlParameters();
 
+        public double _fuelWarningPercentage,
+            _fuelCriticalPercentage,
+            _voltageCriticalPercentage,
+            _voltageWarningPercentage;
+
+
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -52,6 +60,11 @@ namespace MissionPlanner.Controls
 
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
             engineIndent = new Point(0, 30);
+
+            _fuelWarningPercentage = 20;
+            _fuelCriticalPercentage = 10;
+            _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
+            _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
         }
 
         public void SetFuelPbMinMax()
@@ -104,10 +117,21 @@ namespace MissionPlanner.Controls
                 // }
                 // else
                 // {
-                AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                AdditionalSensorControl sensorControl;
+                if (toolStripItem.Text == "Следующая точка")
                 {
-                    sensorName = toolStripItem.Text
-                };
+                    sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
+                    {
+                        sensorName = toolStripItem.Text
+                    };   
+                }
+                else
+                {
+                    sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                    {
+                        sensorName = toolStripItem.Text
+                    };    
+                }
                 sensorControl.CustomOnClick += sensorsStrip_Click;
                 sensors.Add(toolStripItem, sensorControl);
                 // }
@@ -134,10 +158,21 @@ namespace MissionPlanner.Controls
             // }
             // else
             // {
-            AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+            AdditionalSensorControl sensorControl;
+            if (keyItem.Text == "Следующая точка")
             {
-                sensorName = keyItem.Text
-            };
+                sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
+                {
+                    sensorName = keyItem.Text
+                };   
+            }
+            else
+            {
+                sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                {
+                    sensorName = keyItem.Text
+                };    
+            }
             sensorControl.CustomOnClick += sensorsStrip_Click;
             sensors[keyItem] = sensorControl;
             // }
@@ -208,8 +243,15 @@ namespace MissionPlanner.Controls
                 else
                 {
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(
+                        bindingSourceCurrentState.UpdateDataSource(MainV2.comPort.MAV.cs));
+                    MainV2.comPort.MAV.cs.UpdateCurrentSettings(
                         bindingSourceHud.UpdateDataSource(MainV2.comPort.MAV.cs));
                 }
+
+                bindingSourceWpSerialNum.DataSource = FlightPlanner.WpSerialNum;
+                
+                bindingSourceWpSerialNum.ResetBindings(true);
+                // bindingSourceWpSerialNum.UpdateDataSource(MainV2.instance.FlightPlanner);
             }
             catch (Exception ex)
             {
@@ -246,13 +288,14 @@ namespace MissionPlanner.Controls
             }
         }
 
-        private void UpdateProgressBarColor(VerticalSplittedProgressBar progressBar)
+        private void UpdateProgressBarColor(VerticalSplittedProgressBar progressBar, double warningPercentage,
+            double criticalPercentage)
         {
             double range = progressBar.Maximum - progressBar.Minimum;
             double value = progressBar.Value;
             double valueRange = value - progressBar.Minimum;
-            double yellowRange = range * 0.35;
-            double redRange = range * 0.15;
+            double yellowRange = range * warningPercentage / 100;
+            double redRange = range * criticalPercentage / 100;
             if (valueRange <= yellowRange)
             {
                 if (valueRange <= redRange)
@@ -269,7 +312,7 @@ namespace MissionPlanner.Controls
                 progressBar.Color = Color.LimeGreen;
             }
         }
-        
+
         private void UpdateEngineTempProgressBarColor()
         {
             var progressBar = engineTemp_SVPB;
@@ -320,9 +363,9 @@ namespace MissionPlanner.Controls
             {
                 UpdateSitlProgressBars();
             }
-            
-            UpdateProgressBarColor(splittedBar_fuel);
-            UpdateProgressBarColor(splittedBar_voltage);
+
+            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
             UpdateEngineTempProgressBarColor();
         }
 
@@ -332,6 +375,7 @@ namespace MissionPlanner.Controls
             {
                 return;
             }
+
             var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
             splittedBar_fuel.Value = MainV2.CurrentAircraft.Fuel;
             airspeed_SVPB.Value = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
@@ -378,13 +422,13 @@ namespace MissionPlanner.Controls
 
             verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
 
-            altitude_label.Text = alt.ToString("F2", new CultureInfo("en-US"));
+            altitude_label.Text = alt.ToString("F0", new CultureInfo("en-US"));
 
-            targetAlt_label.Text = targetAlt.ToString("F2", new CultureInfo("en-US"));
+            targetAlt_label.Text = targetAlt.ToString("F0", new CultureInfo("en-US"));
 
             fuel_label.Text = CalcFuelPercentage().ToString(new CultureInfo("en-US")) + "%";
 
-            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2", new CultureInfo("en-US"));
+            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F1", new CultureInfo("en-US"));
 
             environmentTemp_label.Text =
                 envTemp.ToString("F1", new CultureInfo("en-US")) + "°";
@@ -497,12 +541,17 @@ namespace MissionPlanner.Controls
             }
             else
             {
-                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 / splittedBar_fuel.Maximum * 100);
+                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 /
+                    (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) * 100);
             }
 
             return Math.Min(Math.Max(percent, 0), 100);
         }
 
+        public double CalcProgressBarPercentage(VerticalSplittedProgressBar progressBar, double value)
+        {
+            return value / (progressBar.Maximum - progressBar.Minimum) * 100;
+        }
 
         private void speedPanel_Click(object sender, EventArgs e)
         {

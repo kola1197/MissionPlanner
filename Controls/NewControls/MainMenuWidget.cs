@@ -94,8 +94,11 @@ namespace MissionPlanner.Controls
             try
             {
                 MyButton b = (MyButton)sender;
-                toolTip1.InitialDelay = 2000;
-                toolTip1.Show(b.Tag.ToString(), b);
+                toolTip1.InitialDelay = 1000;
+                toolTip1.IsBalloon = true;
+                Point p = new Point(b.Location.X, b.Location.Y + b.Size.Height + 10);
+                Point pos = new Point(0,-45);
+                toolTip1.Show(b.Tag.ToString(),b, pos );
             }
             catch { }
         }

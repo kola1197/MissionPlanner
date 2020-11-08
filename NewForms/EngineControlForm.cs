@@ -47,7 +47,7 @@ namespace MissionPlanner.NewForms
             updateButtons(MainV2.currentEngineMode);
         }
 
-        private void setEngineMode() 
+        public void setEngineMode() 
         {
             switch (MainV2.currentEngineMode) 
             {

@@ -703,7 +703,14 @@ namespace MissionPlanner
 
                 _currentAircraftNum = value;
 
-                CurrentAircraft = Aircrafts[_currentAircraftNum];
+                if (value != null)
+                {
+                    CurrentAircraft = Aircrafts[_currentAircraftNum];
+                }
+                else
+                {
+                    CurrentAircraft = null;
+                }
 
                 if (_currentAircraftNum != null && ConnectedAircraftExists())
                 {
@@ -1692,7 +1699,7 @@ namespace MissionPlanner
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
                 }
 
-                if (!FlightPlanner.notificationControl1.timer1.Enabled)
+                if (!FlightPlanner.notificationControl1.timer1.Enabled && (!IsSitlLanding || !ParachuteReleased))
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
@@ -1843,9 +1850,10 @@ namespace MissionPlanner
                 // FlightPlanner.Commands.Rows[(int) comPort.MAV.cs.wpno].Cells[FlightPlanner.Command.Index].Value
                 // .ToString(), false);
                 // nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
-         
+
                 // if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && !_parachutePointReached)
-                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && CurrentAircraft.UsingSitl &&
+                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl &&
+                    CurrentAircraft.UsingSitl &&
                     !SitlReachedParachutePoint)
                 {
                     // comPort.setMode("LAND");
@@ -2245,6 +2253,7 @@ namespace MissionPlanner
 
         public static List<string> notifications = new List<string>();
         public static List<string> warnings = new List<string>();
+        private string prevMode = "";
 
         void alarmLabelTextCheck()
         {
@@ -2296,7 +2305,7 @@ namespace MissionPlanner
                     warnings.Add("Рассогласование скорости");
                 }
 
-                if (MainV2.comPort.MAV.cs.battery_voltage < 11 )
+                if (MainV2.comPort.MAV.cs.battery_voltage < 11)
                 {
                     warnings.Add("Низкое напряжение, отказ генератора");
                 }
@@ -2331,16 +2340,27 @@ namespace MissionPlanner
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
                     notifications.Add("Режим изменен на " + MainV2.comPort.MAV.cs.mode);
+                    if (prevMode != MainV2.comPort.MAV.cs.mode)
+                    {
+                        prevMode = MainV2.comPort.MAV.cs.mode;
+                        EngineControlForm engineControlForm = new EngineControlForm();
+                        currentEngineMode = 3;
+                        engineControlForm.setEngineMode();
+                        engineControlForm.Close();
+                    }
                 }
 
                 try
                 {
                     if (comPort.MAV.cs.battery_voltage2 /
-                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15 && isSitl || StatusControlPanel.IsSitlConnected() &&
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
+                        StatusControlPanel._fuelCriticalPercentage / 100 && !StatusControlPanel.IsSitlConnected() ||
+                        StatusControlPanel.IsSitlConnected() &&
                         _currentAircraft.Fuel /
-                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) < 0.15) //check in persents
+                        (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
+                        StatusControlPanel._fuelCriticalPercentage / 100) //check in persents
                     {
-                        warnings.Add("Низкий уровень топлива");
+                        warnings.Add("Малый остаток топлива");
                     }
                 }
                 catch (Exception e)
@@ -2373,11 +2393,13 @@ namespace MissionPlanner
                     progressBar1.ValueColor = Color.Red;
                     progressBar2.ValueColor = Color.Red;
                     label1.Text = "ОШИБКИ (" + warnings.Count.ToString() + ")";
+                    label1.ForeColor = Color.White;
                 }
                 else
                 {
                     if (progressBar1.ValueColor != Color.Lime)
                     {
+                        label1.ForeColor = Color.Black;
                         progressBar1.ValueColor = Color.Lime;
                         progressBar2.ValueColor = Color.Lime;
                     }
@@ -2927,9 +2949,9 @@ namespace MissionPlanner
 
                                 if (ver2 > ver1)
                                 {
-                                    Common.MessageShowAgain(Strings.NewFirmware + "-" + item.name,
-                                        Strings.NewFirmwareA + item.name + Strings.Pleaseup +
-                                        "[link;https://discuss.ardupilot.org/tags/stable-release;Release Notes]");
+                                    // Common.MessageShowAgain(Strings.NewFirmware + "-" + item.name,
+                                    //     Strings.NewFirmwareA + item.name + Strings.Pleaseup +
+                                    //     "[link;https://discuss.ardupilot.org/tags/stable-release;Release Notes]");
                                     break;
                                 }
 
@@ -6144,10 +6166,12 @@ namespace MissionPlanner
                 {
                     return;
                 }
+
                 _isSitlLanding = value;
                 if (value)
                 {
                     StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
+                    GCSViews.FlightPlanner.instance.notificationControl1.timer1.Stop();
                 }
             }
         }

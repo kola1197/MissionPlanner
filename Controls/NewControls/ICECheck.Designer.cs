@@ -37,6 +37,8 @@
             this.progressBar1 = new BSE.Windows.Forms.ProgressBar();
             this.progressBar2 = new BSE.Windows.Forms.ProgressBar();
             this.progressBar3 = new BSE.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,11 +159,29 @@
             this.progressBar3.Value = 0;
             this.progressBar3.ValueColor = System.Drawing.Color.Cyan;
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(15, 207);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 15);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "3400";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(15, 142);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "7200";
+            // 
             // ICECheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);
@@ -175,6 +195,9 @@
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
 
         #endregion
 
