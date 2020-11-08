@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MissionPlanner.Controls.NewControls;
+using MissionPlanner.GCSViews;
 using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
@@ -60,8 +61,8 @@ namespace MissionPlanner.Controls
             slidingScaleIndent = new Point(speedPanel.Width / 4, 30);
             engineIndent = new Point(0, 30);
 
-            _fuelWarningPercentage = 40;
-            _fuelCriticalPercentage = 15;
+            _fuelWarningPercentage = 20;
+            _fuelCriticalPercentage = 10;
             _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
             _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
         }
@@ -116,10 +117,21 @@ namespace MissionPlanner.Controls
                 // }
                 // else
                 // {
-                AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                AdditionalSensorControl sensorControl;
+                if (toolStripItem.Text == "Следующая точка")
                 {
-                    sensorName = toolStripItem.Text
-                };
+                    sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
+                    {
+                        sensorName = toolStripItem.Text
+                    };   
+                }
+                else
+                {
+                    sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                    {
+                        sensorName = toolStripItem.Text
+                    };    
+                }
                 sensorControl.CustomOnClick += sensorsStrip_Click;
                 sensors.Add(toolStripItem, sensorControl);
                 // }
@@ -146,10 +158,21 @@ namespace MissionPlanner.Controls
             // }
             // else
             // {
-            AdditionalSensorControl sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+            AdditionalSensorControl sensorControl;
+            if (keyItem.Text == "Следующая точка")
             {
-                sensorName = keyItem.Text
-            };
+                sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
+                {
+                    sensorName = keyItem.Text
+                };   
+            }
+            else
+            {
+                sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
+                {
+                    sensorName = keyItem.Text
+                };    
+            }
             sensorControl.CustomOnClick += sensorsStrip_Click;
             sensors[keyItem] = sensorControl;
             // }
@@ -220,8 +243,15 @@ namespace MissionPlanner.Controls
                 else
                 {
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(
+                        bindingSourceCurrentState.UpdateDataSource(MainV2.comPort.MAV.cs));
+                    MainV2.comPort.MAV.cs.UpdateCurrentSettings(
                         bindingSourceHud.UpdateDataSource(MainV2.comPort.MAV.cs));
                 }
+
+                bindingSourceWpSerialNum.DataSource = FlightPlanner.WpSerialNum;
+                
+                bindingSourceWpSerialNum.ResetBindings(true);
+                // bindingSourceWpSerialNum.UpdateDataSource(MainV2.instance.FlightPlanner);
             }
             catch (Exception ex)
             {
@@ -392,13 +422,13 @@ namespace MissionPlanner.Controls
 
             verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
 
-            altitude_label.Text = alt.ToString("F2", new CultureInfo("en-US"));
+            altitude_label.Text = alt.ToString("F0", new CultureInfo("en-US"));
 
-            targetAlt_label.Text = targetAlt.ToString("F2", new CultureInfo("en-US"));
+            targetAlt_label.Text = targetAlt.ToString("F0", new CultureInfo("en-US"));
 
             fuel_label.Text = CalcFuelPercentage().ToString(new CultureInfo("en-US")) + "%";
 
-            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F2", new CultureInfo("en-US"));
+            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F1", new CultureInfo("en-US"));
 
             environmentTemp_label.Text =
                 envTemp.ToString("F1", new CultureInfo("en-US")) + "°";

@@ -1731,7 +1731,7 @@ namespace MissionPlanner
         public uint gen_runtime { get; set; }
         [GroupText("Generator")]
         public int gen_maint_time { get; set; }
-
+        
         public object Clone()
         {
             return MemberwiseClone();

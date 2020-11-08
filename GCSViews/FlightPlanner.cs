@@ -165,6 +165,8 @@ namespace MissionPlanner.GCSViews
         private static WaypointInfoControl _wpControl = new WaypointInfoControl() {Visible = false};
         // private static WpInfoForm _wpControl = new WpInfoForm() {Visible = false};
 
+        public static WpNumber WpSerialNum = new WpNumber();
+        
         public void Init()
         {
             instance = this;
@@ -7097,6 +7099,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
+            WpSerialNum.PxNum = (int) MainV2.comPort.MAV.cs.wpno;
+            WpSerialNum.SerialNum = getWPSerialNumber((int) MainV2.comPort.MAV.cs.wpno - 1);
             MainMap.Invalidate();
         }
 
@@ -8078,14 +8082,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         public int getWPSerialNumber(int index)
         {
             int result = 0;
-            for (int i = 0; i < index + 1; i++)
+            
+            try
             {
-                ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                    Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
-                if (cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort) MAVLink.MAV_CMD.LOITER_TIME)
+                for (int i = 0; i < index + 1; i++)
                 {
-                    result++;
+                    ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                        Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
+                    if (cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort) MAVLink.MAV_CMD.LOITER_TIME)
+                    {
+                        result++;
+                    }
                 }
+
+            }
+            catch
+            {
+                result = 0;
             }
 
             return result;

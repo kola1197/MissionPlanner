@@ -1699,7 +1699,7 @@ namespace MissionPlanner
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
                 }
 
-                if (!FlightPlanner.notificationControl1.timer1.Enabled)
+                if (!FlightPlanner.notificationControl1.timer1.Enabled && (!IsSitlLanding || !ParachuteReleased))
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
@@ -2360,7 +2360,7 @@ namespace MissionPlanner
                         (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
                         StatusControlPanel._fuelCriticalPercentage / 100) //check in persents
                     {
-                        warnings.Add("Низкий уровень топлива");
+                        warnings.Add("Малый остаток топлива");
                     }
                 }
                 catch (Exception e)
@@ -6171,6 +6171,7 @@ namespace MissionPlanner
                 if (value)
                 {
                     StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
+                    GCSViews.FlightPlanner.instance.notificationControl1.timer1.Stop();
                 }
             }
         }
