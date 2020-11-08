@@ -2088,7 +2088,7 @@ namespace MissionPlanner
         {
             DataGridViewRow row =
                 (DataGridViewRow) FlightPlanner.Commands.Rows[FlightPlanner.Commands.Rows.Count - 1].Clone();
-            row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND;
+            row.Cells[FlightPlanner.Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
             row.Cells[FlightPlanner.Command.Index + 1].Value = (14).ToString();
             int v = 100;
             row.Cells[FlightPlanner.Lat.Index].Value = FlightPlanner.landPoint.Lat.ToString();
