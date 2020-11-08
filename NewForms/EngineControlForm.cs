@@ -77,7 +77,7 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void updateButtons(int i) 
+        public void updateButtons(int i) 
         {
             System.Drawing.Color Botok = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             System.Drawing.Color Topok = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));

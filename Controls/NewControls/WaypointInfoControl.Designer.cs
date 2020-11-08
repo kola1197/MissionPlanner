@@ -46,7 +46,7 @@
             // 
             // wpInfo_GB
             // 
-            this.wpInfo_GB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.wpInfo_GB.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.wpInfo_GB.ForeColor = System.Drawing.Color.White;
             this.wpInfo_GB.Location = new System.Drawing.Point(165, 88);
             this.wpInfo_GB.Name = "wpInfo_GB";
@@ -187,7 +187,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (60)))), ((int) (((byte) (60)))), ((int) (((byte) (60)))));
             this.Controls.Add(this.wpnoLabel);
             this.Controls.Add(this.lng_label);
             this.Controls.Add(this.wpInfo_GB);
@@ -202,10 +202,9 @@
             this.Controls.Add(this.label14);
             this.DoubleBuffered = true;
             this.Name = "WaypointInfoControl";
-            this.Size = new System.Drawing.Size(159, 164);
+            this.Size = new System.Drawing.Size(180, 164);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
