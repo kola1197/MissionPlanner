@@ -7916,22 +7916,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             {
                                 case 1:
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF;
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
                                     row.Cells[Command.Index + 1].Value = (14).ToString();
                                     int v = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                                     row.Cells[Lon.Index + 1].Value = v.ToString();
                                     Commands.Rows.Insert(index, row);
                                     index++;
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT;
+                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     break;
                                 case 2:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT;
+                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     break;
                                 case 3:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT;
+                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED;
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
@@ -7944,7 +7944,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     landPoint = new PointLatLng(wpConfig.controller.wgs.Lat,
                                         wpConfig.controller.wgs.Lng);
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT;
+                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                                     row.Cells[Command.Index + 1].Value = "2";
@@ -7954,7 +7954,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         MainV2.CurrentAircraft.UsingSitl)
                                     {
                                         DataGridViewRow row1 = (DataGridViewRow) Commands.Rows[index].Clone();
-                                        row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND;
+                                        row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
                                         row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.Lat.ToString();
                                         row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
                                         Commands.Rows.Insert(index + 2, row1);
@@ -7963,7 +7963,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     break;
                                 default:
                                     Commands.Rows[index].Cells[Command.Index].Value =
-                                        MAVLink.MAV_CMD.WAYPOINT;
+                                        MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     break;
                             }
                         }
