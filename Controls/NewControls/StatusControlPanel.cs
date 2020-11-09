@@ -519,12 +519,12 @@ namespace MissionPlanner.Controls
                 EngineControlForm.Hide();
                 return;
             }
-            if (!EngineControlForm.IsDisposed)
-            {
+
                 //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
                 MainV2.FormConnector.ConnectForm(EngineControlForm);
                 EngineControlForm.Show();
-            }
+                EngineControlForm.TopLevel = true;
+
         }
 
         public int CalcFuelPercentage()

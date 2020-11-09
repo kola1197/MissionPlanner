@@ -84,37 +84,37 @@ namespace MissionPlanner.NewForms
                 case (int) EngineMode.LongestTime: //set thr_max = 30
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxTime);
                     MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
-                    MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxTime));
-                    MainV2.EngineOverrideTestFlag = true;
+                    // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxTime));
+                    // MainV2.EngineOverrideTestFlag = true;
                     break;
                 case (int) EngineMode.Small:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxSmall);
                     MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
-                    MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxSmall));
-                    MainV2.EngineOverrideTestFlag = true;
+                    // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxSmall));
+                    // MainV2.EngineOverrideTestFlag = true;
                     break;
                 case (int) EngineMode.Full:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxDefault);
                     MainV2.comPort.setParam(sysid, compid, "THR_MIN", MaxDefault * 0.999);
-                    MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxDefault));
-                    MainV2.EngineOverrideTestFlag = true;
+                    // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxDefault));
+                    // MainV2.EngineOverrideTestFlag = true;
                     break;
                 case (int) EngineMode.Auto:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxDefault);
                     MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
-                    MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxDefault));
-                    MainV2.EngineOverrideTestFlag = true;
+                    // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxDefault));
+                    // MainV2.EngineOverrideTestFlag = true;
                     break;
                 case (int) EngineMode.Manual:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", (float) throttle_TrackBar.Value * 1.001);
                     MainV2.comPort.setParam(sysid, compid, "THR_MIN", (float) throttle_TrackBar.Value * 0.999);
-                    MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel((float) throttle_TrackBar.Value));
-                    MainV2.EngineOverrideTestFlag = true;
+                    // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel((float) throttle_TrackBar.Value));
+                    // MainV2.EngineOverrideTestFlag = true;
                     break;
                 default:
                     break;
             }
-            MainV2._lastEngineOverrideTime = DateTime.Now;
+            // MainV2._lastEngineOverrideTime = DateTime.Now;
         }
 
         public void updateButtons(int i)
