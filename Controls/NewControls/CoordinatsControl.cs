@@ -13,7 +13,8 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class CoordinatsControl : UserControl
     {
-        CoordinatsModeForm coordinatsModeForm;
+        private static CoordinatsModeForm _coordinatsModeForm = new CoordinatsModeForm() {Visible = false};
+
         public CoordinatsControl()
         {
             InitializeComponent();
@@ -22,21 +23,24 @@ namespace MissionPlanner.Controls.NewControls
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (coordinatsModeForm != null)
+            if (_coordinatsModeForm.IsDisposed || !_coordinatsModeForm.Visible)
             {
-                coordinatsModeForm.Close();
+                _coordinatsModeForm = new CoordinatsModeForm() {Visible = false};
+                _coordinatsModeForm.SetToTop();
+                _coordinatsModeForm.SetFormLocation();
+                MainV2.FormConnector.ConnectForm(_coordinatsModeForm);
+                _coordinatsModeForm.updateButtons();
+                _coordinatsModeForm.Show();
+                _coordinatsModeForm.updateButtons();
             }
-            coordinatsModeForm = new CoordinatsModeForm();
-            coordinatsModeForm.TopMost = true;
-            coordinatsModeForm.updateButtons();
-            coordinatsModeForm.Show();
-            coordinatsModeForm.updateButtons();
-
+            else
+            {
+                _coordinatsModeForm.Close();
+            }
         }
     }
 }

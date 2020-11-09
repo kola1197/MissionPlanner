@@ -675,45 +675,52 @@ namespace MissionPlanner.GCSViews
                     }
                 }
             }*/
-            if (MainV2.AntennaConnectionInfo.Active)
+            try
             {
-                return;
-            }
-
-            if ((MainV2.comPort.MAV.cs.capabilities & (uint) MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
-            {
-                if (!MainV2.comPort.BaseStream.IsOpen)
+                if (MainV2.AntennaConnectionInfo.Active)
                 {
-                    CustomMessageBox.Show("Необходимо подключиться к самолету");
                     return;
                 }
 
-                List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid,
-                    MainV2.comPort.MAV.compid,
-                    MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
-
-                if (cmds.Count() > 1)
+                if ((MainV2.comPort.MAV.cs.capabilities & (uint) MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
                 {
-                    rallyWp = cmds[1];
+                    if (!MainV2.comPort.BaseStream.IsOpen)
+                    {
+                        CustomMessageBox.Show("Необходимо подключиться к самолету");
+                        return;
+                    }
+
+                    List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid,
+                        MainV2.comPort.MAV.compid,
+                        MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
+
+                    if (cmds.Count() > 1)
+                    {
+                        rallyWp = cmds[1];
+                    }
+
+                    writeKML();
                 }
 
-                writeKML();
+                IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
+                {
+                    StartPosition = FormStartPosition.CenterScreen,
+                    Text = "Receiving WP's"
+                };
+
+                frmProgressReporter.DoWork += getWPs;
+                frmProgressReporter.UpdateProgressAndStatus(-1, "Receiving WP's");
+
+                ThemeManager.ApplyThemeTo(frmProgressReporter);
+
+                frmProgressReporter.RunBackgroundOperationAsync();
+
+                frmProgressReporter.Dispose();
             }
-
-            IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
+            catch
             {
-                StartPosition = FormStartPosition.CenterScreen,
-                Text = "Receiving WP's"
-            };
-
-            frmProgressReporter.DoWork += getWPs;
-            frmProgressReporter.UpdateProgressAndStatus(-1, "Receiving WP's");
-
-            ThemeManager.ApplyThemeTo(frmProgressReporter);
-
-            frmProgressReporter.RunBackgroundOperationAsync();
-
-            frmProgressReporter.Dispose();
+                
+            }
         }
 
         public bool wpLoadMutexBusy = false;
@@ -3816,6 +3823,7 @@ namespace MissionPlanner.GCSViews
 
         public void deleteWPToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            HidePopUpInfo();
             if (CurrentRallyPt != null)
             {
                 rallyWp.lat = 0;
@@ -7629,6 +7637,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //draging
             if (e.Button == MouseButtons.Left && isMouseDown)
             {
+                HidePopUpInfo();
                 isMouseDraging = true;
                 if (CurrentRallyPt != null)
                 {
@@ -8874,6 +8883,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
             // _wpControl.wpInfoControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
+            Thread.Sleep(25);
             _wpControl.Parent = MainMap;
             _wpControl.Location = location;
             _wpControl.Parent = MainMap;
