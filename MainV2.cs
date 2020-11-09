@@ -1561,7 +1561,7 @@ namespace MissionPlanner
                         _sitlFuelUpdateTime = DateTime.Now;
                     }
 
-                    int timeSpan = (DateTime.Now - _sitlEmulationTime).Milliseconds;
+                    int timeSpan = (int) (DateTime.Now - _sitlEmulationTime).TotalMilliseconds;
                     if (timeSpan > 500)
                     {
                         StatusControlPanel.SitlEmulation.DoEmulationStep(timeSpan);
@@ -1730,7 +1730,7 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                 {
-                    if (comPort.MAV.cs.timeInAir > 0)
+                    if (comPort.MAV.cs.airspeed > 17.0)
                     {
                         Aircrafts[CurrentAircraftNum].inAir = true;
                         _sitlFuelUpdateTime = DateTime.Now;
@@ -1760,15 +1760,24 @@ namespace MissionPlanner
                         ctrlModeActive = false;
                     }
                 }*/
-                if (overrideModeActive)
+                if (overrideModeActive || EngineOverrideTestFlag)
                 {
                     MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                     rc.target_component = comPort.MAV.compid;
                     rc.target_system = comPort.MAV.sysid;
                     rc.chan1_raw = (ushort) overrides[0];
                     rc.chan2_raw = (ushort) overrides[1];
-                    rc.chan3_raw = (ushort) overrides[2];
+                    rc.chan3_raw = EngineChannelOverride;
                     rc.chan4_raw = (ushort) overrides[3];
+
+                    if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
+                    {
+                        //Send override for engine for 1 second
+                        EngineOverrideTestFlag = false;
+                        EngineChannelOverride = (ushort) overrides[2];
+                        _lastEngineOverrideTime = DateTime.Now;
+                    }
+                    
                     System.Diagnostics.Debug.WriteLine("Overrides: " + overrides[0] + " " + overrides[1] + " " +
                                                        overrides[2] + " " + overrides[3] + " ");
                     if (comPort.BaseStream.IsOpen)
@@ -1791,6 +1800,39 @@ namespace MissionPlanner
                         }
                     }
                 }
+
+                // if (IsEngineOverrideActive || EngineOverrideTestFlag)
+                // {
+                //     MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+                //     rc.target_component = comPort.MAV.compid;
+                //     rc.target_system = comPort.MAV.sysid;
+                //     rc.chan1_raw = (ushort) overrides[0];
+                //     rc.chan2_raw = (ushort) overrides[1];
+                //     rc.chan3_raw = EngineChannelOverride;
+                //     rc.chan4_raw = (ushort) overrides[3];
+                //     // System.Diagnostics.Debug.WriteLine("Overrides: " + overrides[0] + " " + overrides[1] + " " +
+                //     //                                    overrides[2] + " " + overrides[3] + " ");
+                //     EngineOverrideTestFlag = false;
+                //     if (comPort.BaseStream.IsOpen)
+                //     {
+                //         if (comPort.BaseStream.BytesToWrite < 50)
+                //         {
+                //             //if (sitl)
+                //             //{
+                //             //    SITL.rcinput();
+                //             //}
+                //             //else
+                //             //{
+                //             comPort.sendPacket(rc, rc.target_system, rc.target_component);
+                //             // System.Diagnostics.Debug.WriteLine("rc sent");
+                //
+                //             //}
+                //
+                //             //count++;
+                //             //lastjoystick = DateTime.Now;
+                //         }
+                //     }
+                // }
             }
             catch (System.Exception eee)
             {
@@ -2077,17 +2119,20 @@ namespace MissionPlanner
 
         void homeButtonClick(object sender, EventArgs e)
         {
-            try
-            {
-                ((Control) sender).Enabled = false;
-                MainV2.comPort.setMode("RTL");
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-            }
-
-            ((Control) sender).Enabled = true;
+            // try
+            // {
+            //     ((Control) sender).Enabled = false;
+            //     MainV2.comPort.setMode("RTL");
+            // }
+            // catch
+            // {
+            //     CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            // }
+            //
+            // ((Control) sender).Enabled = true;
+            
+            FlightPlanner.MainMap.Position =
+                new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
         }
 
         public void setLandWpInSitl()
@@ -5619,7 +5664,11 @@ namespace MissionPlanner
 
         private ushort[] overrides = new ushort[] {1500, 1500, 1500, 1500};
         private static bool overrideModeActive = false;
-
+        public static bool IsEngineOverrideActive = false;
+        public static bool EngineOverrideTestFlag = false;
+        public ushort EngineChannelOverride = 1500;
+        public static DateTime _lastEngineOverrideTime = DateTime.Now;
+        
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
             if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
@@ -5651,7 +5700,7 @@ namespace MissionPlanner
                     overrides[3] = 1500;
                 }
 
-                if (keyData == (Keys.Control | Keys.Up))
+                if (keyData == (Keys.Control | Keys.Down))
                 {
                     System.Diagnostics.Debug.WriteLine("UP is RELEASED");
                     overrides[1] = 1500;
@@ -5659,6 +5708,7 @@ namespace MissionPlanner
             }
         }
 
+        private DateTime _lastFBWBCall = DateTime.Now;
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
         {
             //Message temp = new Message();
@@ -5680,14 +5730,18 @@ namespace MissionPlanner
                 string debugOverrideInfo = "Ручной контроль полета активирован, текущая команда: ";
                 if (keyData == (Keys.Control | Keys.ControlKey))
                 {
-                    secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
-                    thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
-                    logger.write("Ручное управление активировано");
-                    System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
-                    overrideModeActive = true;
-                    if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                    if ((DateTime.Now - _lastFBWBCall).TotalMilliseconds > 5000)
                     {
-                        MainV2.comPort.setMode("FBWB");
+                        secondTrim = (ushort) MainV2.comPort.GetParam("SERVO4_TRIM");
+                        thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
+                        logger.write("Ручное управление активировано");
+                        System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
+                        overrideModeActive = true;
+                        if (comPort.MAV.cs.mode != "FBWB") //FBWB
+                        {
+                            MainV2.comPort.setMode("FBWB");
+                            _lastFBWBCall = DateTime.Now;
+                        }
                     }
                 }
 
@@ -5705,7 +5759,7 @@ namespace MissionPlanner
                     debugOverrideInfo += " → ";
                 }
 
-                if (keyData == (Keys.Control | Keys.Up))
+                if (keyData == (Keys.Control | Keys.Down))
                 {
                     System.Diagnostics.Debug.WriteLine("UP is PRESSED");
                     overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));

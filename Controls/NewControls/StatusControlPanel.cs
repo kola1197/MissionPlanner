@@ -36,7 +36,8 @@ namespace MissionPlanner.Controls
 
         private ToolStripControlHost clickedSensorControl;
 
-        public EngineControlForm EngineControlForm;
+        public EngineControlForm EngineControlForm = new EngineControlForm()
+            {Visible = false, StartPosition = FormStartPosition.Manual};
 
         public EmulateSitlParameters SitlEmulation = new EmulateSitlParameters();
 
@@ -515,18 +516,13 @@ namespace MissionPlanner.Controls
         {
             if (EngineControlForm != null && EngineControlForm.Visible)
             {
-                MainV2.FormConnector.DisconnectForm(EngineControlForm);
-                EngineControlForm.Close();
+                EngineControlForm.Hide();
                 return;
             }
-
-            EngineControlForm = new EngineControlForm()
-                {Visible = false, StartPosition = FormStartPosition.Manual};
             if (!EngineControlForm.IsDisposed)
             {
                 //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
                 MainV2.FormConnector.ConnectForm(EngineControlForm);
-                EngineControlForm.SetFormLocation();
                 EngineControlForm.Show();
             }
         }

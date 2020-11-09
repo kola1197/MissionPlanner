@@ -50,22 +50,30 @@ namespace MissionPlanner.NewForms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (MainV2.comPort.MAV.cs.connected)
+            try
             {
-                if (!closeParachuteRelease)
+                if (MainV2.comPort.MAV.cs.connected)
                 {
-                    closeParachuteRelease = !closeParachuteRelease;
-                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                        MAVLink.MAV_CMD.DO_SET_SERVO, 9, 900, 0, 0, 0, 0, 0);
-                    button3.Text = "Отцеп закрыть";
+                    if (!closeParachuteRelease)
+                    {
+                        closeParachuteRelease = !closeParachuteRelease;
+                        MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent,
+                            (byte) MainV2.comPort.compidcurrent,
+                            MAVLink.MAV_CMD.DO_SET_SERVO, 9, 900, 0, 0, 0, 0, 0);
+                        button3.Text = "Отцеп закрыть";
+                    }
+                    else
+                    {
+                        closeParachuteRelease = !closeParachuteRelease;
+                        MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent,
+                            (byte) MainV2.comPort.compidcurrent,
+                            MAVLink.MAV_CMD.DO_SET_SERVO, 9, 1800, 0, 0, 0, 0, 0);
+                        button3.Text = "Отцеп открыть";
+                    }
                 }
-                else
-                {
-                    closeParachuteRelease = !closeParachuteRelease;
-                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                    MAVLink.MAV_CMD.DO_SET_SERVO, 9, 1500, 0, 0, 0, 0, 0);
-                    button3.Text = "Отцеп открыть";
-                }
+            }
+            catch
+            {
             }
         }
 

@@ -83,7 +83,7 @@ namespace MissionPlanner.NewForms
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
             
-            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected) 
+            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraft != null) 
             {
                 MainV2.loiterRad = (int) MainV2.comPort.GetParam("WP_LOITER_RAD");
             }
