@@ -488,7 +488,7 @@ namespace MissionPlanner
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
         public MissionPlanner.Controls.NewControls.RightSideButtonsMenu rightSideButtonsMenu;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
-        private MissionPlanner.Controls.NewControls.SNSControl snsControl2;
+        public MissionPlanner.Controls.NewControls.SNSControl snsControl2;
         public MissionPlanner.Controls.Status status1;
         private MissionPlanner.Controls.NewControls.TimeControl timeControl2;
         private System.Windows.Forms.Timer timer1;

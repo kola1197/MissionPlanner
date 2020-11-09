@@ -7,32 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class ParachuteForm : Form
+    public partial class ParachuteForm : Form, IFormConnectable
     {
         public ParachuteForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
         }
 
         private bool closeParachuteRelease = false;
-
-        public void setPosition() 
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point(275, MainV2.instance.Height - 250);
-        }
-
-        public void setPosition(Point p)
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = p;
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (MainV2.comPort.MAV.cs.connected)
@@ -79,6 +67,22 @@ namespace MissionPlanner.NewForms
                     button3.Text = "Отцеп открыть";
                 }
             }
+        }
+
+        public void SetFormLocation()
+        {
+            // Location = new Point(275, MainV2.instance.Height - 250);
+            Location = new Point(0, MainV2.instance.GetLowerPanelLocation().Y - this.Height - 340 + 20);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void ParachuteForm_Shown(object sender, EventArgs e)
+        {
+            SetToTop();
         }
     }
 }

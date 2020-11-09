@@ -1699,7 +1699,7 @@ namespace MissionPlanner
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
                 }
 
-                if (!FlightPlanner.notificationControl1.timer1.Enabled && (!IsSitlLanding || !ParachuteReleased))
+                if (!FlightPlanner.notificationControl1.timer1.Enabled && !IsSitlLanding && !ParachuteReleased)
                 {
                     FlightPlanner.notificationControl1.timer1.Enabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
@@ -1798,6 +1798,11 @@ namespace MissionPlanner
             }
         }
 
+        public Point GetLowerPanelLocation()
+        {
+            return panel2.Location;
+        }
+
         public void SubscribeOnWpChange()
         {
             comPort.MAV.cs.WpNoValueChanged += CheckWpChangedToDoParachute;
@@ -1823,6 +1828,7 @@ namespace MissionPlanner
                 if (cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE)
                 {
                     doParachuteIndex = row.Index;
+                    break;
                 }
             }
 
@@ -6171,8 +6177,8 @@ namespace MissionPlanner
                 _isSitlLanding = value;
                 if (value)
                 {
+                    MainV2.instance.FlightPlanner.notificationControl1.timer1.Enabled = false;
                     StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
-                    GCSViews.FlightPlanner.instance.notificationControl1.timer1.Stop();
                 }
             }
         }

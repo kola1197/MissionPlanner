@@ -8873,6 +8873,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
             // _wpControl.wpInfoControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
+            Thread.Sleep(25);
             _wpControl.Parent = MainMap;
             _wpControl.Location = location;
             _wpControl.Parent = MainMap;

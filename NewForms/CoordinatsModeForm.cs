@@ -8,14 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Controls.NewControls;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class CoordinatsModeForm : Form
+    public partial class CoordinatsModeForm : Form, IFormConnectable
     {
         public CoordinatsModeForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
             updateButtons();
         }
 
@@ -43,6 +45,26 @@ namespace MissionPlanner.NewForms
         private void wgs_gButton_BackColorChanged(object sender, EventArgs e)
         {
             int k = 0;
+        }
+
+        public void SetFormLocation()
+        {
+            Location = new Point(0, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void CoordinatsModeForm_Shown(object sender, EventArgs e)
+        {
+            SetToTop();
+        }
+
+        private void CoordinatsModeForm_Deactivate(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

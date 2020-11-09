@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using System;
+
+namespace MissionPlanner.NewForms
 {
     partial class ParachuteForm
     {
@@ -28,8 +30,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParachuteForm));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -80,13 +80,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(491, 130);
+            this.ClientSize = new System.Drawing.Size(491, 134);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ParachuteForm";
             this.Text = "Панель работы с парашютом";
+            this.Shown += new System.EventHandler(this.ParachuteForm_Shown);
             this.ResumeLayout(false);
 
         }

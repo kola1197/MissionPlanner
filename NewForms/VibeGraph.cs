@@ -7,30 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class VibeGraph : Form
+    public partial class VibeGraph : Form, IFormConnectable
     {
         public VibeGraph()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
         }
         Bitmap myBitmap;
-
-        public void setPosition() 
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point(200, MainV2.instance.Height - 150);
-        }
-
-        public void setPosition(Point p)
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = p;
-        }
+        
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -94,6 +83,22 @@ namespace MissionPlanner.NewForms
         private void label1_ForeColorChanged(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("fuck");
+        }
+
+        public void SetFormLocation()
+        {
+            // Location = new Point(200, MainV2.instance.Height - 150);
+            Location = new Point(360, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void VibeGraph_Shown(object sender, EventArgs e)
+        {
+            SetToTop();
         }
     }
 }

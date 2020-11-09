@@ -56,9 +56,11 @@ namespace MissionPlanner.NewForms
             if (type == "HOME" || type.ToLower() == "rally")
             {
                 type_label.Text = type;
+                label14.Text = "";
             }
             else
             {
+                label14.Text = "До дома:";
                 string typeText = "";
                 switch (typeCode) // 0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE
                 {
@@ -80,6 +82,10 @@ namespace MissionPlanner.NewForms
 
                 type_label.Text = typeText;
             }
+            
+
+            lat_label.Text = RegionsControl.instance.FormatCoordinateFromWgs(controller, true);
+            lng_label.Text = RegionsControl.instance.FormatCoordinateFromWgs(controller, false);
 
             homeDist_label.Text = homeDist.ToString(new CultureInfo("en-US"));
 
@@ -90,18 +96,7 @@ namespace MissionPlanner.NewForms
             //{
             //    control.BackColor = Color.Transparent;
             //}
-            if (type == "HOME" || type.ToLower() == "rally")
 
-            {
-                label14.Text = "";
-            }
-            else
-            {
-                label14.Text = "До дома:";
-            }
-
-            lat_label.Text = RegionsControl.instance.FormatCoordinateFromWgs(controller, true);
-            lng_label.Text = RegionsControl.instance.FormatCoordinateFromWgs(controller, false);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
