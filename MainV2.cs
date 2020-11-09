@@ -1760,23 +1760,23 @@ namespace MissionPlanner
                         ctrlModeActive = false;
                     }
                 }*/
-                if (overrideModeActive || EngineOverrideTestFlag)
+                if (overrideModeActive)
                 {
                     MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                     rc.target_component = comPort.MAV.compid;
                     rc.target_system = comPort.MAV.sysid;
                     rc.chan1_raw = (ushort) overrides[0];
                     rc.chan2_raw = (ushort) overrides[1];
-                    rc.chan3_raw = EngineChannelOverride;
+                    rc.chan3_raw = (ushort) overrides[2];
                     rc.chan4_raw = (ushort) overrides[3];
-
-                    if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
-                    {
-                        //Send override for engine for 1 second
-                        EngineOverrideTestFlag = false;
-                        EngineChannelOverride = (ushort) overrides[2];
-                        _lastEngineOverrideTime = DateTime.Now;
-                    }
+                    
+                    // if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
+                    // {
+                    //     //Send override for engine for 1 second
+                    //     EngineOverrideTestFlag = false;
+                    //     // EngineChannelOverride = (ushort) overrides[2];
+                    //     _lastEngineOverrideTime = DateTime.Now;
+                    // }
                     
                     System.Diagnostics.Debug.WriteLine("Overrides: " + overrides[0] + " " + overrides[1] + " " +
                                                        overrides[2] + " " + overrides[3] + " ");
