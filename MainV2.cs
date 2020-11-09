@@ -3230,12 +3230,12 @@ namespace MissionPlanner
             CustomMessageBox.DialogResult dialogResult = CustomMessageBox.Show("Выйти из программы?", "НПУ",
                 CustomMessageBox.MessageBoxButtons.YesNo,
                 CustomMessageBox.MessageBoxIcon.None, "Да", "Нет");
-            if (dialogResult == CustomMessageBox.DialogResult.No)
+            if (dialogResult == 0 || dialogResult == CustomMessageBox.DialogResult.No || dialogResult == CustomMessageBox.DialogResult.Abort || dialogResult == CustomMessageBox.DialogResult.Ignore)
             {
                 //do something
                 e.Cancel = true;
             }
-            else if (dialogResult == CustomMessageBox.DialogResult.Yes)
+            else if (dialogResult == CustomMessageBox.DialogResult.Yes )
             {
                 base.OnClosing(e);
 

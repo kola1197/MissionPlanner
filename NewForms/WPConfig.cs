@@ -484,6 +484,7 @@ namespace MissionPlanner.NewForms
             try
             {
                 int newrad = int.Parse(loiterRadTextBox.Text);
+                MainV2.loiterRad = newrad;
                 MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"}, newrad / CurrentState.multiplierdist);
             }
             catch
