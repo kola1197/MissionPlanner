@@ -40,8 +40,15 @@ namespace MissionPlanner.NewForms
         public void Init()
         {
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
-            LoadFuelText();
-            iceRun1.Init();
+            try
+            {
+                LoadFuelText();
+                iceRun1.Init();
+            }
+            catch
+            {
+            }
+
             //updateARMButton();
         }
 
