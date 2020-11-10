@@ -381,8 +381,8 @@ namespace MissionPlanner.NewForms
             }
 
             MainV2.comPort.setMode("Auto");
-            MainV2.StatusControlPanel.SubscribeWpNoValueChangedEvent();
-            MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
+            StatusControlPanel.instance.SubscribeWpNoValueChangedEvent();
+            StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
         }
 
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)

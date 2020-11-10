@@ -665,7 +665,7 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static StatusControlPanel StatusControlPanel = new StatusControlPanel();
+        public StatusControlPanel StatusControlPanel = new StatusControlPanel();
 
         public static FormConnector FormConnector;
 
@@ -6241,7 +6241,7 @@ namespace MissionPlanner
                 if (value)
                 {
                     MainV2.instance.FlightPlanner.notificationControl1.timer1.Enabled = false;
-                    StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
+                    StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
                 }
             }
         }

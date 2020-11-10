@@ -509,11 +509,11 @@ namespace MissionPlanner.GCSViews
                     aircraftSITLInfo.SysId =
                         MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
                     MainV2.CurrentAircraftNum = MainV2.Aircrafts.First(x => x.Value == aircraftSITLInfo).Key;
-                    MainV2.StatusControlPanel.DisableControlBindings();
+                    StatusControlPanel.instance.DisableControlBindings();
                     aircraftSITLInfo.MaxCapacity = 5.0f;
                     aircraftSITLInfo.MinCapacity = 0.0f;
                     aircraftSITLInfo.Fuel = 4.88;
-                    MainV2.StatusControlPanel.SetFuelPbMinMax();
+                    StatusControlPanel.instance.SetFuelPbMinMax();
                     MainV2.instance.SubscribeOnWpChange();
                     // SitlParamList paramList = new SitlParamList(verticalSpeed: 5, groundSpeed: 0, airspeed: 1.5);
                     // aircraftSITLInfo.SitlInfo.SetParameters(paramList);
