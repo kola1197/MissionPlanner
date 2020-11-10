@@ -269,7 +269,7 @@ namespace MissionPlanner.NewForms
         }
 
 
-        private void arm()
+        private async Task arm()
         {
             if (!MainV2.comPort.BaseStream.IsOpen)
                 return;
@@ -277,6 +277,7 @@ namespace MissionPlanner.NewForms
             // arm the MAV
             try
             {
+                armButton.Enabled = false;
                 var isitarmed = MainV2.comPort.MAV.cs.armed;
                 var action = MainV2.comPort.MAV.cs.armed ? "Disarm" : "Arm";
 
@@ -294,6 +295,7 @@ namespace MissionPlanner.NewForms
                 });
                 bool ans = MainV2.comPort.doARM(!isitarmed);
                 MainV2.comPort.UnSubscribeToPacketType(sub);
+                armButton.Enabled = true;
                 /*if (ans == false)
                 {
                     if (CustomMessageBox.Show(
@@ -313,6 +315,7 @@ namespace MissionPlanner.NewForms
             }
             catch
             {
+                armButton.Enabled = true;
                 CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
             }
         }

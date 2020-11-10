@@ -192,12 +192,14 @@ namespace MissionPlanner.Controls
 
         private void centerButton_Click(object sender, EventArgs e)
         {
-            if (!aircraftInAir && MainV2.comPort.MAV.cs.connected)
+            if (!aircraftInAir && MainV2.comPort.MAV.cs.connected && !MainV2.AntennaConnectionInfo.Active &&
+                MainV2.CurrentAircraft != null)
             {
                 if (preFlightForm != null)
                 {
                     preFlightForm.Close();
                 }
+
                 preFlightForm = new PreFlightForm();
                 preFlightForm.Init();
                 preFlightForm.Show();
