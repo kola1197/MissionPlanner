@@ -7937,7 +7937,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 case 2:
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
-                                    Commands.Rows[index].Cells[Command.Index].Value = "0";
+                                    Commands.Rows[index].Cells[Command.Index + 1].Value = "0";
                                     break;
                                 case 3:
                                     Commands.Rows[index].Cells[Command.Index].Value =
