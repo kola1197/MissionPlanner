@@ -191,6 +191,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     }
                 }
             }
+            //sv 8 1900 1100
             MainV2.configServo = new Dictionary<int, servoValue>();
             MainV2.configServo[0] = new servoValue(0, 1500, 1500);
             MainV2.configServo[1] = new servoValue(0, 1500, 1500);
@@ -202,7 +203,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MainV2.configServo[7] = new servoValue(0, 1500, 1500);
             MainV2.configServo[8] = new servoValue(0, 1500, 1500);
             MainV2.configServo[9] = new servoValue(0, 1500, 1500);
-            MainV2.configServo[10] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[10] = new servoValue(8, 1900, 1100);
             deserealaseDict();
             updateComboboxes();
             setFixedValues();
