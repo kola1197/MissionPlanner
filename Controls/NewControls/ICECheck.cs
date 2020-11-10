@@ -28,7 +28,17 @@ namespace MissionPlanner.Controls.NewControls
         int yStart = 300;
         bool testBool = false;
         int counter = 0;
-        bool started = false;
+        private bool _started = false;
+
+        public bool started
+        {
+            get => _started;
+            set
+            {
+                _started = value;
+                MainV2.instance.EngineCheckRunning = value;
+            }
+        }
         List<float> ICESpeeds = new List<float>();
         public bool iceChecked = false;
         Bitmap myBitmap;
@@ -293,6 +303,7 @@ namespace MissionPlanner.Controls.NewControls
             timer1.Stop();
             //started = false;
             counter = 0;
+            started = false;
         }
 
         private void testButton_Click(object sender, EventArgs e)

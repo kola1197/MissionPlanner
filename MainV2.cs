@@ -1522,7 +1522,8 @@ namespace MissionPlanner
 
         public static bool ParachuteReleased = false;
         public static int CoordinatsShowMode = 0;
-
+        private bool _timerBusy = false;
+        public bool EngineCheckRunning = false;
         private void Timer1_Tick(object sender, EventArgs e)
         {
             if (comPort.MAV.cs.connected && !ParachuteReleased)
@@ -1534,17 +1535,22 @@ namespace MissionPlanner
                 }
             }
 
-            try
-            {
-                // cheatParachuteLandingTrigger();
-            }
-            catch (System.Exception eee)
-            {
-                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
-            }
+            // try
+            // {
+            //     // cheatParachuteLandingTrigger();
+            // }
+            // catch (System.Exception eee)
+            // {
+            //     System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            // }
 
             try
             {
+                if (_timerBusy && !EngineCheckRunning)
+                {
+                    return;
+                }
+                _timerBusy = true;
                 if (StatusControlPanel != null && StatusControlPanel.airspeedDirectionControl2 != null)
                 {
                     StatusControlPanel.airspeedDirectionControl2.updateData();
@@ -1582,8 +1588,9 @@ namespace MissionPlanner
                 if (FlightPlanner.pointlist.Count != 0)
                 {
                     FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
-                        FlightPlanner.pointlist[0]);   
+                        FlightPlanner.pointlist[0]);
                 }
+
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
                 string currentMousePosition = "";
                 string currentPosition = "";
@@ -1666,15 +1673,16 @@ namespace MissionPlanner
                     int azimuth = 0;
                     if (FlightPlanner.pointlist.Count > 0)
                     {
-                     homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
-                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
-                     azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
-                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                        homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
+                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                        azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
+                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
                     }
+
                     string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane);
                     FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
 
-                     
+
                     FlightPlanner.notificationControl1.azimuthUav_label.Text = azimuth + "°";
                 }
                 else
@@ -1693,15 +1701,7 @@ namespace MissionPlanner
                 }
 
                 FlightPlanner.notificationControl1.label7.Text = FlightPlanner.FormatDistance(lengthCountr / 1000.0);
-            }
-            catch (System.Exception eee)
-            {
-                System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
-            }
-
-            try
-            {
-                snsControl2.setButtonColors();
+                  snsControl2.setButtonColors();
                 if (!FlightPlanner.rulerControl1.timer1.Enabled)
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
@@ -1842,10 +1842,16 @@ namespace MissionPlanner
                 //         }
                 //     }
                 // }
+            
             }
             catch (System.Exception eee)
             {
                 System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+                _timerBusy = false;
+            }
+            finally
+            {
+                _timerBusy = false;
             }
         }
 
