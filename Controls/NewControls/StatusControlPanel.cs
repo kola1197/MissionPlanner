@@ -15,6 +15,7 @@ using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.WinForms;
+using Timer = System.Threading.Timer;
 
 namespace MissionPlanner.Controls
 {
@@ -46,6 +47,7 @@ namespace MissionPlanner.Controls
             _voltageCriticalPercentage,
             _voltageWarningPercentage;
 
+        private Timer _refreshTimer;
 
         public StatusControlPanel()
         {
@@ -66,6 +68,7 @@ namespace MissionPlanner.Controls
             _fuelCriticalPercentage = 10;
             _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
             _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
+            _refreshTimer = new Timer(_ => Refresh(), null, 0, 100);
         }
 
         public void SetFuelPbMinMax()
@@ -124,15 +127,16 @@ namespace MissionPlanner.Controls
                     sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
                     {
                         sensorName = toolStripItem.Text
-                    };   
+                    };
                 }
                 else
                 {
                     sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
                     {
                         sensorName = toolStripItem.Text
-                    };    
+                    };
                 }
+
                 sensorControl.CustomOnClick += sensorsStrip_Click;
                 sensors.Add(toolStripItem, sensorControl);
                 // }
@@ -165,15 +169,16 @@ namespace MissionPlanner.Controls
                 sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
                 {
                     sensorName = keyItem.Text
-                };   
+                };
             }
             else
             {
                 sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
                 {
                     sensorName = keyItem.Text
-                };    
+                };
             }
+
             sensorControl.CustomOnClick += sensorsStrip_Click;
             sensors[keyItem] = sensorControl;
             // }
@@ -183,13 +188,6 @@ namespace MissionPlanner.Controls
 
         protected override void OnInvalidated(InvalidateEventArgs e)
         {
-            if (!stopwatch.IsRunning)
-            {
-                stopwatch.Start();
-            }
-
-            base.OnInvalidated(e);
-            UpdateBindingSourceWork();
         }
 
         public void SubscribeWpNoValueChangedEvent()
@@ -250,7 +248,7 @@ namespace MissionPlanner.Controls
                 }
 
                 bindingSourceWpSerialNum.DataSource = FlightPlanner.WpSerialNum;
-                
+
                 bindingSourceWpSerialNum.ResetBindings(true);
                 // bindingSourceWpSerialNum.UpdateDataSource(MainV2.instance.FlightPlanner);
             }
@@ -354,12 +352,18 @@ namespace MissionPlanner.Controls
             return false;
         }
 
-        private void timer1_Tick(object sender, System.EventArgs e)
+        private void Refresh()
         {
             // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
             UpdateStatusLabels();
 
-            this.Invalidate();
+            if (!stopwatch.IsRunning)
+            {
+                stopwatch.Start();
+            }
+
+            UpdateBindingSourceWork();
+
             if (IsSitlConnected())
             {
                 UpdateSitlProgressBars();
@@ -520,11 +524,10 @@ namespace MissionPlanner.Controls
                 return;
             }
 
-                //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
-                MainV2.FormConnector.ConnectForm(EngineControlForm);
-                EngineControlForm.Show();
-                EngineControlForm.TopLevel = true;
-
+            //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
+            MainV2.FormConnector.ConnectForm(EngineControlForm);
+            EngineControlForm.Show();
+            EngineControlForm.TopLevel = true;
         }
 
         public int CalcFuelPercentage()

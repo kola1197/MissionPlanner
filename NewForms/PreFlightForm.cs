@@ -341,16 +341,20 @@ namespace MissionPlanner.NewForms
 
         private void armButton_Click(object sender, EventArgs e)
         {
-            arm();
+            Invoke((MethodInvoker)delegate() {
+                arm();
+            });
+            return;
             //updateARMButton();
         }
 
         private bool IsTakeoffPointExists()
         {
-            return  FlightPlanner.instance.Commands.Rows[0].Cells[FlightPlanner.instance.Command.Index].Value.ToString().Equals(
+            return FlightPlanner.instance.Commands.Rows[0].Cells[FlightPlanner.instance.Command.Index].Value.ToString()
+                .Equals(
                     MAVLink.MAV_CMD.TAKEOFF.ToString());
         }
-        
+
         private void myButton3_MouseUp(object sender, MouseEventArgs e)
         {
             if (FlightPlanner.instance.Commands.RowCount == 0)

@@ -7063,8 +7063,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 marker.Position = landPoint;
                             }
 
-                            if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
-                                continue;
+                            // if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                                // continue;
                             // routesoverlay.Markers.Add(marker);
                             addMissionRouteMarker(marker);
                         }
