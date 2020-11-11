@@ -191,7 +191,7 @@ namespace MissionPlanner.Controls.NewControls
                 }
                 else
                 {
-                    if (MainV2.comPort.MAV.cs.rpm1 < 4200)
+                    if (MainV2.comPort.MAV.cs.rpm1 < 5000)
                     {
                         sinusoidTestCounter[1]++;
                     }
