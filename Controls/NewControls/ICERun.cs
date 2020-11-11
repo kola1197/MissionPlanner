@@ -21,7 +21,7 @@ namespace MissionPlanner.Controls.NewControls
             set
             {
                 _iceRunning = value;
-                MainV2.StatusControlPanel.SitlEmulation.EngineRunning = value;
+                StatusControlPanel.instance.SitlEmulation.EngineRunning = value;
             }
         }
 
@@ -63,10 +63,10 @@ namespace MissionPlanner.Controls.NewControls
                     //startButton.Text = "Заглушить";
                     //startButton.Enabled = false;
                     label3.Text = "Двигатель достиг 3000 оборотов";
-                    if (MainV2.StatusControlPanel.SitlEmulation.GetCurrentStateName() ==
+                    if (StatusControlPanel.instance.SitlEmulation.GetCurrentStateName() ==
                         SitlState.SitlStateName.EngineStart)
                     {
-                        MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.EngineWarmUp);
+                        StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.EngineWarmUp);
                     }
                 }
 
@@ -120,7 +120,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void updateLabels()
         {
-            if (MainV2.StatusControlPanel.IsSitlConnected())
+            if (StatusControlPanel.instance.IsSitlConnected())
             {
                 spedsLabel.Text =
                     MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamToString(SitlParam.ParameterName.Rpm);

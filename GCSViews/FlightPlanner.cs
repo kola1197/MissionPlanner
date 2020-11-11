@@ -7038,7 +7038,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 // routesoverlay.Markers.Clear();
 
                 // if (MainV2.comPort.MAV.cs.TrackerLocation != MainV2.comPort.MAV.cs.PlannedHomeLocation &&
-                //     MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !MainV2.StatusControlPanel.IsSitlConnected())
+                //     MainV2.comPort.MAV.cs.TrackerLocation.Lng != 0 && !StatusControlPanel.instance.IsSitlConnected())
                 // {
                 //     addpolygonmarker("Tracker Home", MainV2.comPort.MAV.cs.TrackerLocation.Lng,
                 //         MainV2.comPort.MAV.cs.TrackerLocation.Lat, (int) MainV2.comPort.MAV.cs.TrackerLocation.Alt,
@@ -7063,8 +7063,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 marker.Position = landPoint;
                             }
 
-                            if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
-                                continue;
+                            // if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                                // continue;
                             // routesoverlay.Markers.Add(marker);
                             addMissionRouteMarker(marker);
                         }

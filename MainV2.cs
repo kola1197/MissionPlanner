@@ -665,7 +665,7 @@ namespace MissionPlanner
         public static RouteAltForm RouteAltForm = new RouteAltForm()
             {Visible = false, StartPosition = FormStartPosition.Manual};
 
-        public static StatusControlPanel StatusControlPanel = new StatusControlPanel();
+        public StatusControlPanel StatusControlPanel = new StatusControlPanel();
 
         public static FormConnector FormConnector;
 
@@ -1578,9 +1578,12 @@ namespace MissionPlanner
                 }
 
                 vibeData.update();
-                double homedist =
+                double homedist = 0;
+                if (FlightPlanner.pointlist.Count != 0)
+                {
                     FlightPlanner.MainMap.MapProvider.Projection.GetDistance(FlightPlanner.currentMarker.Position,
-                        FlightPlanner.pointlist[0]);
+                        FlightPlanner.pointlist[0]);   
+                }
                 string homedistString = FlightPlanner.FormatDistance(homedist, true);
                 string currentMousePosition = "";
                 string currentPosition = "";
@@ -1659,13 +1662,19 @@ namespace MissionPlanner
 
                 if (comPort.MAV.cs.connected)
                 {
-                    double homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
-                        new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                    double homedistfromplane = 0;
+                    int azimuth = 0;
+                    if (FlightPlanner.pointlist.Count > 0)
+                    {
+                     homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
+                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
+                     azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
+                         new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                    }
                     string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane);
                     FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
 
-                    int azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
-                        new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                     
                     FlightPlanner.notificationControl1.azimuthUav_label.Text = azimuth + "°";
                 }
                 else
@@ -6232,7 +6241,7 @@ namespace MissionPlanner
                 if (value)
                 {
                     MainV2.instance.FlightPlanner.notificationControl1.timer1.Enabled = false;
-                    StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
+                    StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
                 }
             }
         }

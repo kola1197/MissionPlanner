@@ -191,6 +191,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     }
                 }
             }
+            //sv 8 1900 1100
             MainV2.configServo = new Dictionary<int, servoValue>();
             MainV2.configServo[0] = new servoValue(0, 1500, 1500);
             MainV2.configServo[1] = new servoValue(0, 1500, 1500);
@@ -210,8 +211,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void setFixedValues() 
         {
-            MainV2.configServo[0] = new servoValue(9, 1100, 1900);
-            MainV2.configServo[10] = new servoValue(8, 1100, 1900);
+            MainV2.configServo[0] = new servoValue(7, 1900, 1100);
+            MainV2.configServo[10] = new servoValue(8, 1900, 1100);
             comboBox[0].Enabled = false;
             textBoxes[0].Enabled = false;
             textBoxesForDefault[0].Enabled = false;
