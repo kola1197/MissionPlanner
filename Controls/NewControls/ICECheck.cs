@@ -78,7 +78,7 @@ namespace MissionPlanner.Controls.NewControls
             g.DrawLine(myPen, 1,yStart - 7000/50 , 500, yStart - 7000/50);
 
 
-            Pen p = new Pen(Color.Green);
+            Pen p = new Pen(Color.Lime);
             p.Width = 3;
             Point[] points = new Point[ICESpeeds.Count];
             for (int i = 0; i < ICESpeeds.Count - 1; i++)
@@ -201,7 +201,7 @@ namespace MissionPlanner.Controls.NewControls
                 }
                 else
                 {
-                    if (MainV2.comPort.MAV.cs.rpm1 < 4200)
+                    if (MainV2.comPort.MAV.cs.rpm1 < 5000)
                     {
                         sinusoidTestCounter[1]++;
                     }
