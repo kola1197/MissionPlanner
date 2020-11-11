@@ -214,7 +214,6 @@ namespace MissionPlanner.GCSViews
             this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripPoly = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1329,11 +1328,6 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelBASE, "panelBASE");
             this.panelBASE.Name = "panelBASE";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 300;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // contextMenuStripPoly
             // 
             this.contextMenuStripPoly.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.addPolygonPointToolStripMenuItem, this.clearPolygonToolStripMenuItem, this.savePolygonToolStripMenuItem, this.loadPolygonToolStripMenuItem, this.fromSHPToolStripMenuItem, this.areaToolStripMenuItem, this.fenceInclusionToolStripMenuItem, this.fenceExclusionToolStripMenuItem});
@@ -1583,7 +1577,6 @@ namespace MissionPlanner.GCSViews
         public System.Windows.Forms.ToolStripMenuItem takeoffToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem textToolStripMenuItem;
-        public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         public System.Windows.Forms.ToolTip toolTip1;

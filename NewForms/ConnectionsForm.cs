@@ -171,6 +171,7 @@ namespace MissionPlanner
             MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
             StatusControlPanel.instance.EnableControlBindings();
+            MainV2.instance.SubscribeOnWpChange();
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)

@@ -27,12 +27,13 @@ namespace MissionPlanner.NewForms
             {
                 if (MainV2.CurrentAircraft.UsingSitl && !MainV2.IsSitlLanding) 
                 {
-                    if (!MainV2.instance.SitlReachedParachutePoint)
+                    if (!MainV2.CurrentAircraft.IsParachutePointReached)
                     {
                         MainV2.instance.FlightPlanner.landPoint = new GMap.NET.PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
                     }
                     MainV2.IsSitlLanding = true;
                     MainV2.instance.setLandWpInSitl();
+                    MainV2.CurrentAircraft.IsEmergencyLandTriggered = true;
                 }
                 MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
                     MAVLink.MAV_CMD.DO_SET_SERVO, 12, 1900, 0, 0, 0, 0, 0);

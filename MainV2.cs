@@ -1514,42 +1514,52 @@ namespace MissionPlanner
             MenuHelp.ForeColor = ThemeManager.TextColor;
         }
 
+        private System.Threading.Timer _mainTimer;
+
         void coordinatsControlInit()
         {
-            coordinatsControl1.timer1.Enabled = true;
-            coordinatsControl1.timer1.Tick += Timer1_Tick;
+            _mainTimer = new System.Threading.Timer(_ => RefreshForm(), null, 0, 100);
+            // coordinatsControl1.timer1.Enabled = true;
+            // coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
 
-        public static bool ParachuteReleased = false;
         public static int CoordinatsShowMode = 0;
         private bool _timerBusy = false;
-        public bool EngineCheckRunning = false;
-        private void Timer1_Tick(object sender, EventArgs e)
+
+        private void RefreshForm()
         {
-            if (comPort.MAV.cs.connected && !ParachuteReleased)
-            {
-                if (comPort.MAV.cs.ch12in > 1800 || comPort.MAV.cs.ch6in > 1800)
-                {
-                    ParachuteReleased = true;
-                    snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
-                }
-            }
-
-            // try
-            // {
-            //     // cheatParachuteLandingTrigger();
-            // }
-            // catch (System.Exception eee)
-            // {
-            //     System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
-            // }
-
             try
             {
-                if (_timerBusy && !EngineCheckRunning)
+                if (comPort.MAV.cs.connected && !CurrentAircraft.ParachuteReleased)
+                {
+                    if (comPort.MAV.cs.ch6out > 1600)
+                    {
+                        CurrentAircraft.ParachuteReleased = true;
+                        // snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
+                    }
+
+                    if (comPort.MAV.cs.ch12out > 1600)
+                    {
+                        CurrentAircraft.ParachuteReleased = true;
+                        CurrentAircraft.IsEmergencyLandTriggered = true;
+                    }
+                }
+
+                // try
+                // {
+                //     // cheatParachuteLandingTrigger();
+                // }
+                // catch (System.Exception eee)
+                // {
+                //     System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+                // }
+
+
+                if (_timerBusy)
                 {
                     return;
                 }
+
                 _timerBusy = true;
                 if (StatusControlPanel != null && StatusControlPanel.airspeedDirectionControl2 != null)
                 {
@@ -1667,57 +1677,23 @@ namespace MissionPlanner
 
                 FlightPlanner.rulerControl1.recalculate(distance1);
 
-                if (comPort.MAV.cs.connected)
-                {
-                    double homedistfromplane = 0;
-                    int azimuth = 0;
-                    if (FlightPlanner.pointlist.Count > 0)
-                    {
-                        homedistfromplane = FlightPlanner.MainMap.MapProvider.Projection.GetDistance(
-                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), FlightPlanner.pointlist[0]);
-                        azimuth = (int) Math.Truncate(FlightPlanner.GetAzimuthAngle(FlightPlanner.pointlist[0],
-                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
-                    }
-
-                    string homedistfromplaneString = FlightPlanner.FormatDistance(homedistfromplane);
-                    FlightPlanner.notificationControl1.label3.Text = homedistfromplaneString;
-
-
-                    FlightPlanner.notificationControl1.azimuthUav_label.Text = azimuth + "°";
-                }
-                else
-                {
-                    FlightPlanner.notificationControl1.label3.Text = "0 м";
-                }
-
-                FlightPlanner.notificationControl1.label5.Text =
-                    FlightPlanner.FormatDistance(comPort.MAV.cs.wp_dist / 1000.0);
-                double lengthCountr = 0;
-                for (int i = 0; i < FlightPlanner.Commands.Rows.Count; i++)
-                {
-                    string s = FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value.ToString();
-                    lengthCountr += double.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Dist.Index].Value
-                        .ToString());
-                }
-
-                FlightPlanner.notificationControl1.label7.Text = FlightPlanner.FormatDistance(lengthCountr / 1000.0);
-                  snsControl2.setButtonColors();
+                snsControl2.setButtonColors();
                 if (!FlightPlanner.rulerControl1.timer1.Enabled)
                 {
                     FlightPlanner.rulerControl1.timer1.Enabled = true;
                     FlightPlanner.rulerControl1.Parent = FlightPlanner.MainMap;
                 }
 
-                if (!FlightPlanner.notificationControl1.timer1.Enabled && !IsSitlLanding && !ParachuteReleased)
+                if (!FlightPlanner.notificationControl1.IsTimerEnabled)
                 {
-                    FlightPlanner.notificationControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationControl1.IsTimerEnabled = true;
                     FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 32, 32, 32);
                 }
 
-                if (!FlightPlanner.notificationListControl1.timer1.Enabled)
+                if (!FlightPlanner.notificationListControl1.IsTimerEnabled)
                 {
-                    FlightPlanner.notificationListControl1.timer1.Enabled = true;
+                    FlightPlanner.notificationListControl1.IsTimerEnabled = true;
                     FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
                     FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
                 }
@@ -1778,7 +1754,7 @@ namespace MissionPlanner
                     rc.chan2_raw = (ushort) overrides[1];
                     rc.chan3_raw = (ushort) overrides[2];
                     rc.chan4_raw = (ushort) overrides[3];
-                    
+
                     // if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
                     // {
                     //     //Send override for engine for 1 second
@@ -1786,7 +1762,7 @@ namespace MissionPlanner
                     //     // EngineChannelOverride = (ushort) overrides[2];
                     //     _lastEngineOverrideTime = DateTime.Now;
                     // }
-                    
+
                     System.Diagnostics.Debug.WriteLine("Overrides: " + overrides[0] + " " + overrides[1] + " " +
                                                        overrides[2] + " " + overrides[3] + " ");
                     if (comPort.BaseStream.IsOpen)
@@ -1842,7 +1818,6 @@ namespace MissionPlanner
                 //         }
                 //     }
                 // }
-            
             }
             catch (System.Exception eee)
             {
@@ -1897,8 +1872,6 @@ namespace MissionPlanner
             return (int) comPort.MAV.cs.wpno >= doParachuteIndex;
         }
 
-        public bool SitlReachedParachutePoint = false;
-
         private void cheatParachuteLandingTrigger()
         {
             if (comPort.MAV.cs.connected)
@@ -1915,15 +1888,21 @@ namespace MissionPlanner
                 // nextPointIsDoParachute = cmd == (ushort) MAVLink.MAV_CMD.DO_PARACHUTE;
 
                 // if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl && !_parachutePointReached)
-                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() && CurrentAircraft.UsingSitl &&
-                    CurrentAircraft.UsingSitl &&
-                    !SitlReachedParachutePoint)
+                if (comPort.MAV.cs.wp_dist < 70 && IsDoParachutePointPassed() &&
+                    !CurrentAircraft.IsParachutePointReached)
                 {
-                    // comPort.setMode("LAND");
-                    SitlReachedParachutePoint = true;
-                    IsSitlLanding = true;
-                    FlightPlanner.landPoint = new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
-                    snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
+                    if (CurrentAircraft.UsingSitl)
+                    {
+                        CurrentAircraft.IsParachutePointReached = true;
+                        IsSitlLanding = true;
+                        FlightPlanner.landPoint = new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+                        snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
+                    }
+                    else
+                    {
+                        CurrentAircraft.IsParachutePointReached = true;
+                        snsControl2.Invoke((MethodInvoker) delegate() { snsControl2.openParachuteForm(); });
+                    }
                 }
             }
         }
@@ -2145,7 +2124,7 @@ namespace MissionPlanner
             // }
             //
             // ((Control) sender).Enabled = true;
-            
+
             FlightPlanner.MainMap.Position =
                 new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
         }
@@ -2333,75 +2312,76 @@ namespace MissionPlanner
                 if (!MainV2.comPort.MAV.cs.sensors_health.gps && MainV2.comPort.MAV.cs.sensors_enabled.gps &&
                     MainV2.comPort.MAV.cs.sensors_present.gps) //BadGPSHealth
                 {
-                    warnings.Add("Плохой сигнал GPS");
+                    warnings.Add("Плохой сигнал GPS!");
                 }
 
                 if (!MainV2.comPort.MAV.cs.sensors_health.gyro && MainV2.comPort.MAV.cs.sensors_enabled.gyro &&
                     MainV2.comPort.MAV.cs.sensors_present.gyro) //BadGyroHealth
                 {
-                    warnings.Add("Отказ гироскопов");
+                    warnings.Add("Отказ гироскопов!");
                 }
 
                 if (!MainV2.comPort.MAV.cs.sensors_health.barometer &&
                     MainV2.comPort.MAV.cs.sensors_enabled.barometer &&
                     MainV2.comPort.MAV.cs.sensors_present.barometer) //BadBaroHealth
                 {
-                    warnings.Add("Ошибка барометра");
+                    warnings.Add("Ошибка барометра!");
                 }
 
                 if (!MainV2.comPort.MAV.cs.sensors_health.ahrs && MainV2.comPort.MAV.cs.sensors_enabled.ahrs &&
                     MainV2.comPort.MAV.cs.sensors_present.ahrs) //BadAHRS
                 {
-                    warnings.Add("Ошибка ИНС");
+                    warnings.Add("Ошибка ИНС!");
                 }
 
                 if (!MainV2.comPort.MAV.cs.sensors_health.compass && MainV2.comPort.MAV.cs.sensors_enabled.compass &&
                     MainV2.comPort.MAV.cs.sensors_present.compass)
                 {
-                    warnings.Add("Отказ компаса");
+                    warnings.Add("Отказ компаса!");
                 }
 
                 if (MainV2.comPort.MAV.cs.ekfcompv > 1)
                 {
-                    warnings.Add("Рассогласование компаса");
+                    warnings.Add("Рассогласование компаса!");
                 }
 
                 if (MainV2.comPort.MAV.cs.ekfvelv > 1)
                 {
-                    warnings.Add("Рассогласование скорости");
+                    warnings.Add("Рассогласование скорости!");
                 }
 
                 if (MainV2.comPort.MAV.cs.battery_voltage < 11)
                 {
-                    warnings.Add("Низкое напряжение, отказ генератора");
+                    warnings.Add("Низкое напряжение, отказ генератора!");
                 }
 
                 if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl || StatusControlPanel.IsSitlConnected() &&
                     _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) > 118)
                 {
-                    warnings.Add("Перегрев двигателя");
+                    warnings.Add("Перегрев двигателя!");
                 }
 
                 if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl || StatusControlPanel.IsSitlConnected() &&
                     _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600)
                 {
-                    warnings.Add("Превышение оборотов двигателя");
+                    warnings.Add("Превышение оборотов двигателя!");
                 }
 
                 if (StatusControlPanel.IsSitlConnected())
                 {
                     if (_currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) < 3000)
                     {
-                        warnings.Add("Двигатель заглох");
+                        warnings.Add("Двигатель заглох!");
                     }
                 }
                 else
                 {
                     if (MainV2.comPort.MAV.cs.rpm1 < 3000 && !isSitl)
                     {
-                        warnings.Add("Двигатель заглох");
+                        warnings.Add("Двигатель заглох!");
                     }
                 }
+
                 if (prevMode != MainV2.comPort.MAV.cs.mode)
                 {
                     prevMode = MainV2.comPort.MAV.cs.mode;
@@ -2410,8 +2390,9 @@ namespace MissionPlanner
                     {
                         StatusControlPanel.EngineControlForm.setEngineMode();
                         StatusControlPanel.EngineControlForm.updateButtons(currentEngineMode);
-                     }
+                    }
                 }
+
                 if (MainV2.comPort.MAV.cs.mode != "Auto")
                 {
                     notifications.Add("Режим изменен на " + MainV2.comPort.MAV.cs.mode);
@@ -2427,21 +2408,31 @@ namespace MissionPlanner
                         (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
                         StatusControlPanel._fuelCriticalPercentage / 100) //check in persents
                     {
-                        warnings.Add("Малый остаток топлива");
+                        warnings.Add("Малый остаток топлива!");
                     }
                 }
                 catch (Exception e)
                 {
                 }
 
-                if (ParachuteReleased || StatusControlPanel.IsSitlConnected() && _isSitlLanding)
+                if (CurrentAircraft.ParachuteReleased || StatusControlPanel.IsSitlConnected() && _isSitlLanding)
                 {
-                    notifications.Add("Парашют выпущен");
+                    notifications.Add("Парашют выпущен.");
+                }
+
+                if (!CurrentAircraft.ParachuteReleased && CurrentAircraft.IsParachutePointReached)
+                {
+                    warnings.Add("Отказ парашюта!");
+                }
+
+                if (CurrentAircraft.IsEmergencyLandTriggered)
+                {
+                    notifications.Add("Аварийная посадка!");
                 }
 
                 if (comPort.MAV.cs.linkqualitygcs < 45)
                 {
-                    warnings.Add("Низкий уровень радиосигнала");
+                    warnings.Add("Низкий уровень радиосигнала!");
                 }
 
                 foreach (var v in warnings)
@@ -3296,13 +3287,18 @@ namespace MissionPlanner
             CustomMessageBox.DialogResult dialogResult = CustomMessageBox.Show("Выйти из программы?", "НПУ",
                 CustomMessageBox.MessageBoxButtons.YesNo,
                 CustomMessageBox.MessageBoxIcon.None, "Да", "Нет");
-            if (dialogResult == 0 || dialogResult == CustomMessageBox.DialogResult.No || dialogResult == CustomMessageBox.DialogResult.Abort || dialogResult == CustomMessageBox.DialogResult.Ignore)
+            if (dialogResult == 0 || dialogResult == CustomMessageBox.DialogResult.No ||
+                dialogResult == CustomMessageBox.DialogResult.Abort ||
+                dialogResult == CustomMessageBox.DialogResult.Ignore)
             {
                 //do something
                 e.Cancel = true;
             }
-            else if (dialogResult == CustomMessageBox.DialogResult.Yes )
+            else if (dialogResult == CustomMessageBox.DialogResult.Yes)
             {
+                StatusControlPanel.StopTimer();
+                _mainTimer.Dispose();
+
                 base.OnClosing(e);
 
                 log.Info("MainV2_FormClosing");
@@ -5683,7 +5679,7 @@ namespace MissionPlanner
         public static bool EngineOverrideTestFlag = false;
         public ushort EngineChannelOverride = 1500;
         public static DateTime _lastEngineOverrideTime = DateTime.Now;
-        
+
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
             if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
@@ -5724,6 +5720,7 @@ namespace MissionPlanner
         }
 
         private DateTime _lastFBWBCall = DateTime.Now;
+
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
         {
             //Message temp = new Message();
@@ -6246,7 +6243,7 @@ namespace MissionPlanner
                 _isSitlLanding = value;
                 if (value)
                 {
-                    MainV2.instance.FlightPlanner.notificationControl1.timer1.Enabled = false;
+                    MainV2.instance.FlightPlanner.notificationControl1.IsTimerEnabled = false;
                     StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.LandingStart);
                 }
             }

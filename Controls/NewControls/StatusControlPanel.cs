@@ -49,6 +49,12 @@ namespace MissionPlanner.Controls
 
         private Timer _refreshTimer;
 
+        public void StopTimer()
+        {
+            _refreshTimer.Dispose();
+            _isTimerBusy = false;
+        }
+        
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -68,7 +74,7 @@ namespace MissionPlanner.Controls
             _fuelCriticalPercentage = 10;
             _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
             _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
-            _refreshTimer = new Timer(_ => Refresh(), null, 0, 100);
+            _refreshTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 100);
         }
 
         public void SetFuelPbMinMax()
@@ -352,26 +358,44 @@ namespace MissionPlanner.Controls
             return false;
         }
 
-        private void Refresh()
+        private bool _isTimerBusy = false;
+        private void RefreshControl()
         {
-            // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-            UpdateStatusLabels();
-
-            if (!stopwatch.IsRunning)
+            if (_isTimerBusy)
             {
-                stopwatch.Start();
+                return;
             }
 
-            UpdateBindingSourceWork();
-
-            if (IsSitlConnected())
+            try
             {
-                UpdateSitlProgressBars();
-            }
+                _isTimerBusy = true;
+                // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+                UpdateStatusLabels();
 
-            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
-            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
-            UpdateEngineTempProgressBarColor();
+                if (!stopwatch.IsRunning)
+                {
+                    stopwatch.Start();
+                }
+
+                UpdateBindingSourceWork();
+
+                if (IsSitlConnected())
+                {
+                    UpdateSitlProgressBars();
+                }
+
+                UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+                UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
+                UpdateEngineTempProgressBarColor();
+            }
+            catch
+            {
+                _isTimerBusy = false;
+            }
+            finally
+            {
+                _isTimerBusy = false;
+            }
         }
 
         private void UpdateSitlProgressBars()

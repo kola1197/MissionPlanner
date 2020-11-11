@@ -348,10 +348,16 @@ namespace MissionPlanner.GCSViews
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
+        private System.Threading.Timer _mapTimer;
 
+        private void StartTimer()
+        {
+            _mapTimer = new System.Threading.Timer(_ => RefreshMap(), null, 0, 300);
+        }
+        
         public void Activate()
         {
-            timer1.Start();
+            StartTimer();
 
             // hide altmode if old copter version
             if (MainV2.comPort.BaseStream.IsOpen && MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2 &&
@@ -392,7 +398,15 @@ namespace MissionPlanner.GCSViews
         public void Deactivate()
         {
             config(true);
-            timer1.Stop();
+            StopTimer();
+        }
+
+        private void StopTimer()
+        {
+            if (_mapTimer != null)
+            {
+                _mapTimer.Dispose();
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -4209,8 +4223,7 @@ namespace MissionPlanner.GCSViews
 
         public void FlightPlanner_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timer1.Stop();
-
+            StopTimer();
             DateTime end = DateTime.Now.AddSeconds(5);
             if (thisthread != null)
             {
@@ -4278,8 +4291,7 @@ namespace MissionPlanner.GCSViews
 
             Visible = true;
 
-            timer1.Start();
-
+            StartTimer();
             // thisthread = new Thread(mainloop);
             // thisthread.Name = "FD Mainloop";
             // thisthread.IsBackground = true;
@@ -7105,7 +7117,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void RefreshMap()
         {
             WpSerialNum.PxNum = (int) MainV2.comPort.MAV.cs.wpno;
             WpSerialNum.SerialNum = getWPSerialNumber((int) MainV2.comPort.MAV.cs.wpno - 1);

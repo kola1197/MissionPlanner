@@ -12,6 +12,7 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class ICECheck : UserControl
     {
+        private System.Threading.Timer _iceTimer;
         public ICECheck()
         {
             InitializeComponent();
@@ -33,11 +34,7 @@ namespace MissionPlanner.Controls.NewControls
         public bool started
         {
             get => _started;
-            set
-            {
-                _started = value;
-                MainV2.instance.EngineCheckRunning = value;
-            }
+            set => _started = value;
         }
         List<float> ICESpeeds = new List<float>();
         public bool iceChecked = false;
@@ -107,7 +104,12 @@ namespace MissionPlanner.Controls.NewControls
             
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void StartTimer()
+        {
+            _iceTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 50);
+        }
+
+        private void RefreshControl()
         {
             //multy = 100 / timer1.Interval; 
             if (!testBool)
@@ -263,7 +265,7 @@ namespace MissionPlanner.Controls.NewControls
                 startButton.Enabled = false;
                 counter = 0;
                 refreshProgressBars();
-                timer1.Start();
+                StartTimer();
                 MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
             }
             else 
@@ -298,9 +300,12 @@ namespace MissionPlanner.Controls.NewControls
             sinusoidTestCounter = new int[] { 0, 0 };
         }
 
-        void stop() 
+        void stop()
         {
-            timer1.Stop();
+            if (_iceTimer != null)
+            {
+                _iceTimer.Dispose();
+            }
             //started = false;
             counter = 0;
             started = false;
@@ -315,7 +320,7 @@ namespace MissionPlanner.Controls.NewControls
             //    ICESpeeds.Add(6000);
             //}
             testBool = true;
-            timer1.Start();
+            StartTimer();
         }
 
         public void focused(bool b)  //need to get engine key 
