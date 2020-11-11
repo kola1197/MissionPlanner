@@ -7946,7 +7946,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED;
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
                                     row.Cells[Command.Index + 2].Value = "0";
-                                    row.Cells[Command.Index + 2].Value = String.Format("{0:0.00}", (speed / 3.6));
+                                    speed = Math.Truncate(speed/3.6);
+                                    row.Cells[Command.Index + 2].Value = speed.ToString()//String.Format("{0:0.00}", (speed / 3.6));
                                     Commands.Rows.Insert(index + 1, row);
                                     Commands_CellUpdate(index, Command.Index + 1);
                                     break;
