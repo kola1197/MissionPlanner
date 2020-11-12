@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMap.NET;
 
 namespace MissionPlanner.NewForms
 {
@@ -439,37 +440,33 @@ namespace MissionPlanner.NewForms
         {
             if (!locked)
             {
-                latTB1.Text = latTB1.Text.Replace(".", ",");
-                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                var lat = latTB1.Text.Replace(".", ",");
+                var lng = lonTB1.Text.Replace(".", ",");
                 try
                 {
                     latNotification.Visible = false;
                     switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 1:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 2:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 3:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 4:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 5:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 6:
-                            controller =
-                                new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new RectCoordinats(lat, lng));
                             break;
                     }
                 }
@@ -523,6 +520,21 @@ namespace MissionPlanner.NewForms
             {
                 e.Handled = true;
             } 
+        }
+
+        public void tryToSetServosDist()
+        {
+            if (checkBox2.Checked)
+            {
+                double delta = double.Parse(textBox4.Text);
+                PointLatLng current = new PointLatLng(controller.wgs.Lat,controller.wgs.Lng);
+                double[] prevCooords = MainV2.instance.FlightPlanner.getWPCoords( int.Parse(SerialNum)-1);
+                double dist = MainV2.instance.FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(prevCooords[0],prevCooords[1]),current );
+                dist *= 1000;
+                double newLat = (prevCooords[0] * delta + controller.wgs.Lat * (dist - delta)) / dist;
+                double newLng = (prevCooords[1] * delta + controller.wgs.Lng * (dist - delta)) / dist;
+                controller = new UniversalCoordinatsController(new WGSCoordinats(newLat, newLng));
+            }
         }
     }
 }

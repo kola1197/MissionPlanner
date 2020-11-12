@@ -7821,6 +7821,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        public double [] getWPCoords(int serialIndex) // 
+        {
+            double[] result = new double[] { -1,-1};
+            //counter i = 0;
+            for (int i = 0; i < Commands.Rows.Count; i++)
+            {
+                ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
+                if ((cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort) MAVLink.MAV_CMD.LOITER_TIME) && getWPSerialNumber(i)==serialIndex)
+                {
+                    result[0] = double.Parse(Commands.Rows[i].Cells[Lat.Index].Value.ToString());
+                    result[1] =double.Parse(Commands.Rows[i].Cells[Lon.Index].Value.ToString()) ;
+                }
+            }
+            return  result;
+        }
+
         private void MainMap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -7887,6 +7904,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (wpConfig.closedByButton)
             {
+                wpConfig.tryToSetServosDist();
                 wpConfig.tryToSetLoiterRad();
                 System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.Lat.ToString() + ", " +
                                                    wpConfig.controller.wgs.Lng.ToString());
