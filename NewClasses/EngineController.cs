@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MissionPlanner.Utilities;
 
 namespace MissionPlanner.NewClasses
 {
@@ -25,11 +26,26 @@ namespace MissionPlanner.NewClasses
             }
         }
 
+        public bool SetEngineValueAndWait(float value, int _key)
+        {
+            if (key == _key)
+            {
+                var result = MainV2.comPort.setParamAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    "SERVO3_MIN", (float) value).Result;
+                return true;
+            }
+            else {
+                System.Diagnostics.Debug.WriteLine("Engine is busy now " + key.ToString() +" != " + _key.ToString());
+                return false;
+            }
+        }
+        
         public bool setEngineValue(float value, int _key) 
         {
             if (key == _key)
             {
-                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)value);
+                MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    "SERVO3_MIN", (float) value);
                 return true;
             }
             else {

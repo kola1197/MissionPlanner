@@ -65,7 +65,6 @@ namespace MissionPlanner
                 if (state.Name.Equals(name))
                 {
                     TransferRealParams(_currentTarget, state);
-                    Thread.Sleep(100);
                     _currentTarget = state;
                     if (name == SitlState.SitlStateName.Takeoff)
                     {

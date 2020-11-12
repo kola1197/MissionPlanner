@@ -1526,7 +1526,7 @@ namespace MissionPlanner
         public static int CoordinatsShowMode = 0;
         private bool _timerBusy = false;
         public static bool LockMainTimer = false;
-
+        public bool TakeoffPassed = false;
         private void RefreshForm()
         {
             try
@@ -1590,7 +1590,7 @@ namespace MissionPlanner
                         _sitlEmulationTime = DateTime.Now;
                     }
 
-                    if (!IsSitlLanding && !IsSitlLandComplete)
+                    if (!IsSitlLanding && !IsSitlLandComplete && CurrentAircraft.inAir && TakeoffPassed)
                     {
                         if (comPort.MAV.cs.verticalspeed > 1.0)
                         {
@@ -1602,7 +1602,7 @@ namespace MissionPlanner
                             StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Decent);
                         }
                         
-                        if (comPort.MAV.cs.verticalspeed >= -1.0 && comPort.MAV.cs.verticalspeed >= 1.0)
+                        if (comPort.MAV.cs.verticalspeed >= -1.0 && comPort.MAV.cs.verticalspeed <= 1.0)
                         {
                             StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Flight);
                         }

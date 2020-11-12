@@ -208,7 +208,10 @@ namespace MissionPlanner.Controls
         {
             if (IsSitlConnected() && (int) MainV2.comPort.MAV.cs.wpno == 2)
             {
+                SuspendLayout();
                 SitlEmulation.SetTargetState(SitlState.SitlStateName.Flight);
+                MainV2.instance.TakeoffPassed = true;
+                ResumeLayout();
             }
         }
 
