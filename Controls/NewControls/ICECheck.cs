@@ -172,6 +172,12 @@ namespace MissionPlanner.Controls.NewControls
             }
             if (counter > 120 * multy && counter < 210 * multy)
             {
+                if (counter == 120 * multy + 1)
+                {
+                    MainV2.engineController.setEngineValue(fMin, key);
+                    //MainV2.comPort.setMode("Manual");
+                }
+
                 if (!secondTestStarted) 
                 {
                     tests[1] = false;
@@ -186,7 +192,7 @@ namespace MissionPlanner.Controls.NewControls
                 float f = (float)Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f;
                 System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
                     
-                if (MainV2.engineController.setEngineValue((float)Math.Sin(d / 14) * (fMax - fMin)/2f + (fMin + fMax)/2f, key))
+                if (MainV2.engineController.setEngineValueViaOverride((float)Math.Sin(d / 14) * (fMax - fMin)/2f + (fMin + fMax)/2f, key))
                 {
                     //CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
