@@ -498,6 +498,8 @@ namespace MissionPlanner.NewForms
         {
             iceCheck1.focused(false);
             iceRun1.focused(false);
+            iceRun1.IsTimerEnabled = false;
+            iceCheck1.stop();
         }
 
         private void label6_Click(object sender, EventArgs e)

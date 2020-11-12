@@ -8861,6 +8861,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void ShowPopupWpInfo(GMapMarker marker)
         {
+            this.SuspendLayout();
+            Thread.Sleep(200);
             int wpno, alt;
             string type, homeDist;
             if (CurrentRallyPt != null)
@@ -8891,7 +8893,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 _wpControl.Dispose();
             }
-            _wpControl = new WaypointInfoControl();
+            _wpControl = new WaypointInfoControl() {Visible = false};
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
@@ -8901,14 +8903,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             _wpControl.Location = location;
             _wpControl.Parent = MainMap;
             // timer1.Enabled = false;
-            _wpControl.Show();
+            _wpControl.Visible = true;
+            this.ResumeLayout();
             // _wpControl.NeedMainMapRefresh = true;
         }
 
         private void HidePopUpInfo()
         {
             // _wpControl.NeedMainMapRefresh = false;
-            _wpControl.Hide();
+            _wpControl.Visible = false;
             // timer1.Enabled = true;
         }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
 using GMap.NET;
 using MissionPlanner.GCSViews;
 using MissionPlanner.NewClasses;
@@ -37,7 +38,7 @@ namespace MissionPlanner.Controls.NewControls
             redraw();
         }
 
-        private bool fullSize = false;
+        public bool fullSize = false;
         private Size defaultSize;
 
         private System.Threading.Timer _timer;
@@ -199,8 +200,10 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private void redraw()
+        public void redraw()
         {
+            _isTimerBusy = true;
+            this.SuspendLayout();
             this.Size = fullSize ? new Size(330, 180) : new Size(330, 40);
             Region = ControlDrawingTools.CreateRoundRectRgn(0, -20, Width, Height, 20);
             this.BackColor = Color.FromArgb(200, 32, 32, 32);
@@ -212,6 +215,8 @@ namespace MissionPlanner.Controls.NewControls
             label5.Visible = fullSize;
             label4.Visible = fullSize;
             label3.Visible = fullSize;
+            _isTimerBusy = false;
+            this.ResumeLayout();
             //label1.Size = fullSize ? new Size(defaultSize.Width, defaultSize.Height * 5) : defaultSize;
         }
 
@@ -221,7 +226,7 @@ namespace MissionPlanner.Controls.NewControls
             redraw();
         }
 
-        private void NotificationControl_Click(object sender, EventArgs e)
+        public void NotificationControl_Click(object sender, EventArgs e)
         {
             fullSize = !fullSize;
             redraw();

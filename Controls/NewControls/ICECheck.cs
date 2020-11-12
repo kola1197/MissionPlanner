@@ -300,7 +300,7 @@ namespace MissionPlanner.Controls.NewControls
             sinusoidTestCounter = new int[] { 0, 0 };
         }
 
-        void stop()
+        public void stop()
         {
             if (_iceTimer != null)
             {

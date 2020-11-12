@@ -56,6 +56,10 @@ namespace MissionPlanner
 
         public void SetTargetState(SitlState.SitlStateName name)
         {
+            if (name.Equals(_currentTarget.Name))
+            {
+                return;
+            }
             foreach (var state in SitlStates)
             {
                 if (state.Name.Equals(name))

@@ -172,6 +172,7 @@ namespace MissionPlanner
             AircraftConnectionInfo connectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
             StatusControlPanel.instance.EnableControlBindings();
             MainV2.instance.SubscribeOnWpChange();
+            MainV2.instance.BringNotificationControlToFull();
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)

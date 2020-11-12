@@ -16,7 +16,9 @@ namespace MissionPlanner
             Takeoff,
             Flight,
             LandingStart,
-            LandingEnd
+            LandingEnd,
+            Climb,
+            Decent
         }
 
         public SitlState(SitlStateName name, SITLInfo targetSitlInfo, SITLInfo stepSitlInfo) =>

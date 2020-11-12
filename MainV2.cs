@@ -1525,6 +1525,7 @@ namespace MissionPlanner
 
         public static int CoordinatsShowMode = 0;
         private bool _timerBusy = false;
+        public static bool LockMainTimer = false;
 
         private void RefreshForm()
         {
@@ -1544,22 +1545,27 @@ namespace MissionPlanner
                         CurrentAircraft.IsEmergencyLandTriggered = true;
                     }
                 }
+            }
+            catch
+            {
+            }
+            // try
+            // {
+            //     // cheatParachuteLandingTrigger();
+            // }
+            // catch (System.Exception eee)
+            // {
+            //     System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
+            // }
 
-                // try
-                // {
-                //     // cheatParachuteLandingTrigger();
-                // }
-                // catch (System.Exception eee)
-                // {
-                //     System.Diagnostics.Debug.WriteLine("Timer error: " + eee.ToString());
-                // }
 
+            if (_timerBusy || LockMainTimer)
+            {
+                return;
+            }
 
-                if (_timerBusy)
-                {
-                    return;
-                }
-
+            try
+            {
                 _timerBusy = true;
                 if (StatusControlPanel != null && StatusControlPanel.airspeedDirectionControl2 != null)
                 {
@@ -1582,6 +1588,24 @@ namespace MissionPlanner
                     {
                         StatusControlPanel.SitlEmulation.DoEmulationStep(timeSpan);
                         _sitlEmulationTime = DateTime.Now;
+                    }
+
+                    if (!IsSitlLanding && !IsSitlLandComplete)
+                    {
+                        if (comPort.MAV.cs.verticalspeed > 1.0)
+                        {
+                            StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Climb);
+                        }
+                        
+                        if (comPort.MAV.cs.verticalspeed < -1.0)
+                        {
+                            StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Decent);
+                        }
+                        
+                        if (comPort.MAV.cs.verticalspeed >= -1.0 && comPort.MAV.cs.verticalspeed >= 1.0)
+                        {
+                            StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Flight);
+                        }
                     }
 
                     if (IsSitlLanding &&
@@ -2211,9 +2235,27 @@ namespace MissionPlanner
 
         bool soundFlag = false;
 
+        // Need this to fix redraw of NotificationControl
+        private bool redrawFullCalled = false;
+        private bool redrawMinimizedCalled = false;
+
+        public void BringNotificationControlToFull()
+        {
+            if (!redrawFullCalled)
+            {
+                FlightPlanner.instance.notificationControl1.fullSize = true;
+                FlightPlanner.instance.notificationControl1.redraw();
+                redrawFullCalled = true;
+                redrawMinimizedCalled = false;
+            }
+        }
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
             alarmLabelTextCheck();
+            
+
+            
             if (centering > 0)
             {
                 if (!IsSitlLanding)
@@ -2250,6 +2292,13 @@ namespace MissionPlanner
                 {
                     progressBar2.Value = progressBar2.Maximum;
                     progressBar1.Value = progressBar1.Maximum;
+                    if (!redrawMinimizedCalled)
+                    {
+                        FlightPlanner.instance.notificationControl1.fullSize = false;
+                        FlightPlanner.instance.notificationControl1.redraw();
+                        redrawFullCalled = false;
+                        redrawMinimizedCalled = true;
+                    }
                     if (soundFlag)
                     {
                         System.Media.SoundPlayer player = new System.Media.SoundPlayer();
@@ -5720,6 +5769,7 @@ namespace MissionPlanner
         }
 
         private DateTime _lastFBWBCall = DateTime.Now;
+        private double _fbwbRate = 0.3;
 
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
         {
@@ -5760,21 +5810,21 @@ namespace MissionPlanner
                 if (keyData == (Keys.Control | Keys.Left))
                 {
                     System.Diagnostics.Debug.WriteLine("LEFT is PRESSED");
-                    overrides[3] = (ushort) (secondTrim - 0.15 * (secondTrim - 900) - 100);
+                    overrides[3] = (ushort) (secondTrim - _fbwbRate * (secondTrim - 900) - 100);
                     debugOverrideInfo += " ← ";
                 }
 
                 if (keyData == (Keys.Control | Keys.Right))
                 {
                     System.Diagnostics.Debug.WriteLine("RIGHT is PRESSED");
-                    overrides[3] = (ushort) (secondTrim + 0.15 * (secondTrim - 900));
+                    overrides[3] = (ushort) (secondTrim + _fbwbRate * (secondTrim - 900));
                     debugOverrideInfo += " → ";
                 }
 
                 if (keyData == (Keys.Control | Keys.Down))
                 {
                     System.Diagnostics.Debug.WriteLine("UP is PRESSED");
-                    overrides[1] = (ushort) (thirdTrim + 0.15 * (thirdTrim - 900));
+                    overrides[1] = (ushort) (thirdTrim + _fbwbRate * (thirdTrim - 900));
                     debugOverrideInfo += " ↑ ";
                 }
 

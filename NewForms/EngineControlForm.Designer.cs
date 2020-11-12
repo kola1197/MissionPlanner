@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.NewForms
+﻿using System.Windows.Forms;
+
+namespace MissionPlanner.NewForms
 {
     partial class EngineControlForm
     {
@@ -35,6 +37,7 @@
             this.throttle_TrackBar = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.manualThr_But = new MissionPlanner.Controls.MyButton();
+            this.shutDown_but = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize) (this.throttle_TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +46,7 @@
             this.longestTimeThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.longestTimeThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.longestTimeThr_But.DefaultTheme = false;
-            this.longestTimeThr_But.Location = new System.Drawing.Point(12, 50);
+            this.longestTimeThr_But.Location = new System.Drawing.Point(12, 24);
             this.longestTimeThr_But.Name = "longestTimeThr_But";
             this.longestTimeThr_But.Outline = System.Drawing.Color.Black;
             this.longestTimeThr_But.Size = new System.Drawing.Size(75, 23);
@@ -59,7 +62,7 @@
             this.smallThr_but.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.smallThr_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.smallThr_but.DefaultTheme = false;
-            this.smallThr_but.Location = new System.Drawing.Point(12, 93);
+            this.smallThr_but.Location = new System.Drawing.Point(12, 67);
             this.smallThr_but.Name = "smallThr_but";
             this.smallThr_but.Outline = System.Drawing.Color.Black;
             this.smallThr_but.Size = new System.Drawing.Size(75, 23);
@@ -75,7 +78,7 @@
             this.fullThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.fullThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.fullThr_But.DefaultTheme = false;
-            this.fullThr_But.Location = new System.Drawing.Point(109, 93);
+            this.fullThr_But.Location = new System.Drawing.Point(109, 67);
             this.fullThr_But.Name = "fullThr_But";
             this.fullThr_But.Outline = System.Drawing.Color.Black;
             this.fullThr_But.Size = new System.Drawing.Size(75, 23);
@@ -91,7 +94,7 @@
             this.autoThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.autoThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.autoThr_But.DefaultTheme = false;
-            this.autoThr_But.Location = new System.Drawing.Point(109, 50);
+            this.autoThr_But.Location = new System.Drawing.Point(109, 24);
             this.autoThr_But.Name = "autoThr_But";
             this.autoThr_But.Outline = System.Drawing.Color.Black;
             this.autoThr_But.Size = new System.Drawing.Size(75, 23);
@@ -104,31 +107,34 @@
             // 
             // throttle_TrackBar
             // 
-            this.throttle_TrackBar.Location = new System.Drawing.Point(12, 197);
+            this.throttle_TrackBar.Location = new System.Drawing.Point(12, 171);
             this.throttle_TrackBar.Maximum = 100;
             this.throttle_TrackBar.Name = "throttle_TrackBar";
             this.throttle_TrackBar.Size = new System.Drawing.Size(173, 45);
             this.throttle_TrackBar.TabIndex = 5;
+            this.throttle_TrackBar.TickFrequency = 5;
             this.throttle_TrackBar.Value = 20;
             this.throttle_TrackBar.Scroll += new System.EventHandler(this.throttle_TrackBar_Scroll);
             this.throttle_TrackBar.ValueChanged += new System.EventHandler(this.throttle_TrackBar_ValueChanged);
             this.throttle_TrackBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.throttle_TrackBar_MouseDown);
             this.throttle_TrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.throttle_TrackBar_MouseUp);
+            this.throttle_TrackBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.throttle_TrackBar_OnMouseWheel);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 181);
+            this.label1.Location = new System.Drawing.Point(87, 155);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(21, 13);
             this.label1.TabIndex = 6;
+            this.label1.Text = "0%";
             // 
             // manualThr_But
             // 
             this.manualThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.manualThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.manualThr_But.DefaultTheme = false;
-            this.manualThr_But.Location = new System.Drawing.Point(12, 137);
+            this.manualThr_But.Location = new System.Drawing.Point(12, 111);
             this.manualThr_But.Name = "manualThr_But";
             this.manualThr_But.Outline = System.Drawing.Color.Black;
             this.manualThr_But.Size = new System.Drawing.Size(172, 23);
@@ -139,14 +145,29 @@
             this.manualThr_But.UseVisualStyleBackColor = true;
             this.manualThr_But.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ThrottleMode_But_MouseUp);
             // 
+            // shutDown_but
+            // 
+            this.shutDown_but.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.shutDown_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (10)))), ((int) (((byte) (10)))));
+            this.shutDown_but.DefaultTheme = false;
+            this.shutDown_but.Location = new System.Drawing.Point(12, 222);
+            this.shutDown_but.Name = "shutDown_but";
+            this.shutDown_but.Outline = System.Drawing.Color.Black;
+            this.shutDown_but.Size = new System.Drawing.Size(172, 23);
+            this.shutDown_but.TabIndex = 8;
+            this.shutDown_but.Tag = "10";
+            this.shutDown_but.Text = "Заглушить";
+            this.shutDown_but.TextColor = System.Drawing.Color.White;
+            this.shutDown_but.UseVisualStyleBackColor = true;
+            this.shutDown_but.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shutDown_but_MouseUp);
+            // 
             // EngineControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.ClientSize = new System.Drawing.Size(197, 254);
+            this.ClientSize = new System.Drawing.Size(196, 258);
+            this.Controls.Add(this.shutDown_but);
             this.Controls.Add(this.manualThr_But);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.throttle_TrackBar);
@@ -165,6 +186,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private MissionPlanner.Controls.MyButton shutDown_but;
 
         private MissionPlanner.Controls.MyButton autoThr_But;
         private MissionPlanner.Controls.MyButton fullThr_But;
