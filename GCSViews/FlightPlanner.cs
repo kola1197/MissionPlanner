@@ -7887,6 +7887,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (wpConfig.closedByButton)
             {
+                wpConfig.tryToSetLoiterRad();
                 System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.Lat.ToString() + ", " +
                                                    wpConfig.controller.wgs.Lng.ToString());
 

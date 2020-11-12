@@ -47,7 +47,6 @@ namespace MissionPlanner.NewForms
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.myButton17 = new MissionPlanner.Controls.MyButton();
             this.loiterRadTextBox = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -72,6 +71,7 @@ namespace MissionPlanner.NewForms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -232,7 +232,7 @@ namespace MissionPlanner.NewForms
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.tabPage2.Controls.Add(this.myButton17);
+            this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.loiterRadTextBox);
             this.tabPage2.Controls.Add(this.textBox4);
             this.tabPage2.Controls.Add(this.label9);
@@ -262,26 +262,11 @@ namespace MissionPlanner.NewForms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Дополнительно";
             // 
-            // myButton17
-            // 
-            this.myButton17.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton17.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.myButton17.DefaultTheme = false;
-            this.myButton17.Location = new System.Drawing.Point(300, 27);
-            this.myButton17.Name = "myButton17";
-            this.myButton17.Outline = System.Drawing.Color.Black;
-            this.myButton17.Size = new System.Drawing.Size(126, 25);
-            this.myButton17.TabIndex = 31;
-            this.myButton17.Text = "Задать радиус";
-            this.myButton17.TextColor = System.Drawing.Color.White;
-            this.myButton17.UseVisualStyleBackColor = true;
-            this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp);
-            // 
             // loiterRadTextBox
             // 
             this.loiterRadTextBox.Location = new System.Drawing.Point(234, 30);
             this.loiterRadTextBox.Name = "loiterRadTextBox";
-            this.loiterRadTextBox.Size = new System.Drawing.Size(60, 20);
+            this.loiterRadTextBox.Size = new System.Drawing.Size(91, 20);
             this.loiterRadTextBox.TabIndex = 30;
             this.loiterRadTextBox.Text = "0";
             // 
@@ -588,6 +573,16 @@ namespace MissionPlanner.NewForms
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(331, 33);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "Радиус кружения";
+            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,6 +603,8 @@ namespace MissionPlanner.NewForms
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label4;
 
         public System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.CheckBox checkBox2;
@@ -650,7 +647,6 @@ namespace MissionPlanner.NewForms
 
         private System.Windows.Forms.Label lonNotification;
         private System.Windows.Forms.Label latNotification;
-        private Controls.MyButton myButton17;
         public TextBox loiterRadTextBox;
     }
 }
