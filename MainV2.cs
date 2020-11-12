@@ -1566,6 +1566,7 @@ namespace MissionPlanner
 
             try
             {
+                UpdateProgressBars();
                 _timerBusy = true;
                 if (StatusControlPanel != null && StatusControlPanel.airspeedDirectionControl2 != null)
                 {
@@ -1971,7 +1972,6 @@ namespace MissionPlanner
             FlightPlanner.mainMenuWidget1.ParamsButton.Click += new EventHandler(paramsButtonClick);
             FlightPlanner.mainMenuWidget1.RulerButton.Click += new EventHandler(rulerButtonsClick);
             engineController = new EngineController();
-            timer1.Start();
             FlightPlanner.mainMenuWidget1.Parent = FlightPlanner.MainMap;
             //FlightPlanner.mainMenuWidget1.MapChoiseButton.Parent = FlightPlanner.MainMap;
             FlightPlanner.wpMenu1.Parent = FlightPlanner.MainMap;
@@ -2250,7 +2250,7 @@ namespace MissionPlanner
             }
         }
         
-        private void timer1_Tick(object sender, EventArgs e)
+        private void UpdateProgressBars()
         {
             alarmLabelTextCheck();
             
