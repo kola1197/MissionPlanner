@@ -19,7 +19,7 @@ namespace MissionPlanner.NewForms
         public bool closedByButton = false;
         public bool[] servos = new bool[9];
         public UniversalCoordinatsController controller;
-
+        private int originalLoiterRad = -1;
         public WPConfig()
         {
             InitializeComponent();
@@ -89,6 +89,7 @@ namespace MissionPlanner.NewForms
             }
 
             loiterRadTextBox.Text = MainV2.loiterRad.ToString();
+            originalLoiterRad = MainV2.loiterRad;
             latTB1.Text = "";
         }
 
@@ -479,19 +480,30 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        public void tryToSetLoiterRad()
         {
             try
             {
                 int newrad = int.Parse(loiterRadTextBox.Text);
-                MainV2.loiterRad = newrad;
-                MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"}, newrad / CurrentState.multiplierdist);
-                MainV2.instance.FlightPlanner.TXT_loiterrad.Text = MainV2.loiterRad.ToString();
+                if (newrad != originalLoiterRad)
+                {
+                    MainV2.loiterRad = newrad;
+                    MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
+                        newrad / CurrentState.multiplierdist);
+                    MainV2.instance.FlightPlanner.TXT_loiterrad.Text = MainV2.loiterRad.ToString();
+                }
             }
             catch
+
             {
                 CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");
             }
+
+        }
+
+        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        {
+            
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
