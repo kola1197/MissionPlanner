@@ -73,7 +73,7 @@ namespace MissionPlanner.NewClasses
         
         public bool setEngineValue(float value, int _key) 
         {
-            if (key == _key)
+            if (key == _key || true)
             {
                 MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
                     "SERVO3_MIN", (float) value);

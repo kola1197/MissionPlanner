@@ -47,6 +47,7 @@ namespace MissionPlanner.NewForms
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.loiterRadTextBox = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@ namespace MissionPlanner.NewForms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -262,6 +262,16 @@ namespace MissionPlanner.NewForms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Дополнительно";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(331, 33);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "Радиус кружения";
+            // 
             // loiterRadTextBox
             // 
             this.loiterRadTextBox.Location = new System.Drawing.Point(234, 30);
@@ -276,7 +286,7 @@ namespace MissionPlanner.NewForms
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(184, 20);
             this.textBox4.TabIndex = 29;
-            this.textBox4.Text = "500";
+            this.textBox4.Text = "0";
             // 
             // label9
             // 
@@ -572,16 +582,6 @@ namespace MissionPlanner.NewForms
             this.myButton1.TextColor = System.Drawing.Color.Black;
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(331, 33);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "Радиус кружения";
             // 
             // WPConfig
             // 
