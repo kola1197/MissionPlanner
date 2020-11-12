@@ -7955,7 +7955,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED;
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
                                     row.Cells[Command.Index + 2].Value = "0";
                                     speed = Math.Truncate(speed/3.6);
