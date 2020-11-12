@@ -79,8 +79,7 @@ namespace MissionPlanner.Controls.NewControls
             g.DrawLine(myPen, 1, yStart - 3400 / 50, 500, yStart - 3400 / 50);
             g.DrawLine(myPen, 1, yStart - 7000 / 50, 500, yStart - 7000 / 50);
 
-             
-            
+
             // float scale = 587 / ICESpeeds.Count;
             Pen p = new Pen(Color.Lime);
             p.Width = 3;
@@ -88,11 +87,11 @@ namespace MissionPlanner.Controls.NewControls
             for (int i = 0; i < ICESpeeds.Count - 1; i++)
             {
                 //g.DrawLine(p, xStart + i * 2.2f, (yStart - ICESpeeds[i] / 50), xStart + (i + 1) * 2.2f, yStart - ICESpeeds[i + 1] / 50);
-            
+
                 // g.DrawLine(p, xStart + i * scale / (float) multy, (yStart - ICESpeeds[i] / 50),
-                    // xStart + (i + 1) * scale / (float) multy, yStart - ICESpeeds[i + 1] / 50);
-                 g.DrawLine(p, xStart + i * 2.1522f / (float) multy, (yStart - ICESpeeds[i] / 50),
-                     xStart + (i + 1) * 2.1522f / (float) multy, yStart - ICESpeeds[i + 1] / 50);
+                // xStart + (i + 1) * scale / (float) multy, yStart - ICESpeeds[i + 1] / 50);
+                g.DrawLine(p, xStart + i * 2.1522f / (float) multy, (yStart - ICESpeeds[i] / 50),
+                    xStart + (i + 1) * 2.1522f / (float) multy, yStart - ICESpeeds[i + 1] / 50);
                 //points[i] = new Point((int)(xStart + i * 2.2f), (int)(yStart - ICESpeeds[i] / 25));
                 //System.Diagnostics.Debug.Write("  " + ICESpeeds[i].ToString() + "  ");
             }
@@ -198,7 +197,7 @@ namespace MissionPlanner.Controls.NewControls
                     //MainV2.comPort.setMode("Manual");
                 }
 
-                if (!secondTestStarted) 
+                if (!secondTestStarted)
                 {
                     tests[1] = false;
                 }
@@ -212,14 +211,16 @@ namespace MissionPlanner.Controls.NewControls
 
                 //if (MainV2.engineController.setEngineValue((float)Math.Sin(d / 5) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key))
                 float f = (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f;
-                MainV2.engineController.setEngineValueViaOverride(
-                    (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+
+                // MainV2.engineController.setEngineValueViaOverride(
+                // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+
                 // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
-                // if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
-                // {
-                //     MainV2.engineController.SetEngineValueAndWait(
-                //         (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
-                // }
+                if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
+                {
+                    MainV2.engineController.SetEngineValueAndWait(
+                        (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+                }
 
                 //CustomMessageBox.Show("Двигатель занят в другом потоке");
 
