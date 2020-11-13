@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMap.NET;
 
 namespace MissionPlanner.NewForms
 {
@@ -19,7 +20,7 @@ namespace MissionPlanner.NewForms
         public bool closedByButton = false;
         public bool[] servos = new bool[9];
         public UniversalCoordinatsController controller;
-
+        private int originalLoiterRad = -1;
         public WPConfig()
         {
             InitializeComponent();
@@ -89,6 +90,7 @@ namespace MissionPlanner.NewForms
             }
 
             loiterRadTextBox.Text = MainV2.loiterRad.ToString();
+            originalLoiterRad = MainV2.loiterRad;
             latTB1.Text = "";
         }
 
@@ -438,37 +440,33 @@ namespace MissionPlanner.NewForms
         {
             if (!locked)
             {
-                latTB1.Text = latTB1.Text.Replace(".", ",");
-                lonTB1.Text = lonTB1.Text.Replace(".", ",");
+                var lat = latTB1.Text.Replace(".", ",");
+                var lng = lonTB1.Text.Replace(".", ",");
                 try
                 {
                     latNotification.Visible = false;
                     switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 1:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 2:
-                            controller = new UniversalCoordinatsController(new WGSCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new WGSCoordinats(lat, lng));
                             break;
                         case 3:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 4:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 5:
-                            controller =
-                                new UniversalCoordinatsController(new SK42Coordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new SK42Coordinats(lat, lng));
                             break;
                         case 6:
-                            controller =
-                                new UniversalCoordinatsController(new RectCoordinats(latTB1.Text, lonTB1.Text));
+                            controller = new UniversalCoordinatsController(new RectCoordinats(lat, lng));
                             break;
                     }
                 }
@@ -479,18 +477,30 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        public void tryToSetLoiterRad()
         {
             try
             {
                 int newrad = int.Parse(loiterRadTextBox.Text);
-                MainV2.loiterRad = newrad;
-                MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"}, newrad / CurrentState.multiplierdist);
+                if (newrad != originalLoiterRad)
+                {
+                    MainV2.loiterRad = newrad;
+                    MainV2.comPort.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
+                        newrad / CurrentState.multiplierdist);
+                    MainV2.instance.FlightPlanner.TXT_loiterrad.Text = MainV2.loiterRad.ToString();
+                }
             }
             catch
+
             {
                 CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");
             }
+
+        }
+
+        private void myButton17_MouseUp(object sender, MouseEventArgs e)
+        {
+            
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -510,6 +520,31 @@ namespace MissionPlanner.NewForms
             {
                 e.Handled = true;
             } 
+        }
+
+        public void tryToSetServosDist()
+        {
+            if (checkBox2.Checked)
+            {
+                double delta = double.Parse(textBox4.Text);
+                PointLatLng current = new PointLatLng(controller.wgs.Lat,controller.wgs.Lng);
+                double[] prevCooords = new double[]{-1,-1};
+                if (int.Parse(SerialNum)==1)
+                {
+                    prevCooords[0] = MainV2.instance.FlightPlanner.pointlist[0].Lat;
+                    prevCooords[1] = MainV2.instance.FlightPlanner.pointlist[0].Lng;
+                }
+                else
+                {
+                    prevCooords = MainV2.instance.FlightPlanner.getWPCoords(int.Parse(SerialNum) - 1);
+                }
+
+                double dist = MainV2.instance.FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(prevCooords[0],prevCooords[1]),current );
+                dist *= 1000;
+                double newLat = (prevCooords[0] * delta + controller.wgs.Lat * (dist - delta)) / dist;
+                double newLng = (prevCooords[1] * delta + controller.wgs.Lng * (dist - delta)) / dist;
+                controller = new UniversalCoordinatsController(new WGSCoordinats(newLat, newLng));
+            }
         }
     }
 }

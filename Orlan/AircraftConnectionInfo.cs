@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BrightIdeasSoftware;
 
 namespace MissionPlanner
 {
@@ -110,7 +111,12 @@ namespace MissionPlanner
 
         public double Fuel = 0;
 
+        public bool IsParachutePointReached = false;
 
+        public bool ParachuteReleased = false;
+
+        public bool IsEmergencyLandTriggered = false;
+        
         public bool FuelSaved { get; set; }
         
         //Only for SITL (Worst code...)

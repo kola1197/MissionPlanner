@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.Controls;
+using MissionPlanner.Controls.NewControls;
 using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
@@ -15,7 +16,7 @@ namespace MissionPlanner.NewForms
     public partial class EngineControlForm : Form, IFormConnectable
     {
         private bool _isTrackBarClicked = false;
-        
+
         public EngineControlForm()
         {
             InitializeComponent();
@@ -47,6 +48,7 @@ namespace MissionPlanner.NewForms
         private const float MaxTime = 30.0f;
         private const float EngineChannelOutMin = 1100;
         private const float EngineChannelOutMax = 1900;
+        private readonly int _wheelDelta = SystemInformation.MouseWheelScrollDelta;
 
         public enum EngineMode
         {
@@ -60,9 +62,27 @@ namespace MissionPlanner.NewForms
         private void throttle_TrackBar_ValueChanged(object sender, EventArgs e)
         {
             label1.Text = throttle_TrackBar.Value.ToString() + "%";
-
         }
 
+        private void throttle_TrackBar_OnMouseWheel(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;//disable default mouse wheel
+            // int throttleDelta = e.Delta / _wheelDelta;
+            if (e.Delta > 0)
+            {
+                if (throttle_TrackBar.Value < throttle_TrackBar.Maximum)
+                {
+                    throttle_TrackBar.Value++;
+                }
+            }
+            else
+            {
+                if (throttle_TrackBar.Value > throttle_TrackBar.Minimum)
+                {
+                    throttle_TrackBar.Value--;
+                }
+            }
+        }
 
         private void ThrottleMode_But_MouseUp(object sender, MouseEventArgs e)
         {
@@ -114,6 +134,7 @@ namespace MissionPlanner.NewForms
                 default:
                     break;
             }
+
             // MainV2._lastEngineOverrideTime = DateTime.Now;
         }
 
@@ -155,7 +176,7 @@ namespace MissionPlanner.NewForms
             float channelOut = (EngineChannelOutMax - EngineChannelOutMin) * percent / 100 + EngineChannelOutMin;
             return channelOut;
         }
-        
+
         private void EngineControlForm_Load(object sender, EventArgs e)
         {
             updateButtons(MainV2.currentEngineMode);
@@ -205,6 +226,25 @@ namespace MissionPlanner.NewForms
             {
                 setEngineMode();
                 updateButtons(MainV2.currentEngineMode);
+            }
+        }
+
+        private void shutDown_but_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                MainV2.engineController.resetKey();
+                var key = MainV2.engineController.getAccessKeyToEngine();
+                if (!MainV2.engineController.setEngineValue(900f, key))
+                {
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+
+                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+            }
+            catch
+            {
             }
         }
     }
