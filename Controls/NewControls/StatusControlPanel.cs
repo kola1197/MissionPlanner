@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -47,14 +48,13 @@ namespace MissionPlanner.Controls
             _voltageCriticalPercentage,
             _voltageWarningPercentage;
 
-        private Timer _refreshTimer;
+        private static Timer _refreshTimer;
 
         public void StopTimer()
         {
             _refreshTimer.Dispose();
-            _isTimerBusy = false;
         }
-        
+
         public StatusControlPanel()
         {
             InitializeComponent();
@@ -361,43 +361,37 @@ namespace MissionPlanner.Controls
             return false;
         }
 
-        private bool _isTimerBusy = false;
+        static object locker = new object();
+
         private void RefreshControl()
         {
-            if (_isTimerBusy)
+            if (Monitor.TryEnter(locker))
             {
-                return;
-            }
-
-            try
-            {
-                _isTimerBusy = true;
-                // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-                UpdateStatusLabels();
-
-                if (!stopwatch.IsRunning)
+                try
                 {
-                    stopwatch.Start();
+                    // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+                    UpdateStatusLabels();
+
+                    if (!stopwatch.IsRunning)
+                    {
+                        stopwatch.Start();
+                    }
+
+                    UpdateBindingSourceWork();
+
+                    if (IsSitlConnected())
+                    {
+                        UpdateSitlProgressBars();
+                    }
+
+                    UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+                    UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
+                    UpdateEngineTempProgressBarColor();
                 }
-
-                UpdateBindingSourceWork();
-
-                if (IsSitlConnected())
+                finally
                 {
-                    UpdateSitlProgressBars();
+                    Monitor.Exit(locker);
                 }
-
-                UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
-                UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
-                UpdateEngineTempProgressBarColor();
-            }
-            catch
-            {
-                _isTimerBusy = false;
-            }
-            finally
-            {
-                _isTimerBusy = false;
             }
         }
 

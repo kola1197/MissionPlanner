@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.Controls.NewControls
+﻿using System.Windows.Forms;
+
+namespace MissionPlanner.Controls.NewControls
 {
     partial class ICECheck
     {
@@ -106,6 +108,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(505, 327);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
+            // this.pictureBox1.Paint += new PaintEventHandler(this.pictureBox1_Paint);
             // 
             // progressBar1
             // 
