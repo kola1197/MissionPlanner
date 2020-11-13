@@ -369,8 +369,13 @@ namespace MissionPlanner.Controls
             {
                 try
                 {
+                    //Form1.richTextBox1.Invoke(new Action(() => Form1.richTextBox1.Text = _in + "\n" + "***********" + "\n" + Form1.richTextBox1.Text));
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => refreshForInvoke() ));
+                    }
                     // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-                    UpdateStatusLabels();
+                    /*UpdateStatusLabels();
 
                     if (!stopwatch.IsRunning)
                     {
@@ -386,7 +391,7 @@ namespace MissionPlanner.Controls
 
                     UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
                     UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
-                    UpdateEngineTempProgressBarColor();
+                    UpdateEngineTempProgressBarColor();*/
                 }
                 finally
                 {
@@ -394,6 +399,27 @@ namespace MissionPlanner.Controls
                 }
             }
 
+        }
+
+        private void refreshForInvoke() 
+        {
+            UpdateStatusLabels();
+
+            if (!stopwatch.IsRunning)
+            {
+                stopwatch.Start();
+            }
+
+            UpdateBindingSourceWork();
+
+            if (IsSitlConnected())
+            {
+                UpdateSitlProgressBars();
+            }
+
+            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
+            UpdateEngineTempProgressBarColor();
         }
 
         private void UpdateSitlProgressBars()

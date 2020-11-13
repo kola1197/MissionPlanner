@@ -73,14 +73,24 @@ namespace MissionPlanner.Controls.NewControls
             {
                 try
                 {
-                    Invalidate();
-                    pictureBox1.Invalidate();
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => drawForInvoke()));
+                    }
+                    //Invalidate();
+                    //pictureBox1.Invalidate();
                 }
                 finally
                 {
                     Monitor.Exit(graphLocker);
                 }
             }
+        }
+
+        private void drawForInvoke() 
+        {
+            Invalidate();
+            pictureBox1.Invalidate();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -102,8 +112,12 @@ namespace MissionPlanner.Controls.NewControls
             {
                 try
                 {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => refreshForInvoke()));
+                    }
                     //multy = 100 / timer1.Interval; 
-                    if (!testBool)
+                    /*if (!testBool)
                     {
                         float i = MainV2.comPort.MAV.cs.rpm1;
                         ICESpeeds.Add(i);
@@ -258,7 +272,7 @@ namespace MissionPlanner.Controls.NewControls
                         //label3.BackColor = Color.Green;
                         startButton.Enabled = true;
                         stop();
-                    }
+                    }*/
                 }
                 finally
                 {
@@ -267,6 +281,166 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             //this.Refresh();
+        }
+
+        private void refreshForInvoke() 
+        {
+            if (!testBool)
+            {
+                float i = MainV2.comPort.MAV.cs.rpm1;
+                ICESpeeds.Add(i);
+            }
+
+            counter++;
+            if (counter < 60 * multy)
+            {
+                if (MainV2.engineController.SetEngineValueAndWait((float)fMax, key))
+                {
+                    // System.Diagnostics.Debug.WriteLine("key " + key.ToString() );
+                    //CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+
+                //MainV2.comPort.MAV.cs.ch10out = 2000;
+                if (testBool)
+                {
+                    ICESpeeds.Add(13000.0f);
+                }
+
+                if (!hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 > 7600)
+                {
+                    hasOverSevenk = true;
+                }
+
+                if (hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 < 7600)
+                {
+                    tests[0] = false;
+                }
+
+                progressBar1.Value = counter;
+            }
+
+            if (counter > 60 * multy && counter < 120 * multy)
+            {
+                if (!hasOverSevenk)
+                {
+                    tests[0] = false;
+                }
+
+                if (MainV2.engineController.SetEngineValueAndWait((float)fMin, key))
+                {
+                    //CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+
+                //MainV2.comPort.MAV.cs.ch10out = 1400;
+                if (testBool)
+                {
+                    ICESpeeds.Add(4000.0f);
+                }
+
+                progressBar1.ValueColor = tests[0] ? Color.Lime : Color.Red;
+                progressBar2.Value = counter - 60 * multy;
+
+                if (!secondTestStarted && MainV2.comPort.MAV.cs.rpm1 > 3800 &&
+                    MainV2.comPort.MAV.cs.rpm1 < 4200)
+                {
+                    secondTestStarted = true;
+                }
+
+                if (secondTestStarted &&
+                    (MainV2.comPort.MAV.cs.rpm1 > 4200 || MainV2.comPort.MAV.cs.rpm1 < 3800))
+                {
+                    tests[1] = false;
+                }
+
+                //label1.BackColor = Color.Green;
+            }
+
+            if (counter > 120 * multy && counter < 210 * multy)
+            {
+                if (counter == 120 * multy + 1)
+                {
+                    MainV2.engineController.setEngineValue(fMin, key);
+                    //MainV2.comPort.setMode("Manual");
+                }
+
+                if (!secondTestStarted)
+                {
+                    tests[1] = false;
+                }
+
+                double d = counter;
+                if (testBool)
+                {
+                    ICESpeeds.Add((((float)Math.Sin(d / 5))) * 4500.0f + 8500.0f);
+                    //MainV2.comPort.MAV.cs.ch10out = (float)Math.Sin(d / 5) * 300.0f + 1700.0f ;
+                }
+
+                //if (MainV2.engineController.setEngineValue((float)Math.Sin(d / 5) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key))
+                float f = (float)Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f;
+
+                // MainV2.engineController.setEngineValueViaOverride(
+                // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+
+                // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
+                if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
+                {
+                    MainV2.engineController.SetEngineValueAndWait(
+                        (float)Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+                }
+
+                //CustomMessageBox.Show("Двигатель занят в другом потоке");
+
+                //MainV2.engineController.setEngineValue((float)Math.Sin(d / 5) * 300.0f + 1700.0f, key);
+                progressBar2.ValueColor = tests[1] ? Color.Lime : Color.Red;
+                if (counter - 120 * multy <= progressBar3.Maximum)
+                {
+                    if (counter - 120 * multy >= progressBar3.Minimum)
+                    {
+                        progressBar3.Value = counter - 120 * multy;
+                    }
+                    else
+                    {
+                        progressBar3.Value = progressBar3.Minimum;
+                    }
+                }
+                else
+                {
+                    progressBar3.Value = progressBar3.Maximum;
+                }
+
+
+                if (sinusoidTestCounter[0] == sinusoidTestCounter[1])
+                {
+                    if (MainV2.comPort.MAV.cs.rpm1 > 7700)
+                    {
+                        sinusoidTestCounter[0]++;
+                    }
+                }
+                else
+                {
+                    if (MainV2.comPort.MAV.cs.rpm1 < 5000)
+                    {
+                        sinusoidTestCounter[1]++;
+                    }
+                }
+
+                //label2.BackColor = Color.Green;
+            }
+
+            if (counter > 210 * multy)
+            {
+                MainV2.engineController.SetEngineValueAndWait(fMin, key);
+
+                if (sinusoidTestCounter[0] != 2 || sinusoidTestCounter[1] != 2)
+                {
+                    tests[2] = false;
+                }
+
+                progressBar3.ValueColor = tests[2] ? Color.Lime : Color.Red;
+                //label3.BackColor = Color.Green;
+                startButton.Enabled = true;
+                stop();
+            }
         }
 
         private void myButton1_Click(object sender, EventArgs e)
