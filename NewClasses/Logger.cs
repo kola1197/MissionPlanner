@@ -9,8 +9,8 @@ namespace MissionPlanner.NewClasses
 {
     public class Logger
     {
-        private bool loaded = false;
-        private string path;
+        private static bool loaded = false;
+        private static string path;
 
         public Logger() 
         {
@@ -22,7 +22,6 @@ namespace MissionPlanner.NewClasses
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
                     sw.WriteLine(DateTime.Now.ToString("dd/MMMM/yyyy_HH:mm:ss") + ":: " + "test");
-                    sw.Close();
                 }
             }
             catch (Exception e) 
@@ -37,7 +36,6 @@ namespace MissionPlanner.NewClasses
             using (StreamWriter sw = new StreamWriter(path,true)) 
             {
                 sw.WriteLine(DateTime.Now.ToString("dd/MMMM/yyyy_HH:mm:ss")+":: " + text);
-                sw.Close();
             }
         }
     }
