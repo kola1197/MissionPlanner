@@ -41,24 +41,23 @@ namespace MissionPlanner.Controls.NewControls
         public bool fullSize = false;
         private Size defaultSize;
 
-        private System.Threading.Timer _timer;
+        private static System.Threading.Timer _timer;
 
-        private bool _isTimerEnabled = false;
-
+        private static object locker;
+        
         public bool IsTimerEnabled
         {
-            get => _isTimerEnabled;
+            get => _timer == null;
             set
             {
-                if (value == _isTimerEnabled)
+                if (value && _timer != null)
                 {
                     return;
                 }
 
-                _isTimerEnabled = value;
                 if (value)
                 {
-                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 100);
+                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
                 }
                 else
                 {
@@ -70,72 +69,74 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private bool _isTimerBusy = false;
         private string currentFlightTime = "";
         private string startFlightTime = "";
 
         private void RefreshControl()
         {
-            if (_isTimerBusy)
+            if (Monitor.TryEnter(locker))
             {
-                return;
-            }
-
-            try
-            {
-                _isTimerBusy = true;
-                FlightPlanner flightPlanner = FlightPlanner.instance;
-                MAVLinkInterface comPort = MainV2.comPort;
-                if (comPort.MAV.cs.connected)
+                try
                 {
-                    double homedistfromplane = 0;
-                    int azimuth = 0;
-                    if (flightPlanner.pointlist.Count > 0)
+                    FlightPlanner flightPlanner = FlightPlanner.instance;
+                    MAVLinkInterface comPort = MainV2.comPort;
+                    if (comPort.MAV.cs.connected)
                     {
-                        homedistfromplane = flightPlanner.MainMap.MapProvider.Projection.GetDistance(
-                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), flightPlanner.pointlist[0]);
-                        azimuth = (int) Math.Truncate(flightPlanner.GetAzimuthAngle(flightPlanner.pointlist[0],
-                            new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                        double homedistfromplane = 0;
+                        int azimuth = 0;
+                        if (flightPlanner.pointlist.Count > 0)
+                        {
+                            homedistfromplane = flightPlanner.MainMap.MapProvider.Projection.GetDistance(
+                                new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng), flightPlanner.pointlist[0]);
+                            azimuth = (int) Math.Truncate(flightPlanner.GetAzimuthAngle(flightPlanner.pointlist[0],
+                                new PointLatLng(comPort.MAV.cs.lat, comPort.MAV.cs.lng)));
+                        }
+
+                        string homedistfromplaneString = flightPlanner.FormatDistance(homedistfromplane);
+                        label3.Text = homedistfromplaneString;
+
+
+                        azimuthUav_label.Text = azimuth + "°";
+                    }
+                    else
+                    {
+                        label3.Text = "0 м";
                     }
 
-                    string homedistfromplaneString = flightPlanner.FormatDistance(homedistfromplane);
-                    label3.Text = homedistfromplaneString;
-
-
-                    azimuthUav_label.Text = azimuth + "°";
-                }
-                else
-                {
-                    label3.Text = "0 м";
-                }
-
-                label5.Text =
-                    flightPlanner.FormatDistance(comPort.MAV.cs.wp_dist / 1000.0);
-                double lengthCountr = 0;
-                for (int i = 0; i < flightPlanner.Commands.Rows.Count; i++)
-                {
-                    string s = flightPlanner.Commands.Rows[i].Cells[flightPlanner.Dist.Index].Value.ToString();
-                    lengthCountr += double.Parse(flightPlanner.Commands.Rows[i].Cells[flightPlanner.Dist.Index].Value
-                        .ToString());
-                }
-
-                label7.Text = flightPlanner.FormatDistance(lengthCountr / 1000.0);
-
-                
-                AircraftConnectionInfo info;
-                if (MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraftNum != null)
-                {
-                    if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
+                    label5.Text =
+                        flightPlanner.FormatDistance(comPort.MAV.cs.wp_dist / 1000.0);
+                    double lengthCountr = 0;
+                    for (int i = 0; i < flightPlanner.Commands.Rows.Count; i++)
                     {
-                        DateTime now = DateTime.Now;
-                        DateTime diff = new DateTime(0);
-                        if (info.hasStartTime)
+                        string s = flightPlanner.Commands.Rows[i].Cells[flightPlanner.Dist.Index].Value.ToString();
+                        lengthCountr += double.Parse(flightPlanner.Commands.Rows[i].Cells[flightPlanner.Dist.Index]
+                            .Value
+                            .ToString());
+                    }
+
+                    label7.Text = flightPlanner.FormatDistance(lengthCountr / 1000.0);
+
+
+                    AircraftConnectionInfo info;
+                    if (MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraftNum != null)
+                    {
+                        if (MainV2.Aircrafts.TryGetValue(MainV2.CurrentAircraftNum, out info))
                         {
-                            startFlightTime = info.StartOfTheFlightTime.ToString("HH.mm.ss");
-                            if (!info.ParachuteReleased && !MainV2.IsSitlLanding)
+                            DateTime now = DateTime.Now;
+                            DateTime diff = new DateTime(0);
+                            if (info.hasStartTime)
                             {
-                                diff += now - info.StartOfTheFlightTime;
-                                currentFlightTime = diff.ToString("HH.mm.ss");
+                                startFlightTime = info.StartOfTheFlightTime.ToString("HH.mm.ss");
+                                if (!info.ParachuteReleased && !MainV2.IsSitlLanding)
+                                {
+                                    diff += now - info.StartOfTheFlightTime;
+                                    currentFlightTime = diff.ToString("HH.mm.ss");
+                                }
+                            }
+                            else
+                            {
+                                currentFlightTime = "00:00:00";
+                                startFlightTime = "00:00:00";
                             }
                         }
                         else
@@ -149,60 +150,50 @@ namespace MissionPlanner.Controls.NewControls
                         currentFlightTime = "00:00:00";
                         startFlightTime = "00:00:00";
                     }
-                }
-                else
-                {
-                    currentFlightTime = "00:00:00";
-                    startFlightTime = "00:00:00";
-                }
 
-                if (fullSize)
-                {
-                    //label1.Text = "Удаление от дома";
-                    //label1.Text += "Расстояние до точки";
-                    //label1.Text += "Длинна маршрута";
-                    //label1.Text += "Удаление от дома";
-                    label2.Text = currentFlightTime;
-                    label9.Text = startFlightTime;
-                }
-                else
-                {
-                    label2.Text = currentFlightTime;
-                }
-
-                /*if (MainV2.notifications.Count > 0)
-                {
-                    if (fullSize) 
+                    if (fullSize)
                     {
-                        label1.Text = "";
-                        for (int i = 0; i < MainV2.notifications.Count;i++) {
-                            label1.Text += "\n";
-                            label1.Text += MainV2.notifications[i];
-                            label1.Text += "\n";
-                        }
+                        //label1.Text = "Удаление от дома";
+                        //label1.Text += "Расстояние до точки";
+                        //label1.Text += "Длинна маршрута";
+                        //label1.Text += "Удаление от дома";
+                        label2.Text = currentFlightTime;
+                        label9.Text = startFlightTime;
                     }
                     else
                     {
-                        label1.Text = MainV2.notifications[0];
+                        label2.Text = currentFlightTime;
                     }
+
+                    /*if (MainV2.notifications.Count > 0)
+                    {
+                        if (fullSize) 
+                        {
+                            label1.Text = "";
+                            for (int i = 0; i < MainV2.notifications.Count;i++) {
+                                label1.Text += "\n";
+                                label1.Text += MainV2.notifications[i];
+                                label1.Text += "\n";
+                            }
+                        }
+                        else
+                        {
+                            label1.Text = MainV2.notifications[0];
+                        }
+                    }
+                    else {
+                        label1.Text = "";
+                    }*/
                 }
-                else {
-                    label1.Text = "";
-                }*/
-            }
-            catch
-            {
-                _isTimerBusy = false;
-            }
-            finally
-            {
-                _isTimerBusy = false;
+                finally
+                {
+                    Monitor.Exit(locker);
+                }
             }
         }
 
         public void redraw()
         {
-            _isTimerBusy = true;
             this.SuspendLayout();
             this.Size = fullSize ? new Size(330, 180) : new Size(330, 40);
             Region = ControlDrawingTools.CreateRoundRectRgn(0, -20, Width, Height, 20);
@@ -215,7 +206,6 @@ namespace MissionPlanner.Controls.NewControls
             label5.Visible = fullSize;
             label4.Visible = fullSize;
             label3.Visible = fullSize;
-            _isTimerBusy = false;
             this.ResumeLayout();
             //label1.Size = fullSize ? new Size(defaultSize.Width, defaultSize.Height * 5) : defaultSize;
         }

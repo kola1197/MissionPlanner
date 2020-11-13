@@ -56,21 +56,20 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private System.Threading.Timer _timer;
+        private static System.Threading.Timer _timer;
 
-        private bool _isTimerEnabled = false;
-
+        private static object locker;
+        
         public bool IsTimerEnabled
         {
-            get => _isTimerEnabled;
+            get => _timer == null;
             set
             {
-                if (value == _isTimerEnabled)
+                if (value && _timer != null)
                 {
                     return;
                 }
 
-                _isTimerEnabled = value;
                 if (value)
                 {
                     _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
@@ -85,43 +84,36 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private bool _isTimerBusy = false;
         private void RefreshControl()
         {
-            if (_isTimerBusy)
+            if (Monitor.TryEnter(locker))
             {
-                return;
-            }
 
-            try
-            {
-                _isTimerBusy = true;
-                //label1.BackColor = Color.White;
-                string notifications = "";
-                notifications += "________";
-                for (int i = 0; i < MainV2.warnings.Count; i++)
+                try
                 {
-                    notifications += "\n";
-                    notifications += MainV2.warnings[i];
-                    //label1.Text += "\n";
-                }
+                    //label1.BackColor = Color.White;
+                    string notifications = "";
+                    notifications += "________";
+                    for (int i = 0; i < MainV2.warnings.Count; i++)
+                    {
+                        notifications += "\n";
+                        notifications += MainV2.warnings[i];
+                        //label1.Text += "\n";
+                    }
 
-                for (int i = 0; i < MainV2.notifications.Count; i++)
+                    for (int i = 0; i < MainV2.notifications.Count; i++)
+                    {
+                        notifications += "\n";
+                        notifications += MainV2.notifications[i];
+
+                    }
+
+                    label1.Text = notifications;
+                }
+                finally
                 {
-                    notifications += "\n";
-                    notifications += MainV2.notifications[i];
-
+                    Monitor.Exit(locker);
                 }
-
-                label1.Text = notifications;
-            }
-            catch
-            {
-                _isTimerBusy = false;
-            }
-            finally
-            {
-                _isTimerBusy = false;
             }
         }
     }
