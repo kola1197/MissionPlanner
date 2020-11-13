@@ -226,6 +226,7 @@ namespace MissionPlanner.GCSViews
             this.GoToThisWPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.зажатьЭтуТочкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
@@ -768,12 +769,14 @@ namespace MissionPlanner.GCSViews
             // notificationListControl1
             // 
             this.notificationListControl1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.notificationListControl1.IsTimerEnabled = true;
             resources.ApplyResources(this.notificationListControl1, "notificationListControl1");
             this.notificationListControl1.Name = "notificationListControl1";
             // 
             // notificationControl1
             // 
             this.notificationControl1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.notificationControl1.IsTimerEnabled = true;
             resources.ApplyResources(this.notificationControl1, "notificationControl1");
             this.notificationControl1.Name = "notificationControl1";
             // 
@@ -1400,6 +1403,11 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.удалитьToolStripMenuItem, "удалитьToolStripMenuItem");
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.deleteWPToolStripMenuItem2_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1429,6 +1437,8 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Timer timer1;
 
         public System.Windows.Forms.ToolStripMenuItem addPolygonPointToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem addPolygonPointToolStripMenuItem2;

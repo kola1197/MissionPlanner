@@ -48,11 +48,12 @@ namespace MissionPlanner.Controls
             _voltageCriticalPercentage,
             _voltageWarningPercentage;
 
-        private static Timer _refreshTimer;
+        // private static Timer _refreshTimer;
 
         public void StopTimer()
         {
-            _refreshTimer.Dispose();
+            timer1.Stop();
+            // _refreshTimer.Dispose();
         }
 
         public StatusControlPanel()
@@ -74,7 +75,8 @@ namespace MissionPlanner.Controls
             _fuelCriticalPercentage = 10;
             _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
             _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
-            _refreshTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 100);
+            // _refreshTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 100);
+            timer1.Start();
         }
 
         public void SetFuelPbMinMax()
@@ -363,7 +365,7 @@ namespace MissionPlanner.Controls
 
         static object locker = new object();
 
-        private void RefreshControl()
+        private void RefreshControl(object sender, EventArgs e)
         {
             if (Monitor.TryEnter(locker))
             {
@@ -387,6 +389,10 @@ namespace MissionPlanner.Controls
                     UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
                     UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
                     UpdateEngineTempProgressBarColor();
+                    Invalidate();
+                }
+                catch
+                {
                 }
                 finally
                 {

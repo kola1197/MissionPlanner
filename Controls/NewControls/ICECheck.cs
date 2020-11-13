@@ -13,8 +13,8 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class ICECheck : UserControl
     {
-        private static System.Threading.Timer _iceTimer;
-        private static System.Threading.Timer _graphTimer;
+        // private static System.Threading.Timer _iceTimer;
+        // private static System.Threading.Timer _graphTimer;
 
         public ICECheck()
         {
@@ -61,10 +61,11 @@ namespace MissionPlanner.Controls.NewControls
         private void OnDispose(object sender, EventArgs e)
         {
             stop();
-            if (_graphTimer != null)
-            {
-                _graphTimer.Dispose();
-            }
+            // if (_graphTimer != null)
+            // {
+                // _graphTimer.Dispose();
+            // }
+            graphTimer.Stop();
         }
 
         void DrawGraphic()
@@ -92,8 +93,10 @@ namespace MissionPlanner.Controls.NewControls
 
         private void StartTimer()
         {
-            _graphTimer = new System.Threading.Timer(_ => DrawGraphic(), null, 0, 50);
-            _iceTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 50);
+            // _graphTimer = new System.Threading.Timer(_ => DrawGraphic(), null, 0, 50);
+            // _iceTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 50);
+            iceTimer.Start();
+            graphTimer.Start();
         }
 
         private void RefreshControl()
@@ -159,13 +162,13 @@ namespace MissionPlanner.Controls.NewControls
                         progressBar2.Value = counter - 60 * multy;
 
                         if (!secondTestStarted && MainV2.comPort.MAV.cs.rpm1 > 3800 &&
-                            MainV2.comPort.MAV.cs.rpm1 < 4200)
+                            MainV2.comPort.MAV.cs.rpm1 < 5100)
                         {
                             secondTestStarted = true;
                         }
 
                         if (secondTestStarted &&
-                            (MainV2.comPort.MAV.cs.rpm1 > 4200 || MainV2.comPort.MAV.cs.rpm1 < 3800))
+                            (MainV2.comPort.MAV.cs.rpm1 > 5100 || MainV2.comPort.MAV.cs.rpm1 < 3800))
                         {
                             tests[1] = false;
                         }
@@ -173,13 +176,13 @@ namespace MissionPlanner.Controls.NewControls
                         //label1.BackColor = Color.Green;
                     }
 
-                    if (counter > 120 * multy && counter < 210 * multy)
+                    if (counter > 120 * multy && counter < 210 * multy + 10)
                     {
-                        if (counter == 120 * multy + 1)
-                        {
-                            MainV2.engineController.setEngineValue(fMin, key);
+                        //if (counter == 120 * multy + 1)
+                       // {
+                            //MainV2.engineController.setEngineValue(fMin, key);
                             //MainV2.comPort.setMode("Manual");
-                        }
+                       //}
 
                         if (!secondTestStarted)
                         {
@@ -200,12 +203,18 @@ namespace MissionPlanner.Controls.NewControls
                         // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
 
                         // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
-                        if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
+                        if (counter % 5 == 0 && counter >= 210 * multy)
                         {
-                            MainV2.engineController.SetEngineValueAndWait(
-                                (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+                            MainV2.engineController.SetEngineValueAndWait(fMin, key);
                         }
-
+                        else
+                        {
+                            if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
+                            {
+                                MainV2.engineController.SetEngineValueAndWait(
+                                    (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+                            }
+                        }
                         //CustomMessageBox.Show("Двигатель занят в другом потоке");
 
                         //MainV2.engineController.setEngineValue((float)Math.Sin(d / 5) * 300.0f + 1700.0f, key);
@@ -229,14 +238,14 @@ namespace MissionPlanner.Controls.NewControls
 
                         if (sinusoidTestCounter[0] == sinusoidTestCounter[1])
                         {
-                            if (MainV2.comPort.MAV.cs.rpm1 > 7700)
+                            if (MainV2.comPort.MAV.cs.rpm1 > 7600)
                             {
                                 sinusoidTestCounter[0]++;
                             }
                         }
                         else
                         {
-                            if (MainV2.comPort.MAV.cs.rpm1 < 5000)
+                            if (MainV2.comPort.MAV.cs.rpm1 < 5100)
                             {
                                 sinusoidTestCounter[1]++;
                             }
@@ -245,7 +254,7 @@ namespace MissionPlanner.Controls.NewControls
                         //label2.BackColor = Color.Green;
                     }
 
-                    if (counter > 210 * multy)
+                    if (counter > 210 * multy + 10)
                     {
                         MainV2.engineController.SetEngineValueAndWait(fMin, key);
 
@@ -259,6 +268,9 @@ namespace MissionPlanner.Controls.NewControls
                         startButton.Enabled = true;
                         stop();
                     }
+                }
+                catch
+                {
                 }
                 finally
                 {
@@ -352,11 +364,11 @@ namespace MissionPlanner.Controls.NewControls
         
         public void stop()
         {
-            if (_iceTimer != null)
-            {
-                _iceTimer.Dispose();
-            }
-
+            // if (_iceTimer != null)
+            // {
+            //     _iceTimer.Dispose();
+            // }
+            iceTimer.Stop();
             progressBar3.ValueColor = tests[2] ? Color.Lime : Color.Red;
             //started = false;
             counter = 0;
@@ -407,8 +419,12 @@ namespace MissionPlanner.Controls.NewControls
             */
 
             g.DrawLine(myPen, 1, yStart - 3400 / 50, 500, yStart - 3400 / 50);
-            g.DrawLine(myPen, 1, yStart - 7000 / 50, 500, yStart - 7000 / 50);
 
+            g.DrawLine(myPen, 1, yStart - 7600 / 50, 500, yStart - 7600 / 50);
+
+            Pen myTestPen = new Pen(Color.Gold);
+            myPen.Width = 1;
+            g.DrawLine(myTestPen, 1, yStart - 5100 / 50, 500, yStart - 5100 / 50);
 
             // float scale = 587 / ICESpeeds.Count;
             Pen p = new Pen(Color.Lime);
@@ -434,6 +450,15 @@ namespace MissionPlanner.Controls.NewControls
                 g.DrawPolygon(p, points);
             }*/
         }
-       
+
+        private void graphTimer_Tick(object sender, EventArgs e)
+        {
+            DrawGraphic();
+        }
+
+        private void iceTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshControl();
+        }
     }
 }

@@ -1514,12 +1514,12 @@ namespace MissionPlanner
             MenuHelp.ForeColor = ThemeManager.TextColor;
         }
 
-        private static System.Threading.Timer _mainTimer;
         private static object locker = new object();
 
         void coordinatsControlInit()
         {
-            _mainTimer = new System.Threading.Timer(_ => RefreshForm(), null, 0, 100);
+            timer1.Start();
+            // _mainTimer = new System.Threading.Timer(_ => RefreshForm(), null, 0, 100);
             // coordinatsControl1.timer1.Enabled = true;
             // coordinatsControl1.timer1.Tick += Timer1_Tick;
         }
@@ -1527,13 +1527,13 @@ namespace MissionPlanner
         public static int CoordinatsShowMode = 0;
         public bool TakeoffPassed = false;
 
-        private void RefreshForm()
+        private void RefreshForm(object sender, EventArgs e)
         {
             if (Monitor.TryEnter(locker))
             {
                 try
                 {
-                    if (comPort.MAV.cs.connected && !CurrentAircraft.ParachuteReleased)
+                    if (comPort.MAV.cs.connected && CurrentAircraft != null && !CurrentAircraft.ParachuteReleased)
                     {
                         if (comPort.MAV.cs.ch6out > 1600)
                         {
@@ -3335,8 +3335,8 @@ namespace MissionPlanner
             else if (dialogResult == CustomMessageBox.DialogResult.Yes)
             {
                 StatusControlPanel.StopTimer();
-                _mainTimer.Dispose();
-
+                // _mainTimer.Dispose();
+                timer1.Stop();
                 base.OnClosing(e);
 
                 log.Info("MainV2_FormClosing");

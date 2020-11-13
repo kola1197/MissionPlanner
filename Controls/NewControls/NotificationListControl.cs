@@ -56,33 +56,35 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private static System.Threading.Timer _timer;
-
-        private static object locker;
+        // private static System.Threading.Timer _timer;
+        private static object locker = new object();
         
         public bool IsTimerEnabled
         {
-            get => _timer == null;
+            get => timer1.Enabled;
             set
             {
-                if (value && _timer != null)
+                if (value == timer1.Enabled)
                 {
                     return;
                 }
 
                 if (value)
                 {
-                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
+                    timer1.Start();
+                    // _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
                 }
                 else
                 {
-                    if (_timer != null)
-                    {
-                        _timer.Dispose();
-                    }
+                    // if (_timer != null)
+                    // {
+                    //     _timer.Dispose();
+                    // }
+                    timer1.Stop();
                 }
             }
         }
+
 
         private void RefreshControl()
         {
@@ -115,6 +117,11 @@ namespace MissionPlanner.Controls.NewControls
                     Monitor.Exit(locker);
                 }
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            RefreshControl();
         }
     }
 }

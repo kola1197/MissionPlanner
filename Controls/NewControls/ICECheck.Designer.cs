@@ -30,6 +30,7 @@ namespace MissionPlanner.Controls.NewControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.testButton = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.startButton = new MissionPlanner.Controls.MyButton();
@@ -39,6 +40,8 @@ namespace MissionPlanner.Controls.NewControls
             this.progressBar3 = new BSE.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.graphTimer = new System.Windows.Forms.Timer(this.components);
+            this.iceTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,7 +111,6 @@ namespace MissionPlanner.Controls.NewControls
             this.pictureBox1.Size = new System.Drawing.Size(505, 327);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
-            // this.pictureBox1.Paint += new PaintEventHandler(this.pictureBox1_Paint);
             // 
             // progressBar1
             // 
@@ -171,6 +173,16 @@ namespace MissionPlanner.Controls.NewControls
             this.label2.TabIndex = 14;
             this.label2.Text = "7200";
             // 
+            // graphTimer
+            // 
+            this.graphTimer.Interval = 50;
+            this.graphTimer.Tick += new System.EventHandler(this.graphTimer_Tick);
+            // 
+            // iceTimer
+            // 
+            this.iceTimer.Interval = 50;
+            this.iceTimer.Tick += new System.EventHandler(this.iceTimer_Tick);
+            // 
             // ICECheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,6 +203,9 @@ namespace MissionPlanner.Controls.NewControls
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Timer graphTimer;
+        private System.Windows.Forms.Timer iceTimer;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

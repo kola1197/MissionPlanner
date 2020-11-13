@@ -349,11 +349,12 @@ namespace MissionPlanner.GCSViews
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
-        private static System.Threading.Timer _mapTimer;
+        // private static System.Threading.Timer _mapTimer;
 
         private void StartTimer()
         {
-            _mapTimer = new System.Threading.Timer(_ => RefreshMap(), null, 0, 300);
+            timer1.Start();
+            // _mapTimer = new System.Threading.Timer(_ => RefreshMap(), null, 0, 300);
         }
 
         public void Activate()
@@ -404,10 +405,11 @@ namespace MissionPlanner.GCSViews
 
         private void StopTimer()
         {
-            if (_mapTimer != null)
-            {
-                _mapTimer.Dispose();
-            }
+            // if (_mapTimer != null)
+            // {
+            //     _mapTimer.Dispose();
+            // }
+            timer1.Stop();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -5619,9 +5621,7 @@ namespace MissionPlanner.GCSViews
             {
                 DrawDistanceBetweenWaypoints(e);
             }
-
-            UpdateMapResources();
-
+            
             foreach (var port in MainV2.Comports.ToArray())
             {
                 // draw the mavs seen on this port
@@ -7125,7 +7125,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     WpSerialNum.PxNum = (int) MainV2.comPort.MAV.cs.wpno;
                     WpSerialNum.SerialNum = getWPSerialNumber((int) MainV2.comPort.MAV.cs.wpno - 1);
-                    MainMap.Invalidate();
+                    UpdateMapResources();
+
+                    // MainMap.Invalidate();
                 }
                 finally
                 {
@@ -9640,6 +9642,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void Commands_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             CustomMessageBox.Show(e.RowIndex + "; " + e.ColumnIndex);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            RefreshMap();
         }
     }
 }

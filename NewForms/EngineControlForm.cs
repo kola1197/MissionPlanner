@@ -43,7 +43,7 @@ namespace MissionPlanner.NewForms
         // }
 
         private const float MaxDefault = 100.0f;
-        private const float MinDefault = 4.0f;
+        private const float MinDefault = 2.0f;
         private const float MaxSmall = 8.0f;
         private const float MaxTime = 30.0f;
         private const float EngineChannelOutMin = 1100;

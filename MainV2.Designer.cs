@@ -83,6 +83,7 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.rightSideButtonsMenu = new MissionPlanner.Controls.NewControls.RightSideButtonsMenu();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -427,6 +428,10 @@ namespace MissionPlanner
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.RefreshForm);
+            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
@@ -452,6 +457,8 @@ namespace MissionPlanner
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Timer timer1;
 
         private System.Windows.Forms.ToolStripMenuItem autoHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionListToolStripMenuItem;

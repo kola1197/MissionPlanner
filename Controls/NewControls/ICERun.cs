@@ -38,30 +38,32 @@ namespace MissionPlanner.Controls.NewControls
             Instance = this;
         }
         
-        private static System.Threading.Timer _timer;
+        // private static System.Threading.Timer _timer;
 
-        private static object locker;
+        private static object locker = new object();
         
         public bool IsTimerEnabled
         {
-            get => _timer == null;
+            get => timer1.Enabled;
             set
             {
-                if (value && _timer != null)
+                if (value == timer1.Enabled)
                 {
                     return;
                 }
 
                 if (value)
                 {
-                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
+                    timer1.Start();
+                    // _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
                 }
                 else
                 {
-                    if (_timer != null)
-                    {
-                        _timer.Dispose();
-                    }
+                    // if (_timer != null)
+                    // {
+                    //     _timer.Dispose();
+                    // }
+                    timer1.Stop();
                 }
             }
         }
@@ -210,18 +212,24 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                if (!MainV2.engineController.setEngineValue(trim3, key))
+                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
 
-                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0);
+
                 startButton.Text = "Заглушить";
                 ICERunning = true;
 
                 System.Diagnostics.Debug.Write("ENABLE +++++++++++++++");
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            RefreshControl();
         }
     }
 }

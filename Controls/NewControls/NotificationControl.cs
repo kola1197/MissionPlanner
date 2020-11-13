@@ -41,33 +41,36 @@ namespace MissionPlanner.Controls.NewControls
         public bool fullSize = false;
         private Size defaultSize;
 
-        private static System.Threading.Timer _timer;
+        // private static System.Threading.Timer _timer;
 
-        private static object locker;
+        private static object locker = new object();
         
         public bool IsTimerEnabled
         {
-            get => _timer == null;
+            get => timer1.Enabled;
             set
             {
-                if (value && _timer != null)
+                if (value == timer1.Enabled)
                 {
                     return;
                 }
 
                 if (value)
                 {
-                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
+                    timer1.Start();
+                    // _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
                 }
                 else
                 {
-                    if (_timer != null)
-                    {
-                        _timer.Dispose();
-                    }
+                    // if (_timer != null)
+                    // {
+                    //     _timer.Dispose();
+                    // }
+                    timer1.Stop();
                 }
             }
         }
+
 
         private string currentFlightTime = "";
         private string startFlightTime = "";
@@ -220,6 +223,11 @@ namespace MissionPlanner.Controls.NewControls
         {
             fullSize = !fullSize;
             redraw();
+        }
+
+        private void timer1_tick(object sender, EventArgs e)
+        {
+            RefreshControl();
         }
     }
 }
