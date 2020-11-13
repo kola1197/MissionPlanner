@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
 using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.Controls.NewControls
@@ -55,21 +56,72 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private System.Threading.Timer _timer;
+
+        private bool _isTimerEnabled = false;
+
+        public bool IsTimerEnabled
         {
-            //label1.BackColor = Color.White;
-            label1.Text = "________";
-            for (int i = 0; i < MainV2.warnings.Count; i++)
+            get => _isTimerEnabled;
+            set
             {
-                label1.Text += "\n";
-                label1.Text += MainV2.warnings[i];
-                //label1.Text += "\n";
+                if (value == _isTimerEnabled)
+                {
+                    return;
+                }
+
+                _isTimerEnabled = value;
+                if (value)
+                {
+                    _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
+                }
+                else
+                {
+                    if (_timer != null)
+                    {
+                        _timer.Dispose();
+                    }
+                }
             }
-            for (int i = 0; i < MainV2.notifications.Count; i++)
+        }
+
+        private bool _isTimerBusy = false;
+        private void RefreshControl()
+        {
+            if (_isTimerBusy)
             {
-                label1.Text += "\n";
-                label1.Text += MainV2.notifications[i];
-                
+                return;
+            }
+
+            try
+            {
+                _isTimerBusy = true;
+                //label1.BackColor = Color.White;
+                string notifications = "";
+                notifications += "________";
+                for (int i = 0; i < MainV2.warnings.Count; i++)
+                {
+                    notifications += "\n";
+                    notifications += MainV2.warnings[i];
+                    //label1.Text += "\n";
+                }
+
+                for (int i = 0; i < MainV2.notifications.Count; i++)
+                {
+                    notifications += "\n";
+                    notifications += MainV2.notifications[i];
+
+                }
+
+                label1.Text = notifications;
+            }
+            catch
+            {
+                _isTimerBusy = false;
+            }
+            finally
+            {
+                _isTimerBusy = false;
             }
         }
     }

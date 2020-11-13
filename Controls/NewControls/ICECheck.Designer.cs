@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.testButton = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.startButton = new MissionPlanner.Controls.MyButton();
@@ -41,11 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // testButton
             // 
@@ -202,7 +195,6 @@
         #endregion
 
         private MyButton startButton;
-        private System.Windows.Forms.Timer timer1;
         private MyButton myButton1;
         private MyButton testButton;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -348,10 +348,16 @@ namespace MissionPlanner.GCSViews
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
+        private System.Threading.Timer _mapTimer;
 
+        private void StartTimer()
+        {
+            _mapTimer = new System.Threading.Timer(_ => RefreshMap(), null, 0, 300);
+        }
+        
         public void Activate()
         {
-            timer1.Start();
+            StartTimer();
 
             // hide altmode if old copter version
             if (MainV2.comPort.BaseStream.IsOpen && MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2 &&
@@ -392,7 +398,15 @@ namespace MissionPlanner.GCSViews
         public void Deactivate()
         {
             config(true);
-            timer1.Stop();
+            StopTimer();
+        }
+
+        private void StopTimer()
+        {
+            if (_mapTimer != null)
+            {
+                _mapTimer.Dispose();
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -4209,8 +4223,7 @@ namespace MissionPlanner.GCSViews
 
         public void FlightPlanner_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timer1.Stop();
-
+            StopTimer();
             DateTime end = DateTime.Now.AddSeconds(5);
             if (thisthread != null)
             {
@@ -4278,8 +4291,7 @@ namespace MissionPlanner.GCSViews
 
             Visible = true;
 
-            timer1.Start();
-
+            StartTimer();
             // thisthread = new Thread(mainloop);
             // thisthread.Name = "FD Mainloop";
             // thisthread.IsBackground = true;
@@ -7105,7 +7117,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void RefreshMap()
         {
             WpSerialNum.PxNum = (int) MainV2.comPort.MAV.cs.wpno;
             WpSerialNum.SerialNum = getWPSerialNumber((int) MainV2.comPort.MAV.cs.wpno - 1);
@@ -7809,6 +7821,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        public double [] getWPCoords(int serialIndex) // 
+        {
+            double[] result = new double[] { -1,-1};
+            //counter i = 0;
+            for (int i = 0; i < Commands.Rows.Count; i++)
+            {
+                ushort cmd = (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                    Commands.Rows[i].Cells[Command.Index].Value.ToString(), false);
+                if ((cmd == (ushort) MAVLink.MAV_CMD.WAYPOINT || cmd == (ushort) MAVLink.MAV_CMD.LOITER_TIME) && getWPSerialNumber(i)==serialIndex)
+                {
+                    result[0] = double.Parse(Commands.Rows[i].Cells[Lat.Index].Value.ToString());
+                    result[1] =double.Parse(Commands.Rows[i].Cells[Lon.Index].Value.ToString()) ;
+                }
+            }
+            return  result;
+        }
+
         private void MainMap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -7875,6 +7904,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (wpConfig.closedByButton)
             {
+                wpConfig.tryToSetServosDist();
+                wpConfig.tryToSetLoiterRad();
                 System.Diagnostics.Debug.WriteLine("WGS----- " + wpConfig.controller.wgs.Lat.ToString() + ", " +
                                                    wpConfig.controller.wgs.Lng.ToString());
 
@@ -7943,7 +7974,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     Commands.Rows[index].Cells[Command.Index].Value =
                                         MAVLink.MAV_CMD.WAYPOINT.ToString();
                                     row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED;
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_CHANGE_SPEED.ToString();
                                     double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
                                     row.Cells[Command.Index + 2].Value = "0";
                                     speed = Math.Truncate(speed/3.6);
@@ -8849,6 +8880,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void ShowPopupWpInfo(GMapMarker marker)
         {
+            this.SuspendLayout();
+            Thread.Sleep(200);
             int wpno, alt;
             string type, homeDist;
             if (CurrentRallyPt != null)
@@ -8879,7 +8912,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 _wpControl.Dispose();
             }
-            _wpControl = new WaypointInfoControl();
+            _wpControl = new WaypointInfoControl() {Visible = false};
             Point location = new Point((int) MainMap.FromLatLngToLocal(marker.Position).X - _wpControl.Width / 2,
                 (int) MainMap.FromLatLngToLocal(marker.Position).Y - _wpControl.Size.Height - 30);
             _wpControl.SetInfo(wpno, alt, type, homeDist, getWPType(wpno));
@@ -8889,14 +8922,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             _wpControl.Location = location;
             _wpControl.Parent = MainMap;
             // timer1.Enabled = false;
-            _wpControl.Show();
+            _wpControl.Visible = true;
+            this.ResumeLayout();
             // _wpControl.NeedMainMapRefresh = true;
         }
 
         private void HidePopUpInfo()
         {
             // _wpControl.NeedMainMapRefresh = false;
-            _wpControl.Hide();
+            _wpControl.Visible = false;
             // timer1.Enabled = true;
         }
 

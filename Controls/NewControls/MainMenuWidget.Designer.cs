@@ -210,7 +210,7 @@
             this.homeButton.Outline = System.Drawing.Color.Empty;
             this.homeButton.Size = new System.Drawing.Size(48, 48);
             this.homeButton.TabIndex = 7;
-            this.homeButton.Tag = "Показать точку Дом";
+            this.homeButton.Tag = "Показать Дом";
             this.homeButton.TextColor = System.Drawing.Color.Empty;
             this.homeButton.UseVisualStyleBackColor = false;
             this.homeButton.MouseEnter += new System.EventHandler(this.MainMenuWidget_MouseEnter);

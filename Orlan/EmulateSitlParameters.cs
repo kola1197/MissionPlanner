@@ -56,12 +56,15 @@ namespace MissionPlanner
 
         public void SetTargetState(SitlState.SitlStateName name)
         {
+            if (name.Equals(_currentTarget.Name))
+            {
+                return;
+            }
             foreach (var state in SitlStates)
             {
                 if (state.Name.Equals(name))
                 {
                     TransferRealParams(_currentTarget, state);
-                    Thread.Sleep(100);
                     _currentTarget = state;
                     if (name == SitlState.SitlStateName.Takeoff)
                     {
