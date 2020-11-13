@@ -162,7 +162,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void updateComboboxes() 
         {
-            for (int i = 0; i < 11; i++) 
+            for (int i = 0; i < 11; i++)
             {
                 comboBox[i].SelectedIndex = getCountNumberByValue(MainV2.configServo[i].servo);
                 textBoxes[i].Text = MainV2.configServo[i].value.ToString();
@@ -205,20 +205,29 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MainV2.configServo[9] = new servoValue(0, 1500, 1500);
             MainV2.configServo[10] = new servoValue(0, 1500, 1500);
             deserealaseDict();
-            updateComboboxes();
             setFixedValues();
+            updateComboboxes();
+            disableFixedComboboxes();
+        }
+
+        private void disableFixedComboboxes()
+        {
+            comboBox[0].Enabled = false;
+            textBoxes[0].Enabled = false;
+            textBoxesForDefault[0].Enabled = false;
+            comboBox[0].Items.Add("Servo "+ MainV2.configServo[0].servo);
+            comboBox[10].Items.Add("Servo "+ MainV2.configServo[10].servo);
+            comboBox[0].Text = "Servo "+ MainV2.configServo[0].servo;
+            comboBox[10].Text = "Servo "+ MainV2.configServo[10].servo;
+            comboBox[10].Enabled = false;
+            textBoxes[10].Enabled = false;
+            textBoxesForDefault[10].Enabled = false;
         }
 
         private void setFixedValues() 
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
-            comboBox[0].Enabled = false;
-            textBoxes[0].Enabled = false;
-            textBoxesForDefault[0].Enabled = false;
-            comboBox[10].Enabled = false;
-            textBoxes[10].Enabled = false;
-            textBoxesForDefault[10].Enabled = false;
         }
 
         public void loadConfig() 

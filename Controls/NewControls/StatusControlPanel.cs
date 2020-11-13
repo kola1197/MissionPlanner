@@ -354,24 +354,26 @@ namespace MissionPlanner.Controls
 
         private void Refresh()
         {
-            // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-            UpdateStatusLabels();
 
-            if (!stopwatch.IsRunning)
-            {
-                stopwatch.Start();
-            }
+                System.Diagnostics.Debug.WriteLine("####################### StatusPanel Refresh № " + counter.ToString());
+                // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+                UpdateStatusLabels();
 
-            UpdateBindingSourceWork();
+                if (!stopwatch.IsRunning)
+                {
+                    stopwatch.Start();
+                }
 
-            if (IsSitlConnected())
-            {
-                UpdateSitlProgressBars();
-            }
+                UpdateBindingSourceWork();
 
-            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
-            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
-            UpdateEngineTempProgressBarColor();
+                if (IsSitlConnected())
+                {
+                    UpdateSitlProgressBars();
+                }
+
+                UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+                UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
+                UpdateEngineTempProgressBarColor();
         }
 
         private void UpdateSitlProgressBars()
@@ -391,57 +393,60 @@ namespace MissionPlanner.Controls
 
         private void UpdateStatusLabels()
         {
-            double rpm1, engineTemp, airspeed, groundSpeed, verticalSpeed, alt, targetAlt, envTemp;
-            if (IsSitlConnected() && MainV2.CurrentAircraft != null)
-            {
-                var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
+            
+                double rpm1, engineTemp, airspeed, groundSpeed, verticalSpeed, alt, targetAlt, envTemp;
+                if (IsSitlConnected() && MainV2.CurrentAircraft != null)
+                {
+                    var sitlParamList = MainV2.CurrentAircraft.SitlInfo.ParamList;
 
-                rpm1 = sitlParamList.GetParamValue(SitlParam.ParameterName.Rpm);
-                engineTemp = sitlParamList.GetParamValue(SitlParam.ParameterName.Temperature);
-                airspeed = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
-                groundSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.GroundSpeed);
-                verticalSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.VerticalSpeed);
-                alt = sitlParamList.GetParamValue(SitlParam.ParameterName.Alt);
-                targetAlt = sitlParamList.GetParamValue(SitlParam.ParameterName.TargetAlt);
-                envTemp = MainV2.comPort.MAV.cs.press_temp / 100D;
-            }
-            else
-            {
-                rpm1 = MainV2.comPort.MAV.cs.rpm1;
-                engineTemp = MainV2.comPort.MAV.cs.rpm2;
-                airspeed = MainV2.comPort.MAV.cs.airspeed;
-                groundSpeed = MainV2.comPort.MAV.cs.groundspeed;
-                verticalSpeed = MainV2.comPort.MAV.cs.verticalspeed;
-                alt = MainV2.comPort.MAV.cs.alt;
-                targetAlt = MainV2.comPort.MAV.cs.targetalt;
-                envTemp = MainV2.comPort.MAV.cs.press_temp2;
-            }
+                    rpm1 = sitlParamList.GetParamValue(SitlParam.ParameterName.Rpm);
+                    engineTemp = sitlParamList.GetParamValue(SitlParam.ParameterName.Temperature);
+                    airspeed = sitlParamList.GetParamValue(SitlParam.ParameterName.AirSpeed);
+                    groundSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.GroundSpeed);
+                    verticalSpeed = sitlParamList.GetParamValue(SitlParam.ParameterName.VerticalSpeed);
+                    alt = sitlParamList.GetParamValue(SitlParam.ParameterName.Alt);
+                    targetAlt = sitlParamList.GetParamValue(SitlParam.ParameterName.TargetAlt);
+                    envTemp = MainV2.comPort.MAV.cs.press_temp / 100D;
+                }
+                else
+                {
+                    rpm1 = MainV2.comPort.MAV.cs.rpm1;
+                    engineTemp = MainV2.comPort.MAV.cs.rpm2;
+                    airspeed = MainV2.comPort.MAV.cs.airspeed;
+                    groundSpeed = MainV2.comPort.MAV.cs.groundspeed;
+                    verticalSpeed = MainV2.comPort.MAV.cs.verticalspeed;
+                    alt = MainV2.comPort.MAV.cs.alt;
+                    targetAlt = MainV2.comPort.MAV.cs.targetalt;
+                    envTemp = MainV2.comPort.MAV.cs.press_temp2;
+                }
 
-            rpmICE_label.Text = rpm1.ToString("F0", new CultureInfo("en-US")) + " об/м";
+                rpmICE_label.Text = rpm1.ToString("F0", new CultureInfo("en-US")) + " об/м";
 
-            engineTemp_label.Text = engineTemp.ToString("F1", new CultureInfo("en-US")) + "°";
+                engineTemp_label.Text = engineTemp.ToString("F1", new CultureInfo("en-US")) + "°";
 
-            airspeed_label.Text = (airspeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
+                airspeed_label.Text = (airspeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
 
-            groundSpeed_label.Text = (groundSpeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
+                groundSpeed_label.Text = (groundSpeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
 
-            verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
+                verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
 
-            altitude_label.Text = alt.ToString("F0", new CultureInfo("en-US"));
+                altitude_label.Text = alt.ToString("F0", new CultureInfo("en-US"));
 
-            targetAlt_label.Text = targetAlt.ToString("F0", new CultureInfo("en-US"));
+                targetAlt_label.Text = targetAlt.ToString("F0", new CultureInfo("en-US"));
 
-            fuel_label.Text = CalcFuelPercentage().ToString(new CultureInfo("en-US")) + "%";
+                fuel_label.Text = CalcFuelPercentage().ToString(new CultureInfo("en-US")) + "%";
 
-            voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F1", new CultureInfo("en-US"));
+                voltage_label.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString("F1", new CultureInfo("en-US"));
 
-            environmentTemp_label.Text =
-                envTemp.ToString("F1", new CultureInfo("en-US")) + "°";
+                environmentTemp_label.Text =
+                    envTemp.ToString("F1", new CultureInfo("en-US")) + "°";
 
-            string flightMode = MainV2.comPort.MAV.cs.mode;
-            flightMode_label.Text = flightMode == "Unknown" ? "Не подключен" : MainV2.comPort.MAV.cs.mode;
+                string flightMode = MainV2.comPort.MAV.cs.mode;
+                flightMode_label.Text = flightMode == "Unknown" ? "Не подключен" : MainV2.comPort.MAV.cs.mode;
 
-            averageRpmICE_label.Text = CalculateAverageRpm().ToString("F0", new CultureInfo("en-US"));
+                averageRpmICE_label.Text = CalculateAverageRpm().ToString("F0", new CultureInfo("en-US"));
+            
+    
         }
 
         private void AdditionalSensorToolStripMenuItemClick(object sender, EventArgs e)

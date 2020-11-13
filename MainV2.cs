@@ -1379,6 +1379,7 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            setFixedValues();
             FormConnector = new FormConnector(this);
 
             AircraftMenuControl.SwitchOnTimer();
@@ -1388,6 +1389,11 @@ namespace MissionPlanner
             //this.Text = "Мighty Platypus   v0.2";
         }
 
+        private void setFixedValues() 
+        {
+            MainV2.configServo[0] = new servoValue(7, 1900, 1100);
+            MainV2.configServo[10] = new servoValue(8, 1900, 1100);
+        }
         private void onClose(CancelEventArgs e)
         {
         }
@@ -2458,9 +2464,13 @@ namespace MissionPlanner
                 }
                 else
                 {
-                    if (progressBar1.ValueColor != Color.Lime)
+                    if (label1.ForeColor != Color.Black)
                     {
                         label1.ForeColor = Color.Black;
+                    }
+
+                    if (progressBar1.ValueColor != Color.Lime)
+                    {
                         progressBar1.ValueColor = Color.Lime;
                         progressBar2.ValueColor = Color.Lime;
                     }
