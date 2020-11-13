@@ -528,7 +528,17 @@ namespace MissionPlanner.NewForms
             {
                 double delta = double.Parse(textBox4.Text);
                 PointLatLng current = new PointLatLng(controller.wgs.Lat,controller.wgs.Lng);
-                double[] prevCooords = MainV2.instance.FlightPlanner.getWPCoords( int.Parse(SerialNum)-1);
+                double[] prevCooords = new double[]{-1,-1};
+                if (int.Parse(SerialNum)==1)
+                {
+                    prevCooords[0] = MainV2.instance.FlightPlanner.pointlist[0].Lat;
+                    prevCooords[1] = MainV2.instance.FlightPlanner.pointlist[0].Lng;
+                }
+                else
+                {
+                    prevCooords = MainV2.instance.FlightPlanner.getWPCoords(int.Parse(SerialNum) - 1);
+                }
+
                 double dist = MainV2.instance.FlightPlanner.MainMap.MapProvider.Projection.GetDistance(new PointLatLng(prevCooords[0],prevCooords[1]),current );
                 dist *= 1000;
                 double newLat = (prevCooords[0] * delta + controller.wgs.Lat * (dist - delta)) / dist;
