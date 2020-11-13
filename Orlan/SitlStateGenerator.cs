@@ -58,7 +58,7 @@ namespace MissionPlanner
         private static SitlState GenerateDecentState()
         {
             return new SitlState(SitlState.SitlStateName.Decent,
-                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 5000, 80)),
+                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 5000, -100)),
                 new SITLInfo(new SitlParamList(rpm: 200, temperature: 1.0 / 30.0)));
         }
 
@@ -67,14 +67,14 @@ namespace MissionPlanner
         {
             return new SitlState(SitlState.SitlStateName.Flight,
                 new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 6200, 80)),
-                new SITLInfo(new SitlParamList(rpm: 400, temperature: 1)));
+                new SITLInfo(new SitlParamList(rpm: 400, temperature: 1.0 / 30.0)));
         }
 
         private static SitlState GenerateTakeoffState()
         {
             return new SitlState(SitlState.SitlStateName.Takeoff,
-                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 8000, 100)),
-                new SITLInfo(new SitlParamList(rpm: 800, temperature: 2)));
+                new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 8000, 200)),
+                new SITLInfo(new SitlParamList(rpm: 2000, temperature: 1.0 / 30.0)));
         }
 
 
@@ -82,14 +82,14 @@ namespace MissionPlanner
         {
             return new SitlState(SitlState.SitlStateName.EngineWarmUp,
                 new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 4200, 60)),
-                new SITLInfo(new SitlParamList(rpm: 200, temperature: 1)));
+                new SITLInfo(new SitlParamList(rpm: 200, temperature: 1 / 10.0)));
         }
 
         private static SitlState GenerateEngineStartState()
         {
             return new SitlState(SitlState.SitlStateName.EngineStart,
                 new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 3500, 40)),
-                new SITLInfo(new SitlParamList(rpm: 400, temperature: 2)));
+                new SITLInfo(new SitlParamList(rpm: 400, temperature: 1 / 2.0)));
         }
 
         private static SitlState GenerateInitialState()

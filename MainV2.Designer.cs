@@ -70,7 +70,6 @@ namespace MissionPlanner
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.ctrlModeDebuglabel = new System.Windows.Forms.Label();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
@@ -317,10 +316,6 @@ namespace MissionPlanner
             this.toolStripButton8.Name = "toolStripButton8";
             resources.ApplyResources(this.toolStripButton8, "toolStripButton8");
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
@@ -491,7 +486,6 @@ namespace MissionPlanner
         public MissionPlanner.Controls.NewControls.SNSControl snsControl2;
         public MissionPlanner.Controls.Status status1;
         private MissionPlanner.Controls.NewControls.TimeControl timeControl2;
-        private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.ToolStripButton toolStripButton1;
         public System.Windows.Forms.ToolStripButton toolStripButton2;
         public System.Windows.Forms.ToolStripButton toolStripButton3;

@@ -204,7 +204,7 @@ namespace MissionPlanner.Controls.NewControls
             startButton.Text = "Запустить";
             ICERunning = false;
             System.Diagnostics.Debug.Write("DISABLE +++++++++++++++");
-            engineoffCounter = 300;
+            engineoffCounter = 30;
         }
         
         private void startButton_MouseUp(object sender, MouseEventArgs e)
