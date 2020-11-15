@@ -1390,6 +1390,7 @@ namespace MissionPlanner
             ConnectionsForm.Init();
             //this.OnClosing += new Ev
             Text = "НПУ v0.6";
+            MinimumSize = new Size(1280,720);
         }
 
         private void setTransparentControls()
@@ -1416,8 +1417,7 @@ namespace MissionPlanner
         private void MakeRightSideMenuTransparent()
         {
             rightSideButtonsMenu.Parent = FlightPlanner.MainMap;
-            rightSideButtonsMenu.Location =
-                new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width + 10, 100);
+            rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width, 100);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -2349,9 +2349,13 @@ namespace MissionPlanner
             //_aircraftMenuControl.updateCentralButton();
 
             AircraftMenuControl.updateCentralButton();
-            if (FlightPlanner.MainMap.Size.Width != 1920)
+            // if (FlightPlanner.MainMap.Size.Width != 1920)
+            // {
+            //     FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+            // }
+            if (FlightPlanner.MainMap.Size.Width != MainV2.instance.Size.Width)
             {
-                FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
+                FlightPlanner.MainMap.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.MainMap.Size.Height);
             }
         }
 
