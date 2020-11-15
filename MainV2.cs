@@ -1380,6 +1380,7 @@ namespace MissionPlanner
             coordinatsControlInit();
             deserealaseDict();
             setFixedValues();
+            setTransparentControls();
             Text = "НПУ v0.6";
 
             FormConnector = new FormConnector(this);
@@ -1390,11 +1391,23 @@ namespace MissionPlanner
             //this.OnClosing += new Ev
             Text = "НПУ v0.6";
         }
+
+        private void setTransparentControls()
+        {
+            FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
+            FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+            
+            FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
+            FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+
+            MakeRightSideMenuTransparent();
+        }
         
         private void setFixedValues() 
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
+            
         }
 
         private void onClose(CancelEventArgs e)
