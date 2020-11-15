@@ -8901,8 +8901,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             private void ShowPopupWpInfo(GMapMarker marker)
             {
-                this.SuspendLayout();
-                Thread.Sleep(200);
+                this.SuspendLayout(); 
+                //Thread.Sleep(200);
                 int wpno, alt;
                 string type, homeDist;
                 if (CurrentRallyPt != null)
