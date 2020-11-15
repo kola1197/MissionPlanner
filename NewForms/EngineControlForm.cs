@@ -242,10 +242,29 @@ namespace MissionPlanner.NewForms
 
                 MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
                     MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+                timer1.Start();
             }
             catch
             {
             }
         }
+        
+        private int counter = 0;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (counter==1) 
+            {
+                float trim = MainV2.comPort.GetParam("SERVO3_TRIM");
+                if (!MainV2.engineController.setEngineValue(trim, 0))
+                {
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+                timer1.Stop();
+                counter = 0;
+            }
+            counter++;
+        }
+        
     }
 }

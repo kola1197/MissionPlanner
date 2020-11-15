@@ -1379,13 +1379,22 @@ namespace MissionPlanner
             mainMenuInit();
             coordinatsControlInit();
             deserealaseDict();
+            setFixedValues();
+            Text = "НПУ v0.6";
+
             FormConnector = new FormConnector(this);
 
             AircraftMenuControl.SwitchOnTimer();
 
             ConnectionsForm.Init();
             //this.OnClosing += new Ev
-            //this.Text = "Мighty Platypus   v0.2";
+            Text = "НПУ v0.6";
+        }
+        
+        private void setFixedValues() 
+        {
+            MainV2.configServo[0] = new servoValue(7, 1900, 1100);
+            MainV2.configServo[10] = new servoValue(8, 1900, 1100);
         }
 
         private void onClose(CancelEventArgs e)

@@ -30,6 +30,7 @@ namespace MissionPlanner.NewForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.longestTimeThr_But = new MissionPlanner.Controls.MyButton();
             this.smallThr_but = new MissionPlanner.Controls.MyButton();
             this.fullThr_But = new MissionPlanner.Controls.MyButton();
@@ -38,13 +39,14 @@ namespace MissionPlanner.NewForms
             this.label1 = new System.Windows.Forms.Label();
             this.manualThr_But = new MissionPlanner.Controls.MyButton();
             this.shutDown_but = new MissionPlanner.Controls.MyButton();
-            ((System.ComponentModel.ISupportInitialize) (this.throttle_TrackBar)).BeginInit();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.throttle_TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // longestTimeThr_But
             // 
-            this.longestTimeThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.longestTimeThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.longestTimeThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.longestTimeThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.longestTimeThr_But.DefaultTheme = false;
             this.longestTimeThr_But.Location = new System.Drawing.Point(12, 24);
             this.longestTimeThr_But.Name = "longestTimeThr_But";
@@ -59,8 +61,8 @@ namespace MissionPlanner.NewForms
             // 
             // smallThr_but
             // 
-            this.smallThr_but.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.smallThr_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.smallThr_but.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.smallThr_but.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.smallThr_but.DefaultTheme = false;
             this.smallThr_but.Location = new System.Drawing.Point(12, 67);
             this.smallThr_but.Name = "smallThr_but";
@@ -75,8 +77,8 @@ namespace MissionPlanner.NewForms
             // 
             // fullThr_But
             // 
-            this.fullThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.fullThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.fullThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.fullThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.fullThr_But.DefaultTheme = false;
             this.fullThr_But.Location = new System.Drawing.Point(109, 67);
             this.fullThr_But.Name = "fullThr_But";
@@ -91,8 +93,8 @@ namespace MissionPlanner.NewForms
             // 
             // autoThr_But
             // 
-            this.autoThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.autoThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.autoThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.autoThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.autoThr_But.DefaultTheme = false;
             this.autoThr_But.Location = new System.Drawing.Point(109, 24);
             this.autoThr_But.Name = "autoThr_But";
@@ -131,8 +133,8 @@ namespace MissionPlanner.NewForms
             // 
             // manualThr_But
             // 
-            this.manualThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.manualThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.manualThr_But.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.manualThr_But.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.manualThr_But.DefaultTheme = false;
             this.manualThr_But.Location = new System.Drawing.Point(12, 111);
             this.manualThr_But.Name = "manualThr_But";
@@ -147,8 +149,8 @@ namespace MissionPlanner.NewForms
             // 
             // shutDown_but
             // 
-            this.shutDown_but.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.shutDown_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (10)))), ((int) (((byte) (10)))));
+            this.shutDown_but.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.shutDown_but.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.shutDown_but.DefaultTheme = false;
             this.shutDown_but.Location = new System.Drawing.Point(12, 222);
             this.shutDown_but.Name = "shutDown_but";
@@ -165,7 +167,7 @@ namespace MissionPlanner.NewForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(196, 258);
             this.Controls.Add(this.shutDown_but);
             this.Controls.Add(this.manualThr_But);
@@ -182,9 +184,10 @@ namespace MissionPlanner.NewForms
             this.Text = "EngineControlForm";
             this.Load += new System.EventHandler(this.EngineControlForm_Load);
             this.Shown += new System.EventHandler(this.EngineControlForm_Shown);
-            ((System.ComponentModel.ISupportInitialize) (this.throttle_TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.throttle_TrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private MissionPlanner.Controls.MyButton shutDown_but;
@@ -199,5 +202,6 @@ namespace MissionPlanner.NewForms
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private Timer timer1;
     }
 }
