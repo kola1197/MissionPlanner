@@ -70,7 +70,6 @@ namespace MissionPlanner
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.ctrlModeDebuglabel = new System.Windows.Forms.Label();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
@@ -84,6 +83,7 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.rightSideButtonsMenu = new MissionPlanner.Controls.NewControls.RightSideButtonsMenu();
             this.toolStripConnectionControl1 = new MissionPlanner.Controls.ToolStripConnectionControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.MainMenu.SuspendLayout();
             this.CTX_mainmenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -317,10 +317,6 @@ namespace MissionPlanner
             this.toolStripButton8.Name = "toolStripButton8";
             resources.ApplyResources(this.toolStripButton8, "toolStripButton8");
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
@@ -432,6 +428,10 @@ namespace MissionPlanner
             resources.ApplyResources(this.toolStripConnectionControl1, "toolStripConnectionControl1");
             this.toolStripConnectionControl1.Name = "toolStripConnectionControl1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.RefreshForm);
+            // 
             // MainV2
             // 
             resources.ApplyResources(this, "$this");
@@ -457,6 +457,8 @@ namespace MissionPlanner
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Timer timer1;
 
         private System.Windows.Forms.ToolStripMenuItem autoHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionListToolStripMenuItem;
@@ -488,10 +490,9 @@ namespace MissionPlanner
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
         public MissionPlanner.Controls.NewControls.RightSideButtonsMenu rightSideButtonsMenu;
         private MissionPlanner.Controls.NewControls.servoGimbal servoGimbal2;
-        private MissionPlanner.Controls.NewControls.SNSControl snsControl2;
+        public MissionPlanner.Controls.NewControls.SNSControl snsControl2;
         public MissionPlanner.Controls.Status status1;
         private MissionPlanner.Controls.NewControls.TimeControl timeControl2;
-        private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.ToolStripButton toolStripButton1;
         public System.Windows.Forms.ToolStripButton toolStripButton2;
         public System.Windows.Forms.ToolStripButton toolStripButton3;

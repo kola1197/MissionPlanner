@@ -170,7 +170,9 @@ namespace MissionPlanner
         {
             MAVLinkInterface.paramsLoading = true;
             AircraftConnectionInfo connectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
-            MainV2.StatusControlPanel.EnableControlBindings();
+            StatusControlPanel.instance.EnableControlBindings();
+            // MainV2.instance.SubscribeOnWpChange();
+            MainV2.instance.BringNotificationControlToFull();
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
@@ -196,7 +198,7 @@ namespace MissionPlanner
                 if (!IsSitlAllowed())
                 {
                     MAVLinkInterface.paramsLoading = false;
-                    MainV2.StatusControlPanel.DisableControlBindings();
+                    StatusControlPanel.instance.DisableControlBindings();
                     CustomMessageBox.Show("Отключите антенну и все подключенные борты.",
                         "Невозможно создать симуляцию.");
                     return;
@@ -300,8 +302,8 @@ namespace MissionPlanner
             }
 
             selectedAircraft.FuelSaved = false;
-            MainV2.StatusControlPanel.SitlEmulation.EngineRunning = false;
-            MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
+            StatusControlPanel.instance.SitlEmulation.EngineRunning = false;
+            StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
             
             if (selectedAircraft.UsingAntenna)
             {
@@ -551,7 +553,7 @@ namespace MissionPlanner
                         });
                     }
                     AntennaControl.Instance.SetAntennaState(true);
-                    MainV2.StatusControlPanel.EnableControlBindings();
+                    StatusControlPanel.instance.EnableControlBindings();
                     // MainV2.View.Reload();
                 }
             }
@@ -630,14 +632,14 @@ namespace MissionPlanner
                     
                     if (!selectedAircraft.UsingSitl)
                     {
-                        MainV2.StatusControlPanel.EnableControlBindings();
+                        StatusControlPanel.instance.EnableControlBindings();
                     }
                     else
                     {
-                        MainV2.StatusControlPanel.DisableControlBindings();
+                        StatusControlPanel.instance.DisableControlBindings();
                     }
                     
-                    MainV2.StatusControlPanel.SetFuelPbMinMax();
+                    StatusControlPanel.instance.SetFuelPbMinMax();
                     
                     // MainV2.View.Reload();
                 }

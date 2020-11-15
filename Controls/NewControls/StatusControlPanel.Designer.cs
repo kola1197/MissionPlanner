@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using MissionPlanner.Controls.NewControls;
 
 namespace MissionPlanner.Controls
@@ -126,9 +127,9 @@ namespace MissionPlanner.Controls
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
+            this.timer1.Enabled = false;
             this.timer1.Interval = 300;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new EventHandler(RefreshControl);
             // 
             // fuel_label
             // 

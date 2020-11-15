@@ -25,7 +25,7 @@ namespace MissionPlanner.Controls.NewControls
             bitmap = new Bitmap(global::MissionPlanner.Properties.Resources.airspeedDirection);
             if (MainV2.comPort.MAV.cs.connected)
             {
-                bitmap1 = RotateImage(bitmap, MainV2.comPort.MAV.cs.wind_dir);
+                bitmap1 = RotateImage(bitmap, MainV2.comPort.MAV.cs.wind_dir + 180);
             }
             else 
             {

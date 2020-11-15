@@ -7,30 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class SNSInfo : Form
+    public partial class SNSInfo : Form, IFormConnectable
     {
+        public static SNSInfo Instance;
+
         public SNSInfo()
         {
             InitializeComponent();
+            Instance = this;
+            StartPosition = FormStartPosition.Manual;
             updateLabels();
             timer1.Start();
-        }
-
-        public void setPosition() 
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point(50, MainV2.instance.Height - 150);
-        }
-
-        public void setPosition(Point p)
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = p;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -38,11 +30,27 @@ namespace MissionPlanner.NewForms
             updateLabels();
         }
 
-        private void updateLabels() 
+        private void updateLabels()
         {
             label2.Text = MainV2.comPort.MAV.cs.satcount.ToString();
             label4.Text = MainV2.comPort.MAV.cs.gpsstatus.ToString();
             label6.Text = MainV2.comPort.MAV.cs.gpshdop.ToString();
+        }
+
+        public void SetFormLocation()
+        {
+            // Location = new Point(50, MainV2.instance.Height - 150);
+            Location = new Point(150, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void SNSInfo_Shown(object sender, EventArgs e)
+        {
+            SetToTop();
         }
     }
 }

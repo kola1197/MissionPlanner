@@ -45,7 +45,7 @@
             this.wgs_gButton.ForeColor = System.Drawing.Color.Black;
             this.wgs_gButton.Location = new System.Drawing.Point(12, 12);
             this.wgs_gButton.Name = "wgs_gButton";
-            this.wgs_gButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gButton.Size = new System.Drawing.Size(123, 30);
             this.wgs_gButton.TabIndex = 0;
             this.wgs_gButton.Tag = "0";
             this.wgs_gButton.Text = "Г (WGS84)";
@@ -58,9 +58,9 @@
             this.wgs_gmButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.wgs_gmButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.wgs_gmButton.ForeColor = System.Drawing.Color.Black;
-            this.wgs_gmButton.Location = new System.Drawing.Point(12, 41);
+            this.wgs_gmButton.Location = new System.Drawing.Point(12, 48);
             this.wgs_gmButton.Name = "wgs_gmButton";
-            this.wgs_gmButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gmButton.Size = new System.Drawing.Size(123, 30);
             this.wgs_gmButton.TabIndex = 1;
             this.wgs_gmButton.Tag = "1";
             this.wgs_gmButton.Text = "ГМ (WGS84)";
@@ -72,9 +72,9 @@
             this.wgs_gmsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.wgs_gmsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.wgs_gmsButton.ForeColor = System.Drawing.Color.Black;
-            this.wgs_gmsButton.Location = new System.Drawing.Point(12, 70);
+            this.wgs_gmsButton.Location = new System.Drawing.Point(12, 84);
             this.wgs_gmsButton.Name = "wgs_gmsButton";
-            this.wgs_gmsButton.Size = new System.Drawing.Size(123, 23);
+            this.wgs_gmsButton.Size = new System.Drawing.Size(123, 30);
             this.wgs_gmsButton.TabIndex = 2;
             this.wgs_gmsButton.Tag = "2";
             this.wgs_gmsButton.Text = "ГМС (WGS84)";
@@ -86,9 +86,9 @@
             this.sk_gButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.sk_gButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sk_gButton.ForeColor = System.Drawing.Color.Black;
-            this.sk_gButton.Location = new System.Drawing.Point(12, 99);
+            this.sk_gButton.Location = new System.Drawing.Point(12, 120);
             this.sk_gButton.Name = "sk_gButton";
-            this.sk_gButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gButton.Size = new System.Drawing.Size(123, 30);
             this.sk_gButton.TabIndex = 3;
             this.sk_gButton.Tag = "3";
             this.sk_gButton.Text = "Г (СК42)";
@@ -100,9 +100,9 @@
             this.sk_gmButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.sk_gmButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sk_gmButton.ForeColor = System.Drawing.Color.Black;
-            this.sk_gmButton.Location = new System.Drawing.Point(12, 128);
+            this.sk_gmButton.Location = new System.Drawing.Point(12, 156);
             this.sk_gmButton.Name = "sk_gmButton";
-            this.sk_gmButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gmButton.Size = new System.Drawing.Size(123, 30);
             this.sk_gmButton.TabIndex = 4;
             this.sk_gmButton.Tag = "4";
             this.sk_gmButton.Text = "ГМ (СК42)";
@@ -114,9 +114,9 @@
             this.sk_gmsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.sk_gmsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sk_gmsButton.ForeColor = System.Drawing.Color.Black;
-            this.sk_gmsButton.Location = new System.Drawing.Point(12, 157);
+            this.sk_gmsButton.Location = new System.Drawing.Point(12, 192);
             this.sk_gmsButton.Name = "sk_gmsButton";
-            this.sk_gmsButton.Size = new System.Drawing.Size(123, 23);
+            this.sk_gmsButton.Size = new System.Drawing.Size(123, 30);
             this.sk_gmsButton.TabIndex = 5;
             this.sk_gmsButton.Tag = "5";
             this.sk_gmsButton.Text = "ГМС (СК42)";
@@ -128,7 +128,7 @@
             this.orthogonalСoordinatesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.orthogonalСoordinatesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.orthogonalСoordinatesButton.ForeColor = System.Drawing.Color.Black;
-            this.orthogonalСoordinatesButton.Location = new System.Drawing.Point(11, 186);
+            this.orthogonalСoordinatesButton.Location = new System.Drawing.Point(12, 228);
             this.orthogonalСoordinatesButton.Name = "orthogonalСoordinatesButton";
             this.orthogonalСoordinatesButton.Size = new System.Drawing.Size(123, 48);
             this.orthogonalСoordinatesButton.TabIndex = 6;
@@ -142,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(147, 244);
+            this.ClientSize = new System.Drawing.Size(147, 301);
             this.Controls.Add(this.orthogonalСoordinatesButton);
             this.Controls.Add(this.sk_gmsButton);
             this.Controls.Add(this.sk_gmButton);
@@ -155,6 +155,8 @@
             this.MinimizeBox = false;
             this.Name = "CoordinatsModeForm";
             this.Text = "Тип координат";
+            this.Deactivate += new System.EventHandler(this.CoordinatsModeForm_Deactivate);
+            this.Shown += new System.EventHandler(this.CoordinatsModeForm_Shown);
             this.ResumeLayout(false);
 
         }

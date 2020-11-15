@@ -22,9 +22,9 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -37,7 +37,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.MinimumSize = new System.Drawing.Size(400, 150);
             this.label1.Name = "label1";
@@ -49,6 +49,7 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // NotificationListControl
@@ -60,12 +61,12 @@
             this.Name = "NotificationListControl";
             this.Size = new System.Drawing.Size(400, 150);
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Timer timer1;
 
         #endregion
 
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Timer timer1;
     }
 }

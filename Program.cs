@@ -52,12 +52,12 @@ namespace MissionPlanner
         /// </summary>
         public static Image IconFile = null;
 
-        public static Splash Splash;
+        // public static Splash Splash;
 
         internal static Thread Thread;
 
         public static string[] args = new string[] { };
-        public static Bitmap SplashBG = null;
+        // public static Bitmap SplashBG = null;
 
         public static string[] names = new string[] { "VVVVZ" };
         public static bool MONO = false;
@@ -160,8 +160,8 @@ namespace MissionPlanner
                 IconFile = MissionPlanner.Properties.Resources.mpdesktop.ToBitmap();
             }
 
-            if (File.Exists(Settings.GetRunningDirectory() + "splashbg.png")) // 600*375
-                SplashBG = new Bitmap(Settings.GetRunningDirectory() + "splashbg.png");
+            // if (File.Exists(Settings.GetRunningDirectory() + "splashbg.png")) // 600*375
+            //     SplashBG = new Bitmap(Settings.GetRunningDirectory() + "splashbg.png");
 
             try
             {
@@ -183,12 +183,12 @@ namespace MissionPlanner
                 log.Error(ex);
             }
 
-            Splash = new MissionPlanner.Splash();
-            if (SplashBG != null)
-            {
-                Splash.BackgroundImage = SplashBG;
-                Splash.pictureBox1.Visible = false;
-            }
+            // Splash = new MissionPlanner.Splash();
+            // if (SplashBG != null)
+            // {
+            //     Splash.BackgroundImage = SplashBG;
+            //     Splash.pictureBox1.Visible = false;
+            // }
 
             //if (IconFile != null)
             //    Splash.Icon = Icon.FromHandle(((Bitmap)IconFile).GetHicon());
@@ -196,11 +196,11 @@ namespace MissionPlanner
             string strVersion = File.Exists("version.txt")
                 ? File.ReadAllText("version.txt")
                 : System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Splash.Text = "Загрузка НПУ"; //name + " " + Application.ProductVersion + " build " + strVersion;
-            Splash.Show();
+            // Splash.Text = "Загрузка НПУ"; //name + " " + Application.ProductVersion + " build " + strVersion;
+            // Splash.Show();
 
-            if (Debugger.IsAttached)
-                Splash.TopMost = false;
+            // if (Debugger.IsAttached)
+            //     Splash.TopMost = false;
 
             Application.DoEvents();
             Application.DoEvents();

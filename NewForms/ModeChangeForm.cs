@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using MissionPlanner.Controls;
+using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class ModeChangeForm : Form
+    public partial class ModeChangeForm : Form, IFormConnectable
     {
         public ModeChangeForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
+
             string[] whiteList = new string[] {"Auto", "Manual", "Land", "STABILIZE" };
             List<KeyValuePair<int, string>> modelList = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
             List<KeyValuePair<int, string>> fixedModelList = new List<KeyValuePair<int, string>>();
@@ -30,20 +33,6 @@ namespace MissionPlanner.NewForms
 
             //default to auto
             // CMB_modes.Text = "Auto";
-        }
-
-        public void setPosition() 
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point(125, MainV2.instance.Height - 150);
-        }
-
-        public void setPosition(Point p)
-        {
-            TopMost = true;
-            StartPosition = FormStartPosition.Manual;
-            Location = p;
         }
 
         private void SetMode_MouseUp(object sender, MouseEventArgs e)
@@ -111,6 +100,22 @@ namespace MissionPlanner.NewForms
         private void CMB_modes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public void SetFormLocation()
+        {
+            // Location = new Point(125, MainV2.instance.Height - 150);
+            Location = new Point(150, MainV2.instance.GetLowerPanelLocation().Y - this.Height - 140 + 15);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void ModeChangeForm_Shown(object sender, EventArgs e)
+        {
+            SetToTop();
         }
     }
 

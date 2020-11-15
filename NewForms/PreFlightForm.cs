@@ -40,8 +40,15 @@ namespace MissionPlanner.NewForms
         public void Init()
         {
             batt2_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString();
-            LoadFuelText();
-            iceRun1.Init();
+            try
+            {
+                LoadFuelText();
+                iceRun1.Init();
+            }
+            catch
+            {
+            }
+
             //updateARMButton();
         }
 
@@ -269,7 +276,7 @@ namespace MissionPlanner.NewForms
         }
 
 
-        private void arm()
+        private async Task arm()
         {
             if (!MainV2.comPort.BaseStream.IsOpen)
                 return;
@@ -277,6 +284,7 @@ namespace MissionPlanner.NewForms
             // arm the MAV
             try
             {
+                armButton.Enabled = false;
                 var isitarmed = MainV2.comPort.MAV.cs.armed;
                 var action = MainV2.comPort.MAV.cs.armed ? "Disarm" : "Arm";
 
@@ -294,6 +302,7 @@ namespace MissionPlanner.NewForms
                 });
                 bool ans = MainV2.comPort.doARM(!isitarmed);
                 MainV2.comPort.UnSubscribeToPacketType(sub);
+                armButton.Enabled = true;
                 /*if (ans == false)
                 {
                     if (CustomMessageBox.Show(
@@ -313,6 +322,7 @@ namespace MissionPlanner.NewForms
             }
             catch
             {
+                armButton.Enabled = true;
                 CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
             }
         }
@@ -331,16 +341,20 @@ namespace MissionPlanner.NewForms
 
         private void armButton_Click(object sender, EventArgs e)
         {
-            arm();
+            Invoke((MethodInvoker)delegate() {
+                arm();
+            });
+            return;
             //updateARMButton();
         }
 
         private bool IsTakeoffPointExists()
         {
-            return  FlightPlanner.instance.Commands.Rows[0].Cells[FlightPlanner.instance.Command.Index].Value.ToString().Equals(
+            return FlightPlanner.instance.Commands.Rows[0].Cells[FlightPlanner.instance.Command.Index].Value.ToString()
+                .Equals(
                     MAVLink.MAV_CMD.TAKEOFF.ToString());
         }
-        
+
         private void myButton3_MouseUp(object sender, MouseEventArgs e)
         {
             if (FlightPlanner.instance.Commands.RowCount == 0)
@@ -367,8 +381,8 @@ namespace MissionPlanner.NewForms
             }
 
             MainV2.comPort.setMode("Auto");
-            MainV2.StatusControlPanel.SubscribeWpNoValueChangedEvent();
-            MainV2.StatusControlPanel.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
+            StatusControlPanel.instance.SubscribeWpNoValueChangedEvent();
+            StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.Takeoff);
         }
 
         private void startCalibrationButton_MouseUp(object sender, MouseEventArgs e)
@@ -484,6 +498,8 @@ namespace MissionPlanner.NewForms
         {
             iceCheck1.focused(false);
             iceRun1.focused(false);
+            iceRun1.IsTimerEnabled = false;
+            iceCheck1.stop();
         }
 
         private void label6_Click(object sender, EventArgs e)

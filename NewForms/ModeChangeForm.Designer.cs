@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 namespace MissionPlanner.NewForms
@@ -47,10 +48,10 @@ namespace MissionPlanner.NewForms
             this.BUT_SetAuto.ColorNotEnabled = System.Drawing.Color.Empty;
             this.BUT_SetAuto.DefaultTheme = false;
             this.BUT_SetAuto.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_SetAuto.Location = new System.Drawing.Point(12, 12);
+            this.BUT_SetAuto.Location = new System.Drawing.Point(12, 8);
             this.BUT_SetAuto.Name = "BUT_SetAuto";
             this.BUT_SetAuto.Outline = System.Drawing.Color.Transparent;
-            this.BUT_SetAuto.Size = new System.Drawing.Size(174, 30);
+            this.BUT_SetAuto.Size = new System.Drawing.Size(184, 30);
             this.BUT_SetAuto.TabIndex = 72;
             this.BUT_SetAuto.Text = "AUTO";
             this.BUT_SetAuto.TextColor = System.Drawing.Color.Black;
@@ -66,10 +67,10 @@ namespace MissionPlanner.NewForms
             this.BUT_SetManual.ColorNotEnabled = System.Drawing.Color.Empty;
             this.BUT_SetManual.DefaultTheme = false;
             this.BUT_SetManual.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_SetManual.Location = new System.Drawing.Point(12, 48);
+            this.BUT_SetManual.Location = new System.Drawing.Point(12, 44);
             this.BUT_SetManual.Name = "BUT_SetManual";
             this.BUT_SetManual.Outline = System.Drawing.Color.Transparent;
-            this.BUT_SetManual.Size = new System.Drawing.Size(174, 30);
+            this.BUT_SetManual.Size = new System.Drawing.Size(184, 30);
             this.BUT_SetManual.TabIndex = 73;
             this.BUT_SetManual.Text = "MANUAL";
             this.BUT_SetManual.TextColor = System.Drawing.Color.Black;
@@ -85,10 +86,10 @@ namespace MissionPlanner.NewForms
             this.BUT_SetRtl.ColorNotEnabled = System.Drawing.Color.Empty;
             this.BUT_SetRtl.DefaultTheme = false;
             this.BUT_SetRtl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_SetRtl.Location = new System.Drawing.Point(12, 120);
+            this.BUT_SetRtl.Location = new System.Drawing.Point(12, 116);
             this.BUT_SetRtl.Name = "BUT_SetRtl";
             this.BUT_SetRtl.Outline = System.Drawing.Color.Transparent;
-            this.BUT_SetRtl.Size = new System.Drawing.Size(174, 30);
+            this.BUT_SetRtl.Size = new System.Drawing.Size(184, 30);
             this.BUT_SetRtl.TabIndex = 74;
             this.BUT_SetRtl.Text = "RTL";
             this.BUT_SetRtl.TextColor = System.Drawing.Color.Black;
@@ -104,10 +105,10 @@ namespace MissionPlanner.NewForms
             this.BUT_SetStab.ColorNotEnabled = System.Drawing.Color.Empty;
             this.BUT_SetStab.DefaultTheme = false;
             this.BUT_SetStab.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BUT_SetStab.Location = new System.Drawing.Point(12, 84);
+            this.BUT_SetStab.Location = new System.Drawing.Point(12, 80);
             this.BUT_SetStab.Name = "BUT_SetStab";
             this.BUT_SetStab.Outline = System.Drawing.Color.Transparent;
-            this.BUT_SetStab.Size = new System.Drawing.Size(174, 30);
+            this.BUT_SetStab.Size = new System.Drawing.Size(184, 30);
             this.BUT_SetStab.TabIndex = 75;
             this.BUT_SetStab.Text = "STABILIZE";
             this.BUT_SetStab.TextColor = System.Drawing.Color.Black;
@@ -120,7 +121,7 @@ namespace MissionPlanner.NewForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(198, 161);
+            this.ClientSize = new System.Drawing.Size(208, 156);
             this.Controls.Add(this.BUT_SetStab);
             this.Controls.Add(this.BUT_SetRtl);
             this.Controls.Add(this.BUT_SetManual);
@@ -132,6 +133,7 @@ namespace MissionPlanner.NewForms
             this.Name = "ModeChangeForm";
             this.Text = "Изменить режим";
             this.Load += new System.EventHandler(this.ModeChangeForm_Load_1);
+            this.Shown += new System.EventHandler(this.ModeChangeForm_Shown);
             this.ResumeLayout(false);
 
         }

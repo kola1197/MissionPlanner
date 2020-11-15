@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
 using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.Controls.NewControls
@@ -55,22 +56,72 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
+        // private static System.Threading.Timer _timer;
+        private static object locker = new object();
+        
+        public bool IsTimerEnabled
+        {
+            get => timer1.Enabled;
+            set
+            {
+                if (value == timer1.Enabled)
+                {
+                    return;
+                }
+
+                if (value)
+                {
+                    timer1.Start();
+                    // _timer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 300);
+                }
+                else
+                {
+                    // if (_timer != null)
+                    // {
+                    //     _timer.Dispose();
+                    // }
+                    timer1.Stop();
+                }
+            }
+        }
+
+
+        private void RefreshControl()
+        {
+            if (Monitor.TryEnter(locker))
+            {
+
+                try
+                {
+                    //label1.BackColor = Color.White;
+                    string notifications = "";
+                    notifications += "________";
+                    for (int i = 0; i < MainV2.warnings.Count; i++)
+                    {
+                        notifications += "\n";
+                        notifications += MainV2.warnings[i];
+                        //label1.Text += "\n";
+                    }
+
+                    for (int i = 0; i < MainV2.notifications.Count; i++)
+                    {
+                        notifications += "\n";
+                        notifications += MainV2.notifications[i];
+
+                    }
+
+                    label1.Text = notifications;
+                }
+                finally
+                {
+                    Monitor.Exit(locker);
+                }
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //label1.BackColor = Color.White;
-            label1.Text = "________";
-            for (int i = 0; i < MainV2.warnings.Count; i++)
-            {
-                label1.Text += "\n";
-                label1.Text += MainV2.warnings[i];
-                //label1.Text += "\n";
-            }
-            for (int i = 0; i < MainV2.notifications.Count; i++)
-            {
-                label1.Text += "\n";
-                label1.Text += MainV2.notifications[i];
-                
-            }
+            RefreshControl();
         }
     }
 }

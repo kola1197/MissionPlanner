@@ -1,4 +1,6 @@
-﻿namespace MissionPlanner.Controls.NewControls
+﻿using System.Windows.Forms;
+
+namespace MissionPlanner.Controls.NewControls
 {
     partial class ICECheck
     {
@@ -29,7 +31,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.testButton = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.startButton = new MissionPlanner.Controls.MyButton();
@@ -39,13 +40,10 @@
             this.progressBar3 = new BSE.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.graphTimer = new System.Windows.Forms.Timer(this.components);
+            this.iceTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // testButton
             // 
@@ -175,6 +173,16 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "7200";
             // 
+            // graphTimer
+            // 
+            this.graphTimer.Interval = 50;
+            this.graphTimer.Tick += new System.EventHandler(this.graphTimer_Tick);
+            // 
+            // iceTimer
+            // 
+            this.iceTimer.Interval = 50;
+            this.iceTimer.Tick += new System.EventHandler(this.iceTimer_Tick);
+            // 
             // ICECheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,13 +204,15 @@
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Timer graphTimer;
+        private System.Windows.Forms.Timer iceTimer;
+
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
 
         #endregion
 
         private MyButton startButton;
-        private System.Windows.Forms.Timer timer1;
         private MyButton myButton1;
         private MyButton testButton;
         private System.Windows.Forms.PictureBox pictureBox1;

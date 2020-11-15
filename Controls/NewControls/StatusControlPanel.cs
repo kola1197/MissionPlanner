@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using DotSpatial.Symbology.Forms;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,6 +16,7 @@ using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.WinForms;
+using Timer = System.Threading.Timer;
 
 namespace MissionPlanner.Controls
 {
@@ -36,7 +38,8 @@ namespace MissionPlanner.Controls
 
         private ToolStripControlHost clickedSensorControl;
 
-        public EngineControlForm EngineControlForm;
+        public EngineControlForm EngineControlForm = new EngineControlForm()
+            {Visible = false, StartPosition = FormStartPosition.Manual};
 
         public EmulateSitlParameters SitlEmulation = new EmulateSitlParameters();
 
@@ -45,6 +48,13 @@ namespace MissionPlanner.Controls
             _voltageCriticalPercentage,
             _voltageWarningPercentage;
 
+        // private static Timer _refreshTimer;
+
+        public void StopTimer()
+        {
+            timer1.Stop();
+            // _refreshTimer.Dispose();
+        }
 
         public StatusControlPanel()
         {
@@ -65,6 +75,8 @@ namespace MissionPlanner.Controls
             _fuelCriticalPercentage = 10;
             _voltageWarningPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.5);
             _voltageCriticalPercentage = CalcProgressBarPercentage(splittedBar_voltage, 11.0);
+            // _refreshTimer = new System.Threading.Timer(_ => RefreshControl(), null, 0, 100);
+            timer1.Start();
         }
 
         public void SetFuelPbMinMax()
@@ -123,15 +135,16 @@ namespace MissionPlanner.Controls
                     sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
                     {
                         sensorName = toolStripItem.Text
-                    };   
+                    };
                 }
                 else
                 {
                     sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
                     {
                         sensorName = toolStripItem.Text
-                    };    
+                    };
                 }
+
                 sensorControl.CustomOnClick += sensorsStrip_Click;
                 sensors.Add(toolStripItem, sensorControl);
                 // }
@@ -164,15 +177,16 @@ namespace MissionPlanner.Controls
                 sensorControl = new AdditionalSensorControl(bindingSourceWpSerialNum)
                 {
                     sensorName = keyItem.Text
-                };   
+                };
             }
             else
             {
                 sensorControl = new AdditionalSensorControl(bindingSourceCurrentState)
                 {
                     sensorName = keyItem.Text
-                };    
+                };
             }
+
             sensorControl.CustomOnClick += sensorsStrip_Click;
             sensors[keyItem] = sensorControl;
             // }
@@ -182,13 +196,6 @@ namespace MissionPlanner.Controls
 
         protected override void OnInvalidated(InvalidateEventArgs e)
         {
-            if (!stopwatch.IsRunning)
-            {
-                stopwatch.Start();
-            }
-
-            base.OnInvalidated(e);
-            UpdateBindingSourceWork();
         }
 
         public void SubscribeWpNoValueChangedEvent()
@@ -203,7 +210,10 @@ namespace MissionPlanner.Controls
         {
             if (IsSitlConnected() && (int) MainV2.comPort.MAV.cs.wpno == 2)
             {
+                SuspendLayout();
                 SitlEmulation.SetTargetState(SitlState.SitlStateName.Flight);
+                MainV2.instance.TakeoffPassed = true;
+                ResumeLayout();
             }
         }
 
@@ -249,7 +259,7 @@ namespace MissionPlanner.Controls
                 }
 
                 bindingSourceWpSerialNum.DataSource = FlightPlanner.WpSerialNum;
-                
+
                 bindingSourceWpSerialNum.ResetBindings(true);
                 // bindingSourceWpSerialNum.UpdateDataSource(MainV2.instance.FlightPlanner);
             }
@@ -353,20 +363,42 @@ namespace MissionPlanner.Controls
             return false;
         }
 
-        private void timer1_Tick(object sender, System.EventArgs e)
+        static object locker = new object();
+
+        private void RefreshControl(object sender, EventArgs e)
         {
-            // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
-            UpdateStatusLabels();
-
-            this.Invalidate();
-            if (IsSitlConnected())
+            if (Monitor.TryEnter(locker))
             {
-                UpdateSitlProgressBars();
-            }
+                try
+                {
+                    // fuel_label.Text = MainV2.comPort.MAV.cs.battery_voltage2.ToString("F2");
+                    UpdateStatusLabels();
 
-            UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
-            UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
-            UpdateEngineTempProgressBarColor();
+                    if (!stopwatch.IsRunning)
+                    {
+                        stopwatch.Start();
+                    }
+
+                    UpdateBindingSourceWork();
+
+                    if (IsSitlConnected())
+                    {
+                        UpdateSitlProgressBars();
+                    }
+
+                    UpdateProgressBarColor(splittedBar_fuel, _fuelWarningPercentage, _fuelCriticalPercentage);
+                    UpdateProgressBarColor(splittedBar_voltage, _voltageWarningPercentage, _voltageCriticalPercentage);
+                    UpdateEngineTempProgressBarColor();
+                    Invalidate();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    Monitor.Exit(locker);
+                }
+            }
         }
 
         private void UpdateSitlProgressBars()
@@ -515,20 +547,14 @@ namespace MissionPlanner.Controls
         {
             if (EngineControlForm != null && EngineControlForm.Visible)
             {
-                MainV2.FormConnector.DisconnectForm(EngineControlForm);
-                EngineControlForm.Close();
+                EngineControlForm.Hide();
                 return;
             }
 
-            EngineControlForm = new EngineControlForm()
-                {Visible = false, StartPosition = FormStartPosition.Manual};
-            if (!EngineControlForm.IsDisposed)
-            {
-                //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
-                MainV2.FormConnector.ConnectForm(EngineControlForm);
-                EngineControlForm.SetFormLocation();
-                EngineControlForm.Show();
-            }
+            //EngineControlForm.Location = new Point (enginePanel.Location.X+enginePanel.Size.Width/2, enginePanel.Location.Y + enginePanel.Size.Height);
+            MainV2.FormConnector.ConnectForm(EngineControlForm);
+            EngineControlForm.Show();
+            EngineControlForm.TopLevel = true;
         }
 
         public int CalcFuelPercentage()

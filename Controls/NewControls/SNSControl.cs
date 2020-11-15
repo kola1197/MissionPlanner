@@ -13,10 +13,10 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class SNSControl : UserControl
     {
-        private ModeChangeForm modeChangeForm;
-        private SNSInfo snsInfo;
-        private VibeGraph frm;
-        private static ParachuteForm parachuteForm = new ParachuteForm() {Visible = false};
+        private static ModeChangeForm _modeChangeForm = new ModeChangeForm() {Visible = false};
+        private static SNSInfo _snsInfo = new SNSInfo() {Visible = false};
+        private static VibeGraph _frm = new VibeGraph() {Visible = false};
+        private static ParachuteForm _parachuteForm = new ParachuteForm() {Visible = false};
         bool colorsChanged = false;
 
         public SNSControl()
@@ -60,51 +60,65 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (snsInfo != null)
+            if (_snsInfo.IsDisposed || !_snsInfo.Visible)
             {
-                snsInfo.Close();
+                _snsInfo = new SNSInfo();
+                _snsInfo.SetFormLocation();
+                MainV2.FormConnector.ConnectForm(_snsInfo);
+                _snsInfo.Show();
+            }
+            else
+            {
+                _snsInfo.Close();
             }
 
-            snsInfo = new SNSInfo();
-            snsInfo.Show();
         }
 
         private void myButton2_MouseUp(object sender, EventArgs e)
         {
-            if (modeChangeForm != null)
+            if (_modeChangeForm.IsDisposed || !_modeChangeForm.Visible)
             {
-                modeChangeForm.Close();
+                _modeChangeForm = new ModeChangeForm(){Visible = false};
+                _modeChangeForm.SetFormLocation();
+                MainV2.FormConnector.ConnectForm(_modeChangeForm);
+                _modeChangeForm.Show();
             }
-
-            modeChangeForm = new ModeChangeForm();
-            modeChangeForm.Show();
+            else
+            {
+                _modeChangeForm.Close();
+            }
         }
 
 
         private void myButton3_MouseUp(object sender, MouseEventArgs e)
         {
-            if (frm != null)
+            if (_frm.IsDisposed || !_frm.Visible)
             {
-                frm.Close();
+                _frm = new VibeGraph() {Visible = false};
+                _frm.SetFormLocation();
+                MainV2.FormConnector.ConnectForm(_frm);
+                _frm.timer1.Enabled = true;
+                _frm.Show();
             }
-
+            else
+            {
+                _frm.Close();
+            }
             //frm = new Vibration();
-            frm = new VibeGraph();
-            frm.timer1.Enabled = true;
-            frm.Show();
         }
 
         public void openParachuteForm()
         {
-            if (parachuteForm.IsDisposed || !parachuteForm.Visible)
+            if (_parachuteForm.IsDisposed || !_parachuteForm.Visible)
             {
-                parachuteForm = new ParachuteForm() {Visible = false};
-                parachuteForm.TopMost = true;
-                parachuteForm.Show();
+                _parachuteForm = new ParachuteForm() {Visible = false};
+                _parachuteForm.SetFormLocation();
+                MainV2.FormConnector.ConnectForm(_parachuteForm);
+                _parachuteForm.Show();
             }
             else
             {
-                parachuteForm.Close();
+                _parachuteForm.Close();
             }
         }
 
