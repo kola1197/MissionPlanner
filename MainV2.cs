@@ -1395,10 +1395,10 @@ namespace MissionPlanner
         private void setTransparentControls()
         {
             FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
-            FlightPlanner.notificationListControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+            FlightPlanner.notificationListControl1.BackColor =  Color.FromArgb(200, 32, 32, 32);//Color.FromArgb(200, 64, 64, 64);
             
             FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-            FlightPlanner.notificationControl1.BackColor = Color.FromArgb(200, 64, 64, 64);
+            FlightPlanner.notificationControl1.BackColor =  Color.FromArgb(200, 32, 32, 32);//Color.FromArgb(200, 64, 64, 64);
 
             MakeRightSideMenuTransparent();
         }
@@ -1407,7 +1407,6 @@ namespace MissionPlanner
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
-            
         }
 
         private void onClose(CancelEventArgs e)
@@ -5219,7 +5218,7 @@ namespace MissionPlanner
             {
                 MakeRightSideMenuTransparent();
             }
-
+            FlightPlanner.notificationControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-FlightPlanner.notificationControl1.Size.Width/2,FlightPlanner.notificationControl1.Location.Y);
             //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);
             //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
