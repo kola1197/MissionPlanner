@@ -1780,7 +1780,7 @@ namespace MissionPlanner
                             ctrlModeActive = false;
                         }
                     }*/
-                    if (overrideModeActive)
+                    if (_overrideModeActive || _isThrottleOverrideReturnNeeded)
                     {
                         MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
                         rc.target_component = comPort.MAV.compid;
@@ -1790,6 +1790,12 @@ namespace MissionPlanner
                         rc.chan3_raw = (ushort) overrides[2];
                         rc.chan4_raw = (ushort) overrides[3];
 
+                        if (_isThrottleOverrideReturnNeeded)
+                        {
+                            rc.chan3_raw = (ushort) 0;
+                            _isThrottleOverrideReturnNeeded = false;
+                        }
+                        
                         // if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
                         // {
                         //     //Send override for engine for 1 second
@@ -5741,7 +5747,8 @@ namespace MissionPlanner
         }
 
         private ushort[] overrides = new ushort[] {1500, 1500, 1500, 1500};
-        private static bool overrideModeActive = false;
+        private static bool _overrideModeActive = false;
+        private static bool _isThrottleOverrideReturnNeeded = false;
         public static bool IsEngineOverrideActive = false;
         public static bool EngineOverrideTestFlag = false;
         public ushort EngineChannelOverride = 1500;
@@ -5759,7 +5766,8 @@ namespace MissionPlanner
                 {
                     logger.write("Ручное управление завершено");
                     System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
-                    overrideModeActive = false;
+                    _overrideModeActive = false;
+                    _isThrottleOverrideReturnNeeded = true;
                     if (comPort.MAV.cs.mode != "Auto")
                     {
                         MainV2.comPort.setMode("AUTO");
@@ -5816,7 +5824,7 @@ namespace MissionPlanner
                         thirdTrim = (ushort) MainV2.comPort.GetParam("SERVO2_TRIM");
                         logger.write("Ручное управление активировано");
                         System.Diagnostics.Debug.WriteLine("CRTL is PRESSED");
-                        overrideModeActive = true;
+                        _overrideModeActive = true;
                         if (comPort.MAV.cs.mode != "FBWB") //FBWB
                         {
                             MainV2.comPort.setMode("FBWB");
@@ -5846,7 +5854,7 @@ namespace MissionPlanner
                     debugOverrideInfo += " ↑ ";
                 }
 
-                if (overrideModeActive)
+                if (_overrideModeActive)
                 {
                     ctrlModeDebuglabel.Text = debugOverrideInfo;
                 }
