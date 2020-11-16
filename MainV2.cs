@@ -2486,7 +2486,7 @@ namespace MissionPlanner
                     notifications.Add("Парашют выпущен.");
                 }
 
-                if (!CurrentAircraft.ParachuteReleased && CurrentAircraft.IsParachutePointReached)
+                if (!CurrentAircraft.ParachuteReleased && CurrentAircraft.IsParachutePointReached && !CurrentAircraft.UsingSitl)
                 {
                     warnings.Add("Отказ парашюта!");
                 }
@@ -5841,7 +5841,7 @@ namespace MissionPlanner
 
                 if (keyData == (Keys.Control | Keys.Down))
                 {
-                    System.Diagnostics.Debug.WriteLine("UP is PRESSED");
+                    System.Diagnostics.Debug.WriteLine("DOWN is PRESSED");
                     overrides[1] = (ushort) (thirdTrim + _fbwbRate * (thirdTrim - 900));
                     debugOverrideInfo += " ↑ ";
                 }
