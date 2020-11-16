@@ -197,8 +197,8 @@ namespace MissionPlanner.NewForms
         {
             Point locationLocal = StatusControlPanel.instance.GetLocalEngineFormLocation();
             StatusControlPanel.instance.EngineControlForm.Location = new Point(
-                AircraftMenuControl.Instance.Width + this.Location.X + locationLocal.X,
-                this.Location.Y + locationLocal.Y);
+                AircraftMenuControl.Instance.Width + MainV2.instance.Location.X + locationLocal.X,
+                MainV2.instance.Location.Y + locationLocal.Y);
         }
 
         private void throttle_TrackBar_MouseDown(object sender, MouseEventArgs e)

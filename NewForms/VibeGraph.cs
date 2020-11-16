@@ -20,7 +20,6 @@ namespace MissionPlanner.NewForms
         }
         Bitmap myBitmap;
         
-
         protected override void OnPaint(PaintEventArgs e)
         {
             double sizeMP = 1;
@@ -88,7 +87,7 @@ namespace MissionPlanner.NewForms
         public void SetFormLocation()
         {
             // Location = new Point(200, MainV2.instance.Height - 150);
-            Location = new Point(360, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+            Location = new Point(MainV2.instance.Location.X + 370, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
         }
 
         public void SetToTop()

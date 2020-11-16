@@ -161,9 +161,8 @@ namespace MissionPlanner.NewForms
         public void SetFormLocation()
         {
             Point locationLocal = StatusControlPanel.instance.GetLocalRouteFormLocation();
-            MainV2.RouteAltForm.Location = new Point(
-                AircraftMenuControl.Instance.Width + this.Location.X + locationLocal.X,
-                this.Location.Y + locationLocal.Y);
+            MainV2.RouteAltForm.Location = new Point(MainV2.instance.Location.X +
+                AircraftMenuControl.Instance.Width + locationLocal.X,MainV2.instance.Location.Y + locationLocal.Y);
         }
     }
 }

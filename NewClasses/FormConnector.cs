@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Drawing;
+using SharpKml.Dom;
+using Point = System.Drawing.Point;
 
 namespace MissionPlanner.NewClasses
 {
@@ -63,6 +64,11 @@ namespace MissionPlanner.NewClasses
         }
 
         void MainForm_LocationChanged(object sender, EventArgs e)
+        {
+            UpdateFormsLocations();
+        }
+
+        private void UpdateFormsLocations()
         {
             Point relativeChange = new Point(this._mainForm.Location.X - this._mainLocation.X,
                 this._mainForm.Location.Y - this._mainLocation.Y);

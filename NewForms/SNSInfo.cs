@@ -40,7 +40,7 @@ namespace MissionPlanner.NewForms
         public void SetFormLocation()
         {
             // Location = new Point(50, MainV2.instance.Height - 150);
-            Location = new Point(150, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+            Location = new Point(MainV2.instance.Location.X + 160, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
         }
 
         public void SetToTop()
