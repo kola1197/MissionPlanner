@@ -2355,7 +2355,10 @@ namespace MissionPlanner
             // }
             if (FlightPlanner.MainMap.Size.Width != MainV2.instance.Size.Width)
             {
+                FlightPlanner.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.Size.Height);
                 FlightPlanner.MainMap.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.MainMap.Size.Height);
+                //FlightPlanner.rulerControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - FlightPlanner.rulerControl1.Size.Width-5,FlightPlanner.MainMap.Size.Height - FlightPlanner.rulerControl1.Size.Height-5 );
+                //FlightPlanner.MainMap.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.MainMap.Size.Height);
             }
         }
 
@@ -5221,6 +5224,7 @@ namespace MissionPlanner
             if (FlightPlanner != null)
             {
                 MakeRightSideMenuTransparent();
+                
             }
             FlightPlanner.notificationControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-FlightPlanner.notificationControl1.Size.Width/2,FlightPlanner.notificationControl1.Location.Y);
             //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);

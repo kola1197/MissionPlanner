@@ -338,6 +338,9 @@ namespace MissionPlanner.GCSViews
 
             wpMenuLoad();
             contextMenuStrip2.Closed += contextMenuStrip2_Closed;
+            
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 30,
+                MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
 
         private void test_Click(object sender, EventArgs e)
@@ -9627,7 +9630,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             wpMenu1.Location = new Point(0, MainMap.Size.Height - wpMenu1.Size.Height - 50);
             notificationControl1.Location = new Point(MainMap.Size.Width / 2 - notificationControl1.Size.Width / 2, 0);
-            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 10,
+            rulerControl1.Location = new Point(MainMap.Size.Width - rulerControl1.Size.Width - 30,
                 MainMap.Size.Height - rulerControl1.Size.Height - 60);
         }
 
