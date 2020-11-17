@@ -42,13 +42,15 @@ namespace MissionPlanner
         private string disconnectText = "Отключить";
         private string aircraftText = "Борт: ";
 
+        public bool comPortsInited = false;
+        
         public ConnectionsForm()
         {
             InitializeComponent();
 
             // SendMessage(aircraftNumber_TB.Handle, EM_SETCUEBANNER, 1, "Number");
 
-            UpdateComPorts();
+            //UpdateComPorts();
 
             ThemeManager.ApplyThemeTo(this);
 

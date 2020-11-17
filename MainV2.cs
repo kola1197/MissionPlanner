@@ -1554,6 +1554,21 @@ namespace MissionPlanner
             {
                 try
                 {
+                    if (FlightPlanner.notificationControl1.IsTimerEnabled == false)
+                    {
+                        FlightPlanner.notificationControl1.Enabled = true;
+                        FlightPlanner.notificationControl1.IsTimerEnabled = true;
+                    }
+                    if (FlightPlanner.notificationListControl1.IsTimerEnabled == false)
+                    {
+                        FlightPlanner.notificationListControl1.IsTimerEnabled = true;
+                    }
+                    if (ConnectionsForm != null && !ConnectionsForm.comPortsInited)
+                    {
+                        ConnectionsForm.UpdateComPorts();
+                        ConnectionsForm.comPortsInited = true;
+                    }
+
                     if (comPort.MAV.cs.connected && CurrentAircraft != null && !CurrentAircraft.ParachuteReleased)
                     {
                         if (comPort.MAV.cs.ch6out > 1600)

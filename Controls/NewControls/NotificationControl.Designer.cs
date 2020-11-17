@@ -226,6 +226,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
+            this.Enabled = false;
             this.Name = "NotificationControl";
             this.Size = new System.Drawing.Size(330, 180);
             this.Click += new System.EventHandler(this.NotificationControl_Click);
