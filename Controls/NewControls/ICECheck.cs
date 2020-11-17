@@ -27,6 +27,7 @@ namespace MissionPlanner.Controls.NewControls
             _progressBarsMaxValues.Add(progressBar3.Maximum);
             label1.Parent = pictureBox1;
             label2.Parent = pictureBox1;
+            label3.Parent = pictureBox1;
         }
 
         int xStart = 8;
