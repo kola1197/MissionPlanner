@@ -102,7 +102,6 @@ namespace MissionPlanner.Controls.NewControls
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             switchControl(regionsControl);
-            regionsControl.RedrawPolygonSurvey(regionsControl.GetCurrentPolygon());
         }
 
         private void gskToolStripMenuItem_Click(object sender, EventArgs e)

@@ -208,6 +208,7 @@ namespace MissionPlanner
             this.CMB_serialport.FormattingEnabled = true;
             resources.ApplyResources(this.CMB_serialport, "CMB_serialport");
             this.CMB_serialport.Name = "CMB_serialport";
+            this.CMB_serialport.DropDown += new EventHandler(CMB_serialport_DropDown);
             // 
             // connectedAircraftName_TB
             // 

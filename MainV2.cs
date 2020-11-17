@@ -2192,9 +2192,12 @@ namespace MissionPlanner
             // }
             //
             // ((Control) sender).Enabled = true;
+            if (FlightPlanner.pointlist.Count > 0)
+            {
+                FlightPlanner.MainMap.Position =
+                    new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
 
-            FlightPlanner.MainMap.Position =
-                new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
+            }
         }
 
         public void setLandWpInSitl()
