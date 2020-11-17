@@ -156,7 +156,17 @@ namespace MissionPlanner.GCSViews
 
 
         public bool needToLoadWP = false;
-        public static bool regionActive = false;
+        private static bool _regionActive = false;
+
+        public static bool regionActive
+        {
+            get => _regionActive;
+            set
+            {
+                _regionActive = value;
+                RegionsControl.instance.RedrawPolygonSurvey(RegionsControl.instance.GetCurrentPolygon());
+            }
+        }
         public static bool rulerActive = false;
         public PointLatLng landPoint = new PointLatLng(0, 0);
 
