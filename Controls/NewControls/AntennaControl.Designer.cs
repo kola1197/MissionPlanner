@@ -244,7 +244,7 @@
             // toggleSwitch1
             // 
             this.toggleSwitch1.AnimationStep = 30;
-            this.toggleSwitch1.Location = new System.Drawing.Point(18, 323);
+            this.toggleSwitch1.Location = new System.Drawing.Point(18, 311);
             this.toggleSwitch1.Margin = new System.Windows.Forms.Padding(2);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
@@ -259,7 +259,7 @@
             // setStartLocation_BUT
             // 
             this.setStartLocation_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.setStartLocation_BUT.Location = new System.Drawing.Point(131, 271);
+            this.setStartLocation_BUT.Location = new System.Drawing.Point(131, 259);
             this.setStartLocation_BUT.Name = "setStartLocation_BUT";
             this.setStartLocation_BUT.Size = new System.Drawing.Size(165, 25);
             this.setStartLocation_BUT.TabIndex = 32;
@@ -270,7 +270,7 @@
             // Gps_ToggleSwitch
             // 
             this.Gps_ToggleSwitch.AnimationStep = 30;
-            this.Gps_ToggleSwitch.Location = new System.Drawing.Point(18, 272);
+            this.Gps_ToggleSwitch.Location = new System.Drawing.Point(18, 260);
             this.Gps_ToggleSwitch.Margin = new System.Windows.Forms.Padding(2);
             this.Gps_ToggleSwitch.Name = "Gps_ToggleSwitch";
             this.Gps_ToggleSwitch.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
@@ -285,7 +285,7 @@
             // gps_label
             // 
             this.gps_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.gps_label.Location = new System.Drawing.Point(18, 299);
+            this.gps_label.Location = new System.Drawing.Point(18, 287);
             this.gps_label.Name = "gps_label";
             this.gps_label.Size = new System.Drawing.Size(278, 13);
             this.gps_label.TabIndex = 35;
