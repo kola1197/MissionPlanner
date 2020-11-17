@@ -277,7 +277,7 @@ namespace MissionPlanner
         {
             AircraftConnectionInfo selectedAircraft = MainV2.Aircrafts[GetSelectedAircraftNum()];
             
-            if (MAVLinkInterface.paramsLoading && MainV2.comPort.frmProgressReporter.Running)
+            if (MAVLinkInterface.paramsLoading && MainV2.comPort.frmProgressReporter != null && MainV2.comPort.frmProgressReporter.Running)
             {
                 MainV2.comPort.frmProgressReporter.doWorkArgs.CancelRequested = true;
                 int ticksPassed = 0;
@@ -343,7 +343,7 @@ namespace MissionPlanner
 
                 connect_BUT.Text = connectText;
             }
-            catch (Exception)
+            catch
             {
             }
         }
@@ -840,6 +840,11 @@ namespace MissionPlanner
         {
             UpdateComPorts();
             UpdateControlsBindings();
+        }
+
+        private void CMB_serialport_DropDown(object sender, EventArgs e)
+        {
+            UpdateComPorts();
         }
     }
 }
