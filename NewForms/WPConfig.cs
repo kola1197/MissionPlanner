@@ -83,10 +83,18 @@ namespace MissionPlanner.NewForms
             {
                 indexNow = int.Parse(currentRectMarker.Tag.ToString()) - 1;
             }
-            
-            if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraft != null) 
+            try
             {
-                MainV2.loiterRad = (int) MainV2.comPort.GetParam("WP_LOITER_RAD");
+                if (MainV2.loiterRad == -1 && MainV2.comPort.MAV.cs.connected && MainV2.CurrentAircraft != null)
+                {
+                    MainV2.loiterRad = (int)MainV2.comPort.GetParam("WP_LOITER_RAD");
+                }
+            }
+            catch (Exception e) 
+            {
+                CustomMessageBox.Show(
+                        "Не удалось считать значение радиуса кружения с самолета",
+                        "Ошибка чтения параметра");
             }
 
             loiterRadTextBox.Text = MainV2.loiterRad.ToString();
@@ -490,7 +498,7 @@ namespace MissionPlanner.NewForms
                     MainV2.instance.FlightPlanner.TXT_loiterrad.Text = MainV2.loiterRad.ToString();
                 }
             }
-            catch
+            catch(Exception e)
 
             {
                 CustomMessageBox.Show("Не удалось установить праметр", "Ошибка");

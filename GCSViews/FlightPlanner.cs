@@ -1053,7 +1053,8 @@ namespace MissionPlanner.GCSViews
                 catch (Exception ex)
                 {
                     log.Error(ex);
-                    throw;
+                    CustomMessageBox.Show("Не удалось считать или записать все параметры. Превышено время ожидания ответа","Ошибка загрузки точек");
+                    //throw;
                 }
 
                 Debug.WriteLine("###################### WP Loaded ########################");
