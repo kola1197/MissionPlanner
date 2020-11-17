@@ -42,14 +42,18 @@ namespace MissionPlanner.NewForms
         //     }
         // }
 
-        private const float MaxDefault = 100.0f;
-        private const float MinDefault = 2.0f;
+
+        private const float MinAircraftThrottle = 2.0f;
+        private const float MinSitlThrottle = 0.0f;
         private const float MaxSmall = 8.0f;
         private const float MaxTime = 30.0f;
         private const float EngineChannelOutMin = 1100;
         private const float EngineChannelOutMax = 1900;
         private readonly int _wheelDelta = SystemInformation.MouseWheelScrollDelta;
 
+        private const float MaxDefault = 100.0f;
+        private static float _minDefault = MinAircraftThrottle;
+        
         public enum EngineMode
         {
             LongestTime = 0,
@@ -97,19 +101,27 @@ namespace MissionPlanner.NewForms
 
         public void setEngineMode()
         {
+            if (MainV2.CurrentAircraft != null && MainV2.CurrentAircraft.UsingSitl)
+            {
+                _minDefault = MinSitlThrottle;
+            }
+            else
+            {
+                _minDefault = MinAircraftThrottle;
+            }
             byte sysid = (byte) MainV2.comPort.sysidcurrent;
             byte compid = (byte) MainV2.comPort.compidcurrent;
             switch (MainV2.currentEngineMode)
             {
                 case (int) EngineMode.LongestTime: //set thr_max = 30
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxTime);
-                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
+                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", _minDefault);
                     // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxTime));
                     // MainV2.EngineOverrideTestFlag = true;
                     break;
                 case (int) EngineMode.Small:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxSmall);
-                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
+                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", _minDefault);
                     // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxSmall));
                     // MainV2.EngineOverrideTestFlag = true;
                     break;
@@ -121,7 +133,7 @@ namespace MissionPlanner.NewForms
                     break;
                 case (int) EngineMode.Auto:
                     MainV2.comPort.setParam(sysid, compid, "THR_MAX", MaxDefault);
-                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", MinDefault);
+                    MainV2.comPort.setParam(sysid, compid, "THR_MIN", _minDefault);
                     // MainV2.instance.EngineChannelOverride = (ushort) Math.Round(CalcEngineChannel(MaxDefault));
                     // MainV2.EngineOverrideTestFlag = true;
                     break;
