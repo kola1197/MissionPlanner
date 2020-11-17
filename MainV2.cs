@@ -1378,8 +1378,21 @@ namespace MissionPlanner
             // menuStrip1.Items.Add(headingControlHost);
             mainMenuInit();
             coordinatsControlInit();
+           
+            MainV2.configServo[0] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[1] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[2] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[3] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[4] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[5] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[6] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[7] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[8] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[9] = new servoValue(0, 1500, 1500);
+            MainV2.configServo[10] = new servoValue(0, 1500, 1500);
             deserealaseDict();
             setFixedValues();
+            
             setTransparentControls();
             Text = "НПУ v0.6";
 
