@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMap.NET;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner;
+using MissionPlanner.GCSViews;
 using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Controls.NewControls
@@ -22,7 +24,8 @@ namespace MissionPlanner.Controls.NewControls
         private string disconnectText = "Отключить";
         private string antennaNumber = "АНТ";
         public static AntennaControl Instance;
-
+        private int secondsToShowGps = 10;
+        private DateTime _timeOfGpsShowStart = DateTime.MinValue;
         public AntennaControl()
         {
             InitializeComponent();
@@ -42,6 +45,9 @@ namespace MissionPlanner.Controls.NewControls
             CMB_baudrate.DataBindings.Add(
                 ConnectionsForm.instance.CreateInversedBoolBinding("Enabled", antennaBindingSource, "Connected"));
             toggleSwitch1.DataBindings.Add("Enabled", antennaBindingSource, "Connected");
+            Gps_ToggleSwitch.DataBindings.Add("Enabled", antennaBindingSource, "Active");
+            Gps_ToggleSwitch.DataBindings.Add("Checked", antennaBindingSource, "UsingGps");
+            setStartLocation_BUT.DataBindings.Add("Enabled", antennaBindingSource, "SetStartLocationEnabled");
 
             Instance = this;
             //Tracking.AddPage(this.GetType().ToString(), this.Text);
@@ -64,7 +70,6 @@ namespace MissionPlanner.Controls.NewControls
                 // }
 
                 ConnectionsForm.instance.SwitchToAntenna(paramLoad);
-                Thread.Sleep(100);
             }
             catch
             {
@@ -230,14 +235,14 @@ namespace MissionPlanner.Controls.NewControls
                     CustomMessageBox.Show(
                         "Проверьте SYSID_THISMAV антенны, он должен быть = " + MainV2.AntennaConnectionInfo.SysIdNum,
                         "Некорректное подключение к антенне!");
-    
+
                     return;
                 }
 
                 timer1.Enabled = true;
-
-
+                
                 BackgroundSwitchToAntenna(true);
+                GetAntennaGpsType();
             }
             catch (Exception)
             {
@@ -245,6 +250,25 @@ namespace MissionPlanner.Controls.NewControls
             }
         }
 
+        private void GetAntennaGpsType()
+        {
+            AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
+            if (antenna.SysId == null)
+            {
+                return;
+            }
+            byte sysid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).sysid;
+            byte compid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).compid;
+
+            try
+            {
+                antenna.UsingGps = (int) MainV2.comPort.GetParam(sysid, compid, "GPS_TYPE") == 1;
+            }
+            catch
+            {
+            }
+        }
+        
         private bool HasAntennaConnectedAircraft()
         {
             ConnectionControl.port_sysid antennaSysId =
@@ -341,6 +365,15 @@ namespace MissionPlanner.Controls.NewControls
             CMB_baudrate.SelectedIndex = CMB_baudrate.FindString(MainV2.AntennaConnectionInfo.Speed);
 
             UpdateControls();
+
+            if ((DateTime.Now - _timeOfGpsShowStart).TotalSeconds < secondsToShowGps)
+            {
+                gps_label.Text = "Стартовая позиция успешно задана";
+            }
+            else
+            {
+                gps_label.Text = "";
+            }
         }
 
         private void UpdateControls()
@@ -466,6 +499,63 @@ namespace MissionPlanner.Controls.NewControls
             UpdateControls();
             // WaitForToggleSwitchToChangeChecked();
             toggleSwitch1.CheckedChanged += toggleSwitch1_CheckedChanged;
+        }
+
+        private void Gps_ToggleSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            AntennaConnectionInfo antenna = MainV2.AntennaConnectionInfo;
+            antenna.UsingGps = Gps_ToggleSwitch.Checked;
+            if (antenna.SysId == null)
+            {
+                return;
+            }
+            byte sysid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).sysid;
+            byte compid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).compid;
+            try
+            {
+                if (antenna.UsingGps)
+                {
+                    MainV2.comPort.setParam(sysid, compid, "GPS_TYPE", 1);
+                }
+                else
+                {
+                    MainV2.comPort.setParam(sysid, compid, "GPS_TYPE", 0);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void setStartLocation_BUT_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox.Show("Наведите курсор на нужную точку на карте и щелкните правой кнопкой мыши.",
+                "Установка стартовой позиции для антенны вручную.");
+            FlightPlanner.IsSettingStartLocation = true;
+        }
+
+        public void SetStartLocation(PointLatLng startLocation)
+        {
+            var antenna = MainV2.AntennaConnectionInfo;
+            if (antenna.SysId == null)
+            {
+                return;
+            }
+
+            byte sysid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).sysid;
+            byte compid = (byte) ((ConnectionControl.port_sysid) antenna.SysId).compid;
+            try
+            {
+                if (!antenna.UsingGps)
+                {
+                    MainV2.comPort.setParam(sysid, compid, "START_LATITUDE", startLocation.Lat);
+                    MainV2.comPort.setParam(sysid, compid, "START_LONGITUDE", startLocation.Lng);
+                    _timeOfGpsShowStart = DateTime.Now;
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }

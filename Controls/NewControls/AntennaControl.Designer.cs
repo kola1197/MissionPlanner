@@ -49,6 +49,9 @@
             this.testAntButton = new System.Windows.Forms.Button();
             this.antennaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toggleSwitch1 = new JCS.ToggleSwitch();
+            this.setStartLocation_BUT = new System.Windows.Forms.Button();
+            this.Gps_ToggleSwitch = new JCS.ToggleSwitch();
+            this.gps_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.myTrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.antennaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -241,7 +244,7 @@
             // toggleSwitch1
             // 
             this.toggleSwitch1.AnimationStep = 30;
-            this.toggleSwitch1.Location = new System.Drawing.Point(18, 251);
+            this.toggleSwitch1.Location = new System.Drawing.Point(18, 323);
             this.toggleSwitch1.Margin = new System.Windows.Forms.Padding(2);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
@@ -250,13 +253,51 @@
             this.toggleSwitch1.OnText = "Переключен на антенну";
             this.toggleSwitch1.Size = new System.Drawing.Size(278, 24);
             this.toggleSwitch1.TabIndex = 31;
+            this.toggleSwitch1.UseAnimation = false;
             this.toggleSwitch1.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.toggleSwitch1_CheckedChanged);
+            // 
+            // setStartLocation_BUT
+            // 
+            this.setStartLocation_BUT.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.setStartLocation_BUT.Location = new System.Drawing.Point(131, 271);
+            this.setStartLocation_BUT.Name = "setStartLocation_BUT";
+            this.setStartLocation_BUT.Size = new System.Drawing.Size(165, 25);
+            this.setStartLocation_BUT.TabIndex = 32;
+            this.setStartLocation_BUT.Text = "Задать начальную позицию";
+            this.setStartLocation_BUT.UseVisualStyleBackColor = true;
+            this.setStartLocation_BUT.Click += new System.EventHandler(this.setStartLocation_BUT_Click);
+            // 
+            // Gps_ToggleSwitch
+            // 
+            this.Gps_ToggleSwitch.AnimationStep = 30;
+            this.Gps_ToggleSwitch.Location = new System.Drawing.Point(18, 272);
+            this.Gps_ToggleSwitch.Margin = new System.Windows.Forms.Padding(2);
+            this.Gps_ToggleSwitch.Name = "Gps_ToggleSwitch";
+            this.Gps_ToggleSwitch.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.Gps_ToggleSwitch.OffText = "GPS Выключен";
+            this.Gps_ToggleSwitch.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.Gps_ToggleSwitch.OnText = "GPS Включен";
+            this.Gps_ToggleSwitch.Size = new System.Drawing.Size(108, 23);
+            this.Gps_ToggleSwitch.TabIndex = 34;
+            this.Gps_ToggleSwitch.UseAnimation = false;
+            this.Gps_ToggleSwitch.CheckedChanged += new JCS.ToggleSwitch.CheckedChangedDelegate(this.Gps_ToggleSwitch_CheckedChanged);
+            // 
+            // gps_label
+            // 
+            this.gps_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.gps_label.Location = new System.Drawing.Point(18, 299);
+            this.gps_label.Name = "gps_label";
+            this.gps_label.Size = new System.Drawing.Size(278, 13);
+            this.gps_label.TabIndex = 35;
             // 
             // AntennaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.Controls.Add(this.gps_label);
+            this.Controls.Add(this.Gps_ToggleSwitch);
+            this.Controls.Add(this.setStartLocation_BUT);
             this.Controls.Add(this.toggleSwitch1);
             this.Controls.Add(this.testAntButton);
             this.Controls.Add(this.lbl_yawpwm);
@@ -282,6 +323,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label gps_label;
+
+        private JCS.ToggleSwitch Gps_ToggleSwitch;
+        private System.Windows.Forms.Button setStartLocation_BUT;
 
         private System.Windows.Forms.Button connect_BUT;
 

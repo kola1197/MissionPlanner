@@ -178,6 +178,8 @@ namespace MissionPlanner.GCSViews
 
         public static WpNumber WpSerialNum = new WpNumber();
 
+        public static bool IsSettingStartLocation = false;
+        
         public void Init()
         {
             instance = this;
@@ -3149,6 +3151,10 @@ namespace MissionPlanner.GCSViews
         {
             foreach (var aircraft in MainV2.Aircrafts.Values)
             {
+                if (aircraft.SysId == null)
+                {
+                    continue;
+                }
                 ConnectionControl.port_sysid aircraftSysId = (ConnectionControl.port_sysid) aircraft.SysId;
                 // ConnectionControl.port_sysid antennaSysId = (ConnectionControl.port_sysid) MainV2.AntennaConnectionInfo.SysId;
                 if (aircraftSysId.port.MAV == mavState && !MainV2.AntennaConnectionInfo.Active)
@@ -7628,7 +7634,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     isMouseDown = true;
                     isMouseDraging = false;
 
-                    if (currentMarker.IsVisible && !regionActive && !rulerActive)
+                    if (currentMarker.IsVisible && !regionActive && !rulerActive && !IsSettingStartLocation)
                     {
                         currentMarker.Position = MainMap.FromLocalToLatLng(e.X, e.Y);
                     }
@@ -8428,7 +8434,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             }
                             else
                             {
-                                if (!regionActive && !rulerActive)
+                                if (!regionActive && !rulerActive && !IsSettingStartLocation)
                                 {
                                     AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
                                     needToWriteWP = true;
@@ -8473,6 +8479,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                                 RegionsControl.instance.RedrawPolygonSurvey(GetCurrentPolygon());
                                                 MainMap.UpdatePolygonLocalPosition(GetCurrentPolygon());
                                                 MainMap.Invalidate();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (IsSettingStartLocation)
+                                            {
+                                                AntennaControl.Instance.SetStartLocation(new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng));
+                                                IsSettingStartLocation = false;
                                             }
                                         }
                                     }
