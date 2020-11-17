@@ -188,6 +188,9 @@ namespace MissionPlanner.Controls.NewControls
                         label1.Text = "";
                     }*/
                 }
+                catch (Exception e)
+                {
+                }
                 finally
                 {
                     Monitor.Exit(locker);

@@ -95,21 +95,26 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     //label1.BackColor = Color.White;
                     string notifications = "";
-                    notifications += "________";
-                    for (int i = 0; i < MainV2.warnings.Count; i++)
+                    if (MainV2.warnings.Count > 0)
                     {
-                        notifications += "\n";
-                        notifications += MainV2.warnings[i];
-                        //label1.Text += "\n";
+                        notifications += "Ошибки:";
+                        for (int i = 0; i < MainV2.warnings.Count; i++)
+                        {
+                            notifications += "\n";
+                            notifications += MainV2.warnings[i];
+                            //label1.Text += "\n";
+                        }
                     }
-
-                    for (int i = 0; i < MainV2.notifications.Count; i++)
+                    if (MainV2.notifications.Count > 0)
                     {
-                        notifications += "\n";
-                        notifications += MainV2.notifications[i];
+                        notifications += "Предупреждения:";
+                        for (int i = 0; i < MainV2.notifications.Count; i++)
+                        {
+                            notifications += "\n";
+                            notifications += MainV2.notifications[i];
 
+                        }
                     }
-
                     label1.Text = notifications;
                 }
                 finally
