@@ -78,7 +78,8 @@ namespace MissionPlanner.Controls
                 return;
             }
 
-            if (MainV2.Aircrafts.Count > butNum && MainV2.CurrentAircraft == null || MainV2.CurrentAircraft.MenuNum != butNum || MainV2.AntennaConnectionInfo.Active)
+            if (MainV2.Aircrafts.Count > butNum && (MainV2.CurrentAircraft.MenuNum != butNum ||
+                                                    MainV2.CurrentAircraftNum != null && MainV2.AntennaConnectionInfo.Active))
             {
                 MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
