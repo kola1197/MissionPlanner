@@ -175,6 +175,7 @@ namespace MissionPlanner
             StatusControlPanel.instance.EnableControlBindings();
             // MainV2.instance.SubscribeOnWpChange();
             MainV2.instance.BringNotificationControlToFull();
+            
             if (useAntenna_CheckBox.Checked)
             {
                 if (sysid_cmb.SelectedItem == null)
@@ -191,6 +192,8 @@ namespace MissionPlanner
                 connect_BUT.Text = disconnectText;
                 MainV2.comPort.MavChanged += OnMavChanged;
                 MainV2.instance.SubscribeOnWpChange();
+                RemoveFromBlackList(connectedAircraft);
+
                 // connect_BUT.Enabled = false;
                 return;
             }
@@ -212,6 +215,8 @@ namespace MissionPlanner
                 sitlForm.aircraftSITLInfo.Connected = true;
 
                 connect_BUT.Text = disconnectText;
+                RemoveFromBlackList(connectedAircraft);
+
                 this.Hide();
                 return;
             }
@@ -250,12 +255,22 @@ namespace MissionPlanner
 
                 SwitchConnectedAircraft(connectedAircraft);
                 MainV2.instance.SubscribeOnWpChange();
+                RemoveFromBlackList(connectedAircraft);
             }
             catch (Exception)
             {
             }
 
             this.TopMost = true;
+        }
+
+        private static void RemoveFromBlackList(AircraftConnectionInfo connectedAircraft)
+        {
+            var sysId = (ConnectionControl.port_sysid) connectedAircraft.SysId;
+            if (FlightPlanner.AircraftBlackList.Contains((byte) sysId.sysid))
+            {
+                FlightPlanner.AircraftBlackList.Remove((byte) sysId.sysid);
+            }
         }
 
         public void CloseComPort()
@@ -306,6 +321,8 @@ namespace MissionPlanner
             selectedAircraft.FuelSaved = false;
             StatusControlPanel.instance.SitlEmulation.EngineRunning = false;
             StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
+            var sysId = (ConnectionControl.port_sysid) selectedAircraft.SysId;
+            FlightPlanner.AircraftBlackList.Add((byte) sysId.sysid);
             
             if (selectedAircraft.UsingAntenna)
             {

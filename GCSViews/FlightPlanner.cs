@@ -179,6 +179,8 @@ namespace MissionPlanner.GCSViews
         public static WpNumber WpSerialNum = new WpNumber();
 
         public static bool IsSettingStartLocation = false;
+
+        public static List<byte> AircraftBlackList = new List<byte>();
         
         public void Init()
         {
@@ -7085,7 +7087,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     foreach (var MAV in port.MAVlist)
                     {
                         // Todo: draw planes only when they are connected
-                        if (MAV.cs.connected || true)
+                        if (!AircraftBlackList.Contains(MAV.sysid))
                         {
                             var marker = Common.getMAVMarker(MAV);
                             if (MainV2.IsSitlLanding && landPoint.Lat != 0)
