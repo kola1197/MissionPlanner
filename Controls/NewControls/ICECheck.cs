@@ -208,10 +208,17 @@ namespace MissionPlanner.Controls.NewControls
                         // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
 
                         // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
-                        if (counter % counterDivider == 0 && counter >= 210 * multy && !stopSetServo)
+                        if (counter % counterDivider == 0 && counter >= 210 * multy)
                         {
-                            MainV2.engineController.SetEngineValueAndWait(fMin, key);
-                            stopSetServo = true;
+                            if (!stopSetServo)
+                            {
+                                MainV2.engineController.SetEngineValueAndWait(fMin, key);
+                                stopSetServo = true;
+                            }
+                            else
+                            {
+                                
+                            }
                         }
                         else
                         {
