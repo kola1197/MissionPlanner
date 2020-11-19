@@ -362,7 +362,6 @@ namespace MissionPlanner.Controls.NewControls
             secondTestStarted = false;
             sinusoidTestCounter = new int[] {0, 0};
         }
-
         
         
         public void stop()

@@ -163,6 +163,10 @@ namespace MissionPlanner.NewForms
             this.shutDown_but.UseVisualStyleBackColor = true;
             this.shutDown_but.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shutDown_but_MouseUp);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // EngineControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
