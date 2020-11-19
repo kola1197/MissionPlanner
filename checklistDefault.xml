@@ -39,7 +39,7 @@
   <CheckListItem>
     <TrueColor>Green</TrueColor>
     <FalseColor>ActiveBorder</FalseColor>
-    <Description>Вижу свет, вижу звук</Description>
+    <Description>Вижу свет, слышу звук</Description>
     <Text />
     <TriggerValue>0</TriggerValue>
     <Name>parent</Name>
