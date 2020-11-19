@@ -101,8 +101,9 @@ namespace MissionPlanner.Controls.NewControls
         }
 
 
-        private const int awaitingPeriodForThrotle = 30; // we wait for ICE data from px with min throttle
-        private const int counterDivider = 7;
+        private const int awaitingPeriodForThrotle = 40; // we wait for ICE data from px with min throttle
+        private const int counterDivider = 8;
+        private bool stopSetServo = false;
         private void RefreshControl()
         {
             if (Monitor.TryEnter(iceLocker))
@@ -207,9 +208,10 @@ namespace MissionPlanner.Controls.NewControls
                         // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
 
                         // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
-                        if (counter % counterDivider == 0 && counter >= 210 * multy)
+                        if (counter % counterDivider == 0 && counter >= 210 * multy && !stopSetServo)
                         {
                             MainV2.engineController.SetEngineValueAndWait(fMin, key);
+                            stopSetServo = true;
                         }
                         else
                         {
