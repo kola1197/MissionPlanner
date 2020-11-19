@@ -109,11 +109,11 @@ namespace MissionPlanner.Controls.NewControls
                 try
                 {
                     //multy = 100 / timer1.Interval; 
-                    if (!testBool)
-                    {
-                        float i = MainV2.comPort.MAV.cs.rpm1;
-                        ICESpeeds.Add(i);
-                    }
+                    //if (!testBool)
+                    // {
+                    //    float i = MainV2.comPort.MAV.cs.rpm1;
+                    //    ICESpeeds.Add(i);
+                    //}
 
                     counter++;
                     if (counter < 60 * multy)
@@ -403,6 +403,11 @@ namespace MissionPlanner.Controls.NewControls
         }
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (!testBool)
+            {
+                float i = MainV2.comPort.MAV.cs.rpm1;
+                ICESpeeds.Add(i);
+            }
             //myBitmap = new Bitmap(430,430);
             myBitmap = new Bitmap(501, 430);
             base.OnPaint(e);
