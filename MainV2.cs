@@ -1394,7 +1394,7 @@ namespace MissionPlanner
             setFixedValues();
             
             setTransparentControls();
-            Text = "НПУ v0.6";
+            Text = "НПУ v0.7";
 
             FormConnector = new FormConnector(this);
 
@@ -1402,7 +1402,7 @@ namespace MissionPlanner
 
             ConnectionsForm.Init();
             //this.OnClosing += new Ev
-            Text = "НПУ v0.6";
+            //Text = "НПУ v0.6";
             MinimumSize = new Size(1280,720);
         }
 
@@ -1723,7 +1723,7 @@ namespace MissionPlanner
                             break;
                     }
 
-                    coordinatsControl1.label1.Text = currentMousePosition;
+                    coordinatsControl1.label1.Text = currentMousePosition + ", " + FlightPlanner.coords1.Alt.ToString("0.00") +" м";
                     coordinatsControl1.label2.Text = homedistString;
                     coordinatsControl1.label3.Text = currentPosition;
                     //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
