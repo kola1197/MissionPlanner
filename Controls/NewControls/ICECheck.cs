@@ -102,6 +102,7 @@ namespace MissionPlanner.Controls.NewControls
 
 
         private const int awaitingPeriodForThrotle = 30; // we wait for ICE data from px with min throttle
+        private const int counterDivider = 7;
         private void RefreshControl()
         {
             if (Monitor.TryEnter(iceLocker))
@@ -109,11 +110,11 @@ namespace MissionPlanner.Controls.NewControls
                 try
                 {
                     //multy = 100 / timer1.Interval; 
-                    //if (!testBool)
-                    // {
-                    //    float i = MainV2.comPort.MAV.cs.rpm1;
-                    //    ICESpeeds.Add(i);
-                    //}
+                    if (!testBool)
+                     {
+                        float i = MainV2.comPort.MAV.cs.rpm1;
+                        ICESpeeds.Add(i);
+                    }
 
                     counter++;
                     if (counter < 60 * multy)
@@ -206,13 +207,13 @@ namespace MissionPlanner.Controls.NewControls
                         // (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
 
                         // System.Diagnostics.Debug.WriteLine("Sinus " +d.ToString()+" -- "+Math.Sin(d / 14).ToString() + " Value - " + f.ToString());
-                        if (counter % 5 == 0 && counter >= 210 * multy)
+                        if (counter % counterDivider == 0 && counter >= 210 * multy)
                         {
                             MainV2.engineController.SetEngineValueAndWait(fMin, key);
                         }
                         else
                         {
-                            if (counter % 5 == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
+                            if (counter % counterDivider == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
                             {
                                 MainV2.engineController.SetEngineValueAndWait(
                                     (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
@@ -403,11 +404,11 @@ namespace MissionPlanner.Controls.NewControls
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!testBool)
-            {
-                float i = MainV2.comPort.MAV.cs.rpm1;
-                ICESpeeds.Add(i);
-            }
+            //if (!testBool)
+            //{
+            //    float i = MainV2.comPort.MAV.cs.rpm1;
+            //    ICESpeeds.Add(i);
+            //}
             //myBitmap = new Bitmap(430,430);
             myBitmap = new Bitmap(501, 430);
             base.OnPaint(e);
