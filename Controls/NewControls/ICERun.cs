@@ -95,6 +95,7 @@ namespace MissionPlanner.Controls.NewControls
                         rpm2 = MainV2.comPort.MAV.cs.rpm2;
                     }
 
+                    bool wasRPMError = false;
                     if (!testMode)
                     {
                         if (rpm1 > 3000)
@@ -111,10 +112,11 @@ namespace MissionPlanner.Controls.NewControls
                             }
                         }
 
-                        if (rpm1 < 2500)
+                        if (rpm1 < 3000)//(rpm1 < 2500)
                         {
-                            label3.Text = "Обороты двигателя < 2500";
-
+                            label3.Text = "Обороты двигателя менее 3000";
+                            label3.ForeColor = Color.Red;
+                            wasRPMError = true;
                             //ICERunning = false;
                             //startButton.Text = "Запустить двигатель";
                             //MainV2.comPort.MAV.cs.ch10in = 900;
@@ -126,7 +128,15 @@ namespace MissionPlanner.Controls.NewControls
                     {
                         startButton.Enabled = true;
                         label3.Text += "\n Температура двигателя ОК»;";
-                        label3.ForeColor = Color.Green;
+                        if (!wasRPMError)
+                        {
+                            label3.ForeColor = Color.Green;
+                        }
+                    }
+                    else
+                    {
+                        label3.Text += "\n Температура двигателя менее 40 градусов»;";
+                        label3.ForeColor = Color.Red;
                     }
 
                     if (engineoffCounter > 1)

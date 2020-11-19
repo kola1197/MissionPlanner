@@ -164,7 +164,7 @@ namespace MissionPlanner.Controls.NewControls
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 15);
             this.label1.TabIndex = 13;
-            this.label1.Text = "3400";
+            this.label1.Text = "3800";
             // 
             // label2
             // 

@@ -100,6 +100,8 @@ namespace MissionPlanner.Controls.NewControls
             graphTimer.Start();
         }
 
+
+        private const int awaitingPeriodForThrotle = 30; // we wait for ICE data from px with min throttle
         private void RefreshControl()
         {
             if (Monitor.TryEnter(iceLocker))
@@ -177,7 +179,7 @@ namespace MissionPlanner.Controls.NewControls
                         //label1.BackColor = Color.Green;
                     }
 
-                    if (counter > 120 * multy && counter < 210 * multy + 10)
+                    if (counter > 120 * multy && counter < 210 * multy + awaitingPeriodForThrotle)
                     {
                         //if (counter == 120 * multy + 1)
                        // {
@@ -255,7 +257,7 @@ namespace MissionPlanner.Controls.NewControls
                         //label2.BackColor = Color.Green;
                     }
 
-                    if (counter > 210 * multy + 10)
+                    if (counter > 210 * multy + awaitingPeriodForThrotle)
                     {
                         MainV2.engineController.SetEngineValueAndWait(fMin, key);
 
@@ -419,7 +421,7 @@ namespace MissionPlanner.Controls.NewControls
             g.DrawLine(myPen, 1, 160, 500, 160);
             */
 
-            g.DrawLine(myPen, 1, yStart - 3400 / 50, 500, yStart - 3400 / 50);
+            g.DrawLine(myPen, 1, yStart - 3800 / 50, 500, yStart - 3800 / 50);
 
             g.DrawLine(myPen, 1, yStart - 7600 / 50, 500, yStart - 7600 / 50);
 

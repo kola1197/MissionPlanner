@@ -5796,6 +5796,7 @@ namespace MissionPlanner
                 if (keyData == (Keys.ControlKey))
                 {
                     logger.write("Ручное управление завершено");
+                    ctrlModeDebuglabel.Text = "";
                     System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
                     _overrideModeActive = false;
                     _isThrottleOverrideReturnNeeded = true;
