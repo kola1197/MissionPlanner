@@ -43,8 +43,9 @@ namespace MissionPlanner.Controls.NewControls
         {
             if (fullList)
             {
-                this.Size = new Size(this.Width, 50 * (MainV2.warnings.Count + MainV2.notifications.Count));
-                label1.Size = new Size(this.Width, 50 * (MainV2.warnings.Count + MainV2.notifications.Count));
+                int warningsCount = MainV2.warnings.Count == 0 ? 0 : MainV2.warnings.Count + 1;
+                this.Size = new Size(this.Width, 50 * (warningsCount + MainV2.notifications.Count));
+                label1.Size = new Size(this.Width, 50 * (warningsCount + MainV2.notifications.Count));
                 Region = ControlDrawingTools.CreateRoundRectRgn(0, -20, Width, Height, 20);
                 this.BackColor = Color.FromArgb(200, 32, 32, 32);
                 this.Visible = true;
@@ -104,6 +105,7 @@ namespace MissionPlanner.Controls.NewControls
                             notifications += MainV2.warnings[i];
                             //label1.Text += "\n";
                         }
+                        notifications += "\n\n";
                     }
                     if (MainV2.notifications.Count > 0)
                     {

@@ -266,6 +266,10 @@ namespace MissionPlanner
 
         private static void RemoveFromBlackList(AircraftConnectionInfo connectedAircraft)
         {
+            if (connectedAircraft.SysId == null)
+            {
+                return;
+            }
             var sysId = (ConnectionControl.port_sysid) connectedAircraft.SysId;
             if (FlightPlanner.AircraftBlackList.Contains((byte) sysId.sysid))
             {
@@ -322,7 +326,10 @@ namespace MissionPlanner
             StatusControlPanel.instance.SitlEmulation.EngineRunning = false;
             StatusControlPanel.instance.SitlEmulation.SetTargetState(SitlState.SitlStateName.PrepareFlight);
             var sysId = (ConnectionControl.port_sysid) selectedAircraft.SysId;
-            FlightPlanner.AircraftBlackList.Add((byte) sysId.sysid);
+            if (!selectedAircraft.UsingSitl)
+            {
+                FlightPlanner.AircraftBlackList.Add((byte) sysId.sysid);
+            }
             
             if (selectedAircraft.UsingAntenna)
             {
