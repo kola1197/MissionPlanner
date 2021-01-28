@@ -241,7 +241,7 @@ namespace MissionPlanner.NewForms
             }
         }
 
-        private void shutDown_but_MouseUp(object sender, MouseEventArgs e)
+        private void StopEngine()
         {
             try
             {
@@ -258,6 +258,42 @@ namespace MissionPlanner.NewForms
             }
             catch
             {
+            }
+        }
+
+        private void RunEngine()
+        {
+            try
+            {
+                MainV2.engineController.resetKey();
+                var key = MainV2.engineController.getAccessKeyToEngine();
+                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                if (!MainV2.engineController.SetEngineValueAndWait(900f, key))
+                {
+                    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                }
+            }
+            catch 
+            {
+            }
+        }
+        
+        private void shutDown_but_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (shutDown_but.Text == "Заглушить")
+            {
+                StopEngine();
+                shutDown_but.Text = "Запустить";
+                shutDown_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (10)))),
+                    ((int) (((byte) (255)))), ((int) (((byte) (10)))));
+            }
+            else
+            {
+                RunEngine();
+                shutDown_but.Text = "Заглушить";
+                shutDown_but.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (255)))),
+                    ((int) (((byte) (10)))), ((int) (((byte) (10)))));
             }
         }
         
