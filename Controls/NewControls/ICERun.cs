@@ -23,9 +23,12 @@ namespace MissionPlanner.Controls.NewControls
             get => MainV2.ICERunning; //_iceRunning;
             set
             {
-                MainV2.ICERunning = value;
-                _iceRunning = value;
-                StatusControlPanel.instance.SitlEmulation.EngineRunning = value;
+                if (Visible)
+                {
+                    MainV2.ICERunning = value;
+                    _iceRunning = value;
+                    StatusControlPanel.instance.SitlEmulation.EngineRunning = value;    
+                }
             }
         }
 

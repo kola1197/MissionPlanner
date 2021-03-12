@@ -328,8 +328,8 @@ namespace MissionPlanner.Controls
             var progressBar = engineTemp_SVPB;
             double range = progressBar.Maximum - progressBar.Minimum;
             double value = progressBar.Value;
-            double yellowRange = 100;
-            double redRange = 120;
+            double yellowRange = 100.0;
+            double redRange = 120.0;
             if (value >= yellowRange)
             {
                 if (value >= redRange)

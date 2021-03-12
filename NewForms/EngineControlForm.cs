@@ -37,7 +37,6 @@ namespace MissionPlanner.NewForms
         public EngineControlForm()
         {
             InitializeComponent();
-            Init();
         }
 
         // private void Init()
@@ -216,6 +215,7 @@ namespace MissionPlanner.NewForms
         {
             SetFormLocation();
             SetToTop();
+            Init();
         }
 
         public void SetToTop()
