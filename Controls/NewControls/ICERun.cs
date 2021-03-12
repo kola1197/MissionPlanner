@@ -20,9 +20,10 @@ namespace MissionPlanner.Controls.NewControls
         public static ICERun Instance;
         public bool ICERunning
         {
-            get => _iceRunning;
+            get => MainV2.ICERunning; //_iceRunning;
             set
             {
+                MainV2.ICERunning = value;
                 _iceRunning = value;
                 StatusControlPanel.instance.SitlEmulation.EngineRunning = value;
             }
@@ -139,12 +140,12 @@ namespace MissionPlanner.Controls.NewControls
                         label3.ForeColor = Color.Red;
                     }
 
-                    if (engineoffCounter > 1)
+                    /*if (engineoffCounter > 1)
                     {
                         engineoffCounter--;
                         System.Diagnostics.Debug.Write(
                             "=====================EngineCounter = " + engineoffCounter.ToString());
-                    }
+                    }*/
 
                     if (engineoffCounter == 1)
                     {
@@ -152,7 +153,7 @@ namespace MissionPlanner.Controls.NewControls
                         //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
                         if (!MainV2.engineController.setEngineValue(trim3, key))
                         {
-                            CustomMessageBox.Show("Двигатель занят в другом потоке");
+                            //CustomMessageBox.Show("Двигатель занят в другом потоке");
                         }
                     }
                 }
@@ -174,6 +175,11 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.engineController.resetKey();
                 key = -1;
             }
+        }
+
+        private void updateButtonText()
+        {
+            startButton.Text = ICERunning ? "Заглушить" : "Запустить";
         }
 
         private void updateLabels()
@@ -209,7 +215,7 @@ namespace MissionPlanner.Controls.NewControls
 
             startButton.Text = "Запустить";
             ICERunning = false;
-            System.Diagnostics.Debug.Write("DISABLE +++++++++++++++");
+            //System.Diagnostics.Debug.Write("DISABLE +++++++++++++++");
             engineoffCounter = 30;
         }
         
@@ -240,6 +246,11 @@ namespace MissionPlanner.Controls.NewControls
         private void timer1_Tick(object sender, EventArgs e)
         {
             RefreshControl();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            updateButtonText();
         }
     }
 }

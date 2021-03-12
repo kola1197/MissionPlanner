@@ -329,7 +329,7 @@ namespace MissionPlanner.Controls.NewControls
                     fMax = MainV2.comPort.GetParam("SERVO3_MAX");
                     started = true;
                     ICESpeeds = new List<float>();
-                    startButton.Text = "Работа стабильна";
+                    startButton.Text = "Начать перегазовки";
                     startButton.Enabled = false;
                     counter = 0;
                     refreshProgressBars();
@@ -341,7 +341,7 @@ namespace MissionPlanner.Controls.NewControls
                     stop();
                     started = false;
                     iceChecked = true;
-                    startButton.Text = "Начать";
+                    startButton.Text = "Начать перегазовки";
                     MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
                 }
 

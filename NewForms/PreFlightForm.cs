@@ -35,6 +35,7 @@ namespace MissionPlanner.NewForms
         {
             InitializeComponent();
             this.TopMost = true;
+            iceRun1.timer2.Start();
         }
 
         public void Init()

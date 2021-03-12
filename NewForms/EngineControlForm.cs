@@ -13,13 +13,31 @@ using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
+    
     public partial class EngineControlForm : Form, IFormConnectable
     {
+        float trim3 = 900;
         private bool _isTrackBarClicked = false;
+
+        public bool ICERunning
+        {
+            get => MainV2.ICERunning;//_iceRunning;
+            set
+            {
+                MainV2.ICERunning = value;
+                StatusControlPanel.instance.SitlEmulation.EngineRunning = value;
+            }
+        }
+        
+        public void Init()
+        {
+            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
+        }
 
         public EngineControlForm()
         {
             InitializeComponent();
+            Init();
         }
 
         // private void Init()
@@ -245,6 +263,7 @@ namespace MissionPlanner.NewForms
         {
             try
             {
+                ICERunning = false;
                 MainV2.engineController.resetKey();
                 var key = MainV2.engineController.getAccessKeyToEngine();
                 if (!MainV2.engineController.setEngineValue(900f, key))
@@ -265,11 +284,12 @@ namespace MissionPlanner.NewForms
         {
             try
             {
+                ICERunning = true;
                 MainV2.engineController.resetKey();
                 var key = MainV2.engineController.getAccessKeyToEngine();
                 var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
                     MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
-                if (!MainV2.engineController.SetEngineValueAndWait(900f, key))
+                if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
@@ -296,6 +316,15 @@ namespace MissionPlanner.NewForms
                     ((int) (((byte) (10)))), ((int) (((byte) (10)))));
             }
         }
+
+        private void updateButtonText() {
+            shutDown_but.Text = ICERunning ? "Заглушить" : "Запустить";
+            shutDown_but.BGGradTop = ICERunning ? System.Drawing.Color.FromArgb(((int)(((byte)(255)))),
+                    ((int)(((byte)(10)))), ((int)(((byte)(10))))) :
+                    System.Drawing.Color.FromArgb(((int)(((byte)(10)))),
+                    ((int)(((byte)(255)))), ((int)(((byte)(10)))));
+            ;
+        }
         
         private int counter = 0;
 
@@ -313,6 +342,10 @@ namespace MissionPlanner.NewForms
             }
             counter++;
         }
-        
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            updateButtonText();
+        }
     }
 }

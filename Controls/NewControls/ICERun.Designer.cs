@@ -36,20 +36,21 @@
             this.spedsLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // startButton
             // 
             this.startButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.startButton.ColorMouseOver = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorMouseOver = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.DefaultTheme = false;
             this.startButton.Location = new System.Drawing.Point(133, 311);
             this.startButton.Name = "startButton";
-            this.startButton.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.startButton.Size = new System.Drawing.Size(148, 23);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Запуск двигателя";
@@ -117,11 +118,16 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timer2
+            // 
+            this.timer2.Interval = 300;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // ICERun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.label3);
             this.Controls.Add(this.spedsLabel);
             this.Controls.Add(this.tempLabel);
@@ -132,6 +138,7 @@
             this.Size = new System.Drawing.Size(432, 432);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Timer timer1;
@@ -144,5 +151,6 @@
         private System.Windows.Forms.Label tempLabel;
         private System.Windows.Forms.Label spedsLabel;
         private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Timer timer2;
     }
 }

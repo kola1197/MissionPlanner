@@ -74,7 +74,7 @@ namespace MissionPlanner
 
         public static menuicons displayicons; //do not initialize to allow update of custom icons
 
-
+        public static bool ICERunning = false;
         public abstract class menuicons
         {
             public abstract Image fd { get; }
@@ -1776,6 +1776,7 @@ namespace MissionPlanner
                         FlightPlanner.wpMenu1.timer1.Start();
                     }
 
+
                     if (comPort.MAV.cs.connected && CurrentAircraftNum != null && !Aircrafts[CurrentAircraftNum].inAir)
                     {
                         if (comPort.MAV.cs.airspeed > 17.0)
@@ -1887,6 +1888,11 @@ namespace MissionPlanner
                     //         }
                     //     }
                     // }
+                    if (!StatusControlPanel.EngineControlForm.timer2.Enabled)
+                    {
+                        StatusControlPanel.EngineControlForm.timer2.Start();
+                    }
+                    
                 }
                 catch (System.Exception eee)
                 {
