@@ -113,6 +113,11 @@ namespace MissionPlanner.NewForms
 
         private void route_BUT_Click(object sender, EventArgs e)
         {
+            ReturnToRouteAltitude();
+        }
+
+        public void ReturnToRouteAltitude()
+        {
             var altIndex = FlightPlanner.instance.GetAltIndex();
             var wpno = (int) MainV2.comPort.MAV.cs.wpno;
             int newAlt = (int) alt_SlidingScale.Value;
