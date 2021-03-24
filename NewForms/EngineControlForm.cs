@@ -271,8 +271,7 @@ namespace MissionPlanner.NewForms
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
                 }
 
-                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+                //MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
                 timer1.Start();
             }
             catch
@@ -287,8 +286,7 @@ namespace MissionPlanner.NewForms
                 ICERunning = true;
                 MainV2.engineController.resetKey();
                 var key = MainV2.engineController.getAccessKeyToEngine();
-                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                    MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                //var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
                 if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
                 {
                     CustomMessageBox.Show("Двигатель занят в другом потоке");
