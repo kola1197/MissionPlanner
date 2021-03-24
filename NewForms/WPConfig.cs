@@ -452,7 +452,7 @@ namespace MissionPlanner.NewForms
                 var lng = lonTB1.Text.Replace(".", ",");
                 try
                 {
-                    latNotification.Visible = false;
+                    lonNotification.Visible = false;
                     switch (MainV2.CoordinatsShowMode)
                     {
                         case 0:
@@ -480,7 +480,7 @@ namespace MissionPlanner.NewForms
                 }
                 catch
                 {
-                    lonNotification.Visible = true;
+                  lonNotification.Visible = true;
                 }
             }
         }
