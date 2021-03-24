@@ -23,14 +23,17 @@ namespace MissionPlanner.NewForms
         protected override void OnPaint(PaintEventArgs e)
         {
             double sizeMP = 1;
-            myBitmap = new Bitmap(600, 300);
+            //myBitmap = new Bitmap(600, 300);
+            int w = Width - 16;
+            int h = Height - 40;
+            myBitmap = new Bitmap(w, h);
             base.OnPaint(e);
             Graphics g;
             g = Graphics.FromImage(myBitmap);
             Pen myPen = new Pen(Color.White);
             myPen.Width = 1;
 
-            g.DrawLine(myPen, 1, 250, 600, 250);
+            g.DrawLine(myPen, 1, h - 50, w, h - 50);
             
             /*Pen p = new Pen(Color.Green);
             p.Width = 3;
@@ -49,13 +52,19 @@ namespace MissionPlanner.NewForms
 
         private void drawVibe(int index, Color color, Graphics g)
         {
+            int w = Width - 16;
+            int h = Height - 40;
+            float ff = h - 50;
+            //float ww = w / 600;
             Pen p = new Pen(color);
             p.Width = 2;
             for (int i = 0; i < 599; i++)
             {
-                g.DrawLine(p, (float)i, (250f - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f), (250f - MainV2.vibeData.vibe[index, i + 1]*10f));
+                g.DrawLine(p, (float)i, (ff - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f), (ff - MainV2.vibeData.vibe[index, i + 1]*10f));
             }
         }
+
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         { 
@@ -81,7 +90,7 @@ namespace MissionPlanner.NewForms
 
         private void label1_ForeColorChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("fuck");
+            //System.Diagnostics.Debug.WriteLine("fuck");
         }
 
         public void SetFormLocation()
@@ -98,6 +107,15 @@ namespace MissionPlanner.NewForms
         private void VibeGraph_Shown(object sender, EventArgs e)
         {
             SetToTop();
+        }
+
+        private void VibeGraph_SizeChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Size = new Size(Width - 16, Height - 40);
+            label1.Location = new Point(16, Height - 77);
+            label2.Location = new Point(72, Height - 77);
+            label3.Location = new Point(130, Height - 77);
+
         }
     }
 }

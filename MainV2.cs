@@ -2405,6 +2405,9 @@ namespace MissionPlanner
             }
         }
 
+        public static List<string> prevNotifications = new List<string>();
+        public static List<string> prevWarnings = new List<string>();
+
         public static List<string> notifications = new List<string>();
         public static List<string> warnings = new List<string>();
         private string prevMode = "";
@@ -2546,15 +2549,34 @@ namespace MissionPlanner
 
                 foreach (var v in warnings)
                 {
-                    logger.write(v);
+                    if (!prevWarnings.Contains(v))
+                    {
+                        logger.write(v);
+                    }
                 }
-
                 foreach (var v in notifications)
                 {
-                    logger.write(v);
+                    if (!prevNotifications.Contains(v))
+                    {
+                        logger.write(v);
+                    }
+                }
+                foreach (var v in prevNotifications)
+                {
+                    if (!notifications.Contains(v))
+                    {
+                        logger.write("Ошибка устранена: " + v);
+                    }
+                }
+                foreach (var v in prevWarnings) {
+                    if (!warnings.Contains(v))
+                    {
+                        logger.write("Ошибка устранена: " + v);
+                    }
                 }
 
-                if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
+
+                    if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
                 {
                     label1.BackColor = Color.DarkRed;
                     progressBar1.ValueColor = Color.Red;
@@ -2591,6 +2613,16 @@ namespace MissionPlanner
                 //    warnings.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
                 //}
             }
+            prevNotifications = new List<string>();
+            for (int i = 0; i < notifications.Count(); i++) {
+                prevNotifications.Add(notifications[i]);
+            }
+            prevWarnings = new List<string>();
+            for (int i = 0; i < warnings.Count(); i++)
+            {
+                prevWarnings.Add(warnings[i]);
+            }
+
         }
 
         /// <summary>

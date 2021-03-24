@@ -77,6 +77,7 @@ namespace MissionPlanner
             this.menu = new MissionPlanner.Controls.MyButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.rightSideButtonsMenu = new MissionPlanner.Controls.NewControls.RightSideButtonsMenu();
+            this.timerControl1 = new MissionPlanner.Controls.NewControls.TimerControl();
             this.snsControl2 = new MissionPlanner.Controls.NewControls.SNSControl();
             this.servoGimbal2 = new MissionPlanner.Controls.NewControls.servoGimbal();
             this.coordinatsControl1 = new MissionPlanner.Controls.NewControls.CoordinatsControl();
@@ -320,6 +321,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.panel2.Controls.Add(this.timerControl1);
             this.panel2.Controls.Add(this.ctrlModeDebuglabel);
             this.panel2.Controls.Add(this.myButton6);
             this.panel2.Controls.Add(this.myButton5);
@@ -402,6 +404,12 @@ namespace MissionPlanner
             resources.ApplyResources(this.rightSideButtonsMenu, "rightSideButtonsMenu");
             this.rightSideButtonsMenu.BackColor = System.Drawing.Color.Transparent;
             this.rightSideButtonsMenu.Name = "rightSideButtonsMenu";
+            // 
+            // timerControl1
+            // 
+            this.timerControl1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.timerControl1, "timerControl1");
+            this.timerControl1.Name = "timerControl1";
             // 
             // snsControl2
             // 
@@ -523,5 +531,7 @@ namespace MissionPlanner
         private MissionPlanner.Controls.MyButton myButton2;
 
         #endregion
+
+        private Controls.NewControls.TimerControl timerControl1;
     }
 }

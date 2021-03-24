@@ -21,7 +21,7 @@ namespace MissionPlanner.NewClasses
             {
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
-                    sw.WriteLine(DateTime.Now.ToString("dd/MMMM/yyyy_HH:mm:ss") + ":: " + "test");
+                    sw.WriteLine(DateTime.Now.ToString("dd/MMMM/yyyy_HH:mm:ss") + ":: " + "Старт системы");
                 }
             }
             catch (Exception e) 

@@ -45,11 +45,11 @@
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.ColorMouseDown = System.Drawing.Color.Gray;
             this.myButton1.ColorMouseOver = System.Drawing.Color.Firebrick;
-            this.myButton1.ColorNotEnabled = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.ForeColor = System.Drawing.Color.Black;
             this.myButton1.Location = new System.Drawing.Point(0, 0);
             this.myButton1.Name = "myButton1";
@@ -65,8 +65,8 @@
             // 
             // myButton2
             // 
-            this.myButton2.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton2.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton2.Location = new System.Drawing.Point(75, 0);
             this.myButton2.Name = "myButton2";
             this.myButton2.Outline = System.Drawing.Color.Black;
@@ -81,8 +81,8 @@
             // 
             // myButton3
             // 
-            this.myButton3.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton3.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton3.Location = new System.Drawing.Point(101, 0);
             this.myButton3.Name = "myButton3";
             this.myButton3.Outline = System.Drawing.Color.Black;
@@ -199,9 +199,9 @@
             this.myButton10.Location = new System.Drawing.Point(283, 0);
             this.myButton10.Name = "myButton10";
             this.myButton10.Outline = System.Drawing.Color.Black;
-            this.myButton10.Size = new System.Drawing.Size(26, 26);
+            this.myButton10.Size = new System.Drawing.Size(60, 26);
             this.myButton10.TabIndex = 9;
-            this.myButton10.Text = "1";
+            this.myButton10.Text = "Включить ВСКС";
             this.myButton10.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.myButton10.TextColor = System.Drawing.Color.Black;
             this.myButton10.UseVisualStyleBackColor = true;
@@ -212,10 +212,10 @@
             // 
             this.myButton11.BGGradBot = System.Drawing.Color.Empty;
             this.myButton11.BGGradTop = System.Drawing.Color.Empty;
-            this.myButton11.Location = new System.Drawing.Point(309, 0);
+            this.myButton11.Location = new System.Drawing.Point(343, 0);
             this.myButton11.Name = "myButton11";
             this.myButton11.Outline = System.Drawing.Color.Black;
-            this.myButton11.Size = new System.Drawing.Size(30, 26);
+            this.myButton11.Size = new System.Drawing.Size(31, 26);
             this.myButton11.TabIndex = 10;
             this.myButton11.Text = "СВ";
             this.myButton11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -232,7 +232,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.Controls.Add(this.myButton11);
             this.Controls.Add(this.myButton10);
             this.Controls.Add(this.myButton9);
@@ -246,8 +246,9 @@
             this.Controls.Add(this.myButton1);
             this.MinimumSize = new System.Drawing.Size(339, 26);
             this.Name = "servoGimbal";
-            this.Size = new System.Drawing.Size(339, 26);
+            this.Size = new System.Drawing.Size(374, 26);
             this.ResumeLayout(false);
+
         }
 
         private MissionPlanner.Controls.MyButton myButton1;
