@@ -277,6 +277,7 @@ namespace MissionPlanner.Controls.NewControls
                         }
 
                         progressBar3.ValueColor = tests[2] ? Color.Lime : Color.Red;
+                        iceChecked = tests[0] && tests[1] && tests[2];
                         //label3.BackColor = Color.Green;
                         startButton.Enabled = true;
                         stop();
