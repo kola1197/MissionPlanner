@@ -52,7 +52,7 @@ namespace MissionPlanner
         {
             return new SitlState(SitlState.SitlStateName.Climb,
                 new SITLInfo(new SitlParamList(_updatedParametersUntilLandStart, 8000, 200)),
-                new SITLInfo(new SitlParamList(rpm: 200, temperature: 1.0 / 30.0)));
+                new SITLInfo(new SitlParamList(rpm: 200, temperature: 10.0 / 30.0)));
         }
 
         private static SitlState GenerateDecentState()
