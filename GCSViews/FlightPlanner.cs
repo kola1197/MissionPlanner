@@ -9407,11 +9407,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (int.TryParse(altChoose.textBox1.Text, out i))
             {
                 setAltToAll(i);
+                BUT_write_Click(sender, e);
+                MainV2.RouteAltForm.ReturnToRouteAltitude();
                 altChoose.Close();
             }
             else
             {
-                CustomMessageBox.Show("Данные некорректные");
+                CustomMessageBox.Show("Данные некорректны");
             }
         }
 
