@@ -60,7 +60,7 @@ namespace MissionPlanner.NewForms
             p.Width = 2;
             for (int i = 0; i < 599; i++)
             {
-                g.DrawLine(p, (float)i, (ff - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f), (ff - MainV2.vibeData.vibe[index, i + 1]*10f));
+                g.DrawLine(p, (float)i * (w/600.0f), (ff - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f) * (w / 600.0f), (ff - MainV2.vibeData.vibe[index, i + 1]*10f));
             }
         }
 
