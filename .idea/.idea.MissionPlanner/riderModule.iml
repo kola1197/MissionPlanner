@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$/../.." />
     <content url="file://$MODULE_DIR$/../../../SkiaTest" />
     <content url="file://$USER_HOME$/.nuget/packages/skiasharp.nativeassets.linux/1.68.1.1/runtimes/linux-x64/native/libSkiaSharp.so" />
+    <content url="file://$USER_HOME$/.nuget/packages/skiasharp/1.68.1.1/runtimes/osx/native/libSkiaSharp.dylib" />
     <content url="file://$USER_HOME$/.nuget/packages/skiasharp/1.68.1.1/runtimes/win-x64/native/libSkiaSharp.dll" />
     <content url="file://$USER_HOME$/.nuget/packages/skiasharp/1.68.1.1/runtimes/win-x86/native/libSkiaSharp.dll" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -2546,6 +2546,20 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкий уровень радиосигнала!");
                 }
+                foreach (var v in prevNotifications)
+                {
+                    if (!notifications.Contains(v))
+                    {
+                        logger.write("Ошибка устранена: " + v);
+                    }
+                }
+                foreach (var v in prevWarnings)
+                {
+                    if (!warnings.Contains(v))
+                    {
+                        logger.write("Предупреждение устранено: " + v);
+                    }
+                }
 
                 foreach (var v in warnings)
                 {
@@ -2561,19 +2575,7 @@ namespace MissionPlanner
                         logger.write(v);
                     }
                 }
-                foreach (var v in prevNotifications)
-                {
-                    if (!notifications.Contains(v))
-                    {
-                        logger.write("Ошибка устранена: " + v);
-                    }
-                }
-                foreach (var v in prevWarnings) {
-                    if (!warnings.Contains(v))
-                    {
-                        logger.write("Ошибка устранена: " + v);
-                    }
-                }
+                
 
 
                     if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
