@@ -45,6 +45,7 @@
             this.BUT_edit.TabIndex = 0;
             this.BUT_edit.Text = "Edit";
             this.BUT_edit.UseVisualStyleBackColor = true;
+            this.BUT_edit.Visible = false;
             this.BUT_edit.Click += new System.EventHandler(this.BUT_edit_Click);
             // 
             // panel1
