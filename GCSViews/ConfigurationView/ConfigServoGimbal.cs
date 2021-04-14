@@ -237,7 +237,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void saveButton_MouseUp(object sender, MouseEventArgs e)
         {
-            for (int i = 0; i < 11; i++) 
+            for (int i = 1; i < 10; i++) 
             {
                 int v = 1500;
                 int s = getValueByCountNumber(comboBox[i].SelectedIndex);//getInt(comboBox[i].SelectedText);
