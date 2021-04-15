@@ -9342,7 +9342,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         int servo = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString());
                         int value = int.Parse(Commands.Rows[index + 1].Cells[Command.Index + 2].Value.ToString());
                         int servoIndex = getServoButtonNumByServoValue(servo, value);
-                        wpConfig.servos[servoIndex - 1] = true;
+                        wpConfig.servos[servoIndex] = true;
                         break;
                     default:
                         break;
