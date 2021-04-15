@@ -8076,17 +8076,27 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             {
                                 for (int i = 0; i < wpConfig.servos.Length; i++) //adding DO_SET_SERVO
                                 {
-                                    if (wpConfig.servos[i])
-                                    {
-                                        DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
-                                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
-                                        row.Cells[Command.Index + 1].Value =
-                                            MainV2.configServo[i + 1].servo; //(i + 5).ToString();
-                                        row.Cells[Command.Index + 2].Value = MainV2.configServo[i + 1].value; //"2000";
-                                        Commands.Rows.Insert(index + 1, row);
-                                        Commands_CellUpdate(index + 1, Command.Index);
-                                    }
+                                /*if (wpConfig.servos[i])
+                                {
+                                    DataGridViewRow row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                                    row.Cells[Command.Index + 1].Value =
+                                        MainV2.configServo[i + 1].servo; //(i + 5).ToString();
+                                    row.Cells[Command.Index + 2].Value = MainV2.configServo[i + 1].value; //"2000";
+                                    Commands.Rows.Insert(index + 1, row);
+                                    Commands_CellUpdate(index + 1, Command.Index);
+                                }*/
+                                if (wpConfig.servos[i])
+                                {
+                                    DataGridViewRow row = (DataGridViewRow)Commands.Rows[index].Clone();
+                                    row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                                    row.Cells[Command.Index + 1].Value =
+                                        MainV2.configServo[i].servo; //(i + 5).ToString();
+                                    row.Cells[Command.Index + 2].Value = MainV2.configServo[i].value; //"2000";
+                                    Commands.Rows.Insert(index + 1, row);
+                                    Commands_CellUpdate(index + 1, Command.Index);
                                 }
+                            }
                             }
                         }
                     }

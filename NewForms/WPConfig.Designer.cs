@@ -72,6 +72,7 @@ namespace MissionPlanner.NewForms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.myButton17 = new MissionPlanner.Controls.MyButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -84,12 +85,12 @@ namespace MissionPlanner.NewForms
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(463, 260);
+            this.tabControl1.Size = new System.Drawing.Size(463, 301);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.tabPage1.Controls.Add(this.lonNotification);
             this.tabPage1.Controls.Add(this.latNotification);
             this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
@@ -172,7 +173,13 @@ namespace MissionPlanner.NewForms
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки", "Точка Rally"});
+            this.comboBox1.Items.AddRange(new object[] {
+            "Точка дом",
+            "Точка взлета",
+            "Маршрутная точка",
+            "Изменение скорости",
+            "Точка посадки",
+            "Точка Rally"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(140, 21);
@@ -231,7 +238,8 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage2.Controls.Add(this.myButton17);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.loiterRadTextBox);
             this.tabPage2.Controls.Add(this.textBox4);
@@ -258,7 +266,7 @@ namespace MissionPlanner.NewForms
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(455, 234);
+            this.tabPage2.Size = new System.Drawing.Size(455, 275);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Дополнительно";
             // 
@@ -282,7 +290,7 @@ namespace MissionPlanner.NewForms
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(240, 207);
+            this.textBox4.Location = new System.Drawing.Point(242, 238);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(184, 20);
             this.textBox4.TabIndex = 29;
@@ -292,7 +300,7 @@ namespace MissionPlanner.NewForms
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(32, 210);
+            this.label9.Location = new System.Drawing.Point(34, 241);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(202, 13);
             this.label9.TabIndex = 28;
@@ -406,7 +414,7 @@ namespace MissionPlanner.NewForms
             // myButton9
             // 
             this.myButton9.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton9.DefaultTheme = false;
             this.myButton9.Location = new System.Drawing.Point(168, 108);
             this.myButton9.Name = "myButton9";
@@ -421,7 +429,7 @@ namespace MissionPlanner.NewForms
             // myButton8
             // 
             this.myButton8.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton8.DefaultTheme = false;
             this.myButton8.Location = new System.Drawing.Point(35, 108);
             this.myButton8.Name = "myButton8";
@@ -447,7 +455,7 @@ namespace MissionPlanner.NewForms
             // myButton7
             // 
             this.myButton7.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton7.DefaultTheme = false;
             this.myButton7.Location = new System.Drawing.Point(366, 56);
             this.myButton7.Name = "myButton7";
@@ -462,7 +470,7 @@ namespace MissionPlanner.NewForms
             // myButton6
             // 
             this.myButton6.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton6.DefaultTheme = false;
             this.myButton6.Location = new System.Drawing.Point(300, 56);
             this.myButton6.Name = "myButton6";
@@ -477,7 +485,7 @@ namespace MissionPlanner.NewForms
             // myButton5
             // 
             this.myButton5.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton5.DefaultTheme = false;
             this.myButton5.Location = new System.Drawing.Point(234, 56);
             this.myButton5.Name = "myButton5";
@@ -492,7 +500,7 @@ namespace MissionPlanner.NewForms
             // myButton4
             // 
             this.myButton4.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(168, 56);
             this.myButton4.Name = "myButton4";
@@ -507,7 +515,7 @@ namespace MissionPlanner.NewForms
             // myButton3
             // 
             this.myButton3.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton3.DefaultTheme = false;
             this.myButton3.Location = new System.Drawing.Point(102, 56);
             this.myButton3.Name = "myButton3";
@@ -522,7 +530,7 @@ namespace MissionPlanner.NewForms
             // myButton2
             // 
             this.myButton2.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton2.DefaultTheme = false;
             this.myButton2.Location = new System.Drawing.Point(35, 56);
             this.myButton2.Name = "myButton2";
@@ -570,10 +578,10 @@ namespace MissionPlanner.NewForms
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.myButton1.DefaultTheme = false;
-            this.myButton1.Location = new System.Drawing.Point(12, 278);
+            this.myButton1.Location = new System.Drawing.Point(12, 319);
             this.myButton1.Name = "myButton1";
             this.myButton1.Outline = System.Drawing.Color.Black;
             this.myButton1.Size = new System.Drawing.Size(463, 23);
@@ -583,15 +591,30 @@ namespace MissionPlanner.NewForms
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
+            // myButton17
+            // 
+            this.myButton17.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton17.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton17.DefaultTheme = false;
+            this.myButton17.Location = new System.Drawing.Point(37, 201);
+            this.myButton17.Name = "myButton17";
+            this.myButton17.Outline = System.Drawing.Color.Black;
+            this.myButton17.Size = new System.Drawing.Size(389, 25);
+            this.myButton17.TabIndex = 32;
+            this.myButton17.Text = "Подвес";
+            this.myButton17.TextColor = System.Drawing.Color.White;
+            this.myButton17.UseVisualStyleBackColor = true;
+            this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp_1);
+            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
-            this.ClientSize = new System.Drawing.Size(479, 313);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.ClientSize = new System.Drawing.Size(479, 354);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.tabControl1);
-            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WPConfig";
@@ -602,6 +625,7 @@ namespace MissionPlanner.NewForms
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Label label4;
@@ -648,5 +672,6 @@ namespace MissionPlanner.NewForms
         private System.Windows.Forms.Label lonNotification;
         private System.Windows.Forms.Label latNotification;
         public TextBox loiterRadTextBox;
+        private Controls.MyButton myButton17;
     }
 }

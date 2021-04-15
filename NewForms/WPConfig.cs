@@ -18,7 +18,7 @@ namespace MissionPlanner.NewForms
     public partial class WPConfig : Form
     {
         public bool closedByButton = false;
-        public bool[] servos = new bool[9];
+        public bool[] servos = new bool[10];
         public UniversalCoordinatsController controller;
         private int originalLoiterRad = -1;
         public WPConfig()
@@ -201,30 +201,32 @@ namespace MissionPlanner.NewForms
 
         public void updateServoButtons()
         {
-            myButton8.BGGradTop = servos[0] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            myButton17.BGGradTop = servos[0] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton9.BGGradTop = servos[1] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+            myButton8.BGGradTop = servos[1] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton9.BGGradTop = servos[2] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
             myButton10.BGGradTop =
-                servos[2] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
-
-            myButton13.BGGradTop =
                 servos[3] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton12.BGGradTop =
+            myButton13.BGGradTop =
                 servos[4] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton11.BGGradTop =
+            myButton12.BGGradTop =
                 servos[5] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton16.BGGradTop =
+            myButton11.BGGradTop =
                 servos[6] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton15.BGGradTop =
+            myButton16.BGGradTop =
                 servos[7] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
-            myButton14.BGGradTop =
+            myButton15.BGGradTop =
                 servos[8] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
+
+            myButton14.BGGradTop =
+                servos[9] ? ColorTranslator.FromHtml("#05FF07") : ColorTranslator.FromHtml("#C4C4C4");
 
             Invalidate();
         }
@@ -237,47 +239,47 @@ namespace MissionPlanner.NewForms
 
         private void myButton8_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(0);
+            updateServoButton(1);
         }
 
         private void myButton9_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(1);
+            updateServoButton(2);
         }
 
         private void myButton10_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(2);
+            updateServoButton(3);
         }
 
         private void myButton13_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(3);
+            updateServoButton(4);
         }
 
         private void myButton12_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(4);
+            updateServoButton(5);
         }
 
         private void myButton11_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(5);
+            updateServoButton(6);
         }
 
         private void myButton16_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(6);
+            updateServoButton(7);
         }
 
         private void myButton15_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(7);
+            updateServoButton(8);
         }
 
         private void myButton14_MouseUp(object sender, MouseEventArgs e)
         {
-            updateServoButton(8);
+            updateServoButton(9);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -508,7 +510,7 @@ namespace MissionPlanner.NewForms
 
         private void myButton17_MouseUp(object sender, MouseEventArgs e)
         {
-            
+            updateServoButton(0);
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -553,6 +555,11 @@ namespace MissionPlanner.NewForms
                 double newLng = (prevCooords[1] * delta + controller.wgs.Lng * (dist - delta)) / dist;
                 controller = new UniversalCoordinatsController(new WGSCoordinats(newLat, newLng));
             }
+        }
+
+        private void myButton17_MouseUp_1(object sender, MouseEventArgs e)
+        {
+            updateServoButton(0);
         }
     }
 }
