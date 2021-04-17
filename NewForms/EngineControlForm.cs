@@ -31,7 +31,7 @@ namespace MissionPlanner.NewForms
         
         public void Init()
         {
-            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
+            //trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
         }
 
         public EngineControlForm()
@@ -266,12 +266,12 @@ namespace MissionPlanner.NewForms
                 ICERunning = false;
                 MainV2.engineController.resetKey();
                 var key = MainV2.engineController.getAccessKeyToEngine();
-                if (!MainV2.engineController.setEngineValue(900f, key))
-                {
-                    CustomMessageBox.Show("Двигатель занят в другом потоке");
-                }
+                //if (!MainV2.engineController.setEngineValue(900f, key))
+                //{
+                //    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                //}
 
-                //MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+                MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
                 timer1.Start();
             }
             catch
@@ -284,13 +284,13 @@ namespace MissionPlanner.NewForms
             try
             {
                 ICERunning = true;
-                MainV2.engineController.resetKey();
-                var key = MainV2.engineController.getAccessKeyToEngine();
-                //var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
-                if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
-                {
-                    CustomMessageBox.Show("Двигатель занят в другом потоке");
-                }
+                //MainV2.engineController.resetKey();
+                // var key = MainV2.engineController.getAccessKeyToEngine();
+                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                //if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
+                //{
+                //    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                //}
             }
             catch 
             {
@@ -330,11 +330,11 @@ namespace MissionPlanner.NewForms
         {
             if (counter==1) 
             {
-                float trim = MainV2.comPort.GetParam("SERVO3_TRIM");
-                if (!MainV2.engineController.setEngineValue(trim, 0))
-                {
-                    CustomMessageBox.Show("Двигатель занят в другом потоке");
-                }
+                //float trim = MainV2.comPort.GetParam("SERVO3_TRIM");
+                //if (!MainV2.engineController.setEngineValue(trim, 0))
+                //{
+                //    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                //}
                 timer1.Stop();
                 counter = 0;
             }

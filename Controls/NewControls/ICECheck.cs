@@ -118,32 +118,44 @@ namespace MissionPlanner.Controls.NewControls
                     }
 
                     counter++;
-                    if (counter < 60 * multy)
+                    for (int k = 0; k < 2; k++)
                     {
-                        if (MainV2.engineController.SetEngineValueAndWait((float) fMax, key))
+                        if (counter < 60 * multy)
                         {
-                            // System.Diagnostics.Debug.WriteLine("key " + key.ToString() );
-                            //CustomMessageBox.Show("Двигатель занят в другом потоке");
-                        }
+                            if ( k == 0)
+                            {
+                                if (MainV2.engineController.SetEngineValueAndWait((float)fMax, key))
+                                {
+                                    // System.Diagnostics.Debug.WriteLine("key " + key.ToString() );
+                                    //CustomMessageBox.Show("Двигатель занят в другом потоке");
+                                }
+                            }
+                            //MainV2.comPort.MAV.cs.ch10out = 2000;
+                            if (testBool)
+                            {
+                                ICESpeeds.Add(13000.0f);
+                            }
 
-                        //MainV2.comPort.MAV.cs.ch10out = 2000;
-                        if (testBool)
-                        {
-                            ICESpeeds.Add(13000.0f);
-                        }
+                            if (!hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 > 7600)
+                            {
+                                hasOverSevenk = true;
+                            }
 
-                        if (!hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 > 7600)
-                        {
-                            hasOverSevenk = true;
-                        }
+                            if (hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 < 7600)
+                            {
+                                tests[0] = false;
+                            }
 
-                        if (hasOverSevenk && MainV2.comPort.MAV.cs.rpm1 < 7600)
-                        {
-                            tests[0] = false;
+                            progressBar1.Value = counter;
+                            if (k == 0)
+                            {
+                                counter++;
+                                float i = MainV2.comPort.MAV.cs.rpm1;
+                                ICESpeeds.Add(i);
+                            }
                         }
-
-                        progressBar1.Value = counter;
                     }
+
 
                     if (counter > 60 * multy && counter < 120 * multy)
                     {

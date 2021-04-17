@@ -75,7 +75,7 @@ namespace MissionPlanner.Controls.NewControls
 
         public void Init()
         {
-            trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
+            //trim3 = MainV2.comPort.GetParam("SERVO3_TRIM");
         }
 
         private void RefreshControl()
@@ -154,10 +154,10 @@ namespace MissionPlanner.Controls.NewControls
                     {
                         engineoffCounter--;
                         //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "SERVO3_MIN", (float)1500);
-                        if (!MainV2.engineController.setEngineValue(trim3, key))
-                        {
-                            //CustomMessageBox.Show("Двигатель занят в другом потоке");
-                        }
+                        //if (!MainV2.engineController.setEngineValue(trim3, key))
+                        //{
+                        //    //CustomMessageBox.Show("Двигатель занят в другом потоке");
+                        //}
                     }
                 }
                 finally
@@ -203,12 +203,12 @@ namespace MissionPlanner.Controls.NewControls
 
         public void StopEngine()
         {
-            if (!MainV2.engineController.setEngineValue(900f, key))
-            {
-                CustomMessageBox.Show("Двигатель занят в другом потоке");
-            }
+            //if (!MainV2.engineController.setEngineValue(900f, key))
+            //{
+            //    CustomMessageBox.Show("Двигатель занят в другом потоке");
+            //}
 
-            //MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+            MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
             if (testMode)
             {
                 startButton.Text = "Запустить";
@@ -230,11 +230,11 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                //var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
-                if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
-                {
-                    CustomMessageBox.Show("Двигатель занят в другом потоке");
-                }
+                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                //if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
+                //{
+                //    CustomMessageBox.Show("Двигатель занят в другом потоке");
+                //}
 
 
                 startButton.Text = "Заглушить";
