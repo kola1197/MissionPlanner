@@ -567,8 +567,10 @@ namespace MissionPlanner.Controls
             }
             else
             {
-                percent = (int) Math.Round(MainV2.comPort.MAV.cs.battery_voltage2 /
+                percent = (int) Math.Round((MainV2.comPort.MAV.cs.battery_voltage2 - splittedBar_fuel.Minimum) /
                     (splittedBar_fuel.Maximum - splittedBar_fuel.Minimum) * 100);
+                //MainV2.instance.Text  = "BUTT VOLTAGE: " + MainV2.comPort.MAV.cs.battery_voltage2.ToString()+ " Min: " + splittedBar_fuel.Minimum.ToString() + "Max: " +  splittedBar_fuel.Maximum.ToString() + " Percent: "                                    + percent.ToString();
+
             }
 
             return Math.Min(Math.Max(percent, 0), 100);
