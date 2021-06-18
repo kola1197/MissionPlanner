@@ -7934,7 +7934,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     index--;
                 }
-
                 Commands.Rows.RemoveAt(index);
             }
 
@@ -8027,9 +8026,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         Commands.Rows[index].Cells[Command.Index].Value =
                                             MAVLink.MAV_CMD.WAYPOINT.ToString();
                                         row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                        DataGridViewRow rowTurnOffThrottle = (DataGridViewRow) Commands.Rows[index].Clone();
+
+                                        
+                                        rowTurnOffThrottle.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_SERVO.ToString();
+                                        rowTurnOffThrottle.Cells[Command.Index + 1].Value = "10";
+                                        rowTurnOffThrottle.Cells[Command.Index + 2].Value = "1000";
+                                        Commands.Rows.Insert(index + 1, rowTurnOffThrottle);
+                                        
                                         row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_PARACHUTE.ToString();
                                         row.Cells[Command.Index + 1].Value = "2";
-                                        Commands.Rows.Insert(index + 1, row);
+                                        Commands.Rows.Insert(index + 2, row);
                                         if (MainV2.CurrentAircraftNum != null &&
                                             MainV2.CurrentAircraft != null &&
                                             MainV2.CurrentAircraft.UsingSitl)
@@ -8038,7 +8045,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                             row1.Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
                                             row1.Cells[Lat.Index].Value = wpConfig.controller.wgs.Lat.ToString();
                                             row1.Cells[Lon.Index].Value = wpConfig.controller.wgs.Lng.ToString();
-                                            Commands.Rows.Insert(index + 2, row1);
+                                            Commands.Rows.Insert(index + 3, row1);
                                         }
 
                                         break;
@@ -8105,8 +8112,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
             }
 
-            // OOPA YAP YAP
-            private void WpConfigAddEvents() //yap, this name is awfull
+            private void WpConfigAddEvents() //yep, this name is awfull
             {
                 wpConfig.FormClosing += WpConfig_FormClosing;
             }
@@ -8170,6 +8176,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
 
                 //writeServosToWPConfig();
+                
                 writeOtherWPtoWPConfig(index);
                 wpConfig.setCoordsMode();
             }
@@ -9329,6 +9336,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     case (ushort) MAVLink.MAV_CMD.DO_PARACHUTE:
                         wpConfig.comboBox1.SelectedIndex = 4;
+                        wpConfig.checkBox2.Checked = false;
                         break;
                     case (ushort) MAVLink.MAV_CMD.DO_CHANGE_SPEED:
                         wpConfig.comboBox1.SelectedIndex = 3;
