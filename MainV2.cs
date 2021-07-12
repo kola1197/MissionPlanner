@@ -5301,9 +5301,8 @@ namespace MissionPlanner
             if (FlightPlanner != null)
             {
                 MakeRightSideMenuTransparent();
-                
+                FlightPlanner.notificationControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-FlightPlanner.notificationControl1.Size.Width/2,FlightPlanner.notificationControl1.Location.Y);
             }
-            FlightPlanner.notificationControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-FlightPlanner.notificationControl1.Size.Width/2,FlightPlanner.notificationControl1.Location.Y);
             //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);
             //1596; 204
             //FlightPlanner.MainMap.Size = new Size(1920, FlightPlanner.MainMap.Size.Height);
