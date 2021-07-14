@@ -2512,7 +2512,7 @@ namespace MissionPlanner
 
                 try
                 {
-                    if (comPort.MAV.cs.battery_voltage2 /
+                    if (( comPort.MAV.cs.battery_voltage2 - CurrentAircraft.MinCapacity) /
                         (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
                         StatusControlPanel._fuelCriticalPercentage / 100 && !StatusControlPanel.IsSitlConnected() ||
                         StatusControlPanel.IsSitlConnected() &&

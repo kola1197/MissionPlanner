@@ -19,7 +19,7 @@ namespace MissionPlanner.Controls
         {
             _mavlink = comPort;
 
-            chk_mavlink2.Checked = _mavlink.MAV.mavlinkv2;
+            chk_mavlink2.Checked = true;//_mavlink.MAV.mavlinkv2;
 
             chk_signing.Checked = _mavlink.MAV.signing;
 
@@ -163,7 +163,7 @@ namespace MissionPlanner.Controls
 
         private void chk_mavlink2_CheckedChanged(object sender, EventArgs e)
         {
-            _mavlink.MAV.mavlinkv2 = chk_mavlink2.Checked;
+            _mavlink.MAV.mavlinkv2 = true;//chk_mavlink2.Checked;
         }
 
         private void chk_signing_CheckedChanged(object sender, EventArgs e)

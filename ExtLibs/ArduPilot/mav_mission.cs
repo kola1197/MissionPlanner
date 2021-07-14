@@ -29,7 +29,7 @@ namespace MissionPlanner.ArduPilot
                 if (!use_supportfence && type == MAVLink.MAV_MISSION_TYPE.FENCE)
                     throw new Exception("Fence mission items not supported, please use legacy geofence");
 
-                if (!use_supportfence && !port.MAVlist[sysid, compid].mavlinkv2 && type != MAVLink.MAV_MISSION_TYPE.MISSION)
+                if (!use_supportfence && (!port.MAVlist[sysid, compid].mavlinkv2 && false) && type != MAVLink.MAV_MISSION_TYPE.MISSION)
                 {
                     throw new Exception("Mission type only supported under mavlink2");
                 }
