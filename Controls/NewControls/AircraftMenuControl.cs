@@ -19,6 +19,7 @@ namespace MissionPlanner.Controls
     {
         public PreFlightForm preFlightForm;
         public static AircraftMenuControl Instance;
+
         public class aircraftButtonInfo
         {
             public MyButton Button { get; set; }
@@ -40,7 +41,7 @@ namespace MissionPlanner.Controls
             aircraft_BUT2.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
             aircraft_BUT3.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
             aircraft_BUT4.DoubleClick += new EventHandler(aircraft_BUT_DoubleClick);
-            
+
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT1, aircraft_BUT1.Text));
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT2, aircraft_BUT2.Text));
             aircraftButtons.Add(new aircraftButtonInfo(aircraft_BUT3, aircraft_BUT3.Text));
@@ -71,15 +72,16 @@ namespace MissionPlanner.Controls
             {
                 return;
             }
-            
+
             if (MainV2.Aircrafts.Count == 0)
             {
                 MainV2.ConnectionsForm.Show();
                 return;
             }
 
-            if (MainV2.Aircrafts.Count > butNum && (MainV2.CurrentAircraft.MenuNum != butNum ||
-                                                    MainV2.CurrentAircraftNum != null && MainV2.AntennaConnectionInfo.Active))
+            if (MainV2.Aircrafts.Count > butNum &&
+                ((MainV2.CurrentAircraft?.MenuNum ?? 10) != butNum ||
+                 MainV2.AntennaConnectionInfo.Active))
             {
                 MainV2.ConnectionsForm.SwitchConnectedAircraft(MainV2.instance.getAircraftByButtonNumber(butNum));
             }
@@ -95,16 +97,21 @@ namespace MissionPlanner.Controls
                 butNum = MainV2.CurrentAircraft.MenuNum;
                 aircraftInAir = MainV2.CurrentAircraft.inAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
-                centerButton.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.nonefon : global::MissionPlanner.Properties.Resources.icons8_cb2;
-                this.BackgroundImage = aircraftInAir ? global::MissionPlanner.Properties.Resources.group_red1 : global::MissionPlanner.Properties.Resources.group_green11;
+                centerButton.BackgroundImage = aircraftInAir
+                    ? global::MissionPlanner.Properties.Resources.nonefon
+                    : global::MissionPlanner.Properties.Resources.icons8_cb2;
+                this.BackgroundImage = aircraftInAir
+                    ? global::MissionPlanner.Properties.Resources.group_red1
+                    : global::MissionPlanner.Properties.Resources.group_green11;
             }
-            else 
+            else
             {
                 //centerButton.Image = global::MissionPlanner.Properties.Resources.testCenterUnactive;
                 centerButton.BackgroundImage = global::MissionPlanner.Properties.Resources.nonefon;
                 this.BackgroundImage = global::MissionPlanner.Properties.Resources.Group_6_140;
             }
-            switch (butNum) 
+
+            switch (butNum)
             {
                 case 0:
                     //centerButton.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipNone);
@@ -122,22 +129,24 @@ namespace MissionPlanner.Controls
                     //centerButton.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
                     this.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipX);
                     break;
-                default: 
+                default:
                     break;
             }
+
             //centerButton.Text = butNum.ToString();
-            paintButtons(butNum); 
-            
+            paintButtons(butNum);
         }
 
-        public void paintButtons(int activeButton) 
+        public void paintButtons(int activeButton)
         {
-            for (int i =0;i<4;i++) 
+            for (int i = 0; i < 4; i++)
             {
-                
-                aircraftButtons[i].Button.BGGradBot = activeButton == i ? ColorTranslator.FromHtml("#cde296") : ColorTranslator.FromHtml("#cde296");
-                aircraftButtons[i].Button.BGGradTop = activeButton == i ? ColorTranslator.FromHtml("#174708") : ColorTranslator.FromHtml("#94c11f");
-                
+                aircraftButtons[i].Button.BGGradBot = activeButton == i
+                    ? ColorTranslator.FromHtml("#cde296")
+                    : ColorTranslator.FromHtml("#cde296");
+                aircraftButtons[i].Button.BGGradTop = activeButton == i
+                    ? ColorTranslator.FromHtml("#174708")
+                    : ColorTranslator.FromHtml("#94c11f");
             }
         }
 
@@ -147,6 +156,7 @@ namespace MissionPlanner.Controls
             {
                 return;
             }
+
             aircraftButtons[butNum].DefaultText = defaultText;
         }
 
@@ -156,6 +166,7 @@ namespace MissionPlanner.Controls
             {
                 return;
             }
+
             aircraftButtons[butNum].Button.Text = aircraftButtons[butNum].DefaultText;
         }
 
@@ -176,10 +187,12 @@ namespace MissionPlanner.Controls
         {
             butClickAction(1);
         }
+
         private void aircraft_BUT3_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(2);
         }
+
         private void aircraft_BUT4_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             butClickAction(3);
@@ -215,13 +228,12 @@ namespace MissionPlanner.Controls
             }
 
             aircraftButtons[currentAircraft.MenuNum].Button.Text =
-                aircraftButtons[currentAircraft.MenuNum].DefaultText + " | " 
+                aircraftButtons[currentAircraft.MenuNum].DefaultText + " | "
                                                                      + MainV2.comPort.MAV.cs.linkqualitygcs + "%";
         }
-        
+
         private void aircraft_BUT1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void aircraft_BUT1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -238,7 +250,6 @@ namespace MissionPlanner.Controls
 
         private void aircraft_BUT2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void aircraft_BUT2_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -278,7 +289,7 @@ namespace MissionPlanner.Controls
         {
             timer1.Enabled = true;
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateConnectionQualityText();

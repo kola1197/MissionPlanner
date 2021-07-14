@@ -360,17 +360,33 @@ namespace MissionPlanner
                 CloseComPort();
 
                 selectedAircraft.Connected = false;
+                connect_BUT.Text = connectText;
+
                 selectedAircraft.SysId = null;
                 MainV2.CurrentAircraftNum = null;
                 MainV2.StopUpdates();
                 MainV2.AircraftMenuControl.updateAllAircraftButtonTexts();
-
-                connect_BUT.Text = connectText;
+                
             }
             catch
             {
             }
         }
+
+        // private bool TryGetFirstConnectedAircraft(ref AircraftConnectionInfo aircraft)
+        // {
+        //     aircraft = null;
+        //     foreach (var kvpConnection in MainV2.Aircrafts)
+        //     {
+        //         if (kvpConnection.Value.Connected)
+        //         {
+        //             aircraft = kvpConnection.Value;
+        //             return true;
+        //         }
+        //     }
+        //
+        //     return false;
+        // }
 
         private void connect_BUT_Click(object sender, EventArgs e)
         {
