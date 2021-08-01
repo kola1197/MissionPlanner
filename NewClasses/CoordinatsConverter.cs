@@ -426,10 +426,14 @@ namespace MissionPlanner.NewClasses
             double lat = WGS84_SK42_Lat(LatWGS, LonWGS, alt);
             double lon = WGS84_SK42_Long(LatWGS, LonWGS, alt);
             string result = "";
+            lon = lon >= 0 ? lon : 360 + lon;
+            var nzone = Math.Ceiling(lon / 6);
+            //lon = Math.Abs(lon);
+
+            
             var latrad = Math.PI * lat / 180;
             var lonrad = Math.PI * lon / 180;
 
-            var nzone = Math.Ceiling(lon / 6);
             var lonaxis = 6 * nzone - 3;
             var l = Math.PI * (lon - lonaxis) / 180;
 
