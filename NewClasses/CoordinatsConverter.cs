@@ -170,6 +170,7 @@ namespace MissionPlanner.NewClasses
             SK42Coordinats s = toSK42();
             double _lat = s.Lat;
             double _lon = s.Lng;
+            _lon = _lon >= 0 ? _lon : _lon + 360;
 
             var _latrad = Math.PI * _lat / 180;
             var _lonrad = Math.PI * _lon / 180;
@@ -227,7 +228,8 @@ namespace MissionPlanner.NewClasses
         {
             double _lat = Lat;
             double _lon = Lng;
-
+            _lon = _lon >= 0 ? _lon : _lon + 360;
+            
             var _latrad = Math.PI * _lat / 180;
             var _lonrad = Math.PI * _lon / 180;
 
