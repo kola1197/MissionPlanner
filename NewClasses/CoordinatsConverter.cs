@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -307,6 +308,9 @@ namespace MissionPlanner.NewClasses
             var l = (1 - (b3 - b5 * z * z) * z * z) * z * rho;
             var phi = phixsec - (1 - (b4 - 0.12 * z * z) * z * z) * z * z * b2 * rho;
             var lambda = zoneaxis + (l / 3600);
+            lambda = lambda > 180 ? lambda - 360 : lambda;
+            //lambda = lambda > 90 ? lambda - 90 : lambda;
+
             SK42Coordinats result = new SK42Coordinats(phi / 3600, lambda);
             return result;
         }
@@ -486,6 +490,7 @@ namespace MissionPlanner.NewClasses
             var l = (1 - (b3 - b5 * z * z) * z * z) * z * rho;
             var phi = phixsec - (1 - (b4 - 0.12 * z * z) * z * z) * z * z * b2 * rho;
             var lambda = zoneaxis + (l / 3600);
+            lambda = lambda > 180 ? lambda - 360 : lambda;
             result = (phi / 3600).ToString() + ", " + lambda.ToString();
             return result;
         }

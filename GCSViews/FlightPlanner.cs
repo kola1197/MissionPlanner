@@ -724,7 +724,7 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
 
-                    List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid,
+                    /*List<Locationwp> cmds = mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid,
                         MainV2.comPort.MAV.compid,
                         MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
 
@@ -733,7 +733,7 @@ namespace MissionPlanner.GCSViews
                         rallyWp = cmds[1];
                     }
 
-                    writeKML();
+                    writeKML();*/
                 }
 
                 IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
@@ -753,6 +753,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
+                CustomMessageBox.Show("При считывании точек с борта произошла ошибка!!!");
             }
         }
 
@@ -853,139 +854,146 @@ namespace MissionPlanner.GCSViews
             }
 
             //frmProgressReporter.Dispose();
-            new Thread(delegate()
+            Task.Run(() =>
             {
+                TryWriteWpTask(home);
+            });
+            MainMap.Focus();
+        }
+
+        private void TryWriteWpTask(Locationwp home)
+        {
+            try
+            {
+                MAVLinkInterface port = MainV2.comPort;
+
+                if (!port.BaseStream.IsOpen)
+                {
+                    throw new Exception("Please connect first!");
+                }
+
+                int a = 0;
+
+                // define the home point
+                Locationwp home1 = new Locationwp();
                 try
                 {
-                    MAVLinkInterface port = MainV2.comPort;
+                    home1.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
+                    home1.id = (ushort) MAVLink.MAV_CMD.WAYPOINT;
+                    home1.lat = (double.Parse(TXT_homelat.Text));
+                    home1.lng = (double.Parse(TXT_homelng.Text));
+                    home1.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
+                }
+                catch
+                {
+                    throw new Exception("Your home location is invalid");
+                }
 
-                    if (!port.BaseStream.IsOpen)
+                // log
+                log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
+                log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
+
+                var type = (MAVLink.MAV_MISSION_TYPE) Invoke((Func<MAVLink.MAV_MISSION_TYPE>) delegate
+                {
+                    return (MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue;
+                });
+
+                // get the command list from the datagrid
+                var commandlist = GetCommandList();
+
+                if (type == MAVLink.MAV_MISSION_TYPE.MISSION &&
+                    MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
+                    commandlist.Insert(0, home);
+
+                // fence does not use alt, and needs to be global
+                if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
+                {
+                    commandlist = commandlist.Select((fp) =>
                     {
-                        throw new Exception("Please connect first!");
-                    }
+                        fp.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
+                        return fp;
+                    }).ToList();
+                }
 
-                    int a = 0;
+                if (wpLoadingActive == 2)
+                {
+                    type = MAVLink.MAV_MISSION_TYPE.RALLY;
+                }
 
-                    // define the home point
-                    Locationwp home1 = new Locationwp();
-                    try
+                if (wpLoadingActive != 2)
+                {
+                    Task.Run(async () =>
                     {
-                        home1.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
-                        home1.id = (ushort) MAVLink.MAV_CMD.WAYPOINT;
-                        home1.lat = (double.Parse(TXT_homelat.Text));
-                        home1.lng = (double.Parse(TXT_homelng.Text));
-                        home1.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
-                    }
-                    catch
-                    {
-                        throw new Exception("Your home location is invalid");
-                    }
-
-                    // log
-                    log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
-                    log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
-
-                    var type = (MAVLink.MAV_MISSION_TYPE) Invoke((Func<MAVLink.MAV_MISSION_TYPE>) delegate
-                    {
-                        return (MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue;
-                    });
-
-                    // get the command list from the datagrid
-                    var commandlist = GetCommandList();
-
-                    if (type == MAVLink.MAV_MISSION_TYPE.MISSION &&
-                        MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
-                        commandlist.Insert(0, home);
-
-                    // fence does not use alt, and needs to be global
-                    if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
-                    {
-                        commandlist = commandlist.Select((fp) =>
-                        {
-                            fp.frame = (byte) MAVLink.MAV_FRAME.GLOBAL;
-                            return fp;
-                        }).ToList();
-                    }
-
-                    if (wpLoadingActive == 2)
-                    {
-                        type = MAVLink.MAV_MISSION_TYPE.RALLY;
-                    }
-
-                    if (wpLoadingActive != 2)
-                    {
-                        Task.Run(async () =>
-                        {
-                            await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid,
-                                MainV2.comPort.MAV.compid,
-                                type,
-                                commandlist,
-                                (percent, status) =>
+                        await mav_mission.upload(MainV2.comPort, MainV2.comPort.MAV.sysid,
+                            MainV2.comPort.MAV.compid,
+                            type,
+                            commandlist,
+                            (percent, status) =>
+                            {
+                                if (false)
                                 {
-                                    if (false)
-                                    {
-                                        //sender.doWorkArgs.CancelAcknowledged = true;
-                                        //sender.doWorkArgs.ErrorMessage = "User Canceled";
-                                        //throw new Exception("User Canceled");
-                                    }
+                                    //sender.doWorkArgs.CancelAcknowledged = true;
+                                    //sender.doWorkArgs.ErrorMessage = "User Canceled";
+                                    //throw new Exception("User Canceled");
+                                }
 
-                                    CountOfLoadedWP = percent;
-                                    //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
-                                }).ConfigureAwait(false);
+                                CountOfLoadedWP = percent;
+                                //sender.UpdateProgressAndStatus((int) (percent * 0.95), status);
+                            }).ConfigureAwait(false);
 
+                        try
+                        {
+                            await MainV2.comPort.getHomePositionAsync((byte) MainV2.comPort.sysidcurrent,
+                                (byte) MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                        }
+                        catch (Exception ex2)
+                        {
+                            log.Error(ex2);
                             try
                             {
-                                await MainV2.comPort.getHomePositionAsync((byte) MainV2.comPort.sysidcurrent,
-                                    (byte) MainV2.comPort.compidcurrent).ConfigureAwait(false);
+                                MainV2.comPort.getWP((byte) MainV2.comPort.sysidcurrent,
+                                    (byte) MainV2.comPort.compidcurrent, 0);
                             }
-                            catch (Exception ex2)
+                            catch (Exception ex3)
                             {
-                                log.Error(ex2);
-                                try
-                                {
-                                    MainV2.comPort.getWP((byte) MainV2.comPort.sysidcurrent,
-                                        (byte) MainV2.comPort.compidcurrent, 0);
-                                }
-                                catch (Exception ex3)
-                                {
-                                    log.Error(ex3);
-                                }
-                            }
-                        }).GetAwaiter().GetResult();
-                    }
-                    else
-                    {
-                        byte count = 0;
-
-                        //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,"RALLY_TOTAL", rallypointoverlay.Markers.Count);
-                        MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
-                            "RALLY_TOTAL", 0);
-                        if (rallyWp.lng != 0 || rallyWp.lat != 0)
-                        {
-                            MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent,
-                                (byte) MainV2.comPort.compidcurrent, "RALLY_TOTAL", 3);
-                            // TODO: may be array of raly points?
-                            try
-                            {
-                                MainV2.comPort.setRallyPoint(count,
-                                    new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
-                                    (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
-                                count++;
-                                MainV2.comPort.setRallyPoint(count,
-                                    new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
-                                    (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
-                                count++;
-                                MainV2.comPort.setRallyPoint(count,
-                                    new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
-                                    (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
-                            }
-                            catch (Exception e)
-                            {
-                                CustomMessageBox.Show("Failed to write rally point \n " + e.Message, Strings.ERROR);
-                                return;
+                                log.Error(ex3);
                             }
                         }
-                        /*foreach (GMapMarkerRallyPt pnt in rallypointoverlay.Markers)
+                    }).GetAwaiter().GetResult();
+                }
+                else
+                {
+                    byte count = 0;
+
+                    //MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,"RALLY_TOTAL", rallypointoverlay.Markers.Count);
+                    MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                        "RALLY_TOTAL", 0);
+                    if (rallyWp.lng != 0 || rallyWp.lat != 0)
+                    {
+                        MainV2.comPort.setParam((byte) MainV2.comPort.sysidcurrent,
+                            (byte) MainV2.comPort.compidcurrent, "RALLY_TOTAL", 3);
+                        // TODO: may be array of raly points?
+                        try
+                        {
+                            MainV2.comPort.setRallyPoint(count,
+                                new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
+                                (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                            count++;
+                            MainV2.comPort.setRallyPoint(count,
+                                new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
+                                (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                            count++;
+                            MainV2.comPort.setRallyPoint(count,
+                                new PointLatLngAlt(rallyWp.lat, rallyWp.lng) {Alt = rallyWp.alt}, 0, 0, 0,
+                                (byte) (float) MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                        }
+                        catch (Exception e)
+                        {
+                            CustomMessageBox.Show("Failed to write rally point \n " + e.Message, Strings.ERROR);
+                            return;
+                        }
+                    }
+                    /*foreach (GMapMarkerRallyPt pnt in rallypointoverlay.Markers)
                         {
                             try
                             {
@@ -1001,7 +1009,7 @@ namespace MissionPlanner.GCSViews
                         }*/
 
 
-                        /*System.Diagnostics.Debug.WriteLine("##############################################  Rally write");
+                    /*System.Diagnostics.Debug.WriteLine("##############################################  Rally write");
                         List<Locationwp> commandlist1 = new List<Locationwp>();
                         if (rallyWp.lat != 0)
                         {
@@ -1044,52 +1052,51 @@ namespace MissionPlanner.GCSViews
                                 }
                             }
                         }).GetAwaiter().GetResult();*/
-                    }
-                    //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
-
-                    // m
-                    port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
-
-                    // cm's
-                    port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
-
-                    try
-                    {
-                        port.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
-                            float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
-                    }
-                    catch
-                    {
-                    }
-
-                    //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
                 }
-                catch (Exception ex)
+                //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
+
+                // m
+                port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
+
+                // cm's
+                port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
+
+                try
                 {
-                    log.Error(ex);
-                    CustomMessageBox.Show("Не удалось считать или записать все параметры. Превышено время ожидания ответа","Ошибка загрузки точек");
-                    //throw;
+                    port.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
+                        float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
                 }
-
-                Debug.WriteLine("###################### WP Loaded ########################");
-
-
-                if (wpLoadingActive == 2)
+                catch
                 {
-                    wpLoadingActive = 0;
-                    wpLoadMutexBusy = false;
-                }
-                else
-                {
-                    wpLoadingActive = 2;
-                    needToLoadWP = true;
-                    wpLoadMutexBusy = false;
                 }
 
-                setWpLoadingStatus(true);
-                MainV2.comPort.giveComport = false;
-            }).Start();
-            MainMap.Focus();
+                //((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                CustomMessageBox.Show("Не удалось считать или записать все параметры. Превышено время ожидания ответа",
+                    "Ошибка загрузки точек");
+                //throw;
+            }
+
+            Debug.WriteLine("###################### WP Loaded ########################");
+
+
+            if (wpLoadingActive == 2)
+            {
+                wpLoadingActive = 0;
+                wpLoadMutexBusy = false;
+            }
+            else
+            {
+                wpLoadingActive = 2;
+                needToLoadWP = true;
+                wpLoadMutexBusy = false;
+            }
+
+            setWpLoadingStatus(true);
+            MainV2.comPort.giveComport = false;
         }
 
         /// <summary>
