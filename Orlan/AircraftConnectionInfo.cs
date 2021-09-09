@@ -20,7 +20,7 @@ namespace MissionPlanner
 
         private bool _notSerialConnection = true;
 
-        private bool _usingAntenna = true;
+        private bool _usingAntenna = false;
 
         private bool _usingSitl = false;
         
@@ -132,7 +132,7 @@ namespace MissionPlanner
         public AircraftConnectionInfo()
         {
             (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
-                ("", "", "115200", null, false, false, true);
+                ("", "", "115200", null, false, false, false);
             _menuNum = _aircraftCounter;
             _aircraftCounter++;
         }
@@ -140,7 +140,7 @@ namespace MissionPlanner
         public AircraftConnectionInfo(int menuNum)
         {
             (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
-                ("", "", "115200", null, false, false, true);
+                ("", "", "115200", null, false, false, false);
             _menuNum = menuNum;
         }
 
