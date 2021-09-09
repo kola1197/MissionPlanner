@@ -2162,6 +2162,33 @@ namespace MissionPlanner
 
         void paramsButtonClick(object sender, EventArgs e)
         {
+            // if (Settings.Instance.GetBoolean("password_protect") == false)
+            // {
+            //     MyView.ShowScreen("HWConfig");
+            // }
+            // else
+            // {
+            //     var pw = "";
+            //     if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
+            //         DialogResult.OK)
+            //     {
+            //         byte[] ans1 = Password.GenerateSaltedHash(UTF8Encoding.UTF8.GetBytes(pw), new byte[] {(byte) 'M', (byte) 'P'});
+            //         CustomMessageBox.Show(ans1.ToString(),ans1.ToString());
+            //         System.Diagnostics.Debug.WriteLine(ans1.ToString());
+            //
+            //       bool ans = Password.ValidatePassword(pw);
+            //
+            //         if (ans == false)
+            //         {
+            //             CustomMessageBox.Show("Bad Password", "Bad Password");
+            //         }
+            //     }
+            //
+            //     if (Password.VerifyPassword(pw))
+            //     {
+            //         MyView.ShowScreen("HWConfig");
+            //     }
+            // }
             MyView.ShowScreen("HWConfig");
         }
 
@@ -2307,6 +2334,17 @@ namespace MissionPlanner
         {
             alarmLabelTextCheck();
 
+            if (needToCheckFBWBTurnedOff)
+            {
+                if (comPort.MAV.cs.mode == "FBWB")
+                {
+                    MainV2.comPort.setMode("AUTO");
+                   // CustomMessageBox.Show("trying to turn fbwb off");
+                }
+                {
+                    needToCheckFBWBTurnedOff = false;
+                }
+            }
 
             if (centering > 0)
             {
@@ -2403,6 +2441,8 @@ namespace MissionPlanner
                 //FlightPlanner.rulerControl1.Location = new Point(FlightPlanner.MainMap.Size.Width - FlightPlanner.rulerControl1.Size.Width-5,FlightPlanner.MainMap.Size.Height - FlightPlanner.rulerControl1.Size.Height-5 );
                 //FlightPlanner.MainMap.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.MainMap.Size.Height);
             }
+
+            
         }
 
         public static List<string> prevNotifications = new List<string>();
@@ -5460,7 +5500,7 @@ namespace MissionPlanner
              int[] overrides = {1500, 1500, 1500, 1500};
  
  
-             if (keyData == (Keys.Control | Keys.ControlKey))
+             if (keyData == (Keys.Control | Keys.ControlKeyve))
              {
                  manualFlightMode = true;
                  //CustomMessageBox.Show("CTRL!!!");
@@ -5823,26 +5863,30 @@ namespace MissionPlanner
         public static bool EngineOverrideTestFlag = false;
         public ushort EngineChannelOverride = 1500;
         public static DateTime _lastEngineOverrideTime = DateTime.Now;
-
+        private static bool needToCheckFBWBTurnedOff = false;
+        
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
             if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
+                if (comPort.MAV.cs.mode != "FBWB" & !_overrideModeActive)
+                {
+                    return;
+                }
+
                 System.Diagnostics.Debug.WriteLine("SMTH is RELEASED");
 
                 Keys keyData = e.KeyData;
 
                 if (keyData == (Keys.ControlKey))
                 {
+                    needToCheckFBWBTurnedOff = true;
                     logger.write("Ручное управление завершено");
                     ctrlModeDebuglabel.Text = "";
                     System.Diagnostics.Debug.WriteLine("CTRL is RELEASED");
                     _overrideModeActive = false;
                     _isThrottleOverrideReturnNeeded = true;
-                    if (comPort.MAV.cs.mode != "Auto")
-                    {
-                        MainV2.comPort.setMode("AUTO");
-                    }
+                    MainV2.comPort.setMode("AUTO");
                 }
 
                 if (keyData == (Keys.Control | Keys.Left))

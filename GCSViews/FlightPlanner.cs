@@ -848,11 +848,11 @@ namespace MissionPlanner.GCSViews
             //ThemeManager.ApplyThemeTo(frmProgressReporter);
 
             //frmProgressReporter.RunBackgroundOperationAsync();
-            if (wpLoadingActive != 2)
+            /*if (wpLoadingActive != 2)
             {
                 wpLoadingActive = 1;
-            }
-
+            }*/
+            wpLoadingActive = 1;
             //frmProgressReporter.Dispose();
             Task.Run(() =>
             {
@@ -915,12 +915,12 @@ namespace MissionPlanner.GCSViews
                     }).ToList();
                 }
 
-                if (wpLoadingActive == 2)
+               /* if (wpLoadingActive == 2)
                 {
                     type = MAVLink.MAV_MISSION_TYPE.RALLY;
-                }
+                }*/
 
-                if (wpLoadingActive != 2)
+                if (true)//wpLoadingActive != 2)
                 {
                     Task.Run(async () =>
                     {
@@ -1082,8 +1082,9 @@ namespace MissionPlanner.GCSViews
 
             Debug.WriteLine("###################### WP Loaded ########################");
 
-
-            if (wpLoadingActive == 2)
+            wpLoadingActive = 0;
+            wpLoadMutexBusy = false;
+            /*if (wpLoadingActive == 2)
             {
                 wpLoadingActive = 0;
                 wpLoadMutexBusy = false;
@@ -1093,7 +1094,7 @@ namespace MissionPlanner.GCSViews
                 wpLoadingActive = 2;
                 needToLoadWP = true;
                 wpLoadMutexBusy = false;
-            }
+            }*/
 
             setWpLoadingStatus(true);
             MainV2.comPort.giveComport = false;
@@ -4731,7 +4732,7 @@ namespace MissionPlanner.GCSViews
                     sender.UpdateProgressAndStatus(percent, status);
                 }).ConfigureAwait(false)).Result;
             WPtoScreen(cmds);
-            type = MAVLink.MAV_MISSION_TYPE.RALLY;
+            /*type = MAVLink.MAV_MISSION_TYPE.RALLY;
             cmds.Clear();
             cmds = Task.Run(async () => await mav_mission.download(MainV2.comPort,
                 MainV2.comPort.MAV.sysid,
@@ -4751,7 +4752,7 @@ namespace MissionPlanner.GCSViews
             if (cmds.Count > 0)
             {
                 rallyWp = cmds[0];
-            }
+            }*/
         }
 
         public void insertSplineWPToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9526,7 +9527,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                 }
             }
-
             needToLoadWP = true;
         }
 

@@ -41,6 +41,43 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void Activate()
         {
+            if (Settings.Instance.GetBoolean("password_protect") == false && false)
+            {
+                ShowParamList();
+            }
+            else
+            {
+                var pw = "";
+                if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
+                    DialogResult.OK)
+                {
+                    //byte[] ans1 = Password.GenerateSaltedHash(UTF8Encoding.UTF8.GetBytes(pw), new byte[] {(byte) 'M', (byte) 'P'});
+                    //byte[] ans1 = Password.GenerateSaltedHash(UTF8Encoding.UTF8.GetBytes(pw), new byte[] {(byte) 'M', (byte) 'P'});
+                    //String pass = System.Text.Encoding.UTF8.GetString(ans1);
+                    //CustomMessageBox.Show(pass,pass);
+                    //System.Diagnostics.Debug.WriteLine(ans1.ToString());
+                    
+                    //CustomMessageBox.Show(ans1.ToString(),ans1.ToString());
+                    //System.Diagnostics.Debug.WriteLine(ans1.ToString());
+
+                    bool ans = Password.ValidatePassword(pw);
+            
+                    if (ans == false)
+                    {
+                        CustomMessageBox.Show("Bad Password", "Bad Password");
+                    }
+                }
+            
+                if (Password.VerifyPassword(pw))
+                {
+                    ShowParamList();
+       
+                }
+            }
+        }
+
+        private void ShowParamList()
+        {
             startup = true;
 
             _changes.Clear();
@@ -60,7 +97,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 if (!String.IsNullOrEmpty(Settings.Instance["rawparam_" + col.Name + "_widthpercent"]))
                 {
-                    col.Width = (int)((Math.Max(5, Settings.Instance.GetInt32("rawparam_" + col.Name + "_widthpercent")) / 100.0) * Params.Width);
+                    col.Width = (int) ((Math.Max(5, Settings.Instance.GetInt32("rawparam_" + col.Name + "_widthpercent")) /
+                                        100.0) * Params.Width);
                     log.InfoFormat("{0} to {1}", col.Name, col.Width);
                 }
             }
@@ -75,6 +113,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             txt_search.Focus();
         }
+
 
         public void Deactivate()
         {

@@ -6,6 +6,7 @@ using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Utilities;
 using System;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MissionPlanner.GCSViews
@@ -137,6 +138,39 @@ namespace MissionPlanner.GCSViews
 
                 if (MainV2.DisplayConfiguration.displayFullParamList)
                 {
+                    // if (Settings.Instance.GetBoolean("password_protect") == false && false)
+                    // {
+                    //     if(!MainV2.comPort.BaseStream.IsOpen || gotAllParams)
+                    //         AddBackstageViewPage(typeof(ConfigRawParams), Strings.FullParameterList, null, true);
+                    // }
+                    // else
+                    // {
+                    //     var pw = "";
+                    //     if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
+                    //         DialogResult.OK)
+                    //     {
+                    //         byte[] ans1 = Password.GenerateSaltedHash(UTF8Encoding.UTF8.GetBytes(pw), new byte[] {(byte) 'M', (byte) 'P'});
+                    //         String pass = System.Text.Encoding.Default.GetString(ans1);
+                    //         CustomMessageBox.Show(pass,pass);
+                    //         System.Diagnostics.Debug.WriteLine(ans1.ToString());
+                    //
+                    //         bool ans = Password.ValidatePassword(pw);
+                    //
+                    //         if (ans == false)
+                    //         {
+                    //             CustomMessageBox.Show("Bad Password", "Bad Password");
+                    //         }
+                    //     }
+                    //
+                    //     if (Password.VerifyPassword(pw))
+                    //     {
+                    //         if(!MainV2.comPort.BaseStream.IsOpen || gotAllParams)
+                    //             AddBackstageViewPage(typeof(ConfigRawParams), Strings.FullParameterList, null, true);
+                    //         
+                    //     }
+                    // }
+                    
+                    
                     if(!MainV2.comPort.BaseStream.IsOpen || gotAllParams)
                         AddBackstageViewPage(typeof(ConfigRawParams), Strings.FullParameterList, null, true);
                 }

@@ -276,7 +276,18 @@ namespace MissionPlanner
             WebRequest.DefaultWebProxy = WebRequest.GetSystemWebProxy();
             WebRequest.DefaultWebProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
 
-            if (name == "VVVVZ")
+           /* if (name == "VVVVZ" || true)
+            {
+                // set pw
+                Settings.Instance["password"] = "hui";
+                Settings.Instance["password_protect"] = "True";
+                // prevent wizard
+                Settings.Instance["newuser"] = "11/02/2014";
+                // invalidate update url
+                System.Configuration.ConfigurationManager.AppSettings["UpdateLocationVersion"] = "";
+            }*/
+            
+            if (name == "VVVVZ" )
             {
                 // set pw
                 Settings.Instance["password"] = "viDQSk/lmA2qEE8GA7SIHqu0RG2hpkH973MPpYO87CI=";

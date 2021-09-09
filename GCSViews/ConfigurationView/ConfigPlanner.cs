@@ -787,7 +787,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 return;
 
             Settings.Instance["password_protect"] = CHK_Password.Checked.ToString();
-            if (CHK_Password.Checked)
+            if (CHK_Password.Checked || true)
             {
                 // keep this one local
                 string pw = "";

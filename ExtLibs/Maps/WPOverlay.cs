@@ -122,7 +122,8 @@ namespace MissionPlanner.ArduPilot
                                 item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
                                 (a + 1).ToString())
                             {
-                                color = Color.LightBlue
+                                color = Color.Purple
+                                //color = Color.LightBlue
                             });
 
                             // exit at tangent
@@ -155,7 +156,7 @@ namespace MissionPlanner.ArduPilot
                                 fullpointlist.Add(pointlist[pointlist.Count - 1]);
 
                             addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                                item.alt * altunitmultiplier, Color.LightBlue, loiterradius);
+                                item.alt * altunitmultiplier, Color.Purple, loiterradius);
                         }
                     }
                     else if (command == (ushort)MAVLink.MAV_CMD.SPLINE_WAYPOINT)
