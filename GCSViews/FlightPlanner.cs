@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.DirectoryServices.Protocols;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
@@ -1460,6 +1461,18 @@ namespace MissionPlanner.GCSViews
             double x, double y,
             double z, object tag = null)
         {
+            int prevMPCommandsCount = Commands.Rows.Count;
+            int currentMPCommand = (int) MainV2.comPort.MAV.cs.wpno;
+            int currentOurCommand = getWPSerialNumber(currentMPCommand);
+            //int noo = 0;
+            bool needToChangeCurrentWP = false;
+            //int.TryParse(tagForContextMenu.ToString(), out noo);
+            if (currentMPCommand >= rowIndex)
+            {
+                needToChangeCurrentWP = true;
+            }
+            
+            
             if (Commands.Rows.Count <= rowIndex)
             {
                 AddCommand(cmd, p1, p2, p3, p4, x, y, z, tag);
@@ -1473,6 +1486,13 @@ namespace MissionPlanner.GCSViews
             FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
 
             writeKML();
+            tryToWriteWP();
+            
+            int currentMPCoemmandsCount = Commands.Rows.Count;
+            if (needToChangeCurrentWP)
+            {
+                setNewCurrentPoint(prevMPCommandsCount, currentMPCoemmandsCount, currentMPCommand);
+            }
         }
 
         public void readQGC110wpfile(string file, bool append = false)
@@ -3786,9 +3806,8 @@ namespace MissionPlanner.GCSViews
             for (; a <= (startangle + 360) && a >= 0; a += step)
             {
                 selectedrow = Commands.Rows.Add();
-
+             
                 Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
                 float d = Radius;
@@ -3870,6 +3889,17 @@ namespace MissionPlanner.GCSViews
 
         public void deleteWPToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            int prevMPCommandsCount = Commands.Rows.Count;
+            int currentMPCommand = (int) MainV2.comPort.MAV.cs.wpno;
+            int currentOurCommand = getWPSerialNumber(currentMPCommand);
+            int noo = 0;
+            bool needToChangeCurrentWP = false;
+            int.TryParse(tagForContextMenu.ToString(), out noo);
+            if (currentMPCommand > noo)
+            {
+                needToChangeCurrentWP = true;
+            }
+
             HidePopUpInfo();
             if (CurrentRallyPt != null)
             {
@@ -3950,10 +3980,45 @@ namespace MissionPlanner.GCSViews
                     groupmarkers.Clear();
                 }
             }
+            
+            int currentMPCoemmandsCount = Commands.Rows.Count;
+            if (needToChangeCurrentWP)
+            {
+                setNewCurrentPoint(prevMPCommandsCount, currentMPCoemmandsCount, currentMPCommand);
+            }
+            /*if (MainV2.MAV.)
+            {
+                setNewCurrentPoint(prevMPCommandsCount, currentMPCoemmandsCount);
+            }*/
+
+            //CustomMessageBox.Show("Was "+prevMPCommandsCount.ToString()+" points, now "+currentMPCoemmandsCount.ToString(), "Points");
+        }
+
+        private static int needToSetCurrentWP = 0;   // 1 - send wp, 0 - do nothing, >1 do --
+        private static int newCurrentWP = 1;
+        private void setNewCurrentPoint(int prevMPCommandsCount, int currentMPCommandsCount, int vpNo)
+        {
+            //Thread.Sleep(5000);
+            //while (wpLoadMutexBusy)
+            //{
+            //    Thread.Sleep(100);
+            //}
+            //GoToThisPoint(vpNo - (prevMPCommandsCount - currentMPCommandsCount));
+            //writeKML();
+            //tryToWriteWP();
+            needToSetCurrentWP = 5;
+            newCurrentWP = vpNo - (prevMPCommandsCount - currentMPCommandsCount);
+            /*GoToThisPoint(vpNo - (prevMPCommandsCount - currentMPCommandsCount));
+            writeKML();
+            tryToWriteWP();*/
+            CustomMessageBox.Show("Was "+prevMPCommandsCount.ToString()+" points, now "+currentMPCommandsCount.ToString()+"\n"+
+                " CurrentWP was "+vpNo+" now - "+(vpNo - (prevMPCommandsCount - currentMPCommandsCount)).ToString(), "Points");
+
         }
 
         public void deleteWPToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //int currentMPCoemmandsCount = Commands.Rows.Count;
             int no = 0;
             if (CurentRectMarker != null)
             {
@@ -4805,6 +4870,7 @@ namespace MissionPlanner.GCSViews
                 }
 
                 selectedrow = int.Parse(wpno);
+               
 
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
@@ -7128,6 +7194,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     writeWPToPlane();
                 }
 
+                if (needToSetCurrentWP > 0)
+                {
+                    if (needToSetCurrentWP == 1)
+                    {
+                        GoToThisPoint(newCurrentWP);
+                        writeKML();
+                        tryToWriteWP();
+                    }
+                    needToSetCurrentWP--;
+                }
+
                 if (wpLoadingActive != 0)
                 {
                     wpMenu1.progressBar1.Value = CountOfLoadedWP;
@@ -7937,12 +8014,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             private void deletePoint(int index)
             {
+                //int prevMPCommandsCount = Commands.Rows.Count;
                 cleanToNextWP(index);
                 if (cleanToPrevWP(index))
                 {
                     index--;
                 }
                 Commands.Rows.RemoveAt(index);
+                //int currentMPCoemmandsCount = Commands.Rows.Count;
+                //CustomMessageBox.Show("Points", "Was " +prevMPCommandsCount.ToString()+" points, now "+currentMPCoemmandsCount.ToString());
+
             }
 
             private void WpConfig_FormClosing(object sender, FormClosingEventArgs e)
@@ -8341,7 +8422,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             // redrawPolygonSurvey(DrawingPolygon.Points.Select(a => new PointLatLngAlt(a)).ToList());
 
                             /// Inserting Region Marker in the middle of region's side
-
                             if (currentMarker.Overlay == RegionsOverlay)
                             {
                                 if (GetCurrentPolygon() == null)
@@ -8390,6 +8470,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 else if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue ==
                                          MAVLink.MAV_MISSION_TYPE.MISSION)
                                 {
+                                    //CustomMessageBox.Show("HUI","HUI");
                                     InsertCommand(pnt2 - 1, MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0,
                                         CurrentMidLine.Position.Lng,
                                         CurrentMidLine.Position.Lat, float.Parse(TXT_DefaultAlt.Text));
@@ -9316,6 +9397,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 landWP = ushort.Parse(tag.ToString());
                 MainV2.setCurrentWP(ushort.Parse(tag.ToString()));
+                //CustomMessageBox.Show("tag - " + tag.ToString(),"tag - " + tag.ToString());
             }
         }
 
