@@ -22,8 +22,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -74,11 +74,11 @@
             this.compassDeviceInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.but_missing = new MissionPlanner.Controls.MyButton();
             this.groupBoxonboardcalib.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.myDataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.compassDeviceInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.myDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.compassDeviceInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -86,10 +86,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(438, 13);
+            this.label1.Size = new System.Drawing.Size(354, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Set the Compass Priority by reordering the compasses in the table below (Highest " +
-    "at the top)\r\n";
+            this.label1.Text = "Выберите приоритет компасов, перемещая их выше/ниже в списке";
             // 
             // label6
             // 
@@ -99,12 +98,11 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(583, 22);
             this.label6.TabIndex = 80;
-            this.label6.Text = "Compass Priority";
+            this.label6.Text = "Калибровка компаса";
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Location = new System.Drawing.Point(-1, 18);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(1197, 10);
@@ -134,7 +132,7 @@
             this.groupBoxonboardcalib.Size = new System.Drawing.Size(600, 162);
             this.groupBoxonboardcalib.TabIndex = 81;
             this.groupBoxonboardcalib.TabStop = false;
-            this.groupBoxonboardcalib.Text = "Onboard Mag Calibration";
+            this.groupBoxonboardcalib.Text = "Калибровка компаса";
             // 
             // pictureBox3
             // 
@@ -166,28 +164,28 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(203, 139);
+            this.label2.Location = new System.Drawing.Point(269, 139);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 13);
+            this.label2.Size = new System.Drawing.Size(303, 13);
             this.label2.TabIndex = 17;
-            this.label2.Text = "Relax fitness if calibration fails";
+            this.label2.Text = "Понизьте точность если калибровка не проходит";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(7, 139);
+            this.label10.Location = new System.Drawing.Point(0, 139);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 13);
+            this.label10.Size = new System.Drawing.Size(117, 13);
             this.label10.TabIndex = 16;
-            this.label10.Text = "Fitness";
+            this.label10.Text = "Точность калибровки";
             // 
             // mavlinkComboBoxfitness
             // 
             this.mavlinkComboBoxfitness.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mavlinkComboBoxfitness.Enabled = false;
             this.mavlinkComboBoxfitness.FormattingEnabled = true;
-            this.mavlinkComboBoxfitness.Location = new System.Drawing.Point(57, 135);
+            this.mavlinkComboBoxfitness.Location = new System.Drawing.Point(123, 135);
             this.mavlinkComboBoxfitness.Name = "mavlinkComboBoxfitness";
             this.mavlinkComboBoxfitness.ParamName = null;
             this.mavlinkComboBoxfitness.Size = new System.Drawing.Size(140, 21);
@@ -198,31 +196,31 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(6, 117);
+            this.label9.Location = new System.Drawing.Point(0, 117);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 13);
+            this.label9.Size = new System.Drawing.Size(55, 13);
             this.label9.TabIndex = 14;
-            this.label9.Text = "Mag 3";
+            this.label9.Text = "Компас 3";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(6, 88);
+            this.label8.Location = new System.Drawing.Point(0, 88);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 13;
-            this.label8.Text = "Mag 2";
+            this.label8.Text = "Компас 2";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(6, 59);
+            this.label7.Location = new System.Drawing.Point(0, 59);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Mag 1";
+            this.label7.Text = "Компас 1";
             // 
             // horizontalProgressBar3
             // 
@@ -273,36 +271,42 @@
             // 
             // BUT_OBmagcalaccept
             // 
+            this.BUT_OBmagcalaccept.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_OBmagcalaccept.BGGradTop = System.Drawing.Color.Empty;
             this.BUT_OBmagcalaccept.Enabled = false;
             this.BUT_OBmagcalaccept.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BUT_OBmagcalaccept.Location = new System.Drawing.Point(125, 20);
             this.BUT_OBmagcalaccept.Name = "BUT_OBmagcalaccept";
             this.BUT_OBmagcalaccept.Size = new System.Drawing.Size(75, 23);
             this.BUT_OBmagcalaccept.TabIndex = 1;
-            this.BUT_OBmagcalaccept.Text = "Accept";
+            this.BUT_OBmagcalaccept.Text = "Принять как есть";
             this.BUT_OBmagcalaccept.UseVisualStyleBackColor = true;
             this.BUT_OBmagcalaccept.Click += new System.EventHandler(this.BUT_OBmagcalaccept_Click);
             // 
             // BUT_OBmagcalcancel
             // 
+            this.BUT_OBmagcalcancel.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_OBmagcalcancel.BGGradTop = System.Drawing.Color.Empty;
             this.BUT_OBmagcalcancel.Enabled = false;
             this.BUT_OBmagcalcancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BUT_OBmagcalcancel.Location = new System.Drawing.Point(206, 20);
             this.BUT_OBmagcalcancel.Name = "BUT_OBmagcalcancel";
             this.BUT_OBmagcalcancel.Size = new System.Drawing.Size(75, 23);
             this.BUT_OBmagcalcancel.TabIndex = 2;
-            this.BUT_OBmagcalcancel.Text = "Cancel";
+            this.BUT_OBmagcalcancel.Text = "Отменить";
             this.BUT_OBmagcalcancel.UseVisualStyleBackColor = true;
             this.BUT_OBmagcalcancel.Click += new System.EventHandler(this.BUT_OBmagcalcancel_Click);
             // 
             // BUT_OBmagcalstart
             // 
+            this.BUT_OBmagcalstart.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_OBmagcalstart.BGGradTop = System.Drawing.Color.Empty;
             this.BUT_OBmagcalstart.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BUT_OBmagcalstart.Location = new System.Drawing.Point(44, 20);
             this.BUT_OBmagcalstart.Name = "BUT_OBmagcalstart";
             this.BUT_OBmagcalstart.Size = new System.Drawing.Size(75, 23);
             this.BUT_OBmagcalstart.TabIndex = 0;
-            this.BUT_OBmagcalstart.Text = "Start";
+            this.BUT_OBmagcalstart.Text = "Начать";
             this.BUT_OBmagcalstart.UseVisualStyleBackColor = true;
             this.BUT_OBmagcalstart.Click += new System.EventHandler(this.BUT_OBmagcalstart_Click);
             // 
@@ -315,12 +319,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(0, 261);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(255, 13);
+            this.label3.Size = new System.Drawing.Size(122, 13);
             this.label3.TabIndex = 85;
-            this.label3.Text = "Do you want to disable any of the first 3 compasses?";
+            this.label3.Text = "Отключение компасов";
             // 
             // but_largemagcal
             // 
+            this.but_largemagcal.BGGradBot = System.Drawing.Color.Empty;
+            this.but_largemagcal.BGGradTop = System.Drawing.Color.Empty;
             this.but_largemagcal.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.but_largemagcal.Location = new System.Drawing.Point(3, 523);
             this.but_largemagcal.Name = "but_largemagcal";
@@ -335,17 +341,19 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(0, 339);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(281, 13);
+            this.label4.Size = new System.Drawing.Size(266, 13);
             this.label4.TabIndex = 86;
-            this.label4.Text = "A mag calibration is required to remap the above changes.";
+            this.label4.Text = "При внесении изменения перекалибруйте компас!";
             // 
             // but_reboot
             // 
+            this.but_reboot.BGGradBot = System.Drawing.Color.Empty;
+            this.but_reboot.BGGradTop = System.Drawing.Color.Empty;
             this.but_reboot.Location = new System.Drawing.Point(3, 313);
             this.but_reboot.Name = "but_reboot";
-            this.but_reboot.Size = new System.Drawing.Size(75, 23);
+            this.but_reboot.Size = new System.Drawing.Size(152, 23);
             this.but_reboot.TabIndex = 88;
-            this.but_reboot.Text = "Reboot";
+            this.but_reboot.Text = "Перезагрузить автопилот";
             this.but_reboot.UseVisualStyleBackColor = true;
             this.but_reboot.Click += new System.EventHandler(this.but_reboot_Click);
             // 
@@ -354,50 +362,50 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(0, 297);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(203, 13);
+            this.label5.Size = new System.Drawing.Size(326, 13);
             this.label5.TabIndex = 89;
-            this.label5.Text = "A reboot is required to adjust the ordering.\r\n";
+            this.label5.Text = "Для внесения изменений требуется перезагрузка автопилота";
             // 
             // mavlinkCheckBoxUseCompass3
             // 
             this.mavlinkCheckBoxUseCompass3.AutoSize = true;
             this.mavlinkCheckBoxUseCompass3.Enabled = false;
-            this.mavlinkCheckBoxUseCompass3.Location = new System.Drawing.Point(215, 277);
+            this.mavlinkCheckBoxUseCompass3.Location = new System.Drawing.Point(316, 277);
             this.mavlinkCheckBoxUseCompass3.Name = "mavlinkCheckBoxUseCompass3";
             this.mavlinkCheckBoxUseCompass3.OffValue = 0D;
             this.mavlinkCheckBoxUseCompass3.OnValue = 1D;
             this.mavlinkCheckBoxUseCompass3.ParamName = null;
-            this.mavlinkCheckBoxUseCompass3.Size = new System.Drawing.Size(100, 17);
+            this.mavlinkCheckBoxUseCompass3.Size = new System.Drawing.Size(149, 17);
             this.mavlinkCheckBoxUseCompass3.TabIndex = 83;
-            this.mavlinkCheckBoxUseCompass3.Text = "Use Compass 3";
+            this.mavlinkCheckBoxUseCompass3.Text = "Использовать компас 3";
             this.mavlinkCheckBoxUseCompass3.UseVisualStyleBackColor = true;
             // 
             // mavlinkCheckBoxUseCompass2
             // 
             this.mavlinkCheckBoxUseCompass2.AutoSize = true;
             this.mavlinkCheckBoxUseCompass2.Enabled = false;
-            this.mavlinkCheckBoxUseCompass2.Location = new System.Drawing.Point(109, 277);
+            this.mavlinkCheckBoxUseCompass2.Location = new System.Drawing.Point(161, 277);
             this.mavlinkCheckBoxUseCompass2.Name = "mavlinkCheckBoxUseCompass2";
             this.mavlinkCheckBoxUseCompass2.OffValue = 0D;
             this.mavlinkCheckBoxUseCompass2.OnValue = 1D;
             this.mavlinkCheckBoxUseCompass2.ParamName = null;
-            this.mavlinkCheckBoxUseCompass2.Size = new System.Drawing.Size(100, 17);
+            this.mavlinkCheckBoxUseCompass2.Size = new System.Drawing.Size(149, 17);
             this.mavlinkCheckBoxUseCompass2.TabIndex = 84;
-            this.mavlinkCheckBoxUseCompass2.Text = "Use Compass 2";
+            this.mavlinkCheckBoxUseCompass2.Text = "Использовать компас 2";
             this.mavlinkCheckBoxUseCompass2.UseVisualStyleBackColor = true;
             // 
             // CHK_compass_learn
             // 
             this.CHK_compass_learn.AutoSize = true;
             this.CHK_compass_learn.Enabled = false;
-            this.CHK_compass_learn.Location = new System.Drawing.Point(414, 277);
+            this.CHK_compass_learn.Location = new System.Drawing.Point(421, 300);
             this.CHK_compass_learn.Name = "CHK_compass_learn";
             this.CHK_compass_learn.OffValue = 0D;
             this.CHK_compass_learn.OnValue = 1D;
             this.CHK_compass_learn.ParamName = null;
-            this.CHK_compass_learn.Size = new System.Drawing.Size(148, 17);
+            this.CHK_compass_learn.Size = new System.Drawing.Size(257, 17);
             this.CHK_compass_learn.TabIndex = 87;
-            this.CHK_compass_learn.Text = "Automatically learn offsets";
+            this.CHK_compass_learn.Text = "Калибровка в полете, НЕ РЕКОМЕНДУЕТСЯ";
             this.CHK_compass_learn.UseVisualStyleBackColor = true;
             // 
             // mavlinkCheckBoxUseCompass1
@@ -409,31 +417,19 @@
             this.mavlinkCheckBoxUseCompass1.OffValue = 0D;
             this.mavlinkCheckBoxUseCompass1.OnValue = 1D;
             this.mavlinkCheckBoxUseCompass1.ParamName = null;
-            this.mavlinkCheckBoxUseCompass1.Size = new System.Drawing.Size(100, 17);
+            this.mavlinkCheckBoxUseCompass1.Size = new System.Drawing.Size(152, 17);
             this.mavlinkCheckBoxUseCompass1.TabIndex = 82;
-            this.mavlinkCheckBoxUseCompass1.Text = "Use Compass 1";
+            this.mavlinkCheckBoxUseCompass1.Text = "Использовать компас  1";
             this.mavlinkCheckBoxUseCompass1.UseVisualStyleBackColor = true;
             // 
             // myDataGridView1
             // 
             this.myDataGridView1.AllowUserToAddRows = false;
             this.myDataGridView1.AllowUserToDeleteRows = false;
-            this.myDataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.myDataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.myDataGridView1.AutoGenerateColumns = false;
             this.myDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.myDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Priority,
-            this.devIDDataGridViewTextBoxColumn,
-            this.busTypeDataGridViewTextBoxColumn,
-            this.busDataGridViewTextBoxColumn,
-            this.addressDataGridViewTextBoxColumn,
-            this.devTypeDataGridViewTextBoxColumn,
-            this.Missing,
-            this.External,
-            this.Orientation,
-            this.Up,
-            this.Down});
+            this.myDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Priority, this.devIDDataGridViewTextBoxColumn, this.busTypeDataGridViewTextBoxColumn, this.busDataGridViewTextBoxColumn, this.addressDataGridViewTextBoxColumn, this.devTypeDataGridViewTextBoxColumn, this.Missing, this.External, this.Orientation, this.Up, this.Down});
             this.myDataGridView1.DataSource = this.compassDeviceInfoBindingSource;
             this.myDataGridView1.Location = new System.Drawing.Point(3, 49);
             this.myDataGridView1.MultiSelect = false;
@@ -540,11 +536,13 @@
             // 
             // but_missing
             // 
-            this.but_missing.Location = new System.Drawing.Point(321, 271);
+            this.but_missing.BGGradBot = System.Drawing.Color.Empty;
+            this.but_missing.BGGradTop = System.Drawing.Color.Empty;
+            this.but_missing.Location = new System.Drawing.Point(485, 271);
             this.but_missing.Name = "but_missing";
-            this.but_missing.Size = new System.Drawing.Size(75, 23);
+            this.but_missing.Size = new System.Drawing.Size(190, 23);
             this.but_missing.TabIndex = 90;
-            this.but_missing.Text = "Remove Missing";
+            this.but_missing.Text = "Убрать неактивные";
             this.but_missing.UseVisualStyleBackColor = true;
             this.but_missing.Click += new System.EventHandler(this.but_missing_ClickAsync);
             // 
@@ -571,14 +569,13 @@
             this.Size = new System.Drawing.Size(678, 582);
             this.groupBoxonboardcalib.ResumeLayout(false);
             this.groupBoxonboardcalib.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.myDataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.compassDeviceInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.myDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.compassDeviceInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

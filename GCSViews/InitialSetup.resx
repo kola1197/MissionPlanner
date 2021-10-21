@@ -670,7 +670,7 @@
     <value>17</value>
   </data>
   <data name="backstageViewPagemand.Text" xml:space="preserve">
-    <value>Mandatory Hardware</value>
+    <value>Основное оборудование</value>
   </data>
   <data name="backstageViewPagemand.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

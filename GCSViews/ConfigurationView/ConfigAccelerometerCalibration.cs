@@ -89,14 +89,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 UpdateUserMessage(message);
 
-                if (message.ToLower().Contains("calibration successful") ||
-                 message.ToLower().Contains("calibration failed"))
+                if (message.ToLower().Contains("calibration successful") || message.ToLower().Contains("culibration failed"))
                 {
                     try
                     {
                         Invoke((MethodInvoker)delegate
                         {
-                            BUT_calib_accell.Text = Strings.Done;
+                            BUT_calib_accell.Text = "Калибровка успешна";//Strings.Done;
                             BUT_calib_accell.Enabled = false;
                         });
 
@@ -116,8 +115,39 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (message.command == (ushort)MAVLink.MAV_CMD.ACCELCAL_VEHICLE_POS)
                 {
                     MAVLink.ACCELCAL_VEHICLE_POS pos = (MAVLink.ACCELCAL_VEHICLE_POS)message.param1;
+                   /* LEVEL – «горизонтально, отсек парашюта внизу»
+                    LEFT – «на левый борт»
+                    RIGHT – «на правый борт»
+                    NOSEUP – «на кок, хвостовой балкой вверх»
+                    NOSEDOWN – «на хвостовую балку, коком вверх»
+                    BACK – «горизонтально, отсек парашюта вверху»*/
 
-                    UpdateUserMessage("Please place vehicle " + pos.ToString());
+                    String s = "";
+                    if (pos.ToString().ToLower().Contains("level"))
+                    {
+                        s = "горизонтально, отсек парашюта внизу";
+                    }
+                    if (pos.ToString().ToLower().Contains("left"))
+                    {
+                        s = "горизонтально, отсек парашюта внизу";
+                    }
+                    if (pos.ToString().ToLower().Contains("right"))
+                    {
+                        s = "на правый борт";
+                    }
+                    if (pos.ToString().ToLower().Contains("noseup"))
+                    {
+                        s = "на кок, хвостовой балкой вверх";
+                    }
+                    if (pos.ToString().ToLower().Contains("nosedown"))
+                    {
+                        s = "на хвостовую балку, коком вверх";
+                    }
+                    if (pos.ToString().ToLower().Contains("back"))
+                    {
+                        s = "горизонтально, отсек парашюта вверху";
+                    }
+                    UpdateUserMessage("Установите БЛА " + s);
                 }
             }
 
@@ -128,7 +158,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             Invoke((MethodInvoker)delegate
            {
-               if (message.ToLower().Contains("place vehicle") || message.ToLower().Contains("calibration"))
+               if (true || message.ToLower().Contains("Please place vehicle") || message.ToLower().Contains("calibration"))
                    lbl_Accel_user.Text = message;
            });
         }
@@ -141,7 +171,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
                     MAVLink.MAV_CMD.PREFLIGHT_CALIBRATION, 0, 0, 0, 0, 2, 0, 0))
                 {
-                    BUT_level.Text = Strings.Completed;
+                    BUT_level.Text = "Калибровка успешна"; //Strings.Completed;
                 }
                 else
                 {

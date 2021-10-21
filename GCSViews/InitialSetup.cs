@@ -189,39 +189,39 @@ namespace MissionPlanner.GCSViews
 
             if (MainV2.DisplayConfiguration.displayAccelCalibration)
             {
-                AddBackstageViewPage(typeof(ConfigAccelerometerCalibration), rm.GetString("backstageViewPageaccel.Text"), isConnected && gotAllParams, mand);
+                AddBackstageViewPage(typeof(ConfigAccelerometerCalibration), "Калибровка уровня",/*rm.GetString("backstageViewPageaccel.Text"),*/ isConnected && gotAllParams, mand);
             }
 
             if (MainV2.DisplayConfiguration.displayCompassConfiguration)
             {
                 if (MainV2.comPort.MAV.param.ContainsKey("COMPASS_PRIO1_ID"))
-                    AddBackstageViewPage(typeof(ConfigHWCompass2), rm.GetString("backstageViewPagecompass.Text"),
+                    AddBackstageViewPage(typeof(ConfigHWCompass2),"Калибровка компаса", //rm.GetString("backstageViewPagecompass.Text"),
                         isConnected && gotAllParams, mand);
                 else
-                    AddBackstageViewPage(typeof(ConfigHWCompass), rm.GetString("backstageViewPagecompass.Text"),
+                    AddBackstageViewPage(typeof(ConfigHWCompass), "Калибровка компаса", //rm.GetString("backstageViewPagecompass.Text"),
                         isConnected && gotAllParams, mand);
             }
 
             if (MainV2.DisplayConfiguration.displayRadioCalibration)
             {
-                AddBackstageViewPage(typeof(ConfigRadioInput), rm.GetString("backstageViewPageradio.Text"), isConnected && gotAllParams, mand);
-                AddBackstageViewPage(typeof(ConfigRadioOutput), "Servo Output", isConnected && gotAllParams, mand);
+                AddBackstageViewPage(typeof(ConfigRadioInput), "Каналы управления"/*rm.GetString("backstageViewPageradio.Text")*/, isConnected && gotAllParams, mand);
+                AddBackstageViewPage(typeof(ConfigRadioOutput), "Настройка сервомашинок", isConnected && gotAllParams, mand);
 
             }
-            if (MainV2.DisplayConfiguration.displayEscCalibration)
-            {
-                AddBackstageViewPage(typeof(ConfigESCCalibration), "ESC Calibration", isConnected && gotAllParams, mand);
-            }
-            if (MainV2.DisplayConfiguration.displayFlightModes)
-            {
-                AddBackstageViewPage(typeof(ConfigFlightModes), rm.GetString("backstageViewPageflmode.Text"), isConnected && gotAllParams, mand);
-            }
-            if (MainV2.DisplayConfiguration.displayFailSafe)
-            {
-                AddBackstageViewPage(typeof(ConfigFailSafe), rm.GetString("backstageViewPagefs.Text"), isConnected && gotAllParams, mand);
-            }
+            // if (MainV2.DisplayConfiguration.displayEscCalibration)
+            // {
+            //     AddBackstageViewPage(typeof(ConfigESCCalibration), "ESC Calibration", isConnected && gotAllParams, mand);
+            // }
+            // if (MainV2.DisplayConfiguration.displayFlightModes)
+            // {
+            //     AddBackstageViewPage(typeof(ConfigFlightModes), rm.GetString("backstageViewPageflmode.Text"), isConnected && gotAllParams, mand);
+            // }
+            // if (MainV2.DisplayConfiguration.displayFailSafe)
+            // {
+            //     AddBackstageViewPage(typeof(ConfigFailSafe), rm.GetString("backstageViewPagefs.Text"), isConnected && gotAllParams, mand);
+            // }
 
-            AddBackstageViewPage(typeof(ConfigHWIDs), "HW ID", isConnected && gotAllParams, mand);
+            AddBackstageViewPage(typeof(ConfigHWIDs), "Список оборудования", isConnected && gotAllParams, mand);
 
             /*var opt = AddBackstageViewPage(typeof(ConfigOptional), rm.GetString("backstageViewPageopt.Text"));
             AddBackstageViewPage(typeof(ConfigSerialInjectGPS), "RTK/GPS Inject", true, opt);
@@ -302,13 +302,13 @@ namespace MissionPlanner.GCSViews
             */
             if (MainV2.DisplayConfiguration.isAdvancedMode)
             {
-                var adv = AddBackstageViewPage(typeof(ConfigAdvanced), "Advanced");
+                var adv = AddBackstageViewPage(typeof(ConfigAdvanced), "Дополнительно");
 
-                AddBackstageViewPage(typeof(GCSViews.ConfigTerminal), "Terminal", true, adv);
+                //AddBackstageViewPage(typeof(GCSViews.ConfigTerminal), "Terminal", true, adv);
 
-                AddBackstageViewPage(typeof(ConfigREPL), "Script REPL", isConnected, adv);
+                //AddBackstageViewPage(typeof(ConfigREPL), "Script REPL", isConnected, adv);
 
-                AddBackstageViewPage(typeof(ConfigServoGimbal), "Servo Config", true, adv);
+                AddBackstageViewPage(typeof(ConfigServoGimbal), "Настройка управления нагрузками", true, adv);
 
             }
 

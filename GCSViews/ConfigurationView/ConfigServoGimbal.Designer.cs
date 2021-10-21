@@ -101,12 +101,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(184, 18);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.label1.Location = new System.Drawing.Point(140, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 26);
+            this.label1.Size = new System.Drawing.Size(400, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Настройки SERVO";
+            this.label1.Text = "Настройка управления нагрузками";
             // 
             // label2
             // 
@@ -308,7 +308,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.saveButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.saveButton.BGGradTop = System.Drawing.Color.Transparent;
             this.saveButton.DefaultTheme = false;
             this.saveButton.Location = new System.Drawing.Point(140, 415);
@@ -749,7 +749,6 @@
             this.Size = new System.Drawing.Size(718, 451);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.ComboBox comboBox1;

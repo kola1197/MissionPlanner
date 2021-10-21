@@ -24,8 +24,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -58,6 +58,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             // 
             // BUT_calib_accell
             // 
+            this.BUT_calib_accell.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_calib_accell.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_calib_accell, "BUT_calib_accell");
             this.BUT_calib_accell.Name = "BUT_calib_accell";
             this.BUT_calib_accell.UseVisualStyleBackColor = true;
@@ -75,6 +77,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             // 
             // BUT_level
             // 
+            this.BUT_level.BGGradBot = System.Drawing.Color.Empty;
+            this.BUT_level.BGGradTop = System.Drawing.Color.Empty;
             resources.ApplyResources(this.BUT_level, "BUT_level");
             this.BUT_level.Name = "BUT_level";
             this.BUT_level.UseVisualStyleBackColor = true;
@@ -98,7 +102,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

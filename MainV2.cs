@@ -27,6 +27,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net.Sockets;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -2601,11 +2602,13 @@ namespace MissionPlanner
                     }
                 }
 
+                bool hasNewErrors = false;
                 foreach (var v in warnings)
                 {
                     if (!prevWarnings.Contains(v))
                     {
                         logger.write(v);
+                        hasNewErrors = true;
                     }
                 }
                 foreach (var v in notifications)
@@ -2613,12 +2616,17 @@ namespace MissionPlanner
                     if (!prevNotifications.Contains(v))
                     {
                         logger.write(v);
+                        hasNewErrors = true;
                     }
                 }
-                
+
+                if (hasNewErrors)
+                {
+                    makeErrorSound();
+                }
 
 
-                    if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
+                if (warnings.Count > 0 /*&& MainV2.AircraftInfo[MainV2.CurrentAircraftNum].inAir*/)
                 {
                     label1.BackColor = Color.DarkRed;
                     progressBar1.ValueColor = Color.Red;
@@ -2665,6 +2673,15 @@ namespace MissionPlanner
                 prevWarnings.Add(warnings[i]);
             }
 
+        }
+
+        void makeErrorSound()
+        {
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            //player.SoundLocation = "E:\\test.wav";
+            SystemSounds.Hand.Play();
+            //player.SoundLocation = "D:\\test.wav";
+            //player.Play();
         }
 
         /// <summary>

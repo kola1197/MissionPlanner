@@ -4011,8 +4011,8 @@ namespace MissionPlanner.GCSViews
             /*GoToThisPoint(vpNo - (prevMPCommandsCount - currentMPCommandsCount));
             writeKML();
             tryToWriteWP();*/
-            CustomMessageBox.Show("Was "+prevMPCommandsCount.ToString()+" points, now "+currentMPCommandsCount.ToString()+"\n"+
-                " CurrentWP was "+vpNo+" now - "+(vpNo - (prevMPCommandsCount - currentMPCommandsCount)).ToString(), "Points");
+            //CustomMessageBox.Show("Was "+prevMPCommandsCount.ToString()+" points, now "+currentMPCommandsCount.ToString()+"\n"+
+            //    " CurrentWP was "+vpNo+" now - "+(vpNo - (prevMPCommandsCount - currentMPCommandsCount)).ToString(), "Points");
 
         }
 

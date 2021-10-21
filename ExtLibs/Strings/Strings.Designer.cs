@@ -64,8 +64,10 @@ namespace MissionPlanner {
         ///   Looks up a localized string similar to Advanced Params.
         /// </summary>
         public static string AdvancedParams {
-            get {
-                return ResourceManager.GetString("AdvancedParams", resourceCulture);
+            get
+            {
+                return "Дополнительно";
+                //return ResourceManager.GetString("AdvancedParams", resourceCulture);
             }
         }
         
@@ -362,8 +364,10 @@ namespace MissionPlanner {
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         public static string Completed {
-            get {
-                return ResourceManager.GetString("Completed", resourceCulture);
+            get
+            {
+                return "Успешно";
+                //return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
@@ -770,8 +774,10 @@ namespace MissionPlanner {
         ///   Looks up a localized string similar to Full Parameter List.
         /// </summary>
         public static string FullParameterList {
-            get {
-                return ResourceManager.GetString("FullParameterList", resourceCulture);
+            get
+            {
+                return "Параметры автопилота";
+                //return ResourceManager.GetString("FullParameterList", resourceCulture);
             }
         }
         

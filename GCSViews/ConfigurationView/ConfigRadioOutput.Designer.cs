@@ -25,6 +25,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             base.Dispose(disposing);
         }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -95,31 +100,31 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.max8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // rev1
@@ -128,19 +133,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev1.Enabled = false;
             this.rev1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev1.Location = new System.Drawing.Point(226, 23);
+            this.rev1.Location = new System.Drawing.Point(192, 23);
             this.rev1.Name = "rev1";
             this.rev1.OffValue = 0D;
             this.rev1.OnValue = 1D;
             this.rev1.ParamName = null;
-            this.rev1.Size = new System.Drawing.Size(51, 34);
+            this.rev1.Size = new System.Drawing.Size(85, 34);
             this.rev1.TabIndex = 123;
             this.rev1.UseVisualStyleBackColor = true;
             // 
             // BAR1
             // 
-            this.BAR1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR1.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR1.BorderColor = System.Drawing.Color.Empty;
             this.BAR1.DisplayScale = 1F;
@@ -152,7 +156,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR1.Minimum = 800;
             this.BAR1.minline = 0;
             this.BAR1.Name = "BAR1";
-            this.BAR1.Size = new System.Drawing.Size(197, 21);
+            this.BAR1.Size = new System.Drawing.Size(163, 21);
             this.BAR1.TabIndex = 122;
             this.BAR1.Value = 1500;
             this.BAR1.ValueColor = System.Drawing.Color.Empty;
@@ -161,8 +165,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             // 
             this.tableLayoutPanel1.ColumnCount = 7;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
@@ -521,45 +525,45 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(493, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 13);
+            this.label6.Size = new System.Drawing.Size(37, 13);
             this.label6.TabIndex = 152;
-            this.label6.Text = "Max";
+            this.label6.Text = "Макс.";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(433, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 13);
+            this.label5.Size = new System.Drawing.Size(50, 20);
             this.label5.TabIndex = 151;
-            this.label5.Text = "Trim";
+            this.label5.Text = "Нейтраль";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(373, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 13);
+            this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 150;
-            this.label4.Text = "Min";
+            this.label4.Text = "Мин.";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(283, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 149;
-            this.label3.Text = "Function";
+            this.label3.Text = "Функция";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(226, 0);
+            this.label2.Location = new System.Drawing.Point(192, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 148;
-            this.label2.Text = "Reverse";
+            this.label2.Text = "Инвертировать";
             // 
             // rev3
             // 
@@ -567,19 +571,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev3.Enabled = false;
             this.rev3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev3.Location = new System.Drawing.Point(226, 103);
+            this.rev3.Location = new System.Drawing.Point(192, 103);
             this.rev3.Name = "rev3";
             this.rev3.OffValue = 0D;
             this.rev3.OnValue = 1D;
             this.rev3.ParamName = null;
-            this.rev3.Size = new System.Drawing.Size(51, 34);
+            this.rev3.Size = new System.Drawing.Size(85, 34);
             this.rev3.TabIndex = 133;
             this.rev3.UseVisualStyleBackColor = true;
             // 
             // BAR2
             // 
-            this.BAR2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR2.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR2.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR2.BorderColor = System.Drawing.Color.Empty;
             this.BAR2.DisplayScale = 1F;
@@ -591,7 +594,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR2.Minimum = 800;
             this.BAR2.minline = 0;
             this.BAR2.Name = "BAR2";
-            this.BAR2.Size = new System.Drawing.Size(197, 21);
+            this.BAR2.Size = new System.Drawing.Size(163, 21);
             this.BAR2.TabIndex = 124;
             this.BAR2.Value = 1500;
             this.BAR2.ValueColor = System.Drawing.Color.Empty;
@@ -602,19 +605,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev2.Enabled = false;
             this.rev2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev2.Location = new System.Drawing.Point(226, 63);
+            this.rev2.Location = new System.Drawing.Point(192, 63);
             this.rev2.Name = "rev2";
             this.rev2.OffValue = 0D;
             this.rev2.OnValue = 1D;
             this.rev2.ParamName = null;
-            this.rev2.Size = new System.Drawing.Size(51, 34);
+            this.rev2.Size = new System.Drawing.Size(85, 34);
             this.rev2.TabIndex = 132;
             this.rev2.UseVisualStyleBackColor = true;
             // 
             // BAR3
             // 
-            this.BAR3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR3.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR3.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR3.BorderColor = System.Drawing.Color.Empty;
             this.BAR3.DisplayScale = 1F;
@@ -626,15 +628,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR3.Minimum = 800;
             this.BAR3.minline = 0;
             this.BAR3.Name = "BAR3";
-            this.BAR3.Size = new System.Drawing.Size(197, 21);
+            this.BAR3.Size = new System.Drawing.Size(163, 21);
             this.BAR3.TabIndex = 128;
             this.BAR3.Value = 1500;
             this.BAR3.ValueColor = System.Drawing.Color.Empty;
             // 
             // BAR4
             // 
-            this.BAR4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR4.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR4.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR4.BorderColor = System.Drawing.Color.Empty;
             this.BAR4.DisplayScale = 1F;
@@ -646,7 +647,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR4.Minimum = 800;
             this.BAR4.minline = 0;
             this.BAR4.Name = "BAR4";
-            this.BAR4.Size = new System.Drawing.Size(197, 21);
+            this.BAR4.Size = new System.Drawing.Size(163, 21);
             this.BAR4.TabIndex = 127;
             this.BAR4.Value = 1500;
             this.BAR4.ValueColor = System.Drawing.Color.Empty;
@@ -657,19 +658,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev4.Enabled = false;
             this.rev4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev4.Location = new System.Drawing.Point(226, 143);
+            this.rev4.Location = new System.Drawing.Point(192, 143);
             this.rev4.Name = "rev4";
             this.rev4.OffValue = 0D;
             this.rev4.OnValue = 1D;
             this.rev4.ParamName = null;
-            this.rev4.Size = new System.Drawing.Size(51, 34);
+            this.rev4.Size = new System.Drawing.Size(85, 34);
             this.rev4.TabIndex = 135;
             this.rev4.UseVisualStyleBackColor = true;
             // 
             // BAR5
             // 
-            this.BAR5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR5.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR5.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR5.BorderColor = System.Drawing.Color.Empty;
             this.BAR5.DisplayScale = 1F;
@@ -681,15 +681,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR5.Minimum = 800;
             this.BAR5.minline = 0;
             this.BAR5.Name = "BAR5";
-            this.BAR5.Size = new System.Drawing.Size(197, 21);
+            this.BAR5.Size = new System.Drawing.Size(163, 21);
             this.BAR5.TabIndex = 126;
             this.BAR5.Value = 1500;
             this.BAR5.ValueColor = System.Drawing.Color.Empty;
             // 
             // BAR6
             // 
-            this.BAR6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR6.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR6.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR6.BorderColor = System.Drawing.Color.Empty;
             this.BAR6.DisplayScale = 1F;
@@ -701,15 +700,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR6.Minimum = 800;
             this.BAR6.minline = 0;
             this.BAR6.Name = "BAR6";
-            this.BAR6.Size = new System.Drawing.Size(197, 21);
+            this.BAR6.Size = new System.Drawing.Size(163, 21);
             this.BAR6.TabIndex = 130;
             this.BAR6.Value = 1500;
             this.BAR6.ValueColor = System.Drawing.Color.Empty;
             // 
             // BAR7
             // 
-            this.BAR7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR7.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR7.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR7.BorderColor = System.Drawing.Color.Empty;
             this.BAR7.DisplayScale = 1F;
@@ -721,15 +719,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR7.Minimum = 800;
             this.BAR7.minline = 0;
             this.BAR7.Name = "BAR7";
-            this.BAR7.Size = new System.Drawing.Size(197, 21);
+            this.BAR7.Size = new System.Drawing.Size(163, 21);
             this.BAR7.TabIndex = 129;
             this.BAR7.Value = 1500;
             this.BAR7.ValueColor = System.Drawing.Color.Empty;
             // 
             // BAR8
             // 
-            this.BAR8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BAR8.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BAR8.BackgroundColor = System.Drawing.Color.Empty;
             this.BAR8.BorderColor = System.Drawing.Color.Empty;
             this.BAR8.DisplayScale = 1F;
@@ -741,7 +738,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.BAR8.Minimum = 800;
             this.BAR8.minline = 0;
             this.BAR8.Name = "BAR8";
-            this.BAR8.Size = new System.Drawing.Size(197, 25);
+            this.BAR8.Size = new System.Drawing.Size(163, 25);
             this.BAR8.TabIndex = 125;
             this.BAR8.Value = 1500;
             this.BAR8.ValueColor = System.Drawing.Color.Empty;
@@ -752,12 +749,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev5.Enabled = false;
             this.rev5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev5.Location = new System.Drawing.Point(226, 183);
+            this.rev5.Location = new System.Drawing.Point(192, 183);
             this.rev5.Name = "rev5";
             this.rev5.OffValue = 0D;
             this.rev5.OnValue = 1D;
             this.rev5.ParamName = null;
-            this.rev5.Size = new System.Drawing.Size(51, 34);
+            this.rev5.Size = new System.Drawing.Size(85, 34);
             this.rev5.TabIndex = 137;
             this.rev5.UseVisualStyleBackColor = true;
             // 
@@ -767,12 +764,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev6.Enabled = false;
             this.rev6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev6.Location = new System.Drawing.Point(226, 223);
+            this.rev6.Location = new System.Drawing.Point(192, 223);
             this.rev6.Name = "rev6";
             this.rev6.OffValue = 0D;
             this.rev6.OnValue = 1D;
             this.rev6.ParamName = null;
-            this.rev6.Size = new System.Drawing.Size(51, 34);
+            this.rev6.Size = new System.Drawing.Size(85, 34);
             this.rev6.TabIndex = 131;
             this.rev6.UseVisualStyleBackColor = true;
             // 
@@ -782,12 +779,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev7.Enabled = false;
             this.rev7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev7.Location = new System.Drawing.Point(226, 263);
+            this.rev7.Location = new System.Drawing.Point(192, 263);
             this.rev7.Name = "rev7";
             this.rev7.OffValue = 0D;
             this.rev7.OnValue = 1D;
             this.rev7.ParamName = null;
-            this.rev7.Size = new System.Drawing.Size(51, 34);
+            this.rev7.Size = new System.Drawing.Size(85, 34);
             this.rev7.TabIndex = 136;
             this.rev7.UseVisualStyleBackColor = true;
             // 
@@ -797,12 +794,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.rev8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rev8.Enabled = false;
             this.rev8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rev8.Location = new System.Drawing.Point(226, 303);
+            this.rev8.Location = new System.Drawing.Point(192, 303);
             this.rev8.Name = "rev8";
             this.rev8.OffValue = 0D;
             this.rev8.OnValue = 1D;
             this.rev8.ParamName = null;
-            this.rev8.Size = new System.Drawing.Size(51, 39);
+            this.rev8.Size = new System.Drawing.Size(85, 39);
             this.rev8.TabIndex = 134;
             this.rev8.UseVisualStyleBackColor = true;
             // 
@@ -926,9 +923,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(23, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 147;
-            this.label1.Text = "Position";
+            this.label1.Text = "Значение";
             // 
             // label7
             // 
@@ -1004,33 +1001,32 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.Size = new System.Drawing.Size(596, 482);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.max8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.max1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trim1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.min1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.max1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.trim1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.min1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
-
         }
 
 
