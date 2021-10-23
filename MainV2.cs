@@ -1405,6 +1405,8 @@ namespace MissionPlanner
             //this.OnClosing += new Ev
             //Text = "НПУ v0.6";
             MinimumSize = new Size(1280,720);
+
+            //FlightPlanner.loadSavedMission(defaultMissionSavePath);
         }
 
         private void setTransparentControls()
@@ -2331,6 +2333,8 @@ namespace MissionPlanner
             }
         }
 
+        private bool pointsLoaded = false;
+        private int pointsLoadingCounter = 0;
         private void UpdateProgressBars()
         {
             alarmLabelTextCheck();
@@ -2443,7 +2447,19 @@ namespace MissionPlanner
                 //FlightPlanner.MainMap.Size = new Size(MainV2.instance.Size.Width, FlightPlanner.MainMap.Size.Height);
             }
 
-            
+            if (!pointsLoaded)
+            {
+                if (pointsLoadingCounter < 5)
+                {
+                    pointsLoadingCounter++;
+                }
+                else
+                {
+                    pointsLoaded = true;
+                    FlightPlanner.loadSavedMission(defaultMissionSavePath);
+                }
+            }
+
         }
 
         public static List<string> prevNotifications = new List<string>();
@@ -3517,6 +3533,7 @@ namespace MissionPlanner
             }
             else if (dialogResult == CustomMessageBox.DialogResult.Yes)
             {
+                FlightPlanner.saveWaypointsToFile(defaultMissionSavePath);
                 StatusControlPanel.StopTimer();
                 // _mainTimer.Dispose();
                 timer1.Stop();

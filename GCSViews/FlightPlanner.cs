@@ -2285,6 +2285,62 @@ namespace MissionPlanner.GCSViews
         {
         }
 
+        public void loadSavedMission(string path)
+        {
+            //using (OpenFileDialog fd = new OpenFileDialog())
+            //{
+            //    fd.Filter = "All Supported Types|*.txt;*.waypoints;*.shp;*.plan";
+            //    if (Directory.Exists(Settings.Instance["WPFileDirectory"] ?? ""))
+            //        fd.InitialDirectory = Settings.Instance["WPFileDirectory"];
+            //    DialogResult result = fd.ShowDialog();
+                string file = path;
+                if (File.Exists(file))
+                {
+                    Settings.Instance["WPFileDirectory"] = Path.GetDirectoryName(file);
+                    if (file.ToLower().EndsWith(".shp"))
+                    {
+                        try
+                        {
+                            LoadSHPFile(file);
+                        }
+                        catch
+                        {
+                            CustomMessageBox.Show("Error opening File", Strings.ERROR);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        string line = "";
+                        using (var fstream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (var fs = new StreamReader(fstream))
+                        {
+                            line = fs.ReadLine();
+                        }
+
+                        if (line.StartsWith("{"))
+                        {
+                            var format = MissionFile.ReadFile(file);
+
+                            var cmds = MissionFile.ConvertToLocationwps(format);
+
+                            processToScreen(cmds);
+
+                            writeKML();
+
+                            MainMap.ZoomAndCenterMarkers("WPOverlay");
+                        }
+                        else
+                        {
+                            wpfilename = file;
+                            readQGC110wpfile(file);
+                        }
+                    }
+
+                    lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
+                }
+        }
+
         public void BUT_loadwpfile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fd = new OpenFileDialog())
@@ -6539,6 +6595,123 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
             }
         }
+
+        public void saveWaypointsToFile(string path)
+        {
+            //using (SaveFileDialog fd = new SaveFileDialog())
+            //{
+            //    fd.Filter = "Mission|*.waypoints;*.txt|Mission JSON|*.mission";
+            //    fd.DefaultExt = ".waypoints";
+            //    fd.InitialDirectory = Settings.Instance["WPFileDirectory"] ?? "";
+            //    fd.FileName = wpfilename;
+            //    DialogResult result = fd.ShowDialog();
+            string file = path;//fd.FileName;
+                if (file != "" )//&& result == DialogResult.OK)
+                {
+                    Settings.Instance["WPFileDirectory"] = Path.GetDirectoryName(file);
+                    try
+                    {
+                        if (file.EndsWith(".mission"))
+                        {
+                            var list = GetCommandList();
+                            Locationwp home = new Locationwp();
+                            try
+                            {
+                                home.id = (ushort) MAVLink.MAV_CMD.WAYPOINT;
+                                home.lat = (double.Parse(TXT_homelat.Text));
+                                home.lng = (double.Parse(TXT_homelng.Text));
+                                home.alt = (float.Parse(TXT_homealt.Text) /
+                                            CurrentState.multiplieralt); // use saved home
+                            }
+                            catch
+                            {
+                            }
+
+                            list.Insert(0, home);
+
+                            var format =
+                                MissionFile.ConvertFromLocationwps(list, (byte) (altmode) CMB_altmode.SelectedValue);
+
+                            MissionFile.WriteFile(file, format);
+                            return;
+                        }
+
+                        StreamWriter sw = new StreamWriter(file);
+                        sw.WriteLine("QGC WPL 110");
+                        try
+                        {
+                            sw.WriteLine("0\t1\t0\t16\t0\t0\t0\t0\t" +
+                                         double.Parse(TXT_homelat.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         "\t" +
+                                         double.Parse(TXT_homelng.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         "\t" +
+                                         double.Parse(TXT_homealt.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         "\t1");
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error(ex);
+                            sw.WriteLine("0\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t1");
+                        }
+
+                        for (int a = 0; a < Commands.Rows.Count - 0; a++)
+                        {
+                            ushort mode = 0;
+
+                            if (Commands.Rows[a].Cells[0].Value.ToString() == "UNKNOWN")
+                            {
+                                mode = (ushort) Commands.Rows[a].Cells[Command.Index].Tag;
+                            }
+                            else
+                            {
+                                mode =
+                                    (ushort)
+                                    (MAVLink.MAV_CMD)
+                                    Enum.Parse(typeof(MAVLink.MAV_CMD),
+                                        Commands.Rows[a].Cells[Command.Index].Value.ToString());
+                            }
+
+                            sw.Write((a + 1)); // seq
+                            sw.Write("\t" + 0); // current
+                            sw.Write("\t" + ((int) Commands.Rows[a].Cells[Frame.Index].Value).ToString()); //frame 
+                            sw.Write("\t" + mode);
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Param1.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Param2.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Param3.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Param4.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Lat.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     double.Parse(Commands.Rows[a].Cells[Lon.Index].Value.ToString())
+                                         .ToString("0.00000000", new CultureInfo("en-US")));
+                            sw.Write("\t" +
+                                     (double.Parse(Commands.Rows[a].Cells[Alt.Index].Value.ToString()) /
+                                      CurrentState.multiplieralt).ToString("0.000000", new CultureInfo("en-US")));
+                            sw.Write("\t" + 1);
+                            sw.WriteLine("");
+                        }
+
+                        sw.Close();
+
+                        lbl_wpfile.Text = "Saved " + Path.GetFileName(file);
+                    }
+                    catch (Exception)
+                    {
+                        CustomMessageBox.Show(Strings.ERROR);
+                    }
+                }
+            
+        }
+
 
         /// <summary>
         /// Saves a waypoint writer file
