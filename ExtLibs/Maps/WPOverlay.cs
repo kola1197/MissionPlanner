@@ -22,10 +22,14 @@ namespace MissionPlanner.ArduPilot
         /// list of point as per mission including jump repeats
         public List<PointLatLngAlt> fullpointlist = new List<PointLatLngAlt>();
 
-        public void CreateOverlay(PointLatLngAlt home, List<Locationwp> missionitems, double wpradius, double loiterradius, double altunitmultiplier)
+        public enum PointType
+        {
+            WAYPOINT, TAKEOFF, LAND, CHANGESPEED,
+        };
+        
+        public void CreateOverlay(PointLatLngAlt home, List<Locationwp> missionitems, double wpradius, double loiterradius, double altunitmultiplier, List<int> types = null)
         {
             overlay.Clear();
-
             GMapPolygon fencepoly = null;
 
             double maxlat = -180;
@@ -36,15 +40,17 @@ namespace MissionPlanner.ArduPilot
             Func<MAVLink.MAV_FRAME, double, double, double> gethomealt = (altmode, lat, lng) =>
                 GetHomeAlt(altmode, home.Alt, lat, lng);
 
-
+            
             if (home != PointLatLngAlt.Zero)
             {
                 home.Tag = "H";
                 pointlist.Add(home);
                 fullpointlist.Add(pointlist[pointlist.Count - 1]);
-                addpolygonmarker("H", home.Lng, home.Lat, home.Alt * altunitmultiplier, null, 0);
+                addpolygonmarker("H", home.Lng, home.Lat, home.Alt * altunitmultiplier, null, 0, wptext:"H");
             }
 
+            int showedPointsCounter = 0;
+            int counter = 0;
             int a = 0;
             foreach (var itemtuple in missionitems.PrevNowNext())
             {
@@ -155,8 +161,9 @@ namespace MissionPlanner.ArduPilot
                             else
                                 fullpointlist.Add(pointlist[pointlist.Count - 1]);
 
+                            showedPointsCounter++;
                             addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                                item.alt * altunitmultiplier, Color.Purple, loiterradius);
+                                item.alt * altunitmultiplier, Color.Yellow, loiterradius, wptext: showedPointsCounter.ToString());
                         }
                     }
                     else if (command == (ushort)MAVLink.MAV_CMD.SPLINE_WAYPOINT)
@@ -183,9 +190,34 @@ namespace MissionPlanner.ArduPilot
                         {
                             //addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, Color.Gray, 0, MAVLink.MAV_MISSION_TYPE.FENCE);
                         }
-                        else 
+                        else
                         {
-                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, null, wpradius);
+                            showedPointsCounter++;
+                            GMarkerGoogleType type = GMarkerGoogleType.yellow;
+                            ///  0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE
+                            if (types != null)
+                            {
+                                switch (types[a])
+                                {
+                                    case 0:
+                                        type = GMarkerGoogleType.blue;
+                                        break;
+                                    case 1:
+                                        type = GMarkerGoogleType.yellow;
+                                        break;
+                                    case 2:
+                                        type = GMarkerGoogleType.green;
+                                        break;
+                                    case 3:
+                                        type = GMarkerGoogleType.red;
+                                        break;
+                                    case 4:
+                                        type = GMarkerGoogleType.pink;
+                                        break;
+                                }
+                            }
+
+                            addpolygonmarker((a + 1).ToString(), item.lng, item.lat, item.alt * altunitmultiplier, null, wpradius, wptext: showedPointsCounter.ToString(),gtype: type);
                         }
                     }
 
@@ -277,6 +309,7 @@ namespace MissionPlanner.ArduPilot
                 }
 
                 a++;
+                counter++;
             }
 
             RegenerateWPRoute(fullpointlist, home);
@@ -301,6 +334,9 @@ namespace MissionPlanner.ArduPilot
             return homealt;
         }
 
+
+        
+        
         /// <summary>
         /// used to add a marker to the map display
         /// </summary>
@@ -309,7 +345,8 @@ namespace MissionPlanner.ArduPilot
         /// <param name="lat"></param>
         /// <param name="alt"></param>
         /// <param name="color"></param>
-        private void addpolygonmarker(string tag, double lng, double lat, double? alt, Color? color, double wpradius, MAVLink.MAV_MISSION_TYPE type = MAVLink.MAV_MISSION_TYPE.MISSION, Color? fillcolor = null)
+        private void addpolygonmarker(string tag, double lng, double lat, double? alt, Color? color, double wpradius, MAVLink.MAV_MISSION_TYPE type = MAVLink.MAV_MISSION_TYPE.MISSION,
+            Color? fillcolor = null, string wptext = "##",  GMarkerGoogleType gtype =  GMarkerGoogleType.yellow)
         {
             try
             {
@@ -317,12 +354,20 @@ namespace MissionPlanner.ArduPilot
                 GMapMarker m = null;
                 if (type == MAVLink.MAV_MISSION_TYPE.MISSION)
                 {
-                    m = new GMapMarkerWP(point, tag);
+                    //m = new GMapMarkerWP(point, tag);
+                    m = new GMapMarkerWP(point, wptext, gtype);     //here with wpno we provide text for wp
                     if (alt.HasValue)
                     {
+                        if (wptext == "##")
+                        {
+                            m.ToolTipMode = MarkerTooltipMode.Always;
+                        }
+
                         // m.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         m.ToolTipMode = MarkerTooltipMode.Never;
-                        m.ToolTipText = "Alt: " + alt.Value.ToString("0");
+                        m.IsHitTestVisible = true;
+
+                        m.ToolTipText = "23"; //alt.Value.ToString("0");
                     }
                     m.Tag = tag;
                 }

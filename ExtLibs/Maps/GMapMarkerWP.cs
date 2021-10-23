@@ -12,15 +12,17 @@ namespace MissionPlanner.Maps
     
     public class GMapMarkerWP : GMarkerGoogle
     {
-        string wpno = "";
+        
+
+        public string wpno = "";
         public bool selected = false;
         public bool drawNumber = false;
         SizeF txtsize = SizeF.Empty;
         static Dictionary<string, Bitmap> fontBitmaps = new Dictionary<string, Bitmap>();
         static Font font;
-
-        public GMapMarkerWP(PointLatLng p, string wpno)
-            : base(p, GMarkerGoogleType.green)
+        
+        public GMapMarkerWP(PointLatLng p, string wpno, GMarkerGoogleType type = GMarkerGoogleType.yellow)
+            : base(p, type)
         {
             this.wpno = wpno;
             if (font == null)
@@ -28,7 +30,7 @@ namespace MissionPlanner.Maps
             
             if (!fontBitmaps.ContainsKey(wpno))
             {
-                Bitmap temp = new Bitmap(100,40, PixelFormat.Format32bppArgb);
+                Bitmap temp = new Bitmap(100,30, PixelFormat.Format32bppArgb);
                 using (Graphics g = Graphics.FromImage(temp))
                 {
                     txtsize = g.MeasureString(wpno, font);
@@ -49,15 +51,26 @@ namespace MissionPlanner.Maps
             
             base.OnRender(g);
 
-            var midw = LocalPosition.X + 10;
+            var midw = LocalPosition.X + 7;//+ 10;
             var midh = LocalPosition.Y + 3;
 
-            if (txtsize.Width > 15)
-                midw -= 4;
-
-            // drawNumber = false;
+            //if (txtsize.Width > 15)
+            //    midw -= 4;
+            if (wpno.Length == 3)
+            {
+                midw = LocalPosition.X + 4;
+            }
+            if (wpno.Length == 2)
+            {
+                midw = LocalPosition.X + 7;
+            }
+            if (wpno.Length == 1)
+            {
+                midw = LocalPosition.X + 10;
+            }
+            drawNumber = true;
             
-            if ((Overlay.Control.Zoom> 16 || IsMouseOver) && drawNumber)
+            if ((Overlay.Control.Zoom> 16 || IsMouseOver || true) && drawNumber)
                 g.DrawImageUnscaled(fontBitmaps[wpno], midw,midh);
         }
     }

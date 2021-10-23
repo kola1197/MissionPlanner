@@ -1848,6 +1848,13 @@ namespace MissionPlanner.GCSViews
             public PointLatLngAlt now { get; set; }
             public PointLatLngAlt next { get; set; }
         }
+        
+        
+     //   public enum PointType
+     //   {
+     //       WAYPOINT, TAKEOFF, LAND, CHANGESPEED,
+     //   };
+        
 
         /// <summary>
         /// used to write a KML, update the Map view polygon, and update the row headers
@@ -1893,11 +1900,38 @@ namespace MissionPlanner.GCSViews
                     {
                         if (TXT_WPRad.Text == "") TXT_WPRad.Text = "5";
                         if (TXT_loiterrad.Text == "") TXT_loiterrad.Text = "30";
-
+                        List<int> pointTypesList = new List<int>();
+                        int counter = 0;
+                        foreach (var v in commandlist)
+                        {
+                            ///  0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE
+                            //int i = getWPType(v.id);
+                            /*switch (i)
+                            {
+                                case 0:
+                                    pointTypesList.Add(PointType.TAKEOFF);
+                                    break;
+                                case 1:
+                                    pointTypesList.Add(PointType.WAYPOINT);
+                                    break;
+                                case 2:
+                                    pointTypesList.Add(PointType.CHANGESPEED);
+                                    break;
+                                case 3:
+                                    pointTypesList.Add(PointType.LAND);
+                                    break;
+                            }*/
+                            counter++;
+                            pointTypesList.Add(getWPType(counter));
+                            
+                        }
                         overlay.CreateOverlay(home,
                             commandlist,
                             double.Parse(TXT_WPRad.Text) / CurrentState.multiplieralt,
-                            double.Parse(TXT_loiterrad.Text) / CurrentState.multiplieralt, CurrentState.multiplieralt);
+                            double.Parse(TXT_loiterrad.Text) / CurrentState.multiplieralt, 
+                            CurrentState.multiplieralt,
+                            pointTypesList
+                            );
                     }
                     catch (FormatException ex)
                     {
