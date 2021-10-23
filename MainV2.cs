@@ -612,7 +612,7 @@ namespace MissionPlanner
         public static string defaultFuelSavePath = Settings.GetUserDataDirectory() + "fuelConfig";
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
         public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
-
+        public static string defaultMissionSavePath = Settings.GetUserDataDirectory() + "autosave.waypoints";
         private void deserealaseDict()
         {
             if (File.Exists(MainV2.defaultConfig))
@@ -2587,6 +2587,27 @@ namespace MissionPlanner
                 {
                     warnings.Add("Низкий уровень радиосигнала!");
                 }
+
+                int counter = 0;
+                for ( int i = 0; i < FlightPlanner.Commands.Rows.Count - 1; i++)
+                {
+                    if ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(), false) ==
+                        (ushort) MAVLink.MAV_CMD.WAYPOINT ||
+                        (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(), false) ==
+                        (ushort) MAVLink.MAV_CMD.LOITER_TIME
+                    )
+                    {
+                        counter ++;
+                        int alt = int.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Command.Index + 7].Value
+                            .ToString());
+                        if ( alt < 100)
+                        {
+                            warnings.Add("Точка №"+counter.ToString()+": высота менее 100м");
+                        }
+                    }
+                }
+
+
                 foreach (var v in prevNotifications)
                 {
                     if (!notifications.Contains(v))

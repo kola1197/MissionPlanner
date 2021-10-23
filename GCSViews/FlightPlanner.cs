@@ -8194,6 +8194,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             int val = (int) wpConfig.wpAltSlidingScale1.alt_SlidingScale.Value;
                             Commands.Rows[index].Cells[Lon.Index + 1].Value = val.ToString();
                             Commands_CellUpdate(index, Lon.Index + 1);
+                            if (val < 100)
+                            {
+                                CustomMessageBox.Show("Точка №"+wpConfig.SerialNum.ToString()+": высота менее 100м", "Предупреждение");
+                            }
 
                             /*int index = index;                                                                      //removing all old DO_SET_SERVO
                             while (index+1 < Commands.Rows.Count && (ushort)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[index + 1].Cells[Command.Index].Value.ToString(), false) == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
@@ -8232,6 +8236,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
 
                     tryToWriteWP();
+                    
+                    
                 }
             }
 
