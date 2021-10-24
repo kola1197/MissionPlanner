@@ -2524,14 +2524,14 @@ namespace MissionPlanner
                     warnings.Add("Низкое напряжение, отказ генератора!");
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl || StatusControlPanel.IsSitlConnected() &&
-                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) > 118)
+                if ((MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) > 118))
                 {
                     warnings.Add("Перегрев двигателя!");
                 }
 
-                if (MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl || StatusControlPanel.IsSitlConnected() &&
-                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600)
+                if ((MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl )||( StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600))
                 {
                     warnings.Add("Превышение оборотов двигателя!");
                 }
@@ -2622,6 +2622,19 @@ namespace MissionPlanner
                         }
                     }
                 }
+                if ((MainV2.comPort.MAV.cs.rpm2 < 40 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) < 40))
+                {
+                    warnings.Add("Низкая температура ДВС!");
+                }
+
+                if ((MainV2.comPort.MAV.cs.rpm1 < 3800 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600))
+                {
+                    warnings.Add("Перебои двигателя!");
+                }
+
+
 
 
                 foreach (var v in prevNotifications)
@@ -2638,6 +2651,8 @@ namespace MissionPlanner
                         logger.write("Предупреждение устранено: " + v);
                     }
                 }
+                
+                
 
                 bool hasNewErrors = false;
                 foreach (var v in warnings)

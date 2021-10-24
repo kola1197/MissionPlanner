@@ -19,7 +19,7 @@ namespace MissionPlanner.NewForms
             StartPosition = FormStartPosition.Manual;
         }
         Bitmap myBitmap;
-        
+        private int counter = 0;
         protected override void OnPaint(PaintEventArgs e)
         {
             double sizeMP = 1;
@@ -34,7 +34,12 @@ namespace MissionPlanner.NewForms
             myPen.Width = 1;
 
             g.DrawLine(myPen, 1, h - 50, w, h - 50);
-            
+            myPen.Width = 0.5f;
+            for (int i = 0; i < 10; i++)
+            {
+                g.DrawLine(myPen, 1, h - 50 - i * 10f, w, h - 50 - i * 10f); //drawing line at i.00 g
+            }
+            myPen.Width = 1;
             /*Pen p = new Pen(Color.Green);
             p.Width = 3;
             for (int i = 0; i < ICESpeeds.Count - 1; i++)
@@ -45,6 +50,17 @@ namespace MissionPlanner.NewForms
             drawVibe(0, Color.Red, g);
             drawVibe(1, Color.Green, g);
             drawVibe(2, Color.Cyan, g);
+            if (counter == 5)
+            {
+                label1.Text = "Ось Х: " + MainV2.vibeData.vibe[0, 598].ToString("0.00");
+                label2.Text = "Ось Y: " + MainV2.vibeData.vibe[1, 598].ToString("0.00");
+                label3.Text = "Ось Z: " + MainV2.vibeData.vibe[2, 598].ToString("0.00");
+                counter = 0;
+            }
+            else
+            {
+                counter++;
+            }
 
             pictureBox1.Image = myBitmap;
 

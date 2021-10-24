@@ -37,6 +37,7 @@ namespace MissionPlanner.NewForms
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.l1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +73,7 @@ namespace MissionPlanner.NewForms
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label2.ForeColor = System.Drawing.Color.Lime;
-            this.label2.Location = new System.Drawing.Point(72, 113);
+            this.label2.Location = new System.Drawing.Point(109, 113);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 17);
             this.label2.TabIndex = 2;
@@ -85,17 +86,31 @@ namespace MissionPlanner.NewForms
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(130, 113);
+            this.label3.Location = new System.Drawing.Point(210, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "Ось Z";
+            // 
+            // l1
+            // 
+            this.l1.AutoSize = true;
+            this.l1.BackColor = System.Drawing.Color.Transparent;
+            this.l1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.l1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.l1.Location = new System.Drawing.Point(12, 96);
+            this.l1.Name = "l1";
+            this.l1.Size = new System.Drawing.Size(14, 13);
+            this.l1.TabIndex = 4;
+            this.l1.Text = "1";
+            this.l1.Visible = false;
             // 
             // VibeGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 151);
+            this.Controls.Add(this.l1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -113,6 +128,8 @@ namespace MissionPlanner.NewForms
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label l1;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
