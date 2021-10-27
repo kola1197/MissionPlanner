@@ -12,6 +12,7 @@ using DotSpatial.Symbology.Forms;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MissionPlanner.Controls.NewControls;
 using MissionPlanner.GCSViews;
+using MissionPlanner.NewClasses;
 using MissionPlanner.NewForms;
 using MissionPlanner.Utilities;
 using Xamarin.Forms.Internals;
@@ -22,6 +23,9 @@ namespace MissionPlanner.Controls
 {
     public partial class StatusControlPanel : UserControl
     {
+
+        public VerticalSpeedArrow VSArrow = new VerticalSpeedArrow();
+        
         private readonly Point slidingScaleIndent;
         private readonly Point engineIndent;
 
@@ -452,7 +456,7 @@ namespace MissionPlanner.Controls
 
             groundSpeed_label.Text = (groundSpeed * 3.6).ToString("F1", new CultureInfo("en-US")) + " км/ч";
 
-            verticalSpeed_label.Text = verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
+            verticalSpeed_label.Text =  VSArrow.GetArrow(verticalSpeed) + verticalSpeed.ToString("F1", new CultureInfo("en-US")) + " м/с";
 
             altitude_label.Text = alt.ToString("F0", new CultureInfo("en-US"));
 
