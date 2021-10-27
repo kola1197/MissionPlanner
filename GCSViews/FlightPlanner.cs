@@ -8279,13 +8279,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             index--;
                         }
 
-                        else
-                        {
+                        //else
+                        //{
                             if (!wpConfig.checkBox1.Checked)
                             {
                                 DataGridViewRow row;
-                                switch (selectedValue
-                                ) //Домашняя точка, Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
+                                switch (selectedValue) //Домашняя точка, Точка взлета, Маршрутная точка, Изменение скорости, Точка посадки
                                 {
                                     case 1:
                                         row = (DataGridViewRow) Commands.Rows[index].Clone();
@@ -8405,7 +8404,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 }
                             }
                             }
-                        }
+                       // }
                     }
 
                     tryToWriteWP();
@@ -9714,12 +9713,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             wpMenu1.altButton.MouseUp += AltButton_MouseUp;
         }
 
+
+        private Form temp;
         private void AltButton_MouseUp(object sender, MouseEventArgs e)
         {
+            if (altChoose != null)
+            {
+                altChoose.Close();
+            }
             altChoose = new AltChoose();
             altChoose.TopMost = true;
             altChoose.myButton1.MouseUp += MyButton1_MouseUp;
             altChoose.Show();
+            writeKML();
+            double homealt = MainV2.comPort.MAV.cs.HomeAlt;
+            if (temp != null)
+            {
+                temp.Close();
+            }
+            temp = new ElevationProfile(pointlist, homealt,
+                (altmode) Enum.Parse(typeof(altmode), CMB_altmode.Text));
+            ThemeManager.ApplyThemeTo(temp);
+            temp.Show();
+            //temp.ShowDialog();
         }
 
         private void MyButton1_MouseUp(object sender, MouseEventArgs e)

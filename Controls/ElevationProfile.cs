@@ -43,7 +43,9 @@ namespace MissionPlanner
 
             if (planlocs.Count <= 1)
             {
-                CustomMessageBox.Show("Please plan something first", Strings.ERROR);
+                //CustomMessageBox.Show("Please plan something first", Strings.ERROR);
+                CustomMessageBox.Show("Для отображения профиля подстилающей поверхности необходимо сначала задать миссию", Strings.ERROR);
+
                 return;
             }
 
@@ -64,8 +66,9 @@ namespace MissionPlanner
 
             this.homealt = homealt;
 
-            Form frm = Common.LoadingBox("Loading", "using alt data");
-
+            //Form frm = Common.LoadingBox("Loading", "using alt data");
+            Form frm = Common.LoadingBox("Загрузка", "Ожидание данных рельефа");
+            
             gelocs = getGEAltPath(planlocs);
 
             srtmlocs = getSRTMAltPath(planlocs);
@@ -279,9 +282,14 @@ namespace MissionPlanner
             GraphPane myPane = zgc.GraphPane;
 
             // Set the titles and axis labels
-            myPane.Title.Text = "Elevation above ground";
-            myPane.XAxis.Title.Text = "Distance (" + CurrentState.DistanceUnit + ")";
-            myPane.YAxis.Title.Text = "Elevation (" + CurrentState.AltUnit + ")";
+            //myPane.Title.Text = "Elevation above ground";
+            //myPane.XAxis.Title.Text = "Distance (" + CurrentState.DistanceUnit + ")";
+            //myPane.YAxis.Title.Text = "Elevation (" + CurrentState.AltUnit + ")";
+            
+            myPane.Title.Text = "Профиль подстилающей поверхности";
+            myPane.XAxis.Title.Text = "Удаление (" + CurrentState.DistanceUnit + ")";
+            myPane.YAxis.Title.Text = "Высота (" + CurrentState.AltUnit + ")";
+
 
             LineItem myCurve;
 

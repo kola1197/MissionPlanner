@@ -2469,6 +2469,10 @@ namespace MissionPlanner
         public static List<string> warnings = new List<string>();
         private string prevMode = "";
 
+        private bool altitudeCheckingStarted = false;
+        private bool altitudeProblemDetected = false;
+        private DateTime altitudeCheckingTimerValue;
+            
         void alarmLabelTextCheck()
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
@@ -2614,7 +2618,7 @@ namespace MissionPlanner
                     )
                     {
                         counter ++;
-                        int alt = int.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Command.Index + 7].Value
+                        int alt = int.Parse(FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index + 7].Value
                             .ToString());
                         if ( alt < 100)
                         {
@@ -2634,6 +2638,47 @@ namespace MissionPlanner
                     warnings.Add("Перебои двигателя!");
                 }
 
+                if (!altitudeCheckingStarted)
+                {
+                    if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                    {
+                        altitudeCheckingStarted = true;
+                        altitudeCheckingTimerValue = DateTime.UtcNow;
+                    }
+                }
+                else
+                {
+                    if (!altitudeProblemDetected)
+                    {
+                        TimeSpan t = (DateTime.UtcNow - altitudeCheckingTimerValue);
+                        if (t.Seconds > 45)
+                        {
+                            if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                            {
+                                warnings.Add("Потеря высоты!");
+                                altitudeProblemDetected = true;
+                            }
+                            else
+                            {
+                                altitudeCheckingStarted = false;
+                                altitudeProblemDetected = false;
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                        {
+                            warnings.Add("Потеря высоты!");
+                        }
+                        else
+                        {
+                            altitudeCheckingStarted = false;
+                            altitudeProblemDetected = false;
+                        }
+                    }
+                }
 
 
 
