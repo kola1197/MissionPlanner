@@ -6095,12 +6095,56 @@ namespace MissionPlanner
             }
 
             //debugOverrideInfo += " ↓ ";       
-            //if (e.KeyCode == Keys.G)
-            //{
-            //    CustomMessageBox.Show(Cursor.Position.ToString());
-            //}
+        //     if (e.KeyCode == Keys.G)
+        //     {
+        //         var cultureCodes = new[]
+        //         {
+        //             "en-US", "ru-RU", "ru-KZ"
+        //         };
+        //
+        //         List<CultureInfo> _languages = cultureCodes
+        //             .Select(CultureInfoEx.GetCultureInfo)
+        //             .Where(c => c != null)
+        //             .ToList();
+        //         
+        //         changelanguage(_languages[1]);
+        //         
+        //         // ChangeParamListLanguage(_languages[2]);
+        //         
+        //         CustomMessageBox.Show("Reboot");
+        //         this.Close();
+        //     }
         }
 
+        private void ChangeParamListLanguage(CultureInfo cultureInfo)
+        {
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            // Settings.Instance["language"] = cultureInfo.Name;
+            //System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+
+            HashSet<Control> views = new HashSet<Control>();
+
+            foreach (Control view in MyView.Controls)
+                if (view.Name == "HWConfig")
+                {
+                    views.Add(view);
+                }
+
+            foreach (Control view in views)
+            {
+                if (view != null)
+                {
+                    ComponentResourceManager rm = new ComponentResourceManager(view.GetType());
+                    foreach (Control ctrl in view.Controls)
+                    {
+                        rm.ApplyResource(ctrl);
+                    }
+
+                    rm.ApplyResources(view, "$this");
+                }
+            }
+        }
+        
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
