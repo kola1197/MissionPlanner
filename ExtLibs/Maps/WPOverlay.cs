@@ -194,7 +194,7 @@ namespace MissionPlanner.ArduPilot
                         {
                             showedPointsCounter++;
                             GMarkerGoogleType type = GMarkerGoogleType.yellow;
-                            ///  0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE
+                            ///  0 - takeoff, 1 - wp, 2 - DO_CHANGE_SPEED, 3 - DO_PARACHUTE, 4 - DO_JUMP
                             if (types != null)
                             {
                                 switch (types[a])
@@ -211,7 +211,7 @@ namespace MissionPlanner.ArduPilot
                                     case 3:
                                         type = GMarkerGoogleType.red;
                                         break;
-                                    case 4:
+                                    case 6:
                                         type = GMarkerGoogleType.pink;
                                         break;
                                 }

@@ -8344,6 +8344,48 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                         }
 
                                         break;
+                                    case 6:
+                                        Commands.Rows[index].Cells[Command.Index].Value =
+                                            MAVLink.MAV_CMD.WAYPOINT.ToString();
+                                        row = (DataGridViewRow) Commands.Rows[index].Clone();
+                                        row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_JUMP.ToString();
+                                        //double speed = double.Parse(wpConfig.textBox5.Text.Replace('.', ','));
+                                        //row.Cells[Command.Index + 2].Value = "0";
+                                        //speed = Math.Truncate(speed / 3.6);
+
+                                        int wp = 0;
+                                        int counter = 0;
+                                        bool b = int.TryParse(wpConfig.jumpFirstPointTextBox.Text, out wp);
+                                        if (!b)
+                                        {
+                                            wp = 0;
+                                        }
+                                        b = int.TryParse(wpConfig.jumpCounterTextBox.Text, out counter);
+                                        if (!b)
+                                        {
+                                            counter = 0;
+                                        }
+                                        int c = 0;
+                                        int realWP = 0;
+                                        
+                                        for (int ii = 1; ii < Commands.Rows.Count; ii++) {
+                                            var wpTypeString = Commands.Rows[ii].Cells[Command.Index].Value.ToString();
+                                            if (wpTypeString == MAVLink.MAV_CMD.WAYPOINT.ToString() || 
+                                                wpTypeString == MAVLink.MAV_CMD.LOITER_TIME.ToString())
+                                            {
+                                                c++;
+                                                if (c == wp)
+                                                {
+                                                    realWP = ii;
+                                                }
+                                                
+                                            }
+                                        }
+                                        row.Cells[Command.Index + 1].Value = realWP.ToString();
+                                        row.Cells[Command.Index + 2].Value = counter.ToString(); 
+                                        Commands.Rows.Insert(index + 1, row);
+                                        Commands_CellUpdate(index, Command.Index + 1);
+                                        break;
                                     default:
                                         Commands.Rows[index].Cells[Command.Index].Value =
                                             MAVLink.MAV_CMD.WAYPOINT.ToString();
@@ -8561,6 +8603,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                             break;
                         case (ushort) MAVLink.MAV_CMD.DO_CHANGE_SPEED:
                             result = 2;
+                            break;
+                        case (ushort) MAVLink.MAV_CMD.DO_JUMP:
+                            result = 6;
                             //double speed = double.Parse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString());
                             //wpConfig.textBox5.Text = String.Format("{0:0.00}", (speed * 3.6));
                             break;
@@ -9663,6 +9708,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         double speed = double.Parse(s);
                         speed *= 3.6;
                         wpConfig.textBox5.Text = Math.Round(speed).ToString();
+                        break;
+                    case (ushort) MAVLink.MAV_CMD.DO_JUMP:
+                        wpConfig.comboBox1.SelectedIndex = 6;
+                        string ss = Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString();
+                        int wpRealNum = int.Parse(ss);
+                        int ourWPNum = 0;
+                        int c = 0;
+                        for (int ii = 1; ii < Commands.Rows.Count; ii++) {
+                            var wpTypeString = Commands.Rows[ii].Cells[Command.Index].Value.ToString();
+                            if (wpTypeString == MAVLink.MAV_CMD.WAYPOINT.ToString() || 
+                                wpTypeString == MAVLink.MAV_CMD.LOITER_TIME.ToString())
+                            {
+                                c++;
+                                
+                            }
+                            if (ii == wpRealNum)
+                            {
+                                ourWPNum = c;
+                            }
+                        }
+
+                        wpConfig.jumpFirstPointTextBox.Text = ourWPNum.ToString();//Commands.Rows[index + 1].Cells[Command.Index + 1].Value.ToString();
+                        wpConfig.jumpCounterTextBox.Text = Commands.Rows[index + 1].Cells[Command.Index + 2].Value.ToString();
+                        //string s = Commands.Rows[index + 1].Cells[Command.Index + 2].Value.ToString();
+                        //double speed = double.Parse(s);
+                        //speed *= 3.6;
+                        //wpConfig.textBox5.Text = Math.Round(speed).ToString();
                         break;
                     case (ushort) MAVLink.MAV_CMD.DO_SET_SERVO:
                         wpConfig.checkBox2.Checked = wpConfig.checkBox2.Enabled;

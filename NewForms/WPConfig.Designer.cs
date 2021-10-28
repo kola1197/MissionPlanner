@@ -34,6 +34,11 @@ namespace MissionPlanner.NewForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPConfig));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.jumpIncorrect = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.jumpCounterTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.jumpFirstPointTextBox = new System.Windows.Forms.TextBox();
             this.lonNotification = new System.Windows.Forms.Label();
             this.latNotification = new System.Windows.Forms.Label();
             this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
@@ -76,6 +81,7 @@ namespace MissionPlanner.NewForms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.jumpIncorrect2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -95,6 +101,12 @@ namespace MissionPlanner.NewForms
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage1.Controls.Add(this.jumpIncorrect2);
+            this.tabPage1.Controls.Add(this.jumpIncorrect);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.jumpCounterTextBox);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.jumpFirstPointTextBox);
             this.tabPage1.Controls.Add(this.lonNotification);
             this.tabPage1.Controls.Add(this.latNotification);
             this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
@@ -113,6 +125,57 @@ namespace MissionPlanner.NewForms
             this.tabPage1.Size = new System.Drawing.Size(455, 275);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
+            // 
+            // jumpIncorrect
+            // 
+            this.jumpIncorrect.AutoSize = true;
+            this.jumpIncorrect.ForeColor = System.Drawing.Color.Red;
+            this.jumpIncorrect.Location = new System.Drawing.Point(119, 170);
+            this.jumpIncorrect.Name = "jumpIncorrect";
+            this.jumpIncorrect.Size = new System.Drawing.Size(121, 13);
+            this.jumpIncorrect.TabIndex = 21;
+            this.jumpIncorrect.Text = "Данные не корректны";
+            this.jumpIncorrect.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(25, 198);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Количество проходов:";
+            this.label6.Visible = false;
+            // 
+            // jumpCounterTextBox
+            // 
+            this.jumpCounterTextBox.Location = new System.Drawing.Point(153, 195);
+            this.jumpCounterTextBox.Name = "jumpCounterTextBox";
+            this.jumpCounterTextBox.Size = new System.Drawing.Size(71, 20);
+            this.jumpCounterTextBox.TabIndex = 19;
+            this.jumpCounterTextBox.Visible = false;
+            this.jumpCounterTextBox.TextChanged += new System.EventHandler(this.jumpCounterTextBox_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(25, 150);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Начальная точка:";
+            this.label5.Visible = false;
+            // 
+            // jumpFirstPointTextBox
+            // 
+            this.jumpFirstPointTextBox.Location = new System.Drawing.Point(128, 147);
+            this.jumpFirstPointTextBox.Name = "jumpFirstPointTextBox";
+            this.jumpFirstPointTextBox.Size = new System.Drawing.Size(96, 20);
+            this.jumpFirstPointTextBox.TabIndex = 17;
+            this.jumpFirstPointTextBox.Visible = false;
+            this.jumpFirstPointTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // lonNotification
             // 
@@ -177,7 +240,7 @@ namespace MissionPlanner.NewForms
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки", "Точка Rally"});
+            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки", "Точка Rally", "Зацикливание"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(140, 21);
@@ -641,6 +704,17 @@ namespace MissionPlanner.NewForms
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
+            // jumpIncorrect2
+            // 
+            this.jumpIncorrect2.AutoSize = true;
+            this.jumpIncorrect2.ForeColor = System.Drawing.Color.Red;
+            this.jumpIncorrect2.Location = new System.Drawing.Point(119, 218);
+            this.jumpIncorrect2.Name = "jumpIncorrect2";
+            this.jumpIncorrect2.Size = new System.Drawing.Size(121, 13);
+            this.jumpIncorrect2.TabIndex = 22;
+            this.jumpIncorrect2.Text = "Данные не корректны";
+            this.jumpIncorrect2.Visible = false;
+            // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +736,17 @@ namespace MissionPlanner.NewForms
             this.direction.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label jumpIncorrect2;
+
+        private System.Windows.Forms.Label jumpIncorrect;
+
+        public System.Windows.Forms.TextBox jumpFirstPointTextBox;
+
+        public System.Windows.Forms.TextBox jumpCounterTextBox;
+        private System.Windows.Forms.Label label6;
+
+        private System.Windows.Forms.Label label5;
 
         public System.Windows.Forms.RadioButton antiClockDirection;
         public System.Windows.Forms.RadioButton clockDirection;
