@@ -8358,6 +8358,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 double.TryParse(wpConfig.textBox3.Text, out t);
                                 t *= 60;
                                 Commands.Rows[index].Cells[Command.Index + 1].Value = t.ToString();
+                                int direction = wpConfig.antiClockDirection.Checked ? 0 : 1;
+                                
+                                Commands.Rows[index].Cells[Command.Index + 3].Value = direction.ToString();
+
                                 Commands_CellUpdate(index, Command.Index + 1);
                             }
 
@@ -8456,10 +8460,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         wpConfig.comboBox1.Enabled = false;
                         wpConfig.checkBox1.Checked = true;
                         double t = 0;
+                        double direction = 0;
                         double.TryParse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 1].Value.ToString(),
                             out t);
                         t /= 60;
                         wpConfig.textBox3.Text = Math.Round(t).ToString();
+                        double.TryParse(Commands.Rows[wpConfig.indexNow].Cells[Command.Index + 3].Value.ToString(),
+                            out direction);
+                        if (direction == 0)
+                        {
+                            wpConfig.antiClockDirection.Checked = true;
+                            wpConfig.clockDirection.Checked = false;
+                        }
+                        else
+                        {
+                            wpConfig.antiClockDirection.Checked = false;
+                            wpConfig.clockDirection.Checked = true;
+                        }
                         break;
                     default:
                         wpConfig.comboBox1.SelectedIndex = 2;

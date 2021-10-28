@@ -561,5 +561,9 @@ namespace MissionPlanner.NewForms
         {
             updateServoButton(0);
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+        }
     }
 }
