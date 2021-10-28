@@ -50,6 +50,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.cycleButton = new MissionPlanner.Controls.MyButton();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // mainButton
@@ -105,10 +107,10 @@
             this.loadButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.loadButton.FlatAppearance.BorderSize = 0;
             this.loadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadButton.Location = new System.Drawing.Point(0, 88);
+            this.loadButton.Location = new System.Drawing.Point(0, 161);
             this.loadButton.Name = "loadButton";
             this.loadButton.Outline = System.Drawing.Color.Empty;
-            this.loadButton.Size = new System.Drawing.Size(95, 54);
+            this.loadButton.Size = new System.Drawing.Size(95, 40);
             this.loadButton.TabIndex = 10;
             this.loadButton.TextColor = System.Drawing.Color.Empty;
             this.loadButton.UseVisualStyleBackColor = false;
@@ -126,10 +128,10 @@
             this.saveButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Location = new System.Drawing.Point(0, 172);
+            this.saveButton.Location = new System.Drawing.Point(0, 231);
             this.saveButton.Name = "saveButton";
             this.saveButton.Outline = System.Drawing.Color.Empty;
-            this.saveButton.Size = new System.Drawing.Size(95, 54);
+            this.saveButton.Size = new System.Drawing.Size(95, 40);
             this.saveButton.TabIndex = 11;
             this.saveButton.TextColor = System.Drawing.Color.Empty;
             this.saveButton.UseVisualStyleBackColor = false;
@@ -146,10 +148,10 @@
             this.altButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.altButton.FlatAppearance.BorderSize = 0;
             this.altButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.altButton.Location = new System.Drawing.Point(0, 256);
+            this.altButton.Location = new System.Drawing.Point(0, 312);
             this.altButton.Name = "altButton";
             this.altButton.Outline = System.Drawing.Color.Empty;
-            this.altButton.Size = new System.Drawing.Size(95, 54);
+            this.altButton.Size = new System.Drawing.Size(95, 40);
             this.altButton.TabIndex = 12;
             this.altButton.TextColor = System.Drawing.Color.Empty;
             this.altButton.UseVisualStyleBackColor = false;
@@ -166,10 +168,10 @@
             this.writeButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.writeButton.FlatAppearance.BorderSize = 0;
             this.writeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.writeButton.Location = new System.Drawing.Point(0, 340);
+            this.writeButton.Location = new System.Drawing.Point(0, 382);
             this.writeButton.Name = "writeButton";
             this.writeButton.Outline = System.Drawing.Color.Empty;
-            this.writeButton.Size = new System.Drawing.Size(95, 54);
+            this.writeButton.Size = new System.Drawing.Size(95, 40);
             this.writeButton.TabIndex = 13;
             this.writeButton.TextColor = System.Drawing.Color.Empty;
             this.writeButton.UseVisualStyleBackColor = false;
@@ -186,14 +188,15 @@
             this.getButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.getButton.FlatAppearance.BorderSize = 0;
             this.getButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.getButton.Location = new System.Drawing.Point(0, 424);
-            this.getButton.MinimumSize = new System.Drawing.Size(95, 54);
+            this.getButton.Location = new System.Drawing.Point(0, 452);
+            this.getButton.MinimumSize = new System.Drawing.Size(95, 40);
             this.getButton.Name = "getButton";
             this.getButton.Outline = System.Drawing.Color.Empty;
-            this.getButton.Size = new System.Drawing.Size(95, 54);
+            this.getButton.Size = new System.Drawing.Size(95, 40);
             this.getButton.TabIndex = 14;
             this.getButton.TextColor = System.Drawing.Color.Empty;
             this.getButton.UseVisualStyleBackColor = false;
+            this.getButton.Click += new System.EventHandler(this.getButton_Click);
             // 
             // timer1
             // 
@@ -215,7 +218,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label6.Location = new System.Drawing.Point(0, 481);
+            this.label6.Location = new System.Drawing.Point(0, 495);
             this.label6.MinimumSize = new System.Drawing.Size(95, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 24);
@@ -229,7 +232,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label7.Location = new System.Drawing.Point(0, 397);
+            this.label7.Location = new System.Drawing.Point(0, 425);
             this.label7.MinimumSize = new System.Drawing.Size(95, 24);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 24);
@@ -243,7 +246,7 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label8.Location = new System.Drawing.Point(0, 313);
+            this.label8.Location = new System.Drawing.Point(0, 355);
             this.label8.MinimumSize = new System.Drawing.Size(95, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 24);
@@ -258,7 +261,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label9.Location = new System.Drawing.Point(0, 229);
+            this.label9.Location = new System.Drawing.Point(0, 287);
             this.label9.MinimumSize = new System.Drawing.Size(95, 24);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(95, 24);
@@ -272,7 +275,7 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label10.Location = new System.Drawing.Point(0, 145);
+            this.label10.Location = new System.Drawing.Point(0, 204);
             this.label10.MinimumSize = new System.Drawing.Size(95, 24);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(95, 24);
@@ -293,10 +296,10 @@
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.Color.Transparent;
-            this.deleteButton.Location = new System.Drawing.Point(0, 508);
+            this.deleteButton.Location = new System.Drawing.Point(0, 522);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Outline = System.Drawing.Color.Empty;
-            this.deleteButton.Size = new System.Drawing.Size(95, 54);
+            this.deleteButton.Size = new System.Drawing.Size(95, 40);
             this.deleteButton.TabIndex = 15;
             this.deleteButton.TextColor = System.Drawing.Color.Empty;
             this.deleteButton.UseVisualStyleBackColor = false;
@@ -355,13 +358,14 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label11.Location = new System.Drawing.Point(0, 61);
+            this.label11.Location = new System.Drawing.Point(0, 134);
             this.label11.MinimumSize = new System.Drawing.Size(95, 24);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(98, 24);
             this.label11.TabIndex = 18;
             this.label11.Text = "Расстояние";
             this.label11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // myButton1
             // 
@@ -375,14 +379,49 @@
             this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.myButton1.FlatAppearance.BorderSize = 0;
             this.myButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.myButton1.Location = new System.Drawing.Point(0, 0);
+            this.myButton1.Location = new System.Drawing.Point(0, 91);
             this.myButton1.Name = "myButton1";
             this.myButton1.Outline = System.Drawing.Color.Empty;
-            this.myButton1.Size = new System.Drawing.Size(95, 63);
+            this.myButton1.Size = new System.Drawing.Size(95, 40);
             this.myButton1.TabIndex = 19;
             this.myButton1.TextColor = System.Drawing.Color.Empty;
             this.myButton1.UseVisualStyleBackColor = false;
             this.myButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton1_MouseUp);
+            // 
+            // cycleButton
+            // 
+            this.cycleButton.BackColor = System.Drawing.Color.Transparent;
+            this.cycleButton.BackgroundImage = global::MissionPlanner.Properties.Resources.icons8_repeat_good;
+            this.cycleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cycleButton.BGGradBot = System.Drawing.Color.Empty;
+            this.cycleButton.BGGradTop = System.Drawing.Color.Empty;
+            this.cycleButton.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.cycleButton.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.cycleButton.ColorNotEnabled = System.Drawing.Color.Transparent;
+            this.cycleButton.FlatAppearance.BorderSize = 0;
+            this.cycleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cycleButton.Location = new System.Drawing.Point(0, 19);
+            this.cycleButton.Name = "cycleButton";
+            this.cycleButton.Outline = System.Drawing.Color.Empty;
+            this.cycleButton.Size = new System.Drawing.Size(95, 40);
+            this.cycleButton.TabIndex = 20;
+            this.cycleButton.TextColor = System.Drawing.Color.Empty;
+            this.cycleButton.UseVisualStyleBackColor = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
+            this.label12.Location = new System.Drawing.Point(0, 64);
+            this.label12.MinimumSize = new System.Drawing.Size(95, 24);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(97, 24);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "Зацикливание";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label12.UseCompatibleTextRendering = true;
             // 
             // WPMenu
             // 
@@ -390,6 +429,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.cycleButton);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -418,6 +459,10 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        public MissionPlanner.Controls.MyButton cycleButton;
+
+        private System.Windows.Forms.Label label12;
 
         #endregion
 

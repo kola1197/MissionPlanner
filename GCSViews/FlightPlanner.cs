@@ -9800,8 +9800,89 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             wpMenu1.getButton.MouseUp += BUT_read_Click;
             wpMenu1.deleteButton.MouseUp += DeleteButton_MouseUp;
             wpMenu1.altButton.MouseUp += AltButton_MouseUp;
+            wpMenu1.cycleButton.MouseUp += cycleButton_MouseUp;
         }
 
+        private CycleForm _cycleForm;
+        private void cycleButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (_cycleForm != null)
+            {
+                _cycleForm.Close();
+            }
+            _cycleForm = new CycleForm();
+            _cycleForm.button1.MouseUp += addCyclePoint;
+            _cycleForm.Show();
+        }
+
+        private void addCyclePoint(object sender, MouseEventArgs e)
+        {
+            int startPoint = 0;
+            bool b = int.TryParse(_cycleForm.startPoint.Text, out startPoint);
+            bool allParamsValid = true;
+            if (!b || startPoint < 0)
+            {
+                allParamsValid = false;
+            }
+            
+            int endPoint = 0;
+            b = int.TryParse(_cycleForm.endPoint.Text, out endPoint);
+            if (!b || endPoint < 0)
+            {
+                allParamsValid = false;
+            }
+            
+            int counter = 0;
+            b = int.TryParse(_cycleForm.countOfRepeats.Text, out counter);
+            if (!b || counter < 0)
+            {
+                allParamsValid = false;
+            }
+
+            if (allParamsValid)
+            {
+                int c = 0;
+                int realEndPoint = 0;
+                //double lat;
+                //double lon;
+                for (int ii = 0; ii < Commands.Rows.Count; ii++) {
+                    var wpTypeString = Commands.Rows[ii].Cells[Command.Index].Value.ToString();
+                    if (wpTypeString == MAVLink.MAV_CMD.WAYPOINT.ToString() || 
+                        wpTypeString == MAVLink.MAV_CMD.LOITER_TIME.ToString())
+                    {
+                        c++;
+                        if (c == endPoint)
+                        {
+                            realEndPoint = ii;
+                            //lat = double.Parse(Commands.Rows[ii].Cells[Command.Index+1].Value.ToString());
+                            //lot = double.Parse(Commands.Rows[ii].Cells[Command.Index+2].Value.ToString());
+                        }
+                                                
+                    }
+                }
+
+                c = 0;
+                var row = (DataGridViewRow) Commands.Rows[realEndPoint].Clone();
+                row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_JUMP.ToString();
+                int realStartWP = 0;
+                for (int ii = 1; ii < Commands.Rows.Count; ii++) {
+                    var wpTypeString = Commands.Rows[ii].Cells[Command.Index].Value.ToString();
+                    if (wpTypeString == MAVLink.MAV_CMD.WAYPOINT.ToString() || 
+                        wpTypeString == MAVLink.MAV_CMD.LOITER_TIME.ToString())
+                    {
+                        c++;
+                        if (c == startPoint)
+                        {
+                            realStartWP = ii;
+                        }                  
+                    }
+                }
+                row.Cells[Command.Index + 1].Value = realStartWP.ToString();
+                row.Cells[Command.Index + 2].Value = counter.ToString(); 
+                Commands.Rows.Insert(realEndPoint + 1, row);
+                Commands_CellUpdate(realEndPoint, Command.Index + 1);
+            }
+        }
 
         private Form temp;
         private void AltButton_MouseUp(object sender, MouseEventArgs e)
