@@ -68,6 +68,9 @@ namespace MissionPlanner.Controls.NewControls
             label7.Visible = fieldActive;
             label6.Visible = fieldActive;
             label5.Visible = fieldActive;
+            label12.Visible = fieldActive;
+            cycleButton.Visible = fieldActive;
+            
             this.Size = fieldActive ? new Size(95, 733) : new Size(95, 125);
             this.BackColor = Color.FromArgb(200, 32, 32, 32);
             //MainV2.wpLoadMenuAcrive = 
@@ -155,6 +158,14 @@ namespace MissionPlanner.Controls.NewControls
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
             this.IsWpDistanceDrawing = !IsWpDistanceDrawing;
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void getButton_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -33,12 +33,13 @@
             // 
             // wpInfoControl
             // 
-            this.wpInfoControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.wpInfoControl.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (200)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.wpInfoControl.Location = new System.Drawing.Point(0, 3);
             this.wpInfoControl.Name = "wpInfoControl";
             this.wpInfoControl.NeedMainMapRefresh = false;
             this.wpInfoControl.Size = new System.Drawing.Size(158, 149);
             this.wpInfoControl.TabIndex = 0;
+            this.wpInfoControl.Load += new System.EventHandler(this.wpInfoControl_Load);
             // 
             // WpInfoForm
             // 
@@ -55,7 +56,6 @@
             this.Name = "WpInfoForm";
             this.Text = "WpInfoForm";
             this.ResumeLayout(false);
-
         }
 
         #endregion

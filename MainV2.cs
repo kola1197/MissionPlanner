@@ -76,7 +76,6 @@ namespace MissionPlanner
         public static menuicons displayicons; //do not initialize to allow update of custom icons
 
         public static bool ICERunning = false;
-
         public abstract class menuicons
         {
             public abstract Image fd { get; }
@@ -614,7 +613,6 @@ namespace MissionPlanner
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
         public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
         public static string defaultMissionSavePath = Settings.GetUserDataDirectory() + "autosave.waypoints";
-
         private void deserealaseDict()
         {
             if (File.Exists(MainV2.defaultConfig))
@@ -1381,7 +1379,7 @@ namespace MissionPlanner
             // menuStrip1.Items.Add(headingControlHost);
             mainMenuInit();
             coordinatsControlInit();
-
+           
             MainV2.configServo[0] = new servoValue(0, 1500, 1500);
             MainV2.configServo[1] = new servoValue(0, 1500, 1500);
             MainV2.configServo[2] = new servoValue(0, 1500, 1500);
@@ -1395,7 +1393,7 @@ namespace MissionPlanner
             MainV2.configServo[10] = new servoValue(0, 1500, 1500);
             deserealaseDict();
             setFixedValues();
-
+            
             setTransparentControls();
             Text = "НПУ v1.1";
 
@@ -1406,7 +1404,7 @@ namespace MissionPlanner
             ConnectionsForm.Init();
             //this.OnClosing += new Ev
             //Text = "НПУ v0.6";
-            MinimumSize = new Size(1280, 720);
+            MinimumSize = new Size(1280,720);
 
             //FlightPlanner.loadSavedMission(defaultMissionSavePath);
             try
@@ -1421,17 +1419,15 @@ namespace MissionPlanner
         private void setTransparentControls()
         {
             FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
-            FlightPlanner.notificationListControl1.BackColor =
-                Color.FromArgb(200, 32, 32, 32); //Color.FromArgb(200, 64, 64, 64);
-
+            FlightPlanner.notificationListControl1.BackColor =  Color.FromArgb(200, 32, 32, 32);//Color.FromArgb(200, 64, 64, 64);
+            
             FlightPlanner.notificationControl1.Parent = FlightPlanner.MainMap;
-            FlightPlanner.notificationControl1.BackColor =
-                Color.FromArgb(200, 32, 32, 32); //Color.FromArgb(200, 64, 64, 64);
+            FlightPlanner.notificationControl1.BackColor =  Color.FromArgb(200, 32, 32, 32);//Color.FromArgb(200, 64, 64, 64);
 
             MakeRightSideMenuTransparent();
         }
-
-        private void setFixedValues()
+        
+        private void setFixedValues() 
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
@@ -1444,8 +1440,7 @@ namespace MissionPlanner
         private void MakeRightSideMenuTransparent()
         {
             rightSideButtonsMenu.Parent = FlightPlanner.MainMap;
-            rightSideButtonsMenu.Location =
-                new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width, 100);
+            rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width - rightSideButtonsMenu.Size.Width, 100);
         }
 
         void cmb_sysid_Click(object sender, EventArgs e)
@@ -1587,12 +1582,10 @@ namespace MissionPlanner
                         FlightPlanner.notificationControl1.Enabled = true;
                         FlightPlanner.notificationControl1.IsTimerEnabled = true;
                     }
-
                     if (FlightPlanner.notificationListControl1.IsTimerEnabled == false)
                     {
                         FlightPlanner.notificationListControl1.IsTimerEnabled = true;
                     }
-
                     if (ConnectionsForm != null && !ConnectionsForm.comPortsInited)
                     {
                         ConnectionsForm.UpdateComPorts();
@@ -1740,8 +1733,7 @@ namespace MissionPlanner
                             break;
                     }
 
-                    coordinatsControl1.label1.Text =
-                        currentMousePosition + ", " + FlightPlanner.coords1.Alt.ToString("0.00") + " м";
+                    coordinatsControl1.label1.Text = currentMousePosition + ", " + FlightPlanner.coords1.Alt.ToString("0.00") +" м";
                     coordinatsControl1.label2.Text = homedistString;
                     coordinatsControl1.label3.Text = currentPosition;
                     //string test1 = FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lat.ToString() +" " + FlightPlanner.MainMap.FromLocalToLatLng(FlightPlanner.rulerControl1.Location.X, FlightPlanner.rulerControl1.Location.Y).Lng.ToString();
@@ -1842,7 +1834,7 @@ namespace MissionPlanner
                             rc.chan3_raw = (ushort) 0;
                             _isThrottleOverrideReturnNeeded = false;
                         }
-
+                        
                         // if ((DateTime.Now - _lastEngineOverrideTime).TotalMilliseconds > 1000)
                         // {
                         //     //Send override for engine for 1 second
@@ -1910,6 +1902,7 @@ namespace MissionPlanner
                     {
                         StatusControlPanel.EngineControlForm.timer2.Start();
                     }
+                    
                 }
                 catch (System.Exception eee)
                 {
@@ -2246,6 +2239,7 @@ namespace MissionPlanner
             {
                 FlightPlanner.MainMap.Position =
                     new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
+
             }
         }
 
@@ -2348,7 +2342,6 @@ namespace MissionPlanner
 
         private bool pointsLoaded = false;
         private int pointsLoadingCounter = 0;
-
         private void UpdateProgressBars()
         {
             alarmLabelTextCheck();
@@ -2358,9 +2351,8 @@ namespace MissionPlanner
                 if (comPort.MAV.cs.mode == "FBWB")
                 {
                     MainV2.comPort.setMode("AUTO");
-                    // CustomMessageBox.Show("trying to turn fbwb off");
+                   // CustomMessageBox.Show("trying to turn fbwb off");
                 }
-
                 {
                     needToCheckFBWBTurnedOff = false;
                 }
@@ -2474,6 +2466,7 @@ namespace MissionPlanner
                     FlightPlanner.loadSavedMission(defaultMissionSavePath);
                 }
             }
+
         }
 
         public static List<string> prevNotifications = new List<string>();
@@ -2483,6 +2476,10 @@ namespace MissionPlanner
         public static List<string> warnings = new List<string>();
         private string prevMode = "";
 
+        private bool altitudeCheckingStarted = false;
+        private bool altitudeProblemDetected = false;
+        private DateTime altitudeCheckingTimerValue;
+            
         void alarmLabelTextCheck()
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
@@ -2539,16 +2536,13 @@ namespace MissionPlanner
                 }
 
                 if ((MainV2.comPort.MAV.cs.rpm2 > 118 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
-                                                                      _currentAircraft.SitlInfo.ParamList.GetParamValue(
-                                                                          SitlParam.ParameterName.Temperature) > 118))
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) > 118))
                 {
                     warnings.Add("Перегрев двигателя!");
                 }
 
-                if ((MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
-                                                                       _currentAircraft.SitlInfo.ParamList
-                                                                           .GetParamValue(SitlParam.ParameterName.Rpm) >
-                                                                       8600))
+                if ((MainV2.comPort.MAV.cs.rpm1 > 8600 && !isSitl )||( StatusControlPanel.IsSitlConnected() &&
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600))
                 {
                     warnings.Add("Превышение оборотов двигателя!");
                 }
@@ -2586,7 +2580,7 @@ namespace MissionPlanner
 
                 try
                 {
-                    if ((comPort.MAV.cs.battery_voltage2 - CurrentAircraft.MinCapacity) /
+                    if (( comPort.MAV.cs.battery_voltage2 - CurrentAircraft.MinCapacity) /
                         (CurrentAircraft.MaxCapacity - CurrentAircraft.MinCapacity) <
                         StatusControlPanel._fuelCriticalPercentage / 100 && !StatusControlPanel.IsSitlConnected() ||
                         StatusControlPanel.IsSitlConnected() &&
@@ -2606,8 +2600,7 @@ namespace MissionPlanner
                     notifications.Add("Парашют выпущен.");
                 }
 
-                if (!CurrentAircraft.ParachuteReleased && CurrentAircraft.IsParachutePointReached &&
-                    !CurrentAircraft.UsingSitl)
+                if (!CurrentAircraft.ParachuteReleased && CurrentAircraft.IsParachutePointReached && !CurrentAircraft.UsingSitl)
                 {
                     warnings.Add("Отказ парашюта!");
                 }
@@ -2623,42 +2616,77 @@ namespace MissionPlanner
                 }
 
                 int counter = 0;
-                for (int i = 0; i < FlightPlanner.Commands.Rows.Count - 1; i++)
+                for ( int i = 0; i < FlightPlanner.Commands.Rows.Count - 1; i++)
                 {
-                    if ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                            FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(),
-                            false) ==
+                    if ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(), false) ==
                         (ushort) MAVLink.MAV_CMD.WAYPOINT ||
-                        (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
-                            FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(),
-                            false) ==
+                        (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD), FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index].Value.ToString(), false) ==
                         (ushort) MAVLink.MAV_CMD.LOITER_TIME
                     )
                     {
-                        counter++;
-                        int alt = int.Parse(FlightPlanner.Commands.Rows[i].Cells[FlightPlanner.Command.Index + 7].Value
+                        counter ++;
+                        int alt = int.Parse(FlightPlanner.Commands.Rows[i + 1].Cells[FlightPlanner.Command.Index + 7].Value
                             .ToString());
-                        if (alt < 100)
+                        if ( alt < 100)
                         {
-                            warnings.Add("Точка №" + counter.ToString() + ": высота менее 100м");
+                            warnings.Add("Точка №"+counter.ToString()+": высота менее 100м");
                         }
                     }
                 }
-
                 if ((MainV2.comPort.MAV.cs.rpm2 < 40 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
-                                                                     _currentAircraft.SitlInfo.ParamList.GetParamValue(
-                                                                         SitlParam.ParameterName.Temperature) < 40))
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Temperature) < 40))
                 {
                     warnings.Add("Низкая температура ДВС!");
                 }
 
                 if ((MainV2.comPort.MAV.cs.rpm1 < 3800 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
-                                                                       _currentAircraft.SitlInfo.ParamList
-                                                                           .GetParamValue(SitlParam.ParameterName.Rpm) >
-                                                                       8600))
+                    _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) > 8600))
                 {
                     warnings.Add("Перебои двигателя!");
                 }
+
+                if (!altitudeCheckingStarted)
+                {
+                    if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                    {
+                        altitudeCheckingStarted = true;
+                        altitudeCheckingTimerValue = DateTime.UtcNow;
+                    }
+                }
+                else
+                {
+                    if (!altitudeProblemDetected)
+                    {
+                        TimeSpan t = (DateTime.UtcNow - altitudeCheckingTimerValue);
+                        if (t.Seconds > 45)
+                        {
+                            if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                            {
+                                warnings.Add("Потеря высоты!");
+                                altitudeProblemDetected = true;
+                            }
+                            else
+                            {
+                                altitudeCheckingStarted = false;
+                                altitudeProblemDetected = false;
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                        {
+                            warnings.Add("Потеря высоты!");
+                        }
+                        else
+                        {
+                            altitudeCheckingStarted = false;
+                            altitudeProblemDetected = false;
+                        }
+                    }
+                }
+
 
 
                 foreach (var v in prevNotifications)
@@ -2668,7 +2696,6 @@ namespace MissionPlanner
                         logger.write("Ошибка устранена: " + v);
                     }
                 }
-
                 foreach (var v in prevWarnings)
                 {
                     if (!warnings.Contains(v))
@@ -2676,7 +2703,8 @@ namespace MissionPlanner
                         logger.write("Предупреждение устранено: " + v);
                     }
                 }
-
+                
+                
 
                 bool hasNewErrors = false;
                 foreach (var v in warnings)
@@ -2687,7 +2715,6 @@ namespace MissionPlanner
                         hasNewErrors = true;
                     }
                 }
-
                 foreach (var v in notifications)
                 {
                     if (!prevNotifications.Contains(v))
@@ -2740,18 +2767,16 @@ namespace MissionPlanner
                 //    warnings.Add("Тест: что-то пошло не так, проверьте, отключен ли дебаг");
                 //}
             }
-
             prevNotifications = new List<string>();
-            for (int i = 0; i < notifications.Count(); i++)
-            {
+            for (int i = 0; i < notifications.Count(); i++) {
                 prevNotifications.Add(notifications[i]);
             }
-
             prevWarnings = new List<string>();
             for (int i = 0; i < warnings.Count(); i++)
             {
                 prevWarnings.Add(warnings[i]);
             }
+
         }
 
         void makeErrorSound()
@@ -5487,9 +5512,7 @@ namespace MissionPlanner
             if (FlightPlanner != null)
             {
                 MakeRightSideMenuTransparent();
-                FlightPlanner.notificationControl1.Location = new Point(
-                    FlightPlanner.MainMap.Size.Width - FlightPlanner.notificationControl1.Size.Width / 2,
-                    FlightPlanner.notificationControl1.Location.Y);
+                FlightPlanner.notificationControl1.Location = new Point(FlightPlanner.MainMap.Size.Width-FlightPlanner.notificationControl1.Size.Width/2,FlightPlanner.notificationControl1.Location.Y);
             }
             //rightSideButtonsMenu.Location = new Point(FlightPlanner.MainMap.Size.Width-rightSideButtonsMenu.Size.Width,200);
             //1596; 204
@@ -6012,7 +6035,7 @@ namespace MissionPlanner
         public ushort EngineChannelOverride = 1500;
         public static DateTime _lastEngineOverrideTime = DateTime.Now;
         private static bool needToCheckFBWBTurnedOff = false;
-
+        
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
             if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
@@ -6128,25 +6151,25 @@ namespace MissionPlanner
             }
 
             //debugOverrideInfo += " ↓ ";       
-            //     if (e.KeyCode == Keys.G)
-            //     {
-            //         var cultureCodes = new[]
-            //         {
-            //             "en-US", "ru-RU", "ru-KZ"
-            //         };
-            //
-            //         List<CultureInfo> _languages = cultureCodes
-            //             .Select(CultureInfoEx.GetCultureInfo)
-            //             .Where(c => c != null)
-            //             .ToList();
-            //         
-            //         changelanguage(_languages[1]);
-            //         
-            //         // ChangeParamListLanguage(_languages[2]);
-            //         
-            //         CustomMessageBox.Show("Reboot");
-            //         this.Close();
-            //     }
+        //     if (e.KeyCode == Keys.G)
+        //     {
+        //         var cultureCodes = new[]
+        //         {
+        //             "en-US", "ru-RU", "ru-KZ"
+        //         };
+        //
+        //         List<CultureInfo> _languages = cultureCodes
+        //             .Select(CultureInfoEx.GetCultureInfo)
+        //             .Where(c => c != null)
+        //             .ToList();
+        //         
+        //         changelanguage(_languages[1]);
+        //         
+        //         // ChangeParamListLanguage(_languages[2]);
+        //         
+        //         CustomMessageBox.Show("Reboot");
+        //         this.Close();
+        //     }
         }
 
         private void ChangeParamListLanguage(CultureInfo cultureInfo)
@@ -6177,7 +6200,7 @@ namespace MissionPlanner
                 }
             }
         }
-
+        
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try

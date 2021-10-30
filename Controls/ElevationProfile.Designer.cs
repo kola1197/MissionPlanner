@@ -28,15 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // zg1
             // 
-            this.zg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.zg1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.zg1.Location = new System.Drawing.Point(12, 23);
             this.zg1.Name = "zg1";
             this.zg1.ScrollGrace = 0D;
@@ -56,24 +55,21 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(507, 13);
             this.label1.TabIndex = 31;
-            this.label1.Text = "NOTE: The ground height data is pulled from Google Earth at 100m intervals. You u" +
-                "se this at your own risk";
+            this.label1.Text = "NOTE: The ground height data is pulled from Google Earth at 100m intervals. You u" + "se this at your own risk";
+            this.label1.Visible = false;
             // 
             // ElevationProfile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (38)))), ((int) (((byte) (39)))), ((int) (((byte) (40)))));
             this.ClientSize = new System.Drawing.Size(834, 462);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.zg1);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "ElevationProfile";
-            this.Text = "ElevationProfile";
+            this.Text = "Профиль подстилающей поверхности";
             this.Load += new System.EventHandler(this.ElevationProfile_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

@@ -154,6 +154,25 @@ namespace MissionPlanner.NewForms
                 label11.Visible = false;
                 textBox5.Visible = false;
             }
+            
+            if (comboBox1.SelectedIndex == 6)
+            {
+                jumpIncorrect.Visible = true;
+                jumpCounterTextBox.Visible = true;
+                jumpFirstPointTextBox.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                jumpIncorrect2.Visible = true;
+            }
+            else
+            {
+                jumpIncorrect.Visible = false;
+                jumpCounterTextBox.Visible = false;
+                jumpFirstPointTextBox.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                jumpIncorrect2.Visible = false;
+            }
 
             if (comboBox1.SelectedIndex == 5 || comboBox1.SelectedIndex == 0)
             {
@@ -560,6 +579,47 @@ namespace MissionPlanner.NewForms
         private void myButton17_MouseUp_1(object sender, MouseEventArgs e)
         {
             updateServoButton(0);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            int currentWP = 0;
+            bool bb = int.TryParse(SerialNum, out currentWP);
+            if (!bb)
+            {
+                currentWP = 0;
+            }
+
+            int pointNum = 0;
+            bool b = int.TryParse(jumpFirstPointTextBox.Text, out pointNum);
+            if (b && pointNum < currentWP)
+            {
+                jumpIncorrect.Visible = false;
+            }
+            else
+            {
+                jumpIncorrect.ForeColor = Color.Crimson;
+                jumpIncorrect.Visible = true;
+            }
+        }
+
+        private void jumpCounterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int i = 0;
+            bool b = int.TryParse(jumpCounterTextBox.Text, out i);
+            if (b && i > 0)
+            {
+                jumpIncorrect2.Visible = false;
+            }
+            else
+            {
+                jumpIncorrect2.ForeColor = Color.Crimson;
+                jumpIncorrect2.Visible = true;
+            }        
         }
     }
 }

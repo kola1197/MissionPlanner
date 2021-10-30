@@ -34,6 +34,11 @@ namespace MissionPlanner.NewForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WPConfig));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.jumpIncorrect = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.jumpCounterTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.jumpFirstPointTextBox = new System.Windows.Forms.TextBox();
             this.lonNotification = new System.Windows.Forms.Label();
             this.latNotification = new System.Windows.Forms.Label();
             this.wpAltSlidingScale1 = new MissionPlanner.Controls.NewControls.WpAltSlidingScale();
@@ -47,6 +52,10 @@ namespace MissionPlanner.NewForms
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.direction = new System.Windows.Forms.GroupBox();
+            this.clockDirection = new System.Windows.Forms.RadioButton();
+            this.antiClockDirection = new System.Windows.Forms.RadioButton();
+            this.myButton17 = new MissionPlanner.Controls.MyButton();
             this.label4 = new System.Windows.Forms.Label();
             this.loiterRadTextBox = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -72,10 +81,11 @@ namespace MissionPlanner.NewForms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.myButton17 = new MissionPlanner.Controls.MyButton();
+            this.jumpIncorrect2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.direction.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -90,7 +100,13 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage1.Controls.Add(this.jumpIncorrect2);
+            this.tabPage1.Controls.Add(this.jumpIncorrect);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.jumpCounterTextBox);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.jumpFirstPointTextBox);
             this.tabPage1.Controls.Add(this.lonNotification);
             this.tabPage1.Controls.Add(this.latNotification);
             this.tabPage1.Controls.Add(this.wpAltSlidingScale1);
@@ -106,9 +122,60 @@ namespace MissionPlanner.NewForms
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(455, 234);
+            this.tabPage1.Size = new System.Drawing.Size(455, 275);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные:";
+            // 
+            // jumpIncorrect
+            // 
+            this.jumpIncorrect.AutoSize = true;
+            this.jumpIncorrect.ForeColor = System.Drawing.Color.Red;
+            this.jumpIncorrect.Location = new System.Drawing.Point(119, 170);
+            this.jumpIncorrect.Name = "jumpIncorrect";
+            this.jumpIncorrect.Size = new System.Drawing.Size(121, 13);
+            this.jumpIncorrect.TabIndex = 21;
+            this.jumpIncorrect.Text = "Данные не корректны";
+            this.jumpIncorrect.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(25, 198);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Количество проходов:";
+            this.label6.Visible = false;
+            // 
+            // jumpCounterTextBox
+            // 
+            this.jumpCounterTextBox.Location = new System.Drawing.Point(153, 195);
+            this.jumpCounterTextBox.Name = "jumpCounterTextBox";
+            this.jumpCounterTextBox.Size = new System.Drawing.Size(71, 20);
+            this.jumpCounterTextBox.TabIndex = 19;
+            this.jumpCounterTextBox.Visible = false;
+            this.jumpCounterTextBox.TextChanged += new System.EventHandler(this.jumpCounterTextBox_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(25, 150);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Начальная точка:";
+            this.label5.Visible = false;
+            // 
+            // jumpFirstPointTextBox
+            // 
+            this.jumpFirstPointTextBox.Location = new System.Drawing.Point(128, 147);
+            this.jumpFirstPointTextBox.Name = "jumpFirstPointTextBox";
+            this.jumpFirstPointTextBox.Size = new System.Drawing.Size(96, 20);
+            this.jumpFirstPointTextBox.TabIndex = 17;
+            this.jumpFirstPointTextBox.Visible = false;
+            this.jumpFirstPointTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // lonNotification
             // 
@@ -173,13 +240,7 @@ namespace MissionPlanner.NewForms
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Точка дом",
-            "Точка взлета",
-            "Маршрутная точка",
-            "Изменение скорости",
-            "Точка посадки",
-            "Точка Rally"});
+            this.comboBox1.Items.AddRange(new object[] {"Точка дом", "Точка взлета", "Маршрутная точка", "Изменение скорости", "Точка посадки", "Точка Rally", "Зацикливание"});
             this.comboBox1.Location = new System.Drawing.Point(84, 76);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(140, 21);
@@ -238,7 +299,8 @@ namespace MissionPlanner.NewForms
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
+            this.tabPage2.Controls.Add(this.direction);
             this.tabPage2.Controls.Add(this.myButton17);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.loiterRadTextBox);
@@ -270,11 +332,62 @@ namespace MissionPlanner.NewForms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Дополнительно";
             // 
+            // direction
+            // 
+            this.direction.Controls.Add(this.clockDirection);
+            this.direction.Controls.Add(this.antiClockDirection);
+            this.direction.Location = new System.Drawing.Point(300, 7);
+            this.direction.Name = "direction";
+            this.direction.Size = new System.Drawing.Size(126, 43);
+            this.direction.TabIndex = 33;
+            this.direction.TabStop = false;
+            this.direction.Text = "Направление";
+            this.direction.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // clockDirection
+            // 
+            this.clockDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.clockDirection.ForeColor = System.Drawing.Color.FloralWhite;
+            this.clockDirection.Location = new System.Drawing.Point(66, 14);
+            this.clockDirection.Name = "clockDirection";
+            this.clockDirection.Size = new System.Drawing.Size(54, 25);
+            this.clockDirection.TabIndex = 1;
+            this.clockDirection.Text = "⭮";
+            this.clockDirection.UseVisualStyleBackColor = true;
+            // 
+            // antiClockDirection
+            // 
+            this.antiClockDirection.Checked = true;
+            this.antiClockDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.antiClockDirection.ForeColor = System.Drawing.Color.FloralWhite;
+            this.antiClockDirection.Location = new System.Drawing.Point(6, 14);
+            this.antiClockDirection.Name = "antiClockDirection";
+            this.antiClockDirection.Size = new System.Drawing.Size(54, 25);
+            this.antiClockDirection.TabIndex = 0;
+            this.antiClockDirection.TabStop = true;
+            this.antiClockDirection.Text = "⭯";
+            this.antiClockDirection.UseVisualStyleBackColor = true;
+            // 
+            // myButton17
+            // 
+            this.myButton17.BGGradBot = System.Drawing.Color.Empty;
+            this.myButton17.BGGradTop = System.Drawing.Color.Empty;
+            this.myButton17.DefaultTheme = false;
+            this.myButton17.Location = new System.Drawing.Point(37, 201);
+            this.myButton17.Name = "myButton17";
+            this.myButton17.Outline = System.Drawing.Color.Black;
+            this.myButton17.Size = new System.Drawing.Size(389, 25);
+            this.myButton17.TabIndex = 32;
+            this.myButton17.Text = "Подвес";
+            this.myButton17.TextColor = System.Drawing.Color.White;
+            this.myButton17.UseVisualStyleBackColor = true;
+            this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp_1);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(331, 33);
+            this.label4.Location = new System.Drawing.Point(184, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 13);
             this.label4.TabIndex = 31;
@@ -282,9 +395,9 @@ namespace MissionPlanner.NewForms
             // 
             // loiterRadTextBox
             // 
-            this.loiterRadTextBox.Location = new System.Drawing.Point(234, 30);
+            this.loiterRadTextBox.Location = new System.Drawing.Point(137, 30);
             this.loiterRadTextBox.Name = "loiterRadTextBox";
-            this.loiterRadTextBox.Size = new System.Drawing.Size(91, 20);
+            this.loiterRadTextBox.Size = new System.Drawing.Size(41, 20);
             this.loiterRadTextBox.TabIndex = 30;
             this.loiterRadTextBox.Text = "0";
             // 
@@ -414,7 +527,7 @@ namespace MissionPlanner.NewForms
             // myButton9
             // 
             this.myButton9.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton9.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton9.DefaultTheme = false;
             this.myButton9.Location = new System.Drawing.Point(168, 108);
             this.myButton9.Name = "myButton9";
@@ -429,7 +542,7 @@ namespace MissionPlanner.NewForms
             // myButton8
             // 
             this.myButton8.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton8.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton8.DefaultTheme = false;
             this.myButton8.Location = new System.Drawing.Point(35, 108);
             this.myButton8.Name = "myButton8";
@@ -455,7 +568,7 @@ namespace MissionPlanner.NewForms
             // myButton7
             // 
             this.myButton7.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton7.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton7.DefaultTheme = false;
             this.myButton7.Location = new System.Drawing.Point(366, 56);
             this.myButton7.Name = "myButton7";
@@ -470,7 +583,7 @@ namespace MissionPlanner.NewForms
             // myButton6
             // 
             this.myButton6.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton6.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton6.DefaultTheme = false;
             this.myButton6.Location = new System.Drawing.Point(300, 56);
             this.myButton6.Name = "myButton6";
@@ -485,7 +598,7 @@ namespace MissionPlanner.NewForms
             // myButton5
             // 
             this.myButton5.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton5.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton5.DefaultTheme = false;
             this.myButton5.Location = new System.Drawing.Point(234, 56);
             this.myButton5.Name = "myButton5";
@@ -500,7 +613,7 @@ namespace MissionPlanner.NewForms
             // myButton4
             // 
             this.myButton4.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton4.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton4.DefaultTheme = false;
             this.myButton4.Location = new System.Drawing.Point(168, 56);
             this.myButton4.Name = "myButton4";
@@ -515,7 +628,7 @@ namespace MissionPlanner.NewForms
             // myButton3
             // 
             this.myButton3.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton3.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton3.DefaultTheme = false;
             this.myButton3.Location = new System.Drawing.Point(102, 56);
             this.myButton3.Name = "myButton3";
@@ -530,7 +643,7 @@ namespace MissionPlanner.NewForms
             // myButton2
             // 
             this.myButton2.BGGradBot = System.Drawing.Color.Transparent;
-            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton2.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton2.DefaultTheme = false;
             this.myButton2.Location = new System.Drawing.Point(35, 56);
             this.myButton2.Name = "myButton2";
@@ -546,7 +659,7 @@ namespace MissionPlanner.NewForms
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(191, 33);
+            this.label8.Location = new System.Drawing.Point(87, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(37, 13);
             this.label8.TabIndex = 11;
@@ -556,7 +669,7 @@ namespace MissionPlanner.NewForms
             // 
             this.textBox3.Location = new System.Drawing.Point(35, 30);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(150, 20);
+            this.textBox3.Size = new System.Drawing.Size(46, 20);
             this.textBox3.TabIndex = 1;
             this.textBox3.Text = "0";
             // 
@@ -578,8 +691,8 @@ namespace MissionPlanner.NewForms
             // 
             // myButton1
             // 
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.myButton1.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.myButton1.DefaultTheme = false;
             this.myButton1.Location = new System.Drawing.Point(12, 319);
             this.myButton1.Name = "myButton1";
@@ -591,30 +704,26 @@ namespace MissionPlanner.NewForms
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
-            // myButton17
+            // jumpIncorrect2
             // 
-            this.myButton17.BGGradBot = System.Drawing.Color.Empty;
-            this.myButton17.BGGradTop = System.Drawing.Color.Empty;
-            this.myButton17.DefaultTheme = false;
-            this.myButton17.Location = new System.Drawing.Point(37, 201);
-            this.myButton17.Name = "myButton17";
-            this.myButton17.Outline = System.Drawing.Color.Black;
-            this.myButton17.Size = new System.Drawing.Size(389, 25);
-            this.myButton17.TabIndex = 32;
-            this.myButton17.Text = "Подвес";
-            this.myButton17.TextColor = System.Drawing.Color.White;
-            this.myButton17.UseVisualStyleBackColor = true;
-            this.myButton17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton17_MouseUp_1);
+            this.jumpIncorrect2.AutoSize = true;
+            this.jumpIncorrect2.ForeColor = System.Drawing.Color.Red;
+            this.jumpIncorrect2.Location = new System.Drawing.Point(119, 218);
+            this.jumpIncorrect2.Name = "jumpIncorrect2";
+            this.jumpIncorrect2.Size = new System.Drawing.Size(121, 13);
+            this.jumpIncorrect2.TabIndex = 22;
+            this.jumpIncorrect2.Text = "Данные не корректны";
+            this.jumpIncorrect2.Visible = false;
             // 
             // WPConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.ClientSize = new System.Drawing.Size(479, 354);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.tabControl1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WPConfig";
@@ -624,9 +733,25 @@ namespace MissionPlanner.NewForms
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.direction.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Label jumpIncorrect2;
+
+        private System.Windows.Forms.Label jumpIncorrect;
+
+        public System.Windows.Forms.TextBox jumpFirstPointTextBox;
+
+        public System.Windows.Forms.TextBox jumpCounterTextBox;
+        private System.Windows.Forms.Label label6;
+
+        private System.Windows.Forms.Label label5;
+
+        public System.Windows.Forms.RadioButton antiClockDirection;
+        public System.Windows.Forms.RadioButton clockDirection;
+
+        private System.Windows.Forms.GroupBox direction;
 
         private System.Windows.Forms.Label label4;
 

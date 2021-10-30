@@ -830,6 +830,12 @@
     <Compile Include="NewForms\CoordinatsModeForm.Designer.cs">
       <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewForms\CycleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewForms\CycleForm.Designer.cs">
+      <DependentUpon>CycleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewForms\Diagnostic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2091,6 +2097,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\CoordinatsModeForm.resx">
       <DependentUpon>CoordinatsModeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewForms\CycleForm.resx">
+      <DependentUpon>CycleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewForms\Diagnostic.resx">
       <DependentUpon>Diagnostic.cs</DependentUpon>
@@ -4984,6 +4993,7 @@
     <None Include="Resources\SimLoading.gif" />
     <None Include="Resources\UAV_Datalink.png" />
     <None Include="Resources\SitlFly.gif" />
+    <Content Include="Resources\icons8_repeat_good.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

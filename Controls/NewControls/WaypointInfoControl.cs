@@ -76,6 +76,9 @@ namespace MissionPlanner.NewForms
                     case 3:
                         typeText = "Точка посадки";
                         break;
+                    case 6:
+                        typeText = "Зацикливание";
+                        break;
                     default:
                         break;
                 }
