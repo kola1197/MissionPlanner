@@ -127,7 +127,7 @@ namespace MissionPlanner.Controls.NewControls
                         {
                             DateTime now = DateTime.Now;
                             DateTime diff = new DateTime(0);
-                            if (info.hasStartTime)
+                            if (info.HasStartTime)
                             {
                                 startFlightTime = info.StartOfTheFlightTime.ToString("HH.mm.ss");
                                 if (!info.ParachuteReleased && !MainV2.IsSitlLanding)
