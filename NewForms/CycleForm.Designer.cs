@@ -164,7 +164,7 @@ namespace MissionPlanner.NewForms
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CycleForm";
-            this.Text = "CycleForm";
+            this.Text = "Зацикливание";
             this.ResumeLayout(false);
             this.PerformLayout();
         }

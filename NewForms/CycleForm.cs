@@ -10,6 +10,8 @@ namespace MissionPlanner.NewForms
         public CycleForm()
         {
             InitializeComponent();
+            button1.ForeColor = Color.Black;
+            button2.ForeColor = Color.Black;
         }
 
         private void startPoint_TextChanged(object sender, EventArgs e)

@@ -7662,7 +7662,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     "Alt"
                 };
                 cmdParamNames["DO_CHANGE_SPEED"] = ss.ToArray();
-
+                var sss = new[]
+                {
+                    "time s",
+                    "",
+                    "Dir 1=CW",
+                    "1=Exit Tange",
+                    "Lat",
+                    "Long",
+                    "Alt"
+                };
+                cmdParamNames["LOITER_TIME"] = sss.ToArray();
 
                 if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
                 {
