@@ -909,6 +909,7 @@
       <DependentUpon>WpInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Orlan\AircraftConnectionInfo.cs" />
+    <Compile Include="Orlan\AircraftSerializer.cs" />
     <Compile Include="Orlan\AntennaConnectionInfo.cs" />
     <Compile Include="Orlan\EmulateSitlParameters.cs" />
     <Compile Include="Orlan\ICustomClick.cs" />

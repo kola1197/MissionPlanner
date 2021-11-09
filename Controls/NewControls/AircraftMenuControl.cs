@@ -95,7 +95,7 @@ namespace MissionPlanner.Controls
             if (MainV2.CurrentAircraftNum != null)
             {
                 butNum = MainV2.CurrentAircraft.MenuNum;
-                aircraftInAir = MainV2.CurrentAircraft.inAir;
+                aircraftInAir = MainV2.CurrentAircraft.InAir;
                 //centerButton.Image = aircraftInAir ? global::MissionPlanner.Properties.Resources.testCenterUL : global::MissionPlanner.Properties.Resources.testCenterULActive;
                 centerButton.BackgroundImage = aircraftInAir
                     ? global::MissionPlanner.Properties.Resources.nonefon

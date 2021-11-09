@@ -30,7 +30,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     DateTime now = DateTime.Now;
                     DateTime diff = new DateTime(0);
-                    if (info.hasStartTime)
+                    if (info.HasStartTime)
                     {
                         diff += now - info.StartOfTheFlightTime;
                         label2.Text = diff.ToString("HH.mm.ss");

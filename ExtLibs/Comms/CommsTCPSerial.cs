@@ -94,6 +94,17 @@ namespace MissionPlanner.Comms
 
         public bool DtrEnable { get; set; }
 
+        private string dest, host;
+
+        public void SetDestHost(string dest, string host)
+        {
+            this.dest = dest;
+            this.host = host;
+        }
+
+        public string GetDest() => dest;
+        public string GetHost() => host;
+        
         public void Open()
         {
             try
@@ -106,12 +117,12 @@ namespace MissionPlanner.Comms
                     return;
                 }
 
-                var dest = Port;
-                var host = "127.0.0.1";
+                // var dest = Port;
+                // var host = "127.0.0.1";
 
-                dest = OnSettings("TCP_port", dest);
-
-                host = OnSettings("TCP_host", host);
+                // dest = OnSettings("TCP_port", dest);
+                //
+                // host = OnSettings("TCP_host", host);
 
                 if (!reconnectnoprompt)
                 {
