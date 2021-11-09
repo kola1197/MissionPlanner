@@ -35,10 +35,14 @@ namespace MissionPlanner.NewForms
 
             g.DrawLine(myPen, 1, h - 50, w, h - 50);
             myPen.Width = 0.5f;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 40; i++)
             {
-                g.DrawLine(myPen, 1, h - 50 - i * 10f, w, h - 50 - i * 10f); //drawing line at i.00 g
+                g.DrawLine(myPen, 1, h - 50 - i * 50f, w, h - 50 - i * 50f); //drawing line at i.00 g
             }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    g.DrawLine(myPen, 1, h - 50 - i * 50f, w, h - 50 - i * 50f); //drawing line at i.00 g
+            //}
             myPen.Width = 1;
             /*Pen p = new Pen(Color.Green);
             p.Width = 3;
@@ -76,7 +80,7 @@ namespace MissionPlanner.NewForms
             p.Width = 2;
             for (int i = 0; i < 599; i++)
             {
-                g.DrawLine(p, (float)i * (w/600.0f), (ff - MainV2.vibeData.vibe[index, i]*10f), ((float)i + 1f) * (w / 600.0f), (ff - MainV2.vibeData.vibe[index, i + 1]*10f));
+                g.DrawLine(p, (float)i * (w/600.0f), (ff - MainV2.vibeData.vibe[index, i]*50f), ((float)i + 1f) * (w / 600.0f), (ff - MainV2.vibeData.vibe[index, i + 1]*50f));
             }
         }
 
@@ -129,8 +133,8 @@ namespace MissionPlanner.NewForms
         {
             pictureBox1.Size = new Size(Width - 16, Height - 40);
             label1.Location = new Point(16, Height - 77);
-            label2.Location = new Point(72, Height - 77);
-            label3.Location = new Point(130, Height - 77);
+            label2.Location = new Point(109, Height - 77);
+            label3.Location = new Point(210, Height - 77);
 
         }
     }

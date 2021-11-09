@@ -2622,7 +2622,7 @@ namespace MissionPlanner
                             .ToString());
                         if ( alt < 100)
                         {
-                            warnings.Add("Точка №"+counter.ToString()+": высота менее 100м");
+                            notifications.Add("Точка №"+counter.ToString()+": высота менее 100м");
                         }
                     }
                 }

@@ -31,9 +31,9 @@ namespace MissionPlanner.NewClasses
             }
             if (MainV2.comPort.MAV.cs.connected)
             {
-                vibe[0, 599] = MainV2.comPort.MAV.cs.vibex;
-                vibe[1, 599] = MainV2.comPort.MAV.cs.vibey;
-                vibe[2, 599] = MainV2.comPort.MAV.cs.vibez;
+                vibe[0, 599] = MainV2.comPort.MAV.cs.vibex/9.81f;
+                vibe[1, 599] = MainV2.comPort.MAV.cs.vibey/9.81f;
+                vibe[2, 599] = MainV2.comPort.MAV.cs.vibez/9.81f;
             }
             else
             {
