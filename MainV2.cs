@@ -2667,7 +2667,7 @@ namespace MissionPlanner
 
                 if (!altitudeCheckingStarted)
                 {
-                    if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                    if (MainV2.comPort.MAV.cs.alt + 50 < MainV2.comPort.MAV.cs.targetalt)
                     {
                         altitudeCheckingStarted = true;
                         altitudeCheckingTimerValue = DateTime.UtcNow;
@@ -2680,7 +2680,7 @@ namespace MissionPlanner
                         TimeSpan t = (DateTime.UtcNow - altitudeCheckingTimerValue);
                         if (t.Seconds > 45)
                         {
-                            if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                            if (MainV2.comPort.MAV.cs.alt + 50 < MainV2.comPort.MAV.cs.targetalt)
                             {
                                 warnings.Add("Потеря высоты!");
                                 altitudeProblemDetected = true;
@@ -2694,7 +2694,7 @@ namespace MissionPlanner
                     }
                     else
                     {
-                        if (MainV2.comPort.MAV.cs.altasl + 50 < MainV2.comPort.MAV.cs.targetalt)
+                        if (MainV2.comPort.MAV.cs.alt + 50 < MainV2.comPort.MAV.cs.targetalt)
                         {
                             warnings.Add("Потеря высоты!");
                         }

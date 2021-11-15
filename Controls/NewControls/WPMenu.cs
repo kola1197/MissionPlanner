@@ -167,5 +167,9 @@ namespace MissionPlanner.Controls.NewControls
         private void getButton_Click(object sender, EventArgs e)
         {
         }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

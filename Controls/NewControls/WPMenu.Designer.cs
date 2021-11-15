@@ -107,7 +107,7 @@
             this.loadButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.loadButton.FlatAppearance.BorderSize = 0;
             this.loadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadButton.Location = new System.Drawing.Point(0, 161);
+            this.loadButton.Location = new System.Drawing.Point(0, 102);
             this.loadButton.Name = "loadButton";
             this.loadButton.Outline = System.Drawing.Color.Empty;
             this.loadButton.Size = new System.Drawing.Size(95, 40);
@@ -128,7 +128,7 @@
             this.saveButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Location = new System.Drawing.Point(0, 231);
+            this.saveButton.Location = new System.Drawing.Point(0, 172);
             this.saveButton.Name = "saveButton";
             this.saveButton.Outline = System.Drawing.Color.Empty;
             this.saveButton.Size = new System.Drawing.Size(95, 40);
@@ -261,7 +261,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label9.Location = new System.Drawing.Point(0, 287);
+            this.label9.Location = new System.Drawing.Point(0, 215);
             this.label9.MinimumSize = new System.Drawing.Size(95, 24);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(95, 24);
@@ -275,13 +275,14 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label10.Location = new System.Drawing.Point(0, 204);
+            this.label10.Location = new System.Drawing.Point(0, 145);
             this.label10.MinimumSize = new System.Drawing.Size(95, 24);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(95, 24);
             this.label10.TabIndex = 16;
             this.label10.Text = "Загрузить";
             this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // deleteButton
             // 
@@ -358,7 +359,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label11.Location = new System.Drawing.Point(0, 134);
+            this.label11.Location = new System.Drawing.Point(0, 75);
             this.label11.MinimumSize = new System.Drawing.Size(95, 24);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(98, 24);
@@ -379,7 +380,7 @@
             this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.myButton1.FlatAppearance.BorderSize = 0;
             this.myButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.myButton1.Location = new System.Drawing.Point(0, 91);
+            this.myButton1.Location = new System.Drawing.Point(0, 32);
             this.myButton1.Name = "myButton1";
             this.myButton1.Outline = System.Drawing.Color.Empty;
             this.myButton1.Size = new System.Drawing.Size(95, 40);
@@ -400,7 +401,7 @@
             this.cycleButton.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.cycleButton.FlatAppearance.BorderSize = 0;
             this.cycleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cycleButton.Location = new System.Drawing.Point(0, 19);
+            this.cycleButton.Location = new System.Drawing.Point(3, 247);
             this.cycleButton.Name = "cycleButton";
             this.cycleButton.Outline = System.Drawing.Color.Empty;
             this.cycleButton.Size = new System.Drawing.Size(95, 40);
@@ -414,7 +415,7 @@
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (39)))), ((int) (((byte) (39)))), ((int) (((byte) (39)))));
-            this.label12.Location = new System.Drawing.Point(0, 64);
+            this.label12.Location = new System.Drawing.Point(1, 290);
             this.label12.MinimumSize = new System.Drawing.Size(95, 24);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(97, 24);
