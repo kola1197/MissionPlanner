@@ -137,6 +137,7 @@ namespace MissionPlanner.NewForms
             this.button2.TabIndex = 10;
             this.button2.Text = "Сбросить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button2_MouseUp);
             // 
             // label7
             // 
@@ -172,7 +173,7 @@ namespace MissionPlanner.NewForms
         private System.Windows.Forms.Label label7;
 
         public System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        public System.Windows.Forms.Button button2;
 
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

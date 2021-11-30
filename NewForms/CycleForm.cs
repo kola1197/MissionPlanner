@@ -57,5 +57,10 @@ namespace MissionPlanner.NewForms
                 label6.ForeColor = Color.Crimson;
                 label6.Visible = true;
             }              }
+
+        private void button2_MouseUp(object sender, MouseEventArgs e)
+        {
+            
+        }
     }
 }

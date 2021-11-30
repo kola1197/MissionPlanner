@@ -2491,7 +2491,7 @@ namespace MissionPlanner
         {
             bool isPlane = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null;
             bool isSitl = _currentAircraftNum != null && Aircrafts[_currentAircraftNum] != null &&
-                          !Aircrafts[_currentAircraftNum].UsingSitl;
+                          Aircrafts[_currentAircraftNum].UsingSitl;// && !StatusControlPanel.IsSitlConnected();
             warnings = new List<string>();
             notifications = new List<string>();
             if (MainV2.comPort.MAV.cs.connected && isPlane)
@@ -2652,15 +2652,14 @@ namespace MissionPlanner
 
                 if ((MainV2.comPort.MAV.cs.rpm2 < 40 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
                                                                      _currentAircraft.SitlInfo.ParamList.GetParamValue(
-                                                                         SitlParam.ParameterName.Temperature) < 40))
+                                                                         SitlParam.ParameterName.Temperature) < 40) && false)
                 {
                     warnings.Add("Низкая температура ДВС!");
                 }
-
-                if ((MainV2.comPort.MAV.cs.rpm1 < 3800 && !isSitl) || (StatusControlPanel.IsSitlConnected() &&
-                                                                       _currentAircraft.SitlInfo.ParamList
-                                                                           .GetParamValue(SitlParam.ParameterName.Rpm) >
-                                                                       8600))
+                double a =  _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm);
+                bool w = StatusControlPanel.IsSitlConnected();
+                if ((MainV2.comPort.MAV.cs.rpm1 < 3800 && !isSitl) || 
+                    (StatusControlPanel.IsSitlConnected() && _currentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName.Rpm) < 3800))
                 {
                     warnings.Add("Перебои двигателя!");
                 }
@@ -6766,5 +6765,7 @@ namespace MissionPlanner
         {
             e.Cancel = true;
         }
+
+        
     }
 }
