@@ -3247,22 +3247,7 @@ namespace MissionPlanner
                 // do the connect
                 comPort.Open(false, skipconnectcheck);
 
-                if (!comPort.BaseStream.IsOpen)
-                {
-                    log.Info("comport is closed. existing connect");
-                    try
-                    {
-                        _connectionControl.IsConnected(false);
-                        UpdateConnectIcon();
-                        comPort.Close();
-                    }
-                    catch
-                    {
-                    }
-
-                    return;
-                }
-
+                
                 // Autosave
                 if (portname == "TCP")
                 {
@@ -3289,17 +3274,71 @@ namespace MissionPlanner
                     }
                 }
 
-                try
-                {
-                    var selectedAircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
-                    if (!selectedAircraft.UsingAntenna && !selectedAircraft.UsingSitl)
+                // try
+                // {
+                    var aircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
+                    if (!aircraft.UsingAntenna && !aircraft.UsingSitl)
                     {
                         ConnectionsForm.instance.SaveAircrafts();
                     }
-                }
-                catch
+                // }
+                // catch
+                // {
+                // }
+                
+                if (!comPort.BaseStream.IsOpen)
                 {
+                    log.Info("comport is closed. existing connect");
+                    try
+                    {
+                        _connectionControl.IsConnected(false);
+                        UpdateConnectIcon();
+                        comPort.Close();
+                    }
+                    catch
+                    {
+                    }
+
+                    return;
                 }
+
+                // // Autosave
+                // if (portname == "TCP")
+                // {
+                //     try
+                //     {
+                //         var selectedAircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
+                //         selectedAircraft.TcpPort = ((TcpSerial) comPort.BaseStream).GetDest();
+                //         selectedAircraft.TcpIp = ((TcpSerial) comPort.BaseStream).GetHost();
+                //     }
+                //     catch
+                //     {
+                //     }
+                // }
+                //
+                // if (portname == "UDP")
+                // {
+                //     try
+                //     {
+                //         var selectedAircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
+                //         selectedAircraft.UdpPort = ((UdpSerial) comPort.BaseStream).Dest;
+                //     }
+                //     catch
+                //     {
+                //     }
+                // }
+                //
+                // try
+                // {
+                //     var selectedAircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
+                //     if (!selectedAircraft.UsingAntenna && !selectedAircraft.UsingSitl)
+                //     {
+                //         ConnectionsForm.instance.SaveAircrafts();
+                //     }
+                // }
+                // catch
+                // {
+                // }
 
                 if (getparams)
                 {
