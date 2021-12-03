@@ -9845,17 +9845,32 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             if (jumpWPNum != -1)
             {
-                int no = jumpWPNum;
-                cleanToNextWP(no - 1);
-                if (cleanToPrevWP(no - 1))
-                {
-                    no--;
-                }
+                
+                int no = jumpWPNum - 1;
+                int i = 1;
+                var wpType = Commands.Rows[no+i].Cells[Command.Index].Value.ToString();
 
-                if ((MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue ==
-                    MAVLink.MAV_MISSION_TYPE.FENCE)
-                    ReCalcFence(no - 1, false, true);
-                Commands.Rows.RemoveAt(no - 1); // home is 0
+                if (no != 0 || true)
+                {
+                    while (no + i < Commands.Rows.Count &&
+                           (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                               Commands.Rows[no + i].Cells[Command.Index].Value.ToString(), false) !=
+                           (ushort) MAVLink.MAV_CMD.WAYPOINT &&
+                           (ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                               Commands.Rows[no + i].Cells[Command.Index].Value.ToString(), false) !=
+                           (ushort) MAVLink.MAV_CMD.LOITER_TIME)
+                    {
+                        if ((ushort) Enum.Parse(typeof(MAVLink.MAV_CMD),
+                                Commands.Rows[no + i].Cells[Command.Index].Value.ToString(), false) ==
+                            (ushort) MAVLink.MAV_CMD.DO_JUMP)
+                        {
+                            Commands.Rows.RemoveAt(no + i);
+                        }
+
+                        i++;
+                    }
+                
+                }
             }
         }
 
@@ -9897,7 +9912,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         c++;
                         if (c == endPoint)
                         {
-                            realEndPoint = ii;
+                            realEndPoint = ii+1;
                             //lat = double.Parse(Commands.Rows[ii].Cells[Command.Index+1].Value.ToString());
                             //lot = double.Parse(Commands.Rows[ii].Cells[Command.Index+2].Value.ToString());
                         }
@@ -9906,10 +9921,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
 
                 c = 0;
-                var row = (DataGridViewRow) Commands.Rows[realEndPoint].Clone();
+                var row = (DataGridViewRow) Commands.Rows[realEndPoint-1].Clone();
                 row.Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_JUMP.ToString();
                 int realStartWP = 0;
-                for (int ii = 1; ii < Commands.Rows.Count; ii++) {
+                for (int ii = 0; ii < Commands.Rows.Count; ii++) {
                     var wpTypeString = Commands.Rows[ii].Cells[Command.Index].Value.ToString();
                     if (wpTypeString == MAVLink.MAV_CMD.WAYPOINT.ToString() || 
                         wpTypeString == MAVLink.MAV_CMD.LOITER_TIME.ToString())
@@ -9917,13 +9932,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         c++;
                         if (c == startPoint)
                         {
-                            realStartWP = ii;
+                            realStartWP = ii+1;
                         }                  
                     }
                 }
                 row.Cells[Command.Index + 1].Value = realStartWP.ToString();
                 row.Cells[Command.Index + 2].Value = counter.ToString(); 
-                Commands.Rows.Insert(realEndPoint + 1, row);
+                Commands.Rows.Insert(realEndPoint, row);
                 Commands_CellUpdate(realEndPoint, Command.Index + 1);
             }
         }
