@@ -961,8 +961,9 @@ namespace MissionPlanner
             {
                 connection_GB.Enabled = false;
                 connectionParams_panel.Enabled = false;
-                SaveAircrafts();
             }
+
+            SaveAircrafts();
 
             uiUpdateTasks.Clear();
 
