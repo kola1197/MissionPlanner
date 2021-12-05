@@ -2231,22 +2231,22 @@ namespace MissionPlanner
 
         void homeButtonClick(object sender, EventArgs e)
         {
-            // try
-            // {
-            //     ((Control) sender).Enabled = false;
-            //     MainV2.comPort.setMode("RTL");
-            // }
-            // catch
-            // {
-            //     CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-            // }
-            //
-            // ((Control) sender).Enabled = true;
-            if (FlightPlanner.pointlist.Count > 0)
-            {
-                FlightPlanner.MainMap.Position =
-                    new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
-            }
+             try
+             {
+                 ((Control) sender).Enabled = false;
+                 MainV2.comPort.setMode("RTL");
+             }
+             catch
+             {
+                 CustomMessageBox.Show("Не удалось перейти в режим RTL", "Ошибка");
+             }
+            
+            ((Control) sender).Enabled = true;
+            //if (FlightPlanner.pointlist.Count > 0)
+            //{
+            //    FlightPlanner.MainMap.Position =
+            //        new GMap.NET.PointLatLng(FlightPlanner.pointlist[0].Lat, FlightPlanner.pointlist[0].Lng);
+            //}
         }
 
         public void setLandWpInSitl()
