@@ -902,11 +902,13 @@ namespace MissionPlanner
         {
             UpdateComPorts();
         }
-
-        private static string connectionsDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath) +
-                                               Path.DirectorySeparatorChar + "Connections_Data" +
-                                               Path.DirectorySeparatorChar;
-
+        
+        // private static string connectionsDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath) +
+        //                                        Path.DirectorySeparatorChar + "Connections_Data" +
+        //                                        Path.DirectorySeparatorChar;
+        
+        private static string connectionsDir = Settings.GetUserDataDirectory();
+        
         private static string connectionsPath = connectionsDir + "connections.xml";
 
         public void SaveAircrafts()
@@ -959,8 +961,9 @@ namespace MissionPlanner
             {
                 connection_GB.Enabled = false;
                 connectionParams_panel.Enabled = false;
-                SaveAircrafts();
             }
+
+            SaveAircrafts();
 
             uiUpdateTasks.Clear();
 
