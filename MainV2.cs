@@ -3274,17 +3274,17 @@ namespace MissionPlanner
                     }
                 }
 
-                // try
-                // {
+                try
+                {
                     var aircraft = Aircrafts[ConnectionsForm.instance.GetSelectedAircraftNum()];
                     if (!aircraft.UsingAntenna && !aircraft.UsingSitl)
                     {
                         ConnectionsForm.instance.SaveAircrafts();
                     }
-                // }
-                // catch
-                // {
-                // }
+                }
+                catch
+                {
+                }
                 
                 if (!comPort.BaseStream.IsOpen)
                 {
