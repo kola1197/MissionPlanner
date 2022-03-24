@@ -236,6 +236,11 @@ namespace MissionPlanner
             try
             {
                 connectedAircraft.SerialPort = CMB_serialport.SelectedItem.ToString();
+                
+                if (CMB_baudrate.SelectedItem != null)
+                {
+                    connectedAircraft.Speed = CMB_baudrate.GetItemText(CMB_baudrate.SelectedItem);
+                }
 
                 MainV2.instance.doConnect(mav, CMB_serialport.Text, CMB_baudrate.Text);
                 Thread.Sleep(200); // I do not know why, but it helps with crash on params loading
@@ -245,11 +250,6 @@ namespace MissionPlanner
                 MainV2._connectionControl.UpdateSysIDS();
                 UpdateAircraftSysIdCmb();
                 
-                if (CMB_baudrate.SelectedItem != null)
-                {
-                    connectedAircraft.Speed = CMB_baudrate.GetItemText(CMB_baudrate.SelectedItem);
-                }
-
                 connectedAircraft.SysId =
                     MainV2._connectionControl.cmb_sysid.Items[MainV2._connectionControl.cmb_sysid.Items.Count - 1];
                 connectedAircraft.Connected = true;
