@@ -6104,8 +6104,45 @@ namespace MissionPlanner
         public static DateTime _lastEngineOverrideTime = DateTime.Now;
         private static bool needToCheckFBWBTurnedOff = false;
 
+        private static string keyString = "";
+        private static CurrentScreenMode currentScreenMode = CurrentScreenMode.DEFAULT;
+        enum CurrentScreenMode
+        {
+            DEFAULT,
+            SECRET
+        };
+
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
+            keyString += e.KeyData;
+            //Console.WriteLine("MainV2_KeyUp: " + keyString);
+            if ("GRIFON".Contains(keyString))
+            {
+                if (keyString == "GRIFON")
+                {
+                    switch (currentScreenMode)
+                    {
+                        case CurrentScreenMode.DEFAULT:
+                            currentScreenMode = CurrentScreenMode.SECRET;
+                            MyView.ShowScreen("FlightData");
+                            break;
+                        case CurrentScreenMode.SECRET:
+                            currentScreenMode = CurrentScreenMode.DEFAULT;
+                            MyView.ShowScreen("FlightPlanner");
+                            break;
+                    }
+
+                    keyString = "";
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                keyString = "";
+            }
+            //CustomMessageBox.Show("keyString: "+ keyString+" key: " + e.KeyData);
             if (comPort.MAV.cs.connected && CurrentAircraftNum != null && Aircrafts[CurrentAircraftNum].Connected)
             {
                 if (comPort.MAV.cs.mode != "FBWB" & !_overrideModeActive)

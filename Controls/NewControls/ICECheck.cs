@@ -124,11 +124,11 @@ namespace MissionPlanner.Controls.NewControls
                         {
                             if ( k == 0)
                             {
-                                if (MainV2.engineController.SetEngineValueAndWait((float)fMax, key))
-                                {
+                                //if (MainV2.engineController.SetEngineValueAndWait((float)fMax, key))
+                                //{
                                     // System.Diagnostics.Debug.WriteLine("key " + key.ToString() );
                                     //CustomMessageBox.Show("Двигатель занят в другом потоке");
-                                }
+                                //}
                             }
                             //MainV2.comPort.MAV.cs.ch10out = 2000;
                             if (testBool)
@@ -164,10 +164,10 @@ namespace MissionPlanner.Controls.NewControls
                             tests[0] = false;
                         }
 
-                        if (MainV2.engineController.SetEngineValueAndWait((float) fMin, key))
-                        {
+                        //if (MainV2.engineController.SetEngineValueAndWait((float) fMin, key))
+                        //{
                             //CustomMessageBox.Show("Двигатель занят в другом потоке");
-                        }
+                        //}
 
                         //MainV2.comPort.MAV.cs.ch10out = 1400;
                         if (testBool)
@@ -224,7 +224,7 @@ namespace MissionPlanner.Controls.NewControls
                         {
                             if (!stopSetServo)
                             {
-                                MainV2.engineController.SetEngineValueAndWait(fMin, key);
+                                //MainV2.engineController.SetEngineValueAndWait(fMin, key);
                                 stopSetServo = true;
                             }
                             else
@@ -236,8 +236,8 @@ namespace MissionPlanner.Controls.NewControls
                         {
                             if (counter % counterDivider == 0 || counter == 120 * multy + 1 || counter == 210 * multy - 1)
                             {
-                                MainV2.engineController.SetEngineValueAndWait(
-                                    (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
+                                //MainV2.engineController.SetEngineValueAndWait(
+                                //    (float) Math.Sin(d / 14) * (fMax - fMin) / 2f + (fMin + fMax) / 2f, key);
                             }
                         }
                         //CustomMessageBox.Show("Двигатель занят в другом потоке");
@@ -281,7 +281,7 @@ namespace MissionPlanner.Controls.NewControls
 
                     if (counter > 210 * multy + awaitingPeriodForThrotle)
                     {
-                        MainV2.engineController.SetEngineValueAndWait(fMin, key);
+                        //MainV2.engineController.SetEngineValueAndWait(fMin, key);
 
                         if (sinusoidTestCounter[0] != 2 || sinusoidTestCounter[1] != 2)
                         {
@@ -340,6 +340,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     fMin = MainV2.comPort.GetParam("SERVO3_TRIM");
                     fMax = MainV2.comPort.GetParam("SERVO3_MAX");
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.START_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
                     started = true;
                     ICESpeeds = new List<float>();
                     startButton.Text = "Начать перегазовки";
@@ -389,6 +390,7 @@ namespace MissionPlanner.Controls.NewControls
         
         public void stop()
         {
+            MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.STOP_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
             // if (_iceTimer != null)
             // {
             //     _iceTimer.Dispose();

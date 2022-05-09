@@ -1072,7 +1072,12 @@ public partial class MAVLink
         ///<summary> Change to target heading at a given rate, overriding previous heading/s. This slews the vehicle at a controllable rate between it's previous heading and the new one. (affects GUIDED only. Exiting GUIDED returns aircraft to normal behaviour defined elsewhere. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.) |course-over-ground or raw vehicle heading.| Target heading.| Maximum centripetal accelearation, ie rate of change,  toward new heading.| Empty| Empty| Empty| Empty|  </summary>
         [Description("Change to target heading at a given rate, overriding previous heading/s. This slews the vehicle at a controllable rate between it's previous heading and the new one. (affects GUIDED only. Exiting GUIDED returns aircraft to normal behaviour defined elsewhere. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.)")]
         GUIDED_CHANGE_HEADING=43002, 
-    
+        ///<summary> Start ICE checks.| Empty| Empty| Empty| Empty|  </summary>
+        [Description("Start ICE checks")]
+        START_ICE_CHECK=666,
+        ///<summary> Start ICE checks.| Empty| Empty| Empty| Empty|  </summary>
+        [Description("Stop ICE checks")] 
+        STOP_ICE_CHECK=667, 
     };
     
     ///<summary>  </summary>
