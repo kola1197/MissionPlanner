@@ -699,6 +699,9 @@ namespace MissionPlanner
             }
 
             MainV2.comPort.MavChanged += OnMavChanged;
+            
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.POSITION, MainV2.comPort.MAV.cs.rateposition,
+                MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
         }
 
         private void devices_LB_SelectedIndexChanged(object sender, EventArgs e)

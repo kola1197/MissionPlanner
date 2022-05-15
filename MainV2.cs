@@ -610,6 +610,8 @@ namespace MissionPlanner
             }
         }
 
+
+        
         public static string defaultFuelSavePath = Settings.GetUserDataDirectory() + "fuelConfig";
         public static string defaultConfig = Settings.GetUserDataDirectory() + "servoConfig.txt";
         public static string defaultLoggerPath = Settings.GetUserDataDirectory() + "Log";
@@ -1249,13 +1251,13 @@ namespace MissionPlanner
                 //     CurrentState.ratercbackup = Settings.Instance.GetInt32("CMB_raterc");
                 // if (Settings.Instance["CMB_ratesensors"] != null)
                 //     CurrentState.ratesensorsbackup = Settings.Instance.GetInt32("CMB_ratesensors");
-                CurrentState.rateattitudebackup = 1;
-                CurrentState.ratepositionbackup = 2;
-                CurrentState.ratestatusbackup = 1;
-                CurrentState.ratercbackup = 1;
-                CurrentState.ratesensorsbackup = 1;
-                CurrentState.rateSlowbackup = 1;
-                CurrentState.rateMediumbackup = 1;
+                CurrentState.rateattitudebackup = (int) CurrentState.StreamRates.EXTRA1_ATTITUDE;
+                CurrentState.ratepositionbackup = (int) CurrentState.StreamRates.POSITION;
+                CurrentState.ratestatusbackup = (int) CurrentState.StreamRates.EXTENDED_STATUS;
+                CurrentState.ratercbackup = (int) CurrentState.StreamRates.RC_CHANNELS;
+                CurrentState.ratesensorsbackup = (int) CurrentState.StreamRates.RAW_SENSORS;
+                CurrentState.rateSlowbackup = (int) CurrentState.StreamRates.EXTRA2_SLOW;
+                CurrentState.rateMediumbackup = (int) CurrentState.StreamRates.EXTRA3_MEDIUM;
 
                 //Load customfield names from config
 

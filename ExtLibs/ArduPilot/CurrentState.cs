@@ -174,16 +174,27 @@ namespace MissionPlanner
         /// </summary>
         private double Wn_fgo;
 
+        public enum StreamRates : int
+        {
+            EXTENDED_STATUS = 1,
+            POSITION = 2,
+            EXTRA1_ATTITUDE = 1,
+            EXTRA2_SLOW = 1,
+            EXTRA3_MEDIUM = 1,
+            RAW_SENSORS = 1,
+            RC_CHANNELS = 1,
+        }
+        
         static CurrentState()
         {
             // set default telemrates
-            rateattitudebackup = 1;
-            ratepositionbackup = 2;
-            ratestatusbackup = 1;
-            ratesensorsbackup = 1;
-            ratercbackup = 1;
-            rateSlowbackup = 1;
-            rateMediumbackup = 1;
+            rateattitudebackup = (int) StreamRates.EXTRA1_ATTITUDE;
+            ratepositionbackup = (int) StreamRates.POSITION;
+            ratestatusbackup = (int) StreamRates.EXTENDED_STATUS;
+            ratesensorsbackup = (int) StreamRates.RAW_SENSORS;
+            ratercbackup = (int) StreamRates.RC_CHANNELS;
+            rateSlowbackup = (int) StreamRates.EXTRA2_SLOW;
+            rateMediumbackup = (int) StreamRates.EXTRA3_MEDIUM;
             //Init dictionary for storing names for customfields
             custom_field_names = new Dictionary<string, string>();
         }
