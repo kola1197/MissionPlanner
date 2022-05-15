@@ -5652,6 +5652,7 @@ namespace MissionPlanner
                 Form frm = new temp();
                 ThemeManager.ApplyThemeTo(frm);
                 frm.Show();
+                ShowConnectionStatsForm();
                 return true;
             }
 
