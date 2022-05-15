@@ -517,7 +517,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA1, MainV2.comPort.MAV.cs.rateattitude);
             // request attitude
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateattitude);
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateSlow);
             // request vfr
         }
 
@@ -569,7 +569,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             CurrentState.ratesensorsbackup = MainV2.comPort.MAV.cs.ratesensors;
 
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.ratesensors);
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.rateMedium);
             // request extra stuff - tridge
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
             // request raw sensor

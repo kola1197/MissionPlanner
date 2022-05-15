@@ -200,9 +200,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             var oldatt = MainV2.comPort.MAV.cs.rateattitude;
             var oldpos = MainV2.comPort.MAV.cs.rateposition;
             var oldstatus = MainV2.comPort.MAV.cs.ratestatus;
+            var oldSlow = MainV2.comPort.MAV.cs.rateSlow;
 
+            
             MainV2.comPort.MAV.cs.raterc = 10;
             MainV2.comPort.MAV.cs.rateattitude = 0;
+            MainV2.comPort.MAV.cs.rateSlow = 0;
             MainV2.comPort.MAV.cs.rateposition = 0;
             MainV2.comPort.MAV.cs.ratestatus = 0;
 
@@ -377,6 +380,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MainV2.comPort.MAV.cs.rateattitude = oldatt;
             MainV2.comPort.MAV.cs.rateposition = oldpos;
             MainV2.comPort.MAV.cs.ratestatus = oldstatus;
+            MainV2.comPort.MAV.cs.rateSlow = oldSlow;
 
             try
             {

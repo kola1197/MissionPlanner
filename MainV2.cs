@@ -1239,16 +1239,23 @@ namespace MissionPlanner
                     this.Width = Settings.Instance.GetInt32("MainWidth");
 
                 // set presaved default telem rates
-                if (Settings.Instance["CMB_rateattitude"] != null)
-                    CurrentState.rateattitudebackup = Settings.Instance.GetInt32("CMB_rateattitude");
-                if (Settings.Instance["CMB_rateposition"] != null)
-                    CurrentState.ratepositionbackup = Settings.Instance.GetInt32("CMB_rateposition");
-                if (Settings.Instance["CMB_ratestatus"] != null)
-                    CurrentState.ratestatusbackup = Settings.Instance.GetInt32("CMB_ratestatus");
-                if (Settings.Instance["CMB_raterc"] != null)
-                    CurrentState.ratercbackup = Settings.Instance.GetInt32("CMB_raterc");
-                if (Settings.Instance["CMB_ratesensors"] != null)
-                    CurrentState.ratesensorsbackup = Settings.Instance.GetInt32("CMB_ratesensors");
+                // if (Settings.Instance["CMB_rateattitude"] != null)
+                //     CurrentState.rateattitudebackup = Settings.Instance.GetInt32("CMB_rateattitude");
+                // if (Settings.Instance["CMB_rateposition"] != null)
+                //     CurrentState.ratepositionbackup = Settings.Instance.GetInt32("CMB_rateposition");
+                // if (Settings.Instance["CMB_ratestatus"] != null)
+                //     CurrentState.ratestatusbackup = Settings.Instance.GetInt32("CMB_ratestatus");
+                // if (Settings.Instance["CMB_raterc"] != null)
+                //     CurrentState.ratercbackup = Settings.Instance.GetInt32("CMB_raterc");
+                // if (Settings.Instance["CMB_ratesensors"] != null)
+                //     CurrentState.ratesensorsbackup = Settings.Instance.GetInt32("CMB_ratesensors");
+                CurrentState.rateattitudebackup = 1;
+                CurrentState.ratepositionbackup = 2;
+                CurrentState.ratestatusbackup = 1;
+                CurrentState.ratercbackup = 1;
+                CurrentState.ratesensorsbackup = 1;
+                CurrentState.rateSlowbackup = 1;
+                CurrentState.rateMediumbackup = 1;
 
                 //Load customfield names from config
 
@@ -5640,13 +5647,13 @@ namespace MissionPlanner
             //     return true;
             // }
             //
-            // if (keyData == (Keys.Control | Keys.F)) // temp
-            // {
-            //     Form frm = new temp();
-            //     ThemeManager.ApplyThemeTo(frm);
-            //     frm.Show();
-            //     return true;
-            // }
+            if (keyData == (Keys.Control | Keys.F)) // temp
+            {
+                Form frm = new temp();
+                ThemeManager.ApplyThemeTo(frm);
+                frm.Show();
+                return true;
+            }
 
             /*if (keyData == (Keys.Control | Keys.S)) // screenshot
             {

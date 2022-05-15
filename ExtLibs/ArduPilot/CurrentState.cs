@@ -37,6 +37,8 @@ namespace MissionPlanner
         public static int ratestatusbackup;
         public static int ratesensorsbackup;
         public static int ratercbackup;
+        public static int rateSlowbackup;
+        public static int rateMediumbackup;
 
         public static int KIndexstatic = -1;
         private float _airspeed;
@@ -175,11 +177,13 @@ namespace MissionPlanner
         static CurrentState()
         {
             // set default telemrates
-            rateattitudebackup = 4;
+            rateattitudebackup = 1;
             ratepositionbackup = 2;
-            ratestatusbackup = 2;
-            ratesensorsbackup = 2;
-            ratercbackup = 2;
+            ratestatusbackup = 1;
+            ratesensorsbackup = 1;
+            ratercbackup = 1;
+            rateSlowbackup = 1;
+            rateMediumbackup = 1;
             //Init dictionary for storing names for customfields
             custom_field_names = new Dictionary<string, string>();
         }
@@ -1594,7 +1598,9 @@ namespace MissionPlanner
         public int ratestatus { get; set; }
         public int ratesensors { get; set; }
         public int raterc { get; set; }
-
+        public int rateSlow { get; set; }
+        public int rateMedium { get; set; }
+        
         // reference
         public DateTime datetime { get; set; }
 
@@ -3116,6 +3122,8 @@ namespace MissionPlanner
                 ratestatus = ratestatusbackup;
                 ratesensors = ratesensorsbackup;
                 raterc = ratercbackup;
+                rateSlow = rateSlowbackup;
+                rateMedium = rateMediumbackup;
                 datetime = DateTime.MinValue;
                 battery_usedmah = 0;
                 _lastcurrent = DateTime.MinValue;
@@ -3275,9 +3283,9 @@ namespace MissionPlanner
                                 MAV.sysid, MAV.compid); // request gps
                             mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA1, MAV.cs.rateattitude,
                                 MAV.sysid, MAV.compid); // request attitude
-                            mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MAV.cs.rateattitude,
+                            mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MAV.cs.rateSlow,
                                 MAV.sysid, MAV.compid); // request vfr
-                            mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MAV.cs.ratesensors,
+                            mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MAV.cs.rateMedium,
                                 MAV.sysid,
                                 MAV.compid); // request extra stuff - tridge
                             mavinterface.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MAV.cs.ratesensors,
