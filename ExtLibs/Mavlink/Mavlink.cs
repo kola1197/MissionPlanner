@@ -1077,7 +1077,10 @@ public partial class MAVLink
         START_ICE_CHECK=666,
         ///<summary> Start ICE checks.| Empty| Empty| Empty| Empty|  </summary>
         [Description("Stop ICE checks")] 
-        STOP_ICE_CHECK=667, 
+        STOP_ICE_CHECK=667,
+        ///<summary> Start flight by compas.| target yaw| Empty| Empty| Empty|  </summary>
+        [Description("Start flight by compas")] 
+        FLIGHT_BY_COMPAS=668, 
     };
     
     ///<summary>  </summary>

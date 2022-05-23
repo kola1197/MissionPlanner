@@ -587,7 +587,9 @@
     <Compile Include="Controls\NewControls\WPMenu.Designer.cs">
       <DependentUpon>WPMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RightButton.cs" />
+    <Compile Include="Controls\RightButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.cs">
       <SubType>UserControl</SubType>
     </Compile>

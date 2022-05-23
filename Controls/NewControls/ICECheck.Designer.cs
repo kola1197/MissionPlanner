@@ -43,13 +43,14 @@ namespace MissionPlanner.Controls.NewControls
             this.graphTimer = new System.Windows.Forms.Timer(this.components);
             this.iceTimer = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // testButton
             // 
             this.testButton.BGGradBot = System.Drawing.Color.Empty;
             this.testButton.BGGradTop = System.Drawing.Color.Empty;
+            this.testButton.Enabled = false;
             this.testButton.Location = new System.Drawing.Point(52, 383);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(86, 23);
@@ -61,7 +62,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             // myButton1
             // 
-            this.myButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.myButton1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.myButton1.BGGradBot = System.Drawing.Color.Transparent;
             this.myButton1.BGGradTop = System.Drawing.Color.Transparent;
             this.myButton1.ColorMouseDown = System.Drawing.Color.Transparent;
@@ -86,17 +87,17 @@ namespace MissionPlanner.Controls.NewControls
             // 
             // startButton
             // 
-            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.startButton.ColorMouseOver = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.ColorMouseDown = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.ColorMouseOver = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.startButton.ColorNotEnabled = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.startButton.DefaultTheme = false;
-            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.startButton.Location = new System.Drawing.Point(253, 396);
             this.startButton.Name = "startButton";
-            this.startButton.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.startButton.Outline = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.startButton.Size = new System.Drawing.Size(94, 33);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Начать";
@@ -117,12 +118,12 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.progressBar1.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.progressBar1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            this.progressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.progressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.progressBar1.Location = new System.Drawing.Point(0, 347);
-            this.progressBar1.Maximum = 59;
+            this.progressBar1.Maximum = 49;
             this.progressBar1.Minimum = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(144, 30);
+            this.progressBar1.Size = new System.Drawing.Size(101, 30);
             this.progressBar1.TabIndex = 10;
             this.progressBar1.Text = "Полный";
             this.progressBar1.Value = 0;
@@ -132,12 +133,12 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.progressBar2.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.progressBar2.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            this.progressBar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.progressBar2.Location = new System.Drawing.Point(144, 347);
-            this.progressBar2.Maximum = 59;
+            this.progressBar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.progressBar2.Location = new System.Drawing.Point(102, 347);
+            this.progressBar2.Maximum = 49;
             this.progressBar2.Minimum = 0;
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(144, 30);
+            this.progressBar2.Size = new System.Drawing.Size(101, 30);
             this.progressBar2.TabIndex = 11;
             this.progressBar2.Text = "Малый";
             this.progressBar2.Value = 0;
@@ -147,12 +148,12 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.progressBar3.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.progressBar3.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            this.progressBar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.progressBar3.Location = new System.Drawing.Point(289, 347);
-            this.progressBar3.Maximum = 89;
+            this.progressBar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.progressBar3.Location = new System.Drawing.Point(203, 347);
+            this.progressBar3.Maximum = 149;
             this.progressBar3.Minimum = 0;
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(216, 30);
+            this.progressBar3.Size = new System.Drawing.Size(302, 30);
             this.progressBar3.TabIndex = 12;
             this.progressBar3.Text = "Перегазовки";
             this.progressBar3.Value = 0;
@@ -181,7 +182,6 @@ namespace MissionPlanner.Controls.NewControls
             // 
             // iceTimer
             // 
-            this.iceTimer.Interval = 50;
             this.iceTimer.Tick += new System.EventHandler(this.iceTimer_Tick);
             // 
             // label3
@@ -210,9 +210,8 @@ namespace MissionPlanner.Controls.NewControls
             this.DoubleBuffered = true;
             this.Name = "ICECheck";
             this.Size = new System.Drawing.Size(508, 432);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.Timer graphTimer;
@@ -225,7 +224,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private MyButton startButton;
         private MyButton myButton1;
-        private MyButton testButton;
+        private MissionPlanner.Controls.MyButton testButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private BSE.Windows.Forms.ProgressBar progressBar1;
         private BSE.Windows.Forms.ProgressBar progressBar2;

@@ -42,10 +42,10 @@ namespace MissionPlanner.Controls.NewControls
         private void timer1_Tick(object sender, EventArgs e)
         {
             directionNowLabel.Text = MainV2.comPort.MAV.cs.connected ? MainV2.comPort.MAV.cs.yaw.ToString() : "null";
-            if (enabled)
-            {
-                computePID();
-            }
+            // if (enabled)
+            // {
+            //     computePID();
+            // }
         }
 
         private void FlightByCompassControl_VisibleChanged(object sender, EventArgs e)
@@ -126,8 +126,12 @@ namespace MissionPlanner.Controls.NewControls
             if (enabled)
             {
                 turnOnButton.Text = "Выключить";
-                float.TryParse(directionNowLabel.Text, out directValue);
-                MainV2.comPort.setMode("FBWB");
+                //float.TryParse(directionNowLabel.Text, out directValue);
+                float.TryParse(textBox1.Text, out directValue);
+
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.FLIGHT_BY_COMPAS, directValue, 0, 0, 0, 0, 0, 0);
+
+                //MainV2.comPort.setMode("FBWB");
             }
             else 
             {

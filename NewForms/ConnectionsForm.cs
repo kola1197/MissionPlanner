@@ -699,9 +699,22 @@ namespace MissionPlanner
             }
 
             MainV2.comPort.MavChanged += OnMavChanged;
-            
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.POSITION, MainV2.comPort.MAV.cs.rateposition,
-                MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTENDED_STATUS, MainV2.comPort.MAV.cs.ratestatus,
+               MainV2.comPort.MAV.sysid,MainV2.comPort.MAV.compid); // mode
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.POSITION,MainV2.comPort.MAV.cs.rateposition,
+               MainV2.comPort.MAV.sysid,MainV2.comPort.MAV.compid); // request gps
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA1,MainV2.comPort.MAV.cs.rateattitude,
+               MainV2.comPort.MAV.sysid,MainV2.comPort.MAV.compid); // request attitude
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2,MainV2.comPort.MAV.cs.rateRpm,
+               MainV2.comPort.MAV.sysid,MainV2.comPort.MAV.compid); // request vfr
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3,MainV2.comPort.MAV.cs.rateMedium,
+               MainV2.comPort.MAV.sysid,
+               MainV2.comPort.MAV.compid); // request extra stuff - tridge
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS,MainV2.comPort.MAV.cs.ratesensors,
+               MainV2.comPort.MAV.sysid,MainV2.comPort.MAV.compid); // request raw sensor
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RC_CHANNELS,MainV2.comPort.MAV.cs.raterc,
+               MainV2.comPort.MAV.sysid,
+               MainV2.comPort.MAV.compid); // request rc info
         }
 
         private void devices_LB_SelectedIndexChanged(object sender, EventArgs e)

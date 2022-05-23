@@ -434,14 +434,14 @@ namespace MissionPlanner
 
             var backuprateatt = MainV2.comPort.MAV.cs.rateattitude;
             var backupratepos = MainV2.comPort.MAV.cs.rateposition;
-            var backuprateSlow = MainV2.comPort.MAV.cs.rateSlow;
+            var backuprateSlow = MainV2.comPort.MAV.cs.rateRpm;
             var backuprateMedium = MainV2.comPort.MAV.cs.rateMedium;
 
             MainV2.comPort.MAV.cs.ratesensors = 2;
             MainV2.comPort.MAV.cs.rateMedium = 2;
             
             MainV2.comPort.MAV.cs.rateattitude = 0;
-            MainV2.comPort.MAV.cs.rateSlow = 0;
+            MainV2.comPort.MAV.cs.rateRpm = 0;
             MainV2.comPort.MAV.cs.rateposition = 0;
 
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.ALL, 0);
@@ -702,7 +702,7 @@ namespace MissionPlanner
             MainV2.comPort.MAV.cs.ratesensors = backupratesens;
             MainV2.comPort.MAV.cs.rateattitude = backuprateatt;
             MainV2.comPort.MAV.cs.rateposition = backupratepos;
-            MainV2.comPort.MAV.cs.rateSlow = backuprateSlow;
+            MainV2.comPort.MAV.cs.rateRpm = backuprateSlow;
             MainV2.comPort.MAV.cs.rateMedium = backuprateMedium;
             
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
@@ -711,7 +711,7 @@ namespace MissionPlanner
             // request gps
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA1, MainV2.comPort.MAV.cs.rateattitude);
             // request attitude
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateSlow);
+            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateRpm);
             // request vfr
             MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.rateMedium);
             // request extra stuff - tridge

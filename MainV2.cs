@@ -1256,7 +1256,7 @@ namespace MissionPlanner
                 CurrentState.ratestatusbackup = (int) CurrentState.StreamRates.EXTENDED_STATUS;
                 CurrentState.ratercbackup = (int) CurrentState.StreamRates.RC_CHANNELS;
                 CurrentState.ratesensorsbackup = (int) CurrentState.StreamRates.RAW_SENSORS;
-                CurrentState.rateSlowbackup = (int) CurrentState.StreamRates.EXTRA2_SLOW;
+                CurrentState.rateRpmbackup = (int) CurrentState.StreamRates.EXTRA2_RPM;
                 CurrentState.rateMediumbackup = (int) CurrentState.StreamRates.EXTRA3_MEDIUM;
 
                 //Load customfield names from config
@@ -1406,7 +1406,7 @@ namespace MissionPlanner
             setFixedValues();
 
             setTransparentControls();
-            Text = "НПУ v1.1";
+            Text = "НПУ v1.2";
 
             FormConnector = new FormConnector(this);
 
@@ -1444,6 +1444,7 @@ namespace MissionPlanner
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
+            MainV2.configServo[1] = new servoValue(11, 1900, 1100);
         }
 
         private void onClose(CancelEventArgs e)
@@ -5649,14 +5650,14 @@ namespace MissionPlanner
             //     return true;
             // }
             //
-            if (keyData == (Keys.Control | Keys.F)) // temp
-            {
-                Form frm = new temp();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                ShowConnectionStatsForm();
-                return true;
-            }
+            // if (keyData == (Keys.Control | Keys.F)) // temp
+            // {
+            //     Form frm = new temp();
+            //     ThemeManager.ApplyThemeTo(frm);
+            //     frm.Show();
+            //     ShowConnectionStatsForm();
+            //     return true;
+            // }
 
             /*if (keyData == (Keys.Control | Keys.S)) // screenshot
             {
@@ -6124,9 +6125,10 @@ namespace MissionPlanner
 
         private void MainV2_KeyUp(object sender, KeyEventArgs e)
         {
+            var validCharacters = "GRIFON" + "ANUBIS";
             keyString += e.KeyData;
             //Console.WriteLine("MainV2_KeyUp: " + keyString);
-            if ("GRIFON".Contains(keyString))
+            if (validCharacters.Contains(keyString))
             {
                 if (keyString == "GRIFON")
                 {
@@ -6144,8 +6146,13 @@ namespace MissionPlanner
 
                     keyString = "";
                 }
-                else
+
+                if (keyString == "ANUBIS")
                 {
+                    Form frm = new temp();
+                    ThemeManager.ApplyThemeTo(frm);
+                    frm.Show();
+                    ShowConnectionStatsForm();
                 }
             }
             else
