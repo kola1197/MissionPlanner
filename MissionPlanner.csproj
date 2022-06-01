@@ -369,6 +369,7 @@
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="GeoJSON.Net" version="1.1.64" targetFramework="net462" />
+    <PackageReference Include="Google.Protobuf" Version="3.21.1" />
     <PackageReference Include="IronPython" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="IronPython.StdLib" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="log4net" version="2.0.8" targetFramework="net462" />
@@ -596,14 +597,21 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigServoGimbal.Designer.cs">
       <DependentUpon>ConfigServoGimbal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewClasses\CameraListener.cs" />
     <Compile Include="NewClasses\ControlDrawingTools.cs" />
     <Compile Include="NewClasses\CoordinatsConverter.cs" />
     <Compile Include="NewClasses\EngineController.cs" />
     <Compile Include="NewClasses\FormConnector.cs" />
+    <Compile Include="NewClasses\GeoData.cs" />
     <Compile Include="NewClasses\IFormConnectable.cs" />
+    <Compile Include="NewClasses\InfoPacket.cs" />
     <Compile Include="NewClasses\Logger.cs" />
+    <Compile Include="NewClasses\TelemetryData.cs" />
+    <Compile Include="NewClasses\UavIdentity.cs" />
+    <Compile Include="NewClasses\UavState.cs" />
     <Compile Include="NewClasses\VerticalSpeedArrow.cs" />
     <Compile Include="NewClasses\VibeData.cs" />
+    <Compile Include="NewClasses\VisualData.cs" />
     <Compile Include="NewForms\AltChoose.cs">
       <SubType>Form</SubType>
     </Compile>

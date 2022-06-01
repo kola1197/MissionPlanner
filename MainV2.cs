@@ -1425,8 +1425,13 @@ namespace MissionPlanner
             catch
             {
             }
+
+            cameraListener = new CameraListener();
+            cameraListener.start();
         }
 
+        private CameraListener cameraListener;
+            
         private void setTransparentControls()
         {
             FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;
