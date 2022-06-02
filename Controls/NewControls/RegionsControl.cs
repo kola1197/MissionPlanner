@@ -267,7 +267,7 @@ namespace MissionPlanner.Controls.NewControls
             FlightPlanner.RegionsOverlay.Polygons.Add(polygon);
 
             polygon.SetRandomColor();
-
+            
             UpdateBindings();
             regions_LB.SelectedIndex = regions_LB.Items.Count - 1;
 
@@ -313,7 +313,7 @@ namespace MissionPlanner.Controls.NewControls
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.yellow);
+                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.red_dot);
                 m.ToolTipMode = MarkerTooltipMode.Never;
                 m.ToolTipText = "grid" + tag;
                 m.Tag = "grid" + tag;

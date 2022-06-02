@@ -588,6 +588,8 @@ namespace MissionPlanner
 
         public static Dictionary<int, servoValue> configServo = new Dictionary<int, servoValue>();
 
+        public CameraListener cameraListener;
+
         public class item
         {
             [XmlAttribute] public string id;
@@ -659,7 +661,7 @@ namespace MissionPlanner
         public static bool TerminalTheming = true;
 
         /// <summary>
-        /// Form for orlan connections
+        /// Form for aircraft connections
         /// </summary>
         public static ConnectionsForm ConnectionsForm = new ConnectionsForm();
 
@@ -675,7 +677,7 @@ namespace MissionPlanner
         public static FormConnector FormConnector;
 
         /// <summary>
-        /// All orlan connections data
+        /// All aircrafts connections data
         /// </summary>
         public static Dictionary<string, AircraftConnectionInfo> Aircrafts =
             new Dictionary<string, AircraftConnectionInfo>();
@@ -1429,9 +1431,7 @@ namespace MissionPlanner
             cameraListener = new CameraListener();
             cameraListener.start();
         }
-
-        private CameraListener cameraListener;
-            
+        
         private void setTransparentControls()
         {
             FlightPlanner.notificationListControl1.Parent = FlightPlanner.MainMap;

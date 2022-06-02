@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using MissionPlanner.GCSViews;
 using Rdmp;
-using Google.Protobuf;
-
+using Point = Rdmp.Point;
 
 namespace MissionPlanner.NewClasses
 {
@@ -14,15 +18,23 @@ namespace MissionPlanner.NewClasses
         public List<Point> points;
         private const int port = 13200;
         string server = "127.0.0.1";
+        /// <summary>
+        /// TODO: Switch to Task
+        /// </summary>
         private Thread thread;
         private bool threadActive = false;
         public CameraListener()
         {
+            points = new List<Point>();
             thread = new Thread(threadVoid);
         }
 
         public void start()
         {
+            var mapStartPoints = new List<PointLatLng>();
+            FlightPlanner.CameraAreaOverlay.Polygons.Add(new GMapPolygon(mapStartPoints, "cameraPolygon"));
+            FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
+            // FlightPlanner.CameraAreaOverlay.Polygons.First().Stroke = new Pen(Color.Red, 2);
             thread.Start();
         }
 
@@ -103,13 +115,13 @@ namespace MissionPlanner.NewClasses
                                     points.Add(point);
                                 }
                                 //Console.WriteLine("----------");
-
+                                FlightPlanner.instance.setCameraPolygon();
                             }
                             catch (Exception e)
                             {
                             }
                         }
-                        System.Threading.Thread.Sleep(1000);
+                        // Thread.Sleep(1000);
                     }
                     stream.Close();
                     client.Close();
