@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using MissionPlanner.GCSViews;
@@ -22,11 +23,15 @@ namespace MissionPlanner.NewClasses
         /// TODO: Switch to Task
         /// </summary>
         private Thread thread;
-        private bool threadActive = false;
+        private bool needToStop = false;
+        private int cyclesWithoutPacket = 0;
+        private bool pointUpdated = true;
+
         public CameraListener()
         {
             points = new List<Point>();
             thread = new Thread(threadVoid);
+            thread.IsBackground = true;
         }
 
         public void start()
@@ -35,34 +40,35 @@ namespace MissionPlanner.NewClasses
             FlightPlanner.CameraAreaOverlay.Polygons.Add(new GMapPolygon(mapStartPoints, "cameraPolygon"));
             FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
             // FlightPlanner.CameraAreaOverlay.Polygons.First().Stroke = new Pen(Color.Red, 2);
-            thread.Start();
+            //thread.Start();
+            Task.Run(() => { threadVoid(); });
         }
 
         public void stop()
         {
-            threadActive = false;
+            needToStop = true;
         }
 
         private void threadVoid()
         {
-            threadActive = true;
-            
-            while (threadActive)
+            needToStop = false;
+            while (!needToStop)
             {
                 try {
                     TcpClient client = new TcpClient();
                     client.Connect(server, port);
                     NetworkStream stream = client.GetStream();
-
-                    while (true)
+                    cyclesWithoutPacket = 0;
+                    while (cyclesWithoutPacket < 10 && !needToStop)
                     {
+                        pointUpdated = false;
                         byte[] data = new byte[256];
                         StringBuilder response = new StringBuilder();
                         List<byte> bigData = new List<byte>();
 
 
                         int i = 0;
-                        while (stream.DataAvailable == true)
+                        while (stream.DataAvailable && !needToStop)
                         {
                             bigData.Add((byte) stream.ReadByte());
                             i++;
@@ -93,46 +99,49 @@ namespace MissionPlanner.NewClasses
                                     smallData.Add(bigData[j + 14]);
                                 }
 
-                                List<byte> viewData = new List<byte>();
-                                for (int j = 0; j < len1; j++)
-                                {
-                                    viewData.Add(bigData[j + 22]);
-                                }
-
                                 InfoPacket infoPacket = InfoPacket.Parser.ParseFrom(smallData.ToArray());
-                                //
-                                //Console.WriteLine(infoPacket.ToString());
-                                
                                 ViewArea viewArea = ViewArea.Parser.ParseFrom(infoPacket.Data);
-                                // Console.WriteLine(viewArea.ToString());
-                                //string points = " ";
-                                // Console.WriteLine(viewArea.Points.ToString());
                                 points.Clear();
                                 foreach (Point point in viewArea.Points)
-                                {
-                                    //Console.WriteLine(point.Geo.ToString());
-                                    //points += point.Geo.Latitude + ", " + point.Geo.Longitude + ", " + point.Geo.Altitude +" | ";
+                                { 
                                     points.Add(point);
+                                    pointUpdated = true;
+                                    cyclesWithoutPacket = 0;
+                                    FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
+                                    MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
                                 }
-                                //Console.WriteLine("----------");
+                                
                                 FlightPlanner.instance.setCameraPolygon();
                             }
                             catch (Exception e)
                             {
+                                MainV2.instance.debugLabel.Text = e.ToString();
                             }
                         }
-                        // Thread.Sleep(1000);
+                        if (!pointUpdated)
+                        {
+                            cyclesWithoutPacket++;
+                            MainV2.instance.debugLabel.Text = "CWP = " + cyclesWithoutPacket.ToString();
+                            if (cyclesWithoutPacket >= 5)
+                            {
+                                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Gray;
+                            }
+                            FlightPlanner.instance.setCameraPolygon();
+                        }
+                        Thread.Sleep(1000);
                     }
                     stream.Close();
                     client.Close();
                 }
                 catch (SocketException e)
                 {
-                    Console.WriteLine("SocketException: {0}", e);
+                    System.Diagnostics.Debug.WriteLine("SocketException: {0}", e);
+                    MainV2.instance.debugLabel.Text = e.ToString();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Exception: {0}", e.Message);
+                    System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
+                    MainV2.instance.debugLabel.Text = e.ToString();
                 }
             }
         }
