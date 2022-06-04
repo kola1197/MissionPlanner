@@ -7507,11 +7507,47 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 polygon.Points.Add(new PointLatLng(point.Geo.Latitude, point.Geo.Longitude));
             }
+
+            CameraAreaOverlay.Markers.Clear();
+
+            int tag = 0;
+            polygon.Points.ForEach(x =>
+            {
+                tag++;
+                // polygon.Points.Add(x); 
+                addCameraMarkerGrid(tag.ToString(), x.Lng, x.Lat, 0);
+            });
+
             MainMap.UpdatePolygonLocalPosition(polygon);
 
             MainMap.Invalidate();
         }
 
+        private void addCameraMarkerGrid(string tag, double lng, double lat, int alt)
+        {
+            try
+            {
+                PointLatLng point = new PointLatLng(lat, lng);
+                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.pink);
+                m.ToolTipMode = MarkerTooltipMode.Never;
+                m.ToolTipText = "camera" + tag;
+                m.Tag = "camera" + tag;
+
+                //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
+                GMapMarkerRect mBorders = new GMapMarkerRect(point);
+                {
+                    mBorders.InnerMarker = m;
+                }
+
+                CameraAreaOverlay.Markers.Add(m);
+                CameraAreaOverlay.Markers.Add(mBorders);
+            }
+            catch (Exception ex)
+            {
+                MainV2.log.Info(ex.ToString());
+            }
+        }
+        
         public void trackBar1_Scroll(object sender, EventArgs e)
         {
             try

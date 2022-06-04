@@ -30,8 +30,8 @@ namespace MissionPlanner.NewClasses
         public CameraListener()
         {
             points = new List<Point>();
-            thread = new Thread(threadVoid);
-            thread.IsBackground = true;
+            // thread = new Thread(threadVoid);
+            // thread.IsBackground = true;
         }
 
         public void start()
@@ -102,15 +102,18 @@ namespace MissionPlanner.NewClasses
                                 InfoPacket infoPacket = InfoPacket.Parser.ParseFrom(smallData.ToArray());
                                 ViewArea viewArea = ViewArea.Parser.ParseFrom(infoPacket.Data);
                                 points.Clear();
+                                string s = "P: ";
                                 foreach (Point point in viewArea.Points)
                                 { 
                                     points.Add(point);
                                     pointUpdated = true;
                                     cyclesWithoutPacket = 0;
                                     FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
-                                    MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
+                                    s += point.Geo.Latitude.ToString() + ", " + point.Geo.Longitude.ToString()+ "  || ";
+                                    //MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
                                 }
-                                
+
+                                MainV2.instance.debugLabel.Text = s;
                                 FlightPlanner.instance.setCameraPolygon();
                             }
                             catch (Exception e)
