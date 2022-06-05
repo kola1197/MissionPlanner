@@ -42,7 +42,7 @@ namespace MissionPlanner.Controls.NewControls
             this.saveRegions_BUT = new System.Windows.Forms.Button();
             this.loadRegions_BUT = new System.Windows.Forms.Button();
             this.regionsProperties_GB = new System.Windows.Forms.GroupBox();
-            this.latLong_DGV = new System.Windows.Forms.DataGridView();
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV = new System.Windows.Forms.DataGridView();
             this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Latitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,9 +56,9 @@ namespace MissionPlanner.Controls.NewControls
             this.regionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pointsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.regionsProperties_GB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.regionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pointsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // regions_LB
@@ -74,7 +74,7 @@ namespace MissionPlanner.Controls.NewControls
             // addRegion_BUT
             // 
             this.addRegion_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.addRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.addRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.addRegion_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addRegion_BUT.ForeColor = System.Drawing.Color.Black;
             this.addRegion_BUT.Location = new System.Drawing.Point(16, 275);
@@ -88,7 +88,7 @@ namespace MissionPlanner.Controls.NewControls
             // deleteRegion_BUT
             // 
             this.deleteRegion_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.deleteRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.deleteRegion_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.deleteRegion_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteRegion_BUT.ForeColor = System.Drawing.Color.Black;
             this.deleteRegion_BUT.Location = new System.Drawing.Point(16, 304);
@@ -102,7 +102,7 @@ namespace MissionPlanner.Controls.NewControls
             // saveRegions_BUT
             // 
             this.saveRegions_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saveRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.saveRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.saveRegions_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveRegions_BUT.ForeColor = System.Drawing.Color.Black;
             this.saveRegions_BUT.Location = new System.Drawing.Point(16, 362);
@@ -116,7 +116,7 @@ namespace MissionPlanner.Controls.NewControls
             // loadRegions_BUT
             // 
             this.loadRegions_BUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.loadRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.loadRegions_BUT.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
             this.loadRegions_BUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadRegions_BUT.ForeColor = System.Drawing.Color.Black;
             this.loadRegions_BUT.Location = new System.Drawing.Point(16, 333);
@@ -130,7 +130,7 @@ namespace MissionPlanner.Controls.NewControls
             // regionsProperties_GB
             // 
             this.regionsProperties_GB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.regionsProperties_GB.Controls.Add(this.latLong_DGV);
+            this.regionsProperties_GB.Controls.Add(this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV);
             this.regionsProperties_GB.Controls.Add(this.coordiants_Label);
             this.regionsProperties_GB.Controls.Add(this.colorPanel);
             this.regionsProperties_GB.Controls.Add(this.color_Label);
@@ -144,41 +144,38 @@ namespace MissionPlanner.Controls.NewControls
             this.regionsProperties_GB.TabStop = false;
             this.regionsProperties_GB.Text = "Свойства";
             // 
-            // latLong_DGV
+            // latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV
             // 
-            this.latLong_DGV.AllowUserToAddRows = false;
-            this.latLong_DGV.AllowUserToDeleteRows = false;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.AllowUserToAddRows = false;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.NullValue = "-1";
-            this.latLong_DGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.latLong_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.latLong_DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Num,
-            this.Latitude,
-            this.Longitude});
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Num, this.Latitude, this.Longitude});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.NullValue = null;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.latLong_DGV.DefaultCellStyle = dataGridViewCellStyle5;
-            this.latLong_DGV.Location = new System.Drawing.Point(10, 88);
-            this.latLong_DGV.Name = "latLong_DGV";
-            this.latLong_DGV.RowHeadersVisible = false;
-            this.latLong_DGV.Size = new System.Drawing.Size(342, 279);
-            this.latLong_DGV.TabIndex = 5;
-            this.latLong_DGV.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.latLong_DGV_CellBeginEdit);
-            this.latLong_DGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellClick);
-            this.latLong_DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellEndEdit);
-            this.latLong_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.latLong_DGV_CellFormatting);
-            this.latLong_DGV.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.latLong_DGV_CellParsing);
-            this.latLong_DGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.latLong_DGV_CellValidating);
-            this.latLong_DGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellValueChanged);
-            this.latLong_DGV.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.latLong_DGV_DataError);
-            this.latLong_DGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.latLong_DGV_EditingControlShowing);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.DefaultCellStyle = dataGridViewCellStyle5;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Location = new System.Drawing.Point(10, 88);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Name = "latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong" + "_DGVlatLong_DGVlatLong_DGV";
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.RowHeadersVisible = false;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Size = new System.Drawing.Size(342, 279);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.TabIndex = 5;
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.latLong_DGV_CellBeginEdit);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellClick);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellEndEdit);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.latLong_DGV_CellFormatting);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.latLong_DGV_CellParsing);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.latLong_DGV_CellValidating);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.latLong_DGV_CellValueChanged);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.latLong_DGV_DataError);
+            this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.latLong_DGV_EditingControlShowing);
             // 
             // Num
             // 
@@ -272,7 +269,7 @@ namespace MissionPlanner.Controls.NewControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
             this.Controls.Add(this.regionsProperties_GB);
             this.Controls.Add(this.loadRegions_BUT);
             this.Controls.Add(this.saveRegions_BUT);
@@ -283,11 +280,10 @@ namespace MissionPlanner.Controls.NewControls
             this.Size = new System.Drawing.Size(516, 400);
             this.regionsProperties_GB.ResumeLayout(false);
             this.regionsProperties_GB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.latLong_DGV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pointsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.regionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pointsBindingSource)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -296,7 +292,7 @@ namespace MissionPlanner.Controls.NewControls
         private System.Windows.Forms.Button saveRegions_BUT;
         private System.Windows.Forms.Button loadRegions_BUT;
         private System.Windows.Forms.GroupBox regionsProperties_GB;
-        private System.Windows.Forms.DataGridView latLong_DGV;
+        private System.Windows.Forms.DataGridView latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV;
         private System.Windows.Forms.Label coordiants_Label;
         private System.Windows.Forms.Panel colorPanel;
         private System.Windows.Forms.Label color_Label;

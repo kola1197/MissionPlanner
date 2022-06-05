@@ -26,7 +26,8 @@ namespace MissionPlanner.NewClasses
         private bool needToStop = false;
         private int cyclesWithoutPacket = 0;
         private bool pointUpdated = true;
-
+        public Color activeAreaColor = Color.Yellow;
+        public Color outdatedAreaColor = Color.Gray;
         public CameraListener()
         {
             points = new List<Point>();
@@ -38,7 +39,7 @@ namespace MissionPlanner.NewClasses
         {
             var mapStartPoints = new List<PointLatLng>();
             FlightPlanner.CameraAreaOverlay.Polygons.Add(new GMapPolygon(mapStartPoints, "cameraPolygon"));
-            FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
+            FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = activeAreaColor;
             // FlightPlanner.CameraAreaOverlay.Polygons.First().Stroke = new Pen(Color.Red, 2);
             //thread.Start();
             Task.Run(() => { threadVoid(); });
@@ -108,7 +109,7 @@ namespace MissionPlanner.NewClasses
                                     points.Add(point);
                                     pointUpdated = true;
                                     cyclesWithoutPacket = 0;
-                                    FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Yellow;
+                                    FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = activeAreaColor;
                                     s += point.Geo.Latitude.ToString() + ", " + point.Geo.Longitude.ToString()+ "  || ";
                                     //MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
                                 }
@@ -127,7 +128,7 @@ namespace MissionPlanner.NewClasses
                             MainV2.instance.debugLabel.Text = "CWP = " + cyclesWithoutPacket.ToString();
                             if (cyclesWithoutPacket >= 5)
                             {
-                                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = Color.Gray;
+                                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = outdatedAreaColor;
                             }
                             FlightPlanner.instance.setCameraPolygon();
                         }

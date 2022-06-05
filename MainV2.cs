@@ -676,6 +676,8 @@ namespace MissionPlanner
 
         public static FormConnector FormConnector;
 
+        public CameraListenerSettings cameraListenerSettings;
+
         /// <summary>
         /// All aircrafts connections data
         /// </summary>
@@ -6864,6 +6866,18 @@ namespace MissionPlanner
             e.Cancel = true;
         }
 
-        
+
+        private void cameraSettingsButton_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void cameraSettingsButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            cameraListenerSettings?.Close();
+
+            cameraListenerSettings = new CameraListenerSettings(ref cameraListener);
+            cameraListenerSettings.Show();
+        }
     }
 }

@@ -71,6 +71,7 @@ namespace MissionPlanner
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cameraSettingsButton = new System.Windows.Forms.Button();
             this.debugLabel = new System.Windows.Forms.Label();
             this.timerControl1 = new MissionPlanner.Controls.NewControls.TimerControl();
             this.ctrlModeDebuglabel = new System.Windows.Forms.Label();
@@ -323,6 +324,7 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.panel2.Controls.Add(this.cameraSettingsButton);
             this.panel2.Controls.Add(this.debugLabel);
             this.panel2.Controls.Add(this.timerControl1);
             this.panel2.Controls.Add(this.ctrlModeDebuglabel);
@@ -335,6 +337,14 @@ namespace MissionPlanner
             this.panel2.Controls.Add(this.myButton3);
             this.panel2.Controls.Add(this.myButton4);
             this.panel2.Name = "panel2";
+            // 
+            // cameraSettingsButton
+            // 
+            resources.ApplyResources(this.cameraSettingsButton, "cameraSettingsButton");
+            this.cameraSettingsButton.Name = "cameraSettingsButton";
+            this.cameraSettingsButton.UseVisualStyleBackColor = true;
+            this.cameraSettingsButton.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cameraSettingsButton_KeyUp);
+            this.cameraSettingsButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cameraSettingsButton_MouseUp);
             // 
             // debugLabel
             // 
@@ -472,6 +482,8 @@ namespace MissionPlanner
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button cameraSettingsButton;
 
         public System.Windows.Forms.Label debugLabel;
 

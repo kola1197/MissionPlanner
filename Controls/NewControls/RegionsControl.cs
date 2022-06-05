@@ -65,8 +65,8 @@ namespace MissionPlanner.Controls.NewControls
             // regions_LB.Invoke((Action)(() => regions_LB.DataSource = regionsBindingSource));
             regions_LB.DataSource = regionsBindingSource;
 
-            _latIndex = latLong_DGV.Columns["Latitude"].Index;
-            _lngIndex = latLong_DGV.Columns["Longitude"].Index;
+            _latIndex = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns["Latitude"].Index;
+            _lngIndex = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns["Longitude"].Index;
 
             // colorPanel.DataBindings.Add(new Binding("BackColor", regions_LB, "", true));
             // timer1.Enabled = true;
@@ -211,8 +211,8 @@ namespace MissionPlanner.Controls.NewControls
         public void ClearRegionsProperties()
         {
             regionsProperties_GB.Enabled = false;
-            latLong_DGV.Rows.Clear();
-            latLong_DGV.Refresh();
+            latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows.Clear();
+            latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Refresh();
             name_TB.Text = "";
         }
 
@@ -246,10 +246,10 @@ namespace MissionPlanner.Controls.NewControls
 
             Latitude.DataPropertyName = "Lat";
             Longitude.DataPropertyName = "Lng";
-            latLong_DGV.DataSource = pointsBindingSource;
+            latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.DataSource = pointsBindingSource;
 
-            if (latLong_DGV.Columns.Contains("IsEmpty"))
-                latLong_DGV.Columns.Remove("IsEmpty");
+            if (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns.Contains("IsEmpty"))
+                latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns.Remove("IsEmpty");
 
             // Invalidate();
         }
@@ -403,16 +403,16 @@ namespace MissionPlanner.Controls.NewControls
             Tuple<string, string> readingPoint;
             PointLatLng convertedPoint;
             double coordToParse;
-            if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
+            if (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.ColumnIndex == _latIndex)
             {
                 string lat = _editTextBox.Text.Replace('.', ',');
                 // string lat = _editTextBox.Text;
-                string lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
+                string lng = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
                 readingPoint = new Tuple<string, string>(lat, lng);
                 if (!TryConvertToLatLng(readingPoint, out convertedPoint))
                 {
-                    readingPoint = new Tuple<string, string>(latLong_DGV.CurrentCell.Value.ToString(),
-                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString());
+                    readingPoint = new Tuple<string, string>(latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.Value.ToString(),
+                        latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString());
                     TryConvertToLatLng(readingPoint, out convertedPoint);
                 }
 
@@ -420,15 +420,15 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                string lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
+                string lat = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].FormattedValue.ToString().Replace('.', ',');
                 // string lng = _editTextBox.Text;
                 string lng = _editTextBox.Text.Replace('.', ',');
                 readingPoint = new Tuple<string, string>(lat, lng);
                 if (!TryConvertToLatLng(readingPoint, out convertedPoint))
                 {
                     readingPoint = new Tuple<string, string>(
-                        latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(),
-                        latLong_DGV.CurrentCell.Value.ToString());
+                        latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(),
+                        latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.Value.ToString());
                     TryConvertToLatLng(readingPoint, out convertedPoint);
                 }
 
@@ -443,7 +443,7 @@ namespace MissionPlanner.Controls.NewControls
             // }
 
 
-            if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
+            if (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.ColumnIndex == _latIndex)
             {
                 _pointInEdit.Lat = coordToParse;
             }
@@ -475,8 +475,8 @@ namespace MissionPlanner.Controls.NewControls
             }
 
             _rowInEdit = e.RowIndex;
-            double lat = Convert.ToDouble(latLong_DGV.CurrentRow.Cells[_latIndex].Value);
-            double lng = Convert.ToDouble(latLong_DGV.CurrentRow.Cells[_lngIndex].Value);
+            double lat = Convert.ToDouble(latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentRow.Cells[_latIndex].Value);
+            double lng = Convert.ToDouble(latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentRow.Cells[_lngIndex].Value);
             _pointInEdit = new PointLatLng(lat, lng);
         }
 
@@ -497,7 +497,7 @@ namespace MissionPlanner.Controls.NewControls
                 pointTmp = (PointLatLng) pointsBindingSource.List[e.RowIndex];
             }
 
-            switch (latLong_DGV.Columns[e.ColumnIndex].Name)
+            switch (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Columns[e.ColumnIndex].Name)
             {
                 case "Latitude":
                     e.Value = pointTmp.Value.Lat;
@@ -517,7 +517,7 @@ namespace MissionPlanner.Controls.NewControls
 
         private void latLong_DGV_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (latLong_DGV.CurrentCell.OwningColumn == Num)
+            if (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.OwningColumn == Num)
             {
                 return;
             }
@@ -563,24 +563,24 @@ namespace MissionPlanner.Controls.NewControls
                 double coordToParse;
                 string lat, lng;
                 bool isLatitude = e.ColumnIndex == 1;
-                if (latLong_DGV.CurrentCell.ColumnIndex == _latIndex)
+                if (latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.CurrentCell.ColumnIndex == _latIndex)
                 {
                     lat = e.FormattedValue.ToString();
-                    lng = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
+                    lng = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
 
                     UniversalCoordinatsController controller =
                         new UniversalCoordinatsController(
-                            new WGSCoordinats(latLong_DGV.Rows[_rowInEdit].Cells[_latIndex].Value.ToString(), lng));
+                            new WGSCoordinats(latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_latIndex].Value.ToString(), lng));
                     lng = FormatCoordinateFromWgs(controller, isLatitude);
                 }
                 else
                 {
-                    lat = latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
+                    lat = latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString();
                     lng = e.FormattedValue.ToString();
 
                     UniversalCoordinatsController controller =
                         new UniversalCoordinatsController(
-                            new WGSCoordinats(latLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(), lng));
+                            new WGSCoordinats(latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows[_rowInEdit].Cells[_lngIndex].Value.ToString(), lng));
                     lat = FormatCoordinateFromWgs(controller, isLatitude);
                 }
 
@@ -964,7 +964,7 @@ namespace MissionPlanner.Controls.NewControls
             ArrayList updatedPoints = new ArrayList();
 
 
-            foreach (DataGridViewRow row in latLong_DGV.Rows)
+            foreach (DataGridViewRow row in latLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_DGVlatLong_latLong_DGVlatLong_DGVlatLong_DGV.Rows)
             {
                 double lat, lng;
                 if (row.Index == _rowInEdit)
