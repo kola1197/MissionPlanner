@@ -73,6 +73,7 @@ namespace MissionPlanner.NewForms
             this.drawCameraAreaCheckBox.Text = "Отображать область видимости камеры";
             this.drawCameraAreaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.drawCameraAreaCheckBox.UseVisualStyleBackColor = true;
+            this.drawCameraAreaCheckBox.CheckedChanged += new System.EventHandler(this.drawCameraAreaCheckBox_CheckedChanged);
             // 
             // activeCameraViewAreaColorBox
             // 

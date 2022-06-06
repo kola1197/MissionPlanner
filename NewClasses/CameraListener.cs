@@ -24,6 +24,7 @@ namespace MissionPlanner.NewClasses
         /// </summary>
         private Thread thread;
         private bool needToStop = false;
+        private bool visible = true;
         private int cyclesWithoutPacket = 0;
         private bool pointUpdated = true;
         public Color activeAreaColor = Color.Yellow;
@@ -48,6 +49,17 @@ namespace MissionPlanner.NewClasses
         public void stop()
         {
             needToStop = true;
+        }
+
+        public void SetVisible(bool _visible)
+        {
+            visible = _visible;
+            FlightPlanner.CameraAreaOverlay.IsVisibile = visible;
+        }
+        
+        public bool GetVisible()
+        {
+            return visible;
         }
 
         private void threadVoid()
@@ -103,17 +115,16 @@ namespace MissionPlanner.NewClasses
                                 InfoPacket infoPacket = InfoPacket.Parser.ParseFrom(smallData.ToArray());
                                 ViewArea viewArea = ViewArea.Parser.ParseFrom(infoPacket.Data);
                                 points.Clear();
-                                string s = "P: ";
-                                foreach (Point point in viewArea.Points)
+                                string s = "P: "; foreach (Point point in viewArea.Points)
                                 { 
                                     points.Add(point);
                                     pointUpdated = true;
                                     cyclesWithoutPacket = 0;
                                     FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = activeAreaColor;
-                                    s += point.Geo.Latitude.ToString() + ", " + point.Geo.Longitude.ToString()+ "  || ";
+                                    s += point.Geo.Latitude.ToString() + ", " + point.Geo.Longitude.ToString() + 
+                                         "  || ";
                                     //MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
                                 }
-
                                 MainV2.instance.debugLabel.Text = s;
                                 FlightPlanner.instance.setCameraPolygon();
                             }

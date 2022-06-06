@@ -7538,7 +7538,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     mBorders.InnerMarker = m;
                 }
-
+                
                 CameraAreaOverlay.Markers.Add(m);
                 CameraAreaOverlay.Markers.Add(mBorders);
             }
@@ -9324,6 +9324,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 if (item is GMapMarkerRect)
                 {
+                    if (item.Tag.ToString().Contains("camera"))
+                    {
+                        return;
+                    }
+
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.Pen.Color = Color.Red;
                     MainMap.Invalidate(false);

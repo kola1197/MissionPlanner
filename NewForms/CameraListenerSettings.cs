@@ -40,11 +40,17 @@ namespace MissionPlanner.NewForms
         {
             activeCameraViewAreaColorBox.BackColor = cameraListener.activeAreaColor;
             cameraOutdatedViewAreaColorBox.BackColor = cameraListener.outdatedAreaColor;
+            drawCameraAreaCheckBox.Checked = cameraListener.GetVisible();
         }
 
         private void CameraListenerSettings_Shown(object sender, EventArgs e)
         {
             UpdateColors();
+        }
+
+        private void drawCameraAreaCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            cameraListener.SetVisible(drawCameraAreaCheckBox.Checked);
         }
     }
 }
