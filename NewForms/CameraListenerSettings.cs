@@ -32,7 +32,10 @@ namespace MissionPlanner.NewForms
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 cameraListener.outdatedAreaColor = colorDialog1.Color;
-                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.outdatedAreaColor;
+                if (cameraListener.cyclesWithoutPacket > 5)
+                {
+                    FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.outdatedAreaColor;
+                }
             }
             UpdateColors();
             //FlightPlanner.CameraAreaOverlay.Markers.Clear();

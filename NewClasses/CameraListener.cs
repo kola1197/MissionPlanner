@@ -27,7 +27,7 @@ namespace MissionPlanner.NewClasses
         private bool needToStop = false;
         private bool areaVisible = true;
         private bool crossHairVisible = true;
-        private int cyclesWithoutPacket = 0;
+        public int cyclesWithoutPacket = 0;
         private bool pointUpdated = true;
         public Color activeAreaColor = Color.Yellow;
         public Color outdatedAreaColor = Color.Black;
