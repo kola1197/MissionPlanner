@@ -17,10 +17,6 @@ namespace MissionPlanner.NewForms
             UpdateColors();
         }
         
-        
-
-        
-
         private void activeCameraViewAreaColorBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
