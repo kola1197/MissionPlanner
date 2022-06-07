@@ -38,6 +38,7 @@ namespace MissionPlanner.NewForms
             this.activeCameraViewAreaColorBox = new System.Windows.Forms.Panel();
             this.cameraOutdatedViewAreaColorBox = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.drawCrossHairCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -93,11 +94,24 @@ namespace MissionPlanner.NewForms
             this.cameraOutdatedViewAreaColorBox.TabIndex = 5;
             this.cameraOutdatedViewAreaColorBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CameraOldViewAreaColor_MouseClick);
             // 
+            // drawCrossHairCheckBox
+            // 
+            this.drawCrossHairCheckBox.Location = new System.Drawing.Point(12, 90);
+            this.drawCrossHairCheckBox.Name = "drawCrossHairCheckBox";
+            this.drawCrossHairCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.drawCrossHairCheckBox.Size = new System.Drawing.Size(279, 24);
+            this.drawCrossHairCheckBox.TabIndex = 6;
+            this.drawCrossHairCheckBox.Text = "Отображать точку перекрестия камеры";
+            this.drawCrossHairCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.drawCrossHairCheckBox.UseVisualStyleBackColor = true;
+            this.drawCrossHairCheckBox.CheckedChanged += new System.EventHandler(this.drawCrossHairCheckBox_CheckedChanged);
+            // 
             // CameraListenerSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 121);
+            this.ClientSize = new System.Drawing.Size(360, 126);
+            this.Controls.Add(this.drawCrossHairCheckBox);
             this.Controls.Add(this.cameraOutdatedViewAreaColorBox);
             this.Controls.Add(this.activeCameraViewAreaColorBox);
             this.Controls.Add(this.drawCameraAreaCheckBox);
@@ -109,6 +123,8 @@ namespace MissionPlanner.NewForms
             this.Shown += new System.EventHandler(this.CameraListenerSettings_Shown);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.CheckBox drawCrossHairCheckBox;
 
         private System.Windows.Forms.ColorDialog colorDialog1;
 

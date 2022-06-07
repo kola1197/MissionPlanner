@@ -87,6 +87,7 @@ namespace MissionPlanner.GCSViews
         }
 
         public static GMapOverlay CameraAreaOverlay;
+        public static GMapOverlay CameraCrosshairOverlay;
         public static GMapOverlay RegionsOverlay;
         public static GMapOverlay RulerOverlay;
         public static GMapOverlay airportsoverlay;
@@ -279,6 +280,10 @@ namespace MissionPlanner.GCSViews
             // Init camera area overlay
             CameraAreaOverlay = new GMapOverlay("camera_area");
             MainMap.Overlays.Add(CameraAreaOverlay);
+
+            // Init camera crosshair overlay
+            CameraCrosshairOverlay = new GMapOverlay("camera_crosshair");
+            MainMap.Overlays.Add(CameraCrosshairOverlay);
 
             prop = new Propagation(MainMap);
 
@@ -7494,6 +7499,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             BeginInvoke((Action) RedrawCameraPolygonPoints);
         }
 
+        public void SetCameraCrosshair()
+        {
+            BeginInvoke((Action) RedrawCameraCrosshairPoint);
+        }
+        
         private void RedrawCameraPolygonPoints()
         {
             if (MainV2.instance.cameraListener.points.Count == 0)
@@ -7523,6 +7533,59 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             MainMap.Invalidate();
         }
 
+        private void RedrawCameraCrosshairPoint()
+        {
+            if (MainV2.instance.cameraListener.points.Count == 0)
+                return;
+
+            var polygon = CameraAreaOverlay.Polygons.First();
+            
+            polygon.Points.Clear();
+
+            var point = MainV2.instance.cameraListener.CrossHairPoint;
+            
+            polygon.Points.Add(new PointLatLng(point.Geo.Latitude, point.Geo.Longitude));
+
+            CameraCrosshairOverlay.Markers.Clear();
+
+            int tag = 0;
+            polygon.Points.ForEach(x =>
+            {
+                tag++;
+                // polygon.Points.Add(x); 
+                addCameraCrosshairMarker(tag.ToString(), x.Lng, x.Lat, 0);
+            });
+
+            MainMap.UpdatePolygonLocalPosition(polygon);
+
+            MainMap.Invalidate();
+        }
+
+        private void addCameraCrosshairMarker(string tag, double lng, double lat, int alt)
+        {
+            try
+            {
+                PointLatLng point = new PointLatLng(lat, lng);
+                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.arrow);
+                m.ToolTipMode = MarkerTooltipMode.Never;
+                m.ToolTipText = "camera_crosshair" + tag;
+                m.Tag = "camera_crosshair" + tag;
+
+                //MissionPlanner.GMapMarkerRectWPRad mBorders = new MissionPlanner.GMapMarkerRectWPRad(point, (int)float.Parse(TXT_WPRad.Text), MainMap);
+                GMapMarkerRect mBorders = new GMapMarkerRect(point);
+                {
+                    mBorders.InnerMarker = m;
+                }
+                
+                CameraCrosshairOverlay.Markers.Add(m);
+                CameraCrosshairOverlay.Markers.Add(mBorders);
+            }
+            catch (Exception ex)
+            {
+                MainV2.log.Info(ex.ToString());
+            }
+        }
+        
         private void addCameraMarkerGrid(string tag, double lng, double lat, int alt)
         {
             try

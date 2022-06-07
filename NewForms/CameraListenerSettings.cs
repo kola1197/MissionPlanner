@@ -28,19 +28,21 @@ namespace MissionPlanner.NewForms
 
         private void CameraOldViewAreaColor_MouseClick(object sender, MouseEventArgs e)
         {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            /*if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 cameraListener.outdatedAreaColor = colorDialog1.Color;
             }
             UpdateColors();
-            FlightPlanner.instance.setCameraPolygon();
+            FlightPlanner.CameraAreaOverlay.Markers.Clear();
+            FlightPlanner.instance.setCameraPolygon();*/
         }
 
         private void UpdateColors()
         {
             activeCameraViewAreaColorBox.BackColor = cameraListener.activeAreaColor;
             cameraOutdatedViewAreaColorBox.BackColor = cameraListener.outdatedAreaColor;
-            drawCameraAreaCheckBox.Checked = cameraListener.GetVisible();
+            drawCameraAreaCheckBox.Checked = cameraListener.GetAreaVisible();
+            drawCrossHairCheckBox.Checked = cameraListener.GetCrossHairVisible();
         }
 
         private void CameraListenerSettings_Shown(object sender, EventArgs e)
@@ -50,7 +52,13 @@ namespace MissionPlanner.NewForms
 
         private void drawCameraAreaCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            cameraListener.SetVisible(drawCameraAreaCheckBox.Checked);
+            cameraListener.SetAreaVisible(drawCameraAreaCheckBox.Checked);
+        }
+
+        private void drawCrossHairCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            cameraListener.SetCrossHairVisible(drawCrossHairCheckBox.Checked);
+
         }
     }
 }

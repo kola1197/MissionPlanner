@@ -17,6 +17,7 @@ namespace MissionPlanner.NewClasses
     public class CameraListener
     {
         public List<Point> points;
+        public Point CrossHairPoint;
         private const int port = 13200;
         string server = "127.0.0.1";
         /// <summary>
@@ -24,11 +25,12 @@ namespace MissionPlanner.NewClasses
         /// </summary>
         private Thread thread;
         private bool needToStop = false;
-        private bool visible = true;
+        private bool areaVisible = true;
+        private bool crossHairVisible = true;
         private int cyclesWithoutPacket = 0;
         private bool pointUpdated = true;
         public Color activeAreaColor = Color.Yellow;
-        public Color outdatedAreaColor = Color.Gray;
+        public Color outdatedAreaColor = Color.Black;
         public CameraListener()
         {
             points = new List<Point>();
@@ -51,15 +53,26 @@ namespace MissionPlanner.NewClasses
             needToStop = true;
         }
 
-        public void SetVisible(bool _visible)
+        public void SetAreaVisible(bool _visible)
         {
-            visible = _visible;
-            FlightPlanner.CameraAreaOverlay.IsVisibile = visible;
+            areaVisible = _visible;
+            FlightPlanner.CameraAreaOverlay.IsVisibile = areaVisible;
         }
         
-        public bool GetVisible()
+        public bool GetAreaVisible()
         {
-            return visible;
+            return areaVisible;
+        }
+        
+        public void SetCrossHairVisible(bool _visible)
+        {
+            crossHairVisible = _visible;
+            FlightPlanner.CameraCrosshairOverlay.IsVisibile = crossHairVisible;
+        }
+        
+        public bool GetCrossHairVisible()
+        {
+            return crossHairVisible;
         }
 
         private void threadVoid()
@@ -115,6 +128,9 @@ namespace MissionPlanner.NewClasses
                                 InfoPacket infoPacket = InfoPacket.Parser.ParseFrom(smallData.ToArray());
                                 ViewArea viewArea = ViewArea.Parser.ParseFrom(infoPacket.Data);
                                 points.Clear();
+                                double lat = 0;
+                                double lon = 0;
+                                double alt = 0;
                                 string s = "P: "; foreach (Point point in viewArea.Points)
                                 { 
                                     points.Add(point);
@@ -123,8 +139,15 @@ namespace MissionPlanner.NewClasses
                                     FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = activeAreaColor;
                                     s += point.Geo.Latitude.ToString() + ", " + point.Geo.Longitude.ToString() + 
                                          "  || ";
+                                    lat += point.Geo.Latitude;
+                                    lon += point.Geo.Longitude;
+                                    alt += point.Geo.Altitude;
+                                    
                                     //MainV2.instance.debugLabel.Text = "got pt: " + point.ToString();
                                 }
+
+                                GeoCoordinates geo = new GeoCoordinates{ Latitude= lat/4,Longitude = lon/4,Altitude = alt/4};
+                                CrossHairPoint = new Point{Geo = geo};
                                 MainV2.instance.debugLabel.Text = s;
                                 FlightPlanner.instance.setCameraPolygon();
                             }
@@ -142,6 +165,7 @@ namespace MissionPlanner.NewClasses
                                 FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = outdatedAreaColor;
                             }
                             FlightPlanner.instance.setCameraPolygon();
+                            FlightPlanner.instance.SetCameraCrosshair();
                         }
                         Thread.Sleep(1000);
                     }
