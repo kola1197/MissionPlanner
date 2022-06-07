@@ -24,7 +24,10 @@ namespace MissionPlanner.NewForms
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 cameraListener.activeAreaColor = colorDialog1.Color;
-                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.activeAreaColor;
+                if (cameraListener.cyclesWithoutPacket <= 5)
+                {
+                    FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.activeAreaColor;
+                }
             }
             UpdateColors();
         }
