@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.GCSViews;
 using MissionPlanner.NewClasses;
@@ -24,20 +26,21 @@ namespace MissionPlanner.NewForms
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 cameraListener.activeAreaColor = colorDialog1.Color;
+                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.activeAreaColor;
             }
             UpdateColors();
         }
 
         private void CameraOldViewAreaColor_MouseClick(object sender, MouseEventArgs e)
         {
-            /*if (colorDialog1.ShowDialog() == DialogResult.OK)
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 cameraListener.outdatedAreaColor = colorDialog1.Color;
+                FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.outdatedAreaColor;
             }
             UpdateColors();
-            FlightPlanner.CameraAreaOverlay.Markers.Clear();
-            FlightPlanner.instance.setCameraPolygon();*/
-            UpdateColors();
+            //FlightPlanner.CameraAreaOverlay.Markers.Clear();
+            Task.Run(() => { FlightPlanner.instance.setCameraPolygon(); });
         }
 
         private void UpdateColors()
