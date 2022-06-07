@@ -11,6 +11,7 @@ namespace MissionPlanner.NewForms
     public partial class CameraListenerSettings : Form, IFormConnectable
     {
         private CameraListener cameraListener;
+
         public CameraListenerSettings(ref CameraListener _cameraListener)
         {
             cameraListener = _cameraListener;
@@ -18,7 +19,7 @@ namespace MissionPlanner.NewForms
             StartPosition = FormStartPosition.Manual;
             UpdateColors();
         }
-        
+
         private void activeCameraViewAreaColorBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
@@ -29,6 +30,7 @@ namespace MissionPlanner.NewForms
                     FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.activeAreaColor;
                 }
             }
+
             UpdateColors();
         }
 
@@ -42,6 +44,7 @@ namespace MissionPlanner.NewForms
                     FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = cameraListener.outdatedAreaColor;
                 }
             }
+
             UpdateColors();
             //FlightPlanner.CameraAreaOverlay.Markers.Clear();
             Task.Run(() => { FlightPlanner.instance.setCameraPolygon(); });
@@ -72,7 +75,6 @@ namespace MissionPlanner.NewForms
         {
             cameraListener.SetCrossHairVisible(drawCrossHairCheckBox.Checked);
             UpdateColors();
-
         }
 
         private void CameraListenerSettings_VisibleChanged(object sender, EventArgs e)
@@ -87,7 +89,8 @@ namespace MissionPlanner.NewForms
 
         public void SetFormLocation()
         {
-            Location = new Point(MainV2.instance.Location.X + 670, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+            Location = new Point(MainV2.instance.Location.X + 670,
+                MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
         }
 
         public void SetToTop()
@@ -108,18 +111,20 @@ namespace MissionPlanner.NewForms
 
         private void CameraListenerSettings_Move(object sender, EventArgs e)
         {
-            
         }
 
         private void CameraListenerSettings_Paint(object sender, PaintEventArgs e)
         {
-            
         }
 
         private void CameraListenerSettings_MouseEnter(object sender, EventArgs e)
         {
-            
-           }
+        }
+
+        private void cameraOutdatedViewAreaColorBox_BackColorChanged(object sender, EventArgs e)
+        {
+            UpdateColors();
+        }
 
         private void activeCameraViewAreaColorBox_BackColorChanged(object sender, EventArgs e)
         {
