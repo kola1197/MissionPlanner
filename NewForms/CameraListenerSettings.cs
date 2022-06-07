@@ -14,6 +14,8 @@ namespace MissionPlanner.NewForms
             InitializeComponent();
             UpdateColors();
         }
+        
+        
 
         
 
@@ -35,6 +37,7 @@ namespace MissionPlanner.NewForms
             UpdateColors();
             FlightPlanner.CameraAreaOverlay.Markers.Clear();
             FlightPlanner.instance.setCameraPolygon();*/
+            UpdateColors();
         }
 
         private void UpdateColors()
@@ -53,12 +56,24 @@ namespace MissionPlanner.NewForms
         private void drawCameraAreaCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             cameraListener.SetAreaVisible(drawCameraAreaCheckBox.Checked);
+            UpdateColors();
         }
 
         private void drawCrossHairCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             cameraListener.SetCrossHairVisible(drawCrossHairCheckBox.Checked);
+            UpdateColors();
 
+        }
+
+        private void CameraListenerSettings_VisibleChanged(object sender, EventArgs e)
+        {
+            UpdateColors();
+        }
+
+        private void CameraListenerSettings_LocationChanged(object sender, EventArgs e)
+        {
+            UpdateColors();
         }
     }
 }

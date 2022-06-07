@@ -149,6 +149,7 @@ namespace MissionPlanner.NewClasses
                                 GeoCoordinates geo = new GeoCoordinates{ Latitude= lat/4,Longitude = lon/4,Altitude = alt/4};
                                 CrossHairPoint = new Point{Geo = geo};
                                 MainV2.instance.debugLabel.Text = s;
+                                FlightPlanner.instance.SetCameraCrosshair();
                                 FlightPlanner.instance.setCameraPolygon();
                             }
                             catch (Exception e)
@@ -164,8 +165,8 @@ namespace MissionPlanner.NewClasses
                             {
                                 FlightPlanner.CameraAreaOverlay.Polygons.First().PolyColor = outdatedAreaColor;
                             }
-                            FlightPlanner.instance.setCameraPolygon();
                             FlightPlanner.instance.SetCameraCrosshair();
+                            FlightPlanner.instance.setCameraPolygon();
                         }
                         Thread.Sleep(1000);
                     }

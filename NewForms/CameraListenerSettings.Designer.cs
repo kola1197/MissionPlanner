@@ -121,6 +121,8 @@ namespace MissionPlanner.NewForms
             this.Name = "CameraListenerSettings";
             this.Text = "CameraListenerSettings";
             this.Shown += new System.EventHandler(this.CameraListenerSettings_Shown);
+            this.LocationChanged += new System.EventHandler(this.CameraListenerSettings_LocationChanged);
+            this.VisibleChanged += new System.EventHandler(this.CameraListenerSettings_VisibleChanged);
             this.ResumeLayout(false);
         }
 
