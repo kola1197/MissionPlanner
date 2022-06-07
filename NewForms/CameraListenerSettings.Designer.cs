@@ -31,7 +31,6 @@ namespace MissionPlanner.NewForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraListenerSettings));
             this.label1 = new System.Windows.Forms.Label();
             this.activeCameraViewAreaColorLabel = new System.Windows.Forms.Label();
             this.CameraOutdatedViewAreaLabel = new System.Windows.Forms.Label();
@@ -82,20 +81,23 @@ namespace MissionPlanner.NewForms
             // activeCameraViewAreaColorBox
             // 
             this.activeCameraViewAreaColorBox.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.activeCameraViewAreaColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.activeCameraViewAreaColorBox.Location = new System.Drawing.Point(312, 62);
             this.activeCameraViewAreaColorBox.Name = "activeCameraViewAreaColorBox";
             this.activeCameraViewAreaColorBox.Size = new System.Drawing.Size(128, 23);
             this.activeCameraViewAreaColorBox.TabIndex = 4;
+            this.activeCameraViewAreaColorBox.BackColorChanged += new System.EventHandler(this.activeCameraViewAreaColorBox_BackColorChanged);
             this.activeCameraViewAreaColorBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.activeCameraViewAreaColorBox_MouseClick);
             // 
             // cameraOutdatedViewAreaColorBox
             // 
             this.cameraOutdatedViewAreaColorBox.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.cameraOutdatedViewAreaColorBox.Enabled = false;
+            this.cameraOutdatedViewAreaColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cameraOutdatedViewAreaColorBox.Location = new System.Drawing.Point(312, 91);
             this.cameraOutdatedViewAreaColorBox.Name = "cameraOutdatedViewAreaColorBox";
             this.cameraOutdatedViewAreaColorBox.Size = new System.Drawing.Size(128, 26);
             this.cameraOutdatedViewAreaColorBox.TabIndex = 5;
+            this.cameraOutdatedViewAreaColorBox.Enter += new System.EventHandler(this.cameraOutdatedViewAreaColorBox_Enter);
             this.cameraOutdatedViewAreaColorBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CameraOldViewAreaColor_MouseClick);
             // 
             // drawCrossHairCheckBox
@@ -122,7 +124,6 @@ namespace MissionPlanner.NewForms
             this.Controls.Add(this.CameraOutdatedViewAreaLabel);
             this.Controls.Add(this.activeCameraViewAreaColorLabel);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CameraListenerSettings";
@@ -131,7 +132,9 @@ namespace MissionPlanner.NewForms
             this.Shown += new System.EventHandler(this.CameraListenerSettings_Shown);
             this.LocationChanged += new System.EventHandler(this.CameraListenerSettings_LocationChanged);
             this.VisibleChanged += new System.EventHandler(this.CameraListenerSettings_VisibleChanged);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.CameraListenerSettings_Paint);
             this.Leave += new System.EventHandler(this.CameraListenerSettings_Leave);
+            this.Move += new System.EventHandler(this.CameraListenerSettings_Move);
             this.ResumeLayout(false);
         }
 

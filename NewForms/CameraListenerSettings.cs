@@ -96,5 +96,31 @@ namespace MissionPlanner.NewForms
         {
             UpdateColors();
         }
+
+
+        private void cameraOutdatedViewAreaColorBox_Enter(object sender, EventArgs e)
+        {
+            UpdateColors();
+        }
+
+        private void CameraListenerSettings_Move(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void CameraListenerSettings_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void CameraListenerSettings_MouseEnter(object sender, EventArgs e)
+        {
+            
+           }
+
+        private void activeCameraViewAreaColorBox_BackColorChanged(object sender, EventArgs e)
+        {
+            UpdateColors();
+        }
     }
 }
