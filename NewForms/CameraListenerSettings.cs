@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -7,13 +8,14 @@ using MissionPlanner.NewClasses;
 
 namespace MissionPlanner.NewForms
 {
-    public partial class CameraListenerSettings : Form
+    public partial class CameraListenerSettings : Form, IFormConnectable
     {
         private CameraListener cameraListener;
         public CameraListenerSettings(ref CameraListener _cameraListener)
         {
             cameraListener = _cameraListener;
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
             UpdateColors();
         }
         
@@ -42,6 +44,7 @@ namespace MissionPlanner.NewForms
             Task.Run(() => { FlightPlanner.instance.setCameraPolygon(); });
         }
 
+        // TODO: Bindings
         private void UpdateColors()
         {
             activeCameraViewAreaColorBox.BackColor = cameraListener.activeAreaColor;
@@ -53,6 +56,7 @@ namespace MissionPlanner.NewForms
         private void CameraListenerSettings_Shown(object sender, EventArgs e)
         {
             UpdateColors();
+            SetToTop();
         }
 
         private void drawCameraAreaCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -74,6 +78,21 @@ namespace MissionPlanner.NewForms
         }
 
         private void CameraListenerSettings_LocationChanged(object sender, EventArgs e)
+        {
+            UpdateColors();
+        }
+
+        public void SetFormLocation()
+        {
+            Location = new Point(MainV2.instance.Location.X + 670, MainV2.instance.GetLowerPanelLocation().Y - this.Height + 20);
+        }
+
+        public void SetToTop()
+        {
+            TopMost = true;
+        }
+
+        private void CameraListenerSettings_Leave(object sender, EventArgs e)
         {
             UpdateColors();
         }

@@ -32,6 +32,7 @@
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.cameraSettingsButton = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // myButton1
@@ -99,17 +100,33 @@
             this.myButton4.UseVisualStyleBackColor = false;
             this.myButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myButton4_MouseUp);
             // 
+            // cameraSettingsButton
+            // 
+            this.cameraSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.cameraSettingsButton.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.cameraSettingsButton.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.cameraSettingsButton.Location = new System.Drawing.Point(222, 2);
+            this.cameraSettingsButton.Name = "cameraSettingsButton";
+            this.cameraSettingsButton.Outline = System.Drawing.Color.Transparent;
+            this.cameraSettingsButton.Size = new System.Drawing.Size(110, 23);
+            this.cameraSettingsButton.TabIndex = 4;
+            this.cameraSettingsButton.Text = "Настройки ВСКС";
+            this.cameraSettingsButton.TextColor = System.Drawing.Color.Black;
+            this.cameraSettingsButton.UseVisualStyleBackColor = false;
+            this.cameraSettingsButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cameraSettingsButton_MouseUp);
+            // 
             // SNSControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
+            this.Controls.Add(this.cameraSettingsButton);
             this.Controls.Add(this.myButton4);
             this.Controls.Add(this.myButton3);
             this.Controls.Add(this.myButton2);
             this.Controls.Add(this.myButton1);
             this.Name = "SNSControl";
-            this.Size = new System.Drawing.Size(235, 26);
+            this.Size = new System.Drawing.Size(336, 26);
             this.ResumeLayout(false);
 
         }
@@ -120,5 +137,6 @@
         private MyButton myButton2;
         private MyButton myButton3;
         private MyButton myButton4;
+        private MyButton cameraSettingsButton;
     }
 }

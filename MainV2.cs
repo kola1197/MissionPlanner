@@ -588,7 +588,7 @@ namespace MissionPlanner
 
         public static Dictionary<int, servoValue> configServo = new Dictionary<int, servoValue>();
 
-        public CameraListener cameraListener;
+        public static CameraListener cameraListener;
 
         public class item
         {
@@ -1410,7 +1410,7 @@ namespace MissionPlanner
             setFixedValues();
 
             setTransparentControls();
-            Text = "НПУ v1.2";
+            Text = "НПУ v1.2.1";
 
             FormConnector = new FormConnector(this);
 
@@ -6864,20 +6864,6 @@ namespace MissionPlanner
         private void CTX_mainmenu_Opening(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-        }
-
-
-        private void cameraSettingsButton_KeyUp(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void cameraSettingsButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            cameraListenerSettings?.Close();
-
-            cameraListenerSettings = new CameraListenerSettings(ref cameraListener);
-            cameraListenerSettings.Show();
         }
     }
 }

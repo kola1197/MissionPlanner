@@ -7369,7 +7369,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 // if (MainV2.comPort.MAV.cs.lat == 0 || MainV2.comPort.MAV.cs.lng == 0)
                 // return;
-                
+
                 foreach (var port in MainV2.Comports.ToArray())
                 {
                     // draw the mavs seen on this port
@@ -7503,17 +7503,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             BeginInvoke((Action) RedrawCameraCrosshairPoint);
         }
-        
+
         private void RedrawCameraPolygonPoints()
         {
-            if (MainV2.instance.cameraListener.points.Count == 0)
+            if (MainV2.cameraListener.points.Count == 0)
                 return;
 
             var polygon = CameraAreaOverlay.Polygons.First();
-            
+
             polygon.Points.Clear();
 
-            foreach (var point in MainV2.instance.cameraListener.points)
+            foreach (var point in MainV2.cameraListener.points)
             {
                 polygon.Points.Add(new PointLatLng(point.Geo.Latitude, point.Geo.Longitude));
             }
@@ -7535,15 +7535,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void RedrawCameraCrosshairPoint()
         {
-            if (MainV2.instance.cameraListener.points.Count == 0)
+            if (MainV2.cameraListener.points.Count == 0)
                 return;
 
             var polygon = CameraAreaOverlay.Polygons.First();
-            
+
             polygon.Points.Clear();
 
-            var point = MainV2.instance.cameraListener.CrossHairPoint;
-            
+            var point = MainV2.cameraListener.CrossHairPoint;
+
             polygon.Points.Add(new PointLatLng(point.Geo.Latitude, point.Geo.Longitude));
 
             CameraCrosshairOverlay.Markers.Clear();
@@ -7576,7 +7576,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     mBorders.InnerMarker = m;
                 }
-                
+
                 CameraCrosshairOverlay.Markers.Add(m);
                 CameraCrosshairOverlay.Markers.Add(mBorders);
             }
@@ -7585,7 +7585,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 MainV2.log.Info(ex.ToString());
             }
         }
-        
+
         private void addCameraMarkerGrid(string tag, double lng, double lat, int alt)
         {
             try
@@ -7601,7 +7601,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     mBorders.InnerMarker = m;
                 }
-                
+
                 CameraAreaOverlay.Markers.Add(m);
                 CameraAreaOverlay.Markers.Add(mBorders);
             }
@@ -7610,7 +7610,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 MainV2.log.Info(ex.ToString());
             }
         }
-        
+
         public void trackBar1_Scroll(object sender, EventArgs e)
         {
             try
@@ -8193,6 +8193,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 MainMenuWidget.Instance.RedrawRulerSurvey(GetRulerRoute());
                             }
                         }
+
+                        if (CurentRectMarker.InnerMarker.Tag.ToString().Contains("camera"))
+                        {
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -8321,7 +8326,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     wpConfig.Show();
                 }
                 else if (CurentRectMarker != null && (CurentRectMarker.Overlay != RegionsOverlay) &&
-                         CurentRectMarker.Overlay != RulerOverlay)
+                         CurentRectMarker.Overlay != RulerOverlay && CurentRectMarker.Overlay != CameraAreaOverlay &&
+                         CurentRectMarker.Overlay != CameraCrosshairOverlay)
                 {
                     if (wpConfig != null)
                     {
@@ -9387,11 +9393,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 if (item is GMapMarkerRect)
                 {
-                    if (item.Tag.ToString().Contains("camera"))
-                    {
-                        return;
-                    }
-
                     GMapMarkerRect rc = item as GMapMarkerRect;
                     rc.Pen.Color = Color.Red;
                     MainMap.Invalidate(false);
