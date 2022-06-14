@@ -227,6 +227,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private void setFixedValues() 
         {
             MainV2.configServo[0] = new servoValue(7, 1900, 1100);
+            MainV2.configServo[1] = new servoValue(11, 1900, 1100);
             MainV2.configServo[10] = new servoValue(8, 1900, 1100);
         }
 
