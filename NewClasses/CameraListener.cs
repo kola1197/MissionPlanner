@@ -29,7 +29,7 @@ namespace MissionPlanner.NewClasses
         private bool crossHairVisible = true;
         public int cyclesWithoutPacket = 0;
         private bool pointUpdated = true;
-        public Color activeAreaColor = Color.Yellow;
+        public Color activeAreaColor = Color.FromArgb(225, 0, 128);
         public Color outdatedAreaColor = Color.Black;
         public CameraListener()
         {

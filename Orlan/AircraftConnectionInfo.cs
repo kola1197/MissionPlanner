@@ -6,7 +6,7 @@ namespace MissionPlanner
     [Serializable]
     public class AircraftConnectionInfo
     {
-        private static int _aircraftCounter;
+        public static int AircraftCounter;
 
         private float _fuelPerTime = 0;
 
@@ -55,8 +55,8 @@ namespace MissionPlanner
         {
             (Name, SerialPort, Speed, SysId, Connected, UsingSitl, UsingAntenna) =
                 ("", "", "115200", null, false, false, false);
-            MenuNum = _aircraftCounter;
-            _aircraftCounter++;
+            MenuNum = AircraftCounter;
+            AircraftCounter++;
             _tcpIp = "127.0.0.1";
             _tcpPort = "5760";
             _udpPort = "14550";

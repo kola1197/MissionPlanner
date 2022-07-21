@@ -7566,7 +7566,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMarkerGoogle m = new GMarkerGoogle(point, GMarkerGoogleType.arrow);
+                GMapMarkerCross m = new GMapMarkerCross(point);
                 m.ToolTipMode = MarkerTooltipMode.Never;
                 m.ToolTipText = "camera_crosshair" + tag;
                 m.Tag = "camera_crosshair" + tag;

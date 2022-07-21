@@ -68,12 +68,25 @@ namespace MissionPlanner
 
         public void Init()
         {
-            aircraftsBindingSource.DataSource = MainV2.Aircrafts.ToList();
+            var aircraftsList = MainV2.Aircrafts.ToList();
+            aircraftsList.Sort(AircraftComparison);
+            aircraftsBindingSource.DataSource = aircraftsList;
             devices_LB.DisplayMember = "Key";
             devices_LB.ValueMember = "Key";
             devices_LB.DataSource = aircraftsBindingSource;
             connectionParams_panel.BackColor = antennaPanel.BackColor = connection_GB.BackColor;
             // devices_LB.DisplayMember = "Value";
+        }
+
+        private int AircraftComparison(KeyValuePair<string, AircraftConnectionInfo> x,
+            KeyValuePair<string, AircraftConnectionInfo> y)
+        {
+            if (x.Value.MenuNum < y.Value.MenuNum)
+                return -1;
+            else if (x.Value.MenuNum == y.Value.MenuNum)
+                return 0;
+            else
+                return 1;
         }
 
         public void UpdateComPorts()
@@ -465,17 +478,6 @@ namespace MissionPlanner
             return binding;
         }
 
-        private void ClearControlsBindings()
-        {
-            connection_GB.DataBindings.Clear();
-            connectionParams_panel.DataBindings.Clear();
-            connectedAircraftName_TB.DataBindings.Clear();
-            useSITL_CheckBox.DataBindings.Clear();
-            useAntenna_CheckBox.DataBindings.Clear();
-            CMB_serialport.DataBindings.Clear();
-            CMB_baudrate.DataBindings.Clear();
-            antennaPanel.DataBindings.Clear();
-        }
 
         private readonly object uiLock = new object();
 
@@ -497,6 +499,19 @@ namespace MissionPlanner
             //}
         }
 
+        private void ClearControlsBindings()
+        {
+            connection_GB.DataBindings.Clear();
+            connectionParams_panel.DataBindings.Clear();
+            connectedAircraftName_TB.DataBindings.Clear();
+            useSITL_CheckBox.DataBindings.Clear();
+            useAntenna_CheckBox.DataBindings.Clear();
+            CMB_serialport.DataBindings.Clear();
+            CMB_baudrate.DataBindings.Clear();
+            antennaPanel.DataBindings.Clear();
+            deleteAircraft_BT.DataBindings.Clear();
+        }
+
         private void SetControlsProperties()
         {
             connectedAircraftNum_TB.Text = GetSelectedAircraftNum();
@@ -512,6 +527,8 @@ namespace MissionPlanner
             {
                 connection_GB.DataBindings.Add(CreateAircraftNumBinding("Text", aircraftsBindingSource.Current, "Key"));
                 connectionParams_panel.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
+                    "Connected"));
+                deleteAircraft_BT.DataBindings.Add(CreateInversedBoolBinding("Enabled", airInfoBindingSource,
                     "Connected"));
 
                 connectedAircraftName_TB.DataBindings.Add(new Binding("Text", airInfoBindingSource, "Name"));
@@ -972,6 +989,7 @@ namespace MissionPlanner
             MainV2.AircraftMenuControl.setAircraftButtonDefaultText(aircraftMenuNum, (aircraftMenuNum + 1).ToString());
             MainV2.AircraftMenuControl.updateAircraftButtonText(MainV2.Aircrafts[aircraftNumber].MenuNum);
             MainV2.Aircrafts.Remove(aircraftNumber);
+            AircraftConnectionInfo.AircraftCounter--;
 
             if (MainV2.Aircrafts.Count == 0)
             {

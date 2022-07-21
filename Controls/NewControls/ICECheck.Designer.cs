@@ -103,7 +103,7 @@ namespace MissionPlanner.Controls.NewControls
             this.startButton.Text = "Начать";
             this.startButton.TextColor = System.Drawing.Color.Black;
             this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.startButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.startButton_Click);
             // 
             // pictureBox1
             // 
@@ -222,7 +222,7 @@ namespace MissionPlanner.Controls.NewControls
 
         #endregion
 
-        private MyButton startButton;
+        private MissionPlanner.Controls.MyButton startButton;
         private MyButton myButton1;
         private MissionPlanner.Controls.MyButton testButton;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -328,7 +328,7 @@ namespace MissionPlanner.Controls.NewControls
             // MainV2.AircraftMenuControl.preFlightForm.SkipIceCheck();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private async void startButton_Click(object sender, EventArgs e)
         {
             if (StatusControlPanel.instance.IsSitlConnected())
             {
@@ -340,20 +340,36 @@ namespace MissionPlanner.Controls.NewControls
             progressBar3.ValueColor = Color.Cyan;
 
             try
-            {
+            {                       
+                bool failed = false;
                 if (!started)
                 {
                     //fMin = MainV2.comPort.GetParam("SERVO3_TRIM");
                     //fMax = MainV2.comPort.GetParam("SERVO3_MAX");
-                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.START_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
-                    started = true;
-                    ICESpeeds = new List<float>();
-                    startButton.Text = "Начать перегазовки";
-                    startButton.Enabled = false;
-                    counter = 0;
-                    refreshProgressBars();
-                    StartTimer();
-                    MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
+                    try
+                    {
+                        await Task.Run(() => {        
+                            MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.START_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
+                        }).ConfigureAwait(true); 
+                        started = true;
+                        ICESpeeds = new List<float>();
+                        startButton.Text = "Начать перегазовки";
+                        startButton.Enabled = false;
+                        counter = 0;
+                        refreshProgressBars();
+                        StartTimer();
+                        MainV2.AircraftMenuControl.preFlightForm.EnableIceCheckNextButton();
+                    }
+                    catch (Exception ee)
+                    {
+                        failed = true;
+                    }
+
+                    if (failed)
+                    {
+                        CustomMessageBox.Show("Не удалось отправить команду \"Закончить перегазовки\"!");
+                    }
+
                 }
                 else
                 {
@@ -391,11 +407,23 @@ namespace MissionPlanner.Controls.NewControls
             secondTestStarted = false;
             sinusoidTestCounter = new int[] {0, 0};
         }
-        
-        
-        public void stop()
+
+
+        public async void stop()
         {
-            MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.STOP_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
+            try
+            {
+                await Task.Run(() => {        
+                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                        MAVLink.MAV_CMD.STOP_ICE_CHECK, 0, 0, 0, 0, 0, 0, 0);
+                }).ConfigureAwait(true); 
+               
+            }
+            catch ( Exception e  )
+            {
+                CustomMessageBox.Show("Не удалось отправить команду \"Закончить перегазовки\"!");
+            }
+
             // if (_iceTimer != null)
             // {
             //     _iceTimer.Dispose();
