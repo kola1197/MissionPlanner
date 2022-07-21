@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.GCSViews;
@@ -57,6 +58,8 @@ namespace MissionPlanner.NewForms
             cameraOutdatedViewAreaColorBox.BackColor = cameraListener.outdatedAreaColor;
             drawCameraAreaCheckBox.Checked = cameraListener.GetAreaVisible();
             drawCrossHairCheckBox.Checked = cameraListener.GetCrossHairVisible();
+            ipConfigButton.BackColor = SystemColors.Control;
+            ipConfigButton.ForeColor = Color.Black;
         }
 
         private void CameraListenerSettings_Shown(object sender, EventArgs e)
@@ -129,6 +132,27 @@ namespace MissionPlanner.NewForms
         private void activeCameraViewAreaColorBox_BackColorChanged(object sender, EventArgs e)
         {
             UpdateColors();
+        }
+        
+
+        private void ipConfigButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (cameraListener == null)
+            {
+                return;
+            }
+            Task.Run(() =>
+            {
+                cameraListener.stop();
+                cameraListener.server = ipConfigTextBox.Text;
+                Thread.Sleep(1000);
+                cameraListener.start();
+            });
+            
+        }
+
+        private void ipConfigTextBox_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -40,6 +40,9 @@ namespace MissionPlanner.NewForms
             this.cameraOutdatedViewAreaColorBox = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.drawCrossHairCheckBox = new System.Windows.Forms.CheckBox();
+            this.ipConfigLabel = new System.Windows.Forms.Label();
+            this.ipConfigTextBox = new System.Windows.Forms.TextBox();
+            this.ipConfigButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -113,11 +116,42 @@ namespace MissionPlanner.NewForms
             this.drawCrossHairCheckBox.UseVisualStyleBackColor = true;
             this.drawCrossHairCheckBox.CheckedChanged += new System.EventHandler(this.drawCrossHairCheckBox_CheckedChanged);
             // 
+            // ipConfigLabel
+            // 
+            this.ipConfigLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ipConfigLabel.Location = new System.Drawing.Point(12, 128);
+            this.ipConfigLabel.Name = "ipConfigLabel";
+            this.ipConfigLabel.Size = new System.Drawing.Size(127, 38);
+            this.ipConfigLabel.TabIndex = 7;
+            this.ipConfigLabel.Text = "IP адрес камеры:";
+            this.ipConfigLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ipConfigTextBox
+            // 
+            this.ipConfigTextBox.Location = new System.Drawing.Point(157, 138);
+            this.ipConfigTextBox.Name = "ipConfigTextBox";
+            this.ipConfigTextBox.Size = new System.Drawing.Size(150, 20);
+            this.ipConfigTextBox.TabIndex = 8;
+            this.ipConfigTextBox.TextChanged += new System.EventHandler(this.ipConfigTextBox_TextChanged);
+            // 
+            // ipConfigButton
+            // 
+            this.ipConfigButton.Location = new System.Drawing.Point(360, 128);
+            this.ipConfigButton.Name = "ipConfigButton";
+            this.ipConfigButton.Size = new System.Drawing.Size(125, 34);
+            this.ipConfigButton.TabIndex = 9;
+            this.ipConfigButton.Text = "Задать IP";
+            this.ipConfigButton.UseVisualStyleBackColor = true;
+            this.ipConfigButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ipConfigButton_MouseUp);
+            // 
             // CameraListenerSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 151);
+            this.ClientSize = new System.Drawing.Size(497, 183);
+            this.Controls.Add(this.ipConfigButton);
+            this.Controls.Add(this.ipConfigTextBox);
+            this.Controls.Add(this.ipConfigLabel);
             this.Controls.Add(this.drawCrossHairCheckBox);
             this.Controls.Add(this.cameraOutdatedViewAreaColorBox);
             this.Controls.Add(this.activeCameraViewAreaColorBox);
@@ -136,8 +170,13 @@ namespace MissionPlanner.NewForms
             this.VisibleChanged += new System.EventHandler(this.CameraListenerSettings_VisibleChanged);
             this.Leave += new System.EventHandler(this.CameraListenerSettings_Leave);
             this.ResumeLayout(false);
-
+            this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button ipConfigButton;
+
+        private System.Windows.Forms.Label ipConfigLabel;
+        private System.Windows.Forms.TextBox ipConfigTextBox;
 
         private System.Windows.Forms.CheckBox drawCrossHairCheckBox;
 
