@@ -15,9 +15,11 @@ namespace MissionPlanner.Controls.NewControls
 {
     public partial class ICERun : UserControl
     {
+        private const int SoundServoNum = 10;
         private bool testMode = false;
         private bool _iceRunning = false;
         public static ICERun Instance;
+
         public bool ICERunning
         {
             get => MainV2.ICERunning; //_iceRunning;
@@ -27,7 +29,7 @@ namespace MissionPlanner.Controls.NewControls
                 {
                     MainV2.ICERunning = value;
                     _iceRunning = value;
-                    StatusControlPanel.instance.SitlEmulation.EngineRunning = value;    
+                    StatusControlPanel.instance.SitlEmulation.EngineRunning = value;
                 }
             }
         }
@@ -41,11 +43,11 @@ namespace MissionPlanner.Controls.NewControls
             InitializeComponent();
             Instance = this;
         }
-        
+
         // private static System.Threading.Timer _timer;
 
         private static object locker = new object();
-        
+
         public bool IsTimerEnabled
         {
             get => timer1.Enabled;
@@ -88,9 +90,9 @@ namespace MissionPlanner.Controls.NewControls
                     float rpm1, rpm2;
                     if (StatusControlPanel.instance.IsSitlConnected())
                     {
-                        rpm1 = (float) MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName
+                        rpm1 = (float)MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName
                             .Rpm);
-                        rpm2 = (float) MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName
+                        rpm2 = (float)MainV2.CurrentAircraft.SitlInfo.ParamList.GetParamValue(SitlParam.ParameterName
                             .Temperature);
                     }
                     else
@@ -116,7 +118,7 @@ namespace MissionPlanner.Controls.NewControls
                             }
                         }
 
-                        if (rpm1 < 3000)//(rpm1 < 2500)
+                        if (rpm1 < 3000) //(rpm1 < 2500)
                         {
                             label3.Text = "Обороты двигателя менее 3000";
                             label3.ForeColor = Color.Red;
@@ -208,7 +210,8 @@ namespace MissionPlanner.Controls.NewControls
             //    CustomMessageBox.Show("Двигатель занят в другом потоке");
             //}
 
-            MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
+            MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
+                MAVLink.MAV_CMD.DO_SET_SERVO, 10, 900, 0, 0, 0, 0, 0);
             if (testMode)
             {
                 startButton.Text = "Запустить";
@@ -220,7 +223,18 @@ namespace MissionPlanner.Controls.NewControls
             //System.Diagnostics.Debug.Write("DISABLE +++++++++++++++");
             engineoffCounter = 30;
         }
-        
+
+        private void SwitchPreStartAlarm(bool activate)
+        {
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                if (MainV2.configServo.TryGetValue(SoundServoNum, out var servo))
+                    MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
+                        MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, activate ? servo.value : servo.defaultValue, 0, 0,
+                        0, 0, 0);
+            }
+        }
+
         private void startButton_MouseUp(object sender, MouseEventArgs e)
         {
             IsTimerEnabled = true;
@@ -230,13 +244,19 @@ namespace MissionPlanner.Controls.NewControls
             }
             else
             {
-                var result = MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0).Result;
+                Task.Run(() =>
+                {
+                    SwitchPreStartAlarm(true);
+                    Thread.Sleep(4000);
+                    var result = MainV2.comPort.doCommandAsync((byte)MainV2.comPort.sysidcurrent,
+                            (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0)
+                        .Result;
+                    SwitchPreStartAlarm(false);
+                });
                 //if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
                 //{
                 //    CustomMessageBox.Show("Двигатель занят в другом потоке");
                 //}
-
-
                 startButton.Text = "Заглушить";
                 ICERunning = true;
 

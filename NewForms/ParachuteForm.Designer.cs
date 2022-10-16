@@ -34,16 +34,18 @@ namespace MissionPlanner.NewForms
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.airbagOffButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Location = new System.Drawing.Point(16, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 112);
+            this.button1.Size = new System.Drawing.Size(203, 138);
             this.button1.TabIndex = 0;
             this.button1.Text = "Выпустить парашют";
             this.button1.UseVisualStyleBackColor = false;
@@ -51,12 +53,13 @@ namespace MissionPlanner.NewForms
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(170, 12);
+            this.button2.Location = new System.Drawing.Point(227, 15);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 112);
+            this.button2.Size = new System.Drawing.Size(203, 138);
             this.button2.TabIndex = 1;
             this.button2.Text = "Рули в нейтраль";
             this.button2.UseVisualStyleBackColor = false;
@@ -64,28 +67,45 @@ namespace MissionPlanner.NewForms
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(328, 12);
+            this.button3.Location = new System.Drawing.Point(437, 15);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(152, 112);
+            this.button3.Size = new System.Drawing.Size(203, 138);
             this.button3.TabIndex = 2;
             this.button3.Text = "Отцеп открыть";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // airbagOffButton
+            // 
+            this.airbagOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.airbagOffButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.airbagOffButton.ForeColor = System.Drawing.Color.Black;
+            this.airbagOffButton.Location = new System.Drawing.Point(648, 15);
+            this.airbagOffButton.Margin = new System.Windows.Forms.Padding(4);
+            this.airbagOffButton.Name = "airbagOffButton";
+            this.airbagOffButton.Size = new System.Drawing.Size(203, 138);
+            this.airbagOffButton.TabIndex = 3;
+            this.airbagOffButton.Text = "Выключить подушку";
+            this.airbagOffButton.UseVisualStyleBackColor = false;
+            this.airbagOffButton.Click += new System.EventHandler(this.airbagOffButton_Click);
+            // 
             // ParachuteForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (32)))), ((int) (((byte) (32)))), ((int) (((byte) (32)))));
-            this.ClientSize = new System.Drawing.Size(491, 134);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.ClientSize = new System.Drawing.Size(866, 165);
+            this.Controls.Add(this.airbagOffButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ParachuteForm";
@@ -93,6 +113,8 @@ namespace MissionPlanner.NewForms
             this.Shown += new System.EventHandler(this.ParachuteForm_Shown);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button airbagOffButton;
 
         #endregion
 
