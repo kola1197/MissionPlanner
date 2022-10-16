@@ -1410,7 +1410,7 @@ namespace MissionPlanner
             setFixedValues();
 
             setTransparentControls();
-            Text = "НПУ v1.2.2";
+            Text = "НПУ v1.2.3";
 
             FormConnector = new FormConnector(this);
 
