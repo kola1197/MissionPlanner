@@ -82,6 +82,7 @@ namespace MissionPlanner.NewForms
             // airbagOffButton
             // 
             this.airbagOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+            this.airbagOffButton.Enabled = false;
             this.airbagOffButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.airbagOffButton.ForeColor = System.Drawing.Color.Black;
             this.airbagOffButton.Location = new System.Drawing.Point(648, 15);
@@ -91,6 +92,7 @@ namespace MissionPlanner.NewForms
             this.airbagOffButton.TabIndex = 3;
             this.airbagOffButton.Text = "Выключить подушку";
             this.airbagOffButton.UseVisualStyleBackColor = false;
+            this.airbagOffButton.Visible = false;
             this.airbagOffButton.Click += new System.EventHandler(this.airbagOffButton_Click);
             // 
             // ParachuteForm
@@ -98,7 +100,7 @@ namespace MissionPlanner.NewForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(866, 165);
+            this.ClientSize = new System.Drawing.Size(648, 165);
             this.Controls.Add(this.airbagOffButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);

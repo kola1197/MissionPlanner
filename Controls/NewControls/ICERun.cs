@@ -246,12 +246,12 @@ namespace MissionPlanner.Controls.NewControls
             {
                 Task.Run(() =>
                 {
-                    SwitchPreStartAlarm(true);
-                    Thread.Sleep(4000);
+                    // SwitchPreStartAlarm(true);
+                    // Thread.Sleep(5000);
                     var result = MainV2.comPort.doCommandAsync((byte)MainV2.comPort.sysidcurrent,
                             (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 10, 1900, 0, 0, 0, 0, 0)
                         .Result;
-                    SwitchPreStartAlarm(false);
+                    // SwitchPreStartAlarm(false);
                 });
                 //if (!MainV2.engineController.SetEngineValueAndWait(trim3, key))
                 //{
