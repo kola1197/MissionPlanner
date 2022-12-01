@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using IronPython.Modules;
 
 namespace MissionPlanner.Controls.NewControls
 {
     public partial class servoGimbal : UserControl
     {
-        private bool[] buttonPressed = new bool[11]; 
-        int [] timing = new int[11];
+        private readonly bool[] buttonPressed = new bool[11];
+        private readonly int[] timing = new int[11];
+
         public servoGimbal()
         {
-            for (int i = 0; i < 11; i++) 
-            {
-                timing[i] = 0;
-            }
+            for (var i = 0; i < 11; i++) timing[i] = 0;
             InitializeComponent();
             myButton1.Tag = 0;
             myButton2.Tag = 9;
@@ -38,15 +30,16 @@ namespace MissionPlanner.Controls.NewControls
 
         private void defaultButton(object sender)
         {
-            MyButton b = (MyButton)sender;
-            if (b.BGGradTop != Color.DarkRed && b.BGGradTop != Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196))))))
+            var b = (MyButton)sender;
+            if (b.BGGradTop != Color.DarkRed && b.BGGradTop != Color.FromArgb(196, 196, (int)196))
             {
-                b.BGGradBot = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
-                b.BGGradTop = Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
+                b.BGGradBot = Color.FromArgb(196, 196, 196);
+                b.BGGradTop = Color.FromArgb(196, 196, 196);
                 b.TextColor = Color.Black;
                 b.Outline = Color.Transparent;
             }
         }
+
         private void myButton1_MouseUp(object sender, MouseEventArgs e)
         {
             // if (!timer1.Enabled)
@@ -55,13 +48,13 @@ namespace MissionPlanner.Controls.NewControls
             // }
             //timing[i] = 10;
             //System.Diagnostics.Debug.WriteLine("button click " + i.ToString());
-            
-            MyButton b = (MyButton)sender;
-            int i = (int)b.Tag;
+
+            var b = (MyButton)sender;
+            var i = (int)b.Tag;
             buttonPressed[i] = !buttonPressed[i];
-            b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
-            b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-            servoSet(i,buttonPressed[i]);
+            b.BGGradBot = buttonPressed[i] ? Color.Brown : Color.FromArgb(196, 196, (int)196); //it is default MP shit
+            b.BGGradTop = buttonPressed[i] ? Color.DarkRed : Color.FromArgb(196, 196, (int)196);
+            servoSet(i, buttonPressed[i]);
         }
 
         private void myButton1_mouseDown(object sender, MouseEventArgs e)
@@ -81,15 +74,18 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.servoValue servo;
                 if (MainV2.configServo.TryGetValue(i, out servo))
                 {
-                    MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent,
+                        (byte) MainV2.comPort.compidcurrent,
                         MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value : servo.defaultValue, 0, 0,
                         0, 0, 0);
                 }
             }
         }
+
         //b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
         //b.BGGradTop = buttonPressed[i]? Color.DarkRed : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));
-        private void fixButtons() {
+        private void fixButtons()
+        {
             defaultButton(myButton1);
             defaultButton(myButton2);
             defaultButton(myButton3);
@@ -105,16 +101,16 @@ namespace MissionPlanner.Controls.NewControls
 
         private void timerVoid()
         {
-            for (int i = 0; i<11; i++)
-            {
-                if (timing[i] > 0) 
+            for (var i = 0; i < 11; i++)
+                if (timing[i] > 0)
                 {
                     timing[i]--;
                     MainV2.servoValue servo;
                     if (MainV2.configServo.TryGetValue(i, out servo))
                     {
-                        System.Diagnostics.Debug.WriteLine("Servo click!!! Servo: " + servo.servo.ToString() + " Value: " + servo.value.ToString());
-                       MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, servo.value, 0, 0, 0, 0, 0);
+                        Debug.WriteLine("Servo click!!! Servo: " + servo.servo + " Value: " + servo.value);
+                        MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent,
+                            MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, servo.value, 0, 0, 0, 0, 0);
 
                         switch (servo.servo)
                         {
@@ -123,8 +119,12 @@ namespace MissionPlanner.Controls.NewControls
                             case 1:
                                 //MainV2.comPort.MAV.cs.ch1in = servo.value;
                                 //MainV2.comPort.MAV.cs.ch1out = servo.value;
-                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, 1800, 0, 0, 0, 0, 0);
-                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 3, 1800, 0, 0, 0, 0, 0);
+                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
+                                    (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 2, 1800, 0, 0, 0,
+                                    0, 0);
+                                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
+                                    (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_SERVO, 3, 1800, 0, 0, 0,
+                                    0, 0);
                                 break;
                             case 2:
                                 MainV2.comPort.MAV.cs.ch2out = servo.value;
@@ -170,12 +170,9 @@ namespace MissionPlanner.Controls.NewControls
                             case 16:
                                 MainV2.comPort.MAV.cs.ch16out = servo.value;
                                 break;
-                            default:
-                                break;
                         }
                     }
                 }
-            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -186,7 +183,6 @@ namespace MissionPlanner.Controls.NewControls
 
         private void myButton3_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

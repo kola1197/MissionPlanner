@@ -19,7 +19,7 @@ namespace MissionPlanner.NewClasses
         public List<Point> points;
         public Point CrossHairPoint;
         private const int port = 13200;
-        string server = "127.0.0.1";
+        public string server = "127.0.0.1";
         /// <summary>
         /// TODO: Switch to Task
         /// </summary>

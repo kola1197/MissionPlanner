@@ -40,6 +40,9 @@ namespace MissionPlanner.NewForms
             this.cameraOutdatedViewAreaColorBox = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.drawCrossHairCheckBox = new System.Windows.Forms.CheckBox();
+            this.ipConfigLabel = new System.Windows.Forms.Label();
+            this.ipConfigTextBox = new System.Windows.Forms.TextBox();
+            this.ipConfigButton = new MissionPlanner.Controls.MyButton();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +54,7 @@ namespace MissionPlanner.NewForms
             // 
             // activeCameraViewAreaColorLabel
             // 
-            this.activeCameraViewAreaColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.activeCameraViewAreaColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.activeCameraViewAreaColorLabel.Location = new System.Drawing.Point(12, 62);
             this.activeCameraViewAreaColorLabel.Name = "activeCameraViewAreaColorLabel";
             this.activeCameraViewAreaColorLabel.Size = new System.Drawing.Size(259, 23);
@@ -61,7 +64,7 @@ namespace MissionPlanner.NewForms
             // 
             // CameraOutdatedViewAreaLabel
             // 
-            this.CameraOutdatedViewAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CameraOutdatedViewAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.CameraOutdatedViewAreaLabel.Location = new System.Drawing.Point(12, 85);
             this.CameraOutdatedViewAreaLabel.Name = "CameraOutdatedViewAreaLabel";
             this.CameraOutdatedViewAreaLabel.Size = new System.Drawing.Size(342, 32);
@@ -72,7 +75,7 @@ namespace MissionPlanner.NewForms
             // drawCameraAreaCheckBox
             // 
             this.drawCameraAreaCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.drawCameraAreaCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.drawCameraAreaCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.drawCameraAreaCheckBox.Location = new System.Drawing.Point(12, 5);
             this.drawCameraAreaCheckBox.Name = "drawCameraAreaCheckBox";
             this.drawCameraAreaCheckBox.Size = new System.Drawing.Size(422, 24);
@@ -104,7 +107,7 @@ namespace MissionPlanner.NewForms
             // drawCrossHairCheckBox
             // 
             this.drawCrossHairCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.drawCrossHairCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.drawCrossHairCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.drawCrossHairCheckBox.Location = new System.Drawing.Point(12, 32);
             this.drawCrossHairCheckBox.Name = "drawCrossHairCheckBox";
             this.drawCrossHairCheckBox.Size = new System.Drawing.Size(422, 24);
@@ -113,11 +116,48 @@ namespace MissionPlanner.NewForms
             this.drawCrossHairCheckBox.UseVisualStyleBackColor = true;
             this.drawCrossHairCheckBox.CheckedChanged += new System.EventHandler(this.drawCrossHairCheckBox_CheckedChanged);
             // 
+            // ipConfigLabel
+            // 
+            this.ipConfigLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.ipConfigLabel.Location = new System.Drawing.Point(12, 127);
+            this.ipConfigLabel.Name = "ipConfigLabel";
+            this.ipConfigLabel.Size = new System.Drawing.Size(127, 22);
+            this.ipConfigLabel.TabIndex = 7;
+            this.ipConfigLabel.Text = "IP адрес камеры:";
+            this.ipConfigLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ipConfigTextBox
+            // 
+            this.ipConfigTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.ipConfigTextBox.Location = new System.Drawing.Point(145, 129);
+            this.ipConfigTextBox.Name = "ipConfigTextBox";
+            this.ipConfigTextBox.Size = new System.Drawing.Size(209, 22);
+            this.ipConfigTextBox.TabIndex = 8;
+            this.ipConfigTextBox.TextChanged += new System.EventHandler(this.ipConfigTextBox_TextChanged);
+            // 
+            // ipConfigButton
+            // 
+            this.ipConfigButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.ipConfigButton.BGGradBot = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.ipConfigButton.BGGradTop = System.Drawing.Color.FromArgb(((int) (((byte) (196)))), ((int) (((byte) (196)))), ((int) (((byte) (196)))));
+            this.ipConfigButton.Location = new System.Drawing.Point(360, 125);
+            this.ipConfigButton.Name = "ipConfigButton";
+            this.ipConfigButton.Outline = System.Drawing.Color.Transparent;
+            this.ipConfigButton.Size = new System.Drawing.Size(128, 26);
+            this.ipConfigButton.TabIndex = 9;
+            this.ipConfigButton.Text = "Задать IP";
+            this.ipConfigButton.TextColor = System.Drawing.Color.Black;
+            this.ipConfigButton.UseVisualStyleBackColor = false;
+            this.ipConfigButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ipConfigButton_MouseUp);
+            // 
             // CameraListenerSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 151);
+            this.ClientSize = new System.Drawing.Size(497, 183);
+            this.Controls.Add(this.ipConfigButton);
+            this.Controls.Add(this.ipConfigTextBox);
+            this.Controls.Add(this.ipConfigLabel);
             this.Controls.Add(this.drawCrossHairCheckBox);
             this.Controls.Add(this.cameraOutdatedViewAreaColorBox);
             this.Controls.Add(this.activeCameraViewAreaColorBox);
@@ -125,7 +165,7 @@ namespace MissionPlanner.NewForms
             this.Controls.Add(this.CameraOutdatedViewAreaLabel);
             this.Controls.Add(this.activeCameraViewAreaColorLabel);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CameraListenerSettings";
@@ -136,8 +176,13 @@ namespace MissionPlanner.NewForms
             this.VisibleChanged += new System.EventHandler(this.CameraListenerSettings_VisibleChanged);
             this.Leave += new System.EventHandler(this.CameraListenerSettings_Leave);
             this.ResumeLayout(false);
-
+            this.PerformLayout();
         }
+
+        private MissionPlanner.Controls.MyButton ipConfigButton;
+
+        private System.Windows.Forms.Label ipConfigLabel;
+        private System.Windows.Forms.TextBox ipConfigTextBox;
 
         private System.Windows.Forms.CheckBox drawCrossHairCheckBox;
 

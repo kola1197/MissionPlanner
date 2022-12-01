@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MissionPlanner.GCSViews;
@@ -57,6 +58,10 @@ namespace MissionPlanner.NewForms
             cameraOutdatedViewAreaColorBox.BackColor = cameraListener.outdatedAreaColor;
             drawCameraAreaCheckBox.Checked = cameraListener.GetAreaVisible();
             drawCrossHairCheckBox.Checked = cameraListener.GetCrossHairVisible();
+            ipConfigButton.BGGradBot = Color.FromArgb(196, 196,196);
+            ipConfigButton.BGGradTop = Color.FromArgb(196, 196,196);
+            ipConfigButton.ForeColor = Color.Black;
+            ipConfigButton.TextColor = Color.Black;
         }
 
         private void CameraListenerSettings_Shown(object sender, EventArgs e)
@@ -129,6 +134,52 @@ namespace MissionPlanner.NewForms
         private void activeCameraViewAreaColorBox_BackColorChanged(object sender, EventArgs e)
         {
             UpdateColors();
+        }
+
+
+        private void ipConfigButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (cameraListener == null)
+            {
+                return;
+            }
+            
+            if (!ValidateIPv4(ipConfigTextBox.Text))
+            {
+                string msg = "Некорректный IP адрес! Проверьте адрес и повторите ввод.";
+                CustomMessageBox.Show(msg, "Некорректный IP адрес!");
+                return;
+            }
+
+            Task.Run(() =>
+            {
+                cameraListener.stop();
+                cameraListener.server = ipConfigTextBox.Text;
+                Thread.Sleep(1000);
+                cameraListener.start();
+            });
+        }
+
+        public bool ValidateIPv4(string ipString)
+        {
+            if (String.IsNullOrWhiteSpace(ipString))
+            {
+                return false;
+            }
+
+            string[] splitValues = ipString.Split('.');
+            if (splitValues.Length != 4)
+            {
+                return false;
+            }
+
+            byte tempForParsing;
+
+            return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+        }
+
+        private void ipConfigTextBox_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }
