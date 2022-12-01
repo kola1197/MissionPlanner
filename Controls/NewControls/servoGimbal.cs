@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MissionPlanner.Controls.NewControls
@@ -69,17 +70,21 @@ namespace MissionPlanner.Controls.NewControls
 
         private void servoSet(int i, bool downPress)
         {
-            if (MainV2.comPort.MAV.cs.connected)
+            Task.Run(() =>
             {
-                MainV2.servoValue servo;
-                if (MainV2.configServo.TryGetValue(i, out servo))
+                if (MainV2.comPort.MAV.cs.connected)
                 {
-                    MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent,
-                        (byte) MainV2.comPort.compidcurrent,
-                        MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value : servo.defaultValue, 0, 0,
-                        0, 0, 0);
+                    MainV2.servoValue servo;
+                    if (MainV2.configServo.TryGetValue(i, out servo))
+                    {
+                        MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent,
+                            (byte) MainV2.comPort.compidcurrent,
+                            MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value : servo.defaultValue, 0,
+                            0,
+                            0, 0, 0);
+                    }
                 }
-            }
+            });
         }
 
         //b.BGGradBot = buttonPressed[i]? Color.Brown : Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(196)))));    //it is default MP shit
