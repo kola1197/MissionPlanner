@@ -81,7 +81,7 @@ namespace MissionPlanner.Controls.NewControls
                 MainV2.servoValue servo;
                 if (MainV2.configServo.TryGetValue(i, out servo))
                 {
-                    MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
+                    MainV2.comPort.doCommandAsync((byte) MainV2.comPort.sysidcurrent, (byte) MainV2.comPort.compidcurrent,
                         MAVLink.MAV_CMD.DO_SET_SERVO, servo.servo, downPress ? servo.value : servo.defaultValue, 0, 0,
                         0, 0, 0);
                 }
