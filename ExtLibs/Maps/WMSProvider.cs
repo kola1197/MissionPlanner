@@ -100,8 +100,8 @@ namespace MissionPlanner.Maps
             if (CustomWMSURL.Contains("?"))
                 extra = "&";
 
-            var c1 = new Coordinate(p1.Lat, p1.Lng).WebMercator;
-            var c2 = new Coordinate(p2.Lat, p2.Lng).WebMercator;
+            // var c1 = new Coordinate(p1.Lat, p1.Lng).WebMercator;
+            // var c2 = new Coordinate(p2.Lat, p2.Lng).WebMercator;
 
             if (IsEpsg4326)
             {
@@ -128,12 +128,12 @@ namespace MissionPlanner.Maps
                 double[] z = { 0.0, 0.0 };
                 var webMercator = ProjectionInfo.FromEpsgCode(3857);
                 var wgs = ProjectionInfo.FromEpsgCode(4326);
-                // double[] points = { p1.Lng, p1.Lat, p2.Lng, p2.Lat };
-                // Reproject.ReprojectPoints(points, z, wgs, webMercator, 0, 2);
-                // var webP1 = new PointLatLng(points[0], points[1]);
-                // var webP2 = new PointLatLng(points[2], points[3]);
-                var webP1 = new PointLatLng(c1.Easting, c1.Northing);
-                var webP2 = new PointLatLng(c2.Easting, c2.Northing);
+                double[] points = { p1.Lng, p1.Lat, p2.Lng, p2.Lat };
+                Reproject.ReprojectPoints(points, z, wgs, webMercator, 0, 2);
+                var webP1 = new PointLatLng(points[0], points[1]);
+                var webP2 = new PointLatLng(points[2], points[3]);
+                // var webP1 = new PointLatLng(c1.Easting, c1.Northing);
+                // var webP2 = new PointLatLng(c2.Easting, c2.Northing);
                 //if there is a layer, use it  
                 if (szWmsLayer != "")
                 {

@@ -53,6 +53,7 @@ using System.Text;
 using System.Timers;
 using System.Web.UI.WebControls;
 using DotSpatial.Topology.Algorithm;
+using GMap.NET.CacheProviders;
 using MissionPlanner.Controls.Icon;
 using MissionPlanner.Controls.NewControls;
 using netDxf.Entities;
@@ -9320,7 +9321,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     url = Settings.Instance["WMSserver"];
                 if (DialogResult.Cancel == InputBox.Show("WMS Server", "Enter the WMS server URL", ref url))
                     return;
-
+                MainMap.Manager.PrimaryCache.DeleteOlderThan(DateTime.Now, WMSProvider.Instance.DbId);
+                MainMap.Manager.MemoryCache.Clear();
+                MainMap.Refresh();
                 // Build get capability request.
                 string szCapabilityRequest = BuildGetCapabilitityRequest(url);
 
