@@ -8021,7 +8021,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
             }
 
-            return serverUrl + "version=1.1.0&Request=GetCapabilities&service=WMS";
+            return serverUrl + "version=1.1.1&Request=GetCapabilities&service=WMS";
         }
 
         private void groupmarkeradd(GMapMarker marker)
@@ -9330,6 +9330,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 Settings.Instance["WMSserver"] = url;
                 WMSProvider.CustomWMSURL = url;
             }
+
+            // if (type == Custom.Instance)
+            // {
+            //     string url = "";
+            //     if (Settings.Instance["XYZserver"] != null)
+            //         url = Settings.Instance["XYZserver"];
+            //     if (DialogResult.Cancel == InputBox.Show("XYZ Сервер", "Введите адрес XYZ сервера", ref url))
+            //         return;
+            //     
+            //     Settings.Instance["XYZserver"] = url;
+            //     Custom.CustomXyzUrl = url;
+            // }
         }
 
         private void MainMap_OnMapZoomChanged()
@@ -9669,9 +9681,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             if (!bEpsgCapable)
             {
-                CustomMessageBox.Show(
-                    "Invalid WMS Server response: Server unable to return EPSG:4326 / WGS84 compatible images.");
-                return;
+                // CustomMessageBox.Show(
+                //     "Invalid WMS Server response: Server unable to return EPSG:4326 / WGS84 compatible images.");
+                WMSProvider.IsEpsg4326 = false;
+                // return;
+            }
+            else
+            {
+                WMSProvider.IsEpsg4326 = true;
             }
 
 
@@ -9719,10 +9736,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 //now let the user select a layer
                 string szUserSelection = "";
+                // if (DialogResult.Cancel ==
+                //     InputBox.Show("WMS Server",
+                //         "The following layers were detected:\n " + szLayerSelection +
+                //         "Please choose one by typing the associated number.", ref szUserSelection))
                 if (DialogResult.Cancel ==
                     InputBox.Show("WMS Server",
-                        "The following layers were detected:\n " + szLayerSelection +
-                        "Please choose one by typing the associated number.", ref szUserSelection))
+                        "Найдены картографические слои со следующими номерами:\n " + szLayerSelection +
+                        "Введите номер слоя, который хотите использовать.", ref szUserSelection))
                     return;
                 int iUserSelection = 0;
                 try

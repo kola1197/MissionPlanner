@@ -21,7 +21,7 @@ namespace MissionPlanner.Maps
 
         Custom()
         {
-            MaxZoom = 22;
+            MaxZoom = 25;
         }
 
         static Custom()
@@ -82,5 +82,8 @@ namespace MissionPlanner.Maps
         }
 
         #endregion
+        
+        public static string CustomXyzUrl =
+            "http://mapbender.wheregroup.com/cgi-bin/mapserv?map=/data/umn/osm/osm_basic.map";
     }
 }
